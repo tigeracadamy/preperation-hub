@@ -161,10 +161,16 @@
             </div>
         </div>
 
-        <!-- Dynamic Notice Box from Sheet -->
+        <!-- Dynamic Notice Box from Sheet (Shows News) -->
         <div class="notice-corner" onclick="openAnnouncement()">
             <div class="notice-header"><span>📢 Short News & Updates</span> 👁️</div>
             <div class="notice-body" id="display-notice-text">Loading news...</div>
+        </div>
+
+        <!-- Daily Quote Box -->
+        <div class="notice-corner" style="border-color: var(--accent-cyan); background: linear-gradient(135deg, rgba(0,242,254,0.1), rgba(0,0,0,0.2));">
+            <div class="notice-header" style="color: var(--accent-cyan);"><span>💡 இன்றைய சிந்தனை (Daily Quote)</span></div>
+            <div class="notice-body" id="display-quote-text">Loading quote...</div>
         </div>
 
         <div class="hero-banner">
@@ -243,10 +249,11 @@
 
     <script>
         const getAdminKey = () => "tiger" + "2026";
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwjMtfOu6EtOn4OyB9vn2wtha17XGITjiblP_oN9ArF7IwnESL84RZfxq0ATzTQ8zFCow/exec";
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby9sDTVISt7FfRB2nG4wxCPR0z89lKoXzrQfMKfI_woBEY7096blr6_iJc6t3-UuVOd6g/exec";
 
         let tests = [];
         let noticeMessage = "";
+        let quoteMessage = "";
         let attendedCount = parseInt(localStorage.getItem('tiger_attended_count')) || 0;
         let isAdminLoggedIn = false;
         let currentFilterCategory = 'ALL';
@@ -285,6 +292,9 @@
                     if (data && data.news) {
                         noticeMessage = data.news;
                     }
+                    if (data && data.quote) {
+                        quoteMessage = data.quote;
+                    }
                     initPortal();
                 })
                 .catch(error => {
@@ -296,6 +306,7 @@
         function initPortal() {
             document.getElementById('display-notice-text').textContent = noticeMessage || "அனைத்துத் தேர்வுகளுக்கான யூனிட்கள் ஆன்லைனில் இணைக்கப்பட்டுள்ளன!";
             document.getElementById('modal-notice-text').textContent = noticeMessage || "அனைத்துத் தேர்வுகளுக்கான யூனிட்கள் ஆன்லைனில் இணைக்கப்பட்டுள்ளன!";
+            document.getElementById('display-quote-text').textContent = quoteMessage || "இன்றைய சிந்தனை: விடாமுயற்சி விஸ்வரூப வெற்றி தரும்!";
             document.getElementById('attended-tests-count').textContent = attendedCount;
 
             let savedTheme = localStorage.getItem('tiger_theme_pref') || '';
