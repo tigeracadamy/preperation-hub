@@ -340,17 +340,6 @@
             border: 1px solid var(--card-border);
         }
 
-        .btn-delete {
-            background: rgba(239, 68, 68, 0.15);
-            color: var(--danger);
-            border: 1px solid rgba(239, 68, 68, 0.4);
-            font-size: 10px;
-            padding: 3px 6px;
-            border-radius: 4px;
-            cursor: pointer;
-            display: none;
-        }
-
         .test-title {
             font-size: 14px;
             font-weight: bold;
@@ -555,7 +544,7 @@
 
     <script>
         const getAdminKey = () => "tiger" + "2026";
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzSzH7VOZFot6r_AP43OxMaCl7FtQsD44wASWH92TN9s1-klc1t-WjtyfYm1hQ3SsOY/exec";
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzTLZ9dNA8ZIb9gxhfpOsLwq599XxdzVDDZymERqjkqz3X8tKa1aAuy5GzgT1IMuQ5uNw/exec";
 
         let portalSettings = {
             brandTitle: "TIGER WARRIORS",
@@ -588,13 +577,19 @@
             document.body.className = portalSettings.theme;
         }
 
-        // Fetch Data Live from Google Sheets App Script URL
         function fetchSheetData() {
             fetch(GOOGLE_SCRIPT_URL)
                 .then(response => response.json())
                 .then(data => {
-                    if (Array.isArray(data) && data.length > 0) {
-                        tests = data;
+                    if (Array.isArray(data)) {
+                        tests = data.map(item => ({
+                            id: item.id || Date.now(),
+                            title: item.title || item.Title || "Untitled Test",
+                            category: item.category || item.Category || "TNPSC",
+                            dept: item.dept || item.Dept || "",
+                            time: item.time || item.Time || "60 Mins • 50 Qs",
+                            link: item.link || item.Link || "#"
+                        }));
                     }
                     initPortal();
                 })
@@ -795,7 +790,7 @@
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(newRecord)
             }).then(() => {
-                alert("✅ கிளவுட் ஷீட்டில் வெற்றிகரமாக பதிவேற்றப்பட்டது! சில நொடிகளில் லைவ் ஆகும்.");
+                alert("✅ கிளவுட் ஷீட்டில் வெற்றிகரமாக பதிவேற்றப்பட்டது!");
                 document.getElementById('admin-title').value = "";
                 document.getElementById('admin-link').value = "";
                 closeAdminModal();
