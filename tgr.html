@@ -128,6 +128,7 @@
         .test-item { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 15px; display: flex; flex-direction: column; gap: 10px; }
         .test-header { display: flex; justify-content: space-between; align-items: center; }
         .test-tag { font-size: 10px; background: var(--btn-mild); color: var(--accent-cyan); padding: 3px 8px; border-radius: 6px; border: 1px solid var(--card-border); }
+        .btn-delete { background: rgba(239, 68, 68, 0.2); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.5); font-size: 10px; padding: 4px 8px; border-radius: 6px; cursor: pointer; font-weight: bold; }
         .test-title { font-size: 14px; font-weight: bold; color: var(--text-main); }
         .test-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 8px; border-top: 1px solid rgba(255, 255, 255, 0.05); font-size: 11px; color: var(--text-muted); }
         .btn-start { background: linear-gradient(135deg, var(--accent-cyan) 0%, #4facfe 100%); color: #000; border: none; padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer; text-decoration: none; }
@@ -156,18 +157,16 @@
             </div>
             <div class="top-right-actions">
                 <button class="btn-theme-switcher" onclick="cycleTheme()">🎨 Theme</button>
-                <button class="btn-gear" onclick="verifyAdmin()">⚙️</button>
+                <button class="btn-gear" onclick="verifyAdmin()" title="Admin Panel">⚙️</button>
                 <div class="badge-year">2026</div>
             </div>
         </div>
 
-        <!-- Dynamic Notice Box from Sheet (Shows News) -->
         <div class="notice-corner" onclick="openAnnouncement()">
             <div class="notice-header"><span>📢 Short News & Updates</span> 👁️</div>
             <div class="notice-body" id="display-notice-text">Loading news...</div>
         </div>
 
-        <!-- Daily Quote Box -->
         <div class="notice-corner" style="border-color: var(--accent-cyan); background: linear-gradient(135deg, rgba(0,242,254,0.1), rgba(0,0,0,0.2));">
             <div class="notice-header" style="color: var(--accent-cyan);"><span>💡 இன்றைய சிந்தனை (Daily Quote)</span></div>
             <div class="notice-body" id="display-quote-text">Loading quote...</div>
@@ -289,12 +288,8 @@
                             link: item.link || "#"
                         }));
                     }
-                    if (data && data.news) {
-                        noticeMessage = data.news;
-                    }
-                    if (data && data.quote) {
-                        quoteMessage = data.quote;
-                    }
+                    if (data && data.news) { noticeMessage = data.news; }
+                    if (data && data.quote) { quoteMessage = data.quote; }
                     initPortal();
                 })
                 .catch(error => {
@@ -375,6 +370,7 @@
                 isAdminLoggedIn = true;
                 toggleDeptSelect();
                 document.getElementById('adminModal').style.display = 'flex';
+                renderTests(); // Re-render to show delete buttons instantly
             } else if (pwd !== null) { alert("❌ தவறான பாஸ்வேர்ட்!"); }
         }
 
@@ -442,7 +438,10 @@
                 item.innerHTML = `
                     <div class="test-header">
                         <span style="font-size:12px; color: var(--text-muted);">#${index + 1}</span>
-                        <span class="test-tag">${displayTag}</span>
+                        <div style="display:flex; gap:6px; align-items:center;">
+                            <span class="test-tag">${displayTag}</span>
+                            ${isAdminLoggedIn ? `<button class="btn-delete" onclick="deleteTest(${test.id})">Delete 🗑️</button>` : ''}
+                        </div>
                     </div>
                     <div class="test-title">${test.title}</div>
                     <div class="test-footer">
@@ -497,6 +496,14 @@
             }).catch(err => {
                 alert("❌ பிழை ஏற்பட்டது: " + err);
             });
+        }
+
+        function deleteTest(id) {
+            if(confirm("இந்த டெஸ்ட்டை நீக்க விரும்புகிறீர்களா?")) {
+                tests = tests.filter(t => t.id !== id);
+                renderTests();
+                alert("ℹ️ குறிப்பு: கூகிள் ஷீட்டிலிருந்தும் இந்த வரிசையை நீக்கிக்கொள்ளவும்.");
+            }
         }
 
         fetchSheetData();
