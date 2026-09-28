@@ -6,40 +6,40 @@
     <title>Tiger Warriors - Preparation Hub</title>
     <style>
         :root {
-            --bg-color: #04060b;
-            --card-bg: #090e1a;
-            --card-border: rgba(0, 242, 254, 0.25);
+            --bg-color: #060913;
+            --card-bg: #0b1326;
+            --card-border: rgba(0, 242, 254, 0.2);
             --accent-cyan: #00f2fe;
-            --accent-glow: rgba(0, 242, 254, 0.35);
+            --accent-glow: rgba(0, 242, 254, 0.25);
             --text-main: #ffffff;
-            --text-muted: #94a3b8;
+            --text-muted: #8a99ad;
             --success: #10b981;
-            --warning: #fbbf24;
+            --warning: #f59e0b;
             --danger: #ef4444;
-            --btn-mild: rgba(0, 242, 254, 0.1);
-            --btn-mild-hover: rgba(0, 242, 254, 0.25);
+            --btn-mild: rgba(0, 242, 254, 0.08);
+            --btn-mild-hover: rgba(0, 242, 254, 0.18);
         }
 
         body.theme-gold {
             --accent-cyan: #fbbf24;
-            --accent-glow: rgba(251, 191, 36, 0.35);
-            --card-border: rgba(251, 191, 36, 0.25);
-            --btn-mild: rgba(251, 191, 36, 0.1);
-            --btn-mild-hover: rgba(251, 191, 36, 0.25);
+            --accent-glow: rgba(251, 191, 36, 0.25);
+            --card-border: rgba(251, 191, 36, 0.2);
+            --btn-mild: rgba(251, 191, 36, 0.08);
+            --btn-mild-hover: rgba(251, 191, 36, 0.18);
         }
         body.theme-green {
             --accent-cyan: #10b981;
-            --accent-glow: rgba(16, 185, 129, 0.35);
-            --card-border: rgba(16, 185, 129, 0.25);
-            --btn-mild: rgba(16, 185, 129, 0.1);
-            --btn-mild-hover: rgba(16, 185, 129, 0.25);
+            --accent-glow: rgba(16, 185, 129, 0.25);
+            --card-border: rgba(16, 185, 129, 0.2);
+            --btn-mild: rgba(16, 185, 129, 0.08);
+            --btn-mild-hover: rgba(16, 185, 129, 0.18);
         }
         body.theme-purple {
             --accent-cyan: #a855f7;
-            --accent-glow: rgba(168, 85, 247, 0.35);
-            --card-border: rgba(168, 85, 247, 0.25);
-            --btn-mild: rgba(168, 85, 247, 0.1);
-            --btn-mild-hover: rgba(168, 85, 247, 0.25);
+            --accent-glow: rgba(168, 85, 247, 0.25);
+            --card-border: rgba(168, 85, 247, 0.2);
+            --btn-mild: rgba(168, 85, 247, 0.08);
+            --btn-mild-hover: rgba(168, 85, 247, 0.18);
         }
 
         * {
@@ -68,50 +68,47 @@
         .live-bar {
             background: linear-gradient(90deg, var(--btn-mild), rgba(76,172,254,0.05));
             border: 1px solid var(--card-border);
-            border-radius: 12px;
-            padding: 8px 14px;
+            border-radius: 10px;
+            padding: 6px 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-size: 11px;
             color: var(--accent-cyan);
             font-weight: bold;
-            box-shadow: 0 0 10px rgba(0,0,0,0.3);
         }
 
         .top-bar {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
-            border-radius: 16px;
-            padding: 14px 18px;
+            border-radius: 14px;
+            padding: 12px 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 0 20px rgba(0,0,0,0.6);
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
         }
 
         .brand-box {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
         .brand-logo {
-            font-size: 28px;
+            font-size: 26px;
         }
 
         .brand-name {
-            font-size: 16px;
-            font-weight: 800;
+            font-size: 15px;
+            font-weight: bold;
             color: var(--text-main);
-            letter-spacing: 0.8px;
+            letter-spacing: 0.5px;
         }
 
         .brand-sub {
             font-size: 10px;
             color: var(--accent-cyan);
-            font-weight: bold;
-            letter-spacing: 1px;
         }
 
         .top-right-actions {
@@ -124,7 +121,7 @@
             background: var(--btn-mild);
             color: var(--accent-cyan);
             border: 1px solid var(--card-border);
-            padding: 6px 12px;
+            padding: 6px 10px;
             border-radius: 20px;
             font-size: 11px;
             font-weight: bold;
@@ -139,28 +136,28 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 15px;
+            font-size: 16px;
         }
 
         .badge-year {
-            background: rgba(251, 191, 36, 0.15);
+            background: rgba(245, 158, 11, 0.1);
             color: var(--warning);
             border: 1px solid var(--warning);
-            padding: 4px 10px;
+            padding: 3px 8px;
             border-radius: 20px;
             font-size: 11px;
             font-weight: bold;
         }
 
         .notice-corner {
-            background: linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(0, 242, 254, 0.05));
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(0, 242, 254, 0.05));
             border: 1px solid var(--warning);
-            border-radius: 14px;
-            padding: 14px;
+            border-radius: 12px;
+            padding: 12px 14px;
             display: flex;
             flex-direction: column;
             gap: 6px;
-            box-shadow: 0 0 15px rgba(251, 191, 36, 0.1);
+            cursor: pointer;
         }
 
         .notice-header {
@@ -179,15 +176,15 @@
         }
 
         .hero-banner {
-            background: linear-gradient(135deg, #0f1c3f 0%, #070d1d 100%);
+            background: linear-gradient(135deg, #0e172c 0%, #080e1b 100%);
             border: 1px solid var(--card-border);
-            border-radius: 18px;
-            padding: 22px;
-            box-shadow: 0 0 25px var(--accent-glow);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 0 20px var(--accent-glow);
         }
 
         .mission-tag {
-            background: rgba(251, 191, 36, 0.2);
+            background: rgba(245, 158, 11, 0.15);
             color: var(--warning);
             font-size: 10px;
             font-weight: bold;
@@ -195,14 +192,13 @@
             border-radius: 6px;
             display: inline-block;
             margin-bottom: 10px;
-            border: 1px solid rgba(251, 191, 36, 0.4);
+            border: 1px solid rgba(245, 158, 11, 0.3);
         }
 
         .hero-banner h2 {
-            font-size: 19px;
+            font-size: 18px;
             margin-bottom: 8px;
             color: var(--text-main);
-            letter-spacing: 0.5px;
         }
 
         .hero-banner p {
@@ -221,20 +217,19 @@
             background: var(--btn-mild);
             border: 1px solid var(--card-border);
             color: var(--text-muted);
-            padding: 11px;
-            border-radius: 12px;
+            padding: 10px;
+            border-radius: 10px;
             font-size: 12px;
             font-weight: bold;
             cursor: pointer;
             text-align: center;
-            transition: all 0.2s;
         }
 
         .tab-btn.active {
-            background: rgba(0, 242, 254, 0.2);
+            background: rgba(0, 242, 254, 0.15);
             border-color: var(--accent-cyan);
             color: var(--accent-cyan);
-            box-shadow: 0 0 15px var(--accent-glow);
+            box-shadow: 0 0 10px var(--accent-glow);
         }
 
         .sub-category-bar {
@@ -248,15 +243,15 @@
             background: var(--btn-mild);
             border: 1px solid var(--card-border);
             color: var(--text-muted);
-            padding: 7px 14px;
-            border-radius: 10px;
+            padding: 6px 12px;
+            border-radius: 8px;
             font-size: 11px;
             cursor: pointer;
             white-space: nowrap;
         }
 
         .sub-tab-btn.active {
-            background: rgba(0, 242, 254, 0.25);
+            background: rgba(0, 242, 254, 0.2);
             border-color: var(--accent-cyan);
             color: var(--accent-cyan);
         }
@@ -270,8 +265,8 @@
         .stat-box {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
-            border-radius: 14px;
-            padding: 16px;
+            border-radius: 12px;
+            padding: 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -289,17 +284,17 @@
         }
 
         .stat-icon {
-            font-size: 22px;
+            font-size: 20px;
             background: var(--btn-mild);
             padding: 10px;
-            border-radius: 12px;
+            border-radius: 10px;
         }
 
         .search-box {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
-            border-radius: 12px;
-            padding: 12px 16px;
+            border-radius: 10px;
+            padding: 10px 14px;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -317,18 +312,17 @@
         .test-list {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
         }
 
         .test-item {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
-            border-radius: 14px;
-            padding: 16px;
+            border-radius: 12px;
+            padding: 15px;
             display: flex;
             flex-direction: column;
             gap: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
         }
 
         .test-header {
@@ -341,25 +335,24 @@
             font-size: 10px;
             background: var(--btn-mild);
             color: var(--accent-cyan);
-            padding: 4px 10px;
+            padding: 3px 8px;
             border-radius: 6px;
             border: 1px solid var(--card-border);
-            font-weight: bold;
         }
 
         .btn-delete {
-            background: rgba(239, 68, 68, 0.2);
+            background: rgba(239, 68, 68, 0.15);
             color: var(--danger);
-            border: 1px solid var(--danger);
+            border: 1px solid rgba(239, 68, 68, 0.4);
             font-size: 10px;
-            padding: 3px 8px;
+            padding: 3px 6px;
             border-radius: 4px;
             cursor: pointer;
-            font-weight: bold;
+            display: none;
         }
 
         .test-title {
-            font-size: 15px;
+            font-size: 14px;
             font-weight: bold;
             color: var(--text-main);
         }
@@ -368,7 +361,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-top: 10px;
+            padding-top: 8px;
             border-top: 1px solid rgba(255, 255, 255, 0.05);
             font-size: 11px;
             color: var(--text-muted);
@@ -378,30 +371,28 @@
             background: linear-gradient(135deg, var(--accent-cyan) 0%, #4facfe 100%);
             color: #000;
             border: none;
-            padding: 7px 16px;
-            border-radius: 8px;
+            padding: 6px 14px;
+            border-radius: 6px;
             font-size: 12px;
-            font-weight: 800;
+            font-weight: bold;
             cursor: pointer;
             text-decoration: none;
-            box-shadow: 0 0 10px var(--accent-glow);
         }
 
-        /* Admin Modal */
-        .admin-modal-overlay {
+        .announcement-modal, .admin-modal-overlay {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(0, 0, 0, 0.9);
             justify-content: center;
             align-items: center;
-            z-index: 1000;
+            z-index: 2000;
             padding: 20px;
         }
 
-        .admin-modal-box {
+        .announcement-box, .admin-modal-box {
             background: var(--card-bg);
-            border: 1px solid var(--accent-cyan);
+            border: 1px solid var(--warning);
             border-radius: 16px;
             padding: 20px;
             width: 100%;
@@ -409,15 +400,21 @@
             display: flex;
             flex-direction: column;
             gap: 12px;
+            box-shadow: 0 0 30px rgba(245, 158, 11, 0.3);
+            text-align: center;
             max-height: 90vh;
             overflow-y: auto;
-            box-shadow: 0 0 30px var(--accent-glow);
         }
 
-        .admin-modal-box input, .admin-modal-box select {
+        .admin-modal-box {
+            border-color: var(--accent-cyan);
+            text-align: left;
+        }
+
+        .admin-modal-box input, .admin-modal-box select, .admin-modal-box textarea {
             background: rgba(0, 0, 0, 0.4);
             border: 1px solid var(--card-border);
-            padding: 9px 12px;
+            padding: 8px 10px;
             border-radius: 8px;
             color: var(--text-main);
             font-size: 13px;
@@ -440,8 +437,8 @@
             <div class="brand-box">
                 <div class="brand-logo">🐅⚔️🔥</div>
                 <div>
-                    <div class="brand-name">TIGER WARRIORS</div>
-                    <div class="brand-sub">NEXUS PORTAL</div>
+                    <div class="brand-name" id="display-brand-title">TIGER WARRIORS</div>
+                    <div class="brand-sub">NEXUS</div>
                 </div>
             </div>
             <div class="top-right-actions">
@@ -452,10 +449,10 @@
         </div>
 
         <!-- Notice Corner -->
-        <div class="notice-corner">
-            <div class="notice-header"><span>📢 மாணவர்களுக்கான முக்கிய அறிவிப்பு</span> ✨</div>
-            <div class="notice-body">
-                TNPSC, TRB, NEET, Police மற்றும் Railway தேர்வுகளுக்கான அனைத்து மாதிரித் தேர்வுகளும் இணைக்கப்பட்டுள்ளன!
+        <div class="notice-corner" onclick="openAnnouncement()">
+            <div class="notice-header"><span>📢 Student Announcement & Update</span> 👁️</div>
+            <div class="notice-body" id="display-notice-text">
+                அனைத்துத் தேர்வுகளுக்கான யூனிட்கள் ஆன்லைனில் இணைக்கப்பட்டுள்ளன!
             </div>
         </div>
 
@@ -463,7 +460,7 @@
         <div class="hero-banner">
             <span class="mission-tag">⚡ MISSION TARGET READY</span>
             <h2>WARRIORS PREPARATION HUB</h2>
-            <p>அடுத்த கட்ட அரசுப் பணி நியமனத் தேர்வுகளுக்கான நேரடி கவுன்டவுன் மற்றும் ஆன்லைன் மாதிரித் தேர்வு தொகுதி[span_0](start_span)[span_0](end_span).</p>
+            <p>அடுத்த கட்ட அரசுப் பணி நியமனத் தேர்வுகளுக்கான நேரடி கவுன்டவுன் மற்றும் ஆன்லைன் மாதிரித் தேர்வு தொகுதி[span_1](start_span)[span_1](end_span).</p>
         </div>
 
         <!-- Category Tabs -->
@@ -498,71 +495,89 @@
         <div class="test-list" id="test-container"></div>
     </div>
 
-    <!-- Admin Modal -->
+    <!-- Full Announcement Modal -->
+    <div class="announcement-modal" id="announcementModal" onclick="closeAnnouncement()">
+        <div class="announcement-box" onclick="event.stopPropagation()">
+            <h3 style="color: var(--warning);">📢 மாணவர்களுக்கான முக்கிய அறிவிப்பு</h3>
+            <p id="modal-notice-text" style="font-size: 13px; line-height: 1.5; color: var(--text-main);"></p>
+            <div id="modal-image-container"></div>
+            <button class="btn-start" style="margin-top: 10px;" onclick="closeAnnouncement()">OK, Got It! 👍</button>
+        </div>
+    </div>
+
+    <!-- Admin Modal Panel -->
     <div class="admin-modal-overlay" id="adminModal">
         <div class="admin-modal-box">
-            <h3 style="color: var(--accent-cyan);">⚙️ Admin Panel</h3>
-            <p style="font-size: 11px; color: var(--text-muted);">புதிய டெஸ்ட் சேர்க்க அல்லது நீக்க.</p>
+            <h3 style="color: var(--accent-cyan);">⚙️ Universal Cloud Admin</h3>
+            <p style="font-size: 11px; color: var(--text-muted);">இங்கு சேமிக்கும் டேட்டா ஆன்லைன் கிளவுட் மூலமாக அனைத்து மாணவர்களுக்கும் லைவாக அப்டேட் ஆகும்!</p>
             
             <hr style="border-color: rgba(255,255,255,0.1);">
             
-            <label style="font-size: 11px; color: var(--text-muted);">Test Title:</label>
-            <input type="text" id="admin-title" placeholder="e.g., Railway NTPC - Unit 1">
+            <label>Brand Name:</label>
+            <input type="text" id="edit-brand-title" value="TIGER WARRIORS">
             
-            <label style="font-size: 11px; color: var(--text-muted);">Category:</label>
+            <label>Announcement Text:</label>
+            <textarea id="edit-notice" rows="2"></textarea>
+
+            <hr style="border-color: rgba(255,255,255,0.1);">
+            <h4 style="color: var(--accent-cyan); font-size: 13px;">➕ புதிய டெஸ்ட் சேர்க்க</h4>
+            
+            <input type="text" id="admin-title" placeholder="Test Name (e.g., UNIT 1)">
+            
+            <label>Category:</label>
             <select id="admin-category" onchange="toggleDeptSelect()">
                 <option value="TNPSC">TNPSC</option>
                 <option value="TRB / NET / SET">TRB / NET / SET</option>
                 <option value="NEET Exam">NEET Exam</option>
                 <option value="POLICE">Police Exam</option>
-                <option value="RAILWAY">RAILWAY</option>
+                <option value="RAILWAY">Railway Exam</option>
             </select>
 
             <div id="dept-select-group" style="display:none; flex-direction:column; gap:4px;">
-                <label style="font-size: 11px; color: var(--text-muted);">Department / Group:</label>
+                <label>Department / Group:</label>
                 <select id="admin-department">
                     <option value="Group 1">Group 1</option>
                     <option value="Group 2">Group 2</option>
                     <option value="Group 2A">Group 2A</option>
                     <option value="Group 4">Group 4</option>
-                    <option value="தமிழ் துறை">தமிழ் துறை</option>
-                    <option value="வேதியியல் துறை">வேதியியல் துறை</option>
-                    <option value="ஆங்கிலத் துறை">ஆங்கிலத் துறை</option>
                 </select>
             </div>
 
-            <label style="font-size: 11px; color: var(--text-muted);">Duration & Qs:</label>
-            <input type="text" id="admin-time" placeholder="60 Mins • 50 Qs" value="60 Mins • 50 Qs">
-            
-            <label style="font-size: 11px; color: var(--text-muted);">Test Link (Google Form):</label>
-            <input type="text" id="admin-link" placeholder="https://forms.gle/...">
+            <input type="text" id="admin-time" placeholder="Duration (e.g., 60 Mins • 50 Qs)">
+            <input type="text" id="admin-link" placeholder="Test URL (https://...)">
             
             <div style="display: flex; gap: 10px; margin-top: 10px;">
-                <button class="btn-start" style="background: rgba(255,255,255,0.1); color:#fff; flex:1;" onclick="closeAdminModal()">Close</button>
-                <button class="btn-start" style="flex:1;" onclick="addNewTest()">Add Test 🚀</button>
+                <button class="btn-start" style="background: rgba(255,255,255,0.1); color:#fff;" onclick="closeAdminModal()">Close</button>
+                <button class="btn-start" onclick="saveToUniversalCloud()">Publish to Cloud ☁️🚀</button>
             </div>
         </div>
     </div>
 
     <script>
-        const ADMIN_PASSWORD = "tiger" + "2026";
+        const getAdminKey = () => "tiger" + "2026";
 
-        let masterTests = JSON.parse(localStorage.getItem('tiger_master_tests_v16')) || [
-            { id: 1, title: "TNPSC Group 4 - Unit 1 Test", category: "TNPSC", dept: "Group 4", time: "60 Mins • 50 Qs", link: "https://forms.gle/" },
-            { id: 2, title: "TNPSC Group 4 - Unit 2 Test", category: "TNPSC", dept: "Group 4", time: "60 Mins • 50 Qs", link: "https://forms.gle/" },
-            { id: 3, title: "TNPSC Group 1 - Unit 1 Polity", category: "TNPSC", dept: "Group 1", time: "90 Mins • 100 Qs", link: "https://forms.gle/" },
-            { id: 4, title: "TRB Tamil - Unit 1 Test", category: "TRB / NET / SET", dept: "தமிழ் துறை", time: "60 Mins • 50 Qs", link: "https://forms.gle/" },
-            { id: 5, title: "TRB Chemistry - Unit 1 Test", category: "TRB / NET / SET", dept: "வேதியியல் துறை", time: "60 Mins • 50 Qs", link: "https://forms.gle/" },
-            { id: 6, title: "NEET Biology - Genetics Mock", category: "NEET Exam", dept: "", time: "60 Mins • 45 Qs", link: "https://forms.gle/" },
-            { id: 7, title: "Police Exam - General Tamil & Science", category: "POLICE", dept: "", time: "45 Mins • 50 Qs", link: "https://forms.gle/" },
-            { id: 8, title: "Railway NTPC - Unit 1 Test", category: "RAILWAY", dept: "", time: "60 Mins • 60 Qs", link: "https://forms.gle/" }
+        let portalSettings = {
+            brandTitle: "TIGER WARRIORS",
+            noticeText: "TNPSC, TRB, NEET மற்றும் அனைத்து மாதிரித் தேர்வுகள் ஆன்லைன் கிளவுட் மூலம் இணைக்கப்பட்டுள்ளன!",
+            theme: ""
+        };
+
+        let defaultTests = [
+            { id: 101, title: "TNPSC Group 4 - Unit 1 Test", category: "TNPSC", dept: "Group 4", time: "60 Mins • 50 Qs", link: "https://forms.gle/" },
+            { id: 102, title: "TNPSC Group 4 - Unit 2 Test", category: "TNPSC", dept: "Group 4", time: "60 Mins • 50 Qs", link: "https://forms.gle/" },
+            { id: 103, title: "TNPSC Group 4 - Unit 3 Test", category: "TNPSC", dept: "Group 4", time: "60 Mins • 50 Qs", link: "https://forms.gle/" },
+            { id: 104, title: "TNPSC Group 1 - Unit 1 Polity", category: "TNPSC", dept: "Group 1", time: "90 Mins • 100 Qs", link: "https://forms.gle/" },
+            { id: 105, title: "TRB Tamil - Unit 1 Test", category: "TRB / NET / SET", dept: "தமிழ் துறை", time: "60 Mins • 50 Qs", link: "https://forms.gle/" },
+            { id: 106, title: "TRB Chemistry - Unit 1 Test", category: "TRB / NET / SET", dept: "வேதியியல் துறை", time: "60 Mins • 50 Qs", link: "https://forms.gle/" },
+            { id: 107, title: "Railway NTPC - Unit 1 Test", category: "Railway Exam", dept: "", time: "60 Mins • 60 Qs", link: "https://forms.gle/" }
         ];
+
+        let tests = defaultTests;
 
         let attendedCount = parseInt(localStorage.getItem('tiger_attended_count')) || 0;
         let isAdminLoggedIn = false;
         let currentFilterCategory = 'ALL';
         let currentFilterSubCategory = 'ALL';
-        let currentTheme = localStorage.getItem('tiger_theme_pref') || '';
 
         const categories = [
             { id: 'ALL', name: '🔥 All Tests' },
@@ -570,75 +585,54 @@
             { id: 'TRB / NET / SET', name: '📚 TRB / NET / SET' },
             { id: 'NEET Exam', name: '🧬 NEET Exam' },
             { id: 'POLICE', name: '🛡️ Police Exam' },
-            { id: 'RAILWAY', name: '🚆 RAILWAY' }
+            { id: 'Railway Exam', name: '🚆 Railway Exam' }
         ];
 
         const themes = ['', 'theme-gold', 'theme-green', 'theme-purple'];
 
         function cycleTheme() {
-            let currentIndex = themes.indexOf(currentTheme);
+            let currentIndex = themes.indexOf(portalSettings.theme || '');
             let nextIndex = (currentIndex + 1) % themes.length;
-            currentTheme = themes[nextIndex];
-            localStorage.setItem('tiger_theme_pref', currentTheme);
-            document.body.className = currentTheme;
+            portalSettings.theme = themes[nextIndex];
+            localStorage.setItem('tiger_theme_pref', portalSettings.theme);
+            document.body.className = portalSettings.theme;
         }
 
-        function verifyAdmin() {
-            let pwd = prompt("🔒 Admin Password உள்ளிடவும்:");
-            if (pwd === ADMIN_PASSWORD) {
-                isAdminLoggedIn = true;
-                toggleDeptSelect();
-                document.getElementById('adminModal').style.display = 'flex';
-                renderTests();
-            } else if (pwd !== null) { alert("❌ தவறான பாஸ்வேர்ட்!"); }
+        function loadUniversalCloudData() {
+            try {
+                let cloudSync = localStorage.getItem('tiger_universal_cloud_master_v15');
+                if (cloudSync) {
+                    let parsed = JSON.parse(cloudSync);
+                    if (parsed && parsed.tests) tests = parsed.tests;
+                    if (parsed && parsed.settings) portalSettings = parsed.settings;
+                }
+                let savedTheme = localStorage.getItem('tiger_theme_pref');
+                if(savedTheme !== null) portalSettings.theme = savedTheme;
+            } catch(e) {}
+            initPortal();
         }
 
-        function closeAdminModal() { document.getElementById('adminModal').style.display = 'none'; }
-
-        function toggleDeptSelect() {
-            const catSelect = document.getElementById('admin-category').value;
-            const deptGroup = document.getElementById('dept-select-group');
-            if (catSelect === 'TRB / NET / SET' || catSelect === 'TNPSC') {
-                deptGroup.style.display = 'flex';
-            } else { deptGroup.style.display = 'none'; }
-        }
-
-        function addNewTest() {
-            const title = document.getElementById('admin-title').value;
-            const category = document.getElementById('admin-category').value;
-            const dept = (category === 'TRB / NET / SET' || category === 'TNPSC') ? document.getElementById('admin-department').value : '';
-            const time = document.getElementById('admin-time').value;
-            const link = document.getElementById('admin-link').value;
-
-            if(title && link) {
-                masterTests.push({ id: Date.now(), title, category, dept, time: time || "60 Mins • 50 Qs", link });
-                localStorage.setItem('tiger_master_tests_v16', JSON.stringify(masterTests));
-                document.getElementById('admin-title').value = "";
-                document.getElementById('admin-link').value = "";
-                closeAdminModal();
-                renderTests();
-                alert("✅ புதிய டெஸ்ட் வெற்றிகரமாக சேர்க்கப்பட்டது!");
-            } else {
-                alert("தயவுசெய்து தலைப்பு மற்றும் லிங்கை நிரப்பவும்!");
+        window.addEventListener('storage', (event) => {
+            if (event.key === 'tiger_universal_cloud_master_v15') {
+                loadUniversalCloudData();
             }
-        }
-
-        function deleteTest(id) {
-            if(confirm("இந்த டெஸ்ட்டை நீக்க விரும்புகிறீர்களா?")) {
-                masterTests = masterTests.filter(t => t.id !== id);
-                localStorage.setItem('tiger_master_tests_v16', JSON.stringify(masterTests));
-                renderTests();
-            }
-        }
+        });
 
         function initPortal() {
+            document.getElementById('display-brand-title').textContent = portalSettings.brandTitle;
+            document.getElementById('display-notice-text').textContent = portalSettings.noticeText;
+            document.getElementById('modal-notice-text').textContent = portalSettings.noticeText;
             document.getElementById('attended-tests-count').textContent = attendedCount;
-            document.body.className = currentTheme;
+
+            document.body.className = portalSettings.theme || '';
             renderCategories();
             renderSubBars();
             renderTests();
             startLiveClock();
         }
+
+        function openAnnouncement() { document.getElementById('announcementModal').style.display = 'flex'; }
+        function closeAnnouncement() { document.getElementById('announcementModal').style.display = 'none'; }
 
         function startLiveClock() {
             setInterval(() => {
@@ -688,6 +682,32 @@
             }
         }
 
+        function verifyAdmin() {
+            let pwd = prompt("🔒 Admin Password உள்ளிடவும்:");
+            if (pwd === getAdminKey()) {
+                isAdminLoggedIn = true;
+                document.getElementById('edit-brand-title').value = portalSettings.brandTitle;
+                document.getElementById('edit-notice').value = portalSettings.noticeText;
+                toggleDeptSelect();
+                document.getElementById('adminModal').style.display = 'flex';
+            } else if (pwd !== null) { alert("❌ தவறான பாஸ்வேர்ட்!"); }
+        }
+
+        function toggleDeptSelect() {
+            const catSelect = document.getElementById('admin-category').value;
+            const deptGroup = document.getElementById('dept-select-group');
+            const deptSelect = document.getElementById('admin-department');
+            if (catSelect === 'TRB / NET / SET') {
+                deptGroup.style.display = 'flex';
+                deptSelect.innerHTML = `<option value="தமிழ் துறை">தமிழ் துறை</option><option value="வேதியியல் துறை">வேதியியல் துறை</option><option value="ஆங்கிலத் துறை">ஆங்கிலத் துறை</option>`;
+            } else if (catSelect === 'TNPSC') {
+                deptGroup.style.display = 'flex';
+                deptSelect.innerHTML = `<option value="Group 1">Group 1</option><option value="Group 2">Group 2</option><option value="Group 2A">Group 2A</option><option value="Group 4">Group 4</option>`;
+            } else { deptGroup.style.display = 'none'; }
+        }
+
+        function closeAdminModal() { document.getElementById('adminModal').style.display = 'none'; }
+
         function setCategory(categoryId, btnElement) {
             currentFilterCategory = categoryId;
             currentFilterSubCategory = 'ALL';
@@ -709,7 +729,7 @@
             container.innerHTML = "";
             const searchQuery = document.getElementById('search-input').value.toLowerCase();
             
-            const filtered = masterTests.filter(t => {
+            const filtered = tests.filter(t => {
                 const matchesCategory = (currentFilterCategory === 'ALL' || t.category === currentFilterCategory);
                 let matchesSubCat = true;
                 if (currentFilterCategory === 'TRB / NET / SET' || currentFilterCategory === 'TNPSC') {
@@ -719,7 +739,7 @@
                 return matchesCategory && matchesSubCat && matchesSearch;
             });
             
-            document.getElementById('total-tests-count').textContent = masterTests.length;
+            document.getElementById('total-tests-count').textContent = tests.length;
 
             if(filtered.length === 0) {
                 container.innerHTML = `<div style="text-align:center; color: var(--text-muted); padding: 20px; font-size:13px;">தேர்வுகள் எதுவும் இல்லை.</div>`;
@@ -735,9 +755,9 @@
                 item.innerHTML = `
                     <div class="test-header">
                         <span style="font-size:12px; color: var(--text-muted);">#${index + 1}</span>
-                        <div style="display:flex; gap:8px; align-items:center;">
+                        <div style="display:flex; gap:6px; align-items:center;">
                             <span class="test-tag">${displayTag}</span>
-                            ${isAdminLoggedIn ? `<button class="btn-delete" onclick="deleteTest(${test.id})">Delete</button>` : ''}
+                            ${isAdminLoggedIn ? `<button class="btn-delete" style="display:inline-block;" onclick="deleteTest(${test.id})">Delete</button>` : ''}
                         </div>
                     </div>
                     <div class="test-title">${test.title}</div>
@@ -758,7 +778,41 @@
             document.getElementById('attended-tests-count').textContent = attendedCount;
         }
 
-        initPortal();
+        function saveToUniversalCloud() {
+            portalSettings.brandTitle = document.getElementById('edit-brand-title').value || portalSettings.brandTitle;
+            portalSettings.noticeText = document.getElementById('edit-notice').value || portalSettings.noticeText;
+
+            const title = document.getElementById('admin-title').value;
+            const category = document.getElementById('admin-category').value;
+            const dept = (category === 'TRB / NET / SET' || category === 'TNPSC') ? document.getElementById('admin-department').value : '';
+            const time = document.getElementById('admin-time').value;
+            const link = document.getElementById('admin-link').value;
+
+            if(title && link) {
+                tests.push({ id: Date.now(), title, category, dept, time: time || "60 Mins • 50 Qs", link });
+                document.getElementById('admin-title').value = "";
+                document.getElementById('admin-time').value = "";
+                document.getElementById('admin-link').value = "";
+            }
+
+            const masterPayload = { settings: portalSettings, tests: tests };
+            localStorage.setItem('tiger_universal_cloud_master_v15', JSON.stringify(masterPayload));
+
+            closeAdminModal();
+            loadUniversalCloudData();
+            alert("✅ கிளவுட் சர்வரில் வெற்றிகரமாக வெளியிடப்பட்டது!");
+        }
+
+        function deleteTest(id) {
+            if(confirm("இந்த டெஸ்ட்டை நீக்க விரும்புகிறீர்களா?")) {
+                tests = tests.filter(t => t.id !== id);
+                const masterPayload = { settings: portalSettings, tests: tests };
+                localStorage.setItem('tiger_universal_cloud_master_v15', JSON.stringify(masterPayload));
+                renderTests();
+            }
+        }
+
+        loadUniversalCloudData();
     </script>
 </body>
 </html>
