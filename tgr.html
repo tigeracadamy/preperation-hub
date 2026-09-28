@@ -460,7 +460,7 @@
         <div class="hero-banner">
             <span class="mission-tag">⚡ MISSION TARGET READY</span>
             <h2>WARRIORS PREPARATION HUB</h2>
-            <p>அடுத்த கட்ட அரசுப் பணி நியமனத் தேர்வுகளுக்கான நேரடி கவுன்டவுன் மற்றும் ஆன்லைன் மாதிரித் தேர்வு தொகுதி[span_1](start_span)[span_1](end_span).</p>
+            <p>அடுத்த கட்ட அரசுப் பணி நியமனத் தேர்வுகளுக்கான நேரடி கவுன்டவுன் மற்றும் ஆன்லைன் மாதிரித் தேர்வு தொகுதி[span_0](start_span)[span_0](end_span).</p>
         </div>
 
         <!-- Category Tabs -->
@@ -508,8 +508,8 @@
     <!-- Admin Modal Panel -->
     <div class="admin-modal-overlay" id="adminModal">
         <div class="admin-modal-box">
-            <h3 style="color: var(--accent-cyan);">⚙️ Universal Cloud Admin</h3>
-            <p style="font-size: 11px; color: var(--text-muted);">இங்கு சேமிக்கும் டேட்டா ஆன்லைன் கிளவுட் மூலமாக அனைத்து மாணவர்களுக்கும் லைவாக அப்டேட் ஆகும்!</p>
+            <h3 style="color: var(--accent-cyan);">⚙️ Google Sheets Cloud Admin</h3>
+            <p style="font-size: 11px; color: var(--text-muted);">இங்கு டெஸ்ட் சேர்த்தால் அது நேரடியாக Google Sheet-க்கு சென்று அனைத்து மாணவர்களுக்கும் லைவாக காட்டும்!</p>
             
             <hr style="border-color: rgba(255,255,255,0.1);">
             
@@ -530,7 +530,7 @@
                 <option value="TRB / NET / SET">TRB / NET / SET</option>
                 <option value="NEET Exam">NEET Exam</option>
                 <option value="POLICE">Police Exam</option>
-                <option value="RAILWAY">Railway Exam</option>
+                <option value="Railway Exam">Railway Exam</option>
             </select>
 
             <div id="dept-select-group" style="display:none; flex-direction:column; gap:4px;">
@@ -543,18 +543,19 @@
                 </select>
             </div>
 
-            <input type="text" id="admin-time" placeholder="Duration (e.g., 60 Mins • 50 Qs)">
+            <input type="text" id="admin-time" placeholder="Duration (e.g., 60 Mins • 50 Qs)" value="60 Mins • 50 Qs">
             <input type="text" id="admin-link" placeholder="Test URL (https://...)">
             
             <div style="display: flex; gap: 10px; margin-top: 10px;">
                 <button class="btn-start" style="background: rgba(255,255,255,0.1); color:#fff;" onclick="closeAdminModal()">Close</button>
-                <button class="btn-start" onclick="saveToUniversalCloud()">Publish to Cloud ☁️🚀</button>
+                <button class="btn-start" onclick="saveToGoogleSheetCloud()">Publish Live ☁️🚀</button>
             </div>
         </div>
     </div>
 
     <script>
         const getAdminKey = () => "tiger" + "2026";
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzSzH7VOZFot6r_AP43OxMaCl7FtQsD44wASWH92TN9s1-klc1t-WjtyfYm1hQ3SsOY/exec";
 
         let portalSettings = {
             brandTitle: "TIGER WARRIORS",
@@ -562,18 +563,7 @@
             theme: ""
         };
 
-        let defaultTests = [
-            { id: 101, title: "TNPSC Group 4 - Unit 1 Test", category: "TNPSC", dept: "Group 4", time: "60 Mins • 50 Qs", link: "https://forms.gle/" },
-            { id: 102, title: "TNPSC Group 4 - Unit 2 Test", category: "TNPSC", dept: "Group 4", time: "60 Mins • 50 Qs", link: "https://forms.gle/" },
-            { id: 103, title: "TNPSC Group 4 - Unit 3 Test", category: "TNPSC", dept: "Group 4", time: "60 Mins • 50 Qs", link: "https://forms.gle/" },
-            { id: 104, title: "TNPSC Group 1 - Unit 1 Polity", category: "TNPSC", dept: "Group 1", time: "90 Mins • 100 Qs", link: "https://forms.gle/" },
-            { id: 105, title: "TRB Tamil - Unit 1 Test", category: "TRB / NET / SET", dept: "தமிழ் துறை", time: "60 Mins • 50 Qs", link: "https://forms.gle/" },
-            { id: 106, title: "TRB Chemistry - Unit 1 Test", category: "TRB / NET / SET", dept: "வேதியியல் துறை", time: "60 Mins • 50 Qs", link: "https://forms.gle/" },
-            { id: 107, title: "Railway NTPC - Unit 1 Test", category: "Railway Exam", dept: "", time: "60 Mins • 60 Qs", link: "https://forms.gle/" }
-        ];
-
-        let tests = defaultTests;
-
+        let tests = [];
         let attendedCount = parseInt(localStorage.getItem('tiger_attended_count')) || 0;
         let isAdminLoggedIn = false;
         let currentFilterCategory = 'ALL';
@@ -598,25 +588,21 @@
             document.body.className = portalSettings.theme;
         }
 
-        function loadUniversalCloudData() {
-            try {
-                let cloudSync = localStorage.getItem('tiger_universal_cloud_master_v15');
-                if (cloudSync) {
-                    let parsed = JSON.parse(cloudSync);
-                    if (parsed && parsed.tests) tests = parsed.tests;
-                    if (parsed && parsed.settings) portalSettings = parsed.settings;
-                }
-                let savedTheme = localStorage.getItem('tiger_theme_pref');
-                if(savedTheme !== null) portalSettings.theme = savedTheme;
-            } catch(e) {}
-            initPortal();
+        // Fetch Data Live from Google Sheets App Script URL
+        function fetchSheetData() {
+            fetch(GOOGLE_SCRIPT_URL)
+                .then(response => response.json())
+                .then(data => {
+                    if (Array.isArray(data) && data.length > 0) {
+                        tests = data;
+                    }
+                    initPortal();
+                })
+                .catch(error => {
+                    console.error("Error fetching sheet data:", error);
+                    initPortal();
+                });
         }
-
-        window.addEventListener('storage', (event) => {
-            if (event.key === 'tiger_universal_cloud_master_v15') {
-                loadUniversalCloudData();
-            }
-        });
 
         function initPortal() {
             document.getElementById('display-brand-title').textContent = portalSettings.brandTitle;
@@ -624,7 +610,10 @@
             document.getElementById('modal-notice-text').textContent = portalSettings.noticeText;
             document.getElementById('attended-tests-count').textContent = attendedCount;
 
+            let savedTheme = localStorage.getItem('tiger_theme_pref');
+            if(savedTheme !== null) portalSettings.theme = savedTheme;
             document.body.className = portalSettings.theme || '';
+
             renderCategories();
             renderSubBars();
             renderTests();
@@ -735,7 +724,9 @@
                 if (currentFilterCategory === 'TRB / NET / SET' || currentFilterCategory === 'TNPSC') {
                     matchesSubCat = (currentFilterSubCategory === 'ALL' || t.dept === currentFilterSubCategory);
                 }
-                const matchesSearch = t.title.toLowerCase().includes(searchQuery) || t.category.toLowerCase().includes(searchQuery) || (t.dept && t.dept.toLowerCase().includes(searchQuery));
+                const matchesSearch = (t.title && t.title.toLowerCase().includes(searchQuery)) || 
+                                      (t.category && t.category.toLowerCase().includes(searchQuery)) || 
+                                      (t.dept && t.dept.toLowerCase().includes(searchQuery));
                 return matchesCategory && matchesSubCat && matchesSearch;
             });
             
@@ -749,7 +740,7 @@
             filtered.forEach((test, index) => {
                 const item = document.createElement('div');
                 item.className = 'test-item';
-                let displayTag = test.category;
+                let displayTag = test.category || "";
                 if(test.dept) displayTag += ` • ${test.dept}`;
 
                 item.innerHTML = `
@@ -757,12 +748,11 @@
                         <span style="font-size:12px; color: var(--text-muted);">#${index + 1}</span>
                         <div style="display:flex; gap:6px; align-items:center;">
                             <span class="test-tag">${displayTag}</span>
-                            ${isAdminLoggedIn ? `<button class="btn-delete" style="display:inline-block;" onclick="deleteTest(${test.id})">Delete</button>` : ''}
                         </div>
                     </div>
                     <div class="test-title">${test.title}</div>
                     <div class="test-footer">
-                        <span>⏱️ ${test.time}</span>
+                        <span>⏱️ ${test.time || "60 Mins • 50 Qs"}</span>
                         <a href="${test.link}" target="_blank" class="btn-start" onclick="incrementAttended()">START TEST 🚀</a>
                     </div>
                 `;
@@ -778,41 +768,45 @@
             document.getElementById('attended-tests-count').textContent = attendedCount;
         }
 
-        function saveToUniversalCloud() {
-            portalSettings.brandTitle = document.getElementById('edit-brand-title').value || portalSettings.brandTitle;
-            portalSettings.noticeText = document.getElementById('edit-notice').value || portalSettings.noticeText;
-
+        function saveToGoogleSheetCloud() {
             const title = document.getElementById('admin-title').value;
             const category = document.getElementById('admin-category').value;
             const dept = (category === 'TRB / NET / SET' || category === 'TNPSC') ? document.getElementById('admin-department').value : '';
             const time = document.getElementById('admin-time').value;
             const link = document.getElementById('admin-link').value;
 
-            if(title && link) {
-                tests.push({ id: Date.now(), title, category, dept, time: time || "60 Mins • 50 Qs", link });
+            if(!title || !link) {
+                alert("தயவுசெய்து தலைப்பு மற்றும் லிங்கை நிரப்பவும்!");
+                return;
+            }
+
+            const newRecord = {
+                id: Date.now(),
+                title: title,
+                category: category,
+                dept: dept,
+                time: time || "60 Mins • 50 Qs",
+                link: link
+            };
+
+            fetch(GOOGLE_SCRIPT_URL, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(newRecord)
+            }).then(() => {
+                alert("✅ கிளவுட் ஷீட்டில் வெற்றிகரமாக பதிவேற்றப்பட்டது! சில நொடிகளில் லைவ் ஆகும்.");
                 document.getElementById('admin-title').value = "";
-                document.getElementById('admin-time').value = "";
                 document.getElementById('admin-link').value = "";
-            }
-
-            const masterPayload = { settings: portalSettings, tests: tests };
-            localStorage.setItem('tiger_universal_cloud_master_v15', JSON.stringify(masterPayload));
-
-            closeAdminModal();
-            loadUniversalCloudData();
-            alert("✅ கிளவுட் சர்வரில் வெற்றிகரமாக வெளியிடப்பட்டது!");
+                closeAdminModal();
+                setTimeout(fetchSheetData, 2000);
+            }).catch(err => {
+                alert("❌ பிழை ஏற்பட்டது: " + err);
+            });
         }
 
-        function deleteTest(id) {
-            if(confirm("இந்த டெஸ்ட்டை நீக்க விரும்புகிறீர்களா?")) {
-                tests = tests.filter(t => t.id !== id);
-                const masterPayload = { settings: portalSettings, tests: tests };
-                localStorage.setItem('tiger_universal_cloud_master_v15', JSON.stringify(masterPayload));
-                renderTests();
-            }
-        }
-
-        loadUniversalCloudData();
+        // Initial Data Fetch
+        fetchSheetData();
     </script>
 </body>
 </html>
