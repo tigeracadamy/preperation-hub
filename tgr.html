@@ -8,47 +8,47 @@
         :root {
             --bg-color: #060913;
             --card-bg: #0b1326;
-            --card-border: rgba(0, 242, 254, 0.25);
+            --card-border: rgba(0, 242, 254, 0.3);
             --accent-cyan: #00f2fe;
-            --accent-glow: rgba(0, 242, 254, 0.3);
+            --accent-glow: rgba(0, 242, 254, 0.35);
             --text-main: #ffffff;
-            --text-muted: #8a99ad;
+            --text-muted: #94a3b8;
             --success: #10b981;
             --warning: #fbbf24;
             --danger: #ef4444;
-            --btn-mild: rgba(0, 242, 254, 0.1);
-            --btn-mild-hover: rgba(0, 242, 254, 0.2);
+            --btn-mild: rgba(0, 242, 254, 0.12);
+            --btn-mild-hover: rgba(0, 242, 254, 0.25);
         }
 
         body.theme-gold {
             --accent-cyan: #fbbf24;
-            --accent-glow: rgba(251, 191, 36, 0.3);
-            --card-border: rgba(251, 191, 36, 0.25);
-            --btn-mild: rgba(251, 191, 36, 0.1);
-            --btn-mild-hover: rgba(251, 191, 36, 0.2);
+            --accent-glow: rgba(251, 191, 36, 0.35);
+            --card-border: rgba(251, 191, 36, 0.3);
+            --btn-mild: rgba(251, 191, 36, 0.12);
+            --btn-mild-hover: rgba(251, 191, 36, 0.25);
         }
         body.theme-green {
             --accent-cyan: #10b981;
-            --accent-glow: rgba(16, 185, 129, 0.3);
-            --card-border: rgba(16, 185, 129, 0.25);
-            --btn-mild: rgba(16, 185, 129, 0.1);
-            --btn-mild-hover: rgba(16, 185, 129, 0.2);
+            --accent-glow: rgba(16, 185, 129, 0.35);
+            --card-border: rgba(16, 185, 129, 0.3);
+            --btn-mild: rgba(16, 185, 129, 0.12);
+            --btn-mild-hover: rgba(16, 185, 129, 0.25);
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; scroll-behavior: smooth; }
-        body { background-color: var(--bg-color); color: var(--text-main); padding: 15px; display: flex; justify-content: center; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; font-weight: bold; scroll-behavior: smooth; }
+        body { background-color: var(--bg-color); color: var(--text-main); padding: 12px; display: flex; justify-content: center; }
         
-        .main-container { width: 100%; max-width: 480px; display: flex; flex-direction: column; gap: 15px; transition: all 0.3s ease; }
+        .main-container { width: 100%; max-width: 480px; display: flex; flex-direction: column; gap: 10px; transition: all 0.3s ease; }
 
         @media(min-width: 768px) {
-            .main-container { max-width: 850px; padding: 30px; gap: 20px; }
+            .main-container { max-width: 850px; padding: 30px; gap: 15px; }
             .category-tabs { grid-template-columns: repeat(3, 1fr) !important; gap: 15px !important; }
-            .tab-btn { font-size: 18px !important; padding: 22px 16px !important; }
-            .hero-banner { padding: 25px !important; }
-            .hero-banner h2 { font-size: 26px !important; }
-            .hero-banner p { font-size: 14px !important; }
-            .brand-name { font-size: 16px !important; }
-            .notice-corner { padding: 16px 20px !important; }
+            .tab-btn { font-size: 18px !important; padding: 20px 16px !important; }
+            .hero-banner { padding: 15px !important; }
+            .hero-banner h2 { font-size: 24px !important; }
+            .hero-banner p { font-size: 13px !important; }
+            .brand-name { font-size: 15px !important; }
+            .notice-corner { padding: 12px 16px !important; }
             .notice-body { font-size: 14px !important; }
         }
 
@@ -56,101 +56,120 @@
             background: var(--card-bg);
             border: 1px solid var(--card-border);
             border-radius: 14px;
-            padding: 12px 15px;
+            padding: 10px 12px;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+            flex-direction: column;
+            gap: 8px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.6);
         }
 
-        .brand-box { display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; }
-        .brand-logo-single { font-size: 20px; }
-        .brand-name { font-size: 14px; font-weight: 900; color: #ffffff; letter-spacing: 0.5px; text-transform: uppercase; }
-        .brand-sub { font-size: 9px; color: var(--accent-cyan); font-weight: bold; }
-        .top-right-actions { display: flex; align-items: center; gap: 6px; }
+        .brand-box { display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; width: 100%; justify-content: center; text-align: center; }
+        .brand-logo-single { font-size: 18px; }
+        .brand-name-box { display: flex; flex-direction: column; align-items: center; gap: 1px; }
+        .brand-name { font-size: 12px; font-weight: 900; color: #ffffff; letter-spacing: 0.5px; text-transform: uppercase; text-shadow: 0 0 8px rgba(255,255,255,0.4); }
+        .brand-sub { font-size: 9px; color: var(--accent-cyan); font-weight: 900; }
+        
+        .top-actions-row { display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; flex-wrap: wrap; }
 
-        .btn-theme-switcher, .btn-top-donate {
+        .btn-top-social, .btn-theme-switcher, .btn-top-donate {
             background: var(--btn-mild);
             color: var(--accent-cyan);
             border: 1px solid var(--card-border);
-            padding: 6px 10px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 14px;
+            font-size: 10px;
+            font-weight: 900;
             cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
         }
-        .btn-top-donate { color: var(--warning); border-color: var(--warning); background: rgba(251, 191, 36, 0.1); }
+        .btn-top-donate { color: var(--warning); border-color: var(--warning); background: rgba(251, 191, 36, 0.15); }
+        .btn-telegram { color: #00f2fe; border-color: rgba(0,242,254,0.5); background: rgba(0,242,254,0.12); }
+        .btn-whatsapp { color: #10b981; border-color: rgba(16,185,129,0.5); background: rgba(16,185,129,0.12); }
 
-        .badge-year { background: rgba(245, 158, 11, 0.1); color: var(--warning); border: 1px solid var(--warning); padding: 3px 8px; border-radius: 20px; font-size: 11px; font-weight: bold; }
-
+        /* Compact & Space-Saved Hero Banner */
         .hero-banner {
             background: linear-gradient(135deg, #0e172c 0%, #080e1b 100%);
             border: 1px solid var(--card-border);
-            border-radius: 16px;
-            padding: 18px;
-            box-shadow: 0 0 25px var(--accent-glow);
+            border-radius: 14px;
+            padding: 10px 14px;
+            box-shadow: 0 0 20px var(--accent-glow);
             text-align: center;
         }
         .mission-tag { 
             color: #ffffff; 
-            font-size: 11px; 
+            font-size: 10px; 
             font-weight: 900; 
-            padding: 6px 12px; 
-            border-radius: 6px; 
+            padding: 4px 10px; 
+            border-radius: 4px; 
             display: inline-block; 
-            margin-bottom: 8px; 
+            margin-bottom: 4px; 
             background: linear-gradient(90deg, #1e293b, #0f172a);
             border: 1px solid rgba(255, 255, 255, 0.3); 
             letter-spacing: 0.8px;
             text-transform: uppercase;
         }
-        .hero-banner h2 { font-size: 20px; margin-bottom: 4px; color: var(--accent-cyan); font-weight: 900; letter-spacing: 1px; text-shadow: 0 0 10px var(--accent-glow); }
-        .hero-banner p { font-size: 12px; color: var(--text-main); font-weight: bold; }
+        .hero-banner h2 { font-size: 18px; margin-bottom: 2px; color: var(--accent-cyan); font-weight: 900; letter-spacing: 1px; text-shadow: 0 0 10px var(--accent-glow); }
+        .hero-banner p { font-size: 11px; color: var(--text-main); font-weight: 900; }
 
         @keyframes goldSubtlePulse {
-            0% { box-shadow: 0 0 5px rgba(217, 119, 6, 0.2); border-color: rgba(217, 119, 6, 0.4); }
-            50% { box-shadow: 0 0 18px rgba(251, 191, 36, 0.5); border-color: rgba(251, 191, 36, 0.9); }
-            100% { box-shadow: 0 0 5px rgba(217, 119, 6, 0.2); border-color: rgba(217, 119, 6, 0.4); }
+            0% { box-shadow: 0 0 6px rgba(217, 119, 6, 0.2); border-color: rgba(217, 119, 6, 0.4); }
+            50% { box-shadow: 0 0 20px rgba(251, 191, 36, 0.6); border-color: rgba(251, 191, 36, 0.95); }
+            100% { box-shadow: 0 0 6px rgba(217, 119, 6, 0.2); border-color: rgba(217, 119, 6, 0.4); }
         }
 
         .notice-corner {
-            background: linear-gradient(135deg, rgba(120, 53, 15, 0.25), rgba(11, 19, 38, 0.9));
+            background: linear-gradient(135deg, rgba(120, 53, 15, 0.3), rgba(11, 19, 38, 0.95));
             border: 1px solid #d97706;
             border-radius: 12px;
-            padding: 12px 14px;
+            padding: 10px 12px;
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 6px;
             animation: goldSubtlePulse 3s infinite ease-in-out;
+            position: relative;
         }
-        .notice-header { display: flex; justify-content: space-between; align-items: center; font-size: 11px; font-weight: bold; color: #fde047; flex-wrap: wrap; gap: 4px; }
-        .header-actions { display: flex; gap: 5px; align-items: center; }
-        .live-datetime-tag { background: rgba(0,0,0,0.4); padding: 2px 6px; border-radius: 4px; font-size: 10px; color: var(--accent-cyan); border: 1px solid rgba(0,242,254,0.3); }
+        .notice-header { display: flex; justify-content: space-between; align-items: center; font-size: 11px; font-weight: 900; color: #fde047; gap: 4px; }
         
-        .news-content-box { display: flex; align-items: center; gap: 10px; cursor: pointer; }
-        .news-img { width: 55px; height: 55px; border-radius: 8px; object-fit: cover; border: 1px solid var(--accent-cyan); display: none; flex-shrink: 0; }
+        .header-actions { display: flex; gap: 5px; align-items: center; flex-wrap: wrap; }
+        
+        .live-datetime-tag { 
+            background: rgba(0,0,0,0.6); 
+            padding: 3px 8px; 
+            border-radius: 6px; 
+            font-size: 11px; 
+            color: var(--accent-cyan); 
+            border: 1px solid rgba(0,242,254,0.4); 
+            font-weight: 900;
+        }
+        
+        .news-content-box { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+        .news-img { width: 50px; height: 50px; border-radius: 6px; object-fit: cover; border: 1px solid var(--accent-cyan); display: none; flex-shrink: 0; box-shadow: 0 0 8px var(--accent-glow); }
         
         .notice-body-wrapper { overflow: hidden; position: relative; min-height: 28px; flex-grow: 1; }
         .notice-body { 
             font-size: 12px; 
             color: var(--text-main); 
             line-height: 1.4; 
-            font-weight: bold; 
+            font-weight: 900; 
             display: inline-block;
             width: 100%;
         }
 
         .news-audio-btn, .news-pdf-btn, .news-video-btn {
-            background: rgba(0, 242, 254, 0.15);
+            background: rgba(0, 242, 254, 0.2);
             border: 1px solid var(--accent-cyan);
             color: var(--accent-cyan);
-            padding: 3px 6px;
-            border-radius: 4px;
+            padding: 4px 8px;
+            border-radius: 5px;
             font-size: 10px;
             cursor: pointer;
-            font-weight: bold;
+            font-weight: 900;
             text-decoration: none;
             display: none;
+            text-align: center;
         }
 
         @keyframes zoomInOutMerge {
@@ -163,95 +182,104 @@
             animation: zoomInOutMerge 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
 
-        .category-tabs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        .category-tabs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
         .tab-btn { 
-            background: linear-gradient(135deg, rgba(0, 242, 254, 0.15), rgba(11, 19, 38, 0.85)); 
+            background: linear-gradient(135deg, rgba(0, 242, 254, 0.18), rgba(11, 19, 38, 0.9)); 
             border: 1px solid var(--card-border); 
             color: var(--text-main); 
-            padding: 18px 14px; 
-            border-radius: 16px; 
-            font-size: 16px; 
+            padding: 14px 12px; 
+            border-radius: 14px; 
+            font-size: 15px; 
             font-weight: 900; 
             cursor: pointer; 
             text-align: center; 
-            letter-spacing: 1px; 
-            box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+            letter-spacing: 0.5px; 
+            box-shadow: 0 4px 14px rgba(0,0,0,0.4);
             transition: all 0.2s ease; 
         }
         .tab-btn.active { 
-            background: linear-gradient(135deg, rgba(0, 242, 254, 0.3), rgba(0, 242, 254, 0.05)); 
+            background: linear-gradient(135deg, rgba(0, 242, 254, 0.35), rgba(0, 242, 254, 0.08)); 
             border-color: var(--accent-cyan); 
             color: var(--accent-cyan); 
             box-shadow: 0 0 20px var(--accent-glow); 
         }
 
         .sub-category-bar { display: none; gap: 6px; overflow-x: auto; padding-bottom: 5px; }
-        .sub-tab-btn { background: var(--btn-mild); border: 1px solid var(--card-border); color: var(--text-muted); padding: 8px 14px; border-radius: 8px; font-size: 12px; font-weight: bold; cursor: pointer; white-space: nowrap; }
-        .sub-tab-btn.active { background: rgba(0, 242, 254, 0.2); border-color: var(--accent-cyan); color: var(--accent-cyan); }
+        .sub-tab-btn { background: var(--btn-mild); border: 1px solid var(--card-border); color: var(--text-muted); padding: 7px 12px; border-radius: 8px; font-size: 12px; font-weight: 900; cursor: pointer; white-space: nowrap; }
+        .sub-tab-btn.active { background: rgba(0, 242, 254, 0.25); border-color: var(--accent-cyan); color: var(--accent-cyan); }
+
+        /* Modal Popups for TNPSC & TRB */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); justify-content: center; align-items: center; z-index: 4000; padding: 20px; }
+        .modal-box { background: var(--card-bg); border: 1px solid var(--accent-cyan); border-radius: 18px; padding: 20px; width: 100%; max-width: 340px; display: flex; flex-direction: column; gap: 10px; text-align: center; box-shadow: 0 0 30px var(--accent-glow); max-height: 85vh; overflow-y: auto; }
+        .modal-box h3 { font-size: 16px; color: var(--accent-cyan); font-weight: 900; }
+        .modal-box p { font-size: 12px; color: var(--text-muted); font-weight: 900; }
+        .modal-option-btn { background: linear-gradient(135deg, rgba(0,242,254,0.2), rgba(11,19,38,0.9)); border: 1px solid var(--accent-cyan); color: var(--text-main); padding: 10px; border-radius: 10px; font-size: 13px; font-weight: 900; cursor: pointer; text-align: center; transition: all 0.2s; }
+        .modal-option-btn:hover { background: var(--accent-cyan); color: #000; }
 
         /* Donation Modal Popup */
         .donation-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); justify-content: center; align-items: center; z-index: 3000; padding: 20px; }
-        .donation-box { background: var(--card-bg); border: 1px solid var(--warning); border-radius: 16px; padding: 20px; width: 100%; max-width: 360px; display: flex; flex-direction: column; gap: 12px; text-align: center; box-shadow: 0 0 25px rgba(251, 191, 36, 0.3); }
+        .donation-box { background: var(--card-bg); border: 1px solid var(--warning); border-radius: 16px; padding: 20px; width: 100%; max-width: 360px; display: flex; flex-direction: column; gap: 10px; text-align: center; box-shadow: 0 0 25px rgba(251, 191, 36, 0.3); }
         .donation-box h3 { font-size: 15px; color: var(--warning); font-weight: 900; }
-        .donation-box p { font-size: 12px; color: var(--text-main); line-height: 1.4; font-weight: bold; }
-        .qr-img { width: 180px; height: 180px; margin: 0 auto; border-radius: 10px; border: 2px solid var(--warning); background: #fff; padding: 5px; }
-        .upi-box { background: rgba(0,0,0,0.5); border: 1px solid var(--card-border); padding: 8px; border-radius: 8px; color: var(--accent-cyan); font-size: 13px; font-weight: bold; cursor: pointer; }
+        .donation-box p { font-size: 12px; color: var(--text-main); line-height: 1.4; font-weight: 900; }
+        .qr-img { width: 160px; height: 160px; margin: 0 auto; border-radius: 10px; border: 2px solid var(--warning); background: #fff; padding: 5px; }
+        .upi-box { background: rgba(0,0,0,0.5); border: 1px solid var(--card-border); padding: 8px; border-radius: 8px; color: var(--accent-cyan); font-size: 13px; font-weight: 900; cursor: pointer; }
 
         .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .stat-box { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 15px; display: flex; justify-content: space-between; align-items: center; }
-        .stat-info span { font-size: 11px; color: var(--text-muted); font-weight: bold; }
-        .stat-info h3 { font-size: 20px; color: var(--text-main); margin-top: 2px; font-weight: 900; }
-        .stat-icon { font-size: 20px; background: var(--btn-mild); padding: 10px; border-radius: 10px; }
+        .stat-box { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 12px 14px; display: flex; justify-content: space-between; align-items: center; }
+        .stat-info span { font-size: 11px; color: var(--text-muted); font-weight: 900; }
+        .stat-info h3 { font-size: 19px; color: var(--text-main); margin-top: 2px; font-weight: 900; }
+        .stat-icon { font-size: 18px; background: var(--btn-mild); padding: 8px; border-radius: 8px; }
 
         .search-box { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 10px 14px; display: flex; align-items: center; gap: 10px; }
-        .search-box input { background: transparent; border: none; color: var(--text-main); font-size: 13px; width: 100%; outline: none; font-weight: bold; }
+        .search-box input { background: transparent; border: none; color: var(--text-main); font-size: 13px; width: 100%; outline: none; font-weight: 900; }
 
         .test-list { display: flex; flex-direction: column; gap: 10px; }
-        .test-item { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 15px; display: flex; flex-direction: column; gap: 10px; }
+        .test-item { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
         .test-header { display: flex; justify-content: space-between; align-items: center; }
-        .test-tag { font-size: 11px; background: var(--btn-mild); color: var(--accent-cyan); padding: 4px 10px; border-radius: 6px; border: 1px solid var(--card-border); font-weight: bold; }
+        .test-tag { font-size: 11px; background: var(--btn-mild); color: var(--accent-cyan); padding: 3px 8px; border-radius: 6px; border: 1px solid var(--card-border); font-weight: 900; }
         .test-title { font-size: 15px; font-weight: 900; color: var(--text-main); }
-        .test-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 8px; border-top: 1px solid rgba(255, 255, 255, 0.05); font-size: 11px; color: var(--text-muted); font-weight: bold; }
+        .test-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 6px; border-top: 1px solid rgba(255, 255, 255, 0.08); font-size: 11px; color: var(--text-muted); font-weight: 900; }
         
         .test-action-btns { display: flex; gap: 5px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
         .btn-start { background: linear-gradient(135deg, var(--accent-cyan) 0%, #4facfe 100%); color: #000; border: none; padding: 5px 10px; border-radius: 6px; font-size: 11px; font-weight: 900; cursor: pointer; text-decoration: none; }
-        .btn-test-pdf { background: rgba(251, 191, 36, 0.15); border: 1px solid var(--warning); color: var(--warning); padding: 5px 8px; border-radius: 6px; font-size: 10px; font-weight: 900; cursor: pointer; text-decoration: none; display: none; }
-        .btn-test-video { background: rgba(251, 191, 36, 0.15); border: 1px solid var(--warning); color: var(--warning); padding: 5px 8px; border-radius: 6px; font-size: 10px; font-weight: 900; cursor: pointer; text-decoration: none; display: inline-block; }
+        .btn-test-pdf { background: rgba(251, 191, 36, 0.18); border: 1px solid var(--warning); color: var(--warning); padding: 5px 8px; border-radius: 6px; font-size: 10px; font-weight: 900; cursor: pointer; text-decoration: none; display: none; }
+        .btn-test-video { background: rgba(251, 191, 36, 0.18); border: 1px solid var(--warning); color: var(--warning); padding: 5px 8px; border-radius: 6px; font-size: 10px; font-weight: 900; cursor: pointer; text-decoration: none; display: inline-block; }
 
         .announcement-modal, .admin-modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); justify-content: center; align-items: center; z-index: 2000; padding: 20px; }
         .announcement-box, .admin-modal-box { background: var(--card-bg); border: 1px solid var(--warning); border-radius: 16px; padding: 20px; width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 12px; text-align: center; }
         .admin-modal-box { border-color: var(--accent-cyan); text-align: left; }
-        .admin-modal-box input, .admin-modal-box select, .admin-modal-box textarea { background: rgba(0, 0, 0, 0.4); border: 1px solid var(--card-border); padding: 8px 10px; border-radius: 8px; color: var(--text-main); font-size: 13px; width: 100%; outline: none; font-weight: bold; }
+        .admin-modal-box input, .admin-modal-box select, .admin-modal-box textarea { background: rgba(0, 0, 0, 0.4); border: 1px solid var(--card-border); padding: 8px 10px; border-radius: 8px; color: var(--text-main); font-size: 13px; width: 100%; outline: none; font-weight: 900; }
     </style>
 </head>
 <body id="body-theme">
 
     <div class="main-container">
-        <!-- Top Bar with Logo, Theme, Donation Button & Secret Admin Trigger -->
+        <!-- Top Bar with Tiger Warriors Coaching Centre & Horizontal Action Buttons -->
         <div class="top-bar">
             <div class="brand-box" onclick="handleSecretAdminTap()" title="Tap 3 times">
                 <div class="brand-logo-single">🐯⚔️</div>
-                <div>
-                    <div class="brand-name">TIGER WARRIORS</div>
-                    <div class="brand-sub">NEXUS</div>
+                <div class="brand-name-box">
+                    <div class="brand-name">TIGER WARRIORS COACHING CENTRE</div>
+                    <div class="brand-sub">(தேர்வு பயிற்சிப் பட்டறை 🎯)</div>
                 </div>
                 <div class="brand-logo-single">⚔️🔥</div>
             </div>
-            <div class="top-right-actions">
-                <button class="btn-top-donate" onclick="openDonationModal()">💖 Donate</button>
-                <button class="btn-theme-switcher" onclick="cycleTheme()">🎨 Theme</button>
-                <div class="badge-year">2026</div>
+            <div class="top-actions-row">
+                <a href="https://t.me/+RNZzz8tk4cRkYTBl" target="_blank" class="btn-top-social btn-telegram" title="Join Telegram Group">✈️ TG</a>
+                <a href="https://chat.whatsapp.com/K7kbJ0a7DwN3pbTMyqplgD" target="_blank" class="btn-top-social btn-whatsapp" title="Join WhatsApp Group">💬 WA</a>
+                <button class="btn-top-donate" onclick="openDonationModal()" title="Support Us">💖 Donate</button>
+                <button class="btn-theme-switcher" onclick="cycleTheme()" title="Change Theme">🎨 Theme</button>
             </div>
         </div>
 
-        <!-- Hero Banner with Bold White Tagline -->
+        <!-- Hero Banner with Compact Space-Saved Design -->
         <div class="hero-banner">
             <span class="mission-tag">🎯 TIGER WARRIORS PREPARATION HUB</span>
             <h2>FOR DREAM COME TRUE</h2>
             <p>அரசுப் பணி கனவை நனவாக்க இப்போதே தொடங்குங்கள்!</p>
         </div>
 
-        <!-- Notice Corner with PDF/Video/Audio buttons in Header -->
+        <!-- Notice Corner with Horizontal Header Actions -->
         <div class="notice-corner">
             <div class="notice-header">
                 <span>🐅 TIGER WARRIORS | நடப்பு நிகழ்வுகள்</span>
@@ -267,7 +295,7 @@
                     <div class="notice-body" id="display-notice-text">செய்திகள் ஏற்றப்படுகின்றன...</div>
                 </div>
             </div>
-            <div style="font-size: 9px; color: var(--text-muted); text-align: right; padding-top: 2px;">
+            <div style="text-align: center; padding-top: 2px;">
                 <span class="live-datetime-tag" id="embedded-live-dt">📅 Loading...</span>
             </div>
         </div>
@@ -278,9 +306,8 @@
             <div class="notice-body" id="display-quote-text">Loading quote...</div>
         </div>
 
-        <!-- Category Tabs with Kids Study First -->
+        <!-- Category Tabs in Exact Requested Order -->
         <div class="category-tabs" id="category-tabs-container"></div>
-        <div class="sub-category-bar" id="sub-category-bar"></div>
 
         <!-- Stats Grid -->
         <div class="stats-grid">
@@ -304,15 +331,44 @@
         <div class="test-list" id="test-container"></div>
     </div>
 
+    <!-- TNPSC Group Selection Modal Popup -->
+    <div class="modal-overlay" id="tnpscModal" onclick="closeTnpscModal()">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <h3>🏛️ TNPSC Exams</h3>
+            <p>தேவையான பிரிவைத் தேர்ந்தெடுக்கவும்:</p>
+            <div class="modal-option-btn" onclick="selectTnpscGroup('Group 1')">🏛️ Group 1</div>
+            <div class="modal-option-btn" onclick="selectTnpscGroup('Group 2')">🏛️ Group 2</div>
+            <div class="modal-option-btn" onclick="selectTnpscGroup('Group 2A')">🏛️ Group 2A</div>
+            <div class="modal-option-btn" onclick="selectTnpscGroup('Group 4')">🏛️ Group 4</div>
+            <div class="modal-option-btn" onclick="selectTnpscGroup('ALL')">🔥 All TNPSC Groups</div>
+            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:10px;" onclick="closeTnpscModal()">Close ❌</button>
+        </div>
+    </div>
+
+    <!-- TRB / NET / SET Department Selection Modal Popup -->
+    <div class="modal-overlay" id="trbModal" onclick="closeTrbModal()">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <h3>📚 TRB / NET / SET Exams</h3>
+            <p>தேவையான துறையைத் தேர்ந்தெடுக்கவும்:</p>
+            <div class="modal-option-btn" onclick="selectTrbDept('தமிழ் துறை')">📖 தமிழ் துறை</div>
+            <div class="modal-option-btn" onclick="selectTrbDept('வேதியியல் துறை')">🧪 வேதியியல் துறை</div>
+            <div class="modal-option-btn" onclick="selectTrbDept('இயற்பியல் துறை')">⚡ இயற்பியல் துறை</div>
+            <div class="modal-option-btn" onclick="selectTrbDept('விலங்கியல் துறை')">🧬 விலங்கியல் துறை</div>
+            <div class="modal-option-btn" onclick="selectTrbDept('தாவரவியல் துறை')">🌿 தாவரவியல் துறை</div>
+            <div class="modal-option-btn" onclick="selectTrbDept('ALL')">🔥 All Departments</div>
+            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:10px;" onclick="closeTrbModal()">Close ❌</button>
+        </div>
+    </div>
+
     <!-- Donation Modal Popup -->
     <div class="donation-modal" id="donationModal" onclick="closeDonationModal()">
         <div class="donation-box" onclick="event.stopPropagation()">
             <h3 style="color: var(--warning);">💖 ஆதரவு கரம் (Donation)</h3>
             <p>உங்களால் முடிந்த நிதி உதவி மற்றும் ஆதரவை தாருங்கள்!</p>
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=upi://pay?pa=9790933025@kotakbank%26pn=MANIKASI%26cu=INR" alt="UPI QR Code" class="qr-img">
-            <div style="font-size: 11px; color: var(--text-muted); font-weight: bold;">📱 GPay / PhonePe எண் (நகலெடுக்க கிளிக் செய்யவும்):</div>
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=upi://pay?pa=9790933025@kotakbank%26pn=MANIKASI%26cu=INR" alt="UPI QR Code" class="qr-img">
+            <div style="font-size: 11px; color: var(--text-muted); font-weight: 900;">📱 GPay / PhonePe எண் (நகலெடுக்க கிளிக் செய்யவும்):</div>
             <div class="upi-box" onclick="copyUpiId()" title="Click to Copy">9790933025 📋</div>
-            <button class="btn-start" style="background: rgba(255,255,255,0.1); color:#fff; margin-top:5px;" onclick="closeDonationModal()">Close ❌</button>
+            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:8px;" onclick="closeDonationModal()">Close ❌</button>
         </div>
     </div>
 
@@ -320,8 +376,8 @@
     <div class="announcement-modal" id="announcementModal" onclick="closeAnnouncement()">
         <div class="announcement-box" onclick="event.stopPropagation()">
             <h3 style="color: var(--warning);">🐅 TIGER WARRIORS | நடப்பு நிகழ்வுகள் மற்றும் செய்திகள்</h3>
-            <p id="modal-notice-text" style="font-size: 13px; line-height: 1.5; color: var(--text-main); font-weight: bold;"></p>
-            <button class="btn-start" style="margin-top: 10px;" onclick="closeAnnouncement()">OK, Got It! 👍</button>
+            <p id="modal-notice-text" style="font-size: 13px; line-height: 1.5; color: var(--text-main); font-weight: 900;"></p>
+            <button class="btn-start" style="margin-top: 10px; padding:8px;" onclick="closeAnnouncement()">OK, Got It! 👍</button>
         </div>
     </div>
 
@@ -331,18 +387,19 @@
             <h3 style="color: var(--accent-cyan);">⚙️ Google Sheets Cloud Admin</h3>
             <p style="font-size: 11px; color: var(--text-muted);">இங்கு டெஸ்ட் சேர்த்தால் அது நேரடியாக Google Sheet-க்கு செல்லும்!</p>
             
-            <hr style="border-color: rgba(255,255,255,0.1);">
+            <hr style="border-color: rgba(255,255,255,0.15);">
             
             <input type="text" id="admin-title" placeholder="Test Name (e.g., UNIT 1)">
             
             <label>Category:</label>
             <select id="admin-category" onchange="toggleDeptSelect()">
                 <option value="Kids Study">🧸 Kids Study</option>
-                <option value="TNPSC">TNPSC</option>
-                <option value="TRB / NET / SET">TRB / NET / SET</option>
-                <option value="NEET Exam">NEET Exam</option>
-                <option value="POLICE">Police Exam</option>
-                <option value="Railway Exam">Railway Exam</option>
+                <option value="ALL">🔥 All Tests</option>
+                <option value="TRB / NET / SET">📚 TRB / NET / SET</option>
+                <option value="TNPSC">🏛️ TNPSC</option>
+                <option value="POLICE">🛡️ Police Exam</option>
+                <option value="NEET Exam">🧬 NEET Exam</option>
+                <option value="Railway Exam">🚆 Railway Exam</option>
             </select>
 
             <div id="dept-select-group" style="display:none; flex-direction:column; gap:4px;">
@@ -359,8 +416,8 @@
             <input type="text" id="admin-link" placeholder="Test URL (https://...)">
             
             <div style="display: flex; gap: 10px; margin-top: 10px;">
-                <button class="btn-start" style="background: rgba(255,255,255,0.1); color:#fff;" onclick="closeAdminModal()">Close</button>
-                <button class="btn-start" onclick="saveToGoogleSheetCloud()">Publish Live ☁️🚀</button>
+                <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; padding:8px;" onclick="closeAdminModal()">Close</button>
+                <button class="btn-start" style="padding:8px;" onclick="saveToGoogleSheetCloud()">Publish Live ☁️🚀</button>
             </div>
         </div>
     </div>
@@ -400,13 +457,43 @@
             alert("✅ UPI எண் (9790933025) நகலெடுக்கப்பட்டது!");
         }
 
+        // TNPSC Modal Actions
+        function openTnpscModal() { document.getElementById('tnpscModal').style.display = 'flex'; }
+        function closeTnpscModal() { document.getElementById('tnpscModal').style.display = 'none'; }
+        function selectTnpscGroup(groupName) {
+            closeTnpscModal();
+            currentFilterCategory = 'TNPSC';
+            currentFilterSubCategory = (groupName === 'ALL') ? 'ALL' : groupName;
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                if(btn.textContent.includes('TNPSC')) btn.classList.add('active');
+                else btn.classList.remove('active');
+            });
+            renderTests();
+            scrollToTests();
+        }
+
+        // TRB / NET / SET Modal Actions
+        function openTrbModal() { document.getElementById('trbModal').style.display = 'flex'; }
+        function closeTrbModal() { document.getElementById('trbModal').style.display = 'none'; }
+        function selectTrbDept(deptName) {
+            closeTrbModal();
+            currentFilterCategory = 'TRB / NET / SET';
+            currentFilterSubCategory = (deptName === 'ALL') ? 'ALL' : deptName;
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                if(btn.textContent.includes('TRB')) btn.classList.add('active');
+                else btn.classList.remove('active');
+            });
+            renderTests();
+            scrollToTests();
+        }
+
         const categories = [
             { id: 'Kids Study', name: '🧸 Kids Study' },
             { id: 'ALL', name: '🔥 All Tests' },
-            { id: 'TNPSC', name: '🏛️ TNPSC' },
             { id: 'TRB / NET / SET', name: '📚 TRB / NET / SET' },
-            { id: 'NEET Exam', name: '🧬 NEET Exam' },
+            { id: 'TNPSC', name: '🏛️ TNPSC' },
             { id: 'POLICE', name: '🛡️ Police Exam' },
+            { id: 'NEET Exam', name: '🧬 NEET Exam' },
             { id: 'Railway Exam', name: '🚆 Railway Exam' }
         ];
 
@@ -460,7 +547,6 @@
             document.body.className = savedTheme;
 
             renderCategories();
-            renderSubBars();
             renderTests();
             startLiveClock();
         }
@@ -470,6 +556,7 @@
             const imgEl = document.getElementById('display-news-img');
             const pdfEl = document.getElementById('display-news-pdf');
             const videoEl = document.getElementById('display-news-video');
+            const audioEl = document.querySelector('.news-audio-btn');
             if(!newsList || newsList.length === 0) return;
 
             let currentItem = newsList[currentNewsIndex];
@@ -494,6 +581,10 @@
                 videoEl.style.display = "inline-block";
             } else {
                 videoEl.style.display = "none";
+            }
+
+            if(audioEl) {
+                audioEl.style.display = "inline-block";
             }
 
             noticeEl.classList.remove('news-anim');
@@ -546,43 +637,17 @@
                 btn.className = `tab-btn ${currentFilterCategory === cat.id ? 'active' : ''}`;
                 btn.textContent = cat.name;
                 btn.onclick = () => {
-                    setCategory(cat.id, btn);
-                    scrollToTests();
+                    if (cat.id === 'TNPSC') {
+                        openTnpscModal();
+                    } else if (cat.id === 'TRB / NET / SET') {
+                        openTrbModal();
+                    } else {
+                        setCategory(cat.id, btn);
+                        scrollToTests();
+                    }
                 };
                 container.appendChild(btn);
             });
-        }
-
-        function renderSubBars() {
-            const subBar = document.getElementById('sub-category-bar');
-            subBar.innerHTML = "";
-            if (currentFilterCategory === 'TRB / NET / SET') {
-                subBar.style.display = 'flex';
-                ['ALL', 'தமிழ் துறை', 'வேதியியல் துறை', 'ஆங்கிலத் துறை'].forEach(d => {
-                    const btn = document.createElement('button');
-                    btn.className = `sub-tab-btn ${currentFilterSubCategory === d ? 'active' : ''}`;
-                    btn.textContent = d === 'ALL' ? 'All Depts' : d;
-                    btn.onclick = () => {
-                        setSubCategory(d, btn);
-                        scrollToTests();
-                    };
-                    subBar.appendChild(btn);
-                });
-            } else if (currentFilterCategory === 'TNPSC') {
-                subBar.style.display = 'flex';
-                ['ALL', 'Group 1', 'Group 2', 'Group 2A', 'Group 4'].forEach(g => {
-                    const btn = document.createElement('button');
-                    btn.className = `sub-tab-btn ${currentFilterSubCategory === g ? 'active' : ''}`;
-                    btn.textContent = g === 'ALL' ? 'All Groups' : g;
-                    btn.onclick = () => {
-                        setSubCategory(g, btn);
-                        scrollToTests();
-                    };
-                    subBar.appendChild(btn);
-                });
-            } else {
-                subBar.style.display = 'none';
-            }
         }
 
         function scrollToTests() {
@@ -608,7 +673,7 @@
             const deptSelect = document.getElementById('admin-department');
             if (catSelect === 'TRB / NET / SET') {
                 deptGroup.style.display = 'flex';
-                deptSelect.innerHTML = `<option value="தமிழ் துறை">தமிழ் துறை</option><option value="வேதியியல் துறை">வேதியியல் துறை</option><option value="ஆங்கிலத் துறை">ஆங்கிலத் துறை</option>`;
+                deptSelect.innerHTML = `<option value="தமிழ் துறை">தமிழ் துறை</option><option value="வேதியியல் துறை">வேதியியல் துறை</option><option value="இயற்பியல் துறை">இயற்பியல் துறை</option><option value="விலங்கியல் துறை">விலங்கியல் துறை</option><option value="தாவரவியல் துறை">தாவரவியல் துறை</option>`;
             } else if (catSelect === 'TNPSC') {
                 deptGroup.style.display = 'flex';
                 deptSelect.innerHTML = `<option value="Group 1">Group 1</option><option value="Group 2">Group 2</option><option value="Group 2A">Group 2A</option><option value="Group 4">Group 4</option>`;
@@ -621,15 +686,7 @@
             currentFilterCategory = categoryId;
             currentFilterSubCategory = 'ALL';
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            btnElement.classList.add('active');
-            renderSubBars();
-            renderTests();
-        }
-
-        function setSubCategory(subCat, btnElement) {
-            currentFilterSubCategory = subCat;
-            document.querySelectorAll('.sub-tab-btn').forEach(b => b.classList.remove('active'));
-            btnElement.classList.add('active');
+            if(btnElement) btnElement.classList.add('active');
             renderTests();
         }
 
@@ -653,7 +710,7 @@
             document.getElementById('total-tests-count').textContent = tests.length;
 
             if(filtered.length === 0) {
-                container.innerHTML = `<div style="text-align:center; color: var(--text-muted); padding: 20px; font-size:13px; font-weight:bold;">தேர்வுகள் எதுவும் இல்லை.</div>`;
+                container.innerHTML = `<div style="text-align:center; color: var(--text-muted); padding: 20px; font-size:14px; font-weight:900;">தேர்வுகள் எதுவும் இல்லை.</div>`;
                 return;
             }
 
@@ -675,8 +732,8 @@
 
                 item.innerHTML = `
                     <div class="test-header">
-                        <span style="font-size:12px; color: var(--text-muted); font-weight:bold;">#${index + 1}</span>
-                        <div style="display:flex; gap:6px; align-items:center;">
+                        <span style="font-size:11px; color: var(--text-muted); font-weight:900;">#${index + 1}</span>
+                        <div style="display:flex; gap:5px; align-items:center;">
                             <span class="test-tag">${displayTag}</span>
                             ${isAdminLoggedIn ? `<button class="btn-delete" onclick="deleteTest(${test.id})">Delete 🗑️</button>` : ''}
                         </div>
