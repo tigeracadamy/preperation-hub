@@ -43,11 +43,12 @@
         @media(min-width: 768px) {
             .main-container { max-width: 850px; padding: 30px; gap: 15px; }
             .category-tabs { grid-template-columns: repeat(3, 1fr) !important; gap: 15px !important; }
-            .tab-btn { font-size: 18px !important; padding: 20px 16px !important; }
+            .tab-btn { font-size: 24px !important; padding: 24px 20px !important; }
             .hero-banner { padding: 15px !important; }
             .hero-banner h2 { font-size: 24px !important; }
-            .hero-banner p { font-size: 13px !important; }
-            .brand-name { font-size: 15px !important; }
+            .hero-banner p { font-size: 16px !important; }
+            .brand-name { font-size: 22px !important; }
+            .brand-sub { font-size: 14px !important; }
             .notice-corner { padding: 12px 16px !important; }
             .notice-body { font-size: 14px !important; }
         }
@@ -56,50 +57,76 @@
             background: var(--card-bg);
             border: 1px solid var(--card-border);
             border-radius: 14px;
-            padding: 10px 12px;
+            padding: 12px 14px;
             display: flex;
             flex-direction: column;
             gap: 8px;
             box-shadow: 0 0 20px rgba(0,0,0,0.6);
         }
 
-        .brand-box { display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; width: 100%; justify-content: center; text-align: center; }
-        .brand-logo-single { font-size: 18px; }
-        .brand-name-box { display: flex; flex-direction: column; align-items: center; gap: 1px; }
-        .brand-name { font-size: 12px; font-weight: 900; color: #ffffff; letter-spacing: 0.5px; text-transform: uppercase; text-shadow: 0 0 8px rgba(255,255,255,0.4); }
-        .brand-sub { font-size: 9px; color: var(--accent-cyan); font-weight: 900; }
-        
-        .top-actions-row { display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; flex-wrap: wrap; }
-
-        .btn-top-social, .btn-theme-switcher, .btn-top-donate {
-            background: var(--btn-mild);
-            color: var(--accent-cyan);
-            border: 1px solid var(--card-border);
-            padding: 5px 10px;
-            border-radius: 14px;
-            font-size: 10px;
-            font-weight: 900;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 3px;
+        /* Y-Axis 360 Degree 3D Spin Animation with 5 Seconds Pause */
+        @keyframes yAxisSpinWithPause {
+            0% { transform: perspective(600px) rotateY(0deg) scale(1); filter: drop-shadow(0 0 4px var(--accent-cyan)); }
+            15% { transform: perspective(600px) rotateY(360deg) scale(1.15); filter: drop-shadow(0 0 15px var(--warning)); }
+            20% { transform: perspective(600px) rotateY(360deg) scale(1); filter: drop-shadow(0 0 4px var(--accent-cyan)); }
+            100% { transform: perspective(600px) rotateY(360deg) scale(1); filter: drop-shadow(0 0 4px var(--accent-cyan)); }
         }
-        .btn-top-donate { color: var(--warning); border-color: var(--warning); background: rgba(251, 191, 36, 0.15); }
-        .btn-telegram { color: #00f2fe; border-color: rgba(0,242,254,0.5); background: rgba(0,242,254,0.12); }
-        .btn-whatsapp { color: #10b981; border-color: rgba(16,185,129,0.5); background: rgba(16,185,129,0.12); }
 
+        .brand-box { 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+            cursor: pointer; 
+            user-select: none; 
+            width: 100%; 
+            justify-content: center; 
+            text-align: center; 
+        }
+        
+        .brand-logo-single { 
+            font-size: 26px; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 1.1;
+            animation: yAxisSpinWithPause 7s infinite cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        .brand-name-box { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+        .brand-name { font-size: 18px; font-weight: 900; color: #ffffff; letter-spacing: 0.5px; text-transform: uppercase; text-shadow: 0 0 8px rgba(255,255,255,0.4); }
+        .brand-sub { font-size: 13px; color: var(--accent-cyan); font-weight: 900; }
+        
         .hero-banner {
             background: linear-gradient(135deg, #0e172c 0%, #080e1b 100%);
             border: 1px solid var(--card-border);
             border-radius: 14px;
-            padding: 10px 14px;
+            padding: 14px;
             box-shadow: 0 0 20px var(--accent-glow);
             text-align: center;
         }
+
+        @keyframes flowerBloom {
+            0% { transform: scale(0.3) translateY(15px); opacity: 0; filter: blur(4px); }
+            60% { transform: scale(1.1) translateY(-3px); opacity: 1; filter: blur(0px); }
+            100% { transform: scale(1) translateY(0); opacity: 1; }
+        }
+
+        @keyframes bulbGlowPulse {
+            0%, 100% { text-shadow: 0 0 5px #fbbf24, 0 0 10px #fbbf24; transform: scale(1); }
+            50% { text-shadow: 0 0 15px #fbbf24, 0 0 25px #f59e0b; transform: scale(1.08); }
+        }
+
+        @keyframes quoteZoomAndLight {
+            0%, 100% { transform: scale(1) translateY(0); box-shadow: 0 0 5px rgba(0,242,254,0.3); filter: brightness(1); }
+            20% { transform: scale(1.06) translateY(3px); box-shadow: 0 0 20px #fbbf24, inset 0 0 10px #fbbf24; filter: brightness(1.3); }
+            40% { transform: scale(0.96) translateY(-3px); box-shadow: 0 0 10px rgba(0,242,254,0.6); filter: brightness(1.1); }
+            60% { transform: scale(1.03) translateY(2px); box-shadow: 0 0 15px #00f2fe; filter: brightness(1.2); }
+        }
+
         .mission-tag { 
             color: #ffffff; 
-            font-size: 10px; 
+            font-size: 11px; 
             font-weight: 900; 
             padding: 4px 10px; 
             border-radius: 4px; 
@@ -109,9 +136,44 @@
             border: 1px solid rgba(255, 255, 255, 0.3); 
             letter-spacing: 0.8px;
             text-transform: uppercase;
+            animation: flowerBloom 1.2s ease-out forwards;
         }
-        .hero-banner h2 { font-size: 18px; margin-bottom: 2px; color: var(--accent-cyan); font-weight: 900; letter-spacing: 1px; text-shadow: 0 0 10px var(--accent-glow); }
-        .hero-banner p { font-size: 11px; color: var(--text-main); font-weight: 900; }
+
+        .hero-top-row { display: flex; align-items: center; justify-content: space-between; gap: 4px; margin-bottom: 4px; }
+        
+        .hero-banner h2 { 
+            font-size: 14px; 
+            margin-bottom: 2px; 
+            color: var(--warning); 
+            font-weight: 900; 
+            letter-spacing: 0.2px; 
+            text-shadow: 0 0 10px var(--accent-glow); 
+            flex-grow: 1; 
+            text-align: center; 
+            white-space: nowrap; 
+            animation: bulbGlowPulse 2s infinite ease-in-out;
+        }
+
+        .hero-banner p { font-size: 12px; color: var(--text-main); font-weight: 900; }
+
+        .btn-top-social, .btn-theme-switcher, .btn-top-donate {
+            background: var(--btn-mild);
+            color: var(--accent-cyan);
+            border: 1px solid var(--card-border);
+            padding: 4px 6px;
+            border-radius: 8px;
+            font-size: 9px;
+            font-weight: 900;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 2px;
+            white-space: nowrap;
+        }
+        .btn-top-donate { color: var(--warning); border-color: var(--warning); background: rgba(251, 191, 36, 0.15); }
+        .btn-telegram { color: #00f2fe; border-color: rgba(0,242,254,0.5); background: rgba(0,242,254,0.12); }
+        .btn-whatsapp { color: #10b981; border-color: rgba(16,185,129,0.5); background: rgba(16,185,129,0.12); }
 
         @keyframes goldSubtlePulse {
             0% { box-shadow: 0 0 6px rgba(217, 119, 6, 0.2); border-color: rgba(217, 119, 6, 0.4); }
@@ -134,14 +196,27 @@
         
         .header-actions { display: flex; gap: 5px; align-items: center; flex-wrap: wrap; }
         
+        .live-datetime-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 5px;
+            width: 100%;
+            padding-top: 2px;
+            margin-top: 0px;
+        }
+        
         .live-datetime-tag { 
             background: rgba(0,0,0,0.6); 
-            padding: 3px 8px; 
+            padding: 3px 6px; 
             border-radius: 6px; 
             font-size: 11px; 
             color: var(--accent-cyan); 
             border: 1px solid rgba(0,242,254,0.4); 
             font-weight: 900;
+            text-align: center;
+            flex-grow: 1;
+            transform: translateY(-3px);
         }
         
         .news-content-box { display: flex; align-items: center; gap: 8px; cursor: pointer; }
@@ -157,7 +232,7 @@
             width: 100%;
         }
 
-        .news-audio-btn, .news-pdf-btn, .news-video-btn {
+        .news-pdf-btn, .news-video-btn {
             background: rgba(0, 242, 254, 0.2);
             border: 1px solid var(--accent-cyan);
             color: var(--accent-cyan);
@@ -186,9 +261,9 @@
             background: linear-gradient(135deg, rgba(0, 242, 254, 0.18), rgba(11, 19, 38, 0.9)); 
             border: 1px solid var(--card-border); 
             color: var(--text-main); 
-            padding: 14px 12px; 
+            padding: 20px 16px; 
             border-radius: 14px; 
-            font-size: 15px; 
+            font-size: 20px; 
             font-weight: 900; 
             cursor: pointer; 
             text-align: center; 
@@ -203,11 +278,6 @@
             box-shadow: 0 0 20px var(--accent-glow); 
         }
 
-        .sub-category-bar { display: none; gap: 6px; overflow-x: auto; padding-bottom: 5px; }
-        .sub-tab-btn { background: var(--btn-mild); border: 1px solid var(--card-border); color: var(--text-muted); padding: 7px 12px; border-radius: 8px; font-size: 12px; font-weight: 900; cursor: pointer; white-space: nowrap; }
-        .sub-tab-btn.active { background: rgba(0, 242, 254, 0.25); border-color: var(--accent-cyan); color: var(--accent-cyan); }
-
-        /* Modal Popups with Extra Bold Look */
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.88); justify-content: center; align-items: center; z-index: 4000; padding: 20px; }
         .modal-box { background: var(--card-bg); border: 2px solid var(--accent-cyan); border-radius: 18px; padding: 22px; width: 100%; max-width: 360px; display: flex; flex-direction: column; gap: 12px; text-align: center; box-shadow: 0 0 40px var(--accent-glow); max-height: 85vh; overflow-y: auto; }
         .modal-box h3 { font-size: 18px; color: var(--warning); font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px; }
@@ -215,7 +285,6 @@
         .modal-option-btn { background: linear-gradient(135deg, rgba(0,242,254,0.25), rgba(11,19,38,0.95)); border: 1px solid var(--accent-cyan); color: var(--accent-cyan); padding: 11px 12px; border-radius: 10px; font-size: 13px; font-weight: 900; cursor: pointer; text-align: center; transition: all 0.2s; text-decoration: none; display: inline-block; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
         .modal-option-btn:hover { background: var(--accent-cyan); color: #000; }
 
-        /* Donation Modal Popup */
         .donation-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); justify-content: center; align-items: center; z-index: 3000; padding: 20px; }
         .donation-box { background: var(--card-bg); border: 1px solid var(--warning); border-radius: 16px; padding: 20px; width: 100%; max-width: 360px; display: flex; flex-direction: column; gap: 10px; text-align: center; box-shadow: 0 0 25px rgba(251, 191, 36, 0.3); }
         .donation-box h3 { font-size: 16px; color: var(--warning); font-weight: 900; }
@@ -253,39 +322,45 @@
 <body id="body-theme">
 
     <div class="main-container">
-        <!-- Top Bar with Tiger Warriors Coaching Centre & Horizontal Action Buttons -->
+        <!-- Top Bar with Y-Axis 3D Spin Tiger Face & Swords Logo -->
         <div class="top-bar">
             <div class="brand-box" onclick="handleSecretAdminTap()" title="Tap 3 times">
-                <div class="brand-logo-single">🐯⚔️</div>
+                <div class="brand-logo-single">
+                    <span>🐯</span>
+                    <span>⚔️</span>
+                </div>
                 <div class="brand-name-box">
                     <div class="brand-name">TIGER WARRIORS COACHING CENTRE</div>
                     <div class="brand-sub">(தேர்வு பயிற்சிப் பட்டறை 🎯)</div>
                 </div>
-                <div class="brand-logo-single">⚔️🔥</div>
-            </div>
-            <div class="top-actions-row">
-                <a href="https://t.me/+RNZzz8tk4cRkYTBl" target="_blank" class="btn-top-social btn-telegram" title="Join Telegram Group">✈️ TG</a>
-                <a href="https://chat.whatsapp.com/K7kbJ0a7DwN3pbTMyqplgD" target="_blank" class="btn-top-social btn-whatsapp" title="Join WhatsApp Group">💬 WA</a>
-                <button class="btn-top-donate" onclick="openDonationModal()" title="Support Us">💖 Donate</button>
-                <button class="btn-theme-switcher" onclick="cycleTheme()" title="Change Theme">🎨 Theme</button>
+                <div class="brand-logo-single">
+                    <span>🔥</span>
+                    <span>⚔️</span>
+                </div>
             </div>
         </div>
 
-        <!-- Hero Banner with Compact Space-Saved Design -->
+        <!-- Hero Banner -->
         <div class="hero-banner">
             <span class="mission-tag">🎯 TIGER WARRIORS PREPARATION HUB</span>
-            <h2>FOR DREAM COME TRUE</h2>
+            <div class="hero-top-row">
+                <button class="btn-top-donate" onclick="openDonationModal()" title="Support Us">💖 Donate</button>
+                <h2>💡 FOR DREAM COME TRUE 🔥</h2>
+                <button class="btn-theme-switcher" onclick="cycleTheme()" title="Change Theme">🎨 Theme</button>
+            </div>
             <p>அரசுப் பணி கனவை நனவாக்க இப்போதே தொடங்குங்கள்!</p>
+            <div style="margin-top: 10px;">
+                <button class="btn-top-social btn-telegram" onclick="openQuoteModal()" style="font-size: 12px; padding: 8px 16px; background: rgba(0, 242, 254, 0.2); border-color: var(--accent-cyan); animation: quoteZoomAndLight 5s infinite ease-in-out;">💡 இன்றைய சிந்தனை (Click Here)</button>
+            </div>
         </div>
 
-        <!-- Notice Corner with Horizontal Header Actions -->
+        <!-- Notice Corner -->
         <div class="notice-corner">
             <div class="notice-header">
                 <span>🐅 TIGER WARRIORS | நடப்பு நிகழ்வுகள்</span>
                 <div class="header-actions">
                     <a id="display-news-video" class="news-video-btn" href="#" target="_blank">🎥 Video</a>
                     <a id="display-news-pdf" class="news-pdf-btn" href="#" target="_blank">📥 PDF</a>
-                    <button class="news-audio-btn" onclick="playCurrentNewsVoice()" title="Listen Voice Over">🔊 Listen</button>
                 </div>
             </div>
             <div class="news-content-box" onclick="openCurrentNewsModal()">
@@ -294,18 +369,14 @@
                     <div class="notice-body" id="display-notice-text">செய்திகள் ஏற்றப்படுகின்றன...</div>
                 </div>
             </div>
-            <div style="text-align: center; padding-top: 2px;">
+            <div class="live-datetime-container">
+                <a href="https://t.me/+RNZzz8tk4cRkYTBl" target="_blank" class="btn-top-social btn-telegram" title="Join Telegram Group">✈️ Telegram</a>
                 <span class="live-datetime-tag" id="embedded-live-dt">📅 Loading...</span>
+                <a href="https://chat.whatsapp.com/K7kbJ0a7DwN3pbTMyqplgD" target="_blank" class="btn-top-social btn-whatsapp" title="Join WhatsApp Group">💬 WhatsApp</a>
             </div>
         </div>
 
-        <!-- Daily Quote Box -->
-        <div class="notice-corner" style="border-color: var(--accent-cyan); background: linear-gradient(135deg, rgba(0,242,254,0.1), rgba(0,0,0,0.2)); box-shadow: 0 0 15px rgba(0,242,254,0.2); animation: none;">
-            <div class="notice-header" style="color: var(--accent-cyan);"><span>💡 இன்றைய சிந்தனை (Daily Quote)</span></div>
-            <div class="notice-body" id="display-quote-text">Loading quote...</div>
-        </div>
-
-        <!-- Category Tabs in Exact Requested Order -->
+        <!-- Category Tabs -->
         <div class="category-tabs" id="category-tabs-container"></div>
 
         <!-- Stats Grid -->
@@ -330,7 +401,38 @@
         <div class="test-list" id="test-container"></div>
     </div>
 
-    <!-- Current News Popup Modal with Voice Over (Listen) -->
+    <!-- Modals -->
+    <div class="modal-overlay" id="freeTestModal" onclick="closeFreeTestModal()">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <h3>🎯 Free Test & PYQ</h3>
+            <p style="text-align:center;">தேவையான தேர்வைத் தேர்ந்தெடுக்கவும்:</p>
+            <div class="modal-option-btn" onclick="openSubModal('TNPSC')">🏛️ TNPSC Exams</div>
+            <div class="modal-option-btn" onclick="openSubModal('TRB / NET / SET')">📚 TRB / NET / SET Exams</div>
+            <div class="modal-option-btn" onclick="selectDirectCategory('POLICE')">🛡️ Police Exam</div>
+            <div class="modal-option-btn" onclick="selectDirectCategory('NEET Exam')">🧬 NEET Exam</div>
+            <div class="modal-option-btn" onclick="selectDirectCategory('Railway Exam')">🚆 Railway Exam</div>
+            <div class="modal-option-btn" onclick="selectDirectCategory('Kids Study')">🧸 Kids Study</div>
+            <div class="modal-option-btn" onclick="selectDirectCategory('Free Test & PYQ')">🔥 All Free Tests</div>
+            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:10px;" onclick="closeFreeTestModal()">Close ❌</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="freeTestSubModal" onclick="closeFreeTestSubModal()">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <h3 id="sub-modal-title">📂 பிரிவைத் தேர்ந்தெடுக்கவும்</h3>
+            <div id="sub-modal-options-container" style="display: flex; flex-direction: column; gap: 8px;"></div>
+            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:10px;" onclick="backToFreeTestModal()">⬅️ Back</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="quoteModal" onclick="closeQuoteModal()">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <h3>💡 இன்றைய சிந்தனை</h3>
+            <p id="modal-quote-text">Loading quote...</p>
+            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:10px; font-weight:900;" onclick="closeQuoteModal()">Close ❌</button>
+        </div>
+    </div>
+
     <div class="modal-overlay" id="currentNewsModal" onclick="closeCurrentNewsModal()">
         <div class="modal-box" onclick="event.stopPropagation()">
             <h3>🐅 நடப்பு நிகழ்வுகள்</h3>
@@ -344,7 +446,6 @@
         </div>
     </div>
 
-    <!-- TNPSC Group Selection Modal Popup -->
     <div class="modal-overlay" id="tnpscModal" onclick="closeTnpscModal()">
         <div class="modal-box" onclick="event.stopPropagation()">
             <h3>🏛️ TNPSC Exams</h3>
@@ -358,7 +459,6 @@
         </div>
     </div>
 
-    <!-- TRB / NET / SET Department Selection Modal Popup -->
     <div class="modal-overlay" id="trbModal" onclick="closeTrbModal()">
         <div class="modal-box" onclick="event.stopPropagation()">
             <h3>📚 TRB / NET / SET Exams</h3>
@@ -373,7 +473,6 @@
         </div>
     </div>
 
-    <!-- Donation Modal Popup -->
     <div class="donation-modal" id="donationModal" onclick="closeDonationModal()">
         <div class="donation-box" onclick="event.stopPropagation()">
             <h3 style="color: var(--warning);">💖 ஆதரவு கரம் (Donation)</h3>
@@ -385,7 +484,6 @@
         </div>
     </div>
 
-    <!-- Full Announcement Modal -->
     <div class="announcement-modal" id="announcementModal" onclick="closeAnnouncement()">
         <div class="announcement-box" onclick="event.stopPropagation()">
             <h3 style="color: var(--warning);">🐅 TIGER WARRIORS | நடப்பு நிகழ்வுகள் மற்றும் செய்திகள்</h3>
@@ -394,16 +492,12 @@
         </div>
     </div>
 
-    <!-- Admin Modal Panel -->
     <div class="admin-modal-overlay" id="adminModal">
         <div class="admin-modal-box">
             <h3 style="color: var(--accent-cyan);">⚙️ Google Sheets Cloud Admin</h3>
             <p style="font-size: 11px; color: var(--text-muted);">இங்கு டெஸ்ட் சேர்த்தால் அது நேரடியாக Google Sheet-க்கு செல்லும்!</p>
-            
             <hr style="border-color: rgba(255,255,255,0.15);">
-            
             <input type="text" id="admin-title" placeholder="Test Name (e.g., UNIT 1)">
-            
             <label>Category:</label>
             <select id="admin-category" onchange="toggleDeptSelect()">
                 <option value="Kids Study">🧸 Kids Study</option>
@@ -413,8 +507,8 @@
                 <option value="POLICE">🛡️ Police Exam</option>
                 <option value="NEET Exam">🧬 NEET Exam</option>
                 <option value="Railway Exam">🚆 Railway Exam</option>
+                <option value="Free Test & PYQ">🎯 Free Test & PYQ</option>
             </select>
-
             <div id="dept-select-group" style="display:none; flex-direction:column; gap:4px;">
                 <label>Department / Group:</label>
                 <select id="admin-department">
@@ -424,10 +518,8 @@
                     <option value="Group 4">Group 4</option>
                 </select>
             </div>
-
             <input type="text" id="admin-time" placeholder="Duration" value="60 Mins • 50 Qs">
             <input type="text" id="admin-link" placeholder="Test URL (https://...)">
-            
             <div style="display: flex; gap: 10px; margin-top: 10px;">
                 <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; padding:8px;" onclick="closeAdminModal()">Close</button>
                 <button class="btn-start" style="padding:8px;" onclick="saveToGoogleSheetCloud()">Publish Live ☁️🚀</button>
@@ -465,12 +557,76 @@
 
         function openDonationModal() { document.getElementById('donationModal').style.display = 'flex'; }
         function closeDonationModal() { document.getElementById('donationModal').style.display = 'none'; }
+        
+        function openQuoteModal() {
+            document.getElementById('modal-quote-text').textContent = quoteMessage || "இன்றைய சிந்தனை: விடாமுயற்சி விஸ்வரூப வெற்றி தரும்!";
+            document.getElementById('quoteModal').style.display = 'flex';
+        }
+        function closeQuoteModal() { document.getElementById('quoteModal').style.display = 'none'; }
+
         function copyUpiId() {
             navigator.clipboard.writeText("9790933025");
             alert("✅ UPI எண் (9790933025) நகலெடுக்கப்பட்டது!");
         }
 
-        // Current News Popup Actions with Voice Over inside Modal
+        function openFreeTestModal() { document.getElementById('freeTestModal').style.display = 'flex'; }
+        function closeFreeTestModal() { document.getElementById('freeTestModal').style.display = 'none'; }
+        function closeFreeTestSubModal() { document.getElementById('freeTestSubModal').style.display = 'none'; }
+        function backToFreeTestModal() {
+            document.getElementById('freeTestSubModal').style.display = 'none';
+            document.getElementById('freeTestModal').style.display = 'flex';
+        }
+
+        function openSubModal(categoryType) {
+            document.getElementById('freeTestModal').style.display = 'none';
+            const subTitle = document.getElementById('sub-modal-title');
+            const container = document.getElementById('sub-modal-options-container');
+            container.innerHTML = "";
+
+            if (categoryType === 'TNPSC') {
+                subTitle.textContent = "🏛️ TNPSC பிரிவுகள்";
+                ['Group 1', 'Group 2', 'Group 2A', 'Group 4', 'ALL'].forEach(g => {
+                    const btn = document.createElement('div');
+                    btn.className = 'modal-option-btn';
+                    btn.textContent = g === 'ALL' ? "🔥 All TNPSC Groups" : `🏛️ ${g}`;
+                    btn.onclick = () => { closeFreeTestSubModal(); selectTnpscGroup(g); };
+                    container.appendChild(btn);
+                });
+            } else if (categoryType === 'TRB / NET / SET') {
+                subTitle.textContent = "📚 TRB / NET / SET துறைகள்";
+                ['தமிழ் துறை', 'வேதியியல் துறை', 'இயற்பியல் துறை', 'விலங்கியல் துறை', 'தாவரவியல் துறை', 'ALL'].forEach(d => {
+                    const btn = document.createElement('div');
+                    btn.className = 'modal-option-btn';
+                    btn.textContent = d === 'ALL' ? "🔥 All Departments" : getDeptEmoji(d) + " " + d;
+                    btn.onclick = () => { closeFreeTestSubModal(); selectTrbDept(d); };
+                    container.appendChild(btn);
+                });
+            }
+            document.getElementById('freeTestSubModal').style.display = 'flex';
+        }
+
+        function getDeptEmoji(d) {
+            if(d.includes('தமிழ்')) return '📖';
+            if(d.includes('வேதியியல்')) return '🧪';
+            if(d.includes('இயற்பியல்')) return '⚡';
+            if(d.includes('விலங்கியல்')) return '🧬';
+            if(d.includes('தாவரவியல்')) return '🌿';
+            return '📚';
+        }
+
+        function selectDirectCategory(catName) {
+            closeFreeTestModal();
+            currentFilterCategory = catName;
+            currentFilterSubCategory = 'ALL';
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                if(btn.textContent.includes('Free Test') && catName === 'Free Test & PYQ') btn.classList.add('active');
+                else if(btn.textContent.includes(catName)) btn.classList.add('active');
+                else btn.classList.remove('active');
+            });
+            renderTests();
+            scrollToTests();
+        }
+
         function openCurrentNewsModal() {
             if(!newsList || newsList.length === 0) return;
             let currentItem = newsList[currentNewsIndex];
@@ -479,19 +635,11 @@
             const vBtn = document.getElementById('modal-news-video-btn');
             const pBtn = document.getElementById('modal-news-pdf-btn');
             
-            if(currentItem.video && currentItem.video.trim() !== "") {
-                vBtn.href = currentItem.video;
-                vBtn.style.display = "inline-block";
-            } else {
-                vBtn.style.display = "none";
-            }
+            vBtn.style.display = (currentItem.video && currentItem.video.trim() !== "") ? "inline-block" : "none";
+            if(currentItem.video) vBtn.href = currentItem.video;
 
-            if(currentItem.pdf && currentItem.pdf.trim() !== "") {
-                pBtn.href = currentItem.pdf;
-                pBtn.style.display = "inline-block";
-            } else {
-                pBtn.style.display = "none";
-            }
+            pBtn.style.display = (currentItem.pdf && currentItem.pdf.trim() !== "") ? "inline-block" : "none";
+            if(currentItem.pdf) pBtn.href = currentItem.pdf;
 
             document.getElementById('currentNewsModal').style.display = 'flex';
         }
@@ -503,14 +651,12 @@
                 return;
             }
             window.speechSynthesis.cancel();
-            let currentText = newsList[currentNewsIndex].text;
-            let utterance = new SpeechSynthesisUtterance(currentText);
+            let utterance = new SpeechSynthesisUtterance(newsList[currentNewsIndex].text);
             utterance.lang = 'ta-IN';
             utterance.rate = 0.9;
             window.speechSynthesis.speak(utterance);
         }
 
-        // TNPSC Modal Actions
         function openTnpscModal() { document.getElementById('tnpscModal').style.display = 'flex'; }
         function closeTnpscModal() { document.getElementById('tnpscModal').style.display = 'none'; }
         function selectTnpscGroup(groupName) {
@@ -525,7 +671,6 @@
             scrollToTests();
         }
 
-        // TRB / NET / SET Modal Actions
         function openTrbModal() { document.getElementById('trbModal').style.display = 'flex'; }
         function closeTrbModal() { document.getElementById('trbModal').style.display = 'none'; }
         function selectTrbDept(deptName) {
@@ -547,7 +692,8 @@
             { id: 'TNPSC', name: '🏛️ TNPSC' },
             { id: 'POLICE', name: '🛡️ Police Exam' },
             { id: 'NEET Exam', name: '🧬 NEET Exam' },
-            { id: 'Railway Exam', name: '🚆 Railway Exam' }
+            { id: 'Railway Exam', name: '🚆 Railway Exam' },
+            { id: 'Free Test & PYQ', name: '🎯 Free Test & PYQ' }
         ];
 
         function cycleTheme() {
@@ -573,32 +719,20 @@
                             video: item.video || ""
                         }));
                     }
-                    if (data && data.news) {
-                        if(Array.isArray(data.news)) {
-                            newsList = data.news.map(n => {
-                                if(typeof n === 'string') return { text: n, img: "", pdf: "", video: "" };
-                                return { text: n.text || "", img: n.img || "", pdf: n.pdf || "", video: n.video || "" };
-                            });
-                        }
+                    if (data && data.news && Array.isArray(data.news)) {
+                        newsList = data.news.map(n => typeof n === 'string' ? { text: n, img: "", pdf: "", video: "" } : { text: n.text || "", img: n.img || "", pdf: n.pdf || "", video: n.video || "" });
                     }
                     if (data && data.quote) { quoteMessage = data.quote; }
                     initPortal();
                 })
-                .catch(error => {
-                    console.error("Fetch error:", error);
-                    initPortal();
-                });
+                .catch(error => { initPortal(); });
         }
 
         function initPortal() {
             startNewsRotation();
             document.getElementById('modal-notice-text').textContent = newsList.map(n => n.text).join("\n• ");
-            document.getElementById('display-quote-text').textContent = quoteMessage || "இன்றைய சிந்தனை: விடாமுயற்சி விஸ்வரூப வெற்றி தரும்!";
             document.getElementById('attended-tests-count').textContent = attendedCount;
-
-            let savedTheme = localStorage.getItem('tiger_theme_pref') || '';
-            document.body.className = savedTheme;
-
+            document.body.className = localStorage.getItem('tiger_theme_pref') || '';
             renderCategories();
             renderTests();
             startLiveClock();
@@ -609,36 +743,19 @@
             const imgEl = document.getElementById('display-news-img');
             const pdfEl = document.getElementById('display-news-pdf');
             const videoEl = document.getElementById('display-news-video');
-            const audioEl = document.querySelector('.news-audio-btn');
             if(!newsList || newsList.length === 0) return;
 
             let currentItem = newsList[currentNewsIndex];
             noticeEl.textContent = "📌 " + currentItem.text;
             
-            if(currentItem.img && currentItem.img.trim() !== "") {
-                imgEl.src = currentItem.img;
-                imgEl.style.display = "block";
-            } else {
-                imgEl.style.display = "none";
-            }
+            imgEl.src = currentItem.img || "";
+            imgEl.style.display = (currentItem.img && currentItem.img.trim() !== "") ? "block" : "none";
 
-            if(currentItem.pdf && currentItem.pdf.trim() !== "") {
-                pdfEl.href = currentItem.pdf;
-                pdfEl.style.display = "inline-block";
-            } else {
-                pdfEl.style.display = "none";
-            }
+            pdfEl.style.display = (currentItem.pdf && currentItem.pdf.trim() !== "") ? "inline-block" : "none";
+            if(currentItem.pdf) pdfEl.href = currentItem.pdf;
 
-            if(currentItem.video && currentItem.video.trim() !== "") {
-                videoEl.href = currentItem.video;
-                videoEl.style.display = "inline-block";
-            } else {
-                videoEl.style.display = "none";
-            }
-
-            if(audioEl) {
-                audioEl.style.display = "inline-block";
-            }
+            videoEl.style.display = (currentItem.video && currentItem.video.trim() !== "") ? "inline-block" : "none";
+            if(currentItem.video) videoEl.href = currentItem.video;
 
             noticeEl.classList.remove('news-anim');
             void noticeEl.offsetWidth; 
@@ -648,36 +765,17 @@
         function startNewsRotation() {
             updateNewsDisplay();
             if(newsInterval) clearInterval(newsInterval);
-
             newsInterval = setInterval(() => {
                 currentNewsIndex = (currentNewsIndex + 1) % newsList.length;
                 updateNewsDisplay();
             }, 5000); 
         }
 
-        function playCurrentNewsVoice() {
-            if (!('speechSynthesis' in window)) {
-                alert("❌ உங்கள் பிரவுசரில் Voice Over வசதி இல்லை!");
-                return;
-            }
-            window.speechSynthesis.cancel();
-            let currentText = newsList[currentNewsIndex].text;
-            let utterance = new SpeechSynthesisUtterance(currentText);
-            utterance.lang = 'ta-IN';
-            utterance.rate = 0.9;
-            window.speechSynthesis.speak(utterance);
-        }
-
-        function openAnnouncement() { document.getElementById('announcementModal').style.display = 'flex'; }
-        function closeAnnouncement() { document.getElementById('announcementModal').style.display = 'none'; }
-
         function startLiveClock() {
             setInterval(() => {
                 try {
                     const now = new Date();
-                    const dateStr = now.toLocaleDateString('ta-IN', { weekday: 'short', month: 'short', day: 'numeric' });
-                    const timeStr = now.toLocaleTimeString();
-                    document.getElementById('embedded-live-dt').textContent = `📅 ${dateStr} | ⏰ ${timeStr}`;
+                    document.getElementById('embedded-live-dt').textContent = `📅 ${now.toLocaleDateString('ta-IN', { weekday: 'short', month: 'short', day: 'numeric' })} | ⏰ ${now.toLocaleTimeString()}`;
                 } catch(e) {}
             }, 1000);
         }
@@ -690,14 +788,10 @@
                 btn.className = `tab-btn ${currentFilterCategory === cat.id ? 'active' : ''}`;
                 btn.textContent = cat.name;
                 btn.onclick = () => {
-                    if (cat.id === 'TNPSC') {
-                        openTnpscModal();
-                    } else if (cat.id === 'TRB / NET / SET') {
-                        openTrbModal();
-                    } else {
-                        setCategory(cat.id, btn);
-                        scrollToTests();
-                    }
+                    if (cat.id === 'TNPSC') openTnpscModal();
+                    else if (cat.id === 'TRB / NET / SET') openTrbModal();
+                    else if (cat.id === 'Free Test & PYQ') openFreeTestModal();
+                    else { setCategory(cat.id, btn); scrollToTests(); }
                 };
                 container.appendChild(btn);
             });
@@ -705,9 +799,7 @@
 
         function scrollToTests() {
             const anchor = document.getElementById('tests-section-anchor');
-            if (anchor) {
-                anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
+            if (anchor) anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         function verifyAdmin() {
@@ -773,15 +865,8 @@
                 let displayTag = test.category || "";
                 if(test.dept) displayTag += ` • ${test.dept}`;
 
-                let pdfButtonHtml = "";
-                if(test.pdf && test.pdf.trim() !== "") {
-                    pdfButtonHtml = `<a href="${test.pdf}" target="_blank" class="btn-test-pdf">📥 PDF</a>`;
-                }
-
-                let videoButtonHtml = "";
-                if(test.video && test.video.trim() !== "") {
-                    videoButtonHtml = `<a href="${test.video}" target="_blank" class="btn-test-video">🎥 Video</a>`;
-                }
+                let pdfButtonHtml = (test.pdf && test.pdf.trim() !== "") ? `<a href="${test.pdf}" target="_blank" class="btn-test-pdf">📥 PDF</a>` : "";
+                let videoButtonHtml = (test.video && test.video.trim() !== "") ? `<a href="${test.video}" target="_blank" class="btn-test-video">🎥 Video</a>` : "";
 
                 item.innerHTML = `
                     <div class="test-header">
@@ -825,14 +910,7 @@
                 return;
             }
 
-            const newRecord = {
-                id: Date.now(),
-                title: title,
-                category: category,
-                dept: dept,
-                time: time || "60 Mins • 50 Qs",
-                link: link
-            };
+            const newRecord = { id: Date.now(), title, category, dept, time: time || "60 Mins • 50 Qs", link };
 
             fetch(GOOGLE_SCRIPT_URL, {
                 method: "POST",
@@ -845,9 +923,7 @@
                 document.getElementById('admin-link').value = "";
                 closeAdminModal();
                 setTimeout(fetchSheetData, 2000);
-            }).catch(err => {
-                alert("❌ பிழை ஏற்பட்டது: " + err);
-            });
+            }).catch(err => { alert("❌ பிழை ஏற்பட்டது: " + err); });
         }
 
         function deleteTest(id) {
