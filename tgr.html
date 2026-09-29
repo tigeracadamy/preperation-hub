@@ -35,7 +35,7 @@
             --btn-mild-hover: rgba(16, 185, 129, 0.2);
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; scroll-behavior: smooth; }
         body { background-color: var(--bg-color); color: var(--text-main); padding: 15px; display: flex; justify-content: center; }
         
         .main-container { width: 100%; max-width: 480px; display: flex; flex-direction: column; gap: 15px; transition: all 0.3s ease; }
@@ -69,7 +69,7 @@
         .brand-sub { font-size: 9px; color: var(--accent-cyan); font-weight: bold; }
         .top-right-actions { display: flex; align-items: center; gap: 6px; }
 
-        .btn-theme-switcher {
+        .btn-theme-switcher, .btn-top-donate {
             background: var(--btn-mild);
             color: var(--accent-cyan);
             border: 1px solid var(--card-border);
@@ -79,6 +79,7 @@
             font-weight: bold;
             cursor: pointer;
         }
+        .btn-top-donate { color: var(--warning); border-color: var(--warning); background: rgba(251, 191, 36, 0.1); }
 
         .badge-year { background: rgba(245, 158, 11, 0.1); color: var(--warning); border: 1px solid var(--warning); padding: 3px 8px; border-radius: 20px; font-size: 11px; font-weight: bold; }
 
@@ -120,16 +121,16 @@
             display: flex;
             flex-direction: column;
             gap: 8px;
-            cursor: pointer;
             animation: goldSubtlePulse 3s infinite ease-in-out;
         }
         .notice-header { display: flex; justify-content: space-between; align-items: center; font-size: 11px; font-weight: bold; color: #fde047; flex-wrap: wrap; gap: 4px; }
+        .header-actions { display: flex; gap: 5px; align-items: center; }
         .live-datetime-tag { background: rgba(0,0,0,0.4); padding: 2px 6px; border-radius: 4px; font-size: 10px; color: var(--accent-cyan); border: 1px solid rgba(0,242,254,0.3); }
         
-        .news-content-box { display: flex; align-items: center; gap: 10px; }
+        .news-content-box { display: flex; align-items: center; gap: 10px; cursor: pointer; }
         .news-img { width: 55px; height: 55px; border-radius: 8px; object-fit: cover; border: 1px solid var(--accent-cyan); display: none; flex-shrink: 0; }
         
-        .notice-body-wrapper { overflow: hidden; position: relative; min-height: 24px; flex-grow: 1; }
+        .notice-body-wrapper { overflow: hidden; position: relative; min-height: 28px; flex-grow: 1; }
         .notice-body { 
             font-size: 12px; 
             color: var(--text-main); 
@@ -139,20 +140,18 @@
             width: 100%;
         }
 
-        .news-actions { display: flex; gap: 6px; align-items: center; flex-shrink: 0; }
-        .news-audio-btn, .news-pdf-btn {
+        .news-audio-btn, .news-pdf-btn, .news-video-btn {
             background: rgba(0, 242, 254, 0.15);
             border: 1px solid var(--accent-cyan);
             color: var(--accent-cyan);
-            padding: 5px 8px;
-            border-radius: 6px;
-            font-size: 11px;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-size: 10px;
             cursor: pointer;
             font-weight: bold;
             text-decoration: none;
             display: none;
         }
-        .news-audio-btn { display: inline-block; }
 
         @keyframes zoomInOutMerge {
             0% { transform: scale(0.6); opacity: 0; filter: blur(4px); }
@@ -190,6 +189,14 @@
         .sub-tab-btn { background: var(--btn-mild); border: 1px solid var(--card-border); color: var(--text-muted); padding: 8px 14px; border-radius: 8px; font-size: 12px; font-weight: bold; cursor: pointer; white-space: nowrap; }
         .sub-tab-btn.active { background: rgba(0, 242, 254, 0.2); border-color: var(--accent-cyan); color: var(--accent-cyan); }
 
+        /* Donation Modal Popup */
+        .donation-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); justify-content: center; align-items: center; z-index: 3000; padding: 20px; }
+        .donation-box { background: var(--card-bg); border: 1px solid var(--warning); border-radius: 16px; padding: 20px; width: 100%; max-width: 360px; display: flex; flex-direction: column; gap: 12px; text-align: center; box-shadow: 0 0 25px rgba(251, 191, 36, 0.3); }
+        .donation-box h3 { font-size: 15px; color: var(--warning); font-weight: 900; }
+        .donation-box p { font-size: 12px; color: var(--text-main); line-height: 1.4; font-weight: bold; }
+        .qr-img { width: 180px; height: 180px; margin: 0 auto; border-radius: 10px; border: 2px solid var(--warning); background: #fff; padding: 5px; }
+        .upi-box { background: rgba(0,0,0,0.5); border: 1px solid var(--card-border); padding: 8px; border-radius: 8px; color: var(--accent-cyan); font-size: 13px; font-weight: bold; cursor: pointer; }
+
         .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         .stat-box { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 15px; display: flex; justify-content: space-between; align-items: center; }
         .stat-info span { font-size: 11px; color: var(--text-muted); font-weight: bold; }
@@ -206,9 +213,10 @@
         .test-title { font-size: 15px; font-weight: 900; color: var(--text-main); }
         .test-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 8px; border-top: 1px solid rgba(255, 255, 255, 0.05); font-size: 11px; color: var(--text-muted); font-weight: bold; }
         
-        .test-action-btns { display: flex; gap: 6px; align-items: center; }
-        .btn-start { background: linear-gradient(135deg, var(--accent-cyan) 0%, #4facfe 100%); color: #000; border: none; padding: 6px 12px; border-radius: 6px; font-size: 11px; font-weight: 900; cursor: pointer; text-decoration: none; }
-        .btn-test-pdf { background: rgba(251, 191, 36, 0.15); border: 1px solid var(--warning); color: var(--warning); padding: 6px 10px; border-radius: 6px; font-size: 11px; font-weight: 900; cursor: pointer; text-decoration: none; }
+        .test-action-btns { display: flex; gap: 5px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
+        .btn-start { background: linear-gradient(135deg, var(--accent-cyan) 0%, #4facfe 100%); color: #000; border: none; padding: 5px 10px; border-radius: 6px; font-size: 11px; font-weight: 900; cursor: pointer; text-decoration: none; }
+        .btn-test-pdf { background: rgba(251, 191, 36, 0.15); border: 1px solid var(--warning); color: var(--warning); padding: 5px 8px; border-radius: 6px; font-size: 10px; font-weight: 900; cursor: pointer; text-decoration: none; display: none; }
+        .btn-test-video { background: rgba(251, 191, 36, 0.15); border: 1px solid var(--warning); color: var(--warning); padding: 5px 8px; border-radius: 6px; font-size: 10px; font-weight: 900; cursor: pointer; text-decoration: none; display: inline-block; }
 
         .announcement-modal, .admin-modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); justify-content: center; align-items: center; z-index: 2000; padding: 20px; }
         .announcement-box, .admin-modal-box { background: var(--card-bg); border: 1px solid var(--warning); border-radius: 16px; padding: 20px; width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 12px; text-align: center; }
@@ -219,7 +227,7 @@
 <body id="body-theme">
 
     <div class="main-container">
-        <!-- Top Bar with Secret Triple-Tap Admin Trigger on Logo -->
+        <!-- Top Bar with Logo, Theme, Donation Button & Secret Admin Trigger -->
         <div class="top-bar">
             <div class="brand-box" onclick="handleSecretAdminTap()" title="Tap 3 times">
                 <div class="brand-logo-single">🐯⚔️</div>
@@ -230,6 +238,7 @@
                 <div class="brand-logo-single">⚔️🔥</div>
             </div>
             <div class="top-right-actions">
+                <button class="btn-top-donate" onclick="openDonationModal()">💖 Donate</button>
                 <button class="btn-theme-switcher" onclick="cycleTheme()">🎨 Theme</button>
                 <div class="badge-year">2026</div>
             </div>
@@ -242,21 +251,24 @@
             <p>அரசுப் பணி கனவை நனவாக்க இப்போதே தொடங்குங்கள்!</p>
         </div>
 
-        <!-- Notice Corner with Image, Voice, PDF Download & Rotating News -->
+        <!-- Notice Corner with PDF/Video/Audio buttons in Header -->
         <div class="notice-corner">
-            <div class="notice-header" onclick="openAnnouncement()">
+            <div class="notice-header">
                 <span>🐅 TIGER WARRIORS | நடப்பு நிகழ்வுகள்</span>
-                <span class="live-datetime-tag" id="embedded-live-dt">📅 Loading...</span>
-            </div>
-            <div class="news-content-box">
-                <img id="display-news-img" class="news-img" src="" alt="News Image">
-                <div class="notice-body-wrapper" onclick="openAnnouncement()">
-                    <div class="notice-body" id="display-notice-text">செய்திகள் ஏற்றப்படுகின்றன...</div>
-                </div>
-                <div class="news-actions">
+                <div class="header-actions">
+                    <a id="display-news-video" class="news-video-btn" href="#" target="_blank">🎥 Video</a>
                     <a id="display-news-pdf" class="news-pdf-btn" href="#" target="_blank">📥 PDF</a>
                     <button class="news-audio-btn" onclick="playCurrentNewsVoice()" title="Listen Voice Over">🔊 Listen</button>
                 </div>
+            </div>
+            <div class="news-content-box" onclick="openAnnouncement()">
+                <img id="display-news-img" class="news-img" src="" alt="News Image">
+                <div class="notice-body-wrapper">
+                    <div class="notice-body" id="display-notice-text">செய்திகள் ஏற்றப்படுகின்றன...</div>
+                </div>
+            </div>
+            <div style="font-size: 9px; color: var(--text-muted); text-align: right; padding-top: 2px;">
+                <span class="live-datetime-tag" id="embedded-live-dt">📅 Loading...</span>
             </div>
         </div>
 
@@ -266,7 +278,7 @@
             <div class="notice-body" id="display-quote-text">Loading quote...</div>
         </div>
 
-        <!-- Category Tabs -->
+        <!-- Category Tabs with Kids Study First -->
         <div class="category-tabs" id="category-tabs-container"></div>
         <div class="sub-category-bar" id="sub-category-bar"></div>
 
@@ -283,13 +295,25 @@
         </div>
 
         <!-- Search Unit -->
-        <div class="search-box">
+        <div class="search-box" id="tests-section-anchor">
             <span>🔍</span>
             <input type="text" id="search-input" placeholder="Search Unit, Topic, Subject..." onkeyup="filterTests()">
         </div>
 
         <!-- Tests List Container -->
         <div class="test-list" id="test-container"></div>
+    </div>
+
+    <!-- Donation Modal Popup -->
+    <div class="donation-modal" id="donationModal" onclick="closeDonationModal()">
+        <div class="donation-box" onclick="event.stopPropagation()">
+            <h3 style="color: var(--warning);">💖 ஆதரவு கரம் (Donation)</h3>
+            <p>உங்களால் முடிந்த நிதி உதவி மற்றும் ஆதரவை தாருங்கள்!</p>
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=upi://pay?pa=9790933025@kotakbank%26pn=MANIKASI%26cu=INR" alt="UPI QR Code" class="qr-img">
+            <div style="font-size: 11px; color: var(--text-muted); font-weight: bold;">📱 GPay / PhonePe எண் (நகலெடுக்க கிளிக் செய்யவும்):</div>
+            <div class="upi-box" onclick="copyUpiId()" title="Click to Copy">9790933025 📋</div>
+            <button class="btn-start" style="background: rgba(255,255,255,0.1); color:#fff; margin-top:5px;" onclick="closeDonationModal()">Close ❌</button>
+        </div>
     </div>
 
     <!-- Full Announcement Modal -->
@@ -313,6 +337,7 @@
             
             <label>Category:</label>
             <select id="admin-category" onchange="toggleDeptSelect()">
+                <option value="Kids Study">🧸 Kids Study</option>
                 <option value="TNPSC">TNPSC</option>
                 <option value="TRB / NET / SET">TRB / NET / SET</option>
                 <option value="NEET Exam">NEET Exam</option>
@@ -342,10 +367,10 @@
 
     <script>
         const getAdminKey = () => "tiger" + "2026";
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzB7OsBtzhafvK0h-Fuh_Pf264T1LhZhvDy5acKULTPnIQIGumadD_mb_G0Q-ZR9OPUyg/exec";
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyRw6dQOMi1JD2ByPTn3IiG_4CoWhpoqj1SMmARaWAb4xwYK15gRDx1FZ_xDyQgxkC2bw/exec";
 
         let tests = [];
-        let newsList = [{ text: "அனைத்துத் தேர்வுகளுக்கான யூனிட்கள் ஆன்லைனில் இணைக்கப்பட்டுள்ளன!", img: "", pdf: "" }];
+        let newsList = [{ text: "அனைத்துத் தேர்வுகளுக்கான யூனிட்கள் ஆன்லைனில் இணைக்கப்பட்டுள்ளன!", img: "", pdf: "", video: "" }];
         let quoteMessage = "";
         let currentNewsIndex = 0;
         let newsInterval = null;
@@ -368,7 +393,15 @@
             }
         }
 
+        function openDonationModal() { document.getElementById('donationModal').style.display = 'flex'; }
+        function closeDonationModal() { document.getElementById('donationModal').style.display = 'none'; }
+        function copyUpiId() {
+            navigator.clipboard.writeText("9790933025");
+            alert("✅ UPI எண் (9790933025) நகலெடுக்கப்பட்டது!");
+        }
+
         const categories = [
+            { id: 'Kids Study', name: '🧸 Kids Study' },
             { id: 'ALL', name: '🔥 All Tests' },
             { id: 'TNPSC', name: '🏛️ TNPSC' },
             { id: 'TRB / NET / SET', name: '📚 TRB / NET / SET' },
@@ -396,14 +429,15 @@
                             dept: item.dept || "",
                             time: item.time || "60 Mins • 50 Qs",
                             link: item.link || "#",
-                            pdf: item.pdf || ""
+                            pdf: item.pdf || "",
+                            video: item.video || ""
                         }));
                     }
                     if (data && data.news) {
                         if(Array.isArray(data.news)) {
                             newsList = data.news.map(n => {
-                                if(typeof n === 'string') return { text: n, img: "", pdf: "" };
-                                return { text: n.text || "", img: n.img || "", pdf: n.pdf || "" };
+                                if(typeof n === 'string') return { text: n, img: "", pdf: "", video: "" };
+                                return { text: n.text || "", img: n.img || "", pdf: n.pdf || "", video: n.video || "" };
                             });
                         }
                     }
@@ -435,6 +469,7 @@
             const noticeEl = document.getElementById('display-notice-text');
             const imgEl = document.getElementById('display-news-img');
             const pdfEl = document.getElementById('display-news-pdf');
+            const videoEl = document.getElementById('display-news-video');
             if(!newsList || newsList.length === 0) return;
 
             let currentItem = newsList[currentNewsIndex];
@@ -452,6 +487,13 @@
                 pdfEl.style.display = "inline-block";
             } else {
                 pdfEl.style.display = "none";
+            }
+
+            if(currentItem.video && currentItem.video.trim() !== "") {
+                videoEl.href = currentItem.video;
+                videoEl.style.display = "inline-block";
+            } else {
+                videoEl.style.display = "none";
             }
 
             noticeEl.classList.remove('news-anim');
@@ -503,7 +545,10 @@
                 const btn = document.createElement('button');
                 btn.className = `tab-btn ${currentFilterCategory === cat.id ? 'active' : ''}`;
                 btn.textContent = cat.name;
-                btn.onclick = () => setCategory(cat.id, btn);
+                btn.onclick = () => {
+                    setCategory(cat.id, btn);
+                    scrollToTests();
+                };
                 container.appendChild(btn);
             });
         }
@@ -517,7 +562,10 @@
                     const btn = document.createElement('button');
                     btn.className = `sub-tab-btn ${currentFilterSubCategory === d ? 'active' : ''}`;
                     btn.textContent = d === 'ALL' ? 'All Depts' : d;
-                    btn.onclick = () => setSubCategory(d, btn);
+                    btn.onclick = () => {
+                        setSubCategory(d, btn);
+                        scrollToTests();
+                    };
                     subBar.appendChild(btn);
                 });
             } else if (currentFilterCategory === 'TNPSC') {
@@ -526,11 +574,21 @@
                     const btn = document.createElement('button');
                     btn.className = `sub-tab-btn ${currentFilterSubCategory === g ? 'active' : ''}`;
                     btn.textContent = g === 'ALL' ? 'All Groups' : g;
-                    btn.onclick = () => setSubCategory(g, btn);
+                    btn.onclick = () => {
+                        setSubCategory(g, btn);
+                        scrollToTests();
+                    };
                     subBar.appendChild(btn);
                 });
             } else {
                 subBar.style.display = 'none';
+            }
+        }
+
+        function scrollToTests() {
+            const anchor = document.getElementById('tests-section-anchor');
+            if (anchor) {
+                anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         }
 
@@ -607,7 +665,12 @@
 
                 let pdfButtonHtml = "";
                 if(test.pdf && test.pdf.trim() !== "") {
-                    pdfButtonHtml = `<a href="${test.pdf}" target="_blank" class="btn-test-pdf">📥 PDF Notes</a>`;
+                    pdfButtonHtml = `<a href="${test.pdf}" target="_blank" class="btn-test-pdf">📥 PDF</a>`;
+                }
+
+                let videoButtonHtml = "";
+                if(test.video && test.video.trim() !== "") {
+                    videoButtonHtml = `<a href="${test.video}" target="_blank" class="btn-test-video">🎥 Video</a>`;
                 }
 
                 item.innerHTML = `
@@ -622,6 +685,7 @@
                     <div class="test-footer">
                         <span>⏱️ ${test.time || "60 Mins • 50 Qs"}</span>
                         <div class="test-action-btns">
+                            ${videoButtonHtml}
                             ${pdfButtonHtml}
                             <a href="${test.link}" target="_blank" class="btn-start" onclick="incrementAttended()">START TEST 🚀</a>
                         </div>
