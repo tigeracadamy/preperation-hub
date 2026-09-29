@@ -42,8 +42,6 @@
 
         @media(min-width: 768px) {
             .main-container { max-width: 850px; padding: 30px; gap: 15px; }
-            .category-tabs { grid-template-columns: repeat(3, 1fr) !important; gap: 15px !important; }
-            .tab-btn { font-size: 24px !important; padding: 24px 20px !important; }
             .hero-banner { padding: 15px !important; }
             .hero-banner h2 { font-size: 24px !important; }
             .hero-banner p { font-size: 16px !important; }
@@ -64,7 +62,6 @@
             box-shadow: 0 0 20px rgba(0,0,0,0.6);
         }
 
-        /* Y-Axis 360 Degree 3D Spin Animation with 5 Seconds Pause */
         @keyframes yAxisSpinWithPause {
             0% { transform: perspective(600px) rotateY(0deg) scale(1); filter: drop-shadow(0 0 4px var(--accent-cyan)); }
             15% { transform: perspective(600px) rotateY(360deg) scale(1.15); filter: drop-shadow(0 0 15px var(--warning)); }
@@ -104,76 +101,79 @@
             padding: 14px;
             box-shadow: 0 0 20px var(--accent-glow);
             text-align: center;
+            position: relative;
         }
 
-        @keyframes flowerBloom {
-            0% { transform: scale(0.3) translateY(15px); opacity: 0; filter: blur(4px); }
-            60% { transform: scale(1.1) translateY(-3px); opacity: 1; filter: blur(0px); }
-            100% { transform: scale(1) translateY(0); opacity: 1; }
-        }
-
-        @keyframes bulbGlowPulse {
-            0%, 100% { text-shadow: 0 0 5px #fbbf24, 0 0 10px #fbbf24; transform: scale(1); }
-            50% { text-shadow: 0 0 15px #fbbf24, 0 0 25px #f59e0b; transform: scale(1.08); }
-        }
-
-        @keyframes quoteZoomAndLight {
-            0%, 100% { transform: scale(1) translateY(0); box-shadow: 0 0 5px rgba(0,242,254,0.3); filter: brightness(1); }
-            20% { transform: scale(1.06) translateY(3px); box-shadow: 0 0 20px #fbbf24, inset 0 0 10px #fbbf24; filter: brightness(1.3); }
-            40% { transform: scale(0.96) translateY(-3px); box-shadow: 0 0 10px rgba(0,242,254,0.6); filter: brightness(1.1); }
-            60% { transform: scale(1.03) translateY(2px); box-shadow: 0 0 15px #00f2fe; filter: brightness(1.2); }
+        @keyframes missionFireSpin3D {
+            0% { transform: perspective(800px) rotateY(0deg) scale(1); box-shadow: none; border-color: rgba(255, 255, 255, 0.3); }
+            10% { transform: perspective(800px) rotateY(360deg) scale(1.12); box-shadow: 0 0 25px #fbbf24, inset 0 0 12px #f59e0b; background: linear-gradient(90deg, #d97706, #fbbf24); color: #000; border-color: #fff; text-shadow: 0 0 8px #fff; }
+            20% { transform: perspective(800px) rotateY(360deg) scale(1); box-shadow: none; border-color: rgba(255, 255, 255, 0.3); background: linear-gradient(90deg, #1e293b, #0f172a); color: #ffffff; }
+            100% { transform: perspective(800px) rotateY(360deg) scale(1); }
         }
 
         .mission-tag { 
             color: #ffffff; 
             font-size: 11px; 
             font-weight: 900; 
-            padding: 4px 10px; 
-            border-radius: 4px; 
+            padding: 5px 12px; 
+            border-radius: 6px; 
             display: inline-block; 
-            margin-bottom: 4px; 
+            margin-bottom: 6px; 
             background: linear-gradient(90deg, #1e293b, #0f172a);
             border: 1px solid rgba(255, 255, 255, 0.3); 
             letter-spacing: 0.8px;
             text-transform: uppercase;
-            animation: flowerBloom 1.2s ease-out forwards;
+            animation: missionFireSpin3D 7s infinite cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
         }
 
-        .hero-top-row { display: flex; align-items: center; justify-content: space-between; gap: 4px; margin-bottom: 4px; }
-        
         .hero-banner h2 { 
             font-size: 14px; 
-            margin-bottom: 2px; 
+            margin-bottom: 4px; 
             color: var(--warning); 
             font-weight: 900; 
             letter-spacing: 0.2px; 
             text-shadow: 0 0 10px var(--accent-glow); 
-            flex-grow: 1; 
             text-align: center; 
-            white-space: nowrap; 
             animation: bulbGlowPulse 2s infinite ease-in-out;
         }
 
-        .hero-banner p { font-size: 12px; color: var(--text-main); font-weight: 900; }
+        .hero-banner p { font-size: 12px; color: var(--text-main); font-weight: 900; margin-bottom: 8px; }
+
+        @keyframes bulbGlowPulse {
+            0%, 100% { text-shadow: 0 0 5px #fbbf24, 0 0 10px #fbbf24; transform: scale(1); }
+            50% { text-shadow: 0 0 15px #fbbf24, 0 0 25px #f59e0b; transform: scale(1.08); }
+        }
+
+        @keyframes firePopPulse {
+            0%, 75%, 100% { transform: scale(1); filter: brightness(1); box-shadow: 0 0 5px rgba(251,191,36,0.3); border-color: rgba(251,191,36,0.5); }
+            80% { transform: scale(1.12); filter: brightness(1.4); box-shadow: 0 0 20px #fbbf24, 0 0 30px #ef4444; border-color: #fbbf24; background: rgba(251,191,36,0.25); }
+            85% { transform: scale(0.96); filter: brightness(1.1); }
+            90% { transform: scale(1.06); filter: brightness(1.3); }
+        }
 
         .btn-top-social, .btn-theme-switcher, .btn-top-donate {
             background: var(--btn-mild);
             color: var(--accent-cyan);
             border: 1px solid var(--card-border);
-            padding: 4px 6px;
+            padding: 6px 12px;
             border-radius: 8px;
-            font-size: 9px;
+            font-size: 10px;
             font-weight: 900;
             cursor: pointer;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 2px;
+            gap: 4px;
             white-space: nowrap;
         }
         .btn-top-donate { color: var(--warning); border-color: var(--warning); background: rgba(251, 191, 36, 0.15); }
-        .btn-telegram { color: #00f2fe; border-color: rgba(0,242,254,0.5); background: rgba(0,242,254,0.12); }
-        .btn-whatsapp { color: #10b981; border-color: rgba(16,185,129,0.5); background: rgba(16,185,129,0.12); }
+        .btn-fire-pop {
+            animation: firePopPulse 5s infinite ease-in-out;
+            color: #fbbf24 !important;
+            border-color: rgba(251, 191, 36, 0.6) !important;
+            background: rgba(251, 191, 36, 0.12) !important;
+        }
 
         @keyframes goldSubtlePulse {
             0% { box-shadow: 0 0 6px rgba(217, 119, 6, 0.2); border-color: rgba(217, 119, 6, 0.4); }
@@ -246,16 +246,7 @@
             text-align: center;
         }
 
-        @keyframes zoomInOutMerge {
-            0% { transform: scale(0.6); opacity: 0; filter: blur(4px); }
-            60% { transform: scale(1.05); opacity: 1; filter: blur(0px); }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        .news-anim {
-            animation: zoomInOutMerge 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
-
+        /* 2x4 Grid Method */
         .category-tabs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
         .tab-btn { 
             background: linear-gradient(135deg, rgba(0, 242, 254, 0.18), rgba(11, 19, 38, 0.9)); 
@@ -282,13 +273,13 @@
         .modal-box { background: var(--card-bg); border: 2px solid var(--accent-cyan); border-radius: 18px; padding: 22px; width: 100%; max-width: 360px; display: flex; flex-direction: column; gap: 12px; text-align: center; box-shadow: 0 0 40px var(--accent-glow); max-height: 85vh; overflow-y: auto; }
         .modal-box h3 { font-size: 18px; color: var(--warning); font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px; }
         .modal-box p { font-size: 15px; color: var(--text-main); font-weight: 900; line-height: 1.55; text-align: left; background: rgba(0,0,0,0.4); padding: 12px; border-radius: 10px; border: 1px solid var(--card-border); }
-        .modal-option-btn { background: linear-gradient(135deg, rgba(0,242,254,0.25), rgba(11,19,38,0.95)); border: 1px solid var(--accent-cyan); color: var(--accent-cyan); padding: 11px 12px; border-radius: 10px; font-size: 13px; font-weight: 900; cursor: pointer; text-align: center; transition: all 0.2s; text-decoration: none; display: inline-block; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        .modal-option-btn { background: linear-gradient(135deg, rgba(0,242,254,0.25), rgba(11,19,38,0.95)); border: 1px solid var(--accent-cyan); color: var(--accent-cyan); padding: 11px 12px; border-radius: 10px; font-size: 13px; font-weight: 900; cursor: pointer; text-align: center; transition: all 0.2s; text-decoration: none; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
         .modal-option-btn:hover { background: var(--accent-cyan); color: #000; }
 
         .donation-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); justify-content: center; align-items: center; z-index: 3000; padding: 20px; }
         .donation-box { background: var(--card-bg); border: 1px solid var(--warning); border-radius: 16px; padding: 20px; width: 100%; max-width: 360px; display: flex; flex-direction: column; gap: 10px; text-align: center; box-shadow: 0 0 25px rgba(251, 191, 36, 0.3); }
         .donation-box h3 { font-size: 16px; color: var(--warning); font-weight: 900; }
-        .donation-box p { font-size: 13px; color: var(--text-main); line-height: 1.4; font-weight: 900; }
+        .donation-box p { font-size: 13px; color: var(--text-main); line-height: 1.4; font-weight: 900; text-align: left; }
         .qr-img { width: 160px; height: 160px; margin: 0 auto; border-radius: 10px; border: 2px solid var(--warning); background: #fff; padding: 5px; }
         .upi-box { background: rgba(0,0,0,0.5); border: 1px solid var(--card-border); padding: 8px; border-radius: 8px; color: var(--accent-cyan); font-size: 13px; font-weight: 900; cursor: pointer; }
 
@@ -313,6 +304,39 @@
         .btn-test-pdf { background: rgba(251, 191, 36, 0.18); border: 1px solid var(--warning); color: var(--warning); padding: 5px 8px; border-radius: 6px; font-size: 10px; font-weight: 900; cursor: pointer; text-decoration: none; display: none; }
         .btn-test-video { background: rgba(251, 191, 36, 0.18); border: 1px solid var(--warning); color: var(--warning); padding: 5px 8px; border-radius: 6px; font-size: 10px; font-weight: 900; cursor: pointer; text-decoration: none; display: inline-block; }
 
+        /* Bottom Actions for Donate & Theme */
+        .bottom-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 5px;
+        }
+        .btn-bottom {
+            flex: 1;
+            padding: 12px 10px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 900;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+        .btn-bottom-donate {
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(217, 119, 6, 0.5));
+            color: var(--warning);
+            border: 1px solid var(--warning);
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.2);
+        }
+        .btn-bottom-theme {
+            background: linear-gradient(135deg, rgba(0, 242, 254, 0.15), rgba(11, 19, 38, 0.8));
+            color: var(--accent-cyan);
+            border: 1px solid var(--accent-cyan);
+            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.2);
+        }
+
         .announcement-modal, .admin-modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); justify-content: center; align-items: center; z-index: 2000; padding: 20px; }
         .announcement-box, .admin-modal-box { background: var(--card-bg); border: 1px solid var(--warning); border-radius: 16px; padding: 20px; width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 12px; text-align: center; }
         .admin-modal-box { border-color: var(--accent-cyan); text-align: left; }
@@ -324,7 +348,7 @@
     <div class="main-container">
         <!-- Top Bar with Y-Axis 3D Spin Tiger Face & Swords Logo -->
         <div class="top-bar">
-            <div class="brand-box" onclick="handleSecretAdminTap()" title="Tap 3 times">
+            <div class="brand-box" onclick="playClickSound(); handleSecretAdminTap()" title="Tap 3 times">
                 <div class="brand-logo-single">
                     <span>🐯</span>
                     <span>⚔️</span>
@@ -340,43 +364,39 @@
             </div>
         </div>
 
-        <!-- Hero Banner -->
+        <!-- Hero Banner with Centered Quote Button -->
         <div class="hero-banner">
             <span class="mission-tag">🎯 TIGER WARRIORS PREPARATION HUB</span>
-            <div class="hero-top-row">
-                <button class="btn-top-donate" onclick="openDonationModal()" title="Support Us">💖 Donate</button>
-                <h2>💡 FOR DREAM COME TRUE 🔥</h2>
-                <button class="btn-theme-switcher" onclick="cycleTheme()" title="Change Theme">🎨 Theme</button>
-            </div>
+            <h2 style="margin: 4px 0;">💡 FOR DREAM COME TRUE 🔥</h2>
             <p>அரசுப் பணி கனவை நனவாக்க இப்போதே தொடங்குங்கள்!</p>
-            <div style="margin-top: 10px;">
-                <button class="btn-top-social btn-telegram" onclick="openQuoteModal()" style="font-size: 12px; padding: 8px 16px; background: rgba(0, 242, 254, 0.2); border-color: var(--accent-cyan); animation: quoteZoomAndLight 5s infinite ease-in-out;">💡 இன்றைய சிந்தனை (Click Here)</button>
+            <div style="margin-top: 10px; display: flex; justify-content: center;">
+                <button class="btn-top-social btn-fire-pop" onclick="playClickSound(); openQuoteModal()" style="font-size: 12px; padding: 8px 16px;">💡 இன்றைய சிந்தனை (Click Here)</button>
             </div>
         </div>
 
-        <!-- Notice Corner -->
+        <!-- Notice Corner with Fire Pop Social Buttons -->
         <div class="notice-corner">
             <div class="notice-header">
-                <span>🐯 TIGER WARRIORS | நடப்பு நிகழ்வுகள்</span>
+                <span>🐅 TIGER WARRIORS | நடப்பு நிகழ்வுகள்</span>
                 <div class="header-actions">
-                    <a id="display-news-video" class="news-video-btn" href="#" target="_blank">🎥 Video</a>
-                    <a id="display-news-pdf" class="news-pdf-btn" href="#" target="_blank">📥 PDF</a>
+                    <a id="display-news-video" class="news-video-btn" href="#" target="_blank" onclick="playClickSound()">🎥 Video</a>
+                    <a id="display-news-pdf" class="news-pdf-btn" href="#" target="_blank" onclick="playClickSound()">📥 PDF</a>
                 </div>
             </div>
-            <div class="news-content-box" onclick="openCurrentNewsModal()">
+            <div class="news-content-box" onclick="playClickSound(); openCurrentNewsModal()">
                 <img id="display-news-img" class="news-img" src="" alt="News Image">
                 <div class="notice-body-wrapper">
                     <div class="notice-body" id="display-notice-text">செய்திகள் ஏற்றப்படுகின்றன...</div>
                 </div>
             </div>
             <div class="live-datetime-container">
-                <a href="https://t.me/+RNZzz8tk4cRkYTBl" target="_blank" class="btn-top-social btn-telegram" title="Join Telegram Group">✈️ Telegram</a>
+                <a href="https://t.me/+RNZzz8tk4cRkYTBl" target="_blank" class="btn-top-social btn-fire-pop" title="Join Telegram Group" onclick="playClickSound()">✈️ Telegram</a>
                 <span class="live-datetime-tag" id="embedded-live-dt">📅 Loading...</span>
-                <a href="https://chat.whatsapp.com/K7kbJ0a7DwN3pbTMyqplgD" target="_blank" class="btn-top-social btn-whatsapp" title="Join WhatsApp Group">💬 WhatsApp</a>
+                <a href="https://chat.whatsapp.com/K7kbJ0a7DwN3pbTMyqplgD" target="_blank" class="btn-top-social btn-fire-pop" title="Join WhatsApp Group" onclick="playClickSound()">💬 WhatsApp</a>
             </div>
         </div>
 
-        <!-- Category Tabs -->
+        <!-- Category Tabs (Original 2x4 Grid Method with Popup for All Tests) -->
         <div class="category-tabs" id="category-tabs-container"></div>
 
         <!-- Stats Grid -->
@@ -399,21 +419,40 @@
 
         <!-- Tests List Container -->
         <div class="test-list" id="test-container"></div>
+
+        <!-- Bottom Actions for Donate & Theme -->
+        <div class="bottom-actions">
+            <button class="btn-bottom btn-bottom-donate" onclick="playClickSound(); openDonationModal()">
+                <span>💖 Donate</span>
+            </button>
+            <button class="btn-bottom btn-bottom-theme" onclick="playClickSound(); cycleTheme()">
+                <span>🎨 Change Theme</span>
+            </button>
+        </div>
     </div>
 
     <!-- Modals -->
+    <div class="modal-overlay" id="allTestsModal" onclick="closeAllTestsModal()">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <h3 style="color: var(--warning);">🎯 SELECT EXAM CATEGORY</h3>
+            <p style="text-align:center;">தேவையான பிரிவைத் தேர்ந்தெடுக்கவும்:</p>
+            <div id="all-tests-modal-options" style="display: flex; flex-direction: column; gap: 8px;"></div>
+            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:10px;" onclick="playClickSound(); closeAllTestsModal()">Close ❌</button>
+        </div>
+    </div>
+
     <div class="modal-overlay" id="freeTestModal" onclick="closeFreeTestModal()">
         <div class="modal-box" onclick="event.stopPropagation()">
             <h3>🎯 Free Test & PYQ</h3>
             <p style="text-align:center;">தேவையான தேர்வைத் தேர்ந்தெடுக்கவும்:</p>
-            <div class="modal-option-btn" onclick="openSubModal('TNPSC')">🏛️ TNPSC Exams</div>
-            <div class="modal-option-btn" onclick="openSubModal('TRB / NET / SET')">📚 TRB / NET / SET Exams</div>
-            <div class="modal-option-btn" onclick="selectDirectCategory('POLICE')">🛡️ Police Exam</div>
-            <div class="modal-option-btn" onclick="selectDirectCategory('NEET Exam')">🧬 NEET Exam</div>
-            <div class="modal-option-btn" onclick="selectDirectCategory('Railway Exam')">🚆 Railway Exam</div>
-            <div class="modal-option-btn" onclick="selectDirectCategory('Kids Study')">🧸 Kids Study</div>
-            <div class="modal-option-btn" onclick="selectDirectCategory('Free Test & PYQ')">🔥 All Free Tests</div>
-            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:10px;" onclick="closeFreeTestModal()">Close ❌</button>
+            <div class="modal-option-btn" onclick="playClickSound(); openSubModal('TNPSC')">🏛️ TNPSC Exams</div>
+            <div class="modal-option-btn" onclick="playClickSound(); openSubModal('TRB / NET / SET')">📚 TRB / NET / SET Exams</div>
+            <div class="modal-option-btn" onclick="playClickSound(); selectDirectCategory('POLICE')">🛡️ Police Exam</div>
+            <div class="modal-option-btn" onclick="playClickSound(); selectDirectCategory('NEET Exam')">🧬 NEET Exam</div>
+            <div class="modal-option-btn" onclick="playClickSound(); selectDirectCategory('Railway Exam')">🚆 Railway Exam</div>
+            <div class="modal-option-btn" onclick="playClickSound(); selectDirectCategory('Kids Study')">🧸 Kids Study</div>
+            <div class="modal-option-btn" onclick="playClickSound(); selectDirectCategory('Free Test & PYQ')">🔥 All Free Tests</div>
+            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:10px;" onclick="playClickSound(); closeFreeTestModal()">Close ❌</button>
         </div>
     </div>
 
@@ -421,7 +460,7 @@
         <div class="modal-box" onclick="event.stopPropagation()">
             <h3 id="sub-modal-title">📂 பிரிவைத் தேர்ந்தெடுக்கவும்</h3>
             <div id="sub-modal-options-container" style="display: flex; flex-direction: column; gap: 8px;"></div>
-            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:10px;" onclick="backToFreeTestModal()">⬅️ Back</button>
+            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:10px;" onclick="playClickSound(); backToFreeTestModal()">⬅️ Back</button>
         </div>
     </div>
 
@@ -429,7 +468,7 @@
         <div class="modal-box" onclick="event.stopPropagation()">
             <h3>💡 இன்றைய சிந்தனை</h3>
             <p id="modal-quote-text">Loading quote...</p>
-            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:10px; font-weight:900;" onclick="closeQuoteModal()">Close ❌</button>
+            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:10px; font-weight:900;" onclick="playClickSound(); closeQuoteModal()">Close ❌</button>
         </div>
     </div>
 
@@ -438,11 +477,11 @@
             <h3>🐅 நடப்பு நிகழ்வுகள்</h3>
             <p id="modal-current-news-text"></p>
             <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 5px;">
-                <button class="modal-option-btn" onclick="playModalNewsVoice()">🔊 Listen</button>
-                <a id="modal-news-video-btn" href="#" target="_blank" class="modal-option-btn" style="display:none; text-decoration:none;">🎥 Video</a>
-                <a id="modal-news-pdf-btn" href="#" target="_blank" class="modal-option-btn" style="display:none; text-decoration:none;">📥 PDF</a>
+                <button class="modal-option-btn" onclick="playClickSound(); playModalNewsVoice()">🔊 Listen</button>
+                <a id="modal-news-video-btn" href="#" target="_blank" class="modal-option-btn" style="display:none; text-decoration:none;" onclick="playClickSound()">🎥 Video</a>
+                <a id="modal-news-pdf-btn" href="#" target="_blank" class="modal-option-btn" style="display:none; text-decoration:none;" onclick="playClickSound()">📥 PDF</a>
             </div>
-            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:10px; font-weight:900;" onclick="closeCurrentNewsModal()">Close ❌</button>
+            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:10px; font-weight:900;" onclick="playClickSound(); closeCurrentNewsModal()">Close ❌</button>
         </div>
     </div>
 
@@ -450,12 +489,12 @@
         <div class="modal-box" onclick="event.stopPropagation()">
             <h3>🏛️ TNPSC Exams</h3>
             <p style="text-align:center;">தேவையான பிரிவைத் தேர்ந்தெடுக்கவும்:</p>
-            <div class="modal-option-btn" onclick="selectTnpscGroup('Group 1')">🏛️ Group 1</div>
-            <div class="modal-option-btn" onclick="selectTnpscGroup('Group 2')">🏛️ Group 2</div>
-            <div class="modal-option-btn" onclick="selectTnpscGroup('Group 2A')">🏛️ Group 2A</div>
-            <div class="modal-option-btn" onclick="selectTnpscGroup('Group 4')">🏛️ Group 4</div>
-            <div class="modal-option-btn" onclick="selectTnpscGroup('ALL')">🔥 All TNPSC Groups</div>
-            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:10px;" onclick="closeTnpscModal()">Close ❌</button>
+            <div class="modal-option-btn" onclick="playClickSound(); selectTnpscGroup('Group 1')">🏛️ Group 1</div>
+            <div class="modal-option-btn" onclick="playClickSound(); selectTnpscGroup('Group 2')">🏛️ Group 2</div>
+            <div class="modal-option-btn" onclick="playClickSound(); selectTnpscGroup('Group 2A')">🏛️ Group 2A</div>
+            <div class="modal-option-btn" onclick="playClickSound(); selectTnpscGroup('Group 4')">🏛️ Group 4</div>
+            <div class="modal-option-btn" onclick="playClickSound(); selectTnpscGroup('ALL')">🔥 All TNPSC Groups</div>
+            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:10px;" onclick="playClickSound(); closeTnpscModal()">Close ❌</button>
         </div>
     </div>
 
@@ -463,24 +502,24 @@
         <div class="modal-box" onclick="event.stopPropagation()">
             <h3>📚 TRB / NET / SET Exams</h3>
             <p style="text-align:center;">தேவையான துறையைத் தேர்ந்தெடுக்கவும்:</p>
-            <div class="modal-option-btn" onclick="selectTrbDept('தமிழ் துறை')">📖 தமிழ் துறை</div>
-            <div class="modal-option-btn" onclick="selectTrbDept('வேதியியல் துறை')">🧪 வேதியியல் துறை</div>
-            <div class="modal-option-btn" onclick="selectTrbDept('இயற்பியல் துறை')">⚡ இயற்பியல் துறை</div>
-            <div class="modal-option-btn" onclick="selectTrbDept('விலங்கியல் துறை')">🧬 விலங்கியல் துறை</div>
-            <div class="modal-option-btn" onclick="selectTrbDept('தாவரவியல் துறை')">🌿 தாவரவியல் துறை</div>
-            <div class="modal-option-btn" onclick="selectTrbDept('ALL')">🔥 All Departments</div>
-            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:10px;" onclick="closeTrbModal()">Close ❌</button>
+            <div class="modal-option-btn" onclick="playClickSound(); selectTrbDept('தமிழ் துறை')">📖 தமிழ் துறை</div>
+            <div class="modal-option-btn" onclick="playClickSound(); selectTrbDept('வேதியியல் துறை')">🧪 வேதியியல் துறை</div>
+            <div class="modal-option-btn" onclick="playClickSound(); selectTrbDept('இயற்பியல் துறை')">⚡ இயற்பியல் துறை</div>
+            <div class="modal-option-btn" onclick="playClickSound(); selectTrbDept('விலங்கியல் துறை')">🧬 விலங்கியல் துறை</div>
+            <div class="modal-option-btn" onclick="playClickSound(); selectTrbDept('தாவரவியல் துறை')">🌿 தாவரவியல் துறை</div>
+            <div class="modal-option-btn" onclick="playClickSound(); selectTrbDept('ALL')">🔥 All Departments</div>
+            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:10px;" onclick="playClickSound(); closeTrbModal()">Close ❌</button>
         </div>
     </div>
 
     <div class="donation-modal" id="donationModal" onclick="closeDonationModal()">
         <div class="donation-box" onclick="event.stopPropagation()">
             <h3 style="color: var(--warning);">💖 ஆதரவு கரம் (Donation)</h3>
-            <p>உங்களால் முடிந்த நிதி உதவி மற்றும் ஆதரவை தாருங்கள்!</p>
+            <p>கட்டணம் கட்டுவதற்கும் மற்றும் உங்களுக்கு விருப்பம் இருந்தால் நிதி உதவி அளிப்பதற்கும் இதைப் பயன்படுத்தலாம்!</p>
             <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=upi://pay?pa=9790933025@kotakbank%26pn=MANIKASI%26cu=INR" alt="UPI QR Code" class="qr-img">
             <div style="font-size: 11px; color: var(--text-muted); font-weight: 900;">📱 GPay / PhonePe எண் (நகலெடுக்க கிளிக் செய்யவும்):</div>
-            <div class="upi-box" onclick="copyUpiId()" title="Click to Copy">9790933025 📋</div>
-            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:8px;" onclick="closeDonationModal()">Close ❌</button>
+            <div class="upi-box" onclick="playClickSound(); copyUpiId()" title="Click to Copy">9790933025 📋</div>
+            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:8px;" onclick="playClickSound(); closeDonationModal()">Close ❌</button>
         </div>
     </div>
 
@@ -488,7 +527,7 @@
         <div class="announcement-box" onclick="event.stopPropagation()">
             <h3 style="color: var(--warning);">🐅 TIGER WARRIORS | நடப்பு நிகழ்வுகள் மற்றும் செய்திகள்</h3>
             <p id="modal-notice-text" style="font-size: 13px; line-height: 1.5; color: var(--text-main); font-weight: 900;"></p>
-            <button class="btn-start" style="margin-top: 10px; padding:8px;" onclick="closeAnnouncement()">OK, Got It! 👍</button>
+            <button class="btn-start" style="margin-top: 10px; padding:8px;" onclick="playClickSound(); closeAnnouncement()">OK, Got It! 👍</button>
         </div>
     </div>
 
@@ -521,13 +560,30 @@
             <input type="text" id="admin-time" placeholder="Duration" value="60 Mins • 50 Qs">
             <input type="text" id="admin-link" placeholder="Test URL (https://...)">
             <div style="display: flex; gap: 10px; margin-top: 10px;">
-                <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; padding:8px;" onclick="closeAdminModal()">Close</button>
-                <button class="btn-start" style="padding:8px;" onclick="saveToGoogleSheetCloud()">Publish Live ☁️🚀</button>
+                <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; padding:8px;" onclick="playClickSound(); closeAdminModal()">Close</button>
+                <button class="btn-start" style="padding:8px;" onclick="playClickSound(); saveToGoogleSheetCloud()">Publish Live ☁️🚀</button>
             </div>
         </div>
     </div>
 
+    <!-- Audio Synthesizer and Logic Script -->
     <script>
+        function playClickSound() {
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioCtx.createOscillator();
+                const gainNode = audioCtx.createGain();
+                oscillator.type = 'sine';
+                oscillator.frequency.setValueAtTime(587.33, audioCtx.currentTime); // D5 note
+                gainNode.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.08);
+                oscillator.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+                oscillator.start();
+                oscillator.stop(audioCtx.currentTime + 0.08);
+            } catch(e) {}
+        }
+
         const getAdminKey = () => "tiger" + "2026";
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyRw6dQOMi1JD2ByPTn3IiG_4CoWhpoqj1SMmARaWAb4xwYK15gRDx1FZ_xDyQgxkC2bw/exec";
 
@@ -539,7 +595,7 @@
 
         let attendedCount = parseInt(localStorage.getItem('tiger_attended_count')) || 0;
         let isAdminLoggedIn = false;
-        let currentFilterCategory = 'ALL';
+        let currentFilterCategory = 'NONE'; // Initially hidden until clicked from grid popup
         let currentFilterSubCategory = 'ALL';
 
         let tapCount = 0;
@@ -577,6 +633,39 @@
             document.getElementById('freeTestModal').style.display = 'flex';
         }
 
+        function openAllTestsModal() {
+            const container = document.getElementById('all-tests-modal-options');
+            container.innerHTML = "";
+            
+            categories.forEach(cat => {
+                let count = 0;
+                if(cat.id === 'ALL') count = tests.length;
+                else if(cat.id === 'TNPSC') count = tests.filter(t => t.category === 'TNPSC').length;
+                else if(cat.id === 'TRB / NET / SET') count = tests.filter(t => t.category === 'TRB / NET / SET').length;
+                else count = tests.filter(t => t.category === cat.id).length;
+
+                const btn = document.createElement('div');
+                btn.className = 'modal-option-btn';
+                btn.innerHTML = `<span>${cat.name}</span> <span style="background:rgba(0,0,0,0.4); padding:2px 8px; border-radius:6px; font-size:11px; color:var(--accent-cyan); border:1px solid var(--card-border);">${count} Tests</span>`;
+                btn.onclick = () => {
+                    playClickSound();
+                    closeAllTestsModal();
+                    if (cat.id === 'TNPSC') openTnpscModal();
+                    else if (cat.id === 'TRB / NET / SET') openTrbModal();
+                    else if (cat.id === 'Free Test & PYQ') openFreeTestModal();
+                    else {
+                        currentFilterCategory = cat.id;
+                        currentFilterSubCategory = 'ALL';
+                        renderTests();
+                        scrollToTests();
+                    }
+                };
+                container.appendChild(btn);
+            });
+            document.getElementById('allTestsModal').style.display = 'flex';
+        }
+        function closeAllTestsModal() { document.getElementById('allTestsModal').style.display = 'none'; }
+
         function openSubModal(categoryType) {
             document.getElementById('freeTestModal').style.display = 'none';
             const subTitle = document.getElementById('sub-modal-title');
@@ -584,26 +673,29 @@
             container.innerHTML = "";
 
             if (categoryType === 'TNPSC') {
-                subTitle.textContent = "🏛️ TNPSC பிரிவுகள்";
+                subTitle.textContent = "🏛️️ TNPSC பிரிவுகள்";
                 ['Group 1', 'Group 2', 'Group 2A', 'Group 4', 'ALL'].forEach(g => {
+                    let count = g === 'ALL' ? tests.filter(t => t.category === 'TNPSC').length : tests.filter(t => t.category === 'TNPSC' && t.dept === g).length;
                     const btn = document.createElement('div');
                     btn.className = 'modal-option-btn';
-                    btn.textContent = g === 'ALL' ? "🔥 All TNPSC Groups" : `🏛️ ${g}`;
-                    btn.onclick = () => { closeFreeTestSubModal(); selectTnpscGroup(g); };
+                    btn.innerHTML = `<span>${g === 'ALL' ? "🔥 All TNPSC Groups" : `🏛️ ${g}`}</span> <span style="background:rgba(0,0,0,0.4); padding:2px 8px; border-radius:6px; font-size:11px; color:var(--accent-cyan); border:1px solid var(--card-border);">${count} Tests</span>`;
+                    btn.onclick = () => { playClickSound(); closeFreeTestSubModal(); selectTnpscGroup(g); };
                     container.appendChild(btn);
                 });
             } else if (categoryType === 'TRB / NET / SET') {
                 subTitle.textContent = "📚 TRB / NET / SET துறைகள்";
                 ['தமிழ் துறை', 'வேதியியல் துறை', 'இயற்பியல் துறை', 'விலங்கியல் துறை', 'தாவரவியல் துறை', 'ALL'].forEach(d => {
+                    let count = d === 'ALL' ? tests.filter(t => t.category === 'TRB / NET / SET').length : tests.filter(t => t.category === 'TRB / NET / SET' && t.dept === d).length;
                     const btn = document.createElement('div');
                     btn.className = 'modal-option-btn';
-                    btn.textContent = d === 'ALL' ? "🔥 All Departments" : getDeptEmoji(d) + " " + d;
-                    btn.onclick = () => { closeFreeTestSubModal(); selectTrbDept(d); };
+                    btn.innerHTML = `<span>${d === 'ALL' ? "🔥 All Departments" : getDeptEmoji(d) + " " + d}</span> <span style="background:rgba(0,0,0,0.4); padding:2px 8px; border-radius:6px; font-size:11px; color:var(--accent-cyan); border:1px solid var(--card-border);">${count} Tests</span>`;
+                    btn.onclick = () => { playClickSound(); closeFreeTestSubModal(); selectTrbDept(d); };
                     container.appendChild(btn);
                 });
             }
             document.getElementById('freeTestSubModal').style.display = 'flex';
         }
+        function closeFreeTestSubModal() { document.getElementById('freeTestSubModal').style.display = 'none'; }
 
         function getDeptEmoji(d) {
             if(d.includes('தமிழ்')) return '📖';
@@ -618,11 +710,6 @@
             closeFreeTestModal();
             currentFilterCategory = catName;
             currentFilterSubCategory = 'ALL';
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                if(btn.textContent.includes('Free Test') && catName === 'Free Test & PYQ') btn.classList.add('active');
-                else if(btn.textContent.includes(catName)) btn.classList.add('active');
-                else btn.classList.remove('active');
-            });
             renderTests();
             scrollToTests();
         }
@@ -663,10 +750,6 @@
             closeTnpscModal();
             currentFilterCategory = 'TNPSC';
             currentFilterSubCategory = (groupName === 'ALL') ? 'ALL' : groupName;
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                if(btn.textContent.includes('TNPSC')) btn.classList.add('active');
-                else btn.classList.remove('active');
-            });
             renderTests();
             scrollToTests();
         }
@@ -677,10 +760,6 @@
             closeTrbModal();
             currentFilterCategory = 'TRB / NET / SET';
             currentFilterSubCategory = (deptName === 'ALL') ? 'ALL' : deptName;
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                if(btn.textContent.includes('TRB')) btn.classList.add('active');
-                else btn.classList.remove('active');
-            });
             renderTests();
             scrollToTests();
         }
@@ -788,10 +867,22 @@
                 btn.className = `tab-btn ${currentFilterCategory === cat.id ? 'active' : ''}`;
                 btn.textContent = cat.name;
                 btn.onclick = () => {
-                    if (cat.id === 'TNPSC') openTnpscModal();
-                    else if (cat.id === 'TRB / NET / SET') openTrbModal();
-                    else if (cat.id === 'Free Test & PYQ') openFreeTestModal();
-                    else { setCategory(cat.id, btn); scrollToTests(); }
+                    playClickSound();
+                    if (cat.id === 'ALL') {
+                        openAllTestsModal();
+                    } else if (cat.id === 'TNPSC') {
+                        openTnpscModal();
+                    } else if (cat.id === 'TRB / NET / SET') {
+                        openTrbModal();
+                    } else if (cat.id === 'Free Test & PYQ') {
+                        openFreeTestModal();
+                    } else {
+                        currentFilterCategory = cat.id;
+                        currentFilterSubCategory = 'ALL';
+                        renderCategories();
+                        renderTests();
+                        scrollToTests();
+                    }
                 };
                 container.appendChild(btn);
             });
@@ -827,18 +918,17 @@
 
         function closeAdminModal() { document.getElementById('adminModal').style.display = 'none'; }
 
-        function setCategory(categoryId, btnElement) {
-            currentFilterCategory = categoryId;
-            currentFilterSubCategory = 'ALL';
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            if(btnElement) btnElement.classList.add('active');
-            renderTests();
-        }
-
         function renderTests() {
             const container = document.getElementById('test-container');
             container.innerHTML = "";
             const searchQuery = document.getElementById('search-input').value.toLowerCase();
+            
+            document.getElementById('total-tests-count').textContent = tests.length;
+
+            if (currentFilterCategory === 'NONE') {
+                container.innerHTML = `<div style="text-align:center; color: var(--text-muted); padding: 25px; font-size:14px; font-weight:900;">👆 மேலே உள்ள பிரிவைத் (Category) தேர்ந்தெடுக்கவும்!</div>`;
+                return;
+            }
             
             const filtered = tests.filter(t => {
                 const matchesCategory = (currentFilterCategory === 'ALL' || t.category === currentFilterCategory);
@@ -851,8 +941,6 @@
                                       (t.dept && t.dept.toLowerCase().includes(searchQuery));
                 return matchesCategory && matchesSubCat && matchesSearch;
             });
-            
-            document.getElementById('total-tests-count').textContent = tests.length;
 
             if(filtered.length === 0) {
                 container.innerHTML = `<div style="text-align:center; color: var(--text-muted); padding: 20px; font-size:14px; font-weight:900;">தேர்வுகள் எதுவும் இல்லை.</div>`;
@@ -865,15 +953,15 @@
                 let displayTag = test.category || "";
                 if(test.dept) displayTag += ` • ${test.dept}`;
 
-                let pdfButtonHtml = (test.pdf && test.pdf.trim() !== "") ? `<a href="${test.pdf}" target="_blank" class="btn-test-pdf">📥 PDF</a>` : "";
-                let videoButtonHtml = (test.video && test.video.trim() !== "") ? `<a href="${test.video}" target="_blank" class="btn-test-video">🎥 Video</a>` : "";
+                let pdfButtonHtml = (test.pdf && test.pdf.trim() !== "") ? `<a href="${test.pdf}" target="_blank" class="btn-test-pdf" onclick="playClickSound()">📥 PDF</a>` : "";
+                let videoButtonHtml = (test.video && test.video.trim() !== "") ? `<a href="${test.video}" target="_blank" class="btn-test-video" onclick="playClickSound()">🎥 Video</a>` : "";
 
                 item.innerHTML = `
                     <div class="test-header">
                         <span style="font-size:11px; color: var(--text-muted); font-weight:900;">#${index + 1}</span>
                         <div style="display:flex; gap:5px; align-items:center;">
                             <span class="test-tag">${displayTag}</span>
-                            ${isAdminLoggedIn ? `<button class="btn-delete" onclick="deleteTest(${test.id})">Delete 🗑️</button>` : ''}
+                            ${isAdminLoggedIn ? `<button class="btn-delete" onclick="playClickSound(); deleteTest(${test.id})">Delete 🗑️</button>` : ''}
                         </div>
                     </div>
                     <div class="test-title">${test.title}</div>
@@ -882,7 +970,7 @@
                         <div class="test-action-btns">
                             ${videoButtonHtml}
                             ${pdfButtonHtml}
-                            <a href="${test.link}" target="_blank" class="btn-start" onclick="incrementAttended()">START TEST 🚀</a>
+                            <a href="${test.link}" target="_blank" class="btn-start" onclick="playClickSound(); incrementAttended()">START TEST 🚀</a>
                         </div>
                     </div>
                 `;
