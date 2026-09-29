@@ -89,7 +89,6 @@
         .btn-telegram { color: #00f2fe; border-color: rgba(0,242,254,0.5); background: rgba(0,242,254,0.12); }
         .btn-whatsapp { color: #10b981; border-color: rgba(16,185,129,0.5); background: rgba(16,185,129,0.12); }
 
-        /* Compact & Space-Saved Hero Banner */
         .hero-banner {
             background: linear-gradient(135deg, #0e172c 0%, #080e1b 100%);
             border: 1px solid var(--card-border);
@@ -208,19 +207,19 @@
         .sub-tab-btn { background: var(--btn-mild); border: 1px solid var(--card-border); color: var(--text-muted); padding: 7px 12px; border-radius: 8px; font-size: 12px; font-weight: 900; cursor: pointer; white-space: nowrap; }
         .sub-tab-btn.active { background: rgba(0, 242, 254, 0.25); border-color: var(--accent-cyan); color: var(--accent-cyan); }
 
-        /* Modal Popups for TNPSC & TRB */
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); justify-content: center; align-items: center; z-index: 4000; padding: 20px; }
-        .modal-box { background: var(--card-bg); border: 1px solid var(--accent-cyan); border-radius: 18px; padding: 20px; width: 100%; max-width: 340px; display: flex; flex-direction: column; gap: 10px; text-align: center; box-shadow: 0 0 30px var(--accent-glow); max-height: 85vh; overflow-y: auto; }
-        .modal-box h3 { font-size: 16px; color: var(--accent-cyan); font-weight: 900; }
-        .modal-box p { font-size: 12px; color: var(--text-muted); font-weight: 900; }
-        .modal-option-btn { background: linear-gradient(135deg, rgba(0,242,254,0.2), rgba(11,19,38,0.9)); border: 1px solid var(--accent-cyan); color: var(--text-main); padding: 10px; border-radius: 10px; font-size: 13px; font-weight: 900; cursor: pointer; text-align: center; transition: all 0.2s; }
+        /* Modal Popups with Extra Bold Look */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.88); justify-content: center; align-items: center; z-index: 4000; padding: 20px; }
+        .modal-box { background: var(--card-bg); border: 2px solid var(--accent-cyan); border-radius: 18px; padding: 22px; width: 100%; max-width: 360px; display: flex; flex-direction: column; gap: 12px; text-align: center; box-shadow: 0 0 40px var(--accent-glow); max-height: 85vh; overflow-y: auto; }
+        .modal-box h3 { font-size: 18px; color: var(--warning); font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px; }
+        .modal-box p { font-size: 15px; color: var(--text-main); font-weight: 900; line-height: 1.55; text-align: left; background: rgba(0,0,0,0.4); padding: 12px; border-radius: 10px; border: 1px solid var(--card-border); }
+        .modal-option-btn { background: linear-gradient(135deg, rgba(0,242,254,0.25), rgba(11,19,38,0.95)); border: 1px solid var(--accent-cyan); color: var(--accent-cyan); padding: 11px 12px; border-radius: 10px; font-size: 13px; font-weight: 900; cursor: pointer; text-align: center; transition: all 0.2s; text-decoration: none; display: inline-block; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
         .modal-option-btn:hover { background: var(--accent-cyan); color: #000; }
 
         /* Donation Modal Popup */
         .donation-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); justify-content: center; align-items: center; z-index: 3000; padding: 20px; }
         .donation-box { background: var(--card-bg); border: 1px solid var(--warning); border-radius: 16px; padding: 20px; width: 100%; max-width: 360px; display: flex; flex-direction: column; gap: 10px; text-align: center; box-shadow: 0 0 25px rgba(251, 191, 36, 0.3); }
-        .donation-box h3 { font-size: 15px; color: var(--warning); font-weight: 900; }
-        .donation-box p { font-size: 12px; color: var(--text-main); line-height: 1.4; font-weight: 900; }
+        .donation-box h3 { font-size: 16px; color: var(--warning); font-weight: 900; }
+        .donation-box p { font-size: 13px; color: var(--text-main); line-height: 1.4; font-weight: 900; }
         .qr-img { width: 160px; height: 160px; margin: 0 auto; border-radius: 10px; border: 2px solid var(--warning); background: #fff; padding: 5px; }
         .upi-box { background: rgba(0,0,0,0.5); border: 1px solid var(--card-border); padding: 8px; border-radius: 8px; color: var(--accent-cyan); font-size: 13px; font-weight: 900; cursor: pointer; }
 
@@ -289,7 +288,7 @@
                     <button class="news-audio-btn" onclick="playCurrentNewsVoice()" title="Listen Voice Over">🔊 Listen</button>
                 </div>
             </div>
-            <div class="news-content-box" onclick="openAnnouncement()">
+            <div class="news-content-box" onclick="openCurrentNewsModal()">
                 <img id="display-news-img" class="news-img" src="" alt="News Image">
                 <div class="notice-body-wrapper">
                     <div class="notice-body" id="display-notice-text">செய்திகள் ஏற்றப்படுகின்றன...</div>
@@ -331,11 +330,25 @@
         <div class="test-list" id="test-container"></div>
     </div>
 
+    <!-- Current News Popup Modal with Voice Over (Listen) -->
+    <div class="modal-overlay" id="currentNewsModal" onclick="closeCurrentNewsModal()">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <h3>🐅 நடப்பு நிகழ்வுகள்</h3>
+            <p id="modal-current-news-text"></p>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 5px;">
+                <button class="modal-option-btn" onclick="playModalNewsVoice()">🔊 Listen</button>
+                <a id="modal-news-video-btn" href="#" target="_blank" class="modal-option-btn" style="display:none; text-decoration:none;">🎥 Video</a>
+                <a id="modal-news-pdf-btn" href="#" target="_blank" class="modal-option-btn" style="display:none; text-decoration:none;">📥 PDF</a>
+            </div>
+            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:10px; font-weight:900;" onclick="closeCurrentNewsModal()">Close ❌</button>
+        </div>
+    </div>
+
     <!-- TNPSC Group Selection Modal Popup -->
     <div class="modal-overlay" id="tnpscModal" onclick="closeTnpscModal()">
         <div class="modal-box" onclick="event.stopPropagation()">
             <h3>🏛️ TNPSC Exams</h3>
-            <p>தேவையான பிரிவைத் தேர்ந்தெடுக்கவும்:</p>
+            <p style="text-align:center;">தேவையான பிரிவைத் தேர்ந்தெடுக்கவும்:</p>
             <div class="modal-option-btn" onclick="selectTnpscGroup('Group 1')">🏛️ Group 1</div>
             <div class="modal-option-btn" onclick="selectTnpscGroup('Group 2')">🏛️ Group 2</div>
             <div class="modal-option-btn" onclick="selectTnpscGroup('Group 2A')">🏛️ Group 2A</div>
@@ -349,7 +362,7 @@
     <div class="modal-overlay" id="trbModal" onclick="closeTrbModal()">
         <div class="modal-box" onclick="event.stopPropagation()">
             <h3>📚 TRB / NET / SET Exams</h3>
-            <p>தேவையான துறையைத் தேர்ந்தெடுக்கவும்:</p>
+            <p style="text-align:center;">தேவையான துறையைத் தேர்ந்தெடுக்கவும்:</p>
             <div class="modal-option-btn" onclick="selectTrbDept('தமிழ் துறை')">📖 தமிழ் துறை</div>
             <div class="modal-option-btn" onclick="selectTrbDept('வேதியியல் துறை')">🧪 வேதியியல் துறை</div>
             <div class="modal-option-btn" onclick="selectTrbDept('இயற்பியல் துறை')">⚡ இயற்பியல் துறை</div>
@@ -455,6 +468,46 @@
         function copyUpiId() {
             navigator.clipboard.writeText("9790933025");
             alert("✅ UPI எண் (9790933025) நகலெடுக்கப்பட்டது!");
+        }
+
+        // Current News Popup Actions with Voice Over inside Modal
+        function openCurrentNewsModal() {
+            if(!newsList || newsList.length === 0) return;
+            let currentItem = newsList[currentNewsIndex];
+            document.getElementById('modal-current-news-text').textContent = currentItem.text;
+            
+            const vBtn = document.getElementById('modal-news-video-btn');
+            const pBtn = document.getElementById('modal-news-pdf-btn');
+            
+            if(currentItem.video && currentItem.video.trim() !== "") {
+                vBtn.href = currentItem.video;
+                vBtn.style.display = "inline-block";
+            } else {
+                vBtn.style.display = "none";
+            }
+
+            if(currentItem.pdf && currentItem.pdf.trim() !== "") {
+                pBtn.href = currentItem.pdf;
+                pBtn.style.display = "inline-block";
+            } else {
+                pBtn.style.display = "none";
+            }
+
+            document.getElementById('currentNewsModal').style.display = 'flex';
+        }
+        function closeCurrentNewsModal() { document.getElementById('currentNewsModal').style.display = 'none'; }
+
+        function playModalNewsVoice() {
+            if (!('speechSynthesis' in window)) {
+                alert("❌ உங்கள் பிரவுசரில் Voice Over வசதி இல்லை!");
+                return;
+            }
+            window.speechSynthesis.cancel();
+            let currentText = newsList[currentNewsIndex].text;
+            let utterance = new SpeechSynthesisUtterance(currentText);
+            utterance.lang = 'ta-IN';
+            utterance.rate = 0.9;
+            window.speechSynthesis.speak(utterance);
         }
 
         // TNPSC Modal Actions
