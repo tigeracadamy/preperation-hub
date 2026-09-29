@@ -14,7 +14,7 @@
             --text-main: #ffffff;
             --text-muted: #8a99ad;
             --success: #10b981;
-            --warning: #f59e0b;
+            --warning: #fbbf24;
             --danger: #ef4444;
             --btn-mild: rgba(0, 242, 254, 0.1);
             --btn-mild-hover: rgba(0, 242, 254, 0.2);
@@ -38,19 +38,6 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; }
         body { background-color: var(--bg-color); color: var(--text-main); padding: 15px; display: flex; justify-content: center; }
         .main-container { width: 100%; max-width: 480px; display: flex; flex-direction: column; gap: 15px; }
-
-        .live-bar {
-            background: linear-gradient(90deg, var(--btn-mild), rgba(76,172,254,0.05));
-            border: 1px solid var(--card-border);
-            border-radius: 10px;
-            padding: 6px 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 11px;
-            color: var(--accent-cyan);
-            font-weight: bold;
-        }
 
         .top-bar {
             background: var(--card-bg);
@@ -108,18 +95,26 @@
         .hero-banner h2 { font-size: 20px; margin-bottom: 4px; color: var(--accent-cyan); font-weight: 900; letter-spacing: 1px; text-shadow: 0 0 10px var(--accent-glow); }
         .hero-banner p { font-size: 12px; color: var(--text-main); font-weight: bold; }
 
-        /* Notice Corner with Smooth Spin/Pulse Animation */
+        /* Notice Corner with Date & Time Embedded in Header */
+        @keyframes goldSubtlePulse {
+            0% { box-shadow: 0 0 5px rgba(217, 119, 6, 0.2); border-color: rgba(217, 119, 6, 0.4); }
+            50% { box-shadow: 0 0 18px rgba(251, 191, 36, 0.5); border-color: rgba(251, 191, 36, 0.9); }
+            100% { box-shadow: 0 0 5px rgba(217, 119, 6, 0.2); border-color: rgba(217, 119, 6, 0.4); }
+        }
+
         .notice-corner {
-            background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(0, 242, 254, 0.05));
-            border: 1px solid var(--warning);
+            background: linear-gradient(135deg, rgba(120, 53, 15, 0.25), rgba(11, 19, 38, 0.9));
+            border: 1px solid #d97706;
             border-radius: 12px;
             padding: 12px 14px;
             display: flex;
             flex-direction: column;
             gap: 6px;
             cursor: pointer;
+            animation: goldSubtlePulse 3s infinite ease-in-out;
         }
-        .notice-header { display: flex; justify-content: space-between; align-items: center; font-size: 12px; font-weight: bold; color: var(--warning); }
+        .notice-header { display: flex; justify-content: space-between; align-items: center; font-size: 11px; font-weight: bold; color: #fde047; flex-wrap: wrap; gap: 4px; }
+        .live-datetime-tag { background: rgba(0,0,0,0.4); padding: 2px 6px; border-radius: 4px; font-size: 10px; color: var(--accent-cyan); border: 1px solid rgba(0,242,254,0.3); }
         
         .notice-body-wrapper { overflow: hidden; position: relative; min-height: 20px; }
         .notice-body { 
@@ -129,40 +124,39 @@
             font-weight: bold; 
             display: inline-block;
             width: 100%;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        @keyframes newsSpinPulse {
-            0% { transform: scale(0.92) rotate(-2deg); opacity: 0; filter: blur(2px); }
-            50% { transform: scale(1.02) rotate(1deg); opacity: 0.8; filter: blur(0px); }
-            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        @keyframes zoomInOutMerge {
+            0% { transform: scale(0.6); opacity: 0; filter: blur(4px); }
+            60% { transform: scale(1.05); opacity: 1; filter: blur(0px); }
+            100% { transform: scale(1); opacity: 1; }
         }
 
         .news-anim {
-            animation: newsSpinPulse 0.6s ease-in-out forwards;
+            animation: zoomInOutMerge 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
 
-        /* Category Tabs */
-        .category-tabs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        /* Larger & Bolder Category Tabs */
+        .category-tabs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
         .tab-btn { 
-            background: linear-gradient(135deg, rgba(0, 242, 254, 0.12), rgba(11, 19, 38, 0.8)); 
+            background: linear-gradient(135deg, rgba(0, 242, 254, 0.15), rgba(11, 19, 38, 0.85)); 
             border: 1px solid var(--card-border); 
             color: var(--text-main); 
-            padding: 15px 12px; 
-            border-radius: 14px; 
-            font-size: 15px; 
+            padding: 18px 14px; 
+            border-radius: 16px; 
+            font-size: 16px; 
             font-weight: 900; 
             cursor: pointer; 
             text-align: center; 
-            letter-spacing: 0.8px; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            letter-spacing: 1px; 
+            box-shadow: 0 6px 16px rgba(0,0,0,0.4);
             transition: all 0.2s ease; 
         }
         .tab-btn.active { 
-            background: linear-gradient(135deg, rgba(0, 242, 254, 0.25), rgba(0, 242, 254, 0.05)); 
+            background: linear-gradient(135deg, rgba(0, 242, 254, 0.3), rgba(0, 242, 254, 0.05)); 
             border-color: var(--accent-cyan); 
             color: var(--accent-cyan); 
-            box-shadow: 0 0 18px var(--accent-glow); 
+            box-shadow: 0 0 20px var(--accent-glow); 
         }
 
         .sub-category-bar { display: none; gap: 6px; overflow-x: auto; padding-bottom: 5px; }
@@ -196,12 +190,6 @@
 <body id="body-theme">
 
     <div class="main-container">
-        <!-- Live Clock -->
-        <div class="live-bar">
-            <span id="live-date">📅 Loading...</span>
-            <span id="live-clock">⏰ 00:00:00</span>
-        </div>
-
         <!-- Top Bar with Tiger & Sword & Fire Logo Order -->
         <div class="top-bar">
             <div class="brand-box">
@@ -226,16 +214,19 @@
             <p>அரசுப் பணி கனவை நனவாக்க இப்போதே தொடங்குங்கள்!</p>
         </div>
 
-        <!-- Notice Corner with Rotating News & Spin Animation -->
+        <!-- Notice Corner with Embedded Live Date/Time & Rotating News -->
         <div class="notice-corner" onclick="openAnnouncement()">
-            <div class="notice-header"><span>📢 நடப்பு நிகழ்வுகள் மற்றும் செய்திகள்</span></div>
+            <div class="notice-header">
+                <span>🐅 TIGER WARRIORS | நடப்பு நிகழ்வுகள்</span>
+                <span class="live-datetime-tag" id="embedded-live-dt">📅 Loading...</span>
+            </div>
             <div class="notice-body-wrapper">
                 <div class="notice-body" id="display-notice-text">செய்திகள் ஏற்றப்படுகின்றன...</div>
             </div>
         </div>
 
         <!-- Daily Quote Box -->
-        <div class="notice-corner" style="border-color: var(--accent-cyan); background: linear-gradient(135deg, rgba(0,242,254,0.1), rgba(0,0,0,0.2));">
+        <div class="notice-corner" style="border-color: var(--accent-cyan); background: linear-gradient(135deg, rgba(0,242,254,0.1), rgba(0,0,0,0.2)); box-shadow: 0 0 15px rgba(0,242,254,0.2); animation: none;">
             <div class="notice-header" style="color: var(--accent-cyan);"><span>💡 இன்றைய சிந்தனை (Daily Quote)</span></div>
             <div class="notice-body" id="display-quote-text">Loading quote...</div>
         </div>
@@ -269,7 +260,7 @@
     <!-- Full Announcement Modal -->
     <div class="announcement-modal" id="announcementModal" onclick="closeAnnouncement()">
         <div class="announcement-box" onclick="event.stopPropagation()">
-            <h3 style="color: var(--warning);">📢 நடப்பு நிகழ்வுகள் மற்றும் செய்திகள்</h3>
+            <h3 style="color: var(--warning);">🐅 TIGER WARRIORS | நடப்பு நிகழ்வுகள் மற்றும் செய்திகள்</h3>
             <p id="modal-notice-text" style="font-size: 13px; line-height: 1.5; color: var(--text-main); font-weight: bold;"></p>
             <button class="btn-start" style="margin-top: 10px;" onclick="closeAnnouncement()">OK, Got It! 👍</button>
         </div>
@@ -402,10 +393,10 @@
             newsInterval = setInterval(() => {
                 currentNewsIndex = (currentNewsIndex + 1) % newsList.length;
                 noticeEl.classList.remove('news-anim');
-                void noticeEl.offsetWidth; // Trigger reflow
+                void noticeEl.offsetWidth; // Trigger reflow for animation restart
                 noticeEl.textContent = "📌 " + newsList[currentNewsIndex];
                 noticeEl.classList.add('news-anim');
-            }, 4000); // Rotates every 4 seconds with spin-pulse effect
+            }, 4500); // Rotates every 4.5 seconds with Zoom-In/Out merge effect
         }
 
         function openAnnouncement() { document.getElementById('announcementModal').style.display = 'flex'; }
@@ -415,8 +406,9 @@
             setInterval(() => {
                 try {
                     const now = new Date();
-                    document.getElementById('live-date').textContent = "📅 " + now.toLocaleDateString('ta-IN', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
-                    document.getElementById('live-clock').textContent = "⏰ " + now.toLocaleTimeString();
+                    const dateStr = now.toLocaleDateString('ta-IN', { weekday: 'short', month: 'short', day: 'numeric' });
+                    const timeStr = now.toLocaleTimeString();
+                    document.getElementById('embedded-live-dt').textContent = `📅 ${dateStr} | ⏰ ${timeStr}`;
                 } catch(e) {}
             }, 1000);
         }
