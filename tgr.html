@@ -38,10 +38,8 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; }
         body { background-color: var(--bg-color); color: var(--text-main); padding: 15px; display: flex; justify-content: center; }
         
-        /* Default Mobile Layout */
         .main-container { width: 100%; max-width: 480px; display: flex; flex-direction: column; gap: 15px; transition: all 0.3s ease; }
 
-        /* Laptop / Desktop Wide Responsive Layout */
         @media(min-width: 768px) {
             .main-container { max-width: 850px; padding: 30px; gap: 20px; }
             .category-tabs { grid-template-columns: repeat(3, 1fr) !important; gap: 15px !important; }
@@ -84,7 +82,6 @@
 
         .badge-year { background: rgba(245, 158, 11, 0.1); color: var(--warning); border: 1px solid var(--warning); padding: 3px 8px; border-radius: 20px; font-size: 11px; font-weight: bold; }
 
-        /* Hero Banner */
         .hero-banner {
             background: linear-gradient(135deg, #0e172c 0%, #080e1b 100%);
             border: 1px solid var(--card-border);
@@ -109,7 +106,6 @@
         .hero-banner h2 { font-size: 20px; margin-bottom: 4px; color: var(--accent-cyan); font-weight: 900; letter-spacing: 1px; text-shadow: 0 0 10px var(--accent-glow); }
         .hero-banner p { font-size: 12px; color: var(--text-main); font-weight: bold; }
 
-        /* Notice Corner with Gold/Brown Glow & Rotating News */
         @keyframes goldSubtlePulse {
             0% { box-shadow: 0 0 5px rgba(217, 119, 6, 0.2); border-color: rgba(217, 119, 6, 0.4); }
             50% { box-shadow: 0 0 18px rgba(251, 191, 36, 0.5); border-color: rgba(251, 191, 36, 0.9); }
@@ -123,14 +119,18 @@
             padding: 12px 14px;
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 8px;
             cursor: pointer;
             animation: goldSubtlePulse 3s infinite ease-in-out;
         }
         .notice-header { display: flex; justify-content: space-between; align-items: center; font-size: 11px; font-weight: bold; color: #fde047; flex-wrap: wrap; gap: 4px; }
         .live-datetime-tag { background: rgba(0,0,0,0.4); padding: 2px 6px; border-radius: 4px; font-size: 10px; color: var(--accent-cyan); border: 1px solid rgba(0,242,254,0.3); }
         
-        .notice-body-wrapper { overflow: hidden; position: relative; min-height: 20px; }
+        /* News Content Layout with Image & Voice Over */
+        .news-content-box { display: flex; align-items: center; gap: 10px; }
+        .news-img { width: 55px; height: 55px; border-radius: 8px; object-fit: cover; border: 1px solid var(--accent-cyan); display: none; flex-shrink: 0; }
+        
+        .notice-body-wrapper { overflow: hidden; position: relative; min-height: 24px; flex-grow: 1; }
         .notice-body { 
             font-size: 12px; 
             color: var(--text-main); 
@@ -138,6 +138,18 @@
             font-weight: bold; 
             display: inline-block;
             width: 100%;
+        }
+
+        .news-audio-btn {
+            background: rgba(0, 242, 254, 0.15);
+            border: 1px solid var(--accent-cyan);
+            color: var(--accent-cyan);
+            padding: 5px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            flex-shrink: 0;
+            font-weight: bold;
         }
 
         @keyframes zoomInOutMerge {
@@ -150,7 +162,6 @@
             animation: zoomInOutMerge 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
 
-        /* Category Tabs */
         .category-tabs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
         .tab-btn { 
             background: linear-gradient(135deg, rgba(0, 242, 254, 0.15), rgba(11, 19, 38, 0.85)); 
@@ -227,14 +238,18 @@
             <p>அரசுப் பணி கனவை நனவாக்க இப்போதே தொடங்குங்கள்!</p>
         </div>
 
-        <!-- Notice Corner with Embedded Live Date/Time & Rotating News -->
-        <div class="notice-corner" onclick="openAnnouncement()">
-            <div class="notice-header">
+        <!-- Notice Corner with Image, Voice Over & Rotating News -->
+        <div class="notice-corner">
+            <div class="notice-header" onclick="openAnnouncement()">
                 <span>🐅 TIGER WARRIORS | நடப்பு நிகழ்வுகள்</span>
                 <span class="live-datetime-tag" id="embedded-live-dt">📅 Loading...</span>
             </div>
-            <div class="notice-body-wrapper">
-                <div class="notice-body" id="display-notice-text">செய்திகள் ஏற்றப்படுகின்றன...</div>
+            <div class="news-content-box">
+                <img id="display-news-img" class="news-img" src="" alt="News Image">
+                <div class="notice-body-wrapper" onclick="openAnnouncement()">
+                    <div class="notice-body" id="display-notice-text">செய்திகள் ஏற்றப்படுகின்றன...</div>
+                </div>
+                <button class="news-audio-btn" onclick="playCurrentNewsVoice()" title="Listen Voice Over">🔊 Listen</button>
             </div>
         </div>
 
@@ -323,7 +338,7 @@
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxNqbizUQZ2oMvMFu2GyzaN9snA7K2g-Nmnt7ITtqjyqQDRR88UNzYVv5MLMpd3bS9Jbw/exec";
 
         let tests = [];
-        let newsList = ["அனைத்துத் தேர்வுகளுக்கான யூனிட்கள் ஆன்லைனில் இணைக்கப்பட்டுள்ளன!"];
+        let newsList = [{ text: "அனைத்துத் தேர்வுகளுக்கான யூனிட்கள் ஆன்லைனில் இணைக்கப்பட்டுள்ளன!", img: "" }];
         let quoteMessage = "";
         let currentNewsIndex = 0;
         let newsInterval = null;
@@ -333,7 +348,6 @@
         let currentFilterCategory = 'ALL';
         let currentFilterSubCategory = 'ALL';
 
-        // Secret Triple-Tap Admin Logic
         let tapCount = 0;
         let tapTimer = null;
         function handleSecretAdminTap() {
@@ -379,9 +393,10 @@
                     }
                     if (data && data.news) {
                         if(Array.isArray(data.news)) {
-                            newsList = data.news;
-                        } else if(typeof data.news === 'string') {
-                            newsList = data.news.split(/[\n|]+/).map(n => n.trim()).filter(n => n.length > 0);
+                            newsList = data.news.map(n => {
+                                if(typeof n === 'string') return { text: n, img: "" };
+                                return { text: n.text || "", img: n.img || "" };
+                            });
                         }
                     }
                     if (data && data.quote) { quoteMessage = data.quote; }
@@ -395,7 +410,7 @@
 
         function initPortal() {
             startNewsRotation();
-            document.getElementById('modal-notice-text').textContent = newsList.join("\n• ");
+            document.getElementById('modal-notice-text').textContent = newsList.map(n => n.text).join("\n• ");
             document.getElementById('display-quote-text').textContent = quoteMessage || "இன்றைய சிந்தனை: விடாமுயற்சி விஸ்வரூப வெற்றி தரும்!";
             document.getElementById('attended-tests-count').textContent = attendedCount;
 
@@ -408,22 +423,48 @@
             startLiveClock();
         }
 
-        function startNewsRotation() {
+        function updateNewsDisplay() {
             const noticeEl = document.getElementById('display-notice-text');
+            const imgEl = document.getElementById('display-news-img');
             if(!newsList || newsList.length === 0) return;
 
-            noticeEl.textContent = "📌 " + newsList[currentNewsIndex];
-            noticeEl.classList.add('news-anim');
+            let currentItem = newsList[currentNewsIndex];
+            noticeEl.textContent = "📌 " + currentItem.text;
             
+            if(currentItem.img && currentItem.img.trim() !== "") {
+                imgEl.src = currentItem.img;
+                imgEl.style.display = "block";
+            } else {
+                imgEl.style.display = "none";
+            }
+
+            noticeEl.classList.remove('news-anim');
+            void noticeEl.offsetWidth; 
+            noticeEl.classList.add('news-anim');
+        }
+
+        function startNewsRotation() {
+            updateNewsDisplay();
             if(newsInterval) clearInterval(newsInterval);
 
             newsInterval = setInterval(() => {
                 currentNewsIndex = (currentNewsIndex + 1) % newsList.length;
-                noticeEl.classList.remove('news-anim');
-                void noticeEl.offsetWidth; // Trigger reflow for animation restart
-                noticeEl.textContent = "📌 " + newsList[currentNewsIndex];
-                noticeEl.classList.add('news-anim');
-            }, 4500); // Rotates every 4.5 seconds with Zoom-In/Out merge effect
+                updateNewsDisplay();
+            }, 5000); 
+        }
+
+        // Voice Over (Text-to-Speech) Function
+        function playCurrentNewsVoice() {
+            if (!('speechSynthesis' in window)) {
+                alert("❌ உங்கள் பிரவுசரில் Voice Over வசதி இல்லை!");
+                return;
+            }
+            window.speechSynthesis.cancel(); // Stop previous speech
+            let currentText = newsList[currentNewsIndex].text;
+            let utterance = new SpeechSynthesisUtterance(currentText);
+            utterance.lang = 'ta-IN'; // Tamil voice
+            utterance.rate = 0.9; // Normal speaking speed
+            window.speechSynthesis.speak(utterance);
         }
 
         function openAnnouncement() { document.getElementById('announcementModal').style.display = 'flex'; }
