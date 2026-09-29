@@ -65,13 +65,13 @@
             box-shadow: 0 0 15px rgba(0,0,0,0.5);
         }
 
-        .brand-box { display: flex; align-items: center; gap: 8px; }
+        .brand-box { display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; }
         .brand-logo-single { font-size: 20px; }
         .brand-name { font-size: 14px; font-weight: 900; color: #ffffff; letter-spacing: 0.5px; text-transform: uppercase; }
         .brand-sub { font-size: 9px; color: var(--accent-cyan); font-weight: bold; }
         .top-right-actions { display: flex; align-items: center; gap: 6px; }
 
-        .btn-theme-switcher, .btn-gear {
+        .btn-theme-switcher {
             background: var(--btn-mild);
             color: var(--accent-cyan);
             border: 1px solid var(--card-border);
@@ -82,7 +82,6 @@
             cursor: pointer;
         }
 
-        .btn-gear { width: 32px; height: 32px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 16px; }
         .badge-year { background: rgba(245, 158, 11, 0.1); color: var(--warning); border: 1px solid var(--warning); padding: 3px 8px; border-radius: 20px; font-size: 11px; font-weight: bold; }
 
         /* Hero Banner */
@@ -205,9 +204,9 @@
 <body id="body-theme">
 
     <div class="main-container">
-        <!-- Top Bar with Tiger & Sword & Fire Logo Order -->
+        <!-- Top Bar with Secret Triple-Tap Admin Trigger on Logo -->
         <div class="top-bar">
-            <div class="brand-box">
+            <div class="brand-box" onclick="handleSecretAdminTap()" title="Tap 3 times">
                 <div class="brand-logo-single">🐯⚔️</div>
                 <div>
                     <div class="brand-name">TIGER WARRIORS</div>
@@ -217,7 +216,6 @@
             </div>
             <div class="top-right-actions">
                 <button class="btn-theme-switcher" onclick="cycleTheme()">🎨 Theme</button>
-                <button class="btn-gear" onclick="verifyAdmin()" title="Admin Panel">⚙️</button>
                 <div class="badge-year">2026</div>
             </div>
         </div>
@@ -334,6 +332,20 @@
         let isAdminLoggedIn = false;
         let currentFilterCategory = 'ALL';
         let currentFilterSubCategory = 'ALL';
+
+        // Secret Triple-Tap Admin Logic
+        let tapCount = 0;
+        let tapTimer = null;
+        function handleSecretAdminTap() {
+            tapCount++;
+            if (tapCount === 1) {
+                tapTimer = setTimeout(() => { tapCount = 0; }, 1000);
+            } else if (tapCount === 3) {
+                clearTimeout(tapTimer);
+                tapCount = 0;
+                verifyAdmin();
+            }
+        }
 
         const categories = [
             { id: 'ALL', name: '🔥 All Tests' },
