@@ -108,6 +108,7 @@
         .hero-banner h2 { font-size: 20px; margin-bottom: 4px; color: var(--accent-cyan); font-weight: 900; letter-spacing: 1px; text-shadow: 0 0 10px var(--accent-glow); }
         .hero-banner p { font-size: 12px; color: var(--text-main); font-weight: bold; }
 
+        /* Notice Corner with Smooth Spin/Pulse Animation */
         .notice-corner {
             background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(0, 242, 254, 0.05));
             border: 1px solid var(--warning);
@@ -119,7 +120,27 @@
             cursor: pointer;
         }
         .notice-header { display: flex; justify-content: space-between; align-items: center; font-size: 12px; font-weight: bold; color: var(--warning); }
-        .notice-body { font-size: 12px; color: var(--text-main); line-height: 1.4; font-weight: bold; transition: opacity 0.5s ease-in-out; }
+        
+        .notice-body-wrapper { overflow: hidden; position: relative; min-height: 20px; }
+        .notice-body { 
+            font-size: 12px; 
+            color: var(--text-main); 
+            line-height: 1.4; 
+            font-weight: bold; 
+            display: inline-block;
+            width: 100%;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes newsSpinPulse {
+            0% { transform: scale(0.92) rotate(-2deg); opacity: 0; filter: blur(2px); }
+            50% { transform: scale(1.02) rotate(1deg); opacity: 0.8; filter: blur(0px); }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        .news-anim {
+            animation: newsSpinPulse 0.6s ease-in-out forwards;
+        }
 
         /* Category Tabs */
         .category-tabs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
@@ -205,10 +226,12 @@
             <p>அரசுப் பணி கனவை நனவாக்க இப்போதே தொடங்குங்கள்!</p>
         </div>
 
-        <!-- Notice Corner with Rotating News -->
+        <!-- Notice Corner with Rotating News & Spin Animation -->
         <div class="notice-corner" onclick="openAnnouncement()">
             <div class="notice-header"><span>📢 நடப்பு நிகழ்வுகள் மற்றும் செய்திகள்</span></div>
-            <div class="notice-body" id="display-notice-text">செய்திகள் ஏற்றப்படுகின்றன...</div>
+            <div class="notice-body-wrapper">
+                <div class="notice-body" id="display-notice-text">செய்திகள் ஏற்றப்படுகின்றன...</div>
+            </div>
         </div>
 
         <!-- Daily Quote Box -->
@@ -293,7 +316,7 @@
 
     <script>
         const getAdminKey = () => "tiger" + "2026";
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby9sDTVISt7FfRB2nG4wxCPR0z89lKoXzrQfMKfI_woBEY7096blr6_iJc6t3-UuVOd6g/exec";
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxNqbizUQZ2oMvMFu2GyzaN9snA7K2g-Nmnt7ITtqjyqQDRR88UNzYVv5MLMpd3bS9Jbw/exec";
 
         let tests = [];
         let newsList = ["அனைத்துத் தேர்வுகளுக்கான யூனிட்கள் ஆன்லைனில் இணைக்கப்பட்டுள்ளன!"];
@@ -337,8 +360,9 @@
                         }));
                     }
                     if (data && data.news) {
-                        // Split by newline or pipe if multiple news are provided in Sheet
-                        if(typeof data.news === 'string') {
+                        if(Array.isArray(data.news)) {
+                            newsList = data.news;
+                        } else if(typeof data.news === 'string') {
                             newsList = data.news.split(/[\n|]+/).map(n => n.trim()).filter(n => n.length > 0);
                         }
                     }
@@ -371,17 +395,17 @@
             if(!newsList || newsList.length === 0) return;
 
             noticeEl.textContent = "📌 " + newsList[currentNewsIndex];
+            noticeEl.classList.add('news-anim');
             
             if(newsInterval) clearInterval(newsInterval);
 
             newsInterval = setInterval(() => {
                 currentNewsIndex = (currentNewsIndex + 1) % newsList.length;
-                noticeEl.style.opacity = '0';
-                setTimeout(() => {
-                    noticeEl.textContent = "📌 " + newsList[currentNewsIndex];
-                    noticeEl.style.opacity = '1';
-                }, 300);
-            }, 4000); // Rotates every 4 seconds
+                noticeEl.classList.remove('news-anim');
+                void noticeEl.offsetWidth; // Trigger reflow
+                noticeEl.textContent = "📌 " + newsList[currentNewsIndex];
+                noticeEl.classList.add('news-anim');
+            }, 4000); // Rotates every 4 seconds with spin-pulse effect
         }
 
         function openAnnouncement() { document.getElementById('announcementModal').style.display = 'flex'; }
