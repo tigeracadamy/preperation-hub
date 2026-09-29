@@ -203,10 +203,12 @@
         .test-item { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 15px; display: flex; flex-direction: column; gap: 10px; }
         .test-header { display: flex; justify-content: space-between; align-items: center; }
         .test-tag { font-size: 11px; background: var(--btn-mild); color: var(--accent-cyan); padding: 4px 10px; border-radius: 6px; border: 1px solid var(--card-border); font-weight: bold; }
-        .btn-delete { background: rgba(239, 68, 68, 0.2); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.5); font-size: 10px; padding: 4px 8px; border-radius: 6px; cursor: pointer; font-weight: bold; }
         .test-title { font-size: 15px; font-weight: 900; color: var(--text-main); }
         .test-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 8px; border-top: 1px solid rgba(255, 255, 255, 0.05); font-size: 11px; color: var(--text-muted); font-weight: bold; }
-        .btn-start { background: linear-gradient(135deg, var(--accent-cyan) 0%, #4facfe 100%); color: #000; border: none; padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 900; cursor: pointer; text-decoration: none; }
+        
+        .test-action-btns { display: flex; gap: 6px; align-items: center; }
+        .btn-start { background: linear-gradient(135deg, var(--accent-cyan) 0%, #4facfe 100%); color: #000; border: none; padding: 6px 12px; border-radius: 6px; font-size: 11px; font-weight: 900; cursor: pointer; text-decoration: none; }
+        .btn-test-pdf { background: rgba(251, 191, 36, 0.15); border: 1px solid var(--warning); color: var(--warning); padding: 6px 10px; border-radius: 6px; font-size: 11px; font-weight: 900; cursor: pointer; text-decoration: none; }
 
         .announcement-modal, .admin-modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); justify-content: center; align-items: center; z-index: 2000; padding: 20px; }
         .announcement-box, .admin-modal-box { background: var(--card-bg); border: 1px solid var(--warning); border-radius: 16px; padding: 20px; width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 12px; text-align: center; }
@@ -340,7 +342,7 @@
 
     <script>
         const getAdminKey = () => "tiger" + "2026";
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwIlX1lYNROG65IyBT_COl9t0GBaOPR5qKc8EFwBSmolnzLL-8GLBXuyj9ekYW5WIYQug/exec";
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzB7OsBtzhafvK0h-Fuh_Pf264T1LhZhvDy5acKULTPnIQIGumadD_mb_G0Q-ZR9OPUyg/exec";
 
         let tests = [];
         let newsList = [{ text: "அனைத்துத் தேர்வுகளுக்கான யூனிட்கள் ஆன்லைனில் இணைக்கப்பட்டுள்ளன!", img: "", pdf: "" }];
@@ -393,7 +395,8 @@
                             category: item.category || "TNPSC",
                             dept: item.dept || "",
                             time: item.time || "60 Mins • 50 Qs",
-                            link: item.link || "#"
+                            link: item.link || "#",
+                            pdf: item.pdf || ""
                         }));
                     }
                     if (data && data.news) {
@@ -602,6 +605,11 @@
                 let displayTag = test.category || "";
                 if(test.dept) displayTag += ` • ${test.dept}`;
 
+                let pdfButtonHtml = "";
+                if(test.pdf && test.pdf.trim() !== "") {
+                    pdfButtonHtml = `<a href="${test.pdf}" target="_blank" class="btn-test-pdf">📥 PDF Notes</a>`;
+                }
+
                 item.innerHTML = `
                     <div class="test-header">
                         <span style="font-size:12px; color: var(--text-muted); font-weight:bold;">#${index + 1}</span>
@@ -613,7 +621,10 @@
                     <div class="test-title">${test.title}</div>
                     <div class="test-footer">
                         <span>⏱️ ${test.time || "60 Mins • 50 Qs"}</span>
-                        <a href="${test.link}" target="_blank" class="btn-start" onclick="incrementAttended()">START TEST 🚀</a>
+                        <div class="test-action-btns">
+                            ${pdfButtonHtml}
+                            <a href="${test.link}" target="_blank" class="btn-start" onclick="incrementAttended()">START TEST 🚀</a>
+                        </div>
                     </div>
                 `;
                 container.appendChild(item);
