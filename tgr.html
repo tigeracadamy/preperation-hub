@@ -8,34 +8,34 @@
         :root {
             --bg-color: #060913;
             --card-bg: #0b1326;
-            --card-border: rgba(0, 242, 254, 0.2);
+            --card-border: rgba(0, 242, 254, 0.25);
             --accent-cyan: #00f2fe;
-            --accent-glow: rgba(0, 242, 254, 0.25);
+            --accent-glow: rgba(0, 242, 254, 0.3);
             --text-main: #ffffff;
             --text-muted: #8a99ad;
             --success: #10b981;
             --warning: #f59e0b;
             --danger: #ef4444;
-            --btn-mild: rgba(0, 242, 254, 0.08);
-            --btn-mild-hover: rgba(0, 242, 254, 0.18);
+            --btn-mild: rgba(0, 242, 254, 0.1);
+            --btn-mild-hover: rgba(0, 242, 254, 0.2);
         }
 
         body.theme-gold {
             --accent-cyan: #fbbf24;
-            --accent-glow: rgba(251, 191, 36, 0.25);
-            --card-border: rgba(251, 191, 36, 0.2);
-            --btn-mild: rgba(251, 191, 36, 0.08);
-            --btn-mild-hover: rgba(251, 191, 36, 0.18);
+            --accent-glow: rgba(251, 191, 36, 0.3);
+            --card-border: rgba(251, 191, 36, 0.25);
+            --btn-mild: rgba(251, 191, 36, 0.1);
+            --btn-mild-hover: rgba(251, 191, 36, 0.2);
         }
         body.theme-green {
             --accent-cyan: #10b981;
-            --accent-glow: rgba(16, 185, 129, 0.25);
-            --card-border: rgba(16, 185, 129, 0.2);
-            --btn-mild: rgba(16, 185, 129, 0.08);
-            --btn-mild-hover: rgba(16, 185, 129, 0.18);
+            --accent-glow: rgba(16, 185, 129, 0.3);
+            --card-border: rgba(16, 185, 129, 0.25);
+            --btn-mild: rgba(16, 185, 129, 0.1);
+            --btn-mild-hover: rgba(16, 185, 129, 0.2);
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; }
         body { background-color: var(--bg-color); color: var(--text-main); padding: 15px; display: flex; justify-content: center; }
         .main-container { width: 100%; max-width: 480px; display: flex; flex-direction: column; gap: 15px; }
 
@@ -63,10 +63,10 @@
             box-shadow: 0 0 15px rgba(0,0,0,0.5);
         }
 
-        .brand-box { display: flex; align-items: center; gap: 10px; }
-        .brand-logo { font-size: 26px; }
-        .brand-name { font-size: 15px; font-weight: bold; color: var(--text-main); letter-spacing: 0.5px; }
-        .brand-sub { font-size: 10px; color: var(--accent-cyan); }
+        .brand-box { display: flex; align-items: center; gap: 8px; }
+        .brand-logo-single { font-size: 20px; }
+        .brand-name { font-size: 14px; font-weight: 900; color: #ffffff; letter-spacing: 0.5px; text-transform: uppercase; }
+        .brand-sub { font-size: 9px; color: var(--accent-cyan); font-weight: bold; }
         .top-right-actions { display: flex; align-items: center; gap: 6px; }
 
         .btn-theme-switcher, .btn-gear {
@@ -83,6 +83,31 @@
         .btn-gear { width: 32px; height: 32px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 16px; }
         .badge-year { background: rgba(245, 158, 11, 0.1); color: var(--warning); border: 1px solid var(--warning); padding: 3px 8px; border-radius: 20px; font-size: 11px; font-weight: bold; }
 
+        /* Hero Banner */
+        .hero-banner {
+            background: linear-gradient(135deg, #0e172c 0%, #080e1b 100%);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 18px;
+            box-shadow: 0 0 25px var(--accent-glow);
+            text-align: center;
+        }
+        .mission-tag { 
+            color: #ffffff; 
+            font-size: 11px; 
+            font-weight: 900; 
+            padding: 6px 12px; 
+            border-radius: 6px; 
+            display: inline-block; 
+            margin-bottom: 8px; 
+            background: linear-gradient(90deg, #1e293b, #0f172a);
+            border: 1px solid rgba(255, 255, 255, 0.3); 
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+        }
+        .hero-banner h2 { font-size: 20px; margin-bottom: 4px; color: var(--accent-cyan); font-weight: 900; letter-spacing: 1px; text-shadow: 0 0 10px var(--accent-glow); }
+        .hero-banner p { font-size: 12px; color: var(--text-main); font-weight: bold; }
+
         .notice-corner {
             background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(0, 242, 254, 0.05));
             border: 1px solid var(--warning);
@@ -94,66 +119,77 @@
             cursor: pointer;
         }
         .notice-header { display: flex; justify-content: space-between; align-items: center; font-size: 12px; font-weight: bold; color: var(--warning); }
-        .notice-body { font-size: 12px; color: var(--text-main); line-height: 1.4; }
+        .notice-body { font-size: 12px; color: var(--text-main); line-height: 1.4; font-weight: bold; transition: opacity 0.5s ease-in-out; }
 
-        .hero-banner {
-            background: linear-gradient(135deg, #0e172c 0%, #080e1b 100%);
-            border: 1px solid var(--card-border);
-            border-radius: 16px;
-            padding: 20px;
-            box-shadow: 0 0 20px var(--accent-glow);
+        /* Category Tabs */
+        .category-tabs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .tab-btn { 
+            background: linear-gradient(135deg, rgba(0, 242, 254, 0.12), rgba(11, 19, 38, 0.8)); 
+            border: 1px solid var(--card-border); 
+            color: var(--text-main); 
+            padding: 15px 12px; 
+            border-radius: 14px; 
+            font-size: 15px; 
+            font-weight: 900; 
+            cursor: pointer; 
+            text-align: center; 
+            letter-spacing: 0.8px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transition: all 0.2s ease; 
         }
-        .mission-tag { background: rgba(245, 158, 11, 0.15); color: var(--warning); font-size: 10px; font-weight: bold; padding: 4px 10px; border-radius: 6px; display: inline-block; margin-bottom: 10px; border: 1px solid rgba(245, 158, 11, 0.3); }
-        .hero-banner h2 { font-size: 18px; margin-bottom: 8px; color: var(--text-main); }
-        .hero-banner p { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
-
-        .category-tabs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
-        .tab-btn { background: var(--btn-mild); border: 1px solid var(--card-border); color: var(--text-muted); padding: 10px; border-radius: 10px; font-size: 12px; font-weight: bold; cursor: pointer; text-align: center; }
-        .tab-btn.active { background: rgba(0, 242, 254, 0.15); border-color: var(--accent-cyan); color: var(--accent-cyan); box-shadow: 0 0 10px var(--accent-glow); }
+        .tab-btn.active { 
+            background: linear-gradient(135deg, rgba(0, 242, 254, 0.25), rgba(0, 242, 254, 0.05)); 
+            border-color: var(--accent-cyan); 
+            color: var(--accent-cyan); 
+            box-shadow: 0 0 18px var(--accent-glow); 
+        }
 
         .sub-category-bar { display: none; gap: 6px; overflow-x: auto; padding-bottom: 5px; }
-        .sub-tab-btn { background: var(--btn-mild); border: 1px solid var(--card-border); color: var(--text-muted); padding: 6px 12px; border-radius: 8px; font-size: 11px; cursor: pointer; white-space: nowrap; }
+        .sub-tab-btn { background: var(--btn-mild); border: 1px solid var(--card-border); color: var(--text-muted); padding: 8px 14px; border-radius: 8px; font-size: 12px; font-weight: bold; cursor: pointer; white-space: nowrap; }
         .sub-tab-btn.active { background: rgba(0, 242, 254, 0.2); border-color: var(--accent-cyan); color: var(--accent-cyan); }
 
         .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         .stat-box { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 15px; display: flex; justify-content: space-between; align-items: center; }
-        .stat-info span { font-size: 11px; color: var(--text-muted); }
-        .stat-info h3 { font-size: 20px; color: var(--text-main); margin-top: 2px; }
+        .stat-info span { font-size: 11px; color: var(--text-muted); font-weight: bold; }
+        .stat-info h3 { font-size: 20px; color: var(--text-main); margin-top: 2px; font-weight: 900; }
         .stat-icon { font-size: 20px; background: var(--btn-mild); padding: 10px; border-radius: 10px; }
 
         .search-box { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 10px 14px; display: flex; align-items: center; gap: 10px; }
-        .search-box input { background: transparent; border: none; color: var(--text-main); font-size: 13px; width: 100%; outline: none; }
+        .search-box input { background: transparent; border: none; color: var(--text-main); font-size: 13px; width: 100%; outline: none; font-weight: bold; }
 
         .test-list { display: flex; flex-direction: column; gap: 10px; }
         .test-item { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 15px; display: flex; flex-direction: column; gap: 10px; }
         .test-header { display: flex; justify-content: space-between; align-items: center; }
-        .test-tag { font-size: 10px; background: var(--btn-mild); color: var(--accent-cyan); padding: 3px 8px; border-radius: 6px; border: 1px solid var(--card-border); }
+        .test-tag { font-size: 11px; background: var(--btn-mild); color: var(--accent-cyan); padding: 4px 10px; border-radius: 6px; border: 1px solid var(--card-border); font-weight: bold; }
         .btn-delete { background: rgba(239, 68, 68, 0.2); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.5); font-size: 10px; padding: 4px 8px; border-radius: 6px; cursor: pointer; font-weight: bold; }
-        .test-title { font-size: 14px; font-weight: bold; color: var(--text-main); }
-        .test-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 8px; border-top: 1px solid rgba(255, 255, 255, 0.05); font-size: 11px; color: var(--text-muted); }
-        .btn-start { background: linear-gradient(135deg, var(--accent-cyan) 0%, #4facfe 100%); color: #000; border: none; padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer; text-decoration: none; }
+        .test-title { font-size: 15px; font-weight: 900; color: var(--text-main); }
+        .test-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 8px; border-top: 1px solid rgba(255, 255, 255, 0.05); font-size: 11px; color: var(--text-muted); font-weight: bold; }
+        .btn-start { background: linear-gradient(135deg, var(--accent-cyan) 0%, #4facfe 100%); color: #000; border: none; padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 900; cursor: pointer; text-decoration: none; }
 
         .announcement-modal, .admin-modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); justify-content: center; align-items: center; z-index: 2000; padding: 20px; }
         .announcement-box, .admin-modal-box { background: var(--card-bg); border: 1px solid var(--warning); border-radius: 16px; padding: 20px; width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 12px; text-align: center; }
         .admin-modal-box { border-color: var(--accent-cyan); text-align: left; }
-        .admin-modal-box input, .admin-modal-box select, .admin-modal-box textarea { background: rgba(0, 0, 0, 0.4); border: 1px solid var(--card-border); padding: 8px 10px; border-radius: 8px; color: var(--text-main); font-size: 13px; width: 100%; outline: none; }
+        .admin-modal-box input, .admin-modal-box select, .admin-modal-box textarea { background: rgba(0, 0, 0, 0.4); border: 1px solid var(--card-border); padding: 8px 10px; border-radius: 8px; color: var(--text-main); font-size: 13px; width: 100%; outline: none; font-weight: bold; }
     </style>
 </head>
 <body id="body-theme">
 
     <div class="main-container">
+        <!-- Live Clock -->
         <div class="live-bar">
             <span id="live-date">📅 Loading...</span>
             <span id="live-clock">⏰ 00:00:00</span>
         </div>
 
+        <!-- Top Bar with Tiger & Sword & Fire Logo Order -->
         <div class="top-bar">
             <div class="brand-box">
-                <div class="brand-logo">🐅⚔️🔥</div>
+                <div class="brand-logo-single">🐯⚔️</div>
                 <div>
-                    <div class="brand-name" id="display-brand-title">TIGER WARRIORS</div>
+                    <div class="brand-name">TIGER WARRIORS</div>
                     <div class="brand-sub">NEXUS</div>
                 </div>
+                <div class="brand-logo-single">⚔️🔥</div>
             </div>
             <div class="top-right-actions">
                 <button class="btn-theme-switcher" onclick="cycleTheme()">🎨 Theme</button>
@@ -162,25 +198,30 @@
             </div>
         </div>
 
-        <div class="notice-corner" onclick="openAnnouncement()">
-            <div class="notice-header"><span>📢 Short News & Updates</span> 👁️</div>
-            <div class="notice-body" id="display-notice-text">Loading news...</div>
+        <!-- Hero Banner with Bold White Tagline -->
+        <div class="hero-banner">
+            <span class="mission-tag">🎯 TIGER WARRIORS PREPARATION HUB</span>
+            <h2>FOR DREAM COME TRUE</h2>
+            <p>அரசுப் பணி கனவை நனவாக்க இப்போதே தொடங்குங்கள்!</p>
         </div>
 
+        <!-- Notice Corner with Rotating News -->
+        <div class="notice-corner" onclick="openAnnouncement()">
+            <div class="notice-header"><span>📢 நடப்பு நிகழ்வுகள் மற்றும் செய்திகள்</span></div>
+            <div class="notice-body" id="display-notice-text">செய்திகள் ஏற்றப்படுகின்றன...</div>
+        </div>
+
+        <!-- Daily Quote Box -->
         <div class="notice-corner" style="border-color: var(--accent-cyan); background: linear-gradient(135deg, rgba(0,242,254,0.1), rgba(0,0,0,0.2));">
             <div class="notice-header" style="color: var(--accent-cyan);"><span>💡 இன்றைய சிந்தனை (Daily Quote)</span></div>
             <div class="notice-body" id="display-quote-text">Loading quote...</div>
         </div>
 
-        <div class="hero-banner">
-            <span class="mission-tag">⚡ MISSION TARGET READY</span>
-            <h2>WARRIORS PREPARATION HUB</h2>
-            <p>அடுத்த கட்ட அரசுப் பணி நியமனத் தேர்வுகளுக்கான நேரடி கவுன்டவுன் மற்றும் ஆன்லைன் மாதிரித் தேர்வு தொகுதி.</p>
-        </div>
-
+        <!-- Category Tabs -->
         <div class="category-tabs" id="category-tabs-container"></div>
         <div class="sub-category-bar" id="sub-category-bar"></div>
 
+        <!-- Stats Grid -->
         <div class="stats-grid">
             <div class="stat-box">
                 <div class="stat-info"><span>Total Tests</span><h3 id="total-tests-count">0</h3></div>
@@ -192,22 +233,26 @@
             </div>
         </div>
 
+        <!-- Search Unit -->
         <div class="search-box">
             <span>🔍</span>
             <input type="text" id="search-input" placeholder="Search Unit, Topic, Subject..." onkeyup="filterTests()">
         </div>
 
+        <!-- Tests List Container -->
         <div class="test-list" id="test-container"></div>
     </div>
 
+    <!-- Full Announcement Modal -->
     <div class="announcement-modal" id="announcementModal" onclick="closeAnnouncement()">
         <div class="announcement-box" onclick="event.stopPropagation()">
-            <h3 style="color: var(--warning);">📢 Short News & Updates</h3>
-            <p id="modal-notice-text" style="font-size: 13px; line-height: 1.5; color: var(--text-main);"></p>
+            <h3 style="color: var(--warning);">📢 நடப்பு நிகழ்வுகள் மற்றும் செய்திகள்</h3>
+            <p id="modal-notice-text" style="font-size: 13px; line-height: 1.5; color: var(--text-main); font-weight: bold;"></p>
             <button class="btn-start" style="margin-top: 10px;" onclick="closeAnnouncement()">OK, Got It! 👍</button>
         </div>
     </div>
 
+    <!-- Admin Modal Panel -->
     <div class="admin-modal-overlay" id="adminModal">
         <div class="admin-modal-box">
             <h3 style="color: var(--accent-cyan);">⚙️ Google Sheets Cloud Admin</h3>
@@ -251,8 +296,11 @@
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby9sDTVISt7FfRB2nG4wxCPR0z89lKoXzrQfMKfI_woBEY7096blr6_iJc6t3-UuVOd6g/exec";
 
         let tests = [];
-        let noticeMessage = "";
+        let newsList = ["அனைத்துத் தேர்வுகளுக்கான யூனிட்கள் ஆன்லைனில் இணைக்கப்பட்டுள்ளன!"];
         let quoteMessage = "";
+        let currentNewsIndex = 0;
+        let newsInterval = null;
+
         let attendedCount = parseInt(localStorage.getItem('tiger_attended_count')) || 0;
         let isAdminLoggedIn = false;
         let currentFilterCategory = 'ALL';
@@ -288,7 +336,12 @@
                             link: item.link || "#"
                         }));
                     }
-                    if (data && data.news) { noticeMessage = data.news; }
+                    if (data && data.news) {
+                        // Split by newline or pipe if multiple news are provided in Sheet
+                        if(typeof data.news === 'string') {
+                            newsList = data.news.split(/[\n|]+/).map(n => n.trim()).filter(n => n.length > 0);
+                        }
+                    }
                     if (data && data.quote) { quoteMessage = data.quote; }
                     initPortal();
                 })
@@ -299,8 +352,8 @@
         }
 
         function initPortal() {
-            document.getElementById('display-notice-text').textContent = noticeMessage || "அனைத்துத் தேர்வுகளுக்கான யூனிட்கள் ஆன்லைனில் இணைக்கப்பட்டுள்ளன!";
-            document.getElementById('modal-notice-text').textContent = noticeMessage || "அனைத்துத் தேர்வுகளுக்கான யூனிட்கள் ஆன்லைனில் இணைக்கப்பட்டுள்ளன!";
+            startNewsRotation();
+            document.getElementById('modal-notice-text').textContent = newsList.join("\n• ");
             document.getElementById('display-quote-text').textContent = quoteMessage || "இன்றைய சிந்தனை: விடாமுயற்சி விஸ்வரூப வெற்றி தரும்!";
             document.getElementById('attended-tests-count').textContent = attendedCount;
 
@@ -311,6 +364,24 @@
             renderSubBars();
             renderTests();
             startLiveClock();
+        }
+
+        function startNewsRotation() {
+            const noticeEl = document.getElementById('display-notice-text');
+            if(!newsList || newsList.length === 0) return;
+
+            noticeEl.textContent = "📌 " + newsList[currentNewsIndex];
+            
+            if(newsInterval) clearInterval(newsInterval);
+
+            newsInterval = setInterval(() => {
+                currentNewsIndex = (currentNewsIndex + 1) % newsList.length;
+                noticeEl.style.opacity = '0';
+                setTimeout(() => {
+                    noticeEl.textContent = "📌 " + newsList[currentNewsIndex];
+                    noticeEl.style.opacity = '1';
+                }, 300);
+            }, 4000); // Rotates every 4 seconds
         }
 
         function openAnnouncement() { document.getElementById('announcementModal').style.display = 'flex'; }
@@ -370,7 +441,7 @@
                 isAdminLoggedIn = true;
                 toggleDeptSelect();
                 document.getElementById('adminModal').style.display = 'flex';
-                renderTests(); // Re-render to show delete buttons instantly
+                renderTests();
             } else if (pwd !== null) { alert("❌ தவறான பாஸ்வேர்ட்!"); }
         }
 
@@ -425,7 +496,7 @@
             document.getElementById('total-tests-count').textContent = tests.length;
 
             if(filtered.length === 0) {
-                container.innerHTML = `<div style="text-align:center; color: var(--text-muted); padding: 20px; font-size:13px;">தேர்வுகள் எதுவும் இல்லை.</div>`;
+                container.innerHTML = `<div style="text-align:center; color: var(--text-muted); padding: 20px; font-size:13px; font-weight:bold;">தேர்வுகள் எதுவும் இல்லை.</div>`;
                 return;
             }
 
@@ -437,7 +508,7 @@
 
                 item.innerHTML = `
                     <div class="test-header">
-                        <span style="font-size:12px; color: var(--text-muted);">#${index + 1}</span>
+                        <span style="font-size:12px; color: var(--text-muted); font-weight:bold;">#${index + 1}</span>
                         <div style="display:flex; gap:6px; align-items:center;">
                             <span class="test-tag">${displayTag}</span>
                             ${isAdminLoggedIn ? `<button class="btn-delete" onclick="deleteTest(${test.id})">Delete 🗑️</button>` : ''}
