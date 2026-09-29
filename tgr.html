@@ -126,7 +126,6 @@
         .notice-header { display: flex; justify-content: space-between; align-items: center; font-size: 11px; font-weight: bold; color: #fde047; flex-wrap: wrap; gap: 4px; }
         .live-datetime-tag { background: rgba(0,0,0,0.4); padding: 2px 6px; border-radius: 4px; font-size: 10px; color: var(--accent-cyan); border: 1px solid rgba(0,242,254,0.3); }
         
-        /* News Content Layout with Image & Voice Over */
         .news-content-box { display: flex; align-items: center; gap: 10px; }
         .news-img { width: 55px; height: 55px; border-radius: 8px; object-fit: cover; border: 1px solid var(--accent-cyan); display: none; flex-shrink: 0; }
         
@@ -335,7 +334,7 @@
 
     <script>
         const getAdminKey = () => "tiger" + "2026";
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxNqbizUQZ2oMvMFu2GyzaN9snA7K2g-Nmnt7ITtqjyqQDRR88UNzYVv5MLMpd3bS9Jbw/exec";
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwA4Bo1Yv5ZwKYoYwQ3IHVlwgs5qD0nvlMJvnO7nGonqN7zMFlvlnJZFXHA-krVIqhZbA/exec";
 
         let tests = [];
         let newsList = [{ text: "அனைத்துத் தேர்வுகளுக்கான யூனிட்கள் ஆன்லைனில் இணைக்கப்பட்டுள்ளன!", img: "" }];
@@ -453,17 +452,16 @@
             }, 5000); 
         }
 
-        // Voice Over (Text-to-Speech) Function
         function playCurrentNewsVoice() {
             if (!('speechSynthesis' in window)) {
                 alert("❌ உங்கள் பிரவுசரில் Voice Over வசதி இல்லை!");
                 return;
             }
-            window.speechSynthesis.cancel(); // Stop previous speech
+            window.speechSynthesis.cancel();
             let currentText = newsList[currentNewsIndex].text;
             let utterance = new SpeechSynthesisUtterance(currentText);
-            utterance.lang = 'ta-IN'; // Tamil voice
-            utterance.rate = 0.9; // Normal speaking speed
+            utterance.lang = 'ta-IN';
+            utterance.rate = 0.9;
             window.speechSynthesis.speak(utterance);
         }
 
