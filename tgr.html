@@ -8,26 +8,27 @@
         :root {
             --bg-color: #060913;
             --card-bg: #0b1326;
-            --card-border: rgba(0, 242, 254, 0.4);
+            --card-border: rgba(0, 242, 254, 0.3);
             --accent-cyan: #00f2fe;
-            --accent-glow: rgba(0, 242, 254, 0.4);
+            --accent-glow: rgba(0, 242, 254, 0.35);
             --text-main: #ffffff;
             --text-muted: #94a3b8;
             --success: #10b981;
             --warning: #fbbf24;
             --danger: #ef4444;
             --btn-mild: rgba(0, 242, 254, 0.12);
+            --btn-mild-hover: rgba(0, 242, 254, 0.25);
         }
 
         body.theme-gold {
             --accent-cyan: #fbbf24;
-            --accent-glow: rgba(251, 191, 36, 0.4);
-            --card-border: rgba(251, 191, 36, 0.4);
+            --accent-glow: rgba(251, 191, 36, 0.35);
+            --card-border: rgba(251, 191, 36, 0.3);
         }
         body.theme-green {
             --accent-cyan: #10b981;
-            --accent-glow: rgba(16, 185, 129, 0.4);
-            --card-border: rgba(16, 185, 129, 0.4);
+            --accent-glow: rgba(16, 185, 129, 0.35);
+            --card-border: rgba(16, 185, 129, 0.3);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; font-weight: bold; scroll-behavior: smooth; }
@@ -254,23 +255,21 @@
             box-shadow: 0 0 20px var(--accent-glow); 
         }
 
-        /* Royal Cyan Glowing Contact Card */
         .contact-card {
-            background: linear-gradient(135deg, #0b1326 0%, #04060d 100%);
-            border: 2px solid var(--accent-cyan);
+            background: linear-gradient(135deg, #1f180c 0%, #0d152b 100%);
+            border: 2px solid var(--warning);
             border-radius: 16px;
             padding: 16px;
             display: flex;
             flex-direction: column;
             gap: 10px;
             text-align: center;
-            box-shadow: 0 0 25px var(--accent-glow);
+            box-shadow: 0 4px 20px rgba(251, 191, 36, 0.25);
             margin-top: 5px;
         }
-        .contact-title { font-size: 14px; color: var(--accent-cyan); font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px; text-shadow: 0 0 8px rgba(0,242,254,0.4); }
+        .contact-title { font-size: 14px; color: var(--warning); font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px; text-shadow: 0 0 8px rgba(251,191,36,0.3); }
         .contact-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 4px; }
-
-        /* Custom Gradients for the 4 Buttons requested */
+        
         .contact-btn-whatsapp {
             background: linear-gradient(135deg, rgba(16, 185, 129, 0.35), rgba(5, 150, 105, 0.15));
             border: 1.5px solid #10b981;
@@ -392,14 +391,14 @@
                 <select id="regCourse">
                     <option value="TNPSC Group 1">🏛️ TNPSC Group 1</option>
                     <option value="TNPSC Group 2">🏛️ TNPSC Group 2</option>
-                    <option value="TNPSC Group 2A">🏛️️ TNPSC Group 2A</option>
+                    <option value="TNPSC Group 2A">🏛️ TNPSC Group 2A</option>
                     <option value="TNPSC Group 4">🏛️ TNPSC Group 4</option>
                     <option value="TRB / NET / SET Tamil">📖 TRB / NET / SET தமிழ் துறை</option>
                     <option value="TRB / NET / SET Chemistry">🧪 TRB / NET / SET வேதியியல் துறை</option>
                     <option value="TRB / NET / SET Physics">⚡ TRB / NET / SET இயற்பியல் துறை</option>
                     <option value="TRB / NET / SET Zoology">🧬 TRB / NET / SET விலங்கியல் துறை</option>
                     <option value="TRB / NET / SET Botany">🌿 TRB / NET / SET தாவரவியல் துறை</option>
-                    <option value="Police Exam">🛡️ Police Exam</option>
+                    <option value="Police Exam">🛡️️ Police Exam</option>
                     <option value="NEET Exam">🧬 NEET Exam</option>
                     <option value="Railway Exam">🚆 Railway Exam</option>
                 </select>
@@ -485,7 +484,7 @@
         <!-- Notice Corner -->
         <div class="notice-corner">
             <div class="notice-header">
-                <span>🐅 TIGER WARRIORS | நடப்பு நிகழ்வுகள்</span>
+                <span>🐯 TIGER WARRIORS | நடப்பு நிகழ்வுகள்</span>
                 <div class="header-actions">
                     <a id="display-news-video" class="news-video-btn" href="#" target="_blank" onclick="playClickSound()">🎥 Video</a>
                     <a id="display-news-pdf" class="news-pdf-btn" href="#" target="_blank" onclick="playClickSound()">📥 PDF</a>
@@ -527,7 +526,7 @@
         <!-- Tests List Container -->
         <div class="test-list" id="test-container"></div>
 
-        <!-- Contact Card with 4 Distinct Button Colors & Royal Cyan Border -->
+        <!-- Contact Card with updated Mail manivarmanchem@gmail.com -->
         <div class="contact-card">
             <div class="contact-title">📞 FOR MORE CONTACT & SUPPORT</div>
             <div style="font-size: 11px; color: var(--text-muted); font-weight: 900;">உங்களுக்கு சந்தேகம் அல்லது வழிகாட்டல் தேவையா? எங்களை உடனே தொடர்பு கொள்ளுங்கள்! GPay: 9790933025</div>
@@ -616,7 +615,7 @@
 
     <div class="modal-overlay" id="trbModal" onclick="closeTrbModal()">
         <div class="modal-box" onclick="event.stopPropagation()">
-            <h3> TRB / NET / SET EXAMS</h3>
+            <h3>📚 TRB / NET / SET EXAMS</h3>
             <p style="text-align:center;">தேவையான துறையைத் தேர்ந்தெடுக்கவும்:</p>
             <div class="modal-option-btn" onclick="playClickSound(); selectTrbDept('தமிழ் துறை')">📖 தமிழ் துறை</div>
             <div class="modal-option-btn" onclick="playClickSound(); selectTrbDept('வேதியியல் துறை')">🧪 வேதியியல் துறை</div>
@@ -641,7 +640,7 @@
             <h3 id="eco-detail-title" style="color: var(--accent-cyan);">🧪 பரிசோதனை விவரங்கள்</h3>
             <p id="eco-detail-text" style="font-size:14px; line-height:1.6; text-align:center;">தகவல்கள் ஏற்றப்படுகின்றன...</p>
             <a id="eco-test-link-btn" href="#" target="_blank" class="btn-start" style="background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%); color:#000; padding:12px; margin-top:8px; text-align:center; display:block; font-size:13px;" onclick="playClickSound()">🔬 Test Your Product (Coming Soon) 🚀</a>
-            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:10px;" onclick="playClickSound(); closeEcoDetailModal()">Back ⬅️️</button>
+            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:10px;" onclick="playClickSound(); closeEcoDetailModal()">Back ⬅️</button>
         </div>
     </div>
 
@@ -723,7 +722,7 @@
         }
 
         const getAdminKey = () => "tiger" + "2026";
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwOFSTAMKsChE0MjsaVNOC90uxVWZ985mS9qfly5gBHrbhWfgk0x4N7RangDwDHDwrnOA/exec";
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyDU1c0-s_m8OvonAexGqFJcR583XO3GOiHAh2BkcpxDxjCYjpiKdJW_QwJWfHarm74bw/exec";
 
         let tests = [];
         let newsList = [{ text: "அனைத்துத் தேர்வுகளுக்கான யூனிட்கள் ஆன்லைனில் இணைக்கப்பட்டுள்ளன!", img: "", pdf: "", video: "" }];
@@ -1244,7 +1243,7 @@
             { id: 'Eco Tech Lab', name: '🧪 Eco Tech Lab' },
             { id: 'Kids Study', name: '🧸 Kids Study' },
             { id: 'ALL', name: '🔥 All Tests' },
-            { id: 'TRB / NET / SET', name: '?? TRB / NET / SET' },
+            { id: 'TRB / NET / SET', name: '📚 TRB / NET / SET' },
             { id: 'TNPSC', name: '🏛️ TNPSC' },
             { id: 'POLICE', name: '🛡️ Police Exam' },
             { id: 'NEET Exam', name: '🧬 NEET Exam' },
