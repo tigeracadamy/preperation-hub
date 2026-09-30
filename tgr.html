@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tiger Warriors - Preparation Hub</title>
+    <title>Tiger Warriors - Preparation Hub & Eco Tech Lab</title>
     <style>
         :root {
             --bg-color: #060913;
@@ -254,7 +254,7 @@
             color: var(--text-main); 
             padding: 20px 16px; 
             border-radius: 14px; 
-            font-size: 20px; 
+            font-size: 18px; 
             font-weight: 900; 
             cursor: pointer; 
             text-align: center; 
@@ -270,10 +270,10 @@
         }
 
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.88); justify-content: center; align-items: center; z-index: 4000; padding: 20px; }
-        .modal-box { background: var(--card-bg); border: 2px solid var(--accent-cyan); border-radius: 18px; padding: 22px; width: 100%; max-width: 360px; display: flex; flex-direction: column; gap: 12px; text-align: center; box-shadow: 0 0 40px var(--accent-glow); max-height: 85vh; overflow-y: auto; }
+        .modal-box { background: var(--card-bg); border: 2px solid var(--accent-cyan); border-radius: 18px; padding: 22px; width: 100%; max-width: 380px; display: flex; flex-direction: column; gap: 12px; text-align: center; box-shadow: 0 0 40px var(--accent-glow); max-height: 85vh; overflow-y: auto; transition: transform 0.3s ease; }
         .modal-box h3 { font-size: 18px; color: var(--warning); font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px; }
-        .modal-box p { font-size: 15px; color: var(--text-main); font-weight: 900; line-height: 1.55; text-align: left; background: rgba(0,0,0,0.4); padding: 12px; border-radius: 10px; border: 1px solid var(--card-border); }
-        .modal-option-btn { background: linear-gradient(135deg, rgba(0,242,254,0.25), rgba(11,19,38,0.95)); border: 1px solid var(--accent-cyan); color: var(--accent-cyan); padding: 11px 12px; border-radius: 10px; font-size: 13px; font-weight: 900; cursor: pointer; text-align: center; transition: all 0.2s; text-decoration: none; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        .modal-box p { font-size: 14px; color: var(--text-main); font-weight: 900; line-height: 1.55; text-align: left; background: rgba(0,0,0,0.4); padding: 12px; border-radius: 10px; border: 1px solid var(--card-border); }
+        .modal-option-btn { background: linear-gradient(135deg, rgba(0,242,254,0.25), rgba(11,19,38,0.95)); border: 1px solid var(--accent-cyan); color: var(--accent-cyan); padding: 12px 14px; border-radius: 10px; font-size: 13px; font-weight: 900; cursor: pointer; text-align: center; transition: all 0.2s; text-decoration: none; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
         .modal-option-btn:hover { background: var(--accent-cyan); color: #000; }
 
         .donation-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); justify-content: center; align-items: center; z-index: 3000; padding: 20px; }
@@ -442,7 +442,30 @@
         </div>
     </div>
 
-    <!-- Kids Study Popup Modal with 3 Options -->
+    <!-- Manikasi Eco Tech Lab Modal -->
+    <div class="modal-overlay" id="ecoTechModal" onclick="closeEcoTechModal()">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <h3 style="color: var(--warning);">🔬 MANIKASI ECO TECH LAB</h3>
+            <p style="text-align:center; font-size:13px;">கிராமப்புற நீர், மண், உணவு மற்றும் பொருள் தர பரிசோதனை மையம்:</p>
+            <div id="eco-tests-menu-container" style="display: flex; flex-direction: column; gap: 8px; max-height: 250px; overflow-y: auto;"></div>
+            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:10px;" onclick="playClickSound(); closeEcoTechModal()">Close ❌</button>
+        </div>
+    </div>
+
+    <!-- Eco Test Detail Zoom Modal with Test Your Product Button -->
+    <div class="modal-overlay" id="ecoDetailModal" onclick="closeEcoDetailModal()">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <h3 id="eco-detail-title" style="color: var(--accent-cyan);">🧪 பரிசோதனை விவரங்கள்</h3>
+            <p id="eco-detail-text" style="font-size:14px; line-height:1.6; text-align:center;">தகவல்கள் ஏற்றப்படுகின்றன...</p>
+            
+            <!-- Test Your Product Button -->
+            <a id="eco-test-link-btn" href="#" target="_blank" class="btn-start" style="background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%); color:#000; padding:12px; margin-top:8px; text-align:center; display:block; font-size:13px;" onclick="playClickSound()">🔬 Test Your Product (Coming Soon) 🚀</a>
+
+            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:10px;" onclick="playClickSound(); closeEcoDetailModal()">Back ⬅️</button>
+        </div>
+    </div>
+
+    <!-- Kids Study Popup Modal -->
     <div class="modal-overlay" id="kidsStudyModal" onclick="closeKidsStudyModal()">
         <div class="modal-box" onclick="event.stopPropagation()">
             <h3 style="color: var(--warning);">🧸 KIDS STUDY & FUN</h3>
@@ -573,55 +596,30 @@
         </div>
     </div>
 
-    <!-- Admin Modal Overlay -->
-    <div class="admin-modal-overlay" id="adminModal">
-        <div class="admin-modal-box">
-            <h3 style="color: var(--accent-cyan);">⚙️ Google Sheets Cloud Admin</h3>
-            <p style="font-size: 11px; color: var(--text-muted);">இங்கு டெஸ்ட் சேர்த்தால் அது நேரடியாக Google Sheet-க்கு செல்லும்!</p>
-            <hr style="border-color: rgba(255,255,255,0.15);">
-            
-            <input type="text" id="admin-title" placeholder="Test Name (e.g., UNIT 1)">
-            <label>Category:</label>
-            <select id="admin-category" onchange="toggleDeptSelect()">
-                <option value="Kids Study">🧸 Kids Study (Tests)</option>
-                <option value="ALL">🔥 All Tests</option>
-                <option value="TRB / NET / SET">📚 TRB / NET / SET</option>
-                <option value="TNPSC">🏛️ TNPSC</option>
-                <option value="POLICE">🛡️ Police Exam</option>
-                <option value="NEET Exam">🧬 NEET Exam</option>
-                <option value="Railway Exam">🚆 Railway Exam</option>
-                <option value="Free Test & PYQ">🎯 Free Test & PYQ</option>
-            </select>
-            <div id="dept-select-group" style="display:none; flex-direction:column; gap:4px;">
-                <label>Department / Group:</label>
-                <select id="admin-department">
-                    <option value="Group 1">Group 1</option>
-                    <option value="Group 2">Group 2</option>
-                    <option value="Group 2A">Group 2A</option>
-                    <option value="Group 4">Group 4</option>
-                </select>
+    <!-- Admin Main Category Selection Modal (Solves Scrolling Issue) -->
+    <div class="admin-modal-overlay" id="adminMainModal">
+        <div class="admin-modal-box" style="text-align:center;">
+            <h3 style="color: var(--accent-cyan); text-align:center;">⚙️ ADMIN PANEL SELECTION</h3>
+            <p style="font-size: 12px; color: var(--text-muted); text-align:center;">எதை எடிட் செய்ய விரும்புகிறீர்கள்?</p>
+            <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 10px;">
+                <button class="modal-option-btn" onclick="playClickSound(); openSpecificAdmin('test')">📚 Tests Management</button>
+                <button class="modal-option-btn" onclick="playClickSound(); openSpecificAdmin('music')">🎵 Motivation Songs (10)</button>
+                <button class="modal-option-btn" onclick="playClickSound(); openSpecificAdmin('rhymes')">🎶 Kids Rhymes (10)</button>
+                <button class="modal-option-btn" onclick="playClickSound(); openSpecificAdmin('science')">🧪 Science Facts (10)</button>
+                <button class="modal-option-btn" onclick="playClickSound(); openSpecificAdmin('ecotech')">🔬 Eco Tech Links (6)</button>
             </div>
-            <input type="text" id="admin-time" placeholder="Duration" value="60 Mins • 50 Qs">
-            <input type="text" id="admin-link" placeholder="Test URL (https://...)">
-            <button class="btn-start" style="margin-top: 5px; width:100%; padding:8px;" onclick="playClickSound(); saveTestToSheet()">Publish Test 🚀</button>
-            
-            <hr style="border-color: rgba(255,255,255,0.15); margin-top: 8px;">
-            <label style="color: var(--success); font-size:12px;">🎵 10 Motivation Songs:</label>
-            <div id="admin-music-inputs" style="display: flex; flex-direction: column; gap: 6px; max-height: 90px; overflow-y: auto;"></div>
-            <button class="btn-start" style="background:var(--success); color:#000; margin-top: 4px; width:100%; padding:6px;" onclick="playClickSound(); saveMusicToSheet()">Publish Music Only 🎵</button>
+            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:10px; padding:8px;" onclick="playClickSound(); closeAdminMainModal()">Close ❌</button>
+        </div>
+    </div>
 
-            <hr style="border-color: rgba(255,255,255,0.15); margin-top: 8px;">
-            <label style="color: var(--warning); font-size:12px;">🎶 10 Kids Rhymes:</label>
-            <div id="admin-rhymes-inputs" style="display: flex; flex-direction: column; gap: 6px; max-height: 90px; overflow-y: auto;"></div>
-            <button class="btn-start" style="background:var(--warning); color:#000; margin-top: 4px; width:100%; padding:6px;" onclick="playClickSound(); saveRhymesToSheet()">Publish Rhymes Only 🎶</button>
-
-            <hr style="border-color: rgba(255,255,255,0.15); margin-top: 8px;">
-            <label style="color: var(--accent-cyan); font-size:12px;">🧪 10 Science Facts:</label>
-            <div id="admin-science-inputs" style="display: flex; flex-direction: column; gap: 6px; max-height: 90px; overflow-y: auto;"></div>
-            <button class="btn-start" style="background:var(--accent-cyan); color:#000; margin-top: 4px; width:100%; padding:6px;" onclick="playClickSound(); saveScienceToSheet()">Publish Science Only 🧪</button>
-
+    <!-- Specific Admin Sub-Modals -->
+    <div class="admin-modal-overlay" id="adminSubModal">
+        <div class="admin-modal-box">
+            <h3 id="admin-sub-title" style="color: var(--accent-cyan);">⚙️ Edit Section</h3>
+            <div id="admin-sub-content" style="display: flex; flex-direction: column; gap: 8px; max-height: 60vh; overflow-y: auto; margin-top: 5px;"></div>
             <div style="display: flex; gap: 10px; margin-top: 10px;">
-                <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; padding:8px; width:100%;" onclick="playClickSound(); closeAdminModal()">Close ❌</button>
+                <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; padding:8px; width:50%;" onclick="playClickSound(); backToAdminMain()">⬅️ Back</button>
+                <button id="admin-save-btn" class="btn-start" style="padding:8px; width:50%;" onclick="playClickSound()">Publish Live 🚀</button>
             </div>
         </div>
     </div>
@@ -645,7 +643,7 @@
         }
 
         const getAdminKey = () => "tiger" + "2026";
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyVfgMxfX8lOE6PHSDpn2PuHBRGPxh95cR0S5N_nVZDO0rMjV07UaxdDVzJUwPl8fKWiA/exec";
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzIpkwGklo5wZ_UuifX20_66fdVwBDTgb51nntxjN_XLChPzrczR5oaOziQu1VFqEhN4A/exec";
 
         let tests = [];
         let newsList = [{ text: "அனைத்துத் தேர்வுகளுக்கான யூனிட்கள் ஆன்லைனில் இணைக்கப்பட்டுள்ளன!", img: "", pdf: "", video: "" }];
@@ -653,6 +651,14 @@
         let musicList = Array.from({length: 10}, (_, i) => ({ title: `மோட்டிவேஷன் பாடல் ${i+1}`, url: "" }));
         let rhymesList = Array.from({length: 10}, (_, i) => ({ title: `Rhyme ${i+1}`, url: "" }));
         let scienceList = Array.from({length: 10}, (_, i) => ({ title: `Science Fact ${i+1}`, url: "" }));
+        let ecoTestsList = [
+            { name: "நீர் பரிசோதனை (Water Quality)", url: "" },
+            { name: "மண்ணின் தரம் (Soil Testing)", url: "" },
+            { name: "பாலில் கலப்படம் (Milk Purity)", url: "" },
+            { name: "குளிர் பானங்கள் (Cold Drinks)", url: "" },
+            { name: "சமையல் எண்ணெய் (Oil Quality)", url: "" },
+            { name: "நுகர்வோர் பொருட்கள் (Consumer Goods)", url: "" }
+        ];
 
         let currentNewsIndex = 0;
         let newsInterval = null;
@@ -705,6 +711,59 @@
             document.getElementById('musicModal').style.display = 'flex';
         }
         function closeMusicModal() { document.getElementById('musicModal').style.display = 'none'; }
+
+        // Manikasi Eco Tech Lab Modal Functions
+        function openEcoTechModal() {
+            const container = document.getElementById('eco-tests-menu-container');
+            container.innerHTML = "";
+            ecoTestsList.forEach((test, idx) => {
+                const btn = document.createElement('div');
+                btn.className = 'modal-option-btn';
+                let emoji = idx === 0 ? '💧' : (idx === 1 ? '🌱' : (idx === 2 ? '🥛' : (idx === 3 ? '🥤' : (idx === 4 ? '🛢️' : '📦'))));
+                btn.innerHTML = `<span>${emoji} ${test.name}</span> <span style="font-size:11px; color:var(--warning);">🔍 Test</span>`;
+                btn.onclick = () => {
+                    playClickSound();
+                    openEcoTestDetail(test.name, test.url);
+                };
+                container.appendChild(btn);
+            });
+            document.getElementById('ecoTechModal').style.display = 'flex';
+        }
+        function closeEcoTechModal() { document.getElementById('ecoTechModal').style.display = 'none'; }
+
+        function openEcoTestDetail(testName, customUrl = "") {
+            closeEcoTechModal();
+            document.getElementById('eco-detail-title').textContent = "🧪 " + testName;
+            let infoText = "";
+            if(testName.includes('நீர்')) {
+                infoText = "நீர் பரிசோதனை விவரங்கள்:\n• TDS அளவு: < 500 ppm இருக்க வேண்டும்.\n• pH மதிப்பு: 6.5 முதல் 8.5 வரை இருக்க வேண்டும்.\n• பாக்டீரியா மற்றும் கனிம தாதுக்களின் அளவு சரிபார்க்கப்படுகிறது.";
+            } else if(testName.includes('மண்')) {
+                infoText = "மண் பரிசோதனை விவரங்கள்:\n• N-P-K (நைட்ரஜன், பாஸ்பரஸ், பொட்டாசியம்) சத்துக்களின் அளவு.\n• மண்ணின் அமிலத்தன்மை (pH) மற்றும் உவர் தன்மை மதிப்பீடு.";
+            } else if(testName.includes('பால்')) {
+                infoText = "பாலில் கலப்பட சோதனை:\n• லாக்டோஸ் மற்றும் கொழுப்புச் சத்து (Fat) அளவு.\n• யூரியா, ஸ்டார்ச் மற்றும் தண்ணீர் கலப்படம் உள்ளதா என சோதிக்கும் முறை.";
+            } else {
+                infoText = testName + " தொடர்பான தரச் சோதனை மற்றும் ஆய்வக முடிவுகள் விவரங்கள்:";
+            }
+            document.getElementById('eco-detail-text').textContent = infoText;
+            
+            const testBtn = document.getElementById('eco-test-link-btn');
+            if (customUrl && customUrl.trim() !== "") {
+                testBtn.href = customUrl;
+                testBtn.innerHTML = `🔬 Test Your Product 🚀`;
+                testBtn.onclick = (e) => { playClickSound(); window.open(customUrl, '_blank'); };
+            } else {
+                testBtn.href = "#";
+                testBtn.innerHTML = `🔬 Test Your Product (Coming Soon) 🚀`;
+                testBtn.onclick = (e) => {
+                    e.preventDefault();
+                    playClickSound();
+                    alert("🚀 Test Your Product (Coming Soon)! இந்த வசதி விரைவில் நடைமுறைக்கு வரும்.");
+                };
+            }
+
+            document.getElementById('ecoDetailModal').style.display = 'flex';
+        }
+        function closeEcoDetailModal() { document.getElementById('ecoDetailModal').style.display = 'none'; openEcoTechModal(); }
 
         function openKidsStudyModal() { document.getElementById('kidsStudyModal').style.display = 'flex'; }
         function closeKidsStudyModal() { document.getElementById('kidsStudyModal').style.display = 'none'; }
@@ -801,6 +860,7 @@
                     else if (cat.id === 'TRB / NET / SET') openTrbModal();
                     else if (cat.id === 'Free Test & PYQ') openFreeTestModal();
                     else if (cat.id === 'Kids Study') openKidsStudyModal();
+                    else if (cat.id === 'Eco Tech Lab') openEcoTechModal();
                     else {
                         currentFilterCategory = cat.id;
                         currentFilterSubCategory = 'ALL';
@@ -906,14 +966,14 @@
         }
 
         const categories = [
+            { id: 'Eco Tech Lab', name: '🧪 Eco Tech Lab' },
             { id: 'Kids Study', name: '🧸 Kids Study' },
             { id: 'ALL', name: '🔥 All Tests' },
             { id: 'TRB / NET / SET', name: '📚 TRB / NET / SET' },
             { id: 'TNPSC', name: '🏛️ TNPSC' },
             { id: 'POLICE', name: '🛡️ Police Exam' },
             { id: 'NEET Exam', name: '🧬 NEET Exam' },
-            { id: 'Railway Exam', name: '🚆 Railway Exam' },
-            { id: 'Free Test & PYQ', name: '🎯 Free Test & PYQ' }
+            { id: 'Railway Exam', name: '🚆 Railway Exam' }
         ];
 
         function cycleTheme() {
@@ -948,10 +1008,8 @@
                         musicList = data.music.map((m, idx) => ({ title: m.title || `மோட்டிவேஷன் பாடல் ${idx+1}`, url: m.url || "" }));
                     }
                     
-                    // Fixed index ordering for Rhymes & Science Facts
                     if (data && data.rhymes && Array.isArray(data.rhymes)) {
                         rhymesList = data.rhymes.map((r, idx) => ({ title: r.title || `Rhyme ${idx+1}`, url: r.url || "" }));
-                        // Sort neatly by index or original order if titles have numbers
                         rhymesList.sort((a, b) => {
                             let numA = parseInt(a.title.replace(/[^0-9]/g, '')) || 0;
                             let numB = parseInt(b.title.replace(/[^0-9]/g, '')) || 0;
@@ -966,6 +1024,13 @@
                             let numB = parseInt(b.title.replace(/[^0-9]/g, '')) || 0;
                             return numA - numB;
                         });
+                    }
+
+                    if (data && data.ecoTests && Array.isArray(data.ecoTests)) {
+                        ecoTestsList = data.ecoTests.map((e, idx) => ({
+                            name: e.name || ecoTestsList[idx].name,
+                            url: e.url || ""
+                        }));
                     }
 
                     initPortal();
@@ -1027,7 +1092,9 @@
                 btn.textContent = cat.name;
                 btn.onclick = () => {
                     playClickSound();
-                    if (cat.id === 'Kids Study') {
+                    if (cat.id === 'Eco Tech Lab') {
+                        openEcoTechModal();
+                    } else if (cat.id === 'Kids Study') {
                         openKidsStudyModal();
                     } else if (cat.id === 'TNPSC') {
                         openTnpscModal();
@@ -1052,69 +1119,121 @@
             if (anchor) anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
+        // --- NEW MODULAR ADMIN PANEL LOGIC (Solves Scrolling Issue) ---
         function verifyAdmin() {
             let pwd = prompt("🔒 Admin Password உள்ளிடவும்:");
             if (pwd === getAdminKey()) {
                 isAdminLoggedIn = true;
-                toggleDeptSelect();
-                renderAdminMusicInputs();
-                renderAdminRhymesInputs();
-                renderAdminScienceInputs();
-                document.getElementById('adminModal').style.display = 'flex';
-                renderTests();
+                document.getElementById('adminMainModal').style.display = 'flex';
             } else if (pwd !== null) { alert("❌ தவறான பாஸ்வேர்ட்!"); }
         }
 
-        function renderAdminMusicInputs() {
-            const container = document.getElementById('admin-music-inputs');
-            container.innerHTML = "";
-            for(let i=0; i<10; i++) {
-                let song = musicList[i] || { title: `மோட்டிவேஷன் பாடல் ${i+1}`, url: "" };
-                const div = document.createElement('div');
-                div.style.display = "flex";
-                div.style.gap = "5px";
-                div.innerHTML = `
-                    <input type="text" id="admin-song-title-${i}" value="${song.title}" placeholder="Song ${i+1}" style="flex:1;">
-                    <input type="text" id="admin-song-url-${i}" value="${song.url}" placeholder="URL ${i+1}" style="flex:1.5;">
-                `;
-                container.appendChild(div);
-            }
+        function closeAdminMainModal() { document.getElementById('adminMainModal').style.display = 'none'; }
+        function closeAdminSubModal() { document.getElementById('adminSubModal').style.display = 'none'; }
+        function backToAdminMain() {
+            closeAdminSubModal();
+            document.getElementById('adminMainModal').style.display = 'flex';
         }
 
-        function renderAdminRhymesInputs() {
-            const container = document.getElementById('admin-rhymes-inputs');
-            container.innerHTML = "";
-            for(let i=0; i<10; i++) {
-                let rhyme = rhymesList[i] || { title: `Rhyme ${i+1}`, url: "" };
-                const div = document.createElement('div');
-                div.style.display = "flex";
-                div.style.gap = "5px";
-                div.innerHTML = `
-                    <input type="text" id="admin-rhyme-title-${i}" value="${rhyme.title}" placeholder="Rhyme ${i+1}" style="flex:1;">
-                    <input type="text" id="admin-rhyme-url-${i}" value="${rhyme.url}" placeholder="URL ${i+1}" style="flex:1.5;">
-                `;
-                container.appendChild(div);
-            }
-        }
+        function openSpecificAdmin(sectionType) {
+            closeAdminMainModal();
+            const titleEl = document.getElementById('admin-sub-title');
+            const contentEl = document.getElementById('admin-sub-content');
+            const saveBtn = document.getElementById('admin-save-btn');
+            contentEl.innerHTML = "";
 
-        function renderAdminScienceInputs() {
-            const container = document.getElementById('admin-science-inputs');
-            container.innerHTML = "";
-            for(let i=0; i<10; i++) {
-                let fact = scienceList[i] || { title: `Science Fact ${i+1}`, url: "" };
-                const div = document.createElement('div');
-                div.style.display = "flex";
-                div.style.gap = "5px";
-                div.innerHTML = `
-                    <input type="text" id="admin-science-title-${i}" value="${fact.title}" placeholder="Fact ${i+1}" style="flex:1;">
-                    <input type="text" id="admin-science-url-${i}" value="${fact.url}" placeholder="URL ${i+1}" style="flex:1.5;">
+            if (sectionType === 'test') {
+                titleEl.textContent = "📚 Manage Tests";
+                contentEl.innerHTML = `
+                    <input type="text" id="admin-title" placeholder="Test Name (e.g., UNIT 1)" style="margin-bottom:6px;">
+                    <label>Category:</label>
+                    <select id="admin-category" onchange="toggleDeptSelect()" style="margin-bottom:6px;">
+                        <option value="Kids Study">🧸 Kids Study (Tests)</option>
+                        <option value="ALL">🔥 All Tests</option>
+                        <option value="TRB / NET / SET">📚 TRB / NET / SET</option>
+                        <option value="TNPSC">🏛️ TNPSC</option>
+                        <option value="POLICE">🛡️ Police Exam</option>
+                        <option value="NEET Exam">🧬 NEET Exam</option>
+                        <option value="Railway Exam">🚆 Railway Exam</option>
+                        <option value="Free Test & PYQ">🎯 Free Test & PYQ</option>
+                    </select>
+                    <div id="dept-select-group" style="display:none; flex-direction:column; gap:4px; margin-bottom:6px;">
+                        <label>Department / Group:</label>
+                        <select id="admin-department">
+                            <option value="Group 1">Group 1</option><option value="Group 2">Group 2</option><option value="Group 2A">Group 2A</option><option value="Group 4">Group 4</option>
+                        </select>
+                    </div>
+                    <input type="text" id="admin-time" placeholder="Duration" value="60 Mins • 50 Qs" style="margin-bottom:6px;">
+                    <input type="text" id="admin-link" placeholder="Test URL (https://...)">
                 `;
-                container.appendChild(div);
+                saveBtn.style.background = "var(--accent-cyan)";
+                saveBtn.style.color = "#000";
+                saveBtn.onclick = () => { playClickSound(); saveTestToSheet(); };
+                toggleDeptSelect();
+            } else if (sectionType === 'music') {
+                titleEl.textContent = "🎵 10 Motivation Songs";
+                for(let i=0; i<10; i++) {
+                    let song = musicList[i] || { title: `மோட்டிவேஷன் பாடல் ${i+1}`, url: "" };
+                    contentEl.innerHTML += `
+                        <div style="display:flex; gap:5px;">
+                            <input type="text" id="admin-song-title-${i}" value="${song.title}" placeholder="Song ${i+1}" style="flex:1;">
+                            <input type="text" id="admin-song-url-${i}" value="${song.url}" placeholder="URL ${i+1}" style="flex:1.5;">
+                        </div>
+                    `;
+                }
+                saveBtn.style.background = "var(--success)";
+                saveBtn.style.color = "#000";
+                saveBtn.onclick = () => { playClickSound(); saveMusicToSheet(); };
+            } else if (sectionType === 'rhymes') {
+                titleEl.textContent = "🎶 10 Kids Rhymes";
+                for(let i=0; i<10; i++) {
+                    let rhyme = rhymesList[i] || { title: `Rhyme ${i+1}`, url: "" };
+                    contentEl.innerHTML += `
+                        <div style="display:flex; gap:5px;">
+                            <input type="text" id="admin-rhyme-title-${i}" value="${rhyme.title}" placeholder="Rhyme ${i+1}" style="flex:1;">
+                            <input type="text" id="admin-rhyme-url-${i}" value="${rhyme.url}" placeholder="URL ${i+1}" style="flex:1.5;">
+                        </div>
+                    `;
+                }
+                saveBtn.style.background = "var(--warning)";
+                saveBtn.style.color = "#000";
+                saveBtn.onclick = () => { playClickSound(); saveRhymesToSheet(); };
+            } else if (sectionType === 'science') {
+                titleEl.textContent = "🧪 10 Science Facts";
+                for(let i=0; i<10; i++) {
+                    let fact = scienceList[i] || { title: `Science Fact ${i+1}`, url: "" };
+                    contentEl.innerHTML += `
+                        <div style="display:flex; gap:5px;">
+                            <input type="text" id="admin-science-title-${i}" value="${fact.title}" placeholder="Fact ${i+1}" style="flex:1;">
+                            <input type="text" id="admin-science-url-${i}" value="${fact.url}" placeholder="URL ${i+1}" style="flex:1.5;">
+                        </div>
+                    `;
+                }
+                saveBtn.style.background = "var(--accent-cyan)";
+                saveBtn.style.color = "#000";
+                saveBtn.onclick = () => { playClickSound(); saveScienceToSheet(); };
+            } else if (sectionType === 'ecotech') {
+                titleEl.textContent = "🔬 Eco Tech Lab Links (6 Tests)";
+                ecoTestsList.forEach((test, i) => {
+                    contentEl.innerHTML += `
+                        <div style="display:flex; gap:5px;">
+                            <input type="text" id="admin-eco-name-${i}" value="${test.name}" placeholder="Name ${i+1}" style="flex:1;">
+                            <input type="text" id="admin-eco-url-${i}" value="${test.url}" placeholder="URL ${i+1}" style="flex:1.5;">
+                        </div>
+                    `;
+                });
+                saveBtn.style.background = "var(--warning)";
+                saveBtn.style.color = "#000";
+                saveBtn.onclick = () => { playClickSound(); saveEcoTechToSheet(); };
             }
+
+            document.getElementById('adminSubModal').style.display = 'flex';
         }
 
         function toggleDeptSelect() {
-            const catSelect = document.getElementById('admin-category').value;
+            const catEl = document.getElementById('admin-category');
+            if(!catEl) return;
+            const catSelect = catEl.value;
             const deptGroup = document.getElementById('dept-select-group');
             const deptSelect = document.getElementById('admin-department');
             if (catSelect === 'TRB / NET / SET') {
@@ -1125,8 +1244,6 @@
                 deptSelect.innerHTML = `<option value="Group 1">Group 1</option><option value="Group 2">Group 2</option><option value="Group 2A">Group 2A</option><option value="Group 4">Group 4</option>`;
             } else { deptGroup.style.display = 'none'; }
         }
-
-        function closeAdminModal() { document.getElementById('adminModal').style.display = 'none'; }
 
         function renderTests() {
             const container = document.getElementById('test-container');
@@ -1175,7 +1292,7 @@
                     </div>
                     <div class="test-title">${test.title}</div>
                     <div class="test-footer">
-                        <span>⏱️️ ${test.time || "60 Mins • 50 Qs"}</span>
+                        <span>⏱️ ${test.time || "60 Mins • 50 Qs"}</span>
                         <div class="test-action-btns">
                             ${videoButtonHtml}
                             ${pdfButtonHtml}
@@ -1195,7 +1312,6 @@
             document.getElementById('attended-tests-count').textContent = attendedCount;
         }
 
-        // Separate Save Functions for Admin Panel
         function saveTestToSheet() {
             const title = document.getElementById('admin-title').value;
             const category = document.getElementById('admin-category').value;
@@ -1217,7 +1333,7 @@
                 updatedMusic.push({ title: st, url: su });
             }
             const payload = { type: "music", music: updatedMusic };
-            sendDataToCloud(payload, "🎵 மோட்டிவேஷன் பாடல்கள் மட்டும் சேமிக்கப்பட்டன!");
+            sendDataToCloud(payload, "🎵 மோட்டிவேஷன் பாடல்கள் சேமிக்கப்பட்டன!");
         }
 
         function saveRhymesToSheet() {
@@ -1228,7 +1344,7 @@
                 updatedRhymes.push({ title: rt, url: ru });
             }
             const payload = { type: "rhymes", rhymes: updatedRhymes };
-            sendDataToCloud(payload, "🎶 ரைம்ஸ் பாடல்கள் மட்டும் சேமிக்கப்பட்டன!");
+            sendDataToCloud(payload, "🎶 ரைம்ஸ் பாடல்கள் சேமிக்கப்பட்டன!");
         }
 
         function saveScienceToSheet() {
@@ -1239,7 +1355,18 @@
                 updatedScience.push({ title: sct, url: scu });
             }
             const payload = { type: "science", science: updatedScience };
-            sendDataToCloud(payload, "🧪 சயின்ஸ் ஃபேக்ட்ஸ் மட்டும் சேமிக்கப்பட்டன!");
+            sendDataToCloud(payload, "🧪 சயின்ஸ் ஃபேக்ட்ஸ் சேமிக்கப்பட்டன!");
+        }
+
+        function saveEcoTechToSheet() {
+            let updatedEco = [];
+            for(let i=0; i<ecoTestsList.length; i++) {
+                let en = document.getElementById(`admin-eco-name-${i}`).value;
+                let eu = document.getElementById(`admin-eco-url-${i}`).value;
+                updatedEco.push({ name: en, url: eu });
+            }
+            const payload = { type: "ecotech", ecoTests: updatedEco };
+            sendDataToCloud(payload, "🔬 எக்கோ டெக் லேப் லிங்குகள் சேமிக்கப்பட்டன!");
         }
 
         function sendDataToCloud(payload, successMsg) {
@@ -1254,7 +1381,7 @@
                     document.getElementById('admin-title').value = "";
                     document.getElementById('admin-link').value = "";
                 }
-                closeAdminModal();
+                closeAdminSubModal();
                 setTimeout(fetchSheetData, 2000);
             }).catch(err => { alert("❌ பிழை ஏற்பட்டது: " + err); });
         }
