@@ -255,7 +255,6 @@
             box-shadow: 0 0 20px var(--accent-glow); 
         }
 
-        /* Royal Brown / Gold Look for Contact Card */
         .contact-card {
             background: linear-gradient(135deg, #1f180c 0%, #0d152b 100%);
             border: 2px solid var(--warning);
@@ -373,7 +372,7 @@
                 <select id="regCourse">
                     <option value="TNPSC Group 1">🏛️ TNPSC Group 1</option>
                     <option value="TNPSC Group 2">🏛️ TNPSC Group 2</option>
-                    <option value="TNPSC Group 2A">🏛️️ TNPSC Group 2A</option>
+                    <option value="TNPSC Group 2A">🏛️ TNPSC Group 2A</option>
                     <option value="TNPSC Group 4">🏛️ TNPSC Group 4</option>
                     <option value="TRB / NET / SET Tamil">📖 TRB / NET / SET தமிழ் துறை</option>
                     <option value="TRB / NET / SET Chemistry">🧪 TRB / NET / SET வேதியியல் துறை</option>
@@ -466,7 +465,7 @@
         <!-- Notice Corner -->
         <div class="notice-corner">
             <div class="notice-header">
-                <span>🐯 TIGER WARRIORS | நடப்பு நிகழ்வுகள்</span>
+                <span>🐅 TIGER WARRIORS | நடப்பு நிகழ்வுகள்</span>
                 <div class="header-actions">
                     <a id="display-news-video" class="news-video-btn" href="#" target="_blank" onclick="playClickSound()">🎥 Video</a>
                     <a id="display-news-pdf" class="news-pdf-btn" href="#" target="_blank" onclick="playClickSound()">📥 PDF</a>
@@ -636,7 +635,7 @@
 
     <div class="modal-overlay" id="currentNewsModal" onclick="closeCurrentNewsModal()">
         <div class="modal-box" onclick="event.stopPropagation()">
-            <h3>🐅 நடப்பு நிகழ்வுகள்</h3>
+            <h3>🐯 நடப்பு நிகழ்வுகள்</h3>
             <p id="modal-current-news-text"></p>
             <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 5px;">
                 <button class="modal-option-btn" onclick="playClickSound(); playModalNewsVoice()">🔊 Listen</button>
@@ -921,6 +920,14 @@
         let pendingCategoryAction = null;
         function checkAuthAndProceed(actionCallback, targetCategory = '') {
             currentActiveCategoryForResource = targetCategory;
+            
+            // Free Test (ALL), Kids Study, and Eco Tech Lab open instantly without login check
+            if (targetCategory === 'ALL' || targetCategory === 'Kids Study' || targetCategory === 'Eco Tech Lab') {
+                actionCallback();
+                return;
+            }
+
+            // For paid courses, check if already verified in this session
             if (localStorage.getItem('tiger_auth_passed') === 'true' || isAdminLoggedIn) {
                 let phone = localStorage.getItem('tiger_student_phone') || "";
                 let deviceId = getUniqueDeviceId();
@@ -1106,22 +1113,21 @@
         }
 
         function openEcoTechModal() {
-            checkAuthAndProceed(() => {
-                const container = document.getElementById('eco-tests-menu-container');
-                container.innerHTML = "";
-                ecoTestsList.forEach((test, idx) => {
-                    const btn = document.createElement('div');
-                    btn.className = 'modal-option-btn';
-                    let emoji = idx === 0 ? '💧' : (idx === 1 ? '🌱' : (idx === 2 ? '🥛' : (idx === 3 ? '🥤' : (idx === 4 ? '🛢️' : '📦'))));
-                    btn.innerHTML = `<span>${emoji} ${test.name}</span> <span style="font-size:11px; color:var(--warning);">🔍 Test</span>`;
-                    btn.onclick = () => {
-                        playClickSound();
-                        openEcoTestDetail(test.name, test.url);
-                    };
-                    container.appendChild(btn);
-                });
-                document.getElementById('ecoTechModal').style.display = 'flex';
-            }, 'Eco Tech Lab');
+            // Eco Tech Lab opens directly without login check
+            const container = document.getElementById('eco-tests-menu-container');
+            container.innerHTML = "";
+            ecoTestsList.forEach((test, idx) => {
+                const btn = document.createElement('div');
+                btn.className = 'modal-option-btn';
+                let emoji = idx === 0 ? '💧' : (idx === 1 ? '🌱' : (idx === 2 ? '🥛' : (idx === 3 ? '🥤' : (idx === 4 ? '🛢️' : '📦'))));
+                btn.innerHTML = `<span>${emoji} ${test.name}</span> <span style="font-size:11px; color:var(--warning);">🔍 Test</span>`;
+                btn.onclick = () => {
+                    playClickSound();
+                    openEcoTestDetail(test.name, test.url);
+                };
+                container.appendChild(btn);
+            });
+            document.getElementById('ecoTechModal').style.display = 'flex';
         }
         function closeEcoTechModal() { document.getElementById('ecoTechModal').style.display = 'none'; }
 
@@ -1149,9 +1155,8 @@
         function closeEcoDetailModal() { document.getElementById('ecoDetailModal').style.display = 'none'; openEcoTechModal(); }
 
         function openKidsStudyModal() {
-            checkAuthAndProceed(() => {
-                document.getElementById('kidsStudyModal').style.display = 'flex';
-            }, 'Kids Study');
+            // Kids Study opens directly without login check
+            document.getElementById('kidsStudyModal').style.display = 'flex';
         }
         function closeKidsStudyModal() { document.getElementById('kidsStudyModal').style.display = 'none'; }
 
@@ -1198,9 +1203,8 @@
         function closeScienceFactsModal() { document.getElementById('scienceFactsModal').style.display = 'none'; }
 
         function openFreeTestForAll() {
-            checkAuthAndProceed(() => {
-                openAllTestsHubModal();
-            }, 'ALL');
+            // Free Test for All / All Tests opens directly without login check
+            openAllTestsHubModal();
         }
 
         function copyUpiId() {
