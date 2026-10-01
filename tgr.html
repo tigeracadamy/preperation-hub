@@ -389,7 +389,7 @@
                 <input type="text" id="regPhone" placeholder="9876543210">
                 <label>வாங்க விரும்பும் கோர்ஸ் (Purchased Course):</label>
                 <select id="regCourse">
-                    <option value="TNPSC Group 1">🏛️ TNPSC Group 1</option>
+                    <option value="TNPSC Group 1">🏛️️ TNPSC Group 1</option>
                     <option value="TNPSC Group 2">🏛️ TNPSC Group 2</option>
                     <option value="TNPSC Group 2A">🏛️ TNPSC Group 2A</option>
                     <option value="TNPSC Group 4">🏛️ TNPSC Group 4</option>
@@ -460,8 +460,8 @@
                     <div class="brand-sub">(தேர்வு பயிற்சிப் பட்டறை 🎯)</div>
                 </div>
                 <div class="brand-logo-single">
-                    <span>🐯</span>
-                    <span>⚔️</span>
+                    <span>🔥</span>
+                    <span>⚔️️</span>
                 </div>
             </div>
         </div>
@@ -484,7 +484,7 @@
         <!-- Notice Corner -->
         <div class="notice-corner">
             <div class="notice-header">
-                <span>🐯 TIGER WARRIORS | நடப்பு நிகழ்வுகள்</span>
+                <span>🐅 TIGER WARRIORS | நடப்பு நிகழ்வுகள்</span>
                 <div class="header-actions">
                     <a id="display-news-video" class="news-video-btn" href="#" target="_blank" onclick="playClickSound()">🎥 Video</a>
                     <a id="display-news-pdf" class="news-pdf-btn" href="#" target="_blank" onclick="playClickSound()">📥 PDF</a>
@@ -534,7 +534,7 @@
                 <a href="https://wa.me/919790933025" target="_blank" class="contact-btn contact-btn-whatsapp" onclick="playClickSound()">💬 WhatsApp Chat</a>
                 <a href="https://t.me/PROFESSORMANIKASI" target="_blank" class="contact-btn contact-btn-telegram" onclick="playClickSound()">✈️ Telegram</a>
                 <a href="tel:9790933025" class="contact-btn contact-btn-phone" onclick="playClickSound()">📞 9790933025</a>
-                <a href="mailto:manivarmachem@gmail.com" class="contact-btn contact-btn-mail" onclick="playClickSound()">✉️ Mail Us</a>
+                <a href="mailto:manivarmanchem@gmail.com" class="contact-btn contact-btn-mail" onclick="playClickSound()">✉️ Mail Us</a>
             </div>
         </div>
 
@@ -722,7 +722,7 @@
         }
 
         const getAdminKey = () => "tiger" + "2026";
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyDU1c0-s_m8OvonAexGqFJcR583XO3GOiHAh2BkcpxDxjCYjpiKdJW_QwJWfHarm74bw/exec";
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby01R4gcZ4Qm2aeHpKHOkaRCVN0V7I1netL6py0l2a5lMCQtl2GP1PJgeubdWkf7xsvSQ/exec";
 
         let tests = [];
         let newsList = [{ text: "அனைத்துத் தேர்வுகளுக்கான யூனிட்கள் ஆன்லைனில் இணைக்கப்பட்டுள்ளன!", img: "", pdf: "", video: "" }];
@@ -756,7 +756,11 @@
             container.innerHTML = "";
 
             let filtered = tests.filter(t => {
-                if (currentFilterCategory === 'ALL' || currentFilterCategory === 'NONE') return true;
+                if (currentFilterCategory === 'ALL') {
+                    // Show ONLY Free Tests from FreeTest tab/sheet
+                    return t.category.toUpperCase() === 'ALL' || t.category.toUpperCase() === 'FREE';
+                }
+                if (currentFilterCategory === 'NONE') return false;
                 if (currentFilterCategory === 'Kids Study') {
                     return t.category.toLowerCase().includes('kids');
                 }
@@ -942,7 +946,12 @@
             currentActiveCategoryForResource = targetCategory;
             currentActiveGroupForResource = targetSubDept;
 
-            if (targetCategory === 'ALL' || targetCategory === 'Kids Study' || targetCategory === 'Eco Tech Lab') {
+            if (targetCategory === 'ALL') {
+                actionCallback();
+                return;
+            }
+
+            if (targetCategory === 'Kids Study' || targetCategory === 'Eco Tech Lab') {
                 actionCallback();
                 return;
             }
@@ -999,10 +1008,12 @@
                 btn.onclick = () => {
                     playClickSound();
                     closeAllTestsModal();
-                    currentFilterCategory = cat.id;
-                    currentFilterSubCategory = 'ALL';
-                    renderTests();
-                    scrollToTests();
+                    checkAuthAndProceed(() => {
+                        currentFilterCategory = cat.id;
+                        currentFilterSubCategory = 'ALL';
+                        renderTests();
+                        scrollToTests();
+                    }, cat.id);
                 };
                 container.appendChild(btn);
             });
@@ -1223,7 +1234,12 @@
         function closeScienceFactsModal() { document.getElementById('scienceFactsModal').style.display = 'none'; }
 
         function openFreeTestForAll() {
-            openAllTestsHubModal();
+            checkAuthAndProceed(() => {
+                currentFilterCategory = 'ALL';
+                currentFilterSubCategory = 'ALL';
+                renderTests();
+                scrollToTests();
+            }, 'ALL');
         }
 
         function copyUpiId() {
@@ -1242,7 +1258,7 @@
         const categories = [
             { id: 'Eco Tech Lab', name: '🧪 Eco Tech Lab' },
             { id: 'Kids Study', name: '🧸 Kids Study' },
-            { id: 'ALL', name: '🔥 All Tests' },
+            { id: 'ALL', name: '🔥 Free Test for All' },
             { id: 'TRB / NET / SET', name: '📚 TRB / NET / SET' },
             { id: 'TNPSC', name: '🏛️ TNPSC' },
             { id: 'POLICE', name: '🛡️ Police Exam' },
