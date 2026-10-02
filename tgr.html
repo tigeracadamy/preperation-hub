@@ -65,8 +65,27 @@
             100% { transform: perspective(600px) rotateY(360deg) scale(1); filter: drop-shadow(0 0 4px var(--accent-cyan)); }
         }
 
-        .brand-box { display: flex; align-items: center; gap: 12px; cursor: pointer; user-select: none; width: 100%; justify-content: center; text-align: center; }
-        .brand-logo-single { font-size: 26px; display: flex; flex-direction: column; align-items: center; line-height: 1.1; animation: yAxisSpinWithPause 7s infinite cubic-bezier(0.4, 0, 0.2, 1); transform-style: preserve-3d; }
+        .brand-box { 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+            cursor: pointer; 
+            user-select: none; 
+            width: 100%; 
+            justify-content: center; 
+            text-align: center; 
+        }
+        
+        .brand-logo-single { 
+            font-size: 26px; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 1.1;
+            animation: yAxisSpinWithPause 7s infinite cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
         .brand-name-box { display: flex; flex-direction: column; align-items: center; gap: 2px; }
         .brand-name { font-size: 18px; font-weight: 900; color: #ffffff; letter-spacing: 0.5px; text-transform: uppercase; text-shadow: 0 0 8px rgba(255,255,255,0.4); }
         .brand-sub { font-size: 13px; color: var(--accent-cyan); font-weight: 900; }
@@ -88,11 +107,75 @@
             100% { transform: perspective(800px) rotateY(360deg) scale(1); }
         }
 
-        .mission-tag { color: #ffffff; font-size: 11px; font-weight: 900; padding: 5px 12px; border-radius: 6px; display: inline-block; margin-bottom: 6px; background: linear-gradient(90deg, #1e293b, #0f172a); border: 1px solid rgba(255, 255, 255, 0.3); letter-spacing: 0.8px; text-transform: uppercase; animation: missionFireSpin3D 7s infinite cubic-bezier(0.4, 0, 0.2, 1); transform-style: preserve-3d; }
-        .hero-banner h2 { font-size: 14px; margin-bottom: 4px; color: var(--warning); font-weight: 900; letter-spacing: 0.2px; text-shadow: 0 0 10px var(--accent-glow); text-align: center; }
+        .mission-tag { 
+            color: #ffffff; 
+            font-size: 11px; 
+            font-weight: 900; 
+            padding: 5px 12px; 
+            border-radius: 6px; 
+            display: inline-block; 
+            margin-bottom: 6px; 
+            background: linear-gradient(90deg, #1e293b, #0f172a);
+            border: 1px solid rgba(255, 255, 255, 0.3); 
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            animation: missionFireSpin3D 7s infinite cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        .hero-banner h2 { 
+            font-size: 14px; 
+            margin-bottom: 4px; 
+            color: var(--warning); 
+            font-weight: 900; 
+            letter-spacing: 0.2px; 
+            text-shadow: 0 0 10px var(--accent-glow); 
+            text-align: center; 
+            animation: bulbGlowPulse 2s infinite ease-in-out;
+        }
+
         .hero-banner p { font-size: 12px; color: var(--text-main); font-weight: 900; margin-bottom: 8px; }
 
-        .btn-top-social { background: var(--btn-mild); color: var(--accent-cyan); border: 1px solid var(--card-border); padding: 6px 12px; border-radius: 8px; font-size: 10px; font-weight: 900; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; }
+        @keyframes bulbGlowPulse {
+            0%, 100% { text-shadow: 0 0 5px #fbbf24, 0 0 10px #fbbf24; transform: scale(1); }
+            50% { text-shadow: 0 0 15px #fbbf24, 0 0 25px #f59e0b; transform: scale(1.08); }
+        }
+
+        @keyframes firePopPulse {
+            0%, 75%, 100% { transform: scale(1); filter: brightness(1); box-shadow: 0 0 5px rgba(251,191,36,0.3); border-color: rgba(251,191,36,0.5); }
+            80% { transform: scale(1.12); filter: brightness(1.4); box-shadow: 0 0 20px #fbbf24, 0 0 30px #ef4444; border-color: #fbbf24; background: rgba(251,191,36,0.25); }
+            85% { transform: scale(0.96); filter: brightness(1.1); }
+            90% { transform: scale(1.06); filter: brightness(1.3); }
+        }
+
+        .btn-top-social, .btn-theme-switcher, .btn-top-donate {
+            background: var(--btn-mild);
+            color: var(--accent-cyan);
+            border: 1px solid var(--card-border);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: 900;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+        }
+        .btn-top-donate { color: var(--warning); border-color: var(--warning); background: rgba(251, 191, 36, 0.15); }
+        .btn-fire-pop {
+            animation: firePopPulse 5s infinite ease-in-out;
+            color: #fbbf24 !important;
+            border-color: rgba(251, 191, 36, 0.6) !important;
+            background: rgba(251, 191, 36, 0.12) !important;
+        }
+
+        @keyframes goldSubtlePulse {
+            0% { box-shadow: 0 0 6px rgba(0, 242, 254, 0.2); border-color: rgba(0, 242, 254, 0.4); }
+            50% { box-shadow: 0 0 20px rgba(0, 242, 254, 0.6); border-color: rgba(0, 242, 254, 0.95); }
+            100% { box-shadow: 0 0 6px rgba(0, 242, 254, 0.2); border-color: rgba(0, 242, 254, 0.4); }
+        }
 
         .notice-corner {
             background: linear-gradient(135deg, rgba(0, 242, 254, 0.1), rgba(11, 19, 38, 0.95));
@@ -102,20 +185,53 @@
             display: flex;
             flex-direction: column;
             gap: 6px;
+            animation: goldSubtlePulse 3s infinite ease-in-out;
+            position: relative;
         }
         .notice-header { display: flex; justify-content: space-between; align-items: center; font-size: 11px; font-weight: 900; color: #fde047; gap: 4px; }
         .header-actions { display: flex; gap: 5px; align-items: center; flex-wrap: wrap; }
         
-        .live-datetime-container { display: flex; align-items: center; justify-content: space-between; gap: 6px; width: 100%; margin-bottom: 6px; }
-        .live-date-tag, .live-time-tag { background: rgba(0,0,0,0.7); padding: 6px 10px; border-radius: 8px; font-size: 11px; color: var(--accent-cyan); border: 1px solid rgba(0,242,254,0.4); font-weight: 900; text-align: center; flex: 1; }
+        .live-datetime-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 6px;
+            width: 100%;
+            margin-bottom: 6px;
+        }
+        
+        .live-date-tag, .live-time-tag {
+            background: rgba(0,0,0,0.7);
+            padding: 6px 10px;
+            border-radius: 8px;
+            font-size: 11px;
+            color: var(--accent-cyan);
+            border: 1px solid rgba(0,242,254,0.4);
+            font-weight: 900;
+            text-align: center;
+            flex: 1;
+        }
         .live-time-tag { color: var(--warning); border-color: rgba(251,191,36,0.4); }
         
         .news-content-box { display: flex; align-items: center; gap: 8px; cursor: pointer; }
         .news-img { width: 50px; height: 50px; border-radius: 6px; object-fit: cover; border: 1px solid var(--accent-cyan); display: none; flex-shrink: 0; }
+        
         .notice-body-wrapper { overflow: hidden; position: relative; min-height: 28px; flex-grow: 1; }
         .notice-body { font-size: 12px; color: var(--text-main); line-height: 1.4; font-weight: 900; display: inline-block; width: 100%; }
 
-        .news-pdf-btn, .news-video-btn { background: rgba(0, 242, 254, 0.2); border: 1px solid var(--accent-cyan); color: var(--accent-cyan); padding: 4px 8px; border-radius: 5px; font-size: 10px; cursor: pointer; font-weight: 900; text-decoration: none; display: none; text-align: center; }
+        .news-pdf-btn, .news-video-btn {
+            background: rgba(0, 242, 254, 0.2);
+            border: 1px solid var(--accent-cyan);
+            color: var(--accent-cyan);
+            padding: 4px 8px;
+            border-radius: 5px;
+            font-size: 10px;
+            cursor: pointer;
+            font-weight: 900;
+            text-decoration: none;
+            display: none;
+            text-align: center;
+        }
 
         .category-tabs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
         .tab-btn { 
@@ -130,8 +246,14 @@
             text-align: center; 
             letter-spacing: 0.5px; 
             box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+            transition: all 0.2s ease; 
         }
-        .tab-btn.active { background: linear-gradient(135deg, rgba(0, 242, 254, 0.35), rgba(0, 242, 254, 0.08)); border-color: var(--accent-cyan); color: var(--accent-cyan); box-shadow: 0 0 20px var(--accent-glow); }
+        .tab-btn.active { 
+            background: linear-gradient(135deg, rgba(0, 242, 254, 0.35), rgba(0, 242, 254, 0.08)); 
+            border-color: var(--accent-cyan); 
+            color: var(--accent-cyan); 
+            box-shadow: 0 0 20px var(--accent-glow); 
+        }
 
         .contact-card {
             background: linear-gradient(135deg, #1f180c 0%, #0d152b 100%);
@@ -145,9 +267,43 @@
             box-shadow: 0 4px 20px rgba(251, 191, 36, 0.25);
             margin-top: 5px;
         }
-        .contact-title { font-size: 14px; color: var(--warning); font-weight: 900; text-transform: uppercase; }
+        .contact-title { font-size: 14px; color: var(--warning); font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px; text-shadow: 0 0 8px rgba(251,191,36,0.3); }
         .contact-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 4px; }
-        .contact-btn { padding: 10px; border-radius: 10px; font-size: 12px; font-weight: 900; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 6px; }
+        
+        .contact-btn-whatsapp {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.35), rgba(5, 150, 105, 0.15));
+            border: 1.5px solid #10b981;
+            color: #34d399;
+        }
+        .contact-btn-telegram {
+            background: linear-gradient(135deg, rgba(0, 242, 254, 0.3), rgba(251, 191, 36, 0.15));
+            border: 1.5px solid var(--accent-cyan);
+            color: #38bdf8;
+        }
+        .contact-btn-phone {
+            background: linear-gradient(135deg, rgba(0, 242, 254, 0.25), rgba(16, 185, 129, 0.25));
+            border: 1.5px solid #38bdf8;
+            color: #34d399;
+        }
+        .contact-btn-mail {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.3), rgba(0, 242, 254, 0.2));
+            border: 1.5px solid var(--danger);
+            color: #f87171;
+        }
+        .contact-btn {
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 900;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.2s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        .contact-btn:hover { filter: brightness(1.2); }
 
         /* Course Wallpaper Popup Modal Styles */
         #courseWallpaperModal { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.96); z-index: 60000; justify-content: center; align-items: center; padding: 15px; }
@@ -155,20 +311,32 @@
         .course-wallpaper-box img { width: 100%; max-height: 320px; object-fit: contain; border-radius: 10px; border: 1px solid var(--card-border); background: #000; }
         .course-wallpaper-box h3 { color: var(--warning); font-size: 16px; font-weight: 900; }
 
-        .modal-overlay, .auth-modal, .royal-alert-modal, .admin-modal-overlay, .donation-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.92); justify-content: center; align-items: center; z-index: 10000; padding: 20px; }
-        .modal-box, .auth-box, .royal-alert-box, .admin-modal-box, .donation-box { background: linear-gradient(135deg, #0b1326, #04060d); border: 2px solid var(--accent-cyan); border-radius: 20px; padding: 24px; width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 12px; text-align: center; max-height: 85vh; overflow-y: auto; }
-        .admin-modal-box { text-align: left; }
-        .modal-box h3, .auth-box h3, .royal-alert-box h3, .admin-modal-box h3, .donation-box h3 { font-size: 18px; color: var(--accent-cyan); font-weight: 900; text-transform: uppercase; }
-        .modal-box p, .auth-box p, .royal-alert-box p, .donation-box p { font-size: 13px; color: var(--text-main); font-weight: 900; line-height: 1.55; text-align: left; background: rgba(0,0,0,0.5); padding: 12px; border-radius: 10px; border: 1px solid var(--card-border); }
-        .modal-option-btn { background: linear-gradient(135deg, rgba(0,242,254,0.2), rgba(11,19,38,0.95)); border: 1.5px solid var(--accent-cyan); color: var(--accent-cyan); padding: 12px 14px; border-radius: 12px; font-size: 13px; font-weight: 900; cursor: pointer; text-align: center; text-decoration: none; display: flex; justify-content: space-between; align-items: center; }
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.92); justify-content: center; align-items: center; z-index: 4000; padding: 20px; }
+        .modal-box { background: linear-gradient(135deg, #0b1326, #04060d); border: 2px solid var(--accent-cyan); border-radius: 20px; padding: 24px; width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 12px; text-align: center; box-shadow: 0 0 50px var(--accent-glow); max-height: 85vh; overflow-y: auto; }
+        .modal-box h3 { font-size: 18px; color: var(--accent-cyan); font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px; text-shadow: 0 0 10px rgba(0,242,254,0.4); }
+        .modal-box p { font-size: 13px; color: var(--text-main); font-weight: 900; line-height: 1.55; text-align: left; background: rgba(0,0,0,0.5); padding: 12px; border-radius: 10px; border: 1px solid var(--card-border); }
+        .modal-option-btn { background: linear-gradient(135deg, rgba(0,242,254,0.2), rgba(11,19,38,0.95)); border: 1.5px solid var(--accent-cyan); color: var(--accent-cyan); padding: 12px 14px; border-radius: 12px; font-size: 13px; font-weight: 900; cursor: pointer; text-align: center; transition: all 0.2s; text-decoration: none; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
+        .modal-option-btn:hover { background: var(--accent-cyan); color: #000; }
+
+        .royal-alert-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.95); justify-content: center; align-items: center; z-index: 20000; padding: 20px; }
+        .royal-alert-box { background: linear-gradient(135deg, #0e172c, #060913); border: 2px solid var(--danger); border-radius: 20px; padding: 26px; width: 100%; max-width: 380px; display: flex; flex-direction: column; gap: 14px; text-align: center; box-shadow: 0 0 50px rgba(239, 68, 68, 0.4); }
+        .royal-alert-box h3 { color: var(--danger); font-size: 18px; text-transform: uppercase; text-shadow: 0 0 10px rgba(239,68,68,0.5); }
+        .royal-alert-box p { color: var(--text-main); font-size: 14px; line-height: 1.5; font-weight: 900; background: rgba(0,0,0,0.6); padding: 14px; border-radius: 10px; border: 1px solid rgba(239,68,68,0.3); text-align: center; }
+
+        .donation-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.92); justify-content: center; align-items: center; z-index: 3000; padding: 20px; }
+        .donation-box { background: linear-gradient(135deg, #0b1326, #04060d); border: 2px solid var(--warning); border-radius: 20px; padding: 20px; width: 100%; max-width: 360px; display: flex; flex-direction: column; gap: 10px; text-align: center; box-shadow: 0 0 35px rgba(251, 191, 36, 0.3); }
+        .donation-box h3 { font-size: 16px; color: var(--warning); font-weight: 900; }
+        .donation-box p { font-size: 12px; color: var(--text-main); line-height: 1.4; font-weight: 900; text-align: left; background: rgba(0,0,0,0.4); padding: 10px; border-radius: 8px; }
+        .qr-img { width: 160px; height: 160px; margin: 0 auto; border-radius: 10px; border: 2px solid var(--warning); background: #fff; padding: 5px; }
+        .upi-box { background: rgba(0,0,0,0.6); border: 1px solid var(--warning); padding: 8px; border-radius: 8px; color: var(--warning); font-size: 13px; font-weight: 900; cursor: pointer; }
 
         .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .stat-box { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 12px 14px; display: flex; justify-content: space-between; align-items: center; }
+        .stat-box { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 12px 14px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
         .stat-info span { font-size: 11px; color: var(--text-muted); font-weight: 900; }
         .stat-info h3 { font-size: 19px; color: var(--text-main); margin-top: 2px; font-weight: 900; }
         .stat-icon { font-size: 18px; background: var(--btn-mild); padding: 8px; border-radius: 8px; color: var(--accent-cyan); }
 
-        .search-box { background: var(--card-bg); border: 1.5px solid var(--card-border); border-radius: 12px; padding: 10px 14px; display: flex; align-items: center; gap: 10px; }
+        .search-box { background: var(--card-bg); border: 1.5px solid var(--card-border); border-radius: 12px; padding: 10px 14px; display: flex; align-items: center; gap: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
         .search-box input { background: transparent; border: none; color: var(--text-main); font-size: 13px; width: 100%; outline: none; font-weight: 900; }
 
         .test-list { display: flex; flex-direction: column; gap: 10px; }
@@ -180,17 +348,29 @@
         
         .test-action-btns { display: flex; gap: 5px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
         .btn-start { background: linear-gradient(135deg, var(--accent-cyan) 0%, #4facfe 100%); color: #000; border: none; padding: 5px 10px; border-radius: 6px; font-size: 11px; font-weight: 900; cursor: pointer; text-decoration: none; box-shadow: 0 0 10px var(--accent-glow); }
-        .btn-test-pdf, .btn-test-video { background: rgba(0, 242, 254, 0.18); border: 1px solid var(--accent-cyan); color: var(--accent-cyan); padding: 5px 8px; border-radius: 6px; font-size: 10px; font-weight: 900; cursor: pointer; text-decoration: none; display: inline-block; }
+        .btn-test-pdf { background: rgba(0, 242, 254, 0.18); border: 1px solid var(--accent-cyan); color: var(--accent-cyan); padding: 5px 8px; border-radius: 6px; font-size: 10px; font-weight: 900; cursor: pointer; text-decoration: none; display: inline-block; }
+        .btn-test-video { background: rgba(0, 242, 254, 0.18); border: 1px solid var(--accent-cyan); color: var(--accent-cyan); padding: 5px 8px; border-radius: 6px; font-size: 10px; font-weight: 900; cursor: pointer; text-decoration: none; display: inline-block; }
 
         .bottom-actions { display: flex; gap: 10px; margin-top: 5px; }
-        .btn-bottom { flex: 1; padding: 12px 10px; border-radius: 12px; font-size: 13px; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; text-transform: uppercase; }
-        .btn-bottom-donate { background: linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(217, 119, 6, 0.5)); color: var(--warning); border: 1px solid var(--warning); }
-        .btn-bottom-theme { background: linear-gradient(135deg, rgba(0, 242, 254, 0.15), rgba(11, 19, 38, 0.8)); color: var(--accent-cyan); border: 1px solid var(--accent-cyan); }
-        
+        .btn-bottom { flex: 1; padding: 12px 10px; border-radius: 12px; font-size: 13px; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; text-transform: uppercase; transition: all 0.3s ease; }
+        .btn-bottom-donate { background: linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(217, 119, 6, 0.5)); color: var(--warning); border: 1px solid var(--warning); box-shadow: 0 4px 15px rgba(251, 191, 36, 0.2); }
+        .btn-bottom-theme { background: linear-gradient(135deg, rgba(0, 242, 254, 0.15), rgba(11, 19, 38, 0.8)); color: var(--accent-cyan); border: 1px solid var(--accent-cyan); box-shadow: 0 4px 15px rgba(0, 242, 254, 0.2); }
+
+        .auth-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.95); justify-content: center; align-items: center; z-index: 10000; padding: 20px; }
+        .auth-box { background: linear-gradient(135deg, #0b1326, #04060d); border: 2px solid var(--accent-cyan); border-radius: 20px; padding: 24px; width: 100%; max-width: 380px; display: flex; flex-direction: column; gap: 14px; text-align: center; box-shadow: 0 0 50px var(--accent-glow); max-height: 90vh; overflow-y: auto; }
+        .auth-box h3 { color: var(--accent-cyan); font-size: 18px; text-transform: uppercase; text-shadow: 0 0 10px rgba(0,242,254,0.4); }
+        .auth-toggle-btns { display: flex; gap: 8px; background: rgba(0,0,0,0.6); padding: 4px; border-radius: 10px; border: 1px solid var(--card-border); }
+        .auth-tab { flex: 1; padding: 8px; font-size: 12px; font-weight: 900; border: none; border-radius: 8px; cursor: pointer; background: transparent; color: var(--text-muted); transition: all 0.3s; }
+        .auth-tab.active { background: var(--accent-cyan); color: #000; box-shadow: 0 0 10px var(--accent-glow); }
         .auth-form { display: none; flex-direction: column; gap: 10px; text-align: left; }
         .auth-form.active { display: flex; }
+        .auth-form label { font-size: 11px; color: var(--accent-cyan); font-weight: 900; }
         .auth-form input, .auth-form select { background: rgba(0,0,0,0.7); border: 1px solid var(--card-border); padding: 10px; border-radius: 8px; color: var(--text-main); font-size: 13px; width: 100%; outline: none; font-weight: 900; }
         .qr-code-img { width: 130px; height: 130px; margin: 0 auto; border-radius: 8px; border: 2px solid var(--accent-cyan); background: #fff; padding: 4px; }
+
+        .announcement-modal, .admin-modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); justify-content: center; align-items: center; z-index: 2000; padding: 20px; }
+        .announcement-box, .admin-modal-box { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 20px; width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 12px; text-align: center; }
+        .admin-modal-box { border-color: var(--accent-cyan); text-align: left; }
         .admin-modal-box input, .admin-modal-box select, .admin-modal-box textarea { background: rgba(0, 0, 0, 0.4); border: 1px solid var(--card-border); padding: 8px 10px; border-radius: 8px; color: var(--text-main); font-size: 13px; width: 100%; outline: none; font-weight: 900; }
     </style>
 </head>
@@ -208,60 +388,80 @@
         </div>
     </div>
 
-    <!-- Auth Modal -->
+    <!-- Auth Modal with New Registration & Login Tabs -->
     <div class="auth-modal" id="authModal">
         <div class="auth-box">
             <h3>🔒 SECURE COURSE ACCESS</h3>
             <p style="font-size: 12px; color: var(--text-muted);">உங்களுக்குரிய கோர்ஸ் பாஸ்வேர்ட்டை உள்ளிடவும் அல்லது புதிய பதிவு செய்யவும்:</p>
-            <div class="auth-toggle-btns" style="display:flex; gap:8px; background:rgba(0,0,0,0.6); padding:4px; border-radius:10px; border:1px solid var(--card-border);">
-                <button class="auth-tab active" onclick="switchAuthTab('new')" style="flex:1; padding:8px; font-size:12px; border:none; border-radius:8px; background:var(--accent-cyan); color:#000; cursor:pointer; font-weight:900;">புதிய பதிவு</button>
-                <button class="auth-tab" onclick="switchAuthTab('existing')" style="flex:1; padding:8px; font-size:12px; border:none; border-radius:8px; background:transparent; color:#94a3b8; cursor:pointer; font-weight:900;">உள்நுழைவு</button>
+            
+            <div class="auth-toggle-btns">
+                <button class="auth-tab active" onclick="switchAuthTab('new')">புதிய பதிவு (Register)</button>
+                <button class="auth-tab" onclick="switchAuthTab('existing')">ஏற்கனவே பதிவு செய்தவர் (Login)</button>
             </div>
+
+            <!-- New User Registration Form -->
             <div class="auth-form active" id="newUserForm">
-                <label style="font-size:11px; color:var(--accent-cyan);">பெயர்:</label>
+                <label>பெயர் (Student Name):</label>
                 <input type="text" id="regName" placeholder="உங்கள் பெயர்">
-                <label style="font-size:11px; color:var(--accent-cyan);">வாட்ஸ்அப் எண்:</label>
+                <label>வாட்ஸ்அப் எண் (WhatsApp Number):</label>
                 <input type="text" id="regPhone" placeholder="9876543210">
-                <label style="font-size:11px; color:var(--accent-cyan);">கோர்ஸ்:</label>
+                <label>வாங்க விரும்பும் கோர்ஸ் (Purchased Course):</label>
                 <select id="regCourse">
+                    <option value="TNPSC Group 1">🏛 TNPSC Group 1</option>
+                    <option value="TNPSC Group 2">🏛️ TNPSC Group 2</option>
+                    <option value="TNPSC Group 2A">🏛️ TNPSC Group 2A</option>
+                    <option value="TNPSC Group 4">🏛️️ TNPSC Group 4</option>
                     <option value="TRB / NET / SET Tamil">📖 TRB / NET / SET தமிழ் துறை</option>
                     <option value="TRB / NET / SET Chemistry">🧪 TRB / NET / SET வேதியியல் துறை</option>
                     <option value="TRB / NET / SET Physics">⚡ TRB / NET / SET இயற்பியல் துறை</option>
-                    <option value="TNPSC Group 1">🏛️ TNPSC Group 1</option>
-                    <option value="TNPSC Group 2">🏛️ TNPSC Group 2</option>
-                    <option value="TNPSC Group 4">🏛️ TNPSC Group 4</option>
-                    <option value="Police Exam">🛡️ Police Exam</option>
+                    <option value="TRB / NET / SET Zoology">🧬 TRB / NET / SET விலங்கியல் துறை</option>
+                    <option value="TRB / NET / SET Botany">🌿 TRB / NET / SET தாவரவியல் துறை</option>
+                    <option value="Police Exam">🛡 Police Exam</option>
+                    <option value="NEET Exam">🧬 NEET Exam</option>
+                    <option value="Railway Exam">🚆 Railway Exam</option>
                 </select>
+
                 <div style="text-align: center; margin-top: 4px;">
-                    <div style="font-size: 11px; color: var(--accent-cyan); margin-bottom: 4px;">📱 Scan QR to Pay (GPay: 9790933025):</div>
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=130x130&data=upi://pay?pa=9790933025@kotakbank%26pn=MANIKASI%26cu=INR" alt="QR" class="qr-code-img">
+                    <div style="font-size: 11px; color: var(--accent-cyan); margin-bottom: 4px;">📱 Scan QR to Pay & Send Screenshot (GPay: 9790933025):</div>
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=130x130&data=upi://pay?pa=9790933025@kotakbank%26pn=MANIKASI%26cu=INR" alt="UPI QR Code" class="qr-code-img">
                 </div>
-                <button class="btn-start" style="padding:12px; margin-top:5px;" onclick="handleNewRegistration()">PAY & GET ACCESS 💬</button>
+
+                <button class="btn-start" style="padding: 12px; font-size: 13px; background: linear-gradient(135deg, var(--accent-cyan), #4facfe); color: #000; margin-top: 5px;" onclick="handleNewRegistration()">PAY & GET ACCESS 💬</button>
             </div>
+
+            <!-- Existing User Login Form -->
             <div class="auth-form" id="existingUserForm">
-                <label style="font-size:11px; color:var(--accent-cyan);">வாட்ஸ்அப் எண்:</label>
-                <input type="text" id="loginPhone" placeholder="பதிவு செய்த எண்">
-                <button class="btn-start" style="padding:12px; margin-top:5px;" onclick="handleExistingLogin()">LOGIN 🚀</button>
+                <label>வாட்ஸ்அப் எண் (WhatsApp Number):</label>
+                <input type="text" id="loginPhone" placeholder="பதிவு செய்த வாட்ஸ்அப் எண்">
+                <button class="btn-start" style="padding: 12px; font-size: 13px; background: linear-gradient(135deg, var(--accent-cyan), #4facfe); color: #000; margin-top: 5px;" onclick="handleExistingLogin()">LOGIN 🚀</button>
             </div>
-            <span style="font-size: 10px; color: var(--accent-cyan); cursor: pointer; margin-top:5px;" onclick="closeAuthModal()">❌ Cancel / Go Back</span>
+            
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 5px;">
+                <span style="font-size: 10px; color: var(--accent-cyan); cursor: pointer;" onclick="closeAuthModal()">❌ Cancel / Go Back</span>
+                <span style="font-size: 10px; color: var(--warning);"> Helpline: 9790933025</span>
+            </div>
         </div>
     </div>
 
-    <!-- Royal Alert Modal -->
+    <!-- Royal Black Card Alert Modal with Purchase Another Course Option -->
     <div class="royal-alert-modal" id="royalAlertModal">
         <div class="royal-alert-box">
             <h3>🚫 அனுமதி மறுக்கப்படுகிறது</h3>
             <p id="royalAlertText">இந்தக் கோர்ஸை நீங்கள் வாங்கவில்லை! எனவே உங்களால் அணுக முடியாது.</p>
-            <button class="btn-start" style="padding: 10px; background: var(--warning); color: #000;" onclick="closeRoyalAlert()">OK / Back ❌</button>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+                <button class="btn-start" style="padding: 10px; font-size: 12px; background: linear-gradient(135deg, var(--warning), #d97706); color: #000;" onclick="openNewRegistrationForOtherCourse()">🛒 வேறொரு புதிய கோர்ஸைப் பர்ச்சேஸ் செய்ய</button>
+                <button class="btn-start" style="padding: 10px; font-size: 12px; background: rgba(255,255,255,0.15); color: #fff;" onclick="closeRoyalAlert()">OK / Back ❌</button>
+            </div>
         </div>
     </div>
 
-    <!-- All Tests Hub Modal -->
+    <!-- All Tests Categories Hub Modal -->
     <div class="modal-overlay" id="allTestsModal" onclick="closeAllTestsModal()">
         <div class="modal-box" onclick="event.stopPropagation()">
             <h3 style="color: var(--accent-cyan);">🎯 SELECT EXAM CATEGORY</h3>
+            <p style="text-align:center;">தேவையான பிரிவைத் தேர்ந்தெடுக்கவும்:</p>
             <div id="all-tests-categories-list" style="display: flex; flex-direction: column; gap: 8px; max-height: 50vh; overflow-y: auto;"></div>
-            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:10px;" onclick="closeAllTestsModal()">Close ❌</button>
+            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:10px;" onclick="playClickSound(); closeAllTestsModal()">Close ❌</button>
         </div>
     </div>
 
@@ -269,16 +469,22 @@
         <!-- Top Bar -->
         <div class="top-bar">
             <div class="brand-box" onclick="playClickSound(); handleSecretAdminTap()" title="Tap 3 times">
-                <div class="brand-logo-single"><span>🐯</span><span>⚔️</span></div>
+                <div class="brand-logo-single">
+                    <span>🐯</span>
+                    <span>⚔️</span>
+                </div>
                 <div class="brand-name-box">
                     <div class="brand-name">TIGER WARRIORS COACHING CENTRE</div>
                     <div class="brand-sub">(தேர்வு பயிற்சிப் பட்டறை 🎯)</div>
                 </div>
-                <div class="brand-logo-single"><span>🔥</span><span>⚔️</span></div>
+                <div class="brand-logo-single">
+                    <span>🔥</span>
+                    <span>⚔</span>
+                </div>
             </div>
         </div>
 
-        <!-- Hero Banner -->
+        <!-- Hero Banner with Separated Date & Time -->
         <div class="hero-banner">
             <span class="mission-tag">🎯 TIGER WARRIORS PREPARATION HUB</span>
             <h2 style="margin: 4px 0;">💡 FOR DREAM COME TRUE 🔥</h2>
@@ -298,13 +504,19 @@
             <div class="notice-header">
                 <span>🐅 TIGER WARRIORS | நடப்பு நிகழ்வுகள்</span>
                 <div class="header-actions">
-                    <a id="display-news-video" class="news-video-btn" href="#" target="_blank" onclick="playClickSound()" style="display:none;">🎥 Video</a>
-                    <a id="display-news-pdf" class="news-pdf-btn" href="#" target="_blank" onclick="playClickSound()" style="display:none;">📥 PDF</a>
+                    <a id="display-news-video" class="news-video-btn" href="#" target="_blank" onclick="playClickSound()">🎥 Video</a>
+                    <a id="display-news-pdf" class="news-pdf-btn" href="#" target="_blank" onclick="playClickSound()">📥 PDF</a>
                 </div>
             </div>
             <div class="news-content-box" onclick="playClickSound(); openCurrentNewsModal()">
-                <img id="display-news-img" class="news-img" src="" alt="News Image" style="display:none; width:50px; height:50px; border-radius:6px; object-fit:cover;">
-                <div class="notice-body-wrapper"><div class="notice-body" id="display-notice-text">செய்திகள் ஏற்றப்படுகின்றன...</div></div>
+                <img id="display-news-img" class="news-img" src="" alt="News Image">
+                <div class="notice-body-wrapper">
+                    <div class="notice-body" id="display-notice-text">செய்திகள் ஏற்றப்படுகின்றன...</div>
+                </div>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: 5px; width: 100%; margin-top: 2px;">
+                <a href="https://t.me/+RNZzz8tk4cRkYTBl" target="_blank" class="btn-top-social btn-fire-pop" title="Join Telegram Group" onclick="playClickSound()">✈️ Telegram</a>
+                <a href="https://chat.whatsapp.com/K7kbJ0a7DwN3pbTMyqplgD" target="_blank" class="btn-top-social btn-fire-pop" title="Join WhatsApp Group" onclick="playClickSound()">💬 WhatsApp Group</a>
             </div>
         </div>
 
@@ -332,134 +544,170 @@
         <!-- Tests List Container -->
         <div class="test-list" id="test-container"></div>
 
-        <!-- Contact Card -->
+        <!-- Contact Card with updated Mail manivarmanchem@gmail.com -->
         <div class="contact-card">
             <div class="contact-title">📞 FOR MORE CONTACT & SUPPORT</div>
             <div style="font-size: 11px; color: var(--text-muted); font-weight: 900;">உங்களுக்கு சந்தேகம் அல்லது வழிகாட்டல் தேவையா? எங்களை உடனே தொடர்பு கொள்ளுங்கள்! GPay: 9790933025</div>
             <div class="contact-grid">
-                <a href="https://wa.me/919790933025" target="_blank" class="contact-btn" style="background: rgba(16,185,129,0.2); border:1px solid #10b981; color:#34d399;">💬 WhatsApp</a>
-                <a href="https://t.me/PROFESSORMANIKASI" target="_blank" class="contact-btn" style="background: rgba(0,242,254,0.2); border:1px solid var(--accent-cyan); color:#38bdf8;">✈️ Telegram</a>
-                <a href="tel:9790933025" class="contact-btn" style="background: rgba(0,242,254,0.2); border:1px solid #38bdf8; color:#34d399;">📞 9790933025</a>
-                <a href="mailto:manivarmanchem@gmail.com" class="contact-btn" style="background: rgba(239,68,68,0.2); border:1px solid var(--danger); color:#f87171;">✉️ Mail Us</a>
+                <a href="https://wa.me/919790933025" target="_blank" class="contact-btn contact-btn-whatsapp" onclick="playClickSound()">💬 WhatsApp Chat</a>
+                <a href="https://t.me/PROFESSORMANIKASI" target="_blank" class="contact-btn contact-btn-telegram" onclick="playClickSound()">✈️ Telegram</a>
+                <a href="tel:9790933025" class="contact-btn contact-btn-phone" onclick="playClickSound()">📞 9790933025</a>
+                <a href="mailto:manivarmanchem@gmail.com" class="contact-btn contact-btn-mail" onclick="playClickSound()">✉️ Mail Us</a>
             </div>
         </div>
 
         <!-- Bottom Actions -->
         <div class="bottom-actions">
-            <button class="btn-bottom btn-bottom-donate" onclick="playClickSound(); openDonationModal()"><span>💖 Donate</span></button>
-            <button class="btn-bottom btn-bottom-theme" onclick="playClickSound(); cycleTheme()"><span>🎨 Change Theme</span></button>
+            <button class="btn-bottom btn-bottom-donate" onclick="playClickSound(); openDonationModal()">
+                <span>💖 Donate</span>
+            </button>
+            <button class="btn-bottom btn-bottom-theme" onclick="playClickSound(); cycleTheme()">
+                <span>🎨 Change Theme</span>
+            </button>
         </div>
     </div>
 
     <!-- Modals -->
     <div class="modal-overlay" id="musicModal" onclick="closeMusicModal()">
         <div class="modal-box" onclick="event.stopPropagation()">
-            <h3 style="color: var(--success);">🎵 மோட்டிவேஷன் இசைப் பட்டியல்</h3>
+            <h3 style="color: var(--success);">🎵 மோட்டிவேஷன் இசைப் பட்டியல் (10 Songs)</h3>
+            <p style="text-align:center; font-size:12px;">பாட்டைப் பிளே செய்து உத்வேகத்துடன் படியுங்கள்!</p>
             <div id="music-list-container" style="display: flex; flex-direction: column; gap: 8px; max-height: 250px; overflow-y: auto;"></div>
-            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:10px;" onclick="closeMusicModal()">Close ❌</button>
+            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:10px;" onclick="playClickSound(); closeMusicModal()">Close ❌</button>
         </div>
     </div>
 
     <div class="modal-overlay" id="resourceModal" onclick="closeResourceModal()">
         <div class="modal-box" onclick="event.stopPropagation()">
-            <h3 id="resource-modal-title" style="color: var(--warning);">📂 STUDY HUB</h3>
+            <h3 id="resource-modal-title" style="color: var(--warning);">📂 STUDY HUB & RESOURCES</h3>
+            <p style="text-align:center; font-size:13px;">தேவையான பிரிவைத் தேர்ந்தெடுக்கவும்:</p>
             <div style="display: flex; flex-direction: column; gap: 8px;">
-                <div class="modal-option-btn" onclick="openCategoryTestsFromResource()">📋 Online Tests & PYQ 🚀</div>
-                <div class="modal-option-btn" onclick="openStudyNotesLink()">📚 Study Materials & Notes 📖</div>
-                <div class="modal-option-btn" onclick="openVideoClassesLink()">🎥 Video Classes & Lectures 🎥</div>
+                <div class="modal-option-btn" onclick="playClickSound(); openCategoryTestsFromResource()">📋 Online Tests & PYQ 🚀</div>
+                <div class="modal-option-btn" onclick="playClickSound(); openStudyNotesLink()">📚 Study Materials & Notes 📖</div>
+                <div class="modal-option-btn" onclick="playClickSound(); openVideoClassesLink()">🎥 Video Classes & Lectures 🎥</div>
             </div>
-            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:10px;" onclick="closeResourceModal()">Close ❌</button>
+            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:10px;" onclick="playClickSound(); closeResourceModal()">Close ❌</button>
         </div>
     </div>
 
     <div class="modal-overlay" id="kidsStudyModal" onclick="closeKidsStudyModal()">
         <div class="modal-box" onclick="event.stopPropagation()">
             <h3 style="color: var(--warning);">🧸 KIDS STUDY & FUN</h3>
-            <div class="modal-option-btn" onclick="selectKidsOption('Kids Tests')">📋 Online Tests (Kids) 🚀</div>
-            <div class="modal-option-btn" onclick="openKidsRhymesModal()">🎶 Kids Rhymes & Videos 🎵</div>
-            <div class="modal-option-btn" onclick="openScienceFactsModal()">🧪 Science Facts 🔬</div>
-            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:10px;" onclick="closeKidsStudyModal()">Close ❌</button>
+            <p style="text-align:center;">தேவையான பிரிவைத் தேர்ந்தெடுக்கவும்:</p>
+            <div class="modal-option-btn" onclick="playClickSound(); selectKidsOption('Kids Tests')">📋 Online Tests (Kids) 🚀</div>
+            <div class="modal-option-btn" onclick="playClickSound(); openKidsRhymesModal()">🎶 Kids Rhymes & Videos 🎵</div>
+            <div class="modal-option-btn" onclick="playClickSound(); openScienceFactsModal()">🧪 Science Facts 🔬</div>
+            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:10px;" onclick="playClickSound(); closeKidsStudyModal()">Close ❌</button>
         </div>
     </div>
 
     <div class="modal-overlay" id="kidsRhymesModal" onclick="closeKidsRhymesModal()">
         <div class="modal-box" onclick="event.stopPropagation()">
-            <h3 style="color: var(--warning);">🎶 Kids Rhymes</h3>
+            <h3 style="color: var(--warning);">🎶 Kids Rhymes & Videos</h3>
+            <p style="text-align:center; font-size:12px;">குழந்தைகளுக்கான ரைம்ஸ் மற்றும் வீடியோக்கள்!</p>
             <div id="rhymes-list-container" style="display: flex; flex-direction: column; gap: 8px; max-height: 250px; overflow-y: auto;"></div>
-            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:10px;" onclick="closeKidsRhymesModal()">Close ❌</button>
+            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:10px;" onclick="playClickSound(); closeKidsRhymesModal()">Close ❌</button>
         </div>
     </div>
 
     <div class="modal-overlay" id="scienceFactsModal" onclick="closeScienceFactsModal()">
         <div class="modal-box" onclick="event.stopPropagation()">
             <h3 style="color: var(--success);">🧪 Science Facts</h3>
+            <p style="text-align:center; font-size:12px;">அற்புதமான அறிவியல் உண்மைகள்!</p>
             <div id="science-list-container" style="display: flex; flex-direction: column; gap: 8px; max-height: 250px; overflow-y: auto;"></div>
-            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:10px;" onclick="closeScienceFactsModal()">Close ❌</button>
+            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:10px;" onclick="playClickSound(); closeScienceFactsModal()">Close ❌</button>
         </div>
     </div>
 
     <div class="modal-overlay" id="tnpscModal" onclick="closeTnpscModal()">
         <div class="modal-box" onclick="event.stopPropagation()">
             <h3>🏛️ TNPSC Exams Hub</h3>
-            <div class="modal-option-btn" onclick="selectTnpscGroup('Group 1')">🏛️ Group 1 Exams</div>
-            <div class="modal-option-btn" onclick="selectTnpscGroup('Group 2')">🏛️ Group 2 Exams</div>
-            <div class="modal-option-btn" onclick="selectTnpscGroup('Group 2A')">🏛️ Group 2A Exams</div>
-            <div class="modal-option-btn" onclick="selectTnpscGroup('Group 4')">🏛️ Group 4 Exams</div>
-            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:10px;" onclick="closeTnpscModal()">Close ❌</button>
+            <p style="text-align:center;">தேவையான பிரிவைத் தேர்ந்தெடுக்கவும்:</p>
+            <div class="modal-option-btn" onclick="playClickSound(); selectTnpscGroup('Group 1')">🏛️ Group 1 Exams</div>
+            <div class="modal-option-btn" onclick="playClickSound(); selectTnpscGroup('Group 2')">🏛️ Group 2 Exams</div>
+            <div class="modal-option-btn" onclick="playClickSound(); selectTnpscGroup('Group 2A')">🏛️ Group 2A Exams</div>
+            <div class="modal-option-btn" onclick="playClickSound(); selectTnpscGroup('Group 4')">🏛️ Group 4 Exams</div>
+            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:10px;" onclick="playClickSound(); closeTnpscModal()">Close ❌</button>
         </div>
     </div>
 
     <div class="modal-overlay" id="trbModal" onclick="closeTrbModal()">
         <div class="modal-box" onclick="event.stopPropagation()">
             <h3>📚 TRB / NET / SET EXAMS</h3>
-            <div class="modal-option-btn" onclick="selectTrbDept('தமிழ் துறை')">📖 தமிழ் துறை</div>
-            <div class="modal-option-btn" onclick="selectTrbDept('வேதியியல் துறை')">🧪 வேதியியல் துறை</div>
-            <div class="modal-option-btn" onclick="selectTrbDept('இயற்பியல் துறை')">⚡ இயற்பியல் துறை</div>
-            <div class="modal-option-btn" onclick="selectTrbDept('விலங்கியல் துறை')">🧬 விலங்கியல் துறை</div>
-            <div class="modal-option-btn" onclick="selectTrbDept('தாவரவியல் துறை')">🌿 தாவரவியல் துறை</div>
-            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:10px;" onclick="closeTrbModal()">Close ❌</button>
+            <p style="text-align:center;">தேவையான துறையைத் தேர்ந்தெடுக்கவும்:</p>
+            <div class="modal-option-btn" onclick="playClickSound(); selectTrbDept('தமிழ் துறை')">📖 தமிழ் துறை</div>
+            <div class="modal-option-btn" onclick="playClickSound(); selectTrbDept('வேதியியல் துறை')">🧪 வேதியியல் துறை</div>
+            <div class="modal-option-btn" onclick="playClickSound(); selectTrbDept('இயற்பியல் துறை')">⚡ இயற்பியல் துறை</div>
+            <div class="modal-option-btn" onclick="playClickSound(); selectTrbDept('விலங்கியல் துறை')">🧬 விலங்கியல் துறை</div>
+            <div class="modal-option-btn" onclick="playClickSound(); selectTrbDept('தாவரவியல் துறை')">🌿 தாவரவியல் துறை</div>
+            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:10px;" onclick="playClickSound(); closeTrbModal()">Close ❌</button>
         </div>
     </div>
 
     <div class="modal-overlay" id="ecoTechModal" onclick="closeEcoTechModal()">
         <div class="modal-box" onclick="event.stopPropagation()">
             <h3 style="color: var(--warning);">🔬 MANIKASI ECO TECH LAB</h3>
+            <p style="text-align:center; font-size:13px;">கிராமப்புற நீர், மண், உணவு மற்றும் பொருள் தர பரிசோதனை மையம்:</p>
             <div id="eco-tests-menu-container" style="display: flex; flex-direction: column; gap: 8px; max-height: 250px; overflow-y: auto;"></div>
-            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:10px;" onclick="closeEcoTechModal()">Close ❌</button>
+            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:10px;" onclick="playClickSound(); closeEcoTechModal()">Close ❌</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="ecoDetailModal" onclick="closeEcoDetailModal()">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <h3 id="eco-detail-title" style="color: var(--accent-cyan);">🧪 பரிசோதனை விவரங்கள்</h3>
+            <p id="eco-detail-text" style="font-size:14px; line-height:1.6; text-align:center;">தகவல்கள் ஏற்றப்படுகின்றன...</p>
+            <a id="eco-test-link-btn" href="#" target="_blank" class="btn-start" style="background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%); color:#000; padding:12px; margin-top:8px; text-align:center; display:block; font-size:13px;" onclick="playClickSound()">🔬 Test Your Product (Coming Soon) 🚀</a>
+            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:10px;" onclick="playClickSound(); closeEcoDetailModal()">Back ⬅️</button>
         </div>
     </div>
 
     <div class="modal-overlay" id="quoteModal" onclick="closeQuoteModal()">
         <div class="modal-box" onclick="event.stopPropagation()">
             <h3>💡 இன்றைய சிந்தனை</h3>
-            <p id="modal-quote-text">Loading...</p>
-            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:10px;" onclick="closeQuoteModal()">Close ❌</button>
+            <p id="modal-quote-text">Loading quote...</p>
+            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:10px; font-weight:900;" onclick="playClickSound(); closeQuoteModal()">Close ❌</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="currentNewsModal" onclick="closeCurrentNewsModal()">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <h3>🐅 நடப்பு நிகழ்வுகள்</h3>
+            <p id="modal-current-news-text"></p>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 5px;">
+                <button class="modal-option-btn" onclick="playClickSound(); playModalNewsVoice()">🔊 Listen</button>
+                <a id="modal-news-video-btn" href="#" target="_blank" class="modal-option-btn" style="display:none; text-decoration:none;" onclick="playClickSound()">🎥 Video</a>
+                <a id="modal-news-pdf-btn" href="#" target="_blank" class="modal-option-btn" style="display:none; text-decoration:none;" onclick="playClickSound()">📥 PDF</a>
+            </div>
+            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:10px; font-weight:900;" onclick="playClickSound(); closeCurrentNewsModal()">Close ❌</button>
         </div>
     </div>
 
     <div class="donation-modal" id="donationModal" onclick="closeDonationModal()">
         <div class="donation-box" onclick="event.stopPropagation()">
             <h3 style="color: var(--warning);">💖 ஆதரவு கரம் (Donation)</h3>
-            <p>கட்டணம் செலுத்த மற்றும் நிதி உதவி அளிக்க இதைப் பயன்படுத்தலாம்:</p>
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=upi://pay?pa=9790933025@kotakbank%26pn=MANIKASI%26cu=INR" alt="QR" class="qr-img">
-            <div class="upi-box" onclick="copyUpiId()" style="background:rgba(0,0,0,0.6); border:1px solid var(--warning); padding:8px; border-radius:8px; color:var(--warning); font-size:13px; cursor:pointer; margin-top:6px;">9790933025 📋</div>
-            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:8px;" onclick="closeDonationModal()">Close ❌</button>
+            <p>கட்டணம் கட்டுவதற்கும் மற்றும் உங்களுக்கு விருப்பம் இருந்தால் நிதி உதவி அளிப்பதற்கும் இதைப் பயன்படுத்தலாம்!</p>
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=upi://pay?pa=9790933025@kotakbank%26pn=MANIKASI%26cu=INR" alt="UPI QR Code" class="qr-img">
+            <div style="font-size: 11px; color: var(--text-muted); font-weight: 900;">📱 GPay / PhonePe எண் (நகலெடுக்க கிளிக் செய்யவும்):</div>
+            <div class="upi-box" onclick="playClickSound(); copyUpiId()" title="Click to Copy">9790933025 📋</div>
+            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:8px;" onclick="playClickSound(); closeDonationModal()">Close ❌</button>
         </div>
     </div>
 
-    <!-- Admin Main Selection Modal -->
+    <!-- Admin Main Category Selection Modal -->
     <div class="admin-modal-overlay" id="adminMainModal">
         <div class="admin-modal-box" style="text-align:center;">
-            <h3 style="color: var(--accent-cyan);">⚙️ ADMIN PANEL SELECTION</h3>
+            <h3 style="color: var(--accent-cyan); text-align:center;">⚙️ ADMIN PANEL SELECTION</h3>
+            <p style="font-size: 12px; color: var(--text-muted); text-align:center;">எதை எடிட் செய்ய விரும்புகிறீர்கள்?</p>
             <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 10px;">
-                <button class="modal-option-btn" onclick="openSpecificAdmin('test')">📚 Tests & Study Materials</button>
-                <button class="modal-option-btn" onclick="openSpecificAdmin('wallpapers')">🖼️ Edit Course Popups & Banners (12 Sections)</button>
-                <button class="modal-option-btn" onclick="openSpecificAdmin('music')">🎵 Motivation Songs (10)</button>
-                <button class="modal-option-btn" onclick="openSpecificAdmin('rhymes')">🎶 Kids Rhymes (10)</button>
-                <button class="modal-option-btn" onclick="openSpecificAdmin('science')">🧪 Science Facts (10)</button>
-                <button class="modal-option-btn" onclick="openSpecificAdmin('ecotech')">🔬 Eco Tech Links (6)</button>
+                <button class="modal-option-btn" onclick="playClickSound(); openSpecificAdmin('test')">📚 Tests & Study Materials</button>
+                <button class="modal-option-btn" onclick="playClickSound(); openSpecificAdmin('wallpapers')">🖼️ Edit Course Popups & Banners (12 Sections)</button>
+                <button class="modal-option-btn" onclick="playClickSound(); openSpecificAdmin('music')">🎵 Motivation Songs (10)</button>
+                <button class="modal-option-btn" onclick="playClickSound(); openSpecificAdmin('rhymes')">🎶 Kids Rhymes (10)</button>
+                <button class="modal-option-btn" onclick="playClickSound(); openSpecificAdmin('science')">🧪 Science Facts (10)</button>
+                <button class="modal-option-btn" onclick="playClickSound(); openSpecificAdmin('ecotech')">🔬 Eco Tech Links (6)</button>
             </div>
-            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:10px; padding:8px;" onclick="closeAdminMainModal()">Close ❌</button>
+            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:10px; padding:8px;" onclick="playClickSound(); closeAdminMainModal()">Close ❌</button>
         </div>
     </div>
 
@@ -468,8 +716,8 @@
             <h3 id="admin-sub-title" style="color: var(--accent-cyan);">⚙️ Edit Section</h3>
             <div id="admin-sub-content" style="display: flex; flex-direction: column; gap: 8px; max-height: 60vh; overflow-y: auto; margin-top: 5px;"></div>
             <div style="display: flex; gap: 10px; margin-top: 10px;">
-                <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; padding:8px; width:50%;" onclick="backToAdminMain()">⬅️ Back</button>
-                <button id="admin-save-btn" class="btn-start" style="padding:8px; width:50%;">Publish Live 🚀</button>
+                <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; padding:8px; width:50%;" onclick="playClickSound(); backToAdminMain()">⬅️ Back</button>
+                <button id="admin-save-btn" class="btn-start" style="padding:8px; width:50%;" onclick="playClickSound()">Publish Live 🚀</button>
             </div>
         </div>
     </div>
@@ -493,7 +741,7 @@
         }
 
         const getAdminKey = () => "tiger" + "2026";
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby01R4gcZ4Qm2aeHpKHOkaRCVN0V7I1netL6py0l2a5lMCQtl2GP1PJgeubdWkf7xsvSQ/exec";
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzA2CU21tZXfb_-o3evVClWMWu-SvI7v3cBnJ0YKs2zPU8l8SuiUun5HoTU59bKGqctdA/exec";
 
         let tests = [];
         let newsList = [{ text: "அனைத்துத் தேர்வுகளுக்கான யூனிட்கள் ஆன்லைனில் இணைக்கப்பட்டுள்ளன!", img: "", pdf: "", video: "" }];
@@ -510,32 +758,21 @@
             { name: "நுகர்வோர் பொருட்கள் (Consumer Goods)", url: "" }
         ];
 
-        // 🌟 12 பிரிவுகளுக்கான Banner Image URL & Enable/Disable (ON/OFF) செட்டிங்ஸ்!
-        let courseWallpapers = {
-            'TRB Tamil': { status: 'OFF', title: '📖 TRB தமிழ் துறை', img: '' },
-            'TRB Chemistry': { status: 'OFF', title: '🧪 TRB வேதியியல்', img: '' },
-            'TRB Physics': { status: 'OFF', title: '⚡ TRB இயற்பியல்', img: '' },
-            'TNPSC Group 1': { status: 'OFF', title: '🏛️ TNPSC Group 1', img: '' },
-            'TNPSC Group 2': { status: 'OFF', title: '🏛️ TNPSC Group 2', img: '' },
-            'TNPSC Group 4': { status: 'OFF', title: '🏛️ TNPSC Group 4', img: '' },
-            'Police Exam': { status: 'OFF', title: '🛡️ Police Exam', img: '' },
-            'NEET Exam': { status: 'OFF', title: '🧬 NEET Exam', img: '' },
-            'Railway Exam': { status: 'OFF', title: '🚆 Railway Exam', img: '' },
-            'Kids Study': { status: 'OFF', title: '🧸 Kids Study', img: '' },
-            'Eco Tech Lab': { status: 'OFF', title: '🧪 Eco Tech Lab', img: '' },
-            'ALL': { status: 'OFF', title: '🔥 Free Test for All', img: '' }
-        };
+        let courseWallpapers = {};
 
         let currentActiveCategoryForResource = '';
         let currentActiveGroupForResource = '';
         let currentNewsIndex = 0;
         let newsInterval = null;
+
         let attendedCount = parseInt(localStorage.getItem('tiger_attended_count')) || 0;
         let isAdminLoggedIn = false;
         let currentFilterCategory = 'NONE';
         let currentFilterSubCategory = 'ALL';
         let selectedCategoryForWallpaper = '';
+        let selectedSubDeptForWallpaper = '';
 
+        // --- RENDER TESTS & CATEGORIES ---
         function renderTests() {
             const container = document.getElementById('test-container');
             if(!container) return;
@@ -565,6 +802,7 @@
             filtered.forEach(test => {
                 const item = document.createElement('div');
                 item.className = 'test-item';
+                
                 let actionBtns = `<a href="${test.link}" target="_blank" class="btn-start" onclick="incrementAttended(); playClickSound();">Start Test 🚀</a>`;
                 let pdfBtn = (test.pdf && test.pdf.trim() !== "") ? `<a href="${test.pdf}" target="_blank" class="btn-test-pdf" onclick="playClickSound();">📥 PDF</a>` : "";
                 let videoBtn = (test.video && test.video.trim() !== "") ? `<a href="${test.video}" target="_blank" class="btn-test-video" onclick="playClickSound();">🎥 Video</a>` : "";
@@ -589,13 +827,21 @@
             const container = document.getElementById('test-container');
             if(!container) return;
             container.innerHTML = "";
+
             let filtered = tests.filter(t => t.title.toLowerCase().includes(query) || t.category.toLowerCase().includes(query) || t.dept.toLowerCase().includes(query));
+            
             filtered.forEach(test => {
                 const item = document.createElement('div');
                 item.className = 'test-item';
                 let actionBtns = `<a href="${test.link}" target="_blank" class="btn-start" onclick="incrementAttended(); playClickSound();">Start Test 🚀</a>`;
+                let pdfBtn = (test.pdf && test.pdf.trim() !== "") ? `<a href="${test.pdf}" target="_blank" class="btn-test-pdf" onclick="playClickSound();">📥 PDF</a>` : "";
+                let videoBtn = (test.video && test.video.trim() !== "") ? `<a href="${test.video}" target="_blank" class="btn-test-video" onclick="playClickSound();">🎥 Video</a>` : "";
+
                 item.innerHTML = `
-                    <div class="test-header"><span class="test-tag">${test.category}</span><a href="${test.link}" target="_blank" class="btn-start">Start Test 🚀</a></div>
+                    <div class="test-header">
+                        <span class="test-tag">${test.category} ${test.dept ? '• ' + test.dept : ''}</span>
+                        <div class="test-action-btns">${pdfBtn} ${videoBtn} ${actionBtns}</div>
+                    </div>
                     <div class="test-title">${test.title}</div>
                     <div class="test-footer"><span>⏳ ${test.time}</span></div>
                 `;
@@ -610,23 +856,194 @@
             if(el) el.textContent = attendedCount;
         }
 
-        // 🌟 Category Click with 2 Seconds Delay & Wallpaper Popup Check
+        // --- AUTH & STUDENT REGISTRATION LOGIC ---
+        function switchAuthTab(tabName) {
+            const tabs = document.querySelectorAll('.auth-tab');
+            const forms = document.querySelectorAll('.auth-form');
+            tabs.forEach(t => t.classList.remove('active'));
+            forms.forEach(f => f.classList.remove('active'));
+
+            if (tabName === 'new') {
+                tabs[0].classList.add('active');
+                document.getElementById('newUserForm').classList.add('active');
+            } else {
+                tabs[1].classList.add('active');
+                document.getElementById('existingUserForm').classList.add('active');
+            }
+        }
+
+        function getUniqueDeviceId() {
+            let devId = localStorage.getItem('tiger_device_uuid');
+            if (!devId) {
+                devId = 'DEV_' + Math.random().toString(36).substring(2) + Date.now().toString(36);
+                localStorage.setItem('tiger_device_uuid', devId);
+            }
+            return devId;
+        }
+
+        function showRoyalAlert(msg) {
+            document.getElementById('royalAlertText').textContent = msg;
+            document.getElementById('royalAlertModal').style.display = 'flex';
+        }
+        function closeRoyalAlert() {
+            document.getElementById('royalAlertModal').style.display = 'none';
+        }
+
+        function openNewRegistrationForOtherCourse() {
+            closeRoyalAlert();
+            switchAuthTab('new');
+            document.getElementById('authModal').style.display = 'flex';
+        }
+
+        function handleExistingLogin() {
+            const phone = document.getElementById('loginPhone').value.trim();
+            if (!phone) {
+                alert("தயவுசெய்து உங்கள் வாட்ஸ்அப் எண்ணை உள்ளிடவும்!");
+                return;
+            }
+
+            const deviceId = getUniqueDeviceId();
+            playClickSound();
+
+            let categoryToCheck = currentActiveCategoryForResource || currentFilterCategory;
+            let subDeptToCheck = currentActiveGroupForResource || "";
+            let verifyUrl = `${GOOGLE_SCRIPT_URL}?action=login&phone=${encodeURIComponent(phone)}&deviceId=${encodeURIComponent(deviceId)}&category=${encodeURIComponent(categoryToCheck)}&subDept=${encodeURIComponent(subDeptToCheck)}`;
+            
+            fetch(verifyUrl)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.status === "success") {
+                        alert("✅ உள்நுழைவு வெற்றிகரம்! கோர்ஸை அணுகலாம் 🚀");
+                        document.getElementById('authModal').style.display = 'none';
+                        localStorage.setItem('tiger_auth_passed', 'true');
+                        localStorage.setItem('tiger_student_phone', phone);
+                        if (pendingCategoryAction) {
+                            pendingCategoryAction();
+                            pendingCategoryAction = null;
+                        }
+                    } else if (data.status === "pending") {
+                        alert("⏳ " + data.message);
+                    } else if (data.status === "unauthorized") {
+                        document.getElementById('authModal').style.display = 'none';
+                        showRoyalAlert("🚫 இதில் உங்களுக்கு அனுமதி இல்லை! நீங்கள் வாங்கிய கோர்ஸை மட்டும் அணுகவும்.");
+                    } else if (data.status === "device_mismatch") {
+                        alert("⚠️ " + data.message);
+                    } else {
+                        alert("❌ " + data.message);
+                    }
+                })
+                .catch(err => {
+                    alert("❌ சர்வர் இணைப்புப்பிழை அல்லது எண் பதிவு செய்யப்படவில்லை!");
+                });
+        }
+
+        function handleNewRegistration() {
+            const name = document.getElementById('regName').value.trim();
+            const phone = document.getElementById('regPhone').value.trim();
+            const course = document.getElementById('regCourse').value;
+
+            if (!name || !phone) {
+                alert("தயவுசெய்து பெயர் மற்றும் வாட்ஸ்அப் எண்ணை உள்ளிடவும்!");
+                return;
+            }
+            playClickSound();
+
+            const payload = { type: "register", name: name, phone: phone, course: course };
+            fetch(GOOGLE_SCRIPT_URL, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            }).then(() => {
+                let whatsappUrl = `https://wa.me/919790933025?text=Hello%20Sir,%20My%20Name:%20${encodeURIComponent(name)},%20Phone:%20${phone},%20Purchased%20Course:%20${encodeURIComponent(course)}.%20I%20have%20paid.%20Please%20approve%20my%20login.`;
+                window.open(whatsappUrl, '_blank');
+                alert("✅ பதிவு விவரங்கள் அனுப்பப்பட்டன! அட்மின் அப்ரூவ் செய்தவுடன் நீங்கள் லாகின் செய்யலாம்.");
+            }).catch(err => {
+                alert("❌ பிழை: " + err);
+            });
+        }
+
+        let pendingCategoryAction = null;
+        function checkAuthAndProceed(actionCallback, targetCategory = '', targetSubDept = '') {
+            currentActiveCategoryForResource = targetCategory;
+            currentActiveGroupForResource = targetSubDept;
+
+            if (targetCategory === 'ALL') {
+                actionCallback();
+                return;
+            }
+
+            if (targetCategory === 'Kids Study' || targetCategory === 'Eco Tech Lab') {
+                actionCallback();
+                return;
+            }
+
+            if (localStorage.getItem('tiger_auth_passed') === 'true' && localStorage.getItem('tiger_student_phone')) {
+                let phone = localStorage.getItem('tiger_student_phone');
+                let deviceId = getUniqueDeviceId();
+                if(isAdminLoggedIn) { actionCallback(); return; }
+                
+                let verifyUrl = `${GOOGLE_SCRIPT_URL}?action=login&phone=${encodeURIComponent(phone)}&deviceId=${encodeURIComponent(deviceId)}&category=${encodeURIComponent(targetCategory)}&subDept=${encodeURIComponent(targetSubDept)}`;
+                
+                fetch(verifyUrl)
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.status === "success") {
+                            actionCallback();
+                        } else if (data.status === "unauthorized") {
+                            showRoyalAlert("🚫 இதில் உங்களுக்கு அனுமதி இல்லை! நீங்கள் வாங்கிய கோர்ஸை மட்டும் அணுகவும்.");
+                        } else {
+                            document.getElementById('authModal').style.display = 'flex';
+                        }
+                    }).catch(err => { actionCallback(); });
+            } else {
+                pendingCategoryAction = actionCallback;
+                document.getElementById('authModal').style.display = 'flex';
+            }
+        }
+
+        function closeAuthModal() {
+            document.getElementById('authModal').style.display = 'none';
+            pendingCategoryAction = null;
+        }
+
+        // 🌟 ஸ்மார்ட் லாஜிக்: மாணவன் ஏற்கனவே லாகின் செய்து பர்ச்சேஸ் செய்திருந்தால் பாப்-அப் வராது. வாங்காதவர்களுக்கு மட்டும் 2 விநாடி தாமதத்தில் பாப்-அப் காட்டும்!
         function handleCategoryTouch(catId, subDept = '') {
             playClickSound();
             selectedCategoryForWallpaper = catId;
-            currentActiveGroupForResource = subDept;
+            selectedSubDeptForWallpaper = subDept;
 
             let key = subDept ? (catId === 'TRB / NET / SET' ? `TRB ${subDept.replace(' துறை','')}` : `${catId} ${subDept}`) : (catId === 'Police Exam' ? 'Police Exam' : catId);
-            
-            // Fallback lookup if exact subkey not found
             let config = courseWallpapers[key] || courseWallpapers[catId];
+
+            if (isAdminLoggedIn || catId === 'ALL' || catId === 'Kids Study' || catId === 'Eco Tech Lab') {
+                proceedAfterWallpaperCheck(catId, subDept);
+                return;
+            }
 
             if (!config || config.status === 'OFF' || !config.img || config.img.trim() === '') {
                 proceedAfterWallpaperCheck(catId, subDept);
                 return;
             }
 
-            // 2 விநாடிகள் தாமதத்திற்குப் பிறகு வால்பேப்பர் இமேஜ் பாப்-அப் காண்பித்தல்
+            let phone = localStorage.getItem('tiger_student_phone');
+            let authPassed = localStorage.getItem('tiger_auth_passed');
+
+            if (authPassed === 'true' && phone) {
+                let verifyUrl = `${GOOGLE_SCRIPT_URL}?action=login&phone=${encodeURIComponent(phone)}&deviceId=${encodeURIComponent(getUniqueDeviceId())}&category=${encodeURIComponent(catId)}&subDept=${encodeURIComponent(subDept)}`;
+                fetch(verifyUrl).then(res => res.json()).then(data => {
+                    if (data.status === "success") {
+                        proceedAfterWallpaperCheck(catId, subDept);
+                    } else {
+                        showWallpaperPopup(config);
+                    }
+                }).catch(e => { showWallpaperPopup(config); });
+            } else {
+                showWallpaperPopup(config);
+            }
+        }
+
+        function showWallpaperPopup(config) {
             setTimeout(() => {
                 document.getElementById('cwTitle').textContent = config.title;
                 document.getElementById('cwImg').src = config.img;
@@ -640,7 +1057,7 @@
 
         function proceedToLoginFromWallpaper() {
             closeCourseWallpaper();
-            proceedAfterWallpaperCheck(selectedCategoryForWallpaper, currentActiveGroupForResource);
+            proceedAfterWallpaperCheck(selectedCategoryForWallpaper, selectedSubDeptForWallpaper);
         }
 
         function proceedAfterWallpaperCheck(catId, subDept) {
@@ -673,321 +1090,140 @@
             }
         }
 
-        function switchAuthTab(tabName) {
-            const tabs = document.querySelectorAll('.auth-tab');
-            const forms = document.querySelectorAll('.auth-form');
-            tabs.forEach(t => t.classList.remove('active'));
-            forms.forEach(f => f.classList.remove('active'));
-            if (tabName === 'new') {
-                tabs[0].classList.add('active');
-                document.getElementById('newUserForm').classList.add('active');
-            } else {
-                tabs[1].classList.add('active');
-                document.getElementById('existingUserForm').classList.add('active');
-            }
-        }
-
-        function getUniqueDeviceId() {
-            let devId = localStorage.getItem('tiger_device_uuid');
-            if (!devId) {
-                devId = 'DEV_' + Math.random().toString(36).substring(2) + Date.now().toString(36);
-                localStorage.setItem('tiger_device_uuid', devId);
-            }
-            return devId;
-        }
-
-        function showRoyalAlert(msg) {
-            document.getElementById('royalAlertText').textContent = msg;
-            document.getElementById('royalAlertModal').style.display = 'flex';
-        }
-        function closeRoyalAlert() { document.getElementById('royalAlertModal').style.display = 'none'; }
-
-        function handleExistingLogin() {
-            const phone = document.getElementById('loginPhone').value.trim();
-            if (!phone) { alert("எண்ணை உள்ளிடவும்!"); return; }
-            let verifyUrl = `${GOOGLE_SCRIPT_URL}?action=login&phone=${encodeURIComponent(phone)}&deviceId=${encodeURIComponent(getUniqueDeviceId())}&category=${encodeURIComponent(currentActiveCategoryForResource)}&subDept=${encodeURIComponent(currentActiveGroupForResource)}`;
-            fetch(verifyUrl).then(res => res.json()).then(data => {
-                if (data.status === "success") {
-                    alert("✅ Login Successful!");
-                    document.getElementById('authModal').style.display = 'none';
-                    localStorage.setItem('tiger_auth_passed', 'true');
-                    localStorage.setItem('tiger_student_phone', phone);
-                    if (pendingCategoryAction) { pendingCategoryAction(); pendingCategoryAction = null; }
-                } else if (data.status === "unauthorized") {
-                    document.getElementById('authModal').style.display = 'none';
-                    showRoyalAlert("🚫 இதில் உங்களுக்கு அனுமதி இல்லை!");
-                } else { alert(data.message); }
-            }).catch(e => alert("Connection error!"));
-        }
-
-        function handleNewRegistration() {
-            const name = document.getElementById('regName').value.trim();
-            const phone = document.getElementById('regPhone').value.trim();
-            const course = document.getElementById('regCourse').value;
-            if (!name || !phone) { alert("பெயர் மற்றும் எண்ணை உள்ளிடவும்!"); return; }
-            fetch(GOOGLE_SCRIPT_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ type: "register", name, phone, course }) })
-            .then(() => {
-                window.open(`https://wa.me/919790933025?text=Name:%20${encodeURIComponent(name)}%20Phone:%20${phone}%20Course:%20${encodeURIComponent(course)}`, '_blank');
-                alert("✅ பதிவு விவரங்கள் அனுப்பப்பட்டன!");
-            });
-        }
-
-        let pendingCategoryAction = null;
-        function checkAuthAndProceed(actionCallback, targetCategory = '', targetSubDept = '') {
-            currentActiveCategoryForResource = targetCategory;
-            currentActiveGroupForResource = targetSubDept;
-            if (targetCategory === 'ALL' || targetCategory === 'Kids Study' || targetCategory === 'Eco Tech Lab') { actionCallback(); return; }
-            if (localStorage.getItem('tiger_auth_passed') === 'true' && localStorage.getItem('tiger_student_phone')) {
-                if(isAdminLoggedIn) { actionCallback(); return; }
-                let verifyUrl = `${GOOGLE_SCRIPT_URL}?action=login&phone=${encodeURIComponent(localStorage.getItem('tiger_student_phone'))}&deviceId=${encodeURIComponent(getUniqueDeviceId())}&category=${encodeURIComponent(targetCategory)}&subDept=${encodeURIComponent(targetSubDept)}`;
-                fetch(verifyUrl).then(res => res.json()).then(data => {
-                    if (data.status === "success") actionCallback();
-                    else showRoyalAlert("🚫 இதில் உங்களுக்கு அனுமதி இல்லை!");
-                }).catch(e => actionCallback());
-            } else { pendingCategoryAction = actionCallback; document.getElementById('authModal').style.display = 'flex'; }
-        }
-
-        function closeAuthModal() { document.getElementById('authModal').style.display = 'none'; pendingCategoryAction = null; }
-
-        window.addEventListener('DOMContentLoaded', () => { renderCategories(); fetchSheetData(); startSplitLiveClock(); });
-
-        function startSplitLiveClock() {
-            setInterval(() => {
-                const now = new Date();
-                document.getElementById('embedded-live-date').textContent = `📅 ${now.toLocaleDateString('ta-IN', { weekday: 'short', month: 'short', day: 'numeric' })}`;
-                document.getElementById('embedded-live-time').textContent = `⏰ ${now.toLocaleTimeString()}`;
-            }, 1000);
-        }
-
-        let tapCount = 0;
-        function handleSecretAdminTap() {
-            tapCount++;
-            if (tapCount === 3) { tapCount = 0; verifyAdmin(); }
-        }
-
-        function verifyAdmin() {
-            let pwd = prompt("🔒 Admin Password:");
-            if (pwd === getAdminKey()) { isAdminLoggedIn = true; document.getElementById('adminMainModal').style.display = 'flex'; }
-            else if(pwd !== null) alert("❌ Wrong Password!");
-        }
-
-        function closeAdminMainModal() { document.getElementById('adminMainModal').style.display = 'none'; }
-        function closeAdminSubModal() { document.getElementById('adminSubModal').style.display = 'none'; }
-        function backToAdminMain() { closeAdminSubModal(); document.getElementById('adminMainModal').style.display = 'flex'; }
-
-        function openSpecificAdmin(type) {
-            closeAdminMainModal();
-            const titleEl = document.getElementById('admin-sub-title');
-            const contentEl = document.getElementById('admin-sub-content');
-            const saveBtn = document.getElementById('admin-save-btn');
-            contentEl.innerHTML = "";
-
-            if (type === 'wallpapers') {
-                titleEl.textContent = "🖼️ Edit Course Popups & Banners (12 Sections)";
-                let optionsHtml = Object.keys(courseWallpapers).map(k => `<option value="${k}">${courseWallpapers[k].title}</option>`).join('');
-                contentEl.innerHTML = `
-                    <label>Select Section:</label>
-                    <select id="adm-cw-key" onchange="loadCourseWallpaperAdmin(this.value)" style="margin-bottom:6px;">${optionsHtml}</select>
-                    <label>Popup Status (Enable / Disable):</label>
-                    <select id="adm-cw-status" style="margin-bottom:6px;"><option value="ON">ON (Show Popup)</option><option value="OFF">OFF (Hide Popup)</option></select>
-                    <label>Title:</label>
-                    <input type="text" id="adm-cw-title" style="margin-bottom:6px;">
-                    <label>Banner Image URL (எடிட்டபிள் இமேஜ் லிங்க்):</label>
-                    <input type="text" id="adm-cw-img" placeholder="https://...">
-                `;
-                loadCourseWallpaperAdmin(Object.keys(courseWallpapers)[0]);
-                saveBtn.onclick = () => saveCourseWallpaperAdmin();
-            } else if (type === 'test') {
-                titleEl.textContent = "📚 Manage Tests";
-                contentEl.innerHTML = `
-                    <input type="text" id="admin-title" placeholder="Test Name" style="margin-bottom:6px;">
-                    <select id="admin-category" style="margin-bottom:6px;">
-                        <option value="TRB / NET / SET">TRB / NET / SET</option>
-                        <option value="TNPSC">TNPSC</option>
-                        <option value="Police Exam">Police Exam</option>
-                        <option value="ALL">Free Test for All</option>
-                    </select>
-                    <input type="text" id="admin-link" placeholder="Test URL">
-                `;
-                saveBtn.onclick = () => saveTestToSheet();
-            } else if (type === 'music') {
-                titleEl.textContent = "🎵 10 Motivation Songs";
-                for(let i=0; i<10; i++) {
-                    contentEl.innerHTML += `<div style="display:flex; gap:5px;"><input type="text" id="adm-song-${i}" value="${musicList[i]?.title || ''}" style="flex:1;"><input type="text" id="adm-songurl-${i}" value="${musicList[i]?.url || ''}" placeholder="URL" style="flex:1.5;"></div>`;
-                }
-                saveBtn.onclick = () => saveMusicToSheet();
-            } else if (type === 'rhymes') {
-                titleEl.textContent = "🎶 10 Kids Rhymes";
-                for(let i=0; i<10; i++) {
-                    contentEl.innerHTML += `<div style="display:flex; gap:5px;"><input type="text" id="adm-rhyme-${i}" value="${rhymesList[i]?.title || ''}" style="flex:1;"><input type="text" id="adm-rhymeurl-${i}" value="${rhymesList[i]?.url || ''}" placeholder="URL" style="flex:1.5;"></div>`;
-                }
-                saveBtn.onclick = () => saveRhymesToSheet();
-            } else if (type === 'science') {
-                titleEl.textContent = "🧪 10 Science Facts";
-                for(let i=0; i<10; i++) {
-                    contentEl.innerHTML += `<div style="display:flex; gap:5px;"><input type="text" id="adm-sci-${i}" value="${scienceList[i]?.title || ''}" style="flex:1;"><input type="text" id="adm-sciurl-${i}" value="${scienceList[i]?.url || ''}" placeholder="URL" style="flex:1.5;"></div>`;
-                }
-                saveBtn.onclick = () => saveScienceToSheet();
-            } else if (type === 'ecotech') {
-                titleEl.textContent = "🔬 Eco Tech Links (6)";
-                ecoTestsList.forEach((e, i) => {
-                    contentEl.innerHTML += `<div style="display:flex; gap:5px;"><input type="text" id="adm-eco-${i}" value="${e.name}" style="flex:1;"><input type="text" id="adm-ecourl-${i}" value="${e.url}" placeholder="URL" style="flex:1.5;"></div>`;
-                });
-                saveBtn.onclick = () => saveEcoTechToSheet();
-            }
-            document.getElementById('adminSubModal').style.display = 'flex';
-        }
-
-        function loadCourseWallpaperAdmin(key) {
-            let item = courseWallpapers[key] || { status: 'OFF', title: '', img: '' };
-            document.getElementById('adm-cw-status').value = item.status;
-            document.getElementById('adm-cw-title').value = item.title;
-            document.getElementById('adm-cw-img').value = item.img;
-        }
-
-        function saveCourseWallpaperAdmin() {
-            let key = document.getElementById('adm-cw-key').value;
-            courseWallpapers[key] = {
-                status: document.getElementById('adm-cw-status').value,
-                title: document.getElementById('adm-cw-title').value,
-                img: document.getElementById('adm-cw-img').value
-            };
-            alert("✅ Banner & Popup Settings Updated!");
-            closeAdminSubModal();
-        }
-
-        function saveTestToSheet() {
-            let title = document.getElementById('admin-title').value;
-            let category = document.getElementById('admin-category').value;
-            let link = document.getElementById('admin-link').value;
-            if(!title || !link) { alert("Fill all fields!"); return; }
-            fetch(GOOGLE_SCRIPT_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: Date.now(), title, category, link, time: "60 Mins" }) })
-            .then(() => { alert("✅ Test Saved!"); closeAdminSubModal(); fetchSheetData(); });
-        }
-
-        function saveMusicToSheet() {
-            let updated = [];
-            for(let i=0; i<10; i++) {
-                updated.push({ title: document.getElementById(`adm-song-${i}`).value, url: document.getElementById(`adm-songurl-${i}`).value });
-            }
-            fetch(GOOGLE_SCRIPT_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ type: "music", music: updated }) })
-            .then(() => { alert("✅ Saved!"); closeAdminSubModal(); });
-        }
-
-        function saveRhymesToSheet() {
-            let updated = [];
-            for(let i=0; i<10; i++) {
-                updated.push({ title: document.getElementById(`adm-rhyme-${i}`).value, url: document.getElementById(`adm-rhymeurl-${i}`).value });
-            }
-            fetch(GOOGLE_SCRIPT_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ type: "rhymes", rhymes: updated }) })
-            .then(() => { alert("✅ Saved!"); closeAdminSubModal(); });
-        }
-
-        function saveScienceToSheet() {
-            let updated = [];
-            for(let i=0; i<10; i++) {
-                updated.push({ title: document.getElementById(`adm-sci-${i}`).value, url: document.getElementById(`adm-sciurl-${i}`).value });
-            }
-            fetch(GOOGLE_SCRIPT_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ type: "science", science: updated }) })
-            .then(() => { alert("✅ Saved!"); closeAdminSubModal(); });
-        }
-
-        function saveEcoTechToSheet() {
-            let updated = [];
-            ecoTestsList.forEach((e, i) => {
-                updated.push({ name: document.getElementById(`adm-eco-${i}`).value, url: document.getElementById(`adm-ecourl-${i}`).value });
-            });
-            fetch(GOOGLE_SCRIPT_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ type: "ecotech", ecoTests: updated }) })
-            .then(() => { alert("✅ Saved!"); closeAdminSubModal(); });
-        }
-
-        // 🌟 12 பிரிவுகள் (Categories)
-        const categories = [
-            { id: 'Eco Tech Lab', name: '🧪 Eco Tech Lab' },
-            { id: 'Kids Study', name: '🧸 Kids Study' },
-            { id: 'ALL', name: '🔥 Free Test for All' },
-            { id: 'TRB / NET / SET', name: '📚 TRB / NET / SET' },
-            { id: 'TNPSC', name: '🏛️ TNPSC' },
-            { id: 'POLICE', name: '🛡️ Police Exam' },
-            { id: 'NEET Exam', name: '🧬 NEET Exam' },
-            { id: 'Railway Exam', name: '🚆 Railway Exam' }
-        ];
-
-        function cycleTheme() {
-            let pref = localStorage.getItem('tiger_theme_pref') || '';
-            let next = pref === '' ? 'theme-gold' : (pref === 'theme-gold' ? 'theme-green' : '');
-            localStorage.setItem('tiger_theme_pref', next);
-            document.body.className = next;
-        }
-
-        function fetchSheetData() {
-            fetch(GOOGLE_SCRIPT_URL)
-                .then(response => response.json())
-                .then(data => {
-                    if (data && data.tests) {
-                        tests = data.tests.map(item => ({
-                            id: item.id || Date.now(),
-                            title: item.title || "Untitled Test",
-                            category: item.category || "TNPSC",
-                            dept: item.dept || "",
-                            time: item.time || "60 Mins",
-                            link: item.link || "#",
-                            pdf: item.pdf || "",
-                            video: item.video || ""
-                        }));
-                    }
-                    if (data && data.news && Array.isArray(data.news)) {
-                        newsList = data.news.map(n => typeof n === 'string' ? { text: n, img: "", pdf: "", video: "" } : { text: n.text || "", img: n.img || "", pdf: n.pdf || "", video: n.video || "" });
-                    }
-                    if (data && data.quote) { quoteMessage = data.quote; }
-                    renderCategories();
-                    renderTests();
-                    updateNewsDisplay();
-                }).catch(e => {});
-        }
-
-        function updateNewsDisplay() {
-            const noticeEl = document.getElementById('display-notice-text');
-            const imgEl = document.getElementById('display-news-img');
-            const pdfEl = document.getElementById('display-news-pdf');
-            const videoEl = document.getElementById('display-news-video');
-            if(!newsList || newsList.length === 0) return;
-            let currentItem = newsList[currentNewsIndex];
-            noticeEl.textContent = "📌 " + currentItem.text;
-            if(imgEl) {
-                imgEl.src = currentItem.img || "";
-                imgEl.style.display = (currentItem.img && currentItem.img.trim() !== "") ? "block" : "none";
-            }
-            if(pdfEl) {
-                pdfEl.style.display = (currentItem.pdf && currentItem.pdf.trim() !== "") ? "inline-block" : "none";
-                if(currentItem.pdf) pdfEl.href = currentItem.pdf;
-            }
-            if(videoEl) {
-                videoEl.style.display = (currentItem.video && currentItem.video.trim() !== "") ? "inline-block" : "none";
-                if(currentItem.video) videoEl.href = currentItem.video;
-            }
-        }
-
-        function renderCategories() {
-            const container = document.getElementById('category-tabs-container');
+        // --- ALL TESTS HUB POPUP ---
+        function openAllTestsHubModal() {
+            const container = document.getElementById('all-tests-categories-list');
             container.innerHTML = "";
-            categories.forEach(cat => {
-                const btn = document.createElement('button');
-                btn.className = `tab-btn ${currentFilterCategory === cat.id ? 'active' : ''}`;
-                btn.textContent = cat.name;
+            
+            const allHubCats = [
+                { id: 'Eco Tech Lab', name: '🧪 Eco Tech Lab' },
+                { id: 'Kids Study', name: '🧸 Kids Study' },
+                { id: 'TRB / NET / SET', name: '📚 TRB / NET / SET' },
+                { id: 'TNPSC', name: '🏛️ TNPSC' },
+                { id: 'POLICE', name: '🛡️ Police Exam' },
+                { id: 'NEET Exam', name: '🧬 NEET Exam' },
+                { id: 'Railway Exam', name: '🚆 Railway Exam' }
+            ];
+
+            allHubCats.forEach(cat => {
+                let count = tests.filter(t => t.category === cat.id).length;
+                const btn = document.createElement('div');
+                btn.className = 'modal-option-btn';
+                btn.innerHTML = `<span>${cat.name}</span> <span style="font-size:11px; color:var(--warning);">${count} Tests</span>`;
                 btn.onclick = () => {
                     playClickSound();
-                    if (cat.id === 'Eco Tech Lab') handleCategoryTouch('Eco Tech Lab');
-                    else if (cat.id === 'Kids Study') handleCategoryTouch('Kids Study');
-                    else if (cat.id === 'TNPSC') openTnpscModal();
-                    else if (cat.id === 'TRB / NET / SET') openTrbModal();
-                    else if (cat.id === 'ALL') handleCategoryTouch('ALL');
-                    else if (cat.id === 'POLICE') handleCategoryTouch('Police Exam');
-                    else if (cat.id === 'NEET Exam') handleCategoryTouch('NEET Exam');
-                    else if (cat.id === 'Railway Exam') handleCategoryTouch('Railway Exam');
+                    closeAllTestsModal();
+                    checkAuthAndProceed(() => {
+                        currentFilterCategory = cat.id;
+                        currentFilterSubCategory = 'ALL';
+                        renderTests();
+                        scrollToTests();
+                    }, cat.id);
                 };
                 container.appendChild(btn);
             });
+
+            document.getElementById('allTestsModal').style.display = 'flex';
+        }
+        function closeAllTestsModal() { document.getElementById('allTestsModal').style.display = 'none'; }
+
+        // --- SPLIT CLOCK ---
+        window.addEventListener('DOMContentLoaded', () => {
+            renderCategories();
+            renderTests();
+            startSplitLiveClock();
+            fetchSheetData();
+        });
+
+        function startSplitLiveClock() {
+            const dateEl = document.getElementById('embedded-live-date');
+            const timeEl = document.getElementById('embedded-live-time');
+            
+            const updateClock = () => {
+                const now = new Date();
+                if(dateEl) dateEl.textContent = `📅 ${now.toLocaleDateString('ta-IN', { weekday: 'short', month: 'short', day: 'numeric' })}`;
+                if(timeEl) timeEl.textContent = `⏰ ${now.toLocaleTimeString()}`;
+            };
+            updateClock();
+            setInterval(updateClock, 1000);
+        }
+
+        let tapCount = 0;
+        let tapTimer = null;
+        function handleSecretAdminTap() {
+            tapCount++;
+            if (tapCount === 1) {
+                tapTimer = setTimeout(() => { tapCount = 0; }, 1000);
+            } else if (tapCount === 3) {
+                clearTimeout(tapTimer);
+                tapCount = 0;
+                verifyAdmin();
+            }
+        }
+
+        function openDonationModal() { document.getElementById('donationModal').style.display = 'flex'; }
+        function closeDonationModal() { document.getElementById('donationModal').style.display = 'none'; }
+        
+        function openQuoteModal() {
+            document.getElementById('modal-quote-text').textContent = quoteMessage || "இன்றைய சிந்தனை: விடாமுயற்சி விஸ்வரூப வெற்றி தரும்!";
+            document.getElementById('quoteModal').style.display = 'flex';
+        }
+        function closeQuoteModal() { document.getElementById('quoteModal').style.display = 'none'; }
+
+        function openMusicModal() {
+            const container = document.getElementById('music-list-container');
+            container.innerHTML = "";
+            musicList.forEach((song, idx) => {
+                const btn = document.createElement('div');
+                btn.className = 'modal-option-btn';
+                let hasUrl = song.url && song.url.trim() !== "";
+                btn.innerHTML = `🎵 ${song.title || `பாடல் ${idx+1}`} <span>${hasUrl ? '▶️ Play' : '⏳ Soon'}</span>`;
+                btn.onclick = () => {
+                    playClickSound();
+                    if(hasUrl) window.open(song.url, '_blank');
+                    else alert("⚠️ இந்தப் பாடலுக்கான லிங்க் இன்னும் சேர்க்கப்படவில்லை!");
+                };
+                container.appendChild(btn);
+            });
+            document.getElementById('musicModal').style.display = 'flex';
+        }
+        function closeMusicModal() { document.getElementById('musicModal').style.display = 'none'; }
+
+        function openResourceModal(categoryName, groupName = '') {
+            currentActiveCategoryForResource = categoryName;
+            currentActiveGroupForResource = groupName;
+            let titleStr = groupName ? `${categoryName} (${groupName})` : categoryName;
+            document.getElementById('resource-modal-title').textContent = `📂 ${titleStr} Hub`;
+            document.getElementById('resourceModal').style.display = 'flex';
+        }
+        function closeResourceModal() { document.getElementById('resourceModal').style.display = 'none'; }
+
+        function openCategoryTestsFromResource() {
+            closeResourceModal();
+            currentFilterCategory = currentActiveCategoryForResource;
+            currentFilterSubCategory = currentActiveGroupForResource || 'ALL';
+            renderTests();
+            scrollToTests();
+        }
+
+        function openStudyNotesLink() {
+            closeResourceModal();
+            let matched = tests.find(t => t.category === currentActiveCategoryForResource && (!currentActiveGroupForResource || t.dept === currentActiveGroupForResource) && (t.pdf || t.link));
+            if (matched && matched.pdf && matched.pdf.trim() !== "") {
+                window.open(matched.pdf, '_blank');
+            } else {
+                alert(`📚 மன்னிக்கவும்! ${currentActiveCategoryForResource} பிரிவிற்கான ஸ்டடி மெட்டீரியல் (PDF Notes) இன்னும் இணைக்கப்படவில்லை.`);
+            }
+        }
+
+        function openVideoClassesLink() {
+            closeResourceModal();
+            let matched = tests.find(t => t.category === currentActiveCategoryForResource && (!currentActiveGroupForResource || t.dept === currentActiveGroupForResource) && (t.video || t.link));
+            if (matched && matched.video && matched.video.trim() !== "") {
+                window.open(matched.video, '_blank');
+            } else {
+                alert(`🎥 மன்னிக்கவும்! ${currentActiveCategoryForResource} பிரிவிற்கான வீடியோ வகுப்புகள் (Video Links) இன்னும் இணைக்கப்படவில்லை.`);
+            }
         }
 
         function openTnpscModal() {
@@ -1016,11 +1252,510 @@
             ecoTestsList.forEach((test, idx) => {
                 const btn = document.createElement('div');
                 btn.className = 'modal-option-btn';
-                btn.innerHTML = `<span>🧪 ${test.name}</span> <span style="font-size:11px; color:var(--warning);">🔍 Test</span>`;
-                btn.onclick = () => { playClickSound(); window.open(test.url || '#', '_blank'); };
+                let emoji = idx === 0 ? '💧' : (idx === 1 ? '🌱' : (idx === 2 ? '🥛' : (idx === 3 ? '🥤' : (idx === 4 ? '🛢️' : '📦'))));
+                btn.innerHTML = `<span>${emoji} ${test.name}</span> <span style="font-size:11px; color:var(--warning);">🔍 Test</span>`;
+                btn.onclick = () => {
+                    playClickSound();
+                    openEcoTestDetail(test.name, test.url);
+                };
                 container.appendChild(btn);
             });
             document.getElementById('ecoTechModal').style.display = 'flex';
         }
         function closeEcoTechModal() { document.getElementById('ecoTechModal').style.display = 'none'; }
-        function open
+
+        function openEcoTestDetail(testName, customUrl = "") {
+            closeEcoTechModal();
+            document.getElementById('eco-detail-title').textContent = "🧪 " + testName;
+            document.getElementById('eco-detail-text').textContent = testName + " தொடர்பான தரச் சோதனை மற்றும் ஆய்வக முடிவுகள் விவரங்கள்:";
+            
+            const testBtn = document.getElementById('eco-test-link-btn');
+            if (customUrl && customUrl.trim() !== "") {
+                testBtn.href = customUrl;
+                testBtn.innerHTML = `🔬 Test Your Product 🚀`;
+                testBtn.onclick = (e) => { playClickSound(); window.open(customUrl, '_blank'); };
+            } else {
+                testBtn.href = "#";
+                testBtn.innerHTML = `🔬 Test Your Product (Coming Soon) 🚀`;
+                testBtn.onclick = (e) => {
+                    e.preventDefault();
+                    playClickSound();
+                    alert("🚀 Test Your Product (Coming Soon)! இந்த வசதி விரைவில் நடைமுறைக்கு வரும்.");
+                };
+            }
+            document.getElementById('ecoDetailModal').style.display = 'flex';
+        }
+        function closeEcoDetailModal() { document.getElementById('ecoDetailModal').style.display = 'none'; openEcoTechModal(); }
+
+        function openKidsStudyModal() {
+            document.getElementById('kidsStudyModal').style.display = 'flex';
+        }
+        function closeKidsStudyModal() { document.getElementById('kidsStudyModal').style.display = 'none'; }
+
+        function selectKidsOption(optionType) {
+            closeKidsStudyModal();
+            if (optionType === 'Kids Tests') {
+                currentFilterCategory = 'Kids Study';
+                currentFilterSubCategory = 'ALL';
+                renderTests();
+                scrollToTests();
+            }
+        }
+
+        function openKidsRhymesModal() {
+            closeKidsStudyModal();
+            const container = document.getElementById('rhymes-list-container');
+            container.innerHTML = "";
+            rhymesList.forEach((rhyme, idx) => {
+                const btn = document.createElement('div');
+                btn.className = 'modal-option-btn';
+                let hasUrl = rhyme.url && rhyme.url.trim() !== "";
+                btn.innerHTML = `🎶 ${rhyme.title || `Rhyme ${idx+1}`} <span>${hasUrl ? '▶️ Play' : '⏳ Soon'}</span>`;
+                btn.onclick = () => { playClickSound(); if(hasUrl) window.open(rhyme.url, '_blank'); else alert("⚠️ லிங்க் இல்லை!"); };
+                container.appendChild(btn);
+            });
+            document.getElementById('kidsRhymesModal').style.display = 'flex';
+        }
+        function closeKidsRhymesModal() { document.getElementById('kidsRhymesModal').style.display = 'none'; }
+
+        function openScienceFactsModal() {
+            closeKidsStudyModal();
+            const container = document.getElementById('science-list-container');
+            container.innerHTML = "";
+            scienceList.forEach((fact, idx) => {
+                const btn = document.createElement('div');
+                btn.className = 'modal-option-btn';
+                let hasUrl = fact.url && fact.url.trim() !== "";
+                btn.innerHTML = `🧪 ${fact.title || `Science Fact ${idx+1}`} <span>${hasUrl ? '📖 Read' : '⏳ Soon'}</span>`;
+                btn.onclick = () => { playClickSound(); if(hasUrl) window.open(fact.url, '_blank'); else alert("⚠️ லிங்க் இல்லை!"); };
+                container.appendChild(btn);
+            });
+            document.getElementById('scienceFactsModal').style.display = 'flex';
+        }
+        function closeScienceFactsModal() { document.getElementById('scienceFactsModal').style.display = 'none'; }
+
+        function openFreeTestForAll() {
+            checkAuthAndProceed(() => {
+                currentFilterCategory = 'ALL';
+                currentFilterSubCategory = 'ALL';
+                renderTests();
+                scrollToTests();
+            }, 'ALL');
+        }
+
+        function copyUpiId() {
+            navigator.clipboard.writeText("9790933025");
+            alert("✅ UPI எண் (9790933025) நகலெடுக்கப்பட்டது!");
+        }
+
+        function openCurrentNewsModal() {
+            if(!newsList || newsList.length === 0) return;
+            let currentItem = newsList[currentNewsIndex];
+            document.getElementById('modal-current-news-text').textContent = currentItem.text;
+            document.getElementById('currentNewsModal').style.display = 'flex';
+        }
+        function closeCurrentNewsModal() { document.getElementById('currentNewsModal').style.display = 'none'; }
+
+        const categories = [
+            { id: 'Eco Tech Lab', name: '🧪 Eco Tech Lab' },
+            { id: 'Kids Study', name: '🧸 Kids Study' },
+            { id: 'ALL', name: '🔥 Free Test for All' },
+            { id: 'TRB / NET / SET', name: '📚 TRB / NET / SET' },
+            { id: 'TNPSC', name: '🏛️ TNPSC' },
+            { id: 'POLICE', name: '🛡️ Police Exam' },
+            { id: 'NEET Exam', name: '🧬 NEET Exam' },
+            { id: 'Railway Exam', name: '🚆 Railway Exam' }
+        ];
+
+        function cycleTheme() {
+            let pref = localStorage.getItem('tiger_theme_pref') || '';
+            let next = pref === '' ? 'theme-gold' : (pref === 'theme-gold' ? 'theme-green' : '');
+            localStorage.setItem('tiger_theme_pref', next);
+            document.body.className = next;
+        }
+
+        function fetchSheetData() {
+            fetch(GOOGLE_SCRIPT_URL)
+                .then(response => response.json())
+                .then(data => {
+                    if (data && data.tests) {
+                        tests = data.tests.map(item => ({
+                            id: item.id || Date.now(),
+                            title: item.title || "Untitled Test",
+                            category: item.category || "TNPSC",
+                            dept: item.dept || "",
+                            time: item.time || "60 Mins • 50 Qs",
+                            link: item.link || "#",
+                            pdf: item.pdf || "",
+                            video: item.video || ""
+                        }));
+                    }
+                    if (data && data.courseWallpapers) {
+                        courseWallpapers = data.courseWallpapers;
+                    }
+                    if (data && data.news && Array.isArray(data.news)) {
+                        newsList = data.news.map(n => typeof n === 'string' ? { text: n, img: "", pdf: "", video: "" } : { text: n.text || "", img: n.img || "", pdf: n.pdf || "", video: n.video || "" });
+                    }
+                    if (data && data.quote) { quoteMessage = data.quote; }
+                    
+                    if (data && data.music && Array.isArray(data.music)) {
+                        musicList = data.music.map((m, idx) => ({ title: m.title || `மோட்டிவேஷன் பாடல் ${idx+1}`, url: m.url || "" }));
+                    }
+                    if (data && data.rhymes && Array.isArray(data.rhymes)) {
+                        rhymesList = data.rhymes.map((r, idx) => ({ title: r.title || `Rhyme ${idx+1}`, url: r.url || "" }));
+                    }
+                    if (data && data.science && Array.isArray(data.science)) {
+                        scienceList = data.science.map((s, idx) => ({ title: s.title || `Science Fact ${idx+1}`, url: s.url || "" }));
+                    }
+                    if (data && data.ecoTests && Array.isArray(data.ecoTests)) {
+                        ecoTestsList = data.ecoTests.map((e, idx) => ({ name: e.name || ecoTestsList[idx].name, url: e.url || "" }));
+                    }
+
+                    initPortal();
+                })
+                .catch(error => { initPortal(); });
+        }
+
+        function initPortal() {
+            startNewsRotation();
+            document.getElementById('modal-notice-text').textContent = newsList.map(n => n.text).join("\n• ");
+            document.getElementById('tests-attended-count').textContent = attendedCount;
+            document.body.className = localStorage.getItem('tiger_theme_pref') || '';
+            renderCategories();
+            renderTests();
+        }
+
+        function updateNewsDisplay() {
+            const noticeEl = document.getElementById('display-notice-text');
+            const imgEl = document.getElementById('display-news-img');
+            const pdfEl = document.getElementById('display-news-pdf');
+            const videoEl = document.getElementById('display-news-video');
+            if(!newsList || newsList.length === 0) return;
+
+            let currentItem = newsList[currentNewsIndex];
+            noticeEl.textContent = "📌 " + currentItem.text;
+            imgEl.src = currentItem.img || "";
+            imgEl.style.display = (currentItem.img && currentItem.img.trim() !== "") ? "block" : "none";
+            pdfEl.style.display = (currentItem.pdf && currentItem.pdf.trim() !== "") ? "inline-block" : "none";
+            if(currentItem.pdf) pdfEl.href = currentItem.pdf;
+            videoEl.style.display = (currentItem.video && currentItem.video.trim() !== "") ? "inline-block" : "none";
+            if(currentItem.video) videoEl.href = currentItem.video;
+        }
+
+        function startNewsRotation() {
+            updateNewsDisplay();
+            if(newsInterval) clearInterval(newsInterval);
+            newsInterval = setInterval(() => {
+                currentNewsIndex = (currentNewsIndex + 1) % newsList.length;
+                updateNewsDisplay();
+            }, 5000); 
+        }
+
+        function renderCategories() {
+            const container = document.getElementById('category-tabs-container');
+            container.innerHTML = "";
+            categories.forEach(cat => {
+                const btn = document.createElement('button');
+                btn.className = `tab-btn ${currentFilterCategory === cat.id ? 'active' : ''}`;
+                btn.textContent = cat.name;
+                btn.onclick = () => {
+                    playClickSound();
+                    if (cat.id === 'Eco Tech Lab') {
+                        handleCategoryTouch('Eco Tech Lab');
+                    } else if (cat.id === 'Kids Study') {
+                        handleCategoryTouch('Kids Study');
+                    } else if (cat.id === 'TNPSC') {
+                        openTnpscModal();
+                    } else if (cat.id === 'TRB / NET / SET') {
+                        openTrbModal();
+                    } else if (cat.id === 'ALL') {
+                        handleCategoryTouch('ALL');
+                    } else if (cat.id === 'POLICE') {
+                        handleCategoryTouch('Police Exam');
+                    } else if (cat.id === 'NEET Exam') {
+                        handleCategoryTouch('NEET Exam');
+                    } else if (cat.id === 'Railway Exam') {
+                        handleCategoryTouch('Railway Exam');
+                    } else {
+                        handleCategoryTouch(cat.id);
+                    }
+                };
+                container.appendChild(btn);
+            });
+        }
+
+        function scrollToTests() {
+            const anchor = document.getElementById('tests-section-anchor');
+            if (anchor) anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // --- ADMIN PANEL LOGIC ---
+        function verifyAdmin() {
+            let pwd = prompt("🔒 Admin Password உள்ளிடவும்:");
+            if (pwd === getAdminKey()) {
+                isAdminLoggedIn = true;
+                document.getElementById('adminMainModal').style.display = 'flex';
+            } else if (pwd !== null) { alert("❌ தவறான பாஸ்வேர்ட்!"); }
+        }
+
+        function closeAdminMainModal() { document.getElementById('adminMainModal').style.display = 'none'; }
+        function closeAdminSubModal() { document.getElementById('adminSubModal').style.display = 'none'; }
+        function backToAdminMain() {
+            closeAdminSubModal();
+            document.getElementById('adminMainModal').style.display = 'flex';
+        }
+
+        function openSpecificAdmin(sectionType) {
+            closeAdminMainModal();
+            const titleEl = document.getElementById('admin-sub-title');
+            const contentEl = document.getElementById('admin-sub-content');
+            const saveBtn = document.getElementById('admin-save-btn');
+            contentEl.innerHTML = "";
+
+            if (sectionType === 'test') {
+                titleEl.textContent = "📚 Manage Tests & Notes";
+                contentEl.innerHTML = `
+                    <input type="text" id="admin-title" placeholder="Test Name (e.g., UNIT 1)" style="margin-bottom:6px;">
+                    <label>Category:</label>
+                    <select id="admin-category" onchange="toggleDeptSelectAdmin()" style="margin-bottom:6px;">
+                        <option value="Kids Study">🧸 Kids Study</option>
+                        <option value="TRB / NET / SET">📚 TRB / NET / SET</option>
+                        <option value="TNPSC">🏛️ TNPSC</option>
+                        <option value="POLICE">🛡️ Police Exam</option>
+                        <option value="NEET Exam">🧬 NEET Exam</option>
+                        <option value="Railway Exam">🚆 Railway Exam</option>
+                        <option value="ALL">🔥 Free Test for All</option>
+                    </select>
+                    <div id="dept-select-group-admin" style="display:none; flex-direction:column; gap:4px; margin-bottom:6px;">
+                        <label>Department / Group:</label>
+                        <select id="admin-department">
+                            <option value="தமிழ் துறை">தமிழ் துறை</option>
+                            <option value="வேதியியல் துறை">வேதியியல் துறை</option>
+                            <option value="இயற்பியல் துறை">இயற்பியல் துறை</option>
+                            <option value="விலங்கியல் துறை">விலங்கியல் துறை</option>
+                            <option value="தாவரவியல் துறை">தாவரவியல் துறை</option>
+                            <option value="Group 1">Group 1</option>
+                            <option value="Group 2">Group 2</option>
+                            <option value="Group 2A">Group 2A</option>
+                            <option value="Group 4">Group 4</option>
+                        </select>
+                    </div>
+                    <input type="text" id="admin-time" placeholder="Duration" value="60 Mins • 50 Qs" style="margin-bottom:6px;">
+                    <input type="text" id="admin-link" placeholder="Test URL (https://...)" style="margin-bottom:6px;">
+                    <input type="text" id="admin-pdf" placeholder="Study Notes PDF URL (https://...)" style="margin-bottom:6px;">
+                    <input type="text" id="admin-video" placeholder="Video Class YouTube URL (https://...)">
+                `;
+                saveBtn.style.background = "var(--accent-cyan)";
+                saveBtn.style.color = "#000";
+                saveBtn.onclick = () => { playClickSound(); saveTestToSheet(); };
+                toggleDeptSelectAdmin();
+            } else if (sectionType === 'wallpapers') {
+                titleEl.textContent = "🖼️ Edit Course Popups & Banners (12 Sections)";
+                let optionsHtml = Object.keys(courseWallpapers).map(k => `<option value="${k}">${courseWallpapers[k].title}</option>`).join('');
+                contentEl.innerHTML = `
+                    <label>Select Section:</label>
+                    <select id="adm-cw-key" onchange="loadCourseWallpaperAdmin(this.value)" style="margin-bottom:6px;">${optionsHtml}</select>
+                    <label>Popup Status (Enable / Disable):</label>
+                    <select id="adm-cw-status" style="margin-bottom:6px;"><option value="ON">ON (Show Popup)</option><option value="OFF">OFF (Hide Popup)</option></select>
+                    <label>Title:</label>
+                    <input type="text" id="adm-cw-title" style="margin-bottom:6px;">
+                    <label>Banner Image URL (எடிட்டபிள் இமேஜ் லிங்க்):</label>
+                    <input type="text" id="adm-cw-img" placeholder="https://...">
+                `;
+                if (Object.keys(courseWallpapers).length > 0) {
+                    loadCourseWallpaperAdmin(Object.keys(courseWallpapers)[0]);
+                }
+                saveBtn.style.background = "var(--warning)";
+                saveBtn.style.color = "#000";
+                saveBtn.onclick = () => { playClickSound(); saveCourseWallpaperAdmin(); };
+            } else if (sectionType === 'music') {
+                titleEl.textContent = "🎵 10 Motivation Songs";
+                for(let i=0; i<10; i++) {
+                    let song = musicList[i] || { title: `மோட்டிவேஷன் பாடல் ${i+1}`, url: "" };
+                    contentEl.innerHTML += `
+                        <div style="display:flex; gap:5px;">
+                            <input type="text" id="admin-song-title-${i}" value="${song.title}" placeholder="Song ${i+1}" style="flex:1;">
+                            <input type="text" id="admin-song-url-${i}" value="${song.url}" placeholder="URL ${i+1}" style="flex:1.5;">
+                        </div>
+                    `;
+                }
+                saveBtn.style.background = "var(--success)";
+                saveBtn.style.color = "#000";
+                saveBtn.onclick = () => { playClickSound(); saveMusicToSheet(); };
+            } else if (sectionType === 'rhymes') {
+                titleEl.textContent = "🎶 10 Kids Rhymes";
+                for(let i=0; i<10; i++) {
+                    let rhyme = rhymesList[i] || { title: `Rhyme ${i+1}`, url: "" };
+                    contentEl.innerHTML += `
+                        <div style="display:flex; gap:5px;">
+                            <input type="text" id="admin-rhyme-title-${i}" value="${rhyme.title}" placeholder="Rhyme ${i+1}" style="flex:1;">
+                            <input type="text" id="admin-rhyme-url-${i}" value="${rhyme.url}" placeholder="URL ${i+1}" style="flex:1.5;">
+                        </div>
+                    `;
+                }
+                saveBtn.style.background = "var(--warning)";
+                saveBtn.style.color = "#000";
+                saveBtn.onclick = () => { playClickSound(); saveRhymesToSheet(); };
+            } else if (sectionType === 'science') {
+                titleEl.textContent = "🧪 10 Science Facts";
+                for(let i=0; i<10; i++) {
+                    let fact = scienceList[i] || { title: `Science Fact ${i+1}`, url: "" };
+                    contentEl.innerHTML += `
+                        <div style="display:flex; gap:5px;">
+                            <input type="text" id="admin-science-title-${i}" value="${fact.title}" placeholder="Fact ${i+1}" style="flex:1;">
+                            <input type="text" id="admin-science-url-${i}" value="${fact.url}" placeholder="URL ${i+1}" style="flex:1.5;">
+                        </div>
+                    `;
+                }
+                saveBtn.style.background = "var(--accent-cyan)";
+                saveBtn.style.color = "#000";
+                saveBtn.onclick = () => { playClickSound(); saveScienceToSheet(); };
+            } else if (sectionType === 'ecotech') {
+                titleEl.textContent = "🔬 Eco Tech Lab Links (6 Tests)";
+                ecoTestsList.forEach((test, i) => {
+                    contentEl.innerHTML += `
+                        <div style="display:flex; gap:5px;">
+                            <input type="text" id="admin-eco-name-${i}" value="${test.name}" placeholder="Name ${i+1}" style="flex:1;">
+                            <input type="text" id="admin-eco-url-${i}" value="${test.url}" placeholder="URL ${i+1}" style="flex:1.5;">
+                        </div>
+                    `;
+                });
+                saveBtn.style.background = "var(--warning)";
+                saveBtn.style.color = "#000";
+                saveBtn.onclick = () => { playClickSound(); saveEcoTechToSheet(); };
+            }
+
+            document.getElementById('adminSubModal').style.display = 'flex';
+        }
+
+        function loadCourseWallpaperAdmin(key) {
+            let item = courseWallpapers[key] || { status: 'OFF', title: '', img: '' };
+            document.getElementById('adm-cw-status').value = item.status || 'OFF';
+            document.getElementById('adm-cw-title').value = item.title || '';
+            document.getElementById('adm-cw-img').value = item.img || '';
+        }
+
+        function saveCourseWallpaperAdmin() {
+            let key = document.getElementById('adm-cw-key').value;
+            courseWallpapers[key] = {
+                status: document.getElementById('adm-cw-status').value,
+                title: document.getElementById('adm-cw-title').value,
+                img: document.getElementById('adm-cw-img').value
+            };
+            fetch(GOOGLE_SCRIPT_URL, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ type: "wallpapers", courseWallpapers: courseWallpapers })
+            }).then(() => {
+                alert("✅ Course Popups & Banners Saved to Cloud!");
+                closeAdminSubModal();
+            }).catch(err => { alert("❌ பிழை: " + err); });
+        }
+
+        function toggleDeptSelectAdmin() {
+            const catEl = document.getElementById('admin-category');
+            if(!catEl) return;
+            const catSelect = catEl.value;
+            const deptGroup = document.getElementById('dept-select-group-admin');
+            const deptSelect = document.getElementById('admin-department');
+            if (catSelect === 'TRB / NET / SET' || catSelect === 'TNPSC') {
+                deptGroup.style.display = 'flex';
+                if (catSelect === 'TRB / NET / SET') {
+                    deptSelect.innerHTML = `<option value="தமிழ் துறை">தமிழ் துறை</option><option value="வேதியியல் துறை">வேதியியல் துறை</option><option value="இயற்பியல் துறை">இயற்பியல் துறை</option><option value="விலங்கியல் துறை">விலங்கியல் துறை</option><option value="தாவரவியல் துறை">தாவரவியல் துறை</option>`;
+                } else {
+                    deptSelect.innerHTML = `<option value="Group 1">Group 1</option><option value="Group 2">Group 2</option><option value="Group 2A">Group 2A</option><option value="Group 4">Group 4</option>`;
+                }
+            } else { deptGroup.style.display = 'none'; }
+        }
+
+        function saveTestToSheet() {
+            const title = document.getElementById('admin-title').value;
+            const category = document.getElementById('admin-category').value;
+            const dept = (category === 'TRB / NET / SET' || category === 'TNPSC') ? document.getElementById('admin-department').value : '';
+            const time = document.getElementById('admin-time').value;
+            const link = document.getElementById('admin-link').value;
+            const pdf = document.getElementById('admin-pdf').value;
+            const video = document.getElementById('admin-video').value;
+
+            if(!title || !link) { alert("தயவுசெய்து தலைப்பு மற்றும் லிங்கை நிரப்பவும்!"); return; }
+
+            const payload = { id: Date.now(), title, category, dept, time: time || "60 Mins • 50 Qs", link, pdf, video };
+            sendDataToCloud(payload, "✅ டெஸ்ட் மற்றும் ஸ்டடி மெட்டீரியல் சேமிக்கப்பட்டன!");
+        }
+
+        function saveMusicToSheet() {
+            let updatedMusic = [];
+            for(let i=0; i<10; i++) {
+                let st = document.getElementById(`admin-song-title-${i}`).value;
+                let su = document.getElementById(`admin-song-url-${i}`).value;
+                updatedMusic.push({ title: st, url: su });
+            }
+            const payload = { type: "music", music: updatedMusic };
+            sendDataToCloud(payload, "🎵 மோட்டிவேஷன் பாடல்கள் சேமிக்கப்பட்டன!");
+        }
+
+        function saveRhymesToSheet() {
+            let updatedRhymes = [];
+            for(let i=0; i<10; i++) {
+                let rt = document.getElementById(`admin-rhyme-title-${i}`).value;
+                let ru = document.getElementById(`admin-rhyme-url-${i}`).value;
+                updatedRhymes.push({ title: rt, url: ru });
+            }
+            const payload = { type: "rhymes", rhymes: updatedRhymes };
+            sendDataToCloud(payload, "🎶 ரைம்ஸ் பாடல்கள் சேமிக்கப்பட்டன!");
+        }
+
+        function saveScienceToSheet() {
+            let updatedScience = [];
+            for(let i=0; i<10; i++) {
+                let sct = document.getElementById(`admin-science-title-${i}`).value;
+                let scu = document.getElementById(`admin-science-url-${i}`).value;
+                updatedScience.push({ title: sct, url: scu });
+            }
+            const payload = { type: "science", science: updatedScience };
+            sendDataToCloud(payload, "🧪 சயின்ஸ் ஃபேக்ட்ஸ் சேமிக்கப்பட்டன!");
+        }
+
+        function saveEcoTechToSheet() {
+            let updatedEco = [];
+            for(let i=0; i<ecoTestsList.length; i++) {
+                let en = document.getElementById(`admin-eco-name-${i}`).value;
+                let eu = document.getElementById(`admin-eco-url-${i}`).value;
+                updatedEco.push({ name: en, url: eu });
+            }
+            const payload = { type: "ecotech", ecoTests: updatedEco };
+            sendDataToCloud(payload, "🔬 எக்கோ டெக் லேப் லிங்குகள் சேமிக்கப்பட்டன!");
+        }
+
+        function sendDataToCloud(payload, successMsg) {
+            fetch(GOOGLE_SCRIPT_URL, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            }).then(() => {
+                alert(successMsg);
+                if(payload.title) {
+                    document.getElementById('admin-title').value = "";
+                    document.getElementById('admin-link').value = "";
+                    document.getElementById('admin-pdf').value = "";
+                    document.getElementById('admin-video').value = "";
+                }
+                closeAdminSubModal();
+                setTimeout(fetchSheetData, 2000);
+            }).catch(err => { alert("❌ பிழை ஏற்பட்டது: " + err); });
+        }
+
+        function deleteTest(id) {
+            if(confirm("இந்த டெஸ்ட்டை நீக்க விரும்புகிறீர்களா?")) {
+                tests = tests.filter(t => t.id !== id);
+                renderTests();
+                alert("ℹ️ குறிப்பு: கூகிள் ஷீட்டிலிருந்தும் இந்த வரிசையை நீக்கிக்கொள்ளவும்.");
+            }
+        }
+
+        fetchSheetData();
+    </script>
+</body>
+</html>
