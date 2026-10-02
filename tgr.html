@@ -410,7 +410,7 @@
                     <option value="TNPSC Group 1">🏛 TNPSC Group 1</option>
                     <option value="TNPSC Group 2">🏛️ TNPSC Group 2</option>
                     <option value="TNPSC Group 2A">🏛️ TNPSC Group 2A</option>
-                    <option value="TNPSC Group 4">🏛️️ TNPSC Group 4</option>
+                    <option value="TNPSC Group 4">🏛 TNPSC Group 4</option>
                     <option value="TRB / NET / SET Tamil">📖 TRB / NET / SET தமிழ் துறை</option>
                     <option value="TRB / NET / SET Chemistry">🧪 TRB / NET / SET வேதியியல் துறை</option>
                     <option value="TRB / NET / SET Physics">⚡ TRB / NET / SET இயற்பியல் துறை</option>
@@ -552,7 +552,7 @@
                 <a href="https://wa.me/919790933025" target="_blank" class="contact-btn contact-btn-whatsapp" onclick="playClickSound()">💬 WhatsApp Chat</a>
                 <a href="https://t.me/PROFESSORMANIKASI" target="_blank" class="contact-btn contact-btn-telegram" onclick="playClickSound()">✈️ Telegram</a>
                 <a href="tel:9790933025" class="contact-btn contact-btn-phone" onclick="playClickSound()">📞 9790933025</a>
-                <a href="mailto:manivarmanchem@gmail.com" class="contact-btn contact-btn-mail" onclick="playClickSound()">✉️ Mail Us</a>
+                <a href="mailto:manivarmanchem@gmail.com" class="contact-btn contact-btn-mail" onclick="playClickSound()">✉️️ Mail Us</a>
             </div>
         </div>
 
@@ -624,9 +624,9 @@
             <h3>🏛️ TNPSC Exams Hub</h3>
             <p style="text-align:center;">தேவையான பிரிவைத் தேர்ந்தெடுக்கவும்:</p>
             <div class="modal-option-btn" onclick="playClickSound(); selectTnpscGroup('Group 1')">🏛️ Group 1 Exams</div>
-            <div class="modal-option-btn" onclick="playClickSound(); selectTnpscGroup('Group 2')">🏛️ Group 2 Exams</div>
+            <div class="modal-option-btn" onclick="playClickSound(); selectTnpscGroup('Group 2')">🏛️️ Group 2 Exams</div>
             <div class="modal-option-btn" onclick="playClickSound(); selectTnpscGroup('Group 2A')">🏛️ Group 2A Exams</div>
-            <div class="modal-option-btn" onclick="playClickSound(); selectTnpscGroup('Group 4')">🏛️ Group 4 Exams</div>
+            <div class="modal-option-btn" onclick="playClickSound(); selectTnpscGroup('Group 4')">🏛️️ Group 4 Exams</div>
             <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:10px;" onclick="playClickSound(); closeTnpscModal()">Close ❌</button>
         </div>
     </div>
@@ -635,11 +635,11 @@
         <div class="modal-box" onclick="event.stopPropagation()">
             <h3>📚 TRB / NET / SET EXAMS</h3>
             <p style="text-align:center;">தேவையான துறையைத் தேர்ந்தெடுக்கவும்:</p>
-            <div class="modal-option-btn" onclick="playClickSound(); selectTrbDept('தமிழ் துறை')">📖 தமிழ் துறை</div>
-            <div class="modal-option-btn" onclick="playClickSound(); selectTrbDept('வேதியியல் துறை')">🧪 வேதியியல் துறை</div>
-            <div class="modal-option-btn" onclick="playClickSound(); selectTrbDept('இயற்பியல் துறை')">⚡ இயற்பியல் துறை</div>
-            <div class="modal-option-btn" onclick="playClickSound(); selectTrbDept('விலங்கியல் துறை')">🧬 விலங்கியல் துறை</div>
-            <div class="modal-option-btn" onclick="playClickSound(); selectTrbDept('தாவரவியல் துறை')">🌿 தாவரவியல் துறை</div>
+            <div class="modal-option-btn" onclick="playClickSound(); selectTrbDept('Tamil')">📖 தமிழ் துறை</div>
+            <div class="modal-option-btn" onclick="playClickSound(); selectTrbDept('Chemistry')">🧪 வேதியியல் துறை</div>
+            <div class="modal-option-btn" onclick="playClickSound(); selectTrbDept('Physics')">⚡ இயற்பியல் துறை</div>
+            <div class="modal-option-btn" onclick="playClickSound(); selectTrbDept('Zoology')">🧬 விலங்கியல் துறை</div>
+            <div class="modal-option-btn" onclick="playClickSound(); selectTrbDept('Botany')">🌿 தாவரவியல் துறை</div>
             <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:10px;" onclick="playClickSound(); closeTrbModal()">Close ❌</button>
         </div>
     </div>
@@ -741,7 +741,7 @@
         }
 
         const getAdminKey = () => "tiger" + "2026";
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzA2CU21tZXfb_-o3evVClWMWu-SvI7v3cBnJ0YKs2zPU8l8SuiUun5HoTU59bKGqctdA/exec";
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyPnHis4Ki00gT59VFvd0CTd2CVcTlNVKWs19IrOiBwPOQWST8XxjHu2i_VkyWYqoQCww/exec";
 
         let tests = [];
         let newsList = [{ text: "அனைத்துத் தேர்வுகளுக்கான யூனிட்கள் ஆன்லைனில் இணைக்கப்பட்டுள்ளன!", img: "", pdf: "", video: "" }];
@@ -1007,22 +1007,26 @@
             pendingCategoryAction = null;
         }
 
-        // 🌟 ஸ்மார்ட் லாஜிக்: மாணவன் ஏற்கனவே லாகின் செய்து பர்ச்சேஸ் செய்திருந்தால் பாப்-அப் வராது. வாங்காதவர்களுக்கு மட்டும் 2 விநாடி தாமதத்தில் பாப்-அப் காட்டும்!
-        function handleCategoryTouch(catId, subDept = '') {
-            playClickSound();
-            selectedCategoryForWallpaper = catId;
-            selectedSubDeptForWallpaper = subDept;
-
-            let key = subDept ? (catId === 'TRB / NET / SET' ? `TRB ${subDept.replace(' துறை','')}` : `${catId} ${subDept}`) : (catId === 'Police Exam' ? 'Police Exam' : catId);
-            let config = courseWallpapers[key] || courseWallpapers[catId];
-
+        // 🌟 Flexible Wallpaper Key Matcher (TRB Tamil, TNPSC Group 1, etc.)
+        function checkWallpaperAndProceed(catId, subDept, nextCallback) {
             if (isAdminLoggedIn || catId === 'ALL' || catId === 'Kids Study' || catId === 'Eco Tech Lab') {
-                proceedAfterWallpaperCheck(catId, subDept);
+                nextCallback();
                 return;
             }
 
-            if (!config || config.status === 'OFF' || !config.img || config.img.trim() === '') {
-                proceedAfterWallpaperCheck(catId, subDept);
+            let key = "";
+            if (catId === 'TRB / NET / SET') {
+                key = subDept ? `TRB ${subDept}` : 'TRB Tamil';
+            } else if (catId === 'TNPSC') {
+                key = subDept ? `TNPSC ${subDept}` : 'TNPSC Group 1';
+            } else {
+                key = catId;
+            }
+
+            let config = courseWallpapers[key] || courseWallpapers[catId];
+
+            if (!config || config.status !== 'ON' || !config.img || config.img.trim() === '') {
+                nextCallback();
                 return;
             }
 
@@ -1033,22 +1037,26 @@
                 let verifyUrl = `${GOOGLE_SCRIPT_URL}?action=login&phone=${encodeURIComponent(phone)}&deviceId=${encodeURIComponent(getUniqueDeviceId())}&category=${encodeURIComponent(catId)}&subDept=${encodeURIComponent(subDept)}`;
                 fetch(verifyUrl).then(res => res.json()).then(data => {
                     if (data.status === "success") {
-                        proceedAfterWallpaperCheck(catId, subDept);
+                        nextCallback();
                     } else {
+                        selectedCategoryForWallpaper = catId;
+                        selectedSubDeptForWallpaper = subDept;
                         showWallpaperPopup(config);
                     }
                 }).catch(e => { showWallpaperPopup(config); });
             } else {
+                selectedCategoryForWallpaper = catId;
+                selectedSubDeptForWallpaper = subDept;
                 showWallpaperPopup(config);
             }
         }
 
         function showWallpaperPopup(config) {
             setTimeout(() => {
-                document.getElementById('cwTitle').textContent = config.title;
+                document.getElementById('cwTitle').textContent = config.title || "🎯 COURSE BANNER";
                 document.getElementById('cwImg').src = config.img;
                 document.getElementById('courseWallpaperModal').style.display = 'flex';
-            }, 2000);
+            }, 1000);
         }
 
         function closeCourseWallpaper() {
@@ -1057,37 +1065,35 @@
 
         function proceedToLoginFromWallpaper() {
             closeCourseWallpaper();
-            proceedAfterWallpaperCheck(selectedCategoryForWallpaper, selectedSubDeptForWallpaper);
-        }
-
-        function proceedAfterWallpaperCheck(catId, subDept) {
-            if (catId === 'Eco Tech Lab') {
-                openEcoTechModal();
-            } else if (catId === 'Kids Study') {
-                openKidsStudyModal();
-            } else if (catId === 'TNPSC' && !subDept) {
-                openTnpscModal();
-            } else if (catId === 'TRB / NET / SET' && !subDept) {
-                openTrbModal();
-            } else if (catId === 'ALL') {
-                checkAuthAndProceed(() => {
-                    currentFilterCategory = 'ALL';
+            checkAuthAndProceed(() => {
+                if (selectedSubDeptForWallpaper) {
+                    openResourceModal(selectedCategoryForWallpaper, selectedSubDeptForWallpaper);
+                } else {
+                    currentFilterCategory = selectedCategoryForWallpaper;
                     currentFilterSubCategory = 'ALL';
                     renderTests();
                     scrollToTests();
-                }, 'ALL');
-            } else {
+                }
+            }, selectedCategoryForWallpaper, selectedSubDeptForWallpaper);
+        }
+
+        // --- Sub-menu checks ---
+        function selectTrbDept(deptName) {
+            closeTrbModal();
+            checkWallpaperAndProceed('TRB / NET / SET', deptName, () => {
                 checkAuthAndProceed(() => {
-                    if (subDept) {
-                        openResourceModal(catId, subDept);
-                    } else {
-                        currentFilterCategory = catId;
-                        currentFilterSubCategory = 'ALL';
-                        renderTests();
-                        scrollToTests();
-                    }
-                }, catId, subDept);
-            }
+                    openResourceModal('TRB / NET / SET', deptName);
+                }, 'TRB / NET / SET', deptName);
+            });
+        }
+
+        function selectTnpscGroup(groupName) {
+            closeTnpscModal();
+            checkWallpaperAndProceed('TNPSC', groupName, () => {
+                checkAuthAndProceed(() => {
+                    openResourceModal('TNPSC', groupName);
+                }, 'TNPSC', groupName);
+            });
         }
 
         // --- ALL TESTS HUB POPUP ---
@@ -1226,25 +1232,11 @@
             }
         }
 
-        function openTnpscModal() {
-            document.getElementById('tnpscModal').style.display = 'flex';
-        }
+        function openTnpscModal() { document.getElementById('tnpscModal').style.display = 'flex'; }
         function closeTnpscModal() { document.getElementById('tnpscModal').style.display = 'none'; }
         
-        function selectTnpscGroup(groupName) {
-            closeTnpscModal();
-            handleCategoryTouch('TNPSC', groupName);
-        }
-
-        function openTrbModal() {
-            document.getElementById('trbModal').style.display = 'flex';
-        }
+        function openTrbModal() { document.getElementById('trbModal').style.display = 'flex'; }
         function closeTrbModal() { document.getElementById('trbModal').style.display = 'none'; }
-        
-        function selectTrbDept(deptName) {
-            closeTrbModal();
-            handleCategoryTouch('TRB / NET / SET', deptName);
-        }
 
         function openEcoTechModal() {
             const container = document.getElementById('eco-tests-menu-container');
@@ -1287,9 +1279,7 @@
         }
         function closeEcoDetailModal() { document.getElementById('ecoDetailModal').style.display = 'none'; openEcoTechModal(); }
 
-        function openKidsStudyModal() {
-            document.getElementById('kidsStudyModal').style.display = 'flex';
-        }
+        function openKidsStudyModal() { document.getElementById('kidsStudyModal').style.display = 'flex'; }
         function closeKidsStudyModal() { document.getElementById('kidsStudyModal').style.display = 'none'; }
 
         function selectKidsOption(optionType) {
@@ -1335,12 +1325,12 @@
         function closeScienceFactsModal() { document.getElementById('scienceFactsModal').style.display = 'none'; }
 
         function openFreeTestForAll() {
-            checkAuthAndProceed(() => {
+            checkWallpaperAndProceed('ALL', '', () => {
                 currentFilterCategory = 'ALL';
                 currentFilterSubCategory = 'ALL';
                 renderTests();
                 scrollToTests();
-            }, 'ALL');
+            });
         }
 
         function copyUpiId() {
@@ -1461,23 +1451,25 @@
                 btn.onclick = () => {
                     playClickSound();
                     if (cat.id === 'Eco Tech Lab') {
-                        handleCategoryTouch('Eco Tech Lab');
+                        checkWallpaperAndProceed('Eco Tech Lab', '', () => { openEcoTechModal(); });
                     } else if (cat.id === 'Kids Study') {
-                        handleCategoryTouch('Kids Study');
+                        checkWallpaperAndProceed('Kids Study', '', () => { openKidsStudyModal(); });
                     } else if (cat.id === 'TNPSC') {
-                        openTnpscModal();
+                        checkWallpaperAndProceed('TNPSC', '', () => { openTnpscModal(); });
                     } else if (cat.id === 'TRB / NET / SET') {
-                        openTrbModal();
+                        checkWallpaperAndProceed('TRB / NET / SET', '', () => { openTrbModal(); });
                     } else if (cat.id === 'ALL') {
-                        handleCategoryTouch('ALL');
-                    } else if (cat.id === 'POLICE') {
-                        handleCategoryTouch('Police Exam');
-                    } else if (cat.id === 'NEET Exam') {
-                        handleCategoryTouch('NEET Exam');
-                    } else if (cat.id === 'Railway Exam') {
-                        handleCategoryTouch('Railway Exam');
+                        checkWallpaperAndProceed('ALL', '', () => { openFreeTestForAll(); });
                     } else {
-                        handleCategoryTouch(cat.id);
+                        let mappedCat = cat.id === 'POLICE' ? 'Police Exam' : cat.id;
+                        checkWallpaperAndProceed(mappedCat, '', () => {
+                            checkAuthAndProceed(() => {
+                                currentFilterCategory = mappedCat;
+                                currentFilterSubCategory = 'ALL';
+                                renderTests();
+                                scrollToTests();
+                            }, mappedCat);
+                        });
                     }
                 };
                 container.appendChild(btn);
@@ -1529,11 +1521,11 @@
                     <div id="dept-select-group-admin" style="display:none; flex-direction:column; gap:4px; margin-bottom:6px;">
                         <label>Department / Group:</label>
                         <select id="admin-department">
-                            <option value="தமிழ் துறை">தமிழ் துறை</option>
-                            <option value="வேதியியல் துறை">வேதியியல் துறை</option>
-                            <option value="இயற்பியல் துறை">இயற்பியல் துறை</option>
-                            <option value="விலங்கியல் துறை">விலங்கியல் துறை</option>
-                            <option value="தாவரவியல் துறை">தாவரவியல் துறை</option>
+                            <option value="Tamil">தமிழ் துறை</option>
+                            <option value="Chemistry">வேதியியல் துறை</option>
+                            <option value="Physics">இயற்பியல் துறை</option>
+                            <option value="Zoology">விலங்கியல் துறை</option>
+                            <option value="Botany">தாவரவியல் துறை</option>
                             <option value="Group 1">Group 1</option>
                             <option value="Group 2">Group 2</option>
                             <option value="Group 2A">Group 2A</option>
@@ -1662,7 +1654,7 @@
             if (catSelect === 'TRB / NET / SET' || catSelect === 'TNPSC') {
                 deptGroup.style.display = 'flex';
                 if (catSelect === 'TRB / NET / SET') {
-                    deptSelect.innerHTML = `<option value="தமிழ் துறை">தமிழ் துறை</option><option value="வேதியியல் துறை">வேதியியல் துறை</option><option value="இயற்பியல் துறை">இயற்பியல் துறை</option><option value="விலங்கியல் துறை">விலங்கியல் துறை</option><option value="தாவரவியல் துறை">தாவரவியல் துறை</option>`;
+                    deptSelect.innerHTML = `<option value="Tamil">தமிழ் துறை</option><option value="Chemistry">வேதியியல் துறை</option><option value="Physics">இயற்பியல் துறை</option><option value="Zoology">விலங்கியல் துறை</option><option value="Botany">தாவரவியல் துறை</option>`;
                 } else {
                     deptSelect.innerHTML = `<option value="Group 1">Group 1</option><option value="Group 2">Group 2</option><option value="Group 2A">Group 2A</option><option value="Group 4">Group 4</option>`;
                 }
@@ -1751,7 +1743,7 @@
             if(confirm("இந்த டெஸ்ட்டை நீக்க விரும்புகிறீர்களா?")) {
                 tests = tests.filter(t => t.id !== id);
                 renderTests();
-                alert("ℹ️ குறிப்பு: கூகிள் ஷீட்டிலிருந்தும் இந்த வரிசையை நீக்கிக்கொள்ளவும்.");
+                alert("ℹ️️ குறிப்பு: கூகிள் ஷீட்டிலிருந்தும் இந்த வரிசையை நீக்கிக்கொள்ளவும்.");
             }
         }
 
