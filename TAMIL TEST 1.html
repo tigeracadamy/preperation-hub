@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tiger Warriors - PG-TRB தமிழ் (கணினித் தமிழ் & இணையதமிழ்)</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; font-weight: bold; }
+    body { background: #020617; color: #f8fafc; padding: 12px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+    .card { width: 100%; max-width: 950px; background: #0f172a; border-radius: 14px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); border: 1px solid #1e293b; }
+    
+    .test-header { display: flex; justify-content: space-between; align-items: center; background: #1e293b; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; }
+    .timer { font-size: 16px; font-weight: bold; color: #f59e0b; background: #091326; padding: 6px 12px; border-radius: 6px; border: 1px solid #f59e0b; }
+    
+    .q-grid { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 16px; max-height: 140px; overflow-y: auto; padding: 8px; background: #1e293b; border-radius: 8px; justify-content: center; }
+    .q-num-btn { width: 30px; height: 30px; border-radius: 5px; border: none; background: #334155; color: #fff; font-size: 10px; cursor: pointer; font-weight: bold; }
+    .q-num-btn.active { border: 2px solid #38bdf8; background: #0284c7; }
+    .q-num-btn.answered { background: #10b981; }
+
+    .q-box { background: #1e293b; padding: 18px; border-radius: 10px; margin-bottom: 16px; }
+    .q-text { white-space: pre-line; line-height: 1.6; font-size: 15px; color: #f8fafc; }
+    
+    .option-card { background: #0f172a; border: 1px solid #334155; padding: 12px 16px; border-radius: 8px; margin-top: 10px; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: 0.2s; white-space: pre-line; line-height: 1.4; }
+    .option-card:hover { border-color: #38bdf8; background: #1e293b; }
+    .option-card.selected { border-color: #10b981; background: #064e3b; }
+    .option-card.correct-ans { border-color: #10b981; background: #065f46; font-weight: bold; }
+    .option-card.wrong-ans { border-color: #ef4444; background: #7f1d1d; }
+
+    .explanation-box { background: #091326; border: 1px solid #38bdf8; border-radius: 8px; padding: 12px; margin-top: 14px; font-size: 13px; color: #7dd3fc; line-height: 1.5; }
+    
+    .nav-btns { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+    .btn-action { background: #334155; color: #fff; border: none; padding: 10px 16px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 13px; text-align: center; }
+    .btn-action:hover { opacity: 0.9; }
+    .btn-blue { background: #2563eb; }
+    .btn-purple { background: #7c3aed; }
+    .btn-danger { background: #ef4444; }
+    .btn-green { background: #22c55e; }
+
+    /* Classic Circular Results Dashboard */
+    .result-box { text-align: center; padding: 25px; background: #1e293b; border-radius: 16px; margin-top: 10px; border: 1px solid rgba(0, 242, 254, 0.3); display: flex; flex-direction: column; align-items: center; }
+    .score-circle { width: 130px; height: 130px; border-radius: 50%; background: conic-gradient(#10b981 0deg, #0f172a 0deg); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 15px auto; border: 4px solid #38bdf8; box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); }
+    .score-num { font-size: 30px; color: #f8fafc; font-weight: bold; }
+    
+    .result-stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; width: 100%; max-width: 400px; }
+    .stat-pill { background: #0f172a; border-radius: 12px; padding: 10px; border: 1px solid #334155; text-align: center; }
+    .stat-pill.gold { border-color: #fbbf24; }
+    .stat-pill.blue { border-color: #38bdf8; }
+    .stat-pill.red { border-color: #ef4444; }
+
+    .footer-badge { text-align: center; font-size: 11px; color: #38bdf8; margin-top: 15px; font-weight: bold; letter-spacing: 0.5px; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <!-- Security Login Check Script -->
+  <script>
+      if (localStorage.getItem('tiger_auth_passed') !== 'true') {
+          alert("⚠️ பாதுகாப்பு எச்சரிக்கை: நீங்கள் Tiger Warriors போர்ட்டலில் லாகின் செய்யவில்லை! முதலில் மெயின் போர்ட்டலில் லாகின் செய்யவும்.");
+          window.location.href = "https://tigeracadamy.github.io/preperation-hub/"; 
+      }
+  </script>
+
+  <!-- Test View -->
+  <div id="testView">
+    <div class="test-header">
+      <div>
+        <h3 style="color: #38bdf8; font-size: 15px;">🐅 TIGER WARRIORS - PG-TRB தமிழ் (கணினித் தமிழ் & இணையதமிழ்)</h3>
+        <span style="font-size: 11px; color: #94a3b8;">TRB / NET / SET • UNIT 1 TOPIC</span>
+      </div>
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <div class="timer" id="timerBox">⏱️ 50:00</div>
+        <button class="btn-action btn-purple" id="backToResultBtn" onclick="returnToResult()" style="display: none; padding: 6px 12px; font-size: 12px;">📊 ரிசல்ட் செல்</button>
+        <button class="btn-action btn-danger" id="dashFromKeyBtn" onclick="returnToDashboard()" style="display: none; padding: 6px 12px; font-size: 12px;">🏠 முகப்பு</button>
+      </div>
+    </div>
+
+    <div class="q-grid" id="questionGrid"></div>
+
+    <div class="q-box">
+      <div id="qTitle" class="q-text"></div>
+      <div id="optionsBox"></div>
+      <div id="expBox" class="explanation-box" style="display: none;"></div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn-action" id="prevBtn" onclick="navigateNumberQuery(-1)">⬅️ முந்தையது</button>
+      <button class="btn-action" id="clearBtn" onclick="clearChoice()">🧹 விடையை நீக்கு</button>
+      <button class="btn-action btn-blue" id="nextBtn" onclick="navigateNumberQuery(1)">அடுத்து ➡️</button>
+      <button class="btn-action btn-danger" id="finalSubmitBtn" onclick="confirmSubmit()">✅ தேர்வைச் சமர்ப்பிக்க (Submit)</button>
+    </div>
+  </div>
+
+  <!-- Result View -->
+  <div id="resultView" style="display: none;">
+    <h2 style="color: #38bdf8; text-align: center; margin-bottom: 10px;">🏆 தேர்வு முடிவுகள் (Test Results) 🎯</h2>
+    <div class="result-box">
+      <!-- Classic Circular Score Display -->
+      <div class="score-circle" id="scoreCircle">
+        <div class="score-num" id="scoreDisplay">0/50</div>
+        <span id="percentageDisplay" style="font-size: 11px; color: #fbbf24;">0%</span>
+      </div>
+
+      <div class="result-stats-grid">
+        <div class="stat-pill gold">
+          <h3 id="correctCnt" style="color: #10b981; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;">சரியானது ✅</span>
+        </div>
+        <div class="stat-pill red">
+          <h3 id="wrongCnt" style="color: #ef4444; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;">தவறானது ❌</span>
+        </div>
+        <div class="stat-pill blue">
+          <h3 id="unansCnt" style="color: #f59e0b; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;">விடையில்லை ⚠️</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4 Classic Navigation Buttons Layout -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
+      <button class="btn-action btn-blue" onclick="reviewAnswerKey()">🔍 விடை குறிப்பு (Answer Key)</button>
+      <button class="btn-action btn-purple" onclick="returnToDashboard()">🏠 முகப்புப் பக்கம்</button>
+      <button class="btn-action btn-green" onclick="retakeTest()">🔄 மீண்டும் தேர்வு</button>
+      <button class="btn-action btn-danger" onclick="exitPortal()">🚪 வெளியேறு</button>
+    </div>
+    <div class="footer-badge" style="margin-top: 20px;">🐅 டைகர் வாரியர் போர்டல் - இயக்குநர்: Dr. K. Manikasi 🐅</div>
+  </div>
+</div>
+
+<script>
+  const questionsData = [
+    { q: "1. முதல் கைபேசியை உருவாக்கியவர் யார்?", o: ["அலெக்சாண்டர் கிராக்பெல்", "மார்ட்டின் கார்ல் கூப்பர்", "நோயல் எஸ். ஏங்கெல்", "எரிக்சன்"], a: 1, exp: "விளக்கம்: முதல் கைபேசியை உருவாக்கியவர் மார்ட்டின் கார்ல் கூப்பர் ஆவார்." },
+    { q: "2. அலெக்சாண்டர் கிராக்பெல் தொலைபேசியைக் கண்டுபிடித்த ஆண்டு எது?", o: ["1901", "1841", "1876", "1897"], a: 2, exp: "விளக்கம்: அலெக்சாண்டர் கிராக்பெல் தொலைபேசியைக் கண்டறிந்த ஆண்டு 1876 ஆகும்." },
+    { q: "3. கைபேசி கண்டுபிடிக்கப்பட்ட வருடம் எது?", o: ["1953", "1963", "1973", "1983"], a: 2, exp: "விளக்கம்: கைபேசி கண்டுபிடிக்கப்பட்ட வருடம் 1973 ஆகும்." },
+    { q: "4. முதல் குறுஞ்செய்தி (SMS) அனுப்பப்பட்ட நாடு மற்றும் வருடம் எது?", o: ["அமெரிக்கா - 1993", "பிரான்சு - 1993", "பின்லாந்து - 1993", "இங்கிலாந்து - 1993"], a: 2, exp: "விளக்கம்: முதல் குறுஞ்செய்தி அனுப்பப்பட்ட நாடு மற்றும் வருடம் பின்லாந்து - 1993 ஆகும்." },
+    { q: "5. உலகின் முதல் திறன்பேசி (Smartphone) அறிமுகப்படுத்தப்பட்ட வருடம் எது?", o: ["1992 - நவம்பர் 23", "1995 - ஜனவரி 17", "1998 - மே 14", "2000 - ஜூன் 6"], a: 0, exp: "விளக்கம்: உலகின் முதல் திறன்பேசி 1992 நவம்பர் 23 அன்று அறிமுகப்படுத்தப்பட்டது." },
+    { q: "6. முதல் 3-G தொழில்நுட்பத்தை வழங்கிய நிறுவனம் எது?", o: ["எரிக்சன் நிறுவனம்", "IBM நிறுவனம்", "NTT DOCOMO நிறுவனம்", "ஐடியா நிறுவனம்"], a: 2, exp: "விளக்கம்: முதல் 3-G தொழில்நுட்பத்தை வழங்கிய நிறுவனம் NTT DOCOMO ஆகும்." },
+    { q: "7. 2010-ஆம் ஆண்டு, அமெரிக்கன் டயலக்டிக் சொசைட்டியால் ஆண்டின் சிறந்த சொல்லாக (Word of the Year) தேர்வு செய்யப்பட்ட சொல் எது?", o: ["Application (or) APP", "SIM Card", "Touch Screen", "Web"], a: 0, exp: "விளக்கம்: தேர்வு செய்யப்பட்ட சொல் Application (or) APP ஆகும்." },
+    { q: "8. பொருத்துக:\na. 2007 - 1. விண்டோஸ் மொபைல்\nb. 2008 - 2. விண்டோஸ் போன்\nc. 2010 - 3. கூகுள் ஆண்ட்ராய்டு\nd. 2003 - 4. ஐ.ஓ.எஸ் (iOS)", o: ["a-2, b-1, c-4, d-3", "a-4, b-1, c-2, d-3", "a-3, b-1, c-4, d-2", "a-2, b-1, c-3, d-4"], a: 3, exp: "விளக்கம்: சரியான பொருத்தம்: a-2, b-1, c-3, d-4 ஆகும்." },
+    { q: "9. செயற்கை மொழிக்குச் சான்று எது?", o: ["C", "C++", "பைத்தான் (Python)", "இவை அனைத்தும்"], a: 3, exp: "விளக்கம்: C, C++, பைத்தான் ஆகியவை கணினிச் செயற்கை மொழிகளாகும்." },
+    { q: "10. பின்வருவனவற்றுள் செயற்கை மொழி அல்லாதது எது?", o: ["பெர்ல்", "ஜாவா", "இயக்கமுறைமை", "மாண்டரின்"], a: 3, exp: "விளக்கம்: மாண்டரின் என்பது ஒரு இயற்கை மொழி (சீன மொழி)." },
+    { q: "11. பொருத்துக:\na. லினக்சு - 1. இயக்கமுறைமை\nb. விண்டோஸ் - 2. பயன்பாட்டு மென்பொருள்\nc. செயலி - 3. காணொலி விளையாட்டு\nd. பாம்பு - 4. ஒரு மில்லி செகண்டு", o: ["a-3, b-4, c-1, d-2", "a-1, b-1, c-4, d-3", "a-1, b-4, c-3, d-2", "a-1, b-1, c-2, d-3"], a: 3, exp: "விளக்கம்: சரியான பொருத்தம் இயக்கமுறைமை மற்றும் பயன்பாட்டு மென்பொருட்களை அடிப்படையாகக் கொண்டது." },
+    { q: "12. 'கணினித் தமிழ்' நூலை எழுதியவர் யார்?", o: ["சுஜாதா", "மா. நன்னன்", "மு. இளங்கோவன்", "வெ. நல்லதம்பி"], a: 0, exp: "விளக்கம்: கணினித் தமிழ் நூலை எழுதியவர் எழுத்தாளர் சுஜாதா ஆவார்." },
+    { q: "13. தமிழில் தோன்றிய முதல் மென்பொருள் எது?", o: ["ஆதமி", "ஒவை", "செந்தமிழ்", "செம்மொழி"], a: 0, exp: "விளக்கம்: தமிழில் தோன்றிய முதல் மென்பொருள் ஆதமி ஆகும்." },
+    { q: "14. எந்த மென்பொருளை இயக்கி, ஆங்கில விசைப்பலகை மூலமாகவே தமிழ் எழுத்துப்பெயர்ப்பு (Transliteration) வழியில் தமிழை எழுத முடியும்?", o: ["முரசு", "முரசு அஞ்சல்", "ஆதவன்", "அனைத்தும்"], a: 1, exp: "விளக்கம்: முரசு அஞ்சல் மூலம் எழுத்துப் பெயர்ப்பு வழியாகத் தமிழை எழுதலாம்." },
+    { q: "15. முதலில் தமிழை இணையத்தில் ஏற்றிவைத்தவர் யார்?", o: ["வ.செ. குழந்தைசாமி", "சுஜாதா", "நா. கோவிந்தசாமி", "சாமிபிள்ளை"], a: 2, exp: "விளக்கம்: முதலில் தமிழை இணையத்தில் ஏற்றிவைத்தவர் நா. கோவிந்தசாமி ஆவார்." },
+    { q: "16. தமிழ்.நெட் (Tamil.net) என்ற இணையதளத்தை ஆரம்பித்தவர் யார்?", o: ["நா. கோவிந்தசாமி", "பாலா பிள்ளை", "மயில்சாமி", "கோவை சேகரன்"], a: 1, exp: "விளக்கம்: தமிழ்.நெட் தளத்தை ஆரம்பித்தவர் பாலா பிள்ளை ஆவார்." },
+    { q: "17. முனைவர் கல்யாணசுந்தரம் அவர்கள் உருவாக்கிய தமிழ் எழுத்துருச் செயலி எது?", o: ["Mylai (மைலை)", "பாமினி (Bamini)", "கல்வி", "A மற்றும் B"], a: 3, exp: "விளக்கம்: மைலை மற்றும் பாமினி இரண்டும் அவரால் உருவாக்கப்பட்ட எழுத்துருக்களாகும்." },
+    { q: "18. தமிழக அரசால் அங்கீகரிக்கப்பட்ட தமிழ் விசைப்பலகை எது?", o: ["தமிழ் 99", "விசைப்பலகை 2000", "கதிரவன் 99", "இவையனைத்தும்"], a: 0, exp: "விளக்கம்: தமிழக அரசால் அதிகாரப்பூர்வமாக அங்கீகரிக்கப்பட்டது தமிழ் 99 விசைப்பலகை ஆகும்." },
+    { q: "19. 1999-இல் 'தமிழ் இணையம் 99' மாநாடு நடைபெற்ற இடம் எது?", o: ["மதுரை", "மலேசியா", "சிங்கப்பூர்", "சென்னை"], a: 3, exp: "விளக்கம்: தமிழ் இணையம் 99 மாநாடு சென்னையில் நடைபெற்றது." },
+    { q: "20. முதலமைச்சரின் கணினித் தமிழ் விருது பெற்றவர் யார்?", o: ["மதன் கார்க்கி", "ஏ. ஆரோக்கிய தாஸ்", "முனைவர் இரா. அகிலன்", "அனைவரும்"], a: 3, exp: "விளக்கம்: மேற்கண்ட அனைவரும் இவ்விருதைப் பெற்றுள்ளனர்." },
+    { q: "21. சிறந்த தமிழ் மென்பொருளுக்கு தமிழக அரசால் வழங்கப்படும் விருது எது?", o: ["கணியன் பூங்குன்றனார் பரிசு", "கணினி விருது", "தமிழ்த்தென்றல் விருது", "மறவமலையடிகள் விருது"], a: 0, exp: "விளக்கம்: கணியன் பூங்குன்றனார் பரிசு சிறந்த தமிழ் மென்பொருளுக்கு வழங்கப்படுகிறது." },
+    { q: "22. கணியன் பூங்குன்றனார் விருது பெற்ற மென்பொருள் எது?", o: ["செய்திமலர்", "தமிழ் நூல்கள் (குறுஞ்செயலி)", "என்.எச்.எம் கரட்டர் (NHM Writer)", "இவையனைத்தும்"], a: 3, exp: "விளக்கம்: மேற்கண்ட அனைத்து மென்பொருட்களும் இவ்விருதைப் பெற்றுள்ளன." },
+    { q: "23. பொருத்துக:\na. கீச்சகம் - 1. Facebook\nb. இசுகைப் - 2. WhatsApp\nc. புலனம் - 3. Skype\nd. முகநூல் - 4. Twitter", o: ["a-2, b-4, c-1, d-3", "a-3, b-4, c-2, d-1", "a-4, b-3, c-2, d-1", "a-2, b-1, c-4, d-3"], a: 2, exp: "விளக்கம்: சரியான பொருத்தம்: கீச்சகம்-Twitter(4), இசுகைப்-Skype(3), புலனம்-WhatsApp(2), முகநூல்-Facebook(1) ஆகும்." },
+    { q: "24. தமிழில் முதலில் வலைப்பூ (Blog) தொடங்கியவர் யார்?", o: ["கார்த்திகேயன் ராமசாமி", "வ.செ. குழந்தைசாமி", "ஆதவன்", "நளன்"], a: 0, exp: "விளக்கம்: தமிழில் செய்த முதல் வலைப்பூவைத் தொடங்கியவர் கார்த்திகேயன் ராமசாமி ஆவார்." },
+    { q: "25. முதல் தமிழ் வலைப்பூ உருவாக்கப்பட்ட வருடம் எது?", o: ["2000", "2001", "2003", "2010"], a: 2, exp: "விளக்கம்: முதல் தமிழ் வலைப்பூ உருவாக்கப்பட்ட வருடம் 2003 ஆகும்." },
+    { q: "26. இன்டர்நெட் (Internet) என்பதன் தமிழ்ச்சொல் என்ன?", o: ["வலைப்பூ", "வலை தளம்", "இணையம்", "மின்னஞ்சல்"], a: 2, exp: "விளக்கம்: இன்டர்நெட் என்பதன் தமிழ்ச்சொல் இணையம் ஆகும்." },
+    { q: "27. அர்ப்பாநெட் (ARPANET) அமைக்கப்பட்ட வருடம் எது?", o: ["1950", "1968", "1969", "1980"], a: 2, exp: "விளக்கம்: அர்ப்பாநெட் அமைக்கப்பட்ட வருடம் 1969 ஆகும்." },
+    { q: "28. முதல் மின்னஞ்சல் (Email) அனுப்பப்பட்ட வருடம் எது?", o: ["1960", "1965", "1968", "1971"], a: 3, exp: "விளக்கம்: முதல் மின்னஞ்சல் அனுப்பப்பட்ட வருடம் 1971 ஆகும்." },
+    { q: "29. உலகளாவிய வலை (World Wide Web - WWW) யாரால் அறிமுகப்படுத்தப்பட்டது?", o: ["சார்லஸ் பாபேஜ்", "பில் கேட்ஸ்", "டிம் பெர்னர்ஸ்-லீ", "அலெக்சாண்டர்"], a: 2, exp: "விளக்கம்: WWW டிம் பெர்னர்ஸ்-லீ அவர்களால் அறிமுகப்படுத்தப்பட்டது." },
+    { q: "30. பொதுமக்களின் பயன்பாட்டிற்காக இணையம் தொடங்கப்பட்ட வருடம் எது?", o: ["1986", "1991", "1997", "2000"], a: 1, exp: "விளக்கம்: பொதுமக்களுக்கு இணையம் தொடங்கப்பட்ட வருடம் 1991 ஆகும்." },
+    { q: "31. முதல் உலகத் தமிழ் இணைய மாநாடு நடைபெற்ற வருடம் எது?", o: ["1995", "1997", "1999", "2001"], a: 0, exp: "விளக்கம்: முதல் உலகத் தமிழ் இணைய மாநாடு நடைபெற்ற வருடம் 1995 ஆகும்." },
+    { q: "32. 1995-இல் 'கணியன்' என்ற பெயரில் முதல் தமிழ் இணையதளத்தை நடத்தியவர் யார்?", o: ["நா. கோவிந்தசாமி", "ரங்கராஜன்", "வெ. கிருஷ்ணமூர்த்தி", "வா.செ. குழந்தைசாமி"], a: 0, exp: "விளக்கம்: கணியன் இணையதளத்தை நடத்தியவர் நா. கோவிந்தசாமி ஆவார்." },
+    { q: "33. 'தமிழும் கணிப்பொறியும்' என்ற தலைப்பில் முதன்முதலில் கணினித் தமிழ் கருத்தரங்கு அண்ணா பல்கலைக்கழகத்தில் நடைபெற்ற வருடம் எது?", o: ["1990", "1993", "1994", "1996"], a: 2, exp: "விளக்கம்: அண்ணா பல்கலைக்கழகத்தில் கருத்தரங்கு நடைபெற்ற வருடம் 1994 ஆகும்." },
+    { q: "34. முதல் உலகத் தமிழ் இணைய மாநாடு நடைபெற்ற நாடு எது?", o: ["இலங்கை", "இந்தியா", "மலேசியா", "சிங்கப்பூர்"], a: 3, exp: "விளக்கம்: முதல் உலகத் தமிழ் இணைய மாநாடு சிங்கப்பூரில் நடைபெற்றது." },
+    { q: "35. மூன்றாவது உலகத் தமிழ் இணைய மாநாடு நடைபெற்ற வருடம் மற்றும் இடம் எது?", o: ["2000 - இலங்கை", "2000 - மலேசியா", "2000 - மொரீசியஸ்", "2000 - சென்னை"], a: 2, exp: "விளக்கம்: மூன்றாவது மாநாடு 2000-ல் மொரீசியஸில் நடைபெற்றது." },
+    { q: "36. நான்காவது உலகத் தமிழ் இணைய மாநாடு (2001) எங்கு நடைபெற்றது?", o: ["இலங்கை", "மலேசியா", "தஞ்சாவூர்", "சிங்கப்பூர்"], a: 2, exp: "விளக்கம்: நான்காவது இணைய மாநாடு தஞ்சாவூரில் நடைபெற்றது." },
+    { q: "37. பொருத்துக:\na. ஆறாவது உலகத் தமிழ் இணைய மாநாடு - 1. கோவை\nb. ஏழாவது உலகத் தமிழ் இணைய மாநாடு - 2. சிங்கப்பூர்\nc. ஐந்தாம் உலகத் தமிழ் இணைய மாநாடு - 3. கலிபோர்னியா\nd. ஒன்பதாவது உலகத் தமிழ் இணைய மாநாடு - 4. சென்னை", o: ["a-3, b-4, c-2, d-1", "a-1, b-2, c-3, d-4", "a-2, b-4, c-1, d-3", "a-4, b-2, c-3, d-1"], a: 0, exp: "விளக்கம்: சரியான பொருத்தம்: a-3, b-4, c-2, d-1 ஆகும்." },
+    { q: "38. இணையத்தின் உதவியோடு நடைபெறும் வணிகம் எவ்வாறு அழைக்கப்படுகிறது?", o: ["மின் வணிகம் (E-Commerce)", "குவி இணையம்", "தாளார மைய வணிகம்", "உலக வணிகம்"], a: 0, exp: "விளக்கம்: இணைய வணிகம் என்பது மின் வணிகம் (E-Commerce) ஆகும்." },
+    { q: "39. கணிப்பொறிக்குப் புரிந்து செயல்படும் அடிப்படை மொழி எது?", o: ["ஆங்கிலம்", "ஜப்பானிய மொழி", "பைனரி (Binary)", "மாண்டரின்"], a: 2, exp: "விளக்கம்: கணிப்பொறியின் அடிப்படை மொழி பைனரி (Binary) ஆகும்." },
+    { q: "40. இணையத் தமிழ் இதழ்களுக்குச் சான்று எது?", o: ["திண்ணை, வரலாறு.காம்", "பதிவுகள், முத்துக்கமலம்", "தமிழிணையம், மௌவல்", "அனைத்தும்"], a: 3, exp: "விளக்கம்: மேற்கண்ட அனைத்துமே இணையத்தில் வெளிவரும் தமிழ் இதழ்கள் ஆகும்." },
+    { q: "41. தமிழின் முதல் முழுமையான இணைய நாளிதழ் என்று கருதப்படுவது எது?", o: ["ஆறாம் திணை", "ஐந்திணை", "குறிஞ்சி", "நெய்தல்"], a: 0, exp: "விளக்கம்: தமிழின் முதல் முழுமையான இணைய நாளிதழ் 'ஆறாம் திணை' ஆகும்." },
+    { q: "42. தமிழ் இணையத்தின் தந்தை என்று போற்றப்படுபவர் யார்?", o: ["நா. கோவிந்தசாமி", "வா.செ. குழந்தைசாமி", "ஆர். பாலகிருஷ்ணன்", "வெ. கிருஷ்ணமூர்த்தி"], a: 1, exp: "விளக்கம்: தமிழ் இணையத்தின் தந்தை வா.செ. குழந்தைசாமி ஆவார்." },
+    { q: "43. உலகின் முதல் இணையதளம் யாரால் எப்போது உருவாக்கப்பட்டது?", o: ["டிம் பெர்னர்ஸ்-லீ - 1990", "ஜான்பால் - 1992", "சார்லஸ் பாபேஜ் - 1993", "மார்க் ஆண்டர்சன் - 1991"], a: 0, exp: "விளக்கம்: உலகின் முதல் இணையதளத்தை டிம் பெர்னர்ஸ்-லீ 1990-ல் உருவாக்கினார்." },
+    { q: "44. நா. கோவிந்தசாமி எந்த நாட்டைச் சார்ந்தவர்?", o: ["மலேசியா", "இலங்கை", "சிங்கப்பூர்", "அமெரிக்கா"], a: 2, exp: "விளக்கம்: நா. கோவிந்தசாமி சிங்கப்பூர் நாட்டைச் சார்ந்தவர் ஆவார்." },
+    { q: "45. 'முரசு செல்லினம்' என்ற தமிழ் தட்டச்சுச் செயலியை உருவாக்கியவர் யார்?", o: ["முத்துநெடுமாறன்", "மா. அங்கையா", "சி. சிவகுருநாதன்", "நா. கோவிந்தசாமி"], a: 0, exp: "விளக்கம்: முரசு செல்லினம் செயலியை உருவாக்கியவர் முத்துநெடுமாறன் ஆவார்." },
+    { q: "46. 'தமிழ்மணம்' (Tamilmanam.net) வலை திரட்டியை உருவாக்கியவர் யார்?", o: ["காசி ஆறுமுகம்", "முத்துநெடுமாறன்", "மா. அங்கையா", "சி. சிவகுருநாதன்"], a: 0, exp: "விளக்கம்: தமிழ்மணம் வலை திரட்டியை உருவாக்கியவர் காசி ஆறுமுகம் ஆவார்." },
+    { q: "47. செம்மொழித் தமிழாய்வு மத்திய நிறுவனத்தின் செம்மொழி இளம் அறிஞர் விருதினை (2007) பெற்றவர் யார்?", o: ["மலேசிய முத்துநெடுமாறன்", "மா. அங்கையா", "சி. சிவகுருநாதன்", "மு. இளங்கோவன்"], a: 3, exp: "விளக்கம்: மு. இளங்கோவன் இவ்விருதைப் பெற்றுள்ளார்." },
+    { q: "48. 'திருவள்ளுவர்' பெயரில் முதல் தமிழ்க் கணினி விற்பனை செய்யப்பட்ட வருடம் எது?", o: ["1980", "1983", "2000", "2001"], a: 1, exp: "விளக்கம்: திருவள்ளுவர் பெயரில் கணினி விற்பனை செய்யப்பட்ட வருடம் 1983 ஆகும்." },
+    { q: "49. மின்னூல்களை (e-Books) படிக்கப் பயன்படும் கருவி அல்லது செயலி எவ்வாறு அழைக்கப்படுகிறது?", o: ["PDF", "e-Book", "e-Reader", "A மற்றும் C"], a: 2, exp: "விளக்கம்: மின்னூல்களை வாசிக்கப் பயன்படுவது e-Reader ஆகும்." },
+    { q: "50. இணையத் தமிழின் முன்னோடியாகக் கருதப்படும் அமைப்பு எது?", o: ["மங்கை", "தமிழ்க் கணினி மன்றம்", "செந்தமிழ்", "செம்மொழி"], a: 1, exp: "விளக்கம்: தமிழ்க் கணினி மன்றம் இணையத் தமிழின் முன்னோடியாகக் கருதப்படும் அமைப்பாகும்." }
+  ];
+
+  let currentQuestion = 0;
+  let userAnswers = new Array(questionsData.length).fill(null);
+  let isReviewMode = false;
+  let timerInterval;
+  let timeLeft = 50 * 60;
+
+  function initTest() {
+    buildGrid();
+    loadQuestion(0);
+    startTimer();
+  }
+
+  function buildGrid() {
+    const grid = document.getElementById('questionGrid');
+    grid.innerHTML = '';
+    questionsData.forEach((_, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'q-num-btn';
+      btn.innerText = idx + 1;
+      btn.id = `q_btn_${idx}`;
+      btn.onclick = () => jumpToQuestion(idx);
+      grid.appendChild(btn);
+    });
+    updateGridStatus();
+  }
+
+  function updateGridStatus() {
+    questionsData.forEach((_, idx) => {
+      const btn = document.getElementById(`q_btn_${idx}`);
+      if(!btn) return;
+      btn.className = 'q-num-btn';
+      if(idx === currentQuestion) {
+        btn.classList.add('active');
+      } else if(userAnswers[idx] !== null) {
+        btn.classList.add('answered');
+      }
+    });
+  }
+
+  function loadQuestion(idx) {
+    currentQuestion = idx;
+    const q = questionsData[idx];
+    document.getElementById('qTitle').innerText = q.q;
+    
+    const optsBox = document.getElementById('optionsBox');
+    optsBox.innerHTML = '';
+
+    q.o.forEach((optText, oIdx) => {
+      const card = document.createElement('div');
+      card.className = 'option-card';
+      
+      if(userAnswers[idx] === oIdx) {
+        card.classList.add('selected');
+      }
+
+      if(isReviewMode) {
+        if(oIdx === q.a) {
+          card.classList.add('correct-ans');
+        } else if(userAnswers[idx] === oIdx && oIdx !== q.a) {
+          card.classList.add('wrong-ans');
+        }
+      }
+
+      card.innerHTML = `<span><b>${String.fromCharCode(65 + oIdx)}.</b></span> <span>${optText}</span>`;
+      card.onclick = () => selectOption(oIdx);
+      optsBox.appendChild(card);
+    });
+
+    const expBox = document.getElementById('expBox');
+    if(isReviewMode) {
+      expBox.style.display = 'block';
+      expBox.innerText = q.exp;
+    } else {
+      expBox.style.display = 'none';
+    }
+
+    document.getElementById('prevBtn').style.display = idx === 0 ? 'none' : 'block';
+    document.getElementById('nextBtn').style.display = idx === questionsData.length - 1 ? 'none' : 'block';
+    updateGridStatus();
+  }
+
+  function selectOption(oIdx) {
+    if(isReviewMode) return;
+    userAnswers[currentQuestion] = oIdx;
+    loadQuestion(currentQuestion);
+  }
+
+  function clearChoice() {
+    if(isReviewMode) return;
+    userAnswers[currentQuestion] = null;
+    loadQuestion(currentQuestion);
+  }
+
+  function navigateNumberQuery(dir) {
+    const next = currentQuestion + dir;
+    if(next >= 0 && next < questionsData.length) {
+      loadQuestion(next);
+    }
+  }
+
+  function jumpToQuestion(idx) {
+    loadQuestion(idx);
+  }
+
+  function startTimer() {
+    timerInterval = setInterval(() => {
+      timeLeft--;
+      let m = Math.floor(timeLeft / 60);
+      let s = timeLeft % 60;
+      document.getElementById('timerBox').innerText = `⏱️ ${m}:${s < 10 ? '0' : ''}${s}`;
+      if(timeLeft <= 0) {
+        clearInterval(timerInterval);
+        submitTest();
+      }
+    }, 1000);
+  }
+
+  function confirmSubmit() {
+    if(confirm("நிச்சயமாக தேர்வைச் சமர்ப்பிக்க விரும்புகிறீர்களா? 🤔")) {
+      submitTest();
+    }
+  }
+
+  function submitTest() {
+    clearInterval(timerInterval);
+    document.getElementById('testView').style.display = 'none';
+    document.getElementById('resultView').style.display = 'block';
+
+    let correct = 0, wrong = 0, unans = 0;
+    userAnswers.forEach((ans, idx) => {
+      if(ans === null) unans++;
+      else if(ans === questionsData[idx].a) correct++;
+      else wrong++;
+    });
+
+    document.getElementById('scoreDisplay').innerText = `${correct} / ${questionsData.length}`;
+    let pct = ((correct / questionsData.length) * 100).toFixed(1);
+    document.getElementById('percentageDisplay').innerText = `சதவீதம்: ${pct}%`;
+    document.getElementById('correctCnt').innerText = correct;
+    document.getElementById('wrongCnt').innerText = wrong;
+    document.getElementById('unansCnt').innerText = unans;
+  }
+
+  function reviewAnswerKey() {
+    isReviewMode = true;
+    document.getElementById('resultView').style.display = 'none';
+    document.getElementById('testView').style.display = 'block';
+    document.getElementById('finalSubmitBtn').style.display = 'none';
+    document.getElementById('backToResultBtn').style.display = 'block';
+    document.getElementById('dashFromKeyBtn').style.display = 'block';
+    loadQuestion(0);
+  }
+
+  function returnToResult() {
+    document.getElementById('testView').style.display = 'none';
+    document.getElementById('resultView').style.display = 'block';
+  }
+
+  function returnToDashboard() {
+    window.location.href = "https://tigeracadamy.github.io/preperation-hub/"; 
+  }
+
+  function exitPortal() {
+    window.location.href = "https://tigeracadamy.github.io/preperation-hub/";
+  }
+
+  function retakeTest() {
+    userAnswers = new Array(questionsData.length).fill(null);
+    isReviewMode = false;
+    timeLeft = 50 * 60;
+    document.getElementById('resultView').style.display = 'none';
+    document.getElementById('testView').style.display = 'block';
+    document.getElementById('finalSubmitBtn').style.display = 'inline-block';
+    document.getElementById('backToResultBtn').style.display = 'none';
+    document.getElementById('dashFromKeyBtn').style.display = 'none';
+    initTest();
+  }
+
+  window.onload = function() {
+    initTest();
+  }
+</script>
+
+</body>
+</html>
