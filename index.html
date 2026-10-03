@@ -7,14 +7,6 @@
     <!-- 🌟 PWA Manifest & Theme Integration -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#00f2fe">
-    
-    <!-- 🌟 PWA Service Worker Registration -->
-    <script>
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js');
-      }
-    </script>
-
     <style>
         :root {
             --bg-color: #060913;
@@ -634,7 +626,7 @@
             <div class="brand-box" onclick="playClickSound(); handleSecretAdminTap()" title="Tap 3 times">
                 <div class="brand-logo-single">
                     <span>🐯</span>
-                    <span>⚔️️</span>
+                    <span>⚔️</span>
                 </div>
                 <div class="brand-name-box">
                     <div class="brand-name">TIGER WARRIORS COACHING CENTRE</div>
@@ -1991,7 +1983,7 @@
         function renderCategories() {
             const container = document.getElementById('category-tabs-container');
             container.innerHTML = "";
-            categories.categories.forEach(cat => {
+            categories.forEach(cat => {
                 const btn = document.createElement('button');
                 btn.className = `tab-btn ${currentFilterCategory === cat.id ? 'active' : ''}`;
                 btn.textContent = cat.name;
