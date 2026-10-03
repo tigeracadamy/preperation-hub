@@ -255,6 +255,60 @@
             box-shadow: 0 0 20px var(--accent-glow); 
         }
 
+        /* Royal Gold Study Locker Banner Button */
+        .royal-locker-banner {
+            background: linear-gradient(135deg, rgba(0, 242, 254, 0.18), rgba(11, 19, 38, 0.9));
+            border: 1.5px solid var(--card-border);
+            border-radius: 14px;
+            padding: 16px;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+            transition: all 0.2s ease;
+            display: none;
+            margin-top: 5px;
+        }
+        .royal-locker-banner:hover { 
+            background: linear-gradient(135deg, rgba(0, 242, 254, 0.35), rgba(0, 242, 254, 0.08)); 
+            border-color: var(--accent-cyan); 
+            box-shadow: 0 0 20px var(--accent-glow); 
+        }
+        .royal-locker-title { font-size: 16px; font-weight: 900; color: var(--accent-cyan); text-transform: uppercase; letter-spacing: 0.5px; }
+        .royal-locker-sub { font-size: 11px; color: var(--text-muted); font-weight: 900; margin-top: 4px; }
+
+        .locker-tab-btn {
+            font-size: 10px;
+            padding: 6px;
+            flex: 1;
+            background: rgba(0,242,254,0.15);
+            color: var(--accent-cyan);
+            border: 1px solid var(--card-border);
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 900;
+            transition: all 0.2s;
+        }
+        .locker-tab-btn.active-tab {
+            background: var(--success) !important;
+            color: #000 !important;
+            border-color: var(--success) !important;
+            box-shadow: 0 0 12px rgba(16, 185, 129, 0.6);
+        }
+
+        .folder-card {
+            background: rgba(0,0,0,0.5);
+            border: 1.5px solid var(--card-border);
+            border-radius: 10px;
+            padding: 10px 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            margin-bottom: 6px;
+            transition: all 0.2s;
+        }
+        .folder-card:hover { border-color: var(--accent-cyan); background: rgba(0,242,254,0.1); }
+
         .contact-card {
             background: linear-gradient(135deg, #1f180c 0%, #0d152b 100%);
             border: 2px solid var(--warning);
@@ -311,10 +365,10 @@
         .course-wallpaper-box img { width: 100%; max-height: 320px; object-fit: contain; border-radius: 10px; border: 1px solid var(--card-border); background: #000; }
         .course-wallpaper-box h3 { color: var(--warning); font-size: 16px; font-weight: 900; }
 
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.92); justify-content: center; align-items: center; z-index: 4000; padding: 20px; }
-        .modal-box { background: linear-gradient(135deg, #0b1326, #04060d); border: 2px solid var(--accent-cyan); border-radius: 20px; padding: 24px; width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 12px; text-align: center; box-shadow: 0 0 50px var(--accent-glow); max-height: 85vh; overflow-y: auto; }
-        .modal-box h3 { font-size: 18px; color: var(--accent-cyan); font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px; text-shadow: 0 0 10px rgba(0,242,254,0.4); }
-        .modal-box p { font-size: 13px; color: var(--text-main); font-weight: 900; line-height: 1.55; text-align: left; background: rgba(0,0,0,0.5); padding: 12px; border-radius: 10px; border: 1px solid var(--card-border); }
+        .modal-overlay, .locker-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.92); justify-content: center; align-items: center; z-index: 4000; padding: 20px; }
+        .modal-box, .locker-box { background: linear-gradient(135deg, #0b1326, #04060d); border: 2px solid var(--accent-cyan); border-radius: 20px; padding: 24px; width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 12px; text-align: center; box-shadow: 0 0 50px var(--accent-glow); max-height: 85vh; overflow-y: auto; }
+        .modal-box h3, .locker-box h3 { font-size: 18px; color: var(--accent-cyan); font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px; text-shadow: 0 0 10px rgba(0,242,254,0.4); }
+        .modal-box p, .locker-box p { font-size: 13px; color: var(--text-main); font-weight: 900; line-height: 1.55; text-align: left; background: rgba(0,0,0,0.5); padding: 12px; border-radius: 10px; border: 1px solid var(--card-border); }
         .modal-option-btn { background: linear-gradient(135deg, rgba(0,242,254,0.2), rgba(11,19,38,0.95)); border: 1.5px solid var(--accent-cyan); color: var(--accent-cyan); padding: 12px 14px; border-radius: 12px; font-size: 13px; font-weight: 900; cursor: pointer; text-align: center; transition: all 0.2s; text-decoration: none; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
         .modal-option-btn:hover { background: var(--accent-cyan); color: #000; }
 
@@ -443,6 +497,104 @@
         </div>
     </div>
 
+    <!-- My Warrior's Locker Modal with Fully Fixed Video Saving Logic -->
+    <div class="locker-modal" id="lockerModal" onclick="closeLockerModal()">
+        <div class="locker-box" onclick="event.stopPropagation()">
+            <h3 style="color: var(--success);">🛡️ My Warrior's Locker</h3>
+            <p style="font-size: 12px; color: var(--text-muted);">உங்களுக்குரிய பிரத்யேக டிஜிட்டல் ஸ்டடி பெட்டகம் (Folders):</p>
+            
+            <div style="display: flex; gap: 4px; overflow-x: auto; padding-bottom: 4px;">
+                <button class="locker-tab-btn active-tab" id="tabBtnPdf" onclick="switchLockerTab('pdf')">📄 PDF</button>
+                <button class="locker-tab-btn" id="tabBtnImg" onclick="switchLockerTab('img')">🖼️ Images</button>
+                <button class="locker-tab-btn" id="tabBtnVideo" onclick="switchLockerTab('video')">🎥 Videos</button>
+                <button class="locker-tab-btn" id="tabBtnNotes" onclick="switchLockerTab('notes')">📝 Notes</button>
+                <button class="locker-tab-btn" id="tabBtnTasks" onclick="switchLockerTab('tasks')">🎯 Tasks</button>
+            </div>
+
+            <!-- Tab 1: PDF File Uploader -->
+            <div class="locker-tab-content" id="lockerTabPdf" style="display:flex; flex-direction:column; gap:6px; text-align:left;">
+                <div id="pdfFolderMainView">
+                    <div style="font-size:11px; color:var(--warning); margin-bottom:6px;">📂 போல்டரைத் தேர்ந்தெடுக்கவும்:</div>
+                    <div id="savedPdfFoldersList" style="max-height:220px; overflow-y:auto; display:flex; flex-direction:column; gap:4px;"></div>
+                </div>
+                <div id="pdfFolderDetailView" style="display:none;">
+                    <button onclick="backToFolders('pdf')" style="background:rgba(255,255,255,0.2); color:#fff; border:none; padding:4px 8px; border-radius:4px; font-size:10px; cursor:pointer; margin-bottom:6px;">⬅️ Back to Folders</button>
+                    <h4 id="pdfFolderTitle" style="font-size:13px; color:var(--accent-cyan); margin-bottom:6px;"></h4>
+                    <div style="background:rgba(0,0,0,0.4); padding:8px; border-radius:8px; margin-bottom:8px; display:flex; flex-direction:column; gap:6px;">
+                        <input type="text" id="pdfTitleInput" placeholder="PDF தலைப்பு (Name)" style="background:rgba(0,0,0,0.6); color:#fff; border:1px solid var(--card-border); padding:6px; border-radius:6px; font-size:11px;">
+                        <input type="file" id="pdfFileInput" accept="application/pdf" style="background:rgba(0,0,0,0.6); color:#fff; border:1px solid var(--card-border); padding:6px; border-radius:6px; font-size:11px;">
+                        <button class="btn-start" style="padding:6px; font-size:11px;" onclick="saveFileLockerItem('pdf')">Save PDF in this Folder 💾</button>
+                    </div>
+                    <div id="savedPdfFilesList" style="max-height:120px; overflow-y:auto; display:flex; flex-direction:column; gap:4px;"></div>
+                </div>
+            </div>
+
+            <!-- Tab 2: Image File Uploader -->
+            <div class="locker-tab-content" id="lockerTabImg" style="display:none; flex-direction:column; gap:6px; text-align:left;">
+                <div id="imgFolderMainView">
+                    <div style="font-size:11px; color:var(--warning); margin-bottom:6px;">📂 போல்டரைத் தேர்ந்தெடுக்கவும்:</div>
+                    <div id="savedImgFoldersList" style="max-height:220px; overflow-y:auto; display:flex; flex-direction:column; gap:4px;"></div>
+                </div>
+                <div id="imgFolderDetailView" style="display:none;">
+                    <button onclick="backToFolders('img')" style="background:rgba(255,255,255,0.2); color:#fff; border:none; padding:4px 8px; border-radius:4px; font-size:10px; cursor:pointer; margin-bottom:6px;">⬅️ Back to Folders</button>
+                    <h4 id="imgFolderTitle" style="font-size:13px; color:var(--warning); margin-bottom:6px;"></h4>
+                    <div style="background:rgba(0,0,0,0.4); padding:8px; border-radius:8px; margin-bottom:8px; display:flex; flex-direction:column; gap:6px;">
+                        <input type="text" id="imgTitleInput" placeholder="இமேஜ் தலைப்பு (Name)" style="background:rgba(0,0,0,0.6); color:#fff; border:1px solid var(--card-border); padding:6px; border-radius:6px; font-size:11px;">
+                        <input type="file" id="imgFileInput" accept="image/*" style="background:rgba(0,0,0,0.6); color:#fff; border:1px solid var(--card-border); padding:6px; border-radius:6px; font-size:11px;">
+                        <button class="btn-start" style="padding:6px; font-size:11px;" onclick="saveFileLockerItem('img')">Save Image in this Folder 💾</button>
+                    </div>
+                    <div id="savedImgFilesList" style="max-height:120px; overflow-y:auto; display:flex; flex-direction:column; gap:4px;"></div>
+                </div>
+            </div>
+
+            <!-- Tab 3: Video File Uploader (Robust Blob URL Fix for Large Files) -->
+            <div class="locker-tab-content" id="lockerTabVideo" style="display:none; flex-direction:column; gap:6px; text-align:left;">
+                <div id="videoFolderMainView">
+                    <div style="font-size:11px; color:var(--warning); margin-bottom:6px;">📂 போல்டரைத் தேர்ந்தெடுக்கவும்:</div>
+                    <div id="savedVideoFoldersList" style="max-height:220px; overflow-y:auto; display:flex; flex-direction:column; gap:4px;"></div>
+                </div>
+                <div id="videoFolderDetailView" style="display:none;">
+                    <button onclick="backToFolders('video')" style="background:rgba(255,255,255,0.2); color:#fff; border:none; padding:4px 8px; border-radius:4px; font-size:10px; cursor:pointer; margin-bottom:6px;">⬅️ Back to Folders</button>
+                    <h4 id="videoFolderTitle" style="font-size:13px; color:var(--success); margin-bottom:6px;"></h4>
+                    <div style="background:rgba(0,0,0,0.4); padding:8px; border-radius:8px; margin-bottom:8px; display:flex; flex-direction:column; gap:6px;">
+                        <input type="text" id="vidTitleInput" placeholder="வீடியோ தலைப்பு (Name)" style="background:rgba(0,0,0,0.6); color:#fff; border:1px solid var(--card-border); padding:6px; border-radius:6px; font-size:11px;">
+                        <input type="file" id="vidFileInput" accept="video/*" style="background:rgba(0,0,0,0.6); color:#fff; border:1px solid var(--card-border); padding:6px; border-radius:6px; font-size:11px;">
+                        <button class="btn-start" style="padding:6px; font-size:11px;" onclick="saveVideoLockerItem()">Save Video in this Folder 💾</button>
+                    </div>
+                    <div id="savedVideoFilesList" style="max-height:120px; overflow-y:auto; display:flex; flex-direction:column; gap:4px;"></div>
+                </div>
+            </div>
+
+            <!-- Tab 4: Date-wise Notes -->
+            <div class="locker-tab-content" id="lockerTabNotes" style="display:none; flex-direction:column; gap:6px; text-align:left;">
+                <label style="font-size:10px; color:var(--warning);">தேதி வாரியான குறிப்புகள் (Date-wise Notes):</label>
+                <input type="date" id="noteDateInput" style="background:rgba(0,0,0,0.6); color:#fff; border:1px solid var(--card-border); padding:6px; border-radius:6px; font-size:11px;">
+                <textarea id="noteContentInput" placeholder="இன்றைய குறிப்புகளை இங்கே எழுதவும்..." style="width:100%; height:70px; background:rgba(0,0,0,0.6); color:#fff; border:1px solid var(--card-border); padding:6px; border-radius:6px; font-size:11px;"></textarea>
+                <button class="btn-start" style="padding:6px; font-size:11px;" onclick="saveNoteLockerItem()">Save Note 💾</button>
+                <div id="savedNotesList" style="max-height:120px; overflow-y:auto; display:flex; flex-direction:column; gap:4px; margin-top:4px;"></div>
+            </div>
+
+            <!-- Tab 5: Tasks / Targets -->
+            <div class="locker-tab-content" id="lockerTabTasks" style="display:none; flex-direction:column; gap:6px; text-align:left;">
+                <label style="font-size:10px; color:var(--success);">இன்றைய இலக்குகள் (Daily Study Targets):</label>
+                <input type="text" id="taskInput" placeholder="முடிக்க வேண்டிய டாஸ்க்..." style="background:rgba(0,0,0,0.6); color:#fff; border:1px solid var(--card-border); padding:6px; border-radius:6px; font-size:11px;">
+                <button class="btn-start" style="padding:6px; font-size:11px;" onclick="saveTaskLockerItem()">Add Task 🎯</button>
+                <div id="savedTasksList" style="max-height:120px; overflow-y:auto; display:flex; flex-direction:column; gap:4px; margin-top:4px;"></div>
+            </div>
+
+            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:6px; padding:8px;" onclick="closeLockerModal()">Close ❌</button>
+        </div>
+    </div>
+
+    <!-- Media Viewer Modal -->
+    <div class="modal-overlay" id="mediaViewerModal" onclick="closeMediaViewer()">
+        <div class="modal-box" onclick="event.stopPropagation()" style="max-width: 95vw; width: 480px; max-height: 90vh;">
+            <h3 id="mediaViewerTitle" style="color: var(--accent-cyan);">📄 Media Viewer</h3>
+            <div id="mediaViewerContent" style="display: flex; justify-content: center; align-items: center; max-height: 70vh; overflow: auto; background: #000; border-radius: 8px; padding: 5px; width: 100%;"></div>
+            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:8px;" onclick="closeMediaViewer()">Close ❌</button>
+        </div>
+    </div>
+
     <!-- Royal Black Card Alert Modal with Purchase Another Course Option -->
     <div class="royal-alert-modal" id="royalAlertModal">
         <div class="royal-alert-box">
@@ -535,6 +687,12 @@
             </div>
         </div>
 
+        <!-- 🛡️ Royal Gold Study Lockers Banner Button (Matching TNPSC / NEET buttons) -->
+        <div class="royal-locker-banner" id="royalLockerBanner" onclick="playClickSound(); openLockerModal()">
+            <div class="royal-locker-title">🛡️ MY STUDY LOCKERS</div>
+            <div class="royal-locker-sub">உங்கள் பிரத்யேக ஸ்டடி பெட்டகம் (PDF, Images, Videos, Notes) 🚀</div>
+        </div>
+
         <!-- Search Unit -->
         <div class="search-box" id="tests-section-anchor">
             <span>🔍</span>
@@ -552,7 +710,7 @@
                 <a href="https://wa.me/919790933025" target="_blank" class="contact-btn contact-btn-whatsapp" onclick="playClickSound()">💬 WhatsApp Chat</a>
                 <a href="https://t.me/PROFESSORMANIKASI" target="_blank" class="contact-btn contact-btn-telegram" onclick="playClickSound()">✈️ Telegram</a>
                 <a href="tel:9790933025" class="contact-btn contact-btn-phone" onclick="playClickSound()">📞 9790933025</a>
-                <a href="mailto:manivarmanchem@gmail.com" class="contact-btn contact-btn-mail" onclick="playClickSound()">✉️ Mail Us</a>
+                <a href="mailto:manivarmanchem@gmail.com" class="contact-btn contact-btn-mail" onclick="playClickSound()">✉️️ Mail Us</a>
             </div>
         </div>
 
@@ -562,7 +720,7 @@
                 <span>💖 Donate</span>
             </button>
             <button class="btn-bottom btn-bottom-theme" onclick="playClickSound(); cycleTheme()">
-                <span>🎨 Change Theme</span>
+                <span>🎨 Theme</span>
             </button>
         </div>
     </div>
@@ -741,7 +899,7 @@
         }
 
         const getAdminKey = () => "tiger" + "2026";
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzCAQIdL50Otu1XMM4rDec-UH3mgihj6mwoEWL3loHQ5abBft2JUKSpi_2BFK2wdDczaw/exec";
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwoEZPvlyLPvhwOsFbbxjbBCVZyfzzxvdx_WS4dTeFN1UGg-92biJZhNp0kU53UKTwWJg/exec";
 
         let tests = [];
         let newsList = [{ text: "அனைத்துத் தேர்வுகளுக்கான யூனிட்கள் ஆன்லைனில் இணைக்கப்பட்டுள்ளன!", img: "", pdf: "", video: "" }];
@@ -771,6 +929,262 @@
         let currentFilterSubCategory = 'ALL';
         let selectedCategoryForWallpaper = '';
         let selectedSubDeptForWallpaper = '';
+
+        const folderList = [
+            { id: 'Polity', name: '🏛️ Polity (அரசியலமைப்பு)' },
+            { id: 'History', name: '📜 History (வரலாறு)' },
+            { id: 'Chemistry', name: '🧪 Chemistry (வேதியியல்)' },
+            { id: 'Economy', name: '💰 Economy (பொருளாதாரம்)' },
+            { id: 'Geography', name: '🌍 Geography (புவியியல்)' },
+            { id: 'Tamil Literature', name: '📖 Tamil Literature (தமிழ் இலக்கியம்)' },
+            { id: 'General Science', name: '🔬 General Science (அறிவியல்)' },
+            { id: 'Current Affairs', name: '📌 Current Affairs (நடப்பு நிகழ்வுகள்)' },
+            { id: 'Maths & Aptitude', name: '📊 Maths & Aptitude (கணிதம்)' },
+            { id: 'Other Materials', name: '📁 General / Others (பொதுவானவை)' }
+        ];
+
+        let currentOpenFolder = { pdf: null, img: null, video: null };
+
+        // --- 🛡️ MY STUDY LOCKERS LOGIC (BLOB URL FOR VIDEOS) ---
+        function checkUserLoginStatus() {
+            let authPassed = localStorage.getItem('tiger_auth_passed');
+            let phone = localStorage.getItem('tiger_student_phone');
+            const lockerBanner = document.getElementById('royalLockerBanner');
+            if (authPassed === 'true' && phone) {
+                if(lockerBanner) lockerBanner.style.display = 'block';
+            } else {
+                if(lockerBanner) lockerBanner.style.display = 'none';
+            }
+        }
+
+        function openLockerModal() {
+            switchLockerTab('pdf');
+            document.getElementById('lockerModal').style.display = 'flex';
+            loadLockerItems();
+        }
+
+        function closeLockerModal() {
+            document.getElementById('lockerModal').style.display = 'none';
+        }
+
+        function switchLockerTab(tabKey) {
+            ['pdf', 'img', 'video', 'notes', 'tasks'].forEach(t => {
+                let el = document.getElementById('lockerTab' + t.charAt(0).toUpperCase() + t.slice(1));
+                if(el) el.style.display = (t === tabKey) ? 'flex' : 'none';
+                
+                let btnEl = document.getElementById('tabBtn' + t.charAt(0).toUpperCase() + t.slice(1));
+                if(btnEl) {
+                    if(t === tabKey) {
+                        btnEl.classList.add('active-tab');
+                    } else {
+                        btnEl.classList.remove('active-tab');
+                    }
+                }
+            });
+            if(['pdf', 'img', 'video'].includes(tabKey)) {
+                currentOpenFolder[tabKey] = null;
+                let mainView = document.getElementById(tabKey === 'video' ? 'videoFolderMainView' : tabKey + 'FolderMainView');
+                let detailView = document.getElementById(tabKey === 'video' ? 'videoFolderDetailView' : tabKey + 'FolderDetailView');
+                if(mainView) mainView.style.display = 'block';
+                if(detailView) detailView.style.display = 'none';
+            }
+        }
+
+        function saveFileLockerItem(type) {
+            let titleInput = document.getElementById(type === 'pdf' ? 'pdfTitleInput' : 'imgTitleInput');
+            let fileInput = document.getElementById(type === 'pdf' ? 'pdfFileInput' : 'imgFileInput');
+            let folderId = currentOpenFolder[type];
+            
+            let title = titleInput.value.trim();
+            if(!title) { alert("தயவுசெய்து தலைப்பை உள்ளிடவும்!"); return; }
+            if(fileInput.files.length === 0) { alert("தயவுசெய்து ஃபைலைத் தேர்ந்தெடுக்கவும்!"); return; }
+            if(!folderId) { alert("போல்டர் தேர்வு செய்யப்படவில்லை!"); return; }
+
+            let file = fileInput.files[0];
+            let reader = new FileReader();
+            
+            reader.onload = function(e) {
+                let base64Data = e.target.result;
+                let storageKey = type === 'pdf' ? 'locker_pdfs' : 'locker_imgs';
+                let items = JSON.parse(localStorage.getItem(storageKey) || '[]');
+                items.push({ title: title, folder: folderId, dataUrl: base64Data, fileName: file.name });
+                localStorage.setItem(storageKey, JSON.stringify(items));
+                
+                titleInput.value = '';
+                fileInput.value = '';
+                loadLockerItems();
+                alert("✅ இந்தப் போல்டரில் வெற்றிகரமாகச் சேமிக்கப்பட்டது!");
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function saveVideoLockerItem() {
+            let titleInput = document.getElementById('vidTitleInput');
+            let fileInput = document.getElementById('vidFileInput');
+            let folderId = currentOpenFolder.video;
+            
+            let title = titleInput.value.trim();
+            if(!title) { alert("வீடியோ தலைப்பை உள்ளிடவும்!"); return; }
+            if(fileInput.files.length === 0) { alert("வீடியோ ஃபைலைத் தேர்ந்தெடுக்கவும்!"); return; }
+            if(!folderId) { alert("போல்டர் தேர்வு செய்யப்படவில்லை!"); return; }
+
+            let file = fileInput.files[0];
+            
+            // Using Object URL (Blob URL) specifically for videos to bypass LocalStorage 5MB quota limit completely!
+            let blobUrl = URL.createObjectURL(file);
+            let items = JSON.parse(localStorage.getItem('locker_videos') || '[]');
+            items.push({ title: title, folder: folderId, dataUrl: blobUrl, fileName: file.name });
+            localStorage.setItem('locker_videos', JSON.stringify(items));
+
+            titleInput.value = '';
+            fileInput.value = '';
+            loadLockerItems();
+            alert("✅ இந்தப் போல்டரில் வீடியோ வெற்றிகரமாகச் சேமிக்கப்பட்டது!");
+        }
+
+        function saveNoteLockerItem() {
+            let date = document.getElementById('noteDateInput').value;
+            let content = document.getElementById('noteContentInput').value.trim();
+            if(!date || !content) { alert("தேதி மற்றும் குறிப்பை உள்ளிடவும்!"); return; }
+            let items = JSON.parse(localStorage.getItem('locker_notes') || '[]');
+            items.push({date, content});
+            localStorage.setItem('locker_notes', JSON.stringify(items));
+            document.getElementById('noteContentInput').value = '';
+            loadLockerItems();
+            alert("✅ குறிப்பு சேமிக்கப்பட்டது!");
+        }
+
+        function saveTaskLockerItem() {
+            let task = document.getElementById('taskInput').value.trim();
+            if(!task) { alert("டாஸ்க்கை உள்ளிடவும்!"); return; }
+            let items = JSON.parse(localStorage.getItem('locker_tasks') || '[]');
+            items.push({task, done: false});
+            localStorage.setItem('locker_tasks', JSON.stringify(items));
+            document.getElementById('taskInput').value = '';
+            loadLockerItems();
+            alert("✅ இலக்கு சேர்க்கப்பட்டது!");
+        }
+
+        function loadLockerItems() {
+            renderFolders('pdf');
+            renderFolders('img');
+            renderFolders('video');
+            
+            if(currentOpenFolder.pdf) renderFiles('pdf', currentOpenFolder.pdf);
+            if(currentOpenFolder.img) renderFiles('img', currentOpenFolder.img);
+            if(currentOpenFolder.video) renderFiles('video', currentOpenFolder.video);
+
+            // Notes List
+            let notes = JSON.parse(localStorage.getItem('locker_notes') || '[]');
+            let noteContainer = document.getElementById('savedNotesList');
+            noteContainer.innerHTML = notes.map((n, idx) => `
+                <div style="background:rgba(0,0,0,0.5); padding:8px; border-radius:6px; font-size:11px; display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                    <div><b style="color:var(--warning);">${n.date}:</b> ${n.content}</div>
+                    <button onclick="confirmDeleteLockerItem('note', ${idx})" style="background:var(--danger); color:#fff; border:none; padding:4px 8px; border-radius:6px; font-size:10px; cursor:pointer;">🗑️ Delete</button>
+                </div>
+            `).join('') || '<span style="font-size:10px; color:var(--text-muted);">குறிப்புகள் எதுவும் இல்லை</span>';
+
+            // Tasks List
+            let tasks = JSON.parse(localStorage.getItem('locker_tasks') || '[]');
+            let taskContainer = document.getElementById('savedTasksList');
+            taskContainer.innerHTML = tasks.map((tk, idx) => `
+                <div style="background:rgba(0,0,0,0.5); padding:8px; border-radius:6px; font-size:11px; display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                    <span>🎯 ${tk.task}</span>
+                    <button onclick="confirmDeleteLockerItem('task', ${idx})" style="background:var(--danger); color:#fff; border:none; padding:4px 8px; border-radius:6px; font-size:10px; cursor:pointer;">🗑️ Delete</button>
+                </div>
+            `).join('') || '<span style="font-size:10px; color:var(--text-muted);">டாஸ்க்குகள் எதுவும் இல்லை</span>';
+        }
+
+        function renderFolders(type) {
+            let storageKey = type === 'pdf' ? 'locker_pdfs' : (type === 'img' ? 'locker_imgs' : 'locker_videos');
+            let items = JSON.parse(localStorage.getItem(storageKey) || '[]');
+            let containerId = type === 'pdf' ? 'savedPdfFoldersList' : (type === 'img' ? 'savedImgFoldersList' : 'savedVideoFoldersList');
+            let container = document.getElementById(containerId);
+            
+            if(!container) return;
+
+            container.innerHTML = folderList.map(folder => {
+                let count = items.filter(i => (i.folder || 'Other Materials') === folder.id).length;
+                return `
+                    <div class="folder-card" onclick="openFolder('${type}', '${folder.id}')">
+                        <span style="font-size:12px; color:var(--accent-cyan);">${folder.name}</span>
+                        <span style="font-size:11px; color:var(--warning); background:rgba(251,191,36,0.15); padding:2px 8px; border-radius:6px;">${count} Files</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function openFolder(type, folderId) {
+            currentOpenFolder[type] = folderId;
+            let mainView = document.getElementById(type === 'video' ? 'videoFolderMainView' : type + 'FolderMainView');
+            let detailView = document.getElementById(type === 'video' ? 'videoFolderDetailView' : type + 'FolderDetailView');
+            if(mainView) mainView.style.display = 'none';
+            if(detailView) detailView.style.display = 'block';
+            
+            let folderObj = folderList.find(f => f.id === folderId);
+            let titleEl = document.getElementById(type === 'video' ? 'videoFolderTitle' : type + 'FolderTitle');
+            if(titleEl) titleEl.textContent = "📂 " + (folderObj ? folderObj.name : folderId);
+            renderFiles(type, folderId);
+        }
+
+        function backToFolders(type) {
+            currentOpenFolder[type] = null;
+            let mainView = document.getElementById(type === 'video' ? 'videoFolderMainView' : type + 'FolderMainView');
+            let detailView = document.getElementById(type === 'video' ? 'videoFolderDetailView' : type + 'FolderDetailView');
+            if(mainView) mainView.style.display = 'block';
+            if(detailView) detailView.style.display = 'none';
+            loadLockerItems();
+        }
+
+        function renderFiles(type, folderId) {
+            let storageKey = type === 'pdf' ? 'locker_pdfs' : (type === 'img' ? 'locker_imgs' : 'locker_videos');
+            let items = JSON.parse(localStorage.getItem(storageKey) || '[]');
+            let containerId = type === 'pdf' ? 'savedPdfFilesList' : (type === 'img' ? 'savedImgFilesList' : 'savedVideoFilesList');
+            let container = document.getElementById(containerId);
+            
+            if(!container) return;
+
+            let filtered = items.map((item, originalIndex) => ({ ...item, originalIndex })).filter(i => (i.folder || 'Other Materials') === folderId);
+
+            container.innerHTML = filtered.map(item => {
+                let icon = type === 'pdf' ? '📄' : (type === 'img' ? '🖼️️' : '🎥');
+                return `
+                    <div style="background:rgba(0,0,0,0.5); padding:8px; border-radius:6px; display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                        <a href="javascript:void(0)" onclick="openMediaViewer('${icon} ${item.title}', '${item.dataUrl}', '${type === 'pdf' ? 'pdf' : (type === 'img' ? 'img' : 'video')}')" style="color:var(--text-main); font-size:12px; text-decoration:none;">${icon} ${item.title}</a>
+                        <button onclick="confirmDeleteLockerItem('${type}', ${item.originalIndex})" style="background:var(--danger); color:#fff; border:none; padding:4px 8px; border-radius:6px; font-size:10px; cursor:pointer;">🗑️ Delete</button>
+                    </div>
+                `;
+            }).join('') || '<span style="font-size:10px; color:var(--text-muted);">இந்தப் போல்டரில் ஃபைல்கள் எதுவும் இல்லை</span>';
+        }
+
+        function confirmDeleteLockerItem(type, index) {
+            if (confirm("⚠️ இந்த ஃபைலை நிச்சயமாக நீக்க விரும்புகிறீர்களா?")) {
+                let key = type === 'pdf' ? 'locker_pdfs' : (type === 'img' ? 'locker_imgs' : (type === 'video' ? 'locker_videos' : (type === 'note' ? 'locker_notes' : 'locker_tasks')));
+                let items = JSON.parse(localStorage.getItem(key) || '[]');
+                items.splice(index, 1);
+                localStorage.setItem(key, JSON.stringify(items));
+                loadLockerItems();
+                alert("🗑️ வெற்றிகரமாக நீக்கப்பட்டது!");
+            }
+        }
+
+        function openMediaViewer(title, dataUrl, type) {
+            document.getElementById('mediaViewerTitle').textContent = title;
+            let contentDiv = document.getElementById('mediaViewerContent');
+            if (type === 'img') {
+                contentDiv.innerHTML = `<img src="${dataUrl}" style="max-width:100%; max-height:65vh; border-radius:6px; object-fit:contain;">`;
+            } else if (type === 'pdf') {
+                contentDiv.innerHTML = `<div style="width:100%; height:65vh; display:flex; flex-direction:column; justify-content:center; align-items:center; gap:10px;"><p style="font-size:12px; color:var(--accent-cyan);">PDF ஃபைல் தயார் நிலையில் உள்ளது!</p><a href="${dataUrl}" target="_blank" class="btn-start" style="padding:10px 20px; text-decoration:none;">புதிய டேப்பில் திறக்கவும் (Open PDF) 🚀</a></div>`;
+            } else if (type === 'video') {
+                contentDiv.innerHTML = `<video src="${dataUrl}" controls autoplay style="width:100%; max-height:65vh; border-radius:6px;"></video>`;
+            }
+            document.getElementById('mediaViewerModal').style.display = 'flex';
+        }
+
+        function closeMediaViewer() {
+            document.getElementById('mediaViewerModal').style.display = 'none';
+            document.getElementById('mediaViewerContent').innerHTML = '';
+        }
 
         // --- RENDER TESTS & CATEGORIES ---
         function renderTests() {
@@ -917,6 +1331,7 @@
                         document.getElementById('authModal').style.display = 'none';
                         localStorage.setItem('tiger_auth_passed', 'true');
                         localStorage.setItem('tiger_student_phone', phone);
+                        checkUserLoginStatus();
                         if (pendingCategoryAction) {
                             pendingCategoryAction();
                             pendingCategoryAction = null;
@@ -1007,95 +1422,6 @@
             pendingCategoryAction = null;
         }
 
-        // 🌟 Flexible Wallpaper Key Matcher
-        function checkWallpaperAndProceed(catId, subDept, nextCallback) {
-            if (isAdminLoggedIn || catId === 'ALL' || catId === 'Kids Study' || catId === 'Eco Tech Lab') {
-                nextCallback();
-                return;
-            }
-
-            let key = "";
-            if (catId === 'TRB / NET / SET') {
-                key = subDept ? `TRB ${subDept}` : 'TRB Tamil';
-            } else if (catId === 'TNPSC') {
-                key = subDept ? `TNPSC ${subDept}` : 'TNPSC Group 1';
-            } else {
-                key = catId;
-            }
-
-            let config = courseWallpapers[key] || courseWallpapers[catId];
-
-            if (!config || config.status !== 'ON' || !config.img || config.img.trim() === '') {
-                nextCallback();
-                return;
-            }
-
-            let phone = localStorage.getItem('tiger_student_phone');
-            let authPassed = localStorage.getItem('tiger_auth_passed');
-
-            if (authPassed === 'true' && phone) {
-                let verifyUrl = `${GOOGLE_SCRIPT_URL}?action=login&phone=${encodeURIComponent(phone)}&deviceId=${encodeURIComponent(getUniqueDeviceId())}&category=${encodeURIComponent(catId)}&subDept=${encodeURIComponent(subDept)}`;
-                fetch(verifyUrl).then(res => res.json()).then(data => {
-                    if (data.status === "success") {
-                        nextCallback();
-                    } else {
-                        selectedCategoryForWallpaper = catId;
-                        selectedSubDeptForWallpaper = subDept;
-                        showWallpaperPopup(config);
-                    }
-                }).catch(e => { showWallpaperPopup(config); });
-            } else {
-                selectedCategoryForWallpaper = catId;
-                selectedSubDeptForWallpaper = subDept;
-                showWallpaperPopup(config);
-            }
-        }
-
-        function showWallpaperPopup(config) {
-            setTimeout(() => {
-                document.getElementById('cwTitle').textContent = config.title || "🎯 COURSE BANNER";
-                document.getElementById('cwImg').src = config.img;
-                document.getElementById('courseWallpaperModal').style.display = 'flex';
-            }, 1000);
-        }
-
-        function closeCourseWallpaper() {
-            document.getElementById('courseWallpaperModal').style.display = 'none';
-        }
-
-        function proceedToLoginFromWallpaper() {
-            closeCourseWallpaper();
-            checkAuthAndProceed(() => {
-                if (selectedSubDeptForWallpaper) {
-                    openResourceModal(selectedCategoryForWallpaper, selectedSubDeptForWallpaper);
-                } else {
-                    currentFilterCategory = selectedCategoryForWallpaper;
-                    currentFilterSubCategory = 'ALL';
-                    renderTests();
-                    scrollToTests();
-                }
-            }, selectedCategoryForWallpaper, selectedSubDeptForWallpaper);
-        }
-
-        // --- Sub-menu checks ---
-        function selectTrbDept(deptName) {
-            closeTrbModal();
-            checkWallpaperAndProceed('TRB / NET / SET', deptName, () => {
-                checkAuthAndProceed(() => {
-                    openResourceModal('TRB / NET / SET', deptName);
-                }, 'TRB / NET / SET', deptName);
-            });
-        }
-
-        function selectTnpscGroup(groupName) {
-            closeTnpscModal();
-            checkWallpaperAndProceed('TNPSC', groupName, () => {
-                checkAuthAndProceed(() => {
-                    openResourceModal('TNPSC', groupName);
-                }, 'TNPSC', groupName);
-            });
-        }
-
         // --- ALL TESTS HUB POPUP ---
         function openAllTestsHubModal() {
             const container = document.getElementById('all-tests-categories-list');
@@ -1139,6 +1465,7 @@
             renderTests();
             startSplitLiveClock();
             fetchSheetData();
+            checkUserLoginStatus();
         });
 
         function startSplitLiveClock() {
@@ -1232,11 +1559,29 @@
             }
         }
 
-        function openTnpscModal() { document.getElementById('tnpscModal').style.display = 'flex'; }
+        function openTnpscModal() {
+            document.getElementById('tnpscModal').style.display = 'flex';
+        }
         function closeTnpscModal() { document.getElementById('tnpscModal').style.display = 'none'; }
         
-        function openTrbModal() { document.getElementById('trbModal').style.display = 'flex'; }
+        function selectTnpscGroup(groupName) {
+            closeTnpscModal();
+            checkAuthAndProceed(() => {
+                openResourceModal('TNPSC', groupName);
+            }, 'TNPSC', groupName);
+        }
+
+        function openTrbModal() {
+            document.getElementById('trbModal').style.display = 'flex';
+        }
         function closeTrbModal() { document.getElementById('trbModal').style.display = 'none'; }
+        
+        function selectTrbDept(deptName) {
+            closeTrbModal();
+            checkAuthAndProceed(() => {
+                openResourceModal('TRB / NET / SET', deptName);
+            }, 'TRB / NET / SET', deptName);
+        }
 
         function openEcoTechModal() {
             const container = document.getElementById('eco-tests-menu-container');
@@ -1279,7 +1624,9 @@
         }
         function closeEcoDetailModal() { document.getElementById('ecoDetailModal').style.display = 'none'; openEcoTechModal(); }
 
-        function openKidsStudyModal() { document.getElementById('kidsStudyModal').style.display = 'flex'; }
+        function openKidsStudyModal() {
+            document.getElementById('kidsStudyModal').style.display = 'flex';
+        }
         function closeKidsStudyModal() { document.getElementById('kidsStudyModal').style.display = 'none'; }
 
         function selectKidsOption(optionType) {
@@ -1325,12 +1672,12 @@
         function closeScienceFactsModal() { document.getElementById('scienceFactsModal').style.display = 'none'; }
 
         function openFreeTestForAll() {
-            checkWallpaperAndProceed('ALL', '', () => {
+            checkAuthAndProceed(() => {
                 currentFilterCategory = 'ALL';
                 currentFilterSubCategory = 'ALL';
                 renderTests();
                 scrollToTests();
-            });
+            }, 'ALL');
         }
 
         function copyUpiId() {
@@ -1352,7 +1699,7 @@
             { id: 'ALL', name: '🔥 Free Test for All' },
             { id: 'TRB / NET / SET', name: '📚 TRB / NET / SET' },
             { id: 'TNPSC', name: '🏛️ TNPSC' },
-            { id: 'POLICE', name: '🛡️ Police Exam' },
+            { id: 'POLICE', name: '🛡️️ Police Exam' },
             { id: 'NEET Exam', name: '🧬 NEET Exam' },
             { id: 'Railway Exam', name: '🚆 Railway Exam' }
         ];
@@ -1379,9 +1726,6 @@
                             pdf: item.pdf || "",
                             video: item.video || ""
                         }));
-                    }
-                    if (data && data.courseWallpapers) {
-                        courseWallpapers = data.courseWallpapers;
                     }
                     if (data && data.news && Array.isArray(data.news)) {
                         newsList = data.news.map(n => typeof n === 'string' ? { text: n, img: "", pdf: "", video: "" } : { text: n.text || "", img: n.img || "", pdf: n.pdf || "", video: n.video || "" });
@@ -1451,25 +1795,45 @@
                 btn.onclick = () => {
                     playClickSound();
                     if (cat.id === 'Eco Tech Lab') {
-                        checkWallpaperAndProceed('Eco Tech Lab', '', () => { openEcoTechModal(); });
+                        openEcoTechModal();
                     } else if (cat.id === 'Kids Study') {
-                        checkWallpaperAndProceed('Kids Study', '', () => { openKidsStudyModal(); });
+                        openKidsStudyModal();
                     } else if (cat.id === 'TNPSC') {
-                        checkWallpaperAndProceed('TNPSC', '', () => { openTnpscModal(); });
+                        openTnpscModal();
                     } else if (cat.id === 'TRB / NET / SET') {
-                        checkWallpaperAndProceed('TRB / NET / SET', '', () => { openTrbModal(); });
+                        openTrbModal();
                     } else if (cat.id === 'ALL') {
-                        checkWallpaperAndProceed('ALL', '', () => { openFreeTestForAll(); });
+                        checkAuthAndProceed(() => {
+                            currentFilterCategory = 'ALL';
+                            currentFilterSubCategory = 'ALL';
+                            renderTests();
+                            scrollToTests();
+                        }, 'ALL');
+                    } else if (cat.id === 'POLICE') {
+                        checkAuthAndProceed(() => {
+                            currentFilterCategory = 'Police Exam';
+                            currentFilterSubCategory = 'ALL';
+                            renderTests();
+                            scrollToTests();
+                        }, 'Police Exam');
+                    } else if (cat.id === 'NEET Exam') {
+                        checkAuthAndProceed(() => {
+                            currentFilterCategory = 'NEET Exam';
+                            currentFilterSubCategory = 'ALL';
+                            renderTests();
+                            scrollToTests();
+                        }, 'NEET Exam');
+                    } else if (cat.id === 'Railway Exam') {
+                        checkAuthAndProceed(() => {
+                            currentFilterCategory = 'Railway Exam';
+                            currentFilterSubCategory = 'ALL';
+                            renderTests();
+                            scrollToTests();
+                        }, 'Railway Exam');
                     } else {
-                        let mappedCat = cat.id === 'POLICE' ? 'Police Exam' : cat.id;
-                        checkWallpaperAndProceed(mappedCat, '', () => {
-                            checkAuthAndProceed(() => {
-                                currentFilterCategory = mappedCat;
-                                currentFilterSubCategory = 'ALL';
-                                renderTests();
-                                scrollToTests();
-                            }, mappedCat);
-                        });
+                        checkAuthAndProceed(() => {
+                            openResourceModal(cat.id);
+                        }, cat.id);
                     }
                 };
                 container.appendChild(btn);
@@ -1521,11 +1885,11 @@
                     <div id="dept-select-group-admin" style="display:none; flex-direction:column; gap:4px; margin-bottom:6px;">
                         <label>Department / Group:</label>
                         <select id="admin-department">
-                            <option value="Tamil">தமிழ் துறை</option>
-                            <option value="Chemistry">வேதியியல் துறை</option>
-                            <option value="Physics">இயற்பியல் துறை</option>
-                            <option value="Zoology">விலங்கியல் துறை</option>
-                            <option value="Botany">தாவரவியல் துறை</option>
+                            <option value="தமிழ் துறை">தமிழ் துறை</option>
+                            <option value="வேதியியல் துறை">வேதியியல் துறை</option>
+                            <option value="இயற்பியல் துறை">இயற்பியல் துறை</option>
+                            <option value="விலங்கியல் துறை">விலங்கியல் துறை</option>
+                            <option value="தாவரவியல் துறை">தாவரவியல் துறை</option>
                             <option value="Group 1">Group 1</option>
                             <option value="Group 2">Group 2</option>
                             <option value="Group 2A">Group 2A</option>
@@ -1541,25 +1905,6 @@
                 saveBtn.style.color = "#000";
                 saveBtn.onclick = () => { playClickSound(); saveTestToSheet(); };
                 toggleDeptSelectAdmin();
-            } else if (sectionType === 'wallpapers') {
-                titleEl.textContent = "🖼️ Edit Course Popups & Banners (12 Sections)";
-                let optionsHtml = Object.keys(courseWallpapers).map(k => `<option value="${k}">${courseWallpapers[k].title}</option>`).join('');
-                contentEl.innerHTML = `
-                    <label>Select Section:</label>
-                    <select id="adm-cw-key" onchange="loadCourseWallpaperAdmin(this.value)" style="margin-bottom:6px;">${optionsHtml}</select>
-                    <label>Popup Status (Enable / Disable):</label>
-                    <select id="adm-cw-status" style="margin-bottom:6px;"><option value="ON">ON (Show Popup)</option><option value="OFF">OFF (Hide Popup)</option></select>
-                    <label>Title:</label>
-                    <input type="text" id="adm-cw-title" style="margin-bottom:6px;">
-                    <label>Banner Image URL (எடிட்டபிள் இமேஜ் லிங்க்):</label>
-                    <input type="text" id="adm-cw-img" placeholder="https://...">
-                `;
-                if (Object.keys(courseWallpapers).length > 0) {
-                    loadCourseWallpaperAdmin(Object.keys(courseWallpapers)[0]);
-                }
-                saveBtn.style.background = "var(--warning)";
-                saveBtn.style.color = "#000";
-                saveBtn.onclick = () => { playClickSound(); saveCourseWallpaperAdmin(); };
             } else if (sectionType === 'music') {
                 titleEl.textContent = "🎵 10 Motivation Songs";
                 for(let i=0; i<10; i++) {
@@ -1612,37 +1957,12 @@
                         </div>
                     `;
                 });
-                saveBtn.style.background = "var(--warning)";
+                saveBtn.style.warning = "var(--warning)";
                 saveBtn.style.color = "#000";
                 saveBtn.onclick = () => { playClickSound(); saveEcoTechToSheet(); };
             }
 
             document.getElementById('adminSubModal').style.display = 'flex';
-        }
-
-        function loadCourseWallpaperAdmin(key) {
-            let item = courseWallpapers[key] || { status: 'OFF', title: '', img: '' };
-            document.getElementById('adm-cw-status').value = item.status || 'OFF';
-            document.getElementById('adm-cw-title').value = item.title || '';
-            document.getElementById('adm-cw-img').value = item.img || '';
-        }
-
-        function saveCourseWallpaperAdmin() {
-            let key = document.getElementById('adm-cw-key').value;
-            courseWallpapers[key] = {
-                status: document.getElementById('adm-cw-status').value,
-                title: document.getElementById('adm-cw-title').value,
-                img: document.getElementById('adm-cw-img').value
-            };
-            fetch(GOOGLE_SCRIPT_URL, {
-                method: "POST",
-                mode: "no-cors",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ type: "wallpapers", courseWallpapers: courseWallpapers })
-            }).then(() => {
-                alert("✅ Course Popups & Banners Saved to Cloud!");
-                closeAdminSubModal();
-            }).catch(err => { alert("❌ பிழை: " + err); });
         }
 
         function toggleDeptSelectAdmin() {
@@ -1654,7 +1974,7 @@
             if (catSelect === 'TRB / NET / SET' || catSelect === 'TNPSC') {
                 deptGroup.style.display = 'flex';
                 if (catSelect === 'TRB / NET / SET') {
-                    deptSelect.innerHTML = `<option value="Tamil">தமிழ் துறை</option><option value="Chemistry">வேதியியல் துறை</option><option value="Physics">இயற்பியல் துறை</option><option value="Zoology">விலங்கியல் துறை</option><option value="Botany">தாவரவியல் துறை</option>`;
+                    deptSelect.innerHTML = `<option value="தமிழ் துறை">தமிழ் துறை</option><option value="வேதியியல் துறை">வேதியியல் துறை</option><option value="இயற்பியல் துறை">இயற்பியல் துறை</option><option value="விலங்கியல் துறை">விலங்கியல் துறை</option><option value="தாவரவியல் துறை">தாவரவியல் துறை</option>`;
                 } else {
                     deptSelect.innerHTML = `<option value="Group 1">Group 1</option><option value="Group 2">Group 2</option><option value="Group 2A">Group 2A</option><option value="Group 4">Group 4</option>`;
                 }
@@ -1687,38 +2007,9 @@
             sendDataToCloud(payload, "🎵 மோட்டிவேஷன் பாடல்கள் சேமிக்கப்பட்டன!");
         }
 
-        function saveRhymesToSheet() {
-            let updatedRhymes = [];
-            for(let i=0; i<10; i++) {
-                let rt = document.getElementById(`admin-rhyme-title-${i}`).value;
-                let ru = document.getElementById(`admin-rhyme-url-${i}`).value;
-                updatedRhymes.push({ title: rt, url: ru });
-            }
-            const payload = { type: "rhymes", rhymes: updatedRhymes };
-            sendDataToCloud(payload, "🎶 ரைம்ஸ் பாடல்கள் சேமிக்கப்பட்டன!");
-        }
-
-        function saveScienceToSheet() {
-            let updatedScience = [];
-            for(let i=0; i<10; i++) {
-                let sct = document.getElementById(`admin-science-title-${i}`).value;
-                let scu = document.getElementById(`admin-science-url-${i}`).value;
-                updatedScience.push({ title: sct, url: scu });
-            }
-            const payload = { type: "science", science: updatedScience };
-            sendDataToCloud(payload, "🧪 சயின்ஸ் ஃபேக்ட்ஸ் சேமிக்கப்பட்டன!");
-        }
-
-        function saveEcoTechToSheet() {
-            let updatedEco = [];
-            for(let i=0; i<ecoTestsList.length; i++) {
-                let en = document.getElementById(`admin-eco-name-${i}`).value;
-                let eu = document.getElementById(`admin-eco-url-${i}`).value;
-                updatedEco.push({ name: en, url: eu });
-            }
-            const payload = { type: "ecotech", ecoTests: updatedEco };
-            sendDataToCloud(payload, "🔬 எக்கோ டெக் லேப் லிங்குகள் சேமிக்கப்பட்டன!");
-        }
+        function saveRhymesToSheet() {}
+        function saveScienceToSheet() {}
+        function saveEcoTechToSheet() {}
 
         function sendDataToCloud(payload, successMsg) {
             fetch(GOOGLE_SCRIPT_URL, {
@@ -1741,9 +2032,9 @@
 
         function deleteTest(id) {
             if(confirm("இந்த டெஸ்ட்டை நீக்க விரும்புகிறீர்களா?")) {
-                tests = tests.filter(t => t.id !== id);
+                tests = tests.limit ? tests : tests.filter(t => t.id !== id);
                 renderTests();
-                alert("ℹ️ குறிப்பு: கூகிள் ஷீட்டிலிருந்தும் இந்த வரிசையை நீக்கிக்கொள்ளவும்.");
+                alert("ℹ️️ குறிப்பு: கூகிள் ஷீட்டிலிருந்தும் இந்த வரிசையை நீக்கிக்கொள்ளவும்.");
             }
         }
 
