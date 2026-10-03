@@ -1,13 +1,13 @@
 {
   "name": "Tiger Warriors Preparation Hub",
   "short_name": "Tiger Warriors",
-  "start_url": "/",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#060913",
   "theme_color": "#00f2fe",
   "icons": [
     {
-      "src": "https://i.ibb.co/nq9JGMS3/file-00000000422882119706af11c472abdf.png",
+      "src": "https://files.catbox.moe/dzd7vt.png",
       "sizes": "192x192",
       "type": "image/png"
     }
