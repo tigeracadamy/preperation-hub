@@ -500,7 +500,7 @@
     <!-- My Warrior's Locker Modal with Full Folder Hierarchy -->
     <div class="locker-modal" id="lockerModal" onclick="closeLockerModal()">
         <div class="locker-box" onclick="event.stopPropagation()">
-            <h3 style="color: var(--success);">🛡️ My Warrior's Locker</h3>
+            <h3 style="color: var(--success);">🛡️️ My Warrior's Locker</h3>
             <p style="font-size: 12px; color: var(--text-muted);">உங்களுக்குரிய பிரத்யேக டிஜிட்டல் ஸ்டடி பெட்டகம் (Folders):</p>
             
             <div style="display: flex; gap: 4px; overflow-x: auto; padding-bottom: 4px;">
@@ -547,14 +547,14 @@
                 </div>
             </div>
 
-            <!-- Tab 3: Video File Uploader (IndexedDB Engine for 10GB+ Files) -->
+            <!-- Tab 3: Video File Uploader -->
             <div class="locker-tab-content" id="lockerTabVideo" style="display:none; flex-direction:column; gap:6px; text-align:left;">
                 <div id="videoFolderMainView">
-                    <div style="font-size:11px; color:var(--warning); margin-bottom:6px;">📂 போல்டரைத் தேர்ந்தெடுக்கவும் (Large Video Support):</div>
+                    <div style="font-size:11px; color:var(--warning); margin-bottom:6px;">📂 போல்டரைத் தேர்ந்தெடுக்கவும்:</div>
                     <div id="savedVideoFoldersList" style="max-height:220px; overflow-y:auto; display:flex; flex-direction:column; gap:4px;"></div>
                 </div>
                 <div id="videoFolderDetailView" style="display:none;">
-                    <button onclick="backToFolders('video')" style="background:rgba(255,255,255,0.2); color:#fff; border:none; padding:4px 8px; border-radius:4px; font-size:10px; cursor:pointer; margin-bottom:6px;">⬅️️ Back to Folders</button>
+                    <button onclick="backToFolders('video')" style="background:rgba(255,255,255,0.2); color:#fff; border:none; padding:4px 8px; border-radius:4px; font-size:10px; cursor:pointer; margin-bottom:6px;">⬅️ Back to Folders</button>
                     <h4 id="videoFolderTitle" style="font-size:13px; color:var(--success); margin-bottom:6px;"></h4>
                     <div style="background:rgba(0,0,0,0.4); padding:8px; border-radius:8px; margin-bottom:8px; display:flex; flex-direction:column; gap:6px;">
                         <input type="text" id="vidTitleInput" placeholder="வீடியோ தலைப்பு (Name)" style="background:rgba(0,0,0,0.6); color:#fff; border:1px solid var(--card-border); padding:6px; border-radius:6px; font-size:11px;">
@@ -630,8 +630,8 @@
                     <div class="brand-sub">(தேர்வு பயிற்சிப் பட்டறை 🎯)</div>
                 </div>
                 <div class="brand-logo-single">
-                    <span>🐯</span>
-                    <span>⚔️</span>
+                    <span>🔥</span>
+                    <span>⚔</span>
                 </div>
             </div>
         </div>
@@ -687,10 +687,10 @@
             </div>
         </div>
 
-        <!-- 🛡️ Royal Gold Study Lockers Banner Button -->
+        <!-- 🛡️ Royal Gold Study Lockers Banner Button (Always Shown When Logged In) -->
         <div class="royal-locker-banner" id="royalLockerBanner" onclick="playClickSound(); openLockerModal()">
             <div class="royal-locker-title">🛡️ MY STUDY LOCKERS</div>
-            <div class="royal-locker-sub">உங்கள் பிரத்யேக டிஜிட்டல் ஸ்டடி பெட்டகம் (PDF, Images, Videos, Notes) 🚀</div>
+            <div class="royal-locker-sub">உங்கள் பிரத்யேக ஸ்டடி பெட்டகம் (PDF, Images, Videos, Notes) 🚀</div>
         </div>
 
         <!-- Search Unit -->
@@ -779,7 +779,7 @@
 
     <div class="modal-overlay" id="tnpscModal" onclick="closeTnpscModal()">
         <div class="modal-box" onclick="event.stopPropagation()">
-            <h3>🏛️️ TNPSC Exams Hub</h3>
+            <h3>🏛️ TNPSC Exams Hub</h3>
             <p style="text-align:center;">தேவையான பிரிவைத் தேர்ந்தெடுக்கவும்:</p>
             <div class="modal-option-btn" onclick="playClickSound(); selectTnpscGroup('Group 1')">🏛️ Group 1 Exams</div>
             <div class="modal-option-btn" onclick="playClickSound(); selectTnpscGroup('Group 2')">🏛️ Group 2 Exams</div>
@@ -945,7 +945,7 @@
 
         let currentOpenFolder = { pdf: null, img: null, video: null };
 
-        // --- 🛡️ INDEXEDDB DATABASE SETUP FOR LARGE VIDEOS (1GB - 10GB+) ---
+        // --- 🛡️ INDEXEDDB DATABASE SETUP FOR LARGE VIDEOS ---
         let db;
         const dbRequest = indexedDB.open("TigerWarriorsDB", 1);
         dbRequest.onerror = function(event) { console.error("IndexedDB error: " + event.target.errorCode); };
@@ -960,7 +960,7 @@
             }
         };
 
-        // --- 🛡️ MY STUDY LOCKERS LOGIC ---
+        // --- 🛡️ MY STUDY LOCKERS LOGIC (FIXED: ALWAYS SHOWN ON LOGIN) ---
         function checkUserLoginStatus() {
             let authPassed = localStorage.getItem('tiger_auth_passed');
             let phone = localStorage.getItem('tiger_student_phone');
@@ -1033,7 +1033,6 @@
             reader.readAsDataURL(file);
         }
 
-        // 🌟 Large Video Saver using IndexedDB
         function saveVideoToIndexedDB() {
             let titleInput = document.getElementById('vidTitleInput');
             let fileInput = document.getElementById('vidFileInput');
@@ -1221,7 +1220,7 @@
                     return `
                         <div style="background:rgba(0,0,0,0.5); padding:8px; border-radius:6px; display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
                             <a href="javascript:void(0)" onclick="openVideoViewerFromBlob('${item.title}', '${blobUrl}')" style="color:var(--text-main); font-size:12px; text-decoration:none;">🎥 ${item.title}</a>
-                            <button onclick="deleteVideoFromIndexedDB(${item.id})" style="background:var(--danger); color:#fff; border:none; padding:4px 8px; border-radius:6px; font-size:10px; cursor:pointer;">🗑️️ Delete</button>
+                            <button onclick="deleteVideoFromIndexedDB(${item.id})" style="background:var(--danger); color:#fff; border:none; padding:4px 8px; border-radius:6px; font-size:10px; cursor:pointer;">🗑️ Delete</button>
                         </div>
                     `;
                 }).join('') || '<span style="font-size:10px; color:var(--text-muted);">இந்தப் போல்டரில் வீடியோக்கள் எதுவும் இல்லை</span>';
@@ -1642,6 +1641,7 @@
             renderTests();
             startSplitLiveClock();
             fetchSheetData();
+            checkUserLoginStatus(); // 🌟 FIXED: Instantly checks login on page load so Locker shows immediately!
         });
 
         function startSplitLiveClock() {
