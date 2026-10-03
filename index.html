@@ -2,49 +2,11 @@
 <html lang="ta">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tiger Warriors - Preparation Hub & Eco Tech Lab</title>
     <!-- 🌟 PWA Manifest & Theme Integration -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#00f2fe">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    
-    <!-- 🌟 PWA Service Worker & Auto Install Prompt Registration -->
-    <script>
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js').then(() => {
-          console.log('Service Worker Registered Successfully');
-        }).catch((err) => {
-          console.log('Service Worker Registration Failed', err);
-        });
-      }
-
-      // 🌟 Automatic Native Browser Install Prompt Handler
-      let deferredPrompt;
-      window.addEventListener('beforeinstallprompt', (e) => {
-          e.preventDefault();
-          deferredPrompt = e;
-          console.log("Auto native install prompt captured successfully!");
-
-          // Automatically trigger prompt after 2 seconds on load
-          setTimeout(() => {
-              if (deferredPrompt) {
-                  deferredPrompt.prompt();
-                  deferredPrompt.userChoice.then((choiceResult) => {
-                      if (choiceResult.outcome === 'accepted') {
-                          console.log('User accepted the install prompt');
-                      } else {
-                          console.log('User dismissed the install prompt');
-                      }
-                      deferredPrompt = null;
-                  });
-              }
-          }, 2000);
-      });
-    </script>
-
     <style>
         :root {
             --bg-color: #060913;
@@ -73,9 +35,9 @@
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; font-weight: bold; scroll-behavior: smooth; }
-        body { background-color: var(--bg-color); color: var(--text-main); padding: 8px; display: flex; justify-content: center; width: 100%; overflow-x: hidden; }
+        body { background-color: var(--bg-color); color: var(--text-main); padding: 12px; display: flex; justify-content: center; }
         
-        .main-container { width: 100%; max-width: 480px; display: flex; flex-direction: column; gap: 10px; transition: all 0.3s ease; padding-bottom: 30px; }
+        .main-container { width: 100%; max-width: 480px; display: flex; flex-direction: column; gap: 10px; transition: all 0.3s ease; }
 
         @media(min-width: 768px) {
             .main-container { max-width: 850px; padding: 30px; gap: 15px; }
@@ -503,8 +465,8 @@
                 <label>வாங்க விரும்பும் கோர்ஸ் (Purchased Course):</label>
                 <select id="regCourse">
                     <option value="TNPSC Group 1">🏛 TNPSC Group 1</option>
-                    <option value="TNPSC Group 2">🏛 TNPSC Group 2</option>
-                    <option value="TNPSC Group 2A">🏛 TNPSC Group 2A</option>
+                    <option value="TNPSC Group 2">🏛️️ TNPSC Group 2</option>
+                    <option value="TNPSC Group 2A">🏛️ TNPSC Group 2A</option>
                     <option value="TNPSC Group 4">🏛 TNPSC Group 4</option>
                     <option value="TRB / NET / SET Tamil">📖 TRB / NET / SET தமிழ் துறை</option>
                     <option value="TRB / NET / SET Chemistry">🧪 TRB / NET / SET வேதியியல் துறை</option>
@@ -986,7 +948,7 @@
 
         let currentOpenFolder = { pdf: null, img: null, video: null };
 
-        // --- 🛡 INDEXEDDB DATABASE SETUP FOR LARGE VIDEOS ---
+        // --- 🛡️ INDEXEDDB DATABASE SETUP FOR LARGE VIDEOS ---
         let db;
         const dbRequest = indexedDB.open("TigerWarriorsDB", 1);
         dbRequest.onerror = function(event) { console.error("IndexedDB error: " + event.target.errorCode); };
@@ -1001,7 +963,7 @@
             }
         };
 
-        // --- 🛡️ MY STUDY LOCKERS LOGIC ---
+        // --- 🛡️ MY STUDY LOCKERS LOGIC (FIXED: ALWAYS SHOWN ON LOGIN) ---
         function checkUserLoginStatus() {
             let authPassed = localStorage.getItem('tiger_auth_passed');
             let phone = localStorage.getItem('tiger_student_phone');
@@ -1153,7 +1115,7 @@
             taskContainer.innerHTML = tasks.map((tk, idx) => `
                 <div style="background:rgba(0,0,0,0.5); padding:8px; border-radius:6px; font-size:11px; display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
                     <span>🎯 ${tk.task}</span>
-                    <button onclick="confirmDeleteLockerItem('task', ${idx})" style="background:var(--danger); color:#fff; border:none; padding:4px 8px; border-radius:6px; font-size:10px; cursor:pointer;">🗑 Delete</button>
+                    <button onclick="confirmDeleteLockerItem('task', ${idx})" style="background:var(--danger); color:#fff; border:none; padding:4px 8px; border-radius:6px; font-size:10px; cursor:pointer;">🗑️ Delete</button>
                 </div>
             `).join('') || '<span style="font-size:10px; color:var(--text-muted);">டாஸ்க்குகள் எதுவும் இல்லை</span>';
         }
@@ -1294,7 +1256,7 @@
                 items.splice(index, 1);
                 localStorage.setItem(key, JSON.stringify(items));
                 loadLockerItems();
-                alert("🗑 வெற்றிகரமாக நீக்கப்பட்டது!");
+                alert("🗑️️ வெற்றிகரமாக நீக்கப்பட்டது!");
             }
         }
 
@@ -1731,7 +1693,7 @@
                 btn.onclick = () => {
                     playClickSound();
                     if(hasUrl) window.open(song.url, '_blank');
-                    else alert("⚠ இந்தப் பாடலுக்கான லிங்க் இன்னும் சேர்க்கப்படவில்லை!");
+                    else alert("⚠️️ இந்தப் பாடலுக்கான லிங்க் இன்னும் சேர்க்கப்படவில்லை!");
                 };
                 container.appendChild(btn);
             });
