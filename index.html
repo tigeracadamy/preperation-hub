@@ -2,11 +2,14 @@
 <html lang="ta">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Tiger Warriors - Preparation Hub & Eco Tech Lab</title>
     <!-- 🌟 PWA Manifest & Theme Integration -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#00f2fe">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     
     <!-- 🌟 PWA Service Worker Registration -->
     <script>
@@ -17,6 +20,14 @@
           console.log('Service Worker Registration Failed', err);
         });
       }
+
+      // 🌟 Native Browser Install Prompt Capture
+      let deferredPrompt;
+      window.addEventListener('beforeinstallprompt', (e) => {
+          e.preventDefault();
+          deferredPrompt = e;
+          console.log("Native install prompt captured successfully!");
+      });
     </script>
 
     <style>
@@ -47,9 +58,9 @@
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; font-weight: bold; scroll-behavior: smooth; }
-        body { background-color: var(--bg-color); color: var(--text-main); padding: 12px; display: flex; justify-content: center; }
+        body { background-color: var(--bg-color); color: var(--text-main); padding: 8px; display: flex; justify-content: center; width: 100%; overflow-x: hidden; }
         
-        .main-container { width: 100%; max-width: 480px; display: flex; flex-direction: column; gap: 10px; transition: all 0.3s ease; }
+        .main-container { width: 100%; max-width: 480px; display: flex; flex-direction: column; gap: 10px; transition: all 0.3s ease; padding-bottom: 30px; }
 
         @media(min-width: 768px) {
             .main-container { max-width: 850px; padding: 30px; gap: 15px; }
@@ -442,7 +453,7 @@
         .admin-modal-box { border-color: var(--accent-cyan); text-align: left; }
         .admin-modal-box input, .admin-modal-box select, .admin-modal-box textarea { background: rgba(0, 0, 0, 0.4); border: 1px solid var(--card-border); padding: 8px 10px; border-radius: 8px; color: var(--text-main); font-size: 13px; width: 100%; outline: none; font-weight: 900; }
 
-        /* Custom Direct Install Banner Modal */
+        /* Custom Direct Install Modal Helper */
         #customInstallModal { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.85); z-index: 90000; justify-content: center; align-items: center; padding: 20px; }
         .custom-install-box { background: linear-gradient(135deg, #0b1326, #04060d); border: 2px solid var(--accent-cyan); border-radius: 20px; padding: 22px; width: 100%; max-width: 360px; text-align: center; box-shadow: 0 0 30px var(--accent-glow); display: flex; flex-direction: column; gap: 12px; }
         .custom-install-box h3 { color: var(--accent-cyan); font-size: 16px; }
@@ -451,14 +462,12 @@
 </head>
 <body id="body-theme">
 
-    <!-- Custom Direct Install Helper Modal -->
+    <!-- Custom Direct Install Modal Helper -->
     <div id="customInstallModal" onclick="closeCustomInstallModal()">
         <div class="custom-install-box" onclick="event.stopPropagation()">
             <h3 style="color: var(--warning);">📥 TIGER WARRIORS APP INSTALL</h3>
             <p>
-                <b>வழிமுறை 1:</b> பிரவுசரின் மேல் வலது மூலையில் உள்ள <b>3 புள்ளிகளை (Menu)</b> அழுத்தவும்[span_0](start_span)[span_0](end_span).<br><br>
-                <b>வழிமுறை 2:</b> அதில் <b>"Install app"</b> அல்லது <b>"Add to Home screen"</b> என்பதைத் தேர்ந்தெடுக்கவும்[span_1](start_span)[span_1](end_span).<br><br>
-                <b>குறிப்பு:</b> சில ஆண்ட்ராய்டு குரோம் பதிப்புகளில் நேரடியாக ஆப் இன்ஸ்டால் செய்வதைத் தடுக்கப்பட்டால், இந்த ஷார்ட்கட் மூலம் ஹோம் ஸ்கிரீனில் இணைத்துக்கொள்ளலாம்!
+                <b>வழிமுறை:</b> பிரவுசரின் மேல் வலது மூலையில் உள்ள <b>3 புள்ளிகளை (Menu)</b> அழுத்தி, அதில் <b>"Add to Home screen"</b> அல்லது <b>"Install app"</b> என்பதைத் தேர்ந்தெடுக்கவும்[span_2](start_span)[span_2](end_span).
             </p>
             <button class="btn-start" style="padding: 10px; background: var(--accent-cyan); color: #000; margin-top: 5px;" onclick="closeCustomInstallModal()">புரிந்துவிட்டது (Got It) 🚀</button>
         </div>
@@ -497,14 +506,14 @@
                 <select id="regCourse">
                     <option value="TNPSC Group 1">🏛 TNPSC Group 1</option>
                     <option value="TNPSC Group 2">🏛 TNPSC Group 2</option>
-                    <option value="TNPSC Group 2A">🏛️ TNPSC Group 2A</option>
+                    <option value="TNPSC Group 2A">🏛 TNPSC Group 2A</option>
                     <option value="TNPSC Group 4">🏛 TNPSC Group 4</option>
                     <option value="TRB / NET / SET Tamil">📖 TRB / NET / SET தமிழ் துறை</option>
                     <option value="TRB / NET / SET Chemistry">🧪 TRB / NET / SET வேதியியல் துறை</option>
                     <option value="TRB / NET / SET Physics">⚡ TRB / NET / SET இயற்பியல் துறை</option>
                     <option value="TRB / NET / SET Zoology">🧬 TRB / NET / SET விலங்கியல் துறை</option>
                     <option value="TRB / NET / SET Botany">🌿 TRB / NET / SET தாவரவியல் துறை</option>
-                    <option value="Police Exam">🛡️ Police Exam</option>
+                    <option value="Police Exam">🛡️️ Police Exam</option>
                     <option value="NEET Exam">🧬 NEET Exam</option>
                     <option value="Railway Exam">🚆 Railway Exam</option>
                 </select>
@@ -670,13 +679,6 @@
             </div>
         </div>
 
-        <!-- PWA Install Button Container (Trigger Custom Helper Modal) -->
-        <div id="install-container" style="text-align: center; margin: 10px 0;">
-            <button id="pwa-install-btn" onclick="openCustomInstallModal()" style="background: linear-gradient(135deg, #00f2fe, #4facfe); color: #060913; border: none; padding: 12px 24px; font-size: 15px; font-weight: bold; border-radius: 30px; cursor: pointer; box-shadow: 0 4px 15px rgba(0,242,254,0.4);">
-                📥 Install Tiger Warriors App
-            </button>
-        </div>
-
         <!-- Hero Banner with Separated Date & Time -->
         <div class="hero-banner">
             <span class="mission-tag">🎯 TIGER WARRIORS PREPARATION HUB</span>
@@ -736,7 +738,7 @@
 
         <!-- Search Unit -->
         <div class="search-box" id="tests-section-anchor">
-            <span>??</span>
+            <span>🔍</span>
             <input type="text" id="search-input" placeholder="Search Unit, Topic, Subject..." onkeyup="filterTests()">
         </div>
 
@@ -994,7 +996,7 @@
             document.getElementById('customInstallModal').style.display = 'none';
         }
 
-        // --- 🛡️️ INDEXEDDB DATABASE SETUP FOR LARGE VIDEOS ---
+        // --- 🛡 INDEXEDDB DATABASE SETUP FOR LARGE VIDEOS ---
         let db;
         const dbRequest = indexedDB.open("TigerWarriorsDB", 1);
         dbRequest.onerror = function(event) { console.error("IndexedDB error: " + event.target.errorCode); };
@@ -2094,7 +2096,7 @@
                 saveBtn.onclick = () => { playClickSound(); saveTestToSheet(); };
                 toggleDeptSelectAdmin();
             } else if (sectionType === 'wallpapers') {
-                titleEl.textContent = "🖼️ Edit Course Popups & Banners (12 Sections)";
+                titleEl.textContent = "🖼️️ Edit Course Popups & Banners (12 Sections)";
                 let optionsHtml = Object.keys(courseWallpapers).map(k => `<option value="${k}">${courseWallpapers[k].title}</option>`).join('');
                 contentEl.innerHTML = `
                     <label>Select Section:</label>
