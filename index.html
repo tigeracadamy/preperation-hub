@@ -521,7 +521,7 @@
                     <div id="savedPdfFoldersList" style="max-height:220px; overflow-y:auto; display:flex; flex-direction:column; gap:4px;"></div>
                 </div>
                 <div id="pdfFolderDetailView" style="display:none;">
-                    <button onclick="backToFolders('pdf')" style="background:rgba(255,255,255,0.2); color:#fff; border:none; padding:4px 8px; border-radius:4px; font-size:10px; cursor:pointer; margin-bottom:6px;">⬅️️ Back to Folders</button>
+                    <button onclick="backToFolders('pdf')" style="background:rgba(255,255,255,0.2); color:#fff; border:none; padding:4px 8px; border-radius:4px; font-size:10px; cursor:pointer; margin-bottom:6px;">⬅️ Back to Folders</button>
                     <h4 id="pdfFolderTitle" style="font-size:13px; color:var(--accent-cyan); margin-bottom:6px;"></h4>
                     <div style="background:rgba(0,0,0,0.4); padding:8px; border-radius:8px; margin-bottom:8px; display:flex; flex-direction:column; gap:6px;">
                         <input type="text" id="pdfTitleInput" placeholder="PDF தலைப்பு (Name)" style="background:rgba(0,0,0,0.6); color:#fff; border:1px solid var(--card-border); padding:6px; border-radius:6px; font-size:11px;">
@@ -539,7 +539,7 @@
                     <div id="savedImgFoldersList" style="max-height:220px; overflow-y:auto; display:flex; flex-direction:column; gap:4px;"></div>
                 </div>
                 <div id="imgFolderDetailView" style="display:none;">
-                    <button onclick="backToFolders('img')" style="background:rgba(255,255,255,0.2); color:#fff; border:none; padding:4px 8px; border-radius:4px; font-size:10px; cursor:pointer; margin-bottom:6px;">⬅️️ Back to Folders</button>
+                    <button onclick="backToFolders('img')" style="background:rgba(255,255,255,0.2); color:#fff; border:none; padding:4px 8px; border-radius:4px; font-size:10px; cursor:pointer; margin-bottom:6px;">⬅️ Back to Folders</button>
                     <h4 id="imgFolderTitle" style="font-size:13px; color:var(--warning); margin-bottom:6px;"></h4>
                     <div style="background:rgba(0,0,0,0.4); padding:8px; border-radius:8px; margin-bottom:8px; display:flex; flex-direction:column; gap:6px;">
                         <input type="text" id="imgTitleInput" placeholder="இமேஜ் தலைப்பு (Name)" style="background:rgba(0,0,0,0.6); color:#fff; border:1px solid var(--card-border); padding:6px; border-radius:6px; font-size:11px;">
@@ -633,15 +633,15 @@
                     <div class="brand-sub">(தேர்வு பயிற்சிப் பட்டறை 🎯)</div>
                 </div>
                 <div class="brand-logo-single">
-                    <span>🐯</span>
-                    <span>⚔️</span>
+                    <span>🔥</span>
+                    <span>⚔</span>
                 </div>
             </div>
         </div>
 
-        <!-- PWA Install Button Container -->
-        <div id="install-container" style="text-align: center; display: none;">
-            <button id="pwa-install-btn" style="background: linear-gradient(135deg, #00f2fe, #4facfe); color: #060913; border: none; padding: 10px 20px; font-size: 14px; font-weight: bold; border-radius: 30px; cursor: pointer; box-shadow: 0 4px 15px rgba(0,242,254,0.4);">
+        <!-- PWA Install Button Container (Always Visible for Testing & Easy Access) -->
+        <div id="install-container" style="text-align: center; margin: 10px 0;">
+            <button id="pwa-install-btn" style="background: linear-gradient(135deg, #00f2fe, #4facfe); color: #060913; border: none; padding: 12px 24px; font-size: 15px; font-weight: bold; border-radius: 30px; cursor: pointer; box-shadow: 0 4px 15px rgba(0,242,254,0.4);">
                 📥 Install Tiger Warriors App
             </button>
         </div>
@@ -697,7 +697,7 @@
             </div>
         </div>
 
-        <!-- 🛡️️ Royal Gold Study Lockers Banner Button -->
+        <!-- 🛡️ Royal Gold Study Lockers Banner Button -->
         <div class="royal-locker-banner" id="royalLockerBanner" onclick="playClickSound(); openLockerModal()">
             <div class="royal-locker-title">🛡️ MY STUDY LOCKERS</div>
             <div class="royal-locker-sub">உங்கள் பிரத்யேக டிஜிட்டல் ஸ்டடி பெட்டகம் (PDF, Images, Videos, Notes) 🚀</div>
@@ -955,7 +955,7 @@
 
         let currentOpenFolder = { pdf: null, img: null, video: null };
 
-        // --- 🛡️ PWA INSTALL PROMPT LOGIC ---
+        // --- 🛡️ PWA INSTALL PROMPT LOGIC (ALWAYS VISIBLE FIX) ---
         let deferredPrompt;
         const installContainer = document.getElementById('install-container');
         const installBtn = document.getElementById('pwa-install-btn');
@@ -968,14 +968,16 @@
 
         if(installBtn) {
             installBtn.addEventListener('click', async () => {
-                if (!deferredPrompt) return;
-                deferredPrompt.prompt();
-                const { outcome } = await deferredPrompt.userChoice;
-                if (outcome === 'accepted') {
-                    console.log('User accepted the install prompt');
+                if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    const { outcome } = await deferredPrompt.userChoice;
+                    if (outcome === 'accepted') {
+                        console.log('User accepted the install prompt');
+                    }
+                    deferredPrompt = null;
+                } else {
+                    alert("💡 மொபைல் பிரவுசரின் மெனு (3 புள்ளிகள்) பட்டனை அழுத்தி 'Install app' அல்லது 'Add to Home screen' என்பதைத் தேர்ந்தெடுக்கவும்!");
                 }
-                deferredPrompt = null;
-                if(installContainer) installContainer.style.display = 'none';
             });
         }
 
@@ -994,7 +996,7 @@
             }
         };
 
-        // --- 🛡️ MY STUDY LOCKERS LOGIC (FIXED: ALWAYS SHOWN ON LOGIN) ---
+        // --- 🛡️ MY STUDY LOCKERS LOGIC ---
         function checkUserLoginStatus() {
             let authPassed = localStorage.getItem('tiger_auth_passed');
             let phone = localStorage.getItem('tiger_student_phone');
@@ -1641,7 +1643,7 @@
                 { id: 'Eco Tech Lab', name: '🧪 Eco Tech Lab' },
                 { id: 'Kids Study', name: '🧸 Kids Study' },
                 { id: 'TRB / NET / SET', name: '📚 TRB / NET / SET' },
-                { id: 'TNPSC', name: '🏛️️ TNPSC' },
+                { id: 'TNPSC', name: '🏛 TNPSC' },
                 { id: 'POLICE', name: '🛡️ Police Exam' },
                 { id: 'NEET Exam', name: '🧬 NEET Exam' },
                 { id: 'Railway Exam', name: '🚆 Railway Exam' }
@@ -1720,7 +1722,7 @@
                 const btn = document.createElement('div');
                 btn.className = 'modal-option-btn';
                 let hasUrl = song.url && song.url.trim() !== "";
-                btn.innerHTML = `🎵 ${song.title || `பாடல் ${idx+1}`} <span>${hasUrl ? '▶️️ Play' : '⏳ Soon'}</span>`;
+                btn.innerHTML = `🎵 ${song.title || `பாடல் ${idx+1}`} <span>${hasUrl ? '▶ Play' : '⏳ Soon'}</span>`;
                 btn.onclick = () => {
                     playClickSound();
                     if(hasUrl) window.open(song.url, '_blank');
