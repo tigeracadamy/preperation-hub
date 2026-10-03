@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tiger Warriors - Preparation Hub & Eco Tech Lab</title>
+    <!-- 🌟 PWA Manifest & Theme Integration -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#00f2fe">
     <style>
         :root {
             --bg-color: #060913;
@@ -462,7 +465,7 @@
                 <label>வாங்க விரும்பும் கோர்ஸ் (Purchased Course):</label>
                 <select id="regCourse">
                     <option value="TNPSC Group 1">🏛 TNPSC Group 1</option>
-                    <option value="TNPSC Group 2">🏛️ TNPSC Group 2</option>
+                    <option value="TNPSC Group 2">🏛️️ TNPSC Group 2</option>
                     <option value="TNPSC Group 2A">🏛️ TNPSC Group 2A</option>
                     <option value="TNPSC Group 4">🏛 TNPSC Group 4</option>
                     <option value="TRB / NET / SET Tamil">📖 TRB / NET / SET தமிழ் துறை</option>
@@ -500,7 +503,7 @@
     <!-- My Warrior's Locker Modal with Full Folder Hierarchy -->
     <div class="locker-modal" id="lockerModal" onclick="closeLockerModal()">
         <div class="locker-box" onclick="event.stopPropagation()">
-            <h3 style="color: var(--success);">🛡️️ My Warrior's Locker</h3>
+            <h3 style="color: var(--success);">🛡️ My Warrior's Locker</h3>
             <p style="font-size: 12px; color: var(--text-muted);">உங்களுக்குரிய பிரத்யேக டிஜிட்டல் ஸ்டடி பெட்டகம் (Folders):</p>
             
             <div style="display: flex; gap: 4px; overflow-x: auto; padding-bottom: 4px;">
@@ -687,10 +690,10 @@
             </div>
         </div>
 
-        <!-- 🛡️ Royal Gold Study Lockers Banner Button (Always Shown When Logged In) -->
+        <!-- 🛡️ Royal Gold Study Lockers Banner Button -->
         <div class="royal-locker-banner" id="royalLockerBanner" onclick="playClickSound(); openLockerModal()">
             <div class="royal-locker-title">🛡️ MY STUDY LOCKERS</div>
-            <div class="royal-locker-sub">உங்கள் பிரத்யேக ஸ்டடி பெட்டகம் (PDF, Images, Videos, Notes) 🚀</div>
+            <div class="royal-locker-sub">உங்கள் பிரத்யேக டிஜிட்டல் ஸ்டடி பெட்டகம் (PDF, Images, Videos, Notes) 🚀</div>
         </div>
 
         <!-- Search Unit -->
@@ -1253,7 +1256,7 @@
                 items.splice(index, 1);
                 localStorage.setItem(key, JSON.stringify(items));
                 loadLockerItems();
-                alert("🗑️ வெற்றிகரமாக நீக்கப்பட்டது!");
+                alert("🗑️️ வெற்றிகரமாக நீக்கப்பட்டது!");
             }
         }
 
@@ -1641,7 +1644,7 @@
             renderTests();
             startSplitLiveClock();
             fetchSheetData();
-            checkUserLoginStatus(); // 🌟 FIXED: Instantly checks login on page load so Locker shows immediately!
+            checkUserLoginStatus();
         });
 
         function startSplitLiveClock() {
@@ -1690,7 +1693,7 @@
                 btn.onclick = () => {
                     playClickSound();
                     if(hasUrl) window.open(song.url, '_blank');
-                    else alert("⚠️ இந்தப் பாடலுக்கான லிங்க் இன்னும் சேர்க்கப்படவில்லை!");
+                    else alert("⚠️️ இந்தப் பாடலுக்கான லிங்க் இன்னும் சேர்க்கப்படவில்லை!");
                 };
                 container.appendChild(btn);
             });
