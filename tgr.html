@@ -497,7 +497,7 @@
         </div>
     </div>
 
-    <!-- My Warrior's Locker Modal with Fully Fixed Video Saving Logic -->
+    <!-- My Warrior's Locker Modal with Full Folder Hierarchy -->
     <div class="locker-modal" id="lockerModal" onclick="closeLockerModal()">
         <div class="locker-box" onclick="event.stopPropagation()">
             <h3 style="color: var(--success);">🛡️ My Warrior's Locker</h3>
@@ -547,7 +547,7 @@
                 </div>
             </div>
 
-            <!-- Tab 3: Video File Uploader (Robust Blob URL Fix for Large Files) -->
+            <!-- Tab 3: Video File Uploader -->
             <div class="locker-tab-content" id="lockerTabVideo" style="display:none; flex-direction:column; gap:6px; text-align:left;">
                 <div id="videoFolderMainView">
                     <div style="font-size:11px; color:var(--warning); margin-bottom:6px;">📂 போல்டரைத் தேர்ந்தெடுக்கவும்:</div>
@@ -687,7 +687,7 @@
             </div>
         </div>
 
-        <!-- 🛡️ Royal Gold Study Lockers Banner Button (Matching TNPSC / NEET buttons) -->
+        <!-- 🛡️ Royal Gold Study Lockers Banner Button -->
         <div class="royal-locker-banner" id="royalLockerBanner" onclick="playClickSound(); openLockerModal()">
             <div class="royal-locker-title">🛡️ MY STUDY LOCKERS</div>
             <div class="royal-locker-sub">உங்கள் பிரத்யேக ஸ்டடி பெட்டகம் (PDF, Images, Videos, Notes) 🚀</div>
@@ -702,7 +702,7 @@
         <!-- Tests List Container -->
         <div class="test-list" id="test-container"></div>
 
-        <!-- Contact Card with updated Mail manivarmanchem@gmail.com -->
+        <!-- Contact Card -->
         <div class="contact-card">
             <div class="contact-title">📞 FOR MORE CONTACT & SUPPORT</div>
             <div style="font-size: 11px; color: var(--text-muted); font-weight: 900;">உங்களுக்கு சந்தேகம் அல்லது வழிகாட்டல் தேவையா? எங்களை உடனே தொடர்பு கொள்ளுங்கள்! GPay: 9790933025</div>
@@ -710,7 +710,7 @@
                 <a href="https://wa.me/919790933025" target="_blank" class="contact-btn contact-btn-whatsapp" onclick="playClickSound()">💬 WhatsApp Chat</a>
                 <a href="https://t.me/PROFESSORMANIKASI" target="_blank" class="contact-btn contact-btn-telegram" onclick="playClickSound()">✈️ Telegram</a>
                 <a href="tel:9790933025" class="contact-btn contact-btn-phone" onclick="playClickSound()">📞 9790933025</a>
-                <a href="mailto:manivarmanchem@gmail.com" class="contact-btn contact-btn-mail" onclick="playClickSound()">✉️️ Mail Us</a>
+                <a href="mailto:manivarmanchem@gmail.com" class="contact-btn contact-btn-mail" onclick="playClickSound()">✉️ Mail Us</a>
             </div>
         </div>
 
@@ -720,7 +720,7 @@
                 <span>💖 Donate</span>
             </button>
             <button class="btn-bottom btn-bottom-theme" onclick="playClickSound(); cycleTheme()">
-                <span>🎨 Theme</span>
+                <span>🎨 Change Theme</span>
             </button>
         </div>
     </div>
@@ -945,7 +945,7 @@
 
         let currentOpenFolder = { pdf: null, img: null, video: null };
 
-        // --- 🛡️ MY STUDY LOCKERS LOGIC (BLOB URL FOR VIDEOS) ---
+        // --- 🛡️ MY STUDY LOCKERS LOGIC ---
         function checkUserLoginStatus() {
             let authPassed = localStorage.getItem('tiger_auth_passed');
             let phone = localStorage.getItem('tiger_student_phone');
@@ -1029,17 +1029,23 @@
             if(!folderId) { alert("போல்டர் தேர்வு செய்யப்படவில்லை!"); return; }
 
             let file = fileInput.files[0];
+            let reader = new FileReader();
             
-            // Using Object URL (Blob URL) specifically for videos to bypass LocalStorage 5MB quota limit completely!
-            let blobUrl = URL.createObjectURL(file);
-            let items = JSON.parse(localStorage.getItem('locker_videos') || '[]');
-            items.push({ title: title, folder: folderId, dataUrl: blobUrl, fileName: file.name });
-            localStorage.setItem('locker_videos', JSON.stringify(items));
-
-            titleInput.value = '';
-            fileInput.value = '';
-            loadLockerItems();
-            alert("✅ இந்தப் போல்டரில் வீடியோ வெற்றிகரமாகச் சேமிக்கப்பட்டது!");
+            reader.onload = function(e) {
+                let base64Data = e.target.result;
+                let items = JSON.parse(localStorage.getItem('locker_videos') || '[]');
+                items.push({ title: title, folder: folderId, dataUrl: base64Data, fileName: file.name });
+                try {
+                    localStorage.setItem('locker_videos', JSON.stringify(items));
+                    titleInput.value = '';
+                    fileInput.value = '';
+                    loadLockerItems();
+                    alert("✅ இந்தப் போல்டரில் வீடியோ வெற்றிகரமாகச் சேமிக்கப்பட்டது!");
+                } catch(err) {
+                    alert("⚠️ வீடியோ ஃபைல் மிகவும் பெரிதாக உள்ளது. சிறிய வீடியோவை முயற்சிக்கவும்!");
+                }
+            };
+            reader.readAsDataURL(file);
         }
 
         function saveNoteLockerItem() {
@@ -1074,7 +1080,6 @@
             if(currentOpenFolder.img) renderFiles('img', currentOpenFolder.img);
             if(currentOpenFolder.video) renderFiles('video', currentOpenFolder.video);
 
-            // Notes List
             let notes = JSON.parse(localStorage.getItem('locker_notes') || '[]');
             let noteContainer = document.getElementById('savedNotesList');
             noteContainer.innerHTML = notes.map((n, idx) => `
@@ -1084,7 +1089,6 @@
                 </div>
             `).join('') || '<span style="font-size:10px; color:var(--text-muted);">குறிப்புகள் எதுவும் இல்லை</span>';
 
-            // Tasks List
             let tasks = JSON.parse(localStorage.getItem('locker_tasks') || '[]');
             let taskContainer = document.getElementById('savedTasksList');
             taskContainer.innerHTML = tasks.map((tk, idx) => `
@@ -1422,6 +1426,95 @@
             pendingCategoryAction = null;
         }
 
+        // 🌟 Flexible Wallpaper Key Matcher
+        function checkWallpaperAndProceed(catId, subDept, nextCallback) {
+            if (isAdminLoggedIn || catId === 'ALL' || catId === 'Kids Study' || catId === 'Eco Tech Lab') {
+                nextCallback();
+                return;
+            }
+
+            let key = "";
+            if (catId === 'TRB / NET / SET') {
+                key = subDept ? `TRB ${subDept}` : 'TRB Tamil';
+            } else if (catId === 'TNPSC') {
+                key = subDept ? `TNPSC ${subDept}` : 'TNPSC Group 1';
+            } else {
+                key = catId;
+            }
+
+            let config = courseWallpapers[key] || courseWallpapers[catId];
+
+            if (!config || config.status !== 'ON' || !config.img || config.img.trim() === '') {
+                nextCallback();
+                return;
+            }
+
+            let phone = localStorage.getItem('tiger_student_phone');
+            let authPassed = localStorage.getItem('tiger_auth_passed');
+
+            if (authPassed === 'true' && phone) {
+                let verifyUrl = `${GOOGLE_SCRIPT_URL}?action=login&phone=${encodeURIComponent(phone)}&deviceId=${encodeURIComponent(getUniqueDeviceId())}&category=${encodeURIComponent(catId)}&subDept=${encodeURIComponent(subDept)}`;
+                fetch(verifyUrl).then(res => res.json()).then(data => {
+                    if (data.status === "success") {
+                        nextCallback();
+                    } else {
+                        selectedCategoryForWallpaper = catId;
+                        selectedSubDeptForWallpaper = subDept;
+                        showWallpaperPopup(config);
+                    }
+                }).catch(e => { showWallpaperPopup(config); });
+            } else {
+                selectedCategoryForWallpaper = catId;
+                selectedSubDeptForWallpaper = subDept;
+                showWallpaperPopup(config);
+            }
+        }
+
+        function showWallpaperPopup(config) {
+            setTimeout(() => {
+                document.getElementById('cwTitle').textContent = config.title || "🎯 COURSE BANNER";
+                document.getElementById('cwImg').src = config.img;
+                document.getElementById('courseWallpaperModal').style.display = 'flex';
+            }, 1000);
+        }
+
+        function closeCourseWallpaper() {
+            document.getElementById('courseWallpaperModal').style.display = 'none';
+        }
+
+        function proceedToLoginFromWallpaper() {
+            closeCourseWallpaper();
+            checkAuthAndProceed(() => {
+                if (selectedSubDeptForWallpaper) {
+                    openResourceModal(selectedCategoryForWallpaper, selectedSubDeptForWallpaper);
+                } else {
+                    currentFilterCategory = selectedCategoryForWallpaper;
+                    currentFilterSubCategory = 'ALL';
+                    renderTests();
+                    scrollToTests();
+                }
+            }, selectedCategoryForWallpaper, selectedSubDeptForWallpaper);
+        }
+
+        // --- Sub-menu checks ---
+        function selectTrbDept(deptName) {
+            closeTrbModal();
+            checkWallpaperAndProceed('TRB / NET / SET', deptName, () => {
+                checkAuthAndProceed(() => {
+                    openResourceModal('TRB / NET / SET', deptName);
+                }, 'TRB / NET / SET', deptName);
+            });
+        }
+
+        function selectTnpscGroup(groupName) {
+            closeTnpscModal();
+            checkWallpaperAndProceed('TNPSC', groupName, () => {
+                checkAuthAndProceed(() => {
+                    openResourceModal('TNPSC', groupName);
+                }, 'TNPSC', groupName);
+            });
+        }
+
         // --- ALL TESTS HUB POPUP ---
         function openAllTestsHubModal() {
             const container = document.getElementById('all-tests-categories-list');
@@ -1465,7 +1558,6 @@
             renderTests();
             startSplitLiveClock();
             fetchSheetData();
-            checkUserLoginStatus();
         });
 
         function startSplitLiveClock() {
@@ -1559,29 +1651,11 @@
             }
         }
 
-        function openTnpscModal() {
-            document.getElementById('tnpscModal').style.display = 'flex';
-        }
+        function openTnpscModal() { document.getElementById('tnpscModal').style.display = 'flex'; }
         function closeTnpscModal() { document.getElementById('tnpscModal').style.display = 'none'; }
         
-        function selectTnpscGroup(groupName) {
-            closeTnpscModal();
-            checkAuthAndProceed(() => {
-                openResourceModal('TNPSC', groupName);
-            }, 'TNPSC', groupName);
-        }
-
-        function openTrbModal() {
-            document.getElementById('trbModal').style.display = 'flex';
-        }
+        function openTrbModal() { document.getElementById('trbModal').style.display = 'flex'; }
         function closeTrbModal() { document.getElementById('trbModal').style.display = 'none'; }
-        
-        function selectTrbDept(deptName) {
-            closeTrbModal();
-            checkAuthAndProceed(() => {
-                openResourceModal('TRB / NET / SET', deptName);
-            }, 'TRB / NET / SET', deptName);
-        }
 
         function openEcoTechModal() {
             const container = document.getElementById('eco-tests-menu-container');
@@ -1624,9 +1698,7 @@
         }
         function closeEcoDetailModal() { document.getElementById('ecoDetailModal').style.display = 'none'; openEcoTechModal(); }
 
-        function openKidsStudyModal() {
-            document.getElementById('kidsStudyModal').style.display = 'flex';
-        }
+        function openKidsStudyModal() { document.getElementById('kidsStudyModal').style.display = 'flex'; }
         function closeKidsStudyModal() { document.getElementById('kidsStudyModal').style.display = 'none'; }
 
         function selectKidsOption(optionType) {
@@ -1672,12 +1744,12 @@
         function closeScienceFactsModal() { document.getElementById('scienceFactsModal').style.display = 'none'; }
 
         function openFreeTestForAll() {
-            checkAuthAndProceed(() => {
+            checkWallpaperAndProceed('ALL', '', () => {
                 currentFilterCategory = 'ALL';
                 currentFilterSubCategory = 'ALL';
                 renderTests();
                 scrollToTests();
-            }, 'ALL');
+            });
         }
 
         function copyUpiId() {
@@ -1699,7 +1771,7 @@
             { id: 'ALL', name: '🔥 Free Test for All' },
             { id: 'TRB / NET / SET', name: '📚 TRB / NET / SET' },
             { id: 'TNPSC', name: '🏛️ TNPSC' },
-            { id: 'POLICE', name: '🛡️️ Police Exam' },
+            { id: 'POLICE', name: '🛡️ Police Exam' },
             { id: 'NEET Exam', name: '🧬 NEET Exam' },
             { id: 'Railway Exam', name: '🚆 Railway Exam' }
         ];
@@ -1726,6 +1798,9 @@
                             pdf: item.pdf || "",
                             video: item.video || ""
                         }));
+                    }
+                    if (data && data.courseWallpapers) {
+                        courseWallpapers = data.courseWallpapers;
                     }
                     if (data && data.news && Array.isArray(data.news)) {
                         newsList = data.news.map(n => typeof n === 'string' ? { text: n, img: "", pdf: "", video: "" } : { text: n.text || "", img: n.img || "", pdf: n.pdf || "", video: n.video || "" });
@@ -1795,45 +1870,25 @@
                 btn.onclick = () => {
                     playClickSound();
                     if (cat.id === 'Eco Tech Lab') {
-                        openEcoTechModal();
+                        checkWallpaperAndProceed('Eco Tech Lab', '', () => { openEcoTechModal(); });
                     } else if (cat.id === 'Kids Study') {
-                        openKidsStudyModal();
+                        checkWallpaperAndProceed('Kids Study', '', () => { openKidsStudyModal(); });
                     } else if (cat.id === 'TNPSC') {
-                        openTnpscModal();
+                        checkWallpaperAndProceed('TNPSC', '', () => { openTnpscModal(); });
                     } else if (cat.id === 'TRB / NET / SET') {
-                        openTrbModal();
+                        checkWallpaperAndProceed('TRB / NET / SET', '', () => { openTrbModal(); });
                     } else if (cat.id === 'ALL') {
-                        checkAuthAndProceed(() => {
-                            currentFilterCategory = 'ALL';
-                            currentFilterSubCategory = 'ALL';
-                            renderTests();
-                            scrollToTests();
-                        }, 'ALL');
-                    } else if (cat.id === 'POLICE') {
-                        checkAuthAndProceed(() => {
-                            currentFilterCategory = 'Police Exam';
-                            currentFilterSubCategory = 'ALL';
-                            renderTests();
-                            scrollToTests();
-                        }, 'Police Exam');
-                    } else if (cat.id === 'NEET Exam') {
-                        checkAuthAndProceed(() => {
-                            currentFilterCategory = 'NEET Exam';
-                            currentFilterSubCategory = 'ALL';
-                            renderTests();
-                            scrollToTests();
-                        }, 'NEET Exam');
-                    } else if (cat.id === 'Railway Exam') {
-                        checkAuthAndProceed(() => {
-                            currentFilterCategory = 'Railway Exam';
-                            currentFilterSubCategory = 'ALL';
-                            renderTests();
-                            scrollToTests();
-                        }, 'Railway Exam');
+                        checkWallpaperAndProceed('ALL', '', () => { openFreeTestForAll(); });
                     } else {
-                        checkAuthAndProceed(() => {
-                            openResourceModal(cat.id);
-                        }, cat.id);
+                        let mappedCat = cat.id === 'POLICE' ? 'Police Exam' : cat.id;
+                        checkWallpaperAndProceed(mappedCat, '', () => {
+                            checkAuthAndProceed(() => {
+                                currentFilterCategory = mappedCat;
+                                currentFilterSubCategory = 'ALL';
+                                renderTests();
+                                scrollToTests();
+                            }, mappedCat);
+                        });
                     }
                 };
                 container.appendChild(btn);
@@ -1885,11 +1940,11 @@
                     <div id="dept-select-group-admin" style="display:none; flex-direction:column; gap:4px; margin-bottom:6px;">
                         <label>Department / Group:</label>
                         <select id="admin-department">
-                            <option value="தமிழ் துறை">தமிழ் துறை</option>
-                            <option value="வேதியியல் துறை">வேதியியல் துறை</option>
-                            <option value="இயற்பியல் துறை">இயற்பியல் துறை</option>
-                            <option value="விலங்கியல் துறை">விலங்கியல் துறை</option>
-                            <option value="தாவரவியல் துறை">தாவரவியல் துறை</option>
+                            <option value="Tamil">தமிழ் துறை</option>
+                            <option value="Chemistry">வேதியியல் துறை</option>
+                            <option value="Physics">இயற்பியல் துறை</option>
+                            <option value="Zoology">விலங்கியல் துறை</option>
+                            <option value="Botany">தாவரவியல் துறை</option>
                             <option value="Group 1">Group 1</option>
                             <option value="Group 2">Group 2</option>
                             <option value="Group 2A">Group 2A</option>
@@ -1905,6 +1960,25 @@
                 saveBtn.style.color = "#000";
                 saveBtn.onclick = () => { playClickSound(); saveTestToSheet(); };
                 toggleDeptSelectAdmin();
+            } else if (sectionType === 'wallpapers') {
+                titleEl.textContent = "🖼️ Edit Course Popups & Banners (12 Sections)";
+                let optionsHtml = Object.keys(courseWallpapers).map(k => `<option value="${k}">${courseWallpapers[k].title}</option>`).join('');
+                contentEl.innerHTML = `
+                    <label>Select Section:</label>
+                    <select id="adm-cw-key" onchange="loadCourseWallpaperAdmin(this.value)" style="margin-bottom:6px;">${optionsHtml}</select>
+                    <label>Popup Status (Enable / Disable):</label>
+                    <select id="adm-cw-status" style="margin-bottom:6px;"><option value="ON">ON (Show Popup)</option><option value="OFF">OFF (Hide Popup)</option></select>
+                    <label>Title:</label>
+                    <input type="text" id="adm-cw-title" style="margin-bottom:6px;">
+                    <label>Banner Image URL (எடிட்டபிள் இமேஜ் லிங்க்):</label>
+                    <input type="text" id="adm-cw-img" placeholder="https://...">
+                `;
+                if (Object.keys(courseWallpapers).length > 0) {
+                    loadCourseWallpaperAdmin(Object.keys(courseWallpapers)[0]);
+                }
+                saveBtn.style.background = "var(--warning)";
+                saveBtn.style.color = "#000";
+                saveBtn.onclick = () => { playClickSound(); saveCourseWallpaperAdmin(); };
             } else if (sectionType === 'music') {
                 titleEl.textContent = "🎵 10 Motivation Songs";
                 for(let i=0; i<10; i++) {
@@ -1957,12 +2031,37 @@
                         </div>
                     `;
                 });
-                saveBtn.style.warning = "var(--warning)";
+                saveBtn.style.background = "var(--warning)";
                 saveBtn.style.color = "#000";
                 saveBtn.onclick = () => { playClickSound(); saveEcoTechToSheet(); };
             }
 
             document.getElementById('adminSubModal').style.display = 'flex';
+        }
+
+        function loadCourseWallpaperAdmin(key) {
+            let item = courseWallpapers[key] || { status: 'OFF', title: '', img: '' };
+            document.getElementById('adm-cw-status').value = item.status || 'OFF';
+            document.getElementById('adm-cw-title').value = item.title || '';
+            document.getElementById('adm-cw-img').value = item.img || '';
+        }
+
+        function saveCourseWallpaperAdmin() {
+            let key = document.getElementById('adm-cw-key').value;
+            courseWallpapers[key] = {
+                status: document.getElementById('adm-cw-status').value,
+                title: document.getElementById('adm-cw-title').value,
+                img: document.getElementById('adm-cw-img').value
+            };
+            fetch(GOOGLE_SCRIPT_URL, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ type: "wallpapers", courseWallpapers: courseWallpapers })
+            }).then(() => {
+                alert("✅ Course Popups & Banners Saved to Cloud!");
+                closeAdminSubModal();
+            }).catch(err => { alert("❌ பிழை: " + err); });
         }
 
         function toggleDeptSelectAdmin() {
@@ -2007,9 +2106,38 @@
             sendDataToCloud(payload, "🎵 மோட்டிவேஷன் பாடல்கள் சேமிக்கப்பட்டன!");
         }
 
-        function saveRhymesToSheet() {}
-        function saveScienceToSheet() {}
-        function saveEcoTechToSheet() {}
+        function saveRhymesToSheet() {
+            let updatedRhymes = [];
+            for(let i=0; i<10; i++) {
+                let rt = document.getElementById(`admin-rhyme-title-${i}`).value;
+                let ru = document.getElementById(`admin-rhyme-url-${i}`).value;
+                updatedRhymes.push({ title: rt, url: ru });
+            }
+            const payload = { type: "rhymes", rhymes: updatedRhymes };
+            sendDataToCloud(payload, "🎶 ரைம்ஸ் பாடல்கள் சேமிக்கப்பட்டன!");
+        }
+
+        function saveScienceToSheet() {
+            let updatedScience = [];
+            for(let i=0; i<10; i++) {
+                let sct = document.getElementById(`admin-science-title-${i}`).value;
+                let scu = document.getElementById(`admin-science-url-${i}`).value;
+                updatedScience.push({ title: sct, url: scu });
+            }
+            const payload = { type: "science", science: updatedScience };
+            sendDataToCloud(payload, "🧪 சயின்ஸ் ஃபேக்ட்ஸ் சேமிக்கப்பட்டன!");
+        }
+
+        function saveEcoTechToSheet() {
+            let updatedEco = [];
+            for(let i=0; i<ecoTestsList.length; i++) {
+                let en = document.getElementById(`admin-eco-name-${i}`).value;
+                let eu = document.getElementById(`admin-eco-url-${i}`).value;
+                updatedEco.push({ name: en, url: eu });
+            }
+            const payload = { type: "ecotech", ecoTests: updatedEco };
+            sendDataToCloud(payload, "🔬 எக்கோ டெக் லேப் லிங்குகள் சேமிக்கப்பட்டன!");
+        }
 
         function sendDataToCloud(payload, successMsg) {
             fetch(GOOGLE_SCRIPT_URL, {
@@ -2032,9 +2160,9 @@
 
         function deleteTest(id) {
             if(confirm("இந்த டெஸ்ட்டை நீக்க விரும்புகிறீர்களா?")) {
-                tests = tests.limit ? tests : tests.filter(t => t.id !== id);
+                tests = tests.filter(t => t.id !== id);
                 renderTests();
-                alert("ℹ️️ குறிப்பு: கூகிள் ஷீட்டிலிருந்தும் இந்த வரிசையை நீக்கிக்கொள்ளவும்.");
+                alert("ℹ️ குறிப்பு: கூகிள் ஷீட்டிலிருந்தும் இந்த வரிசையை நீக்கிக்கொள்ளவும்.");
             }
         }
 
