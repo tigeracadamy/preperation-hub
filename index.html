@@ -7,6 +7,18 @@
     <!-- 🌟 PWA Manifest & Theme Integration -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#00f2fe">
+    
+    <!-- 🌟 PWA Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js').then(() => {
+          console.log('Service Worker Registered Successfully');
+        }).catch((err) => {
+          console.log('Service Worker Registration Failed', err);
+        });
+      }
+    </script>
+
     <style>
         :root {
             --bg-color: #060913;
@@ -429,9 +441,28 @@
         .announcement-box, .admin-modal-box { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 20px; width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 12px; text-align: center; }
         .admin-modal-box { border-color: var(--accent-cyan); text-align: left; }
         .admin-modal-box input, .admin-modal-box select, .admin-modal-box textarea { background: rgba(0, 0, 0, 0.4); border: 1px solid var(--card-border); padding: 8px 10px; border-radius: 8px; color: var(--text-main); font-size: 13px; width: 100%; outline: none; font-weight: 900; }
+
+        /* Custom Direct Install Banner Modal */
+        #customInstallModal { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.85); z-index: 90000; justify-content: center; align-items: center; padding: 20px; }
+        .custom-install-box { background: linear-gradient(135deg, #0b1326, #04060d); border: 2px solid var(--accent-cyan); border-radius: 20px; padding: 22px; width: 100%; max-width: 360px; text-align: center; box-shadow: 0 0 30px var(--accent-glow); display: flex; flex-direction: column; gap: 12px; }
+        .custom-install-box h3 { color: var(--accent-cyan); font-size: 16px; }
+        .custom-install-box p { font-size: 12px; color: var(--text-main); line-height: 1.5; text-align: left; background: rgba(0,0,0,0.5); padding: 10px; border-radius: 8px; }
     </style>
 </head>
 <body id="body-theme">
+
+    <!-- Custom Direct Install Helper Modal -->
+    <div id="customInstallModal" onclick="closeCustomInstallModal()">
+        <div class="custom-install-box" onclick="event.stopPropagation()">
+            <h3 style="color: var(--warning);">📥 TIGER WARRIORS APP INSTALL</h3>
+            <p>
+                <b>வழிமுறை 1:</b> பிரவுசரின் மேல் வலது மூலையில் உள்ள <b>3 புள்ளிகளை (Menu)</b> அழுத்தவும்[span_0](start_span)[span_0](end_span).<br><br>
+                <b>வழிமுறை 2:</b> அதில் <b>"Install app"</b> அல்லது <b>"Add to Home screen"</b> என்பதைத் தேர்ந்தெடுக்கவும்[span_1](start_span)[span_1](end_span).<br><br>
+                <b>குறிப்பு:</b> சில ஆண்ட்ராய்டு குரோம் பதிப்புகளில் நேரடியாக ஆப் இன்ஸ்டால் செய்வதைத் தடுக்கப்பட்டால், இந்த ஷார்ட்கட் மூலம் ஹோம் ஸ்கிரீனில் இணைத்துக்கொள்ளலாம்!
+            </p>
+            <button class="btn-start" style="padding: 10px; background: var(--accent-cyan); color: #000; margin-top: 5px;" onclick="closeCustomInstallModal()">புரிந்துவிட்டது (Got It) 🚀</button>
+        </div>
+    </div>
 
     <!-- Course Wallpaper Popup Modal -->
     <div id="courseWallpaperModal">
@@ -473,7 +504,7 @@
                     <option value="TRB / NET / SET Physics">⚡ TRB / NET / SET இயற்பியல் துறை</option>
                     <option value="TRB / NET / SET Zoology">🧬 TRB / NET / SET விலங்கியல் துறை</option>
                     <option value="TRB / NET / SET Botany">🌿 TRB / NET / SET தாவரவியல் துறை</option>
-                    <option value="Police Exam">🛡 Police Exam</option>
+                    <option value="Police Exam">🛡️ Police Exam</option>
                     <option value="NEET Exam">🧬 NEET Exam</option>
                     <option value="Railway Exam">🚆 Railway Exam</option>
                 </select>
@@ -639,9 +670,9 @@
             </div>
         </div>
 
-        <!-- PWA Install Button Container (Always Visible for Testing & Easy Access) -->
+        <!-- PWA Install Button Container (Trigger Custom Helper Modal) -->
         <div id="install-container" style="text-align: center; margin: 10px 0;">
-            <button id="pwa-install-btn" style="background: linear-gradient(135deg, #00f2fe, #4facfe); color: #060913; border: none; padding: 12px 24px; font-size: 15px; font-weight: bold; border-radius: 30px; cursor: pointer; box-shadow: 0 4px 15px rgba(0,242,254,0.4);">
+            <button id="pwa-install-btn" onclick="openCustomInstallModal()" style="background: linear-gradient(135deg, #00f2fe, #4facfe); color: #060913; border: none; padding: 12px 24px; font-size: 15px; font-weight: bold; border-radius: 30px; cursor: pointer; box-shadow: 0 4px 15px rgba(0,242,254,0.4);">
                 📥 Install Tiger Warriors App
             </button>
         </div>
@@ -705,7 +736,7 @@
 
         <!-- Search Unit -->
         <div class="search-box" id="tests-section-anchor">
-            <span>🔍</span>
+            <span>??</span>
             <input type="text" id="search-input" placeholder="Search Unit, Topic, Subject..." onkeyup="filterTests()">
         </div>
 
@@ -955,33 +986,15 @@
 
         let currentOpenFolder = { pdf: null, img: null, video: null };
 
-        // --- 🛡️ PWA INSTALL PROMPT LOGIC (ALWAYS VISIBLE FIX) ---
-        let deferredPrompt;
-        const installContainer = document.getElementById('install-container');
-        const installBtn = document.getElementById('pwa-install-btn');
-
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            if(installContainer) installContainer.style.display = 'block';
-        });
-
-        if(installBtn) {
-            installBtn.addEventListener('click', async () => {
-                if (deferredPrompt) {
-                    deferredPrompt.prompt();
-                    const { outcome } = await deferredPrompt.userChoice;
-                    if (outcome === 'accepted') {
-                        console.log('User accepted the install prompt');
-                    }
-                    deferredPrompt = null;
-                } else {
-                    alert("💡 மொபைல் பிரவுசரின் மெனு (3 புள்ளிகள்) பட்டனை அழுத்தி 'Install app' அல்லது 'Add to Home screen' என்பதைத் தேர்ந்தெடுக்கவும்!");
-                }
-            });
+        // --- 🛡️ Custom Direct Install Modal Helper Trigger ---
+        function openCustomInstallModal() {
+            document.getElementById('customInstallModal').style.display = 'flex';
+        }
+        function closeCustomInstallModal() {
+            document.getElementById('customInstallModal').style.display = 'none';
         }
 
-        // --- 🛡️ INDEXEDDB DATABASE SETUP FOR LARGE VIDEOS ---
+        // --- 🛡️️ INDEXEDDB DATABASE SETUP FOR LARGE VIDEOS ---
         let db;
         const dbRequest = indexedDB.open("TigerWarriorsDB", 1);
         dbRequest.onerror = function(event) { console.error("IndexedDB error: " + event.target.errorCode); };
@@ -1148,7 +1161,7 @@
             taskContainer.innerHTML = tasks.map((tk, idx) => `
                 <div style="background:rgba(0,0,0,0.5); padding:8px; border-radius:6px; font-size:11px; display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
                     <span>🎯 ${tk.task}</span>
-                    <button onclick="confirmDeleteLockerItem('task', ${idx})" style="background:var(--danger); color:#fff; border:none; padding:4px 8px; border-radius:6px; font-size:10px; cursor:pointer;">🗑️ Delete</button>
+                    <button onclick="confirmDeleteLockerItem('task', ${idx})" style="background:var(--danger); color:#fff; border:none; padding:4px 8px; border-radius:6px; font-size:10px; cursor:pointer;">🗑️️ Delete</button>
                 </div>
             `).join('') || '<span style="font-size:10px; color:var(--text-muted);">டாஸ்க்குகள் எதுவும் இல்லை</span>';
         }
@@ -1643,7 +1656,7 @@
                 { id: 'Eco Tech Lab', name: '🧪 Eco Tech Lab' },
                 { id: 'Kids Study', name: '🧸 Kids Study' },
                 { id: 'TRB / NET / SET', name: '📚 TRB / NET / SET' },
-                { id: 'TNPSC', name: '🏛 TNPSC' },
+                { id: 'TNPSC', name: '🏛️ TNPSC' },
                 { id: 'POLICE', name: '🛡️ Police Exam' },
                 { id: 'NEET Exam', name: '🧬 NEET Exam' },
                 { id: 'Railway Exam', name: '🚆 Railway Exam' }
@@ -1722,7 +1735,7 @@
                 const btn = document.createElement('div');
                 btn.className = 'modal-option-btn';
                 let hasUrl = song.url && song.url.trim() !== "";
-                btn.innerHTML = `🎵 ${song.title || `பாடல் ${idx+1}`} <span>${hasUrl ? '▶ Play' : '⏳ Soon'}</span>`;
+                btn.innerHTML = `🎵 ${song.title || `பாடல் ${idx+1}`} <span>${hasUrl ? '▶️ Play' : '⏳ Soon'}</span>`;
                 btn.onclick = () => {
                     playClickSound();
                     if(hasUrl) window.open(song.url, '_blank');
