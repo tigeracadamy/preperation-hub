@@ -11,7 +11,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     
-    <!-- 🌟 PWA Service Worker Registration -->
+    <!-- 🌟 PWA Service Worker & Auto Install Prompt Registration -->
     <script>
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('sw.js').then(() => {
@@ -21,12 +21,27 @@
         });
       }
 
-      // 🌟 Native Browser Install Prompt Capture
+      // 🌟 Automatic Native Browser Install Prompt Handler
       let deferredPrompt;
       window.addEventListener('beforeinstallprompt', (e) => {
           e.preventDefault();
           deferredPrompt = e;
-          console.log("Native install prompt captured successfully!");
+          console.log("Auto native install prompt captured successfully!");
+
+          // Automatically trigger prompt after 2 seconds on load
+          setTimeout(() => {
+              if (deferredPrompt) {
+                  deferredPrompt.prompt();
+                  deferredPrompt.userChoice.then((choiceResult) => {
+                      if (choiceResult.outcome === 'accepted') {
+                          console.log('User accepted the install prompt');
+                      } else {
+                          console.log('User dismissed the install prompt');
+                      }
+                      deferredPrompt = null;
+                  });
+              }
+          }, 2000);
       });
     </script>
 
@@ -452,26 +467,9 @@
         .announcement-box, .admin-modal-box { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 20px; width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 12px; text-align: center; }
         .admin-modal-box { border-color: var(--accent-cyan); text-align: left; }
         .admin-modal-box input, .admin-modal-box select, .admin-modal-box textarea { background: rgba(0, 0, 0, 0.4); border: 1px solid var(--card-border); padding: 8px 10px; border-radius: 8px; color: var(--text-main); font-size: 13px; width: 100%; outline: none; font-weight: 900; }
-
-        /* Custom Direct Install Modal Helper */
-        #customInstallModal { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.85); z-index: 90000; justify-content: center; align-items: center; padding: 20px; }
-        .custom-install-box { background: linear-gradient(135deg, #0b1326, #04060d); border: 2px solid var(--accent-cyan); border-radius: 20px; padding: 22px; width: 100%; max-width: 360px; text-align: center; box-shadow: 0 0 30px var(--accent-glow); display: flex; flex-direction: column; gap: 12px; }
-        .custom-install-box h3 { color: var(--accent-cyan); font-size: 16px; }
-        .custom-install-box p { font-size: 12px; color: var(--text-main); line-height: 1.5; text-align: left; background: rgba(0,0,0,0.5); padding: 10px; border-radius: 8px; }
     </style>
 </head>
 <body id="body-theme">
-
-    <!-- Custom Direct Install Modal Helper -->
-    <div id="customInstallModal" onclick="closeCustomInstallModal()">
-        <div class="custom-install-box" onclick="event.stopPropagation()">
-            <h3 style="color: var(--warning);">📥 TIGER WARRIORS APP INSTALL</h3>
-            <p>
-                <b>வழிமுறை:</b> பிரவுசரின் மேல் வலது மூலையில் உள்ள <b>3 புள்ளிகளை (Menu)</b> அழுத்தி, அதில் <b>"Add to Home screen"</b> அல்லது <b>"Install app"</b> என்பதைத் தேர்ந்தெடுக்கவும்[span_2](start_span)[span_2](end_span).
-            </p>
-            <button class="btn-start" style="padding: 10px; background: var(--accent-cyan); color: #000; margin-top: 5px;" onclick="closeCustomInstallModal()">புரிந்துவிட்டது (Got It) 🚀</button>
-        </div>
-    </div>
 
     <!-- Course Wallpaper Popup Modal -->
     <div id="courseWallpaperModal">
@@ -513,7 +511,7 @@
                     <option value="TRB / NET / SET Physics">⚡ TRB / NET / SET இயற்பியல் துறை</option>
                     <option value="TRB / NET / SET Zoology">🧬 TRB / NET / SET விலங்கியல் துறை</option>
                     <option value="TRB / NET / SET Botany">🌿 TRB / NET / SET தாவரவியல் துறை</option>
-                    <option value="Police Exam">🛡️️ Police Exam</option>
+                    <option value="Police Exam">🛡 Police Exam</option>
                     <option value="NEET Exam">🧬 NEET Exam</option>
                     <option value="Railway Exam">🚆 Railway Exam</option>
                 </select>
@@ -988,14 +986,6 @@
 
         let currentOpenFolder = { pdf: null, img: null, video: null };
 
-        // --- 🛡️ Custom Direct Install Modal Helper Trigger ---
-        function openCustomInstallModal() {
-            document.getElementById('customInstallModal').style.display = 'flex';
-        }
-        function closeCustomInstallModal() {
-            document.getElementById('customInstallModal').style.display = 'none';
-        }
-
         // --- 🛡 INDEXEDDB DATABASE SETUP FOR LARGE VIDEOS ---
         let db;
         const dbRequest = indexedDB.open("TigerWarriorsDB", 1);
@@ -1163,7 +1153,7 @@
             taskContainer.innerHTML = tasks.map((tk, idx) => `
                 <div style="background:rgba(0,0,0,0.5); padding:8px; border-radius:6px; font-size:11px; display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
                     <span>🎯 ${tk.task}</span>
-                    <button onclick="confirmDeleteLockerItem('task', ${idx})" style="background:var(--danger); color:#fff; border:none; padding:4px 8px; border-radius:6px; font-size:10px; cursor:pointer;">🗑️️ Delete</button>
+                    <button onclick="confirmDeleteLockerItem('task', ${idx})" style="background:var(--danger); color:#fff; border:none; padding:4px 8px; border-radius:6px; font-size:10px; cursor:pointer;">🗑 Delete</button>
                 </div>
             `).join('') || '<span style="font-size:10px; color:var(--text-muted);">டாஸ்க்குகள் எதுவும் இல்லை</span>';
         }
@@ -2096,7 +2086,7 @@
                 saveBtn.onclick = () => { playClickSound(); saveTestToSheet(); };
                 toggleDeptSelectAdmin();
             } else if (sectionType === 'wallpapers') {
-                titleEl.textContent = "🖼️️ Edit Course Popups & Banners (12 Sections)";
+                titleEl.textContent = "🖼️ Edit Course Popups & Banners (12 Sections)";
                 let optionsHtml = Object.keys(courseWallpapers).map(k => `<option value="${k}">${courseWallpapers[k].title}</option>`).join('');
                 contentEl.innerHTML = `
                     <label>Select Section:</label>
