@@ -2,6 +2,7 @@
   "name": "Tiger Warriors Preparation Hub",
   "short_name": "Tiger Warriors",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#060913",
   "theme_color": "#00f2fe",
