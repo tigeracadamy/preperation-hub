@@ -7,7 +7,7 @@
   "theme_color": "#00f2fe",
   "icons": [
     {
-      "src": "https://api.qrserver.com/v1/create-qr-code/?size=192x192&data=TigerWarriors",
+      "src": "https://ibb.co/ddwRQJr.png",
       "sizes": "192x192",
       "type": "image/png"
     }
