@@ -2309,6 +2309,14 @@
         }
 
         fetchSheetData();
+        <script>
+    window.addEventListener('DOMContentLoaded', () => {
+        // Check if opened inside the Android App WebView
+        if (navigator.userAgent.includes("TigerWarriorApp")) {
+            const banner = document.getElementById('install-banner');
+            if (banner) banner.style.display = 'none';
+        }
+    });
     </script>
 </body>
 </html>
