@@ -433,6 +433,12 @@
 </head>
 <body id="body-theme">
 
+    <!-- Floating Download/Install App Button -->
+    <div id="install-banner" style="position: fixed; bottom: 20px; right: 20px; background: linear-gradient(135deg, #f5af19, #f12711); color: white; padding: 12px 20px; border-radius: 50px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 9999; display: flex; align-items: center; cursor: pointer; font-family: sans-serif; font-weight: bold;" onclick="downloadApp()">
+        <span style="margin-right: 8px;">📲</span> ஆப் இன்ஸ்டால் செய்
+        <span style="margin-left: 12px; background: rgba(0,0,0,0.2); padding: 2px 8px; border-radius: 50%; font-size: 14px;" onclick="closeBanner(event)">×</span>
+    </div>
+
     <!-- Course Wallpaper Popup Modal -->
     <div id="courseWallpaperModal">
         <div class="course-wallpaper-box">
@@ -503,7 +509,7 @@
     <!-- My Warrior's Locker Modal with Full Folder Hierarchy -->
     <div class="locker-modal" id="lockerModal" onclick="closeLockerModal()">
         <div class="locker-box" onclick="event.stopPropagation()">
-            <h3 style="color: var(--success);">🛡️️ My Warrior's Locker</h3>
+            <h3 style="color: var(--success);">🛡 My Warrior's Locker</h3>
             <p style="font-size: 12px; color: var(--text-muted);">உங்களுக்குரிய பிரத்யேக டிஜிட்டல் ஸ்டடி பெட்டகம் (Folders):</p>
             
             <div style="display: flex; gap: 4px; overflow-x: auto; padding-bottom: 4px;">
@@ -633,8 +639,8 @@
                     <div class="brand-sub">(தேர்வு பயிற்சிப் பட்டறை 🎯)</div>
                 </div>
                 <div class="brand-logo-single">
-                    <span>🔥</span>
-                    <span>⚔</span>
+                    <span>🐯</span>
+                    <span>⚔️</span>
                 </div>
             </div>
         </div>
@@ -892,6 +898,15 @@
 
     <!-- Script Section -->
     <script>
+        // 🌟 Floating Download App Function
+        function downloadApp() {
+            window.location.href = "https://github.com/tigeracadamy/preperation-hub/raw/refs/heads/main/app-debug.apk";
+        }
+        function closeBanner(event) {
+            event.stopPropagation();
+            document.getElementById('install-banner').style.display = 'none';
+        }
+
         // 🌟 PWA Service Worker Registration Added Here
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
