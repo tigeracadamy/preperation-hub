@@ -2294,6 +2294,10 @@
         }
 
         fetchSheetData();
+        if (navigator.userAgent.includes("TigerWarriorApp")) {
+            const banner = document.getElementById('install-banner');
+            if (banner) banner.style.display = 'none';
+        }
     </script>
 </body>
 </html>
