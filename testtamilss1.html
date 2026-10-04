@@ -53,11 +53,11 @@
 <body>
 
 <div class="card">
-  <!-- Security Login Check Script: Direct Link Protection -->
+  <!-- Security Login Check Script: Updated to index.html -->
   <script>
       if (localStorage.getItem('tiger_auth_passed') !== 'true') {
           alert("⚠ பாதுகாப்பு எச்சரிக்கை: நீங்கள் Tiger Warriors போர்ட்டலில் லாகின் செய்யவில்லை! முதலில் மெயின் போர்ட்டலில் லாகின் செய்யவும்.");
-          window.location.replace("https://tigeracadamy.github.io/preperation-hub/indx.html"); 
+          window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html"); 
       }
   </script>
 
@@ -87,7 +87,7 @@
       <button class="btn-action" id="prevBtn" onclick="navigateNumberQuery(-1)">⬅️ முந்தையது</button>
       <button class="btn-action" id="clearBtn" onclick="clearChoice()">🧹 விடையை நீக்கு</button>
       <button class="btn-action btn-blue" id="nextBtn" onclick="navigateNumberQuery(1)">அடுத்து ➡️</button>
-      <button class="btn-action btn-danger" id="finalSubmitBtn" onclick="confirmSubmit()">✅ தேர்வைச் சமர்ப்பிக்க (Submit)</button>
+      <button class="btn-action btn-danger" id="finalSubmitBtn" onclick="submitTest()">✅ தேர்வைச் சமர்ப்பிக்க (Submit)</button>
     </div>
   </div>
 
@@ -245,7 +245,6 @@
         }
       }
 
-      // 🌟 Fixed template literal interpolation bug here (${optText})
       card.innerHTML = `<span><b>${String.fromCharCode(65 + oIdx)}.</b> ${optText}</span>`;
       card.onclick = () => selectOption(oIdx);
       optsBox.appendChild(card);
@@ -292,19 +291,12 @@
       timeLeft--;
       let m = Math.floor(timeLeft / 60);
       let s = timeLeft % 60;
-      // 🌟 Fixed template literal interpolation bug here (${m},${s})
       document.getElementById('timerBox').innerText = `⏱️ ${m}:${s < 10 ? '0' : ''}${s}`;
       if(timeLeft <= 0) {
         clearInterval(timerInterval);
         submitTest();
       }
     }, 1000);
-  }
-
-  function confirmSubmit() {
-    if(confirm("நிச்சயமாக தேர்வைச் சமர்ப்பிக்க விரும்புகிறீர்களா? 🤔")) {
-      submitTest();
-    }
   }
 
   function submitTest() {
@@ -343,11 +335,11 @@
   }
 
   function returnToDashboard() {
-    window.location.replace("https://tigeracadamy.github.io/preperation-hub/tgr.html"); 
+    window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html"); 
   }
 
   function exitPortal() {
-    window.location.replace("https://tigeracadamy.github.io/preperation-hub/tgr.html");
+    window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html");
   }
 
   function retakeTest() {
