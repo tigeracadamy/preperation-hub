@@ -2309,15 +2309,13 @@
         }
 
         fetchSheetData();
-       <script>
+     <script>
     window.addEventListener('DOMContentLoaded', () => {
-        // URL-ல் mode=app என்று இருந்தால் அல்லது User Agent-ல் ஆப் பெயர் இருந்தால் பட்டனை மறை
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get('mode') === 'app' || navigator.userAgent.includes("TigerWarriorApp")) {
+        if (navigator.userAgent.includes("TigerWarriorApp")) {
             const banner = document.getElementById('install-banner');
             if (banner) banner.style.display = 'none';
         }
     });
-    </script>
+</script>
 </body>
 </html>
