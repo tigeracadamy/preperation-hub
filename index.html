@@ -219,7 +219,6 @@
         .news-content-box { display: flex; align-items: center; gap: 8px; cursor: pointer; }
         .news-img { width: 50px; height: 50px; border-radius: 6px; object-fit: cover; border: 1px solid var(--accent-cyan); display: none; flex-shrink: 0; }
         
-        /* 🌟 செய்திக்கு தகுந்தாற்போல் பாக்ஸ் தானாகவே விரியும் / சுங்கும் (Auto dynamic height) */
         .notice-body-wrapper { 
             position: relative; 
             height: auto !important; 
@@ -645,15 +644,15 @@
             <div class="brand-box" onclick="playClickSound(); handleSecretAdminTap()" title="Tap 3 times">
                 <div class="brand-logo-single">
                     <span>🐯</span>
-                    <span>⚔️</span>
+                    <span>⚔</span>
                 </div>
                 <div class="brand-name-box">
                     <div class="brand-name">TIGER WARRIORS COACHING CENTRE</div>
                     <div class="brand-sub">(தேர்வு பயிற்சிப் பட்டறை 🎯)</div>
                 </div>
                 <div class="brand-logo-single">
-                    <span>🐯</span>
-                    <span>⚔️</span>
+                    <span>🔥</span>
+                    <span>⚔</span>
                 </div>
             </div>
         </div>
@@ -863,9 +862,11 @@
         </div>
     </div>
 
+    <!-- 🌟 Fixed Safe TTS Audio Integration with Fallback Alert -->
     <div class="modal-overlay" id="currentNewsModal" onclick="closeCurrentNewsModal()">
         <div class="modal-box" onclick="event.stopPropagation()">
             <h3>🐅 நடப்பு நிகழ்வுகள்</h3>
+            <img id="modal-news-img" src="" alt="News Image" style="width: 100%; max-height: 220px; object-fit: contain; border-radius: 8px; border: 1px solid var(--card-border); display: none; margin-bottom: 8px;">
             <p id="modal-current-news-text"></p>
             <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 5px;">
                 <button class="modal-option-btn" onclick="playClickSound(); playModalNewsVoice()">🔊 Listen</button>
@@ -906,7 +907,7 @@
 
     <div class="admin-modal-overlay" id="adminSubModal">
         <div class="admin-modal-box">
-            <h3 id="admin-sub-title" style="color: var(--accent-cyan);">⚙️ Edit Section</h3>
+            <h3 id="admin-sub-title" style="color: var(--accent-cyan);">⚙️️ Edit Section</h3>
             <div id="admin-sub-content" style="display: flex; flex-direction: column; gap: 8px; max-height: 60vh; overflow-y: auto; margin-top: 5px;"></div>
             <div style="display: flex; gap: 10px; margin-top: 10px;">
                 <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; padding:8px; width:50%;" onclick="playClickSound(); backToAdminMain()">⬅️ Back</button>
@@ -1028,7 +1029,7 @@
             }
         };
 
-        // --- 🛡️️ MY STUDY LOCKERS LOGIC (FIXED: ALWAYS SHOWN ON LOGIN) ---
+        // --- 🛡️ MY STUDY LOCKERS LOGIC (FIXED: ALWAYS SHOWN ON LOGIN) ---
         function checkUserLoginStatus() {
             let authPassed = localStorage.getItem('tiger_auth_passed');
             let phone = localStorage.getItem('tiger_student_phone');
@@ -1288,7 +1289,7 @@
                     return `
                         <div style="background:rgba(0,0,0,0.5); padding:8px; border-radius:6px; display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
                             <a href="javascript:void(0)" onclick="openVideoViewerFromBlob('${item.title}', '${blobUrl}')" style="color:var(--text-main); font-size:12px; text-decoration:none;">🎥 ${item.title}</a>
-                            <button onclick="deleteVideoFromIndexedDB(${item.id})" style="background:var(--danger); color:#fff; border:none; padding:4px 8px; border-radius:6px; font-size:10px; cursor:pointer;">🗑️ Delete</button>
+                            <button onclick="deleteVideoFromIndexedDB(${item.id})" style="background:var(--danger); color:#fff; border:none; padding:4px 8px; border-radius:6px; font-size:10px; cursor:pointer;">🗑️️ Delete</button>
                         </div>
                     `;
                 }).join('') || '<span style="font-size:10px; color:var(--text-muted);">இந்தப் போல்டரில் வீடியோக்கள் எதுவும் இல்லை</span>';
@@ -1923,13 +1924,77 @@
             alert("✅ UPI எண் (9790933025) நகலெடுக்கப்பட்டது!");
         }
 
+        // 🌟 Safe Speech Synthesis implementation with WebView check and error handling
+        function playModalNewsVoice() {
+            try {
+                if (!('speechSynthesis' in window)) {
+                    alert("⚠ உங்கள் சாதனத்தில் வாய்ஸ் ரீடர் (Speech Synthesis) ஆதரிக்கப்படவில்லை!");
+                    return;
+                }
+                
+                window.speechSynthesis.cancel();
+
+                let currentItem = newsList[currentNewsIndex];
+                let textToRead = currentItem ? currentItem.text : "";
+                if (!textToRead) {
+                    alert("வாசிக்க செய்தி இல்லை!");
+                    return;
+                }
+
+                let utterance = new SpeechSynthesisUtterance(textToRead);
+                utterance.lang = 'ta-IN';
+                utterance.rate = 0.90;
+                utterance.pitch = 1.0;
+
+                // Load voices safely
+                let voices = window.speechSynthesis.getVoices();
+                if (voices && voices.length > 0) {
+                    let tamilVoice = voices.find(v => v.lang && (v.lang.toLowerCase().includes('ta') || v.lang.toLowerCase().includes('tam')));
+                    if (tamilVoice) {
+                        utterance.voice = tamilVoice;
+                    }
+                }
+
+                utterance.onend = function() {
+                    console.log("Speech finished successfully.");
+                };
+
+                utterance.onerror = function(e) {
+                    console.error("Speech synthesis error event:", e);
+                    // Fallback alert removed to avoid annoying users if browser silently cancels
+                };
+
+                window.speechSynthesis.speak(utterance);
+            } catch (err) {
+                console.error("Audio playback exception:", err);
+                alert("⚠ ஆடியோ இயக்குவதில் குறுக்கீடு ஏற்பட்டுள்ளது.");
+            }
+        }
+
         function openCurrentNewsModal() {
             if(!newsList || newsList.length === 0) return;
             let currentItem = newsList[currentNewsIndex];
             document.getElementById('modal-current-news-text').textContent = currentItem.text;
+            
+            let modalImg = document.getElementById('modal-news-img');
+            if (currentItem.img && currentItem.img.trim() !== "") {
+                modalImg.src = currentItem.img;
+                modalImg.style.display = "block";
+            } else {
+                modalImg.style.display = "none";
+                modalImg.src = "";
+            }
+
             document.getElementById('currentNewsModal').style.display = 'flex';
         }
-        function closeCurrentNewsModal() { document.getElementById('currentNewsModal').style.display = 'none'; }
+        function closeCurrentNewsModal() { 
+            try {
+                if ('speechSynthesis' in window) {
+                    window.speechSynthesis.cancel();
+                }
+            } catch(e) {}
+            document.getElementById('currentNewsModal').style.display = 'none'; 
+        }
 
         const categories = [
             { id: 'Eco Tech Lab', name: '🧪 Eco Tech Lab' },
