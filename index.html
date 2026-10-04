@@ -219,8 +219,27 @@
         .news-content-box { display: flex; align-items: center; gap: 8px; cursor: pointer; }
         .news-img { width: 50px; height: 50px; border-radius: 6px; object-fit: cover; border: 1px solid var(--accent-cyan); display: none; flex-shrink: 0; }
         
-        .notice-body-wrapper { overflow: hidden; position: relative; min-height: 28px; flex-grow: 1; }
-        .notice-body { font-size: 12px; color: var(--text-main); line-height: 1.4; font-weight: 900; display: inline-block; width: 100%; }
+        /* 🌟 செய்திக்கு தகுந்தாற்போல் பாக்ஸ் தானாகவே விரியும் / சுங்கும் (Auto dynamic height) */
+        .notice-body-wrapper { 
+            position: relative; 
+            height: auto !important; 
+            max-height: none !important; 
+            overflow: visible !important; 
+            flex-grow: 1; 
+            display: block;
+        }
+        .notice-body { 
+            font-size: 12px; 
+            color: var(--text-main); 
+            line-height: 1.4; 
+            font-weight: 900; 
+            display: block; 
+            width: 100%; 
+            word-break: break-word;
+            overflow: visible;
+            text-overflow: clip;
+            white-space: normal;
+        }
 
         .news-pdf-btn, .news-video-btn {
             background: rgba(0, 242, 254, 0.2);
@@ -503,7 +522,7 @@
     <!-- My Warrior's Locker Modal with Full Folder Hierarchy -->
     <div class="locker-modal" id="lockerModal" onclick="closeLockerModal()">
         <div class="locker-box" onclick="event.stopPropagation()">
-            <h3 style="color: var(--success);">🛡️️ My Warrior's Locker</h3>
+            <h3 style="color: var(--success);">🛡 My Warrior's Locker</h3>
             <p style="font-size: 12px; color: var(--text-muted);">உங்களுக்குரிய பிரத்யேக டிஜிட்டல் ஸ்டடி பெட்டகம் (Folders):</p>
             
             <div style="display: flex; gap: 4px; overflow-x: auto; padding-bottom: 4px;">
@@ -633,8 +652,8 @@
                     <div class="brand-sub">(தேர்வு பயிற்சிப் பட்டறை 🎯)</div>
                 </div>
                 <div class="brand-logo-single">
-                    <span>🔥</span>
-                    <span>⚔</span>
+                    <span>🐯</span>
+                    <span>⚔️</span>
                 </div>
             </div>
         </div>
@@ -644,6 +663,12 @@
             <button id="pwa-install-btn" style="background: linear-gradient(135deg, #00f2fe, #4facfe); color: #060913; border: none; padding: 10px 20px; font-size: 14px; font-weight: bold; border-radius: 30px; cursor: pointer; box-shadow: 0 4px 15px rgba(0,242,254,0.4);">
                 📥 Install Tiger Warriors App
             </button>
+        </div>
+
+        <!-- Floating Download/Install App Button (Hidden inside WebView via JS) -->
+        <div id="install-banner" style="position: fixed; bottom: 20px; right: 20px; background: linear-gradient(135deg, #f5af19, #f12711); color: white; padding: 12px 20px; border-radius: 50px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 9999; display: flex; align-items: center; cursor: pointer; font-weight: bold;" onclick="downloadApp()">
+            <span style="margin-right: 8px;">📲</span> ஆப் இன்ஸ்டால் செய்
+            <span style="margin-left: 12px; background: rgba(0,0,0,0.2); padding: 2px 8px; border-radius: 50%; font-size: 14px;" onclick="closeBanner(event)">×</span>
         </div>
 
         <!-- Hero Banner with Separated Date & Time -->
@@ -720,7 +745,7 @@
                 <a href="https://wa.me/919790933025" target="_blank" class="contact-btn contact-btn-whatsapp" onclick="playClickSound()">💬 WhatsApp Chat</a>
                 <a href="https://t.me/PROFESSORMANIKASI" target="_blank" class="contact-btn contact-btn-telegram" onclick="playClickSound()">✈️ Telegram</a>
                 <a href="tel:9790933025" class="contact-btn contact-btn-phone" onclick="playClickSound()">📞 9790933025</a>
-                <a href="mailto:manivarmanchem@gmail.com" class="contact-btn contact-btn-mail" onclick="playClickSound()">✉️ Mail Us</a>
+                <a href="mailto:manivarmanchem@gmail.com" class="contact-btn contact-btn-mail" onclick="playClickSound()">✉ Mail Us</a>
             </div>
         </div>
 
@@ -918,7 +943,7 @@
         }
 
         const getAdminKey = () => "tiger" + "2026";
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwoEZPvlyLPvhwOsFbbxjbBCVZyfzzxvdx_WS4dTeFN1UGg-92biJZhNp0kU53UKTwWJg/exec";
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwC8sG1pvpg2MlKyXFnqOz0b-ub3OM_1ZC9qJyjCklH9OxUcxdfDGZ0vHNQ2rqfp_nc2Q/exec";
 
         let tests = [];
         let newsList = [{ text: "அனைத்துத் தேர்வுகளுக்கான யூனிட்கள் ஆன்லைனில் இணைக்கப்பட்டுள்ளன!", img: "", pdf: "", video: "" }];
@@ -988,7 +1013,7 @@
             });
         }
 
-        // --- 🛡️ INDEXEDDB DATABASE SETUP FOR LARGE VIDEOS ---
+        // --- 🛡 INDEXEDDB DATABASE SETUP FOR LARGE VIDEOS ---
         let db;
         const dbRequest = indexedDB.open("TigerWarriorsDB", 1);
         dbRequest.onerror = function(event) { console.error("IndexedDB error: " + event.target.errorCode); };
@@ -1003,7 +1028,7 @@
             }
         };
 
-        // --- 🛡️ MY STUDY LOCKERS LOGIC (FIXED: ALWAYS SHOWN ON LOGIN) ---
+        // --- 🛡️️ MY STUDY LOCKERS LOGIC (FIXED: ALWAYS SHOWN ON LOGIN) ---
         function checkUserLoginStatus() {
             let authPassed = localStorage.getItem('tiger_auth_passed');
             let phone = localStorage.getItem('tiger_student_phone');
@@ -1678,14 +1703,28 @@
         }
         function closeAllTestsModal() { document.getElementById('allTestsModal').style.display = 'none'; }
 
-        // --- SPLIT CLOCK ---
+        // --- SPLIT CLOCK & APP BANNER HIDE CHECK ---
         window.addEventListener('DOMContentLoaded', () => {
+            // 🛡️ ஆப்பிற்குள் மட்டும் இன்ஸ்டால் பட்டனை மறைக்கும் கோடு
+            if (navigator.userAgent.includes("TigerWarriorApp")) {
+                const banner = document.getElementById('install-banner');
+                if (banner) banner.style.display = 'none';
+            }
+
             renderCategories();
             renderTests();
             startSplitLiveClock();
             fetchSheetData();
             checkUserLoginStatus();
         });
+
+        function downloadApp() {
+            window.location.href = "https://github.com/tigeracadamy/preperation-hub/raw/refs/heads/main/app-debug.apk";
+        }
+        function closeBanner(event) {
+            event.stopPropagation();
+            document.getElementById('install-banner').style.display = 'none';
+        }
 
         function startSplitLiveClock() {
             const dateEl = document.getElementById('embedded-live-date');
@@ -1954,7 +1993,6 @@
 
         function initPortal() {
             startNewsRotation();
-            document.getElementById('modal-notice-text').textContent = newsList.map(n => n.text).join("\n• ");
             document.getElementById('tests-attended-count').textContent = attendedCount;
             document.body.className = localStorage.getItem('tiger_theme_pref') || '';
             renderCategories();
@@ -1969,7 +2007,7 @@
             if(!newsList || newsList.length === 0) return;
 
             let currentItem = newsList[currentNewsIndex];
-            noticeEl.textContent = "📌 " + currentItem.text;
+            noticeEl.textContent = currentItem.text;
             imgEl.src = currentItem.img || "";
             imgEl.style.display = (currentItem.img && currentItem.img.trim() !== "") ? "block" : "none";
             pdfEl.style.display = (currentItem.pdf && currentItem.pdf.trim() !== "") ? "inline-block" : "none";
@@ -2294,10 +2332,6 @@
         }
 
         fetchSheetData();
-        if (navigator.userAgent.includes("TigerWarriorApp")) {
-            const banner = document.getElementById('install-banner');
-            if (banner) banner.style.display = 'none';
-        }
     </script>
 </body>
 </html>
