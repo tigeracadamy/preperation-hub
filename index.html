@@ -79,14 +79,15 @@
             text-align: center; 
         }
         
-        .brand-logo-single { 
-            font-size: 26px; 
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            line-height: 1.1;
+        .brand-logo-img { 
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--warning);
             animation: yAxisSpinWithPause 7s infinite cubic-bezier(0.4, 0, 0.2, 1);
             transform-style: preserve-3d;
+            box-shadow: 0 0 15px rgba(251, 191, 36, 0.5);
         }
 
         .brand-name-box { display: flex; flex-direction: column; align-items: center; gap: 2px; }
@@ -146,9 +147,9 @@
 
         @keyframes firePopPulse {
             0%, 75%, 100% { transform: scale(1); filter: brightness(1); box-shadow: 0 0 5px rgba(251,191,36,0.3); border-color: rgba(251,191,36,0.5); }
-            80% { transform: scale(1.12); filter: brightness(1.4); box-shadow: 0 0 20px #fbbf24, 0 0 30px #ef4444; border-color: #fbbf24; background: rgba(251,191,36,0.25); }
-            85% { transform: scale(0.96); filter: brightness(1.1); }
-            90% { transform: scale(1.06); filter: brightness(1.3); }
+            80% { transform: scale(1.05); filter: brightness(1.2); box-shadow: 0 0 10px rgba(251,191,36,0.5); border-color: #fbbf24; background: rgba(251,191,36,0.2); }
+            85% { transform: scale(0.98); filter: brightness(1.05); }
+            90% { transform: scale(1.02); filter: brightness(1.15); }
         }
 
         .btn-top-social, .btn-theme-switcher, .btn-top-donate {
@@ -170,18 +171,19 @@
         .btn-fire-pop {
             animation: firePopPulse 5s infinite ease-in-out;
             color: #fbbf24 !important;
-            border-color: rgba(251, 191, 36, 0.6) !important;
-            background: rgba(251, 191, 36, 0.12) !important;
+            border-color: rgba(251, 191, 36, 0.4) !important;
+            background: rgba(251, 191, 36, 0.1) !important;
         }
 
+        /* 🌟 5% - 7% Gentle Dim Pulse for Borders & Glows */
         @keyframes goldSubtlePulse {
-            0% { box-shadow: 0 0 6px rgba(0, 242, 254, 0.2); border-color: rgba(0, 242, 254, 0.4); }
-            50% { box-shadow: 0 0 20px rgba(0, 242, 254, 0.6); border-color: rgba(0, 242, 254, 0.95); }
-            100% { box-shadow: 0 0 6px rgba(0, 242, 254, 0.2); border-color: rgba(0, 242, 254, 0.4); }
+            0% { box-shadow: 0 0 3px rgba(0, 242, 254, 0.15); border-color: rgba(0, 242, 254, 0.25); }
+            50% { box-shadow: 0 0 8px rgba(0, 242, 254, 0.35); border-color: rgba(0, 242, 254, 0.55); }
+            100% { box-shadow: 0 0 3px rgba(0, 242, 254, 0.15); border-color: rgba(0, 242, 254, 0.25); }
         }
 
         .notice-corner {
-            background: linear-gradient(135deg, rgba(0, 242, 254, 0.1), rgba(11, 19, 38, 0.95));
+            background: linear-gradient(135deg, rgba(0, 242, 254, 0.05), rgba(11, 19, 38, 0.95));
             border: 1px solid var(--accent-cyan);
             border-radius: 12px;
             padding: 10px 12px;
@@ -192,7 +194,6 @@
             position: relative;
         }
 
-        /* 🐅 3D Collision Animation for Header */
         @keyframes leftSlideCollision {
             0% { transform: translateX(-150px) perspective(400px) rotateY(60deg); opacity: 0; }
             70% { transform: translateX(10px) perspective(400px) rotateY(-15deg); opacity: 1; }
@@ -223,12 +224,8 @@
         .news-title-left { display: inline-block; }
         .news-title-right { display: inline-block; }
 
-        .trigger-animation .news-title-left {
-            animation: leftSlideCollision 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-        }
-        .trigger-animation .news-title-right {
-            animation: rightSlideCollision 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-        }
+        .trigger-animation .news-title-left { animation: leftSlideCollision 1s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+        .trigger-animation .news-title-right { animation: rightSlideCollision 1s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
 
         .header-actions { display: flex; gap: 5px; align-items: center; flex-wrap: wrap; }
         
@@ -254,7 +251,6 @@
         }
         .live-time-tag { color: var(--warning); border-color: rgba(251,191,36,0.4); }
         
-        /* 📺 3D Flip & Zoom Drop Animation for News Content and Image */
         @keyframes news3DFlipDrop {
             0% { transform: perspective(800px) rotateX(90deg) scale(0.7); opacity: 0; }
             60% { transform: perspective(800px) rotateX(-15deg) scale(1.05); opacity: 1; }
@@ -275,10 +271,7 @@
             transition: all 0.2s;
         }
         .news-channel-screen:hover { border-color: var(--warning); background: rgba(0, 0, 0, 0.8); }
-
-        .trigger-news-anim {
-            animation: news3DFlipDrop 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
+        .trigger-news-anim { animation: news3DFlipDrop 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
 
         .news-visual-box {
             width: 75px !important;
@@ -294,33 +287,10 @@
             align-items: center;
             overflow: hidden;
         }
-        .news-visual-box img { 
-            width: 100% !important; 
-            height: 100% !important; 
-            object-fit: cover !important; 
-            border-radius: 6px; 
-        }
+        .news-visual-box img { width: 100% !important; height: 100% !important; object-fit: cover !important; border-radius: 6px; }
 
-        .notice-body-wrapper { 
-            position: relative; 
-            height: auto !important; 
-            max-height: none !important; 
-            overflow: visible !important; 
-            flex-grow: 1; 
-            display: block;
-        }
-        .notice-body { 
-            font-size: 12px; 
-            color: var(--text-main); 
-            line-height: 1.4; 
-            font-weight: 900; 
-            display: block; 
-            width: 100%; 
-            word-break: break-word;
-            overflow: visible;
-            text-overflow: clip;
-            white-space: normal;
-        }
+        .notice-body-wrapper { position: relative; height: auto !important; max-height: none !important; overflow: visible !important; flex-grow: 1; display: block; }
+        .notice-body { font-size: 12px; color: var(--text-main); line-height: 1.4; font-weight: 900; display: block; width: 100%; word-break: break-word; overflow: visible; text-overflow: clip; white-space: normal; }
 
         .news-pdf-btn, .news-video-btn {
             background: rgba(0, 242, 254, 0.2);
@@ -358,7 +328,6 @@
             box-shadow: 0 0 20px var(--accent-glow); 
         }
 
-        /* Royal Gold Study Locker Banner Button */
         .royal-locker-banner {
             background: linear-gradient(135deg, rgba(0, 242, 254, 0.18), rgba(11, 19, 38, 0.9));
             border: 1.5px solid var(--card-border);
@@ -371,11 +340,7 @@
             display: none;
             margin-top: 5px;
         }
-        .royal-locker-banner:hover { 
-            background: linear-gradient(135deg, rgba(0, 242, 254, 0.35), rgba(0, 242, 254, 0.08)); 
-            border-color: var(--accent-cyan); 
-            box-shadow: 0 0 20px var(--accent-glow); 
-        }
+        .royal-locker-banner:hover { background: linear-gradient(135deg, rgba(0, 242, 254, 0.35), rgba(0, 242, 254, 0.08)); border-color: var(--accent-cyan); box-shadow: 0 0 20px var(--accent-glow); }
         .royal-locker-title { font-size: 16px; font-weight: 900; color: var(--accent-cyan); text-transform: uppercase; letter-spacing: 0.5px; }
         .royal-locker-sub { font-size: 11px; color: var(--text-muted); font-weight: 900; margin-top: 4px; }
 
@@ -427,26 +392,10 @@
         .contact-title { font-size: 14px; color: var(--warning); font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px; text-shadow: 0 0 8px rgba(251,191,36,0.3); }
         .contact-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 4px; }
         
-        .contact-btn-whatsapp {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.35), rgba(5, 150, 105, 0.15));
-            border: 1.5px solid #10b981;
-            color: #34d399;
-        }
-        .contact-btn-telegram {
-            background: linear-gradient(135deg, rgba(0, 242, 254, 0.3), rgba(251, 191, 36, 0.15));
-            border: 1.5px solid var(--accent-cyan);
-            color: #38bdf8;
-        }
-        .contact-btn-phone {
-            background: linear-gradient(135deg, rgba(0, 242, 254, 0.25), rgba(16, 185, 129, 0.25));
-            border: 1.5px solid #38bdf8;
-            color: #34d399;
-        }
-        .contact-btn-mail {
-            background: linear-gradient(135deg, rgba(239, 68, 68, 0.3), rgba(0, 242, 254, 0.2));
-            border: 1.5px solid var(--danger);
-            color: #f87171;
-        }
+        .contact-btn-whatsapp { background: linear-gradient(135deg, rgba(16, 185, 129, 0.35), rgba(5, 150, 105, 0.15)); border: 1.5px solid #10b981; color: #34d399; }
+        .contact-btn-telegram { background: linear-gradient(135deg, rgba(0, 242, 254, 0.3), rgba(251, 191, 36, 0.15)); border: 1.5px solid var(--accent-cyan); color: #38bdf8; }
+        .contact-btn-phone { background: linear-gradient(135deg, rgba(0, 242, 254, 0.25), rgba(16, 185, 129, 0.25)); border: 1.5px solid #38bdf8; color: #34d399; }
+        .contact-btn-mail { background: linear-gradient(135deg, rgba(239, 68, 68, 0.3), rgba(0, 242, 254, 0.2)); border: 1.5px solid var(--danger); color: #f87171; }
         .contact-btn {
             padding: 10px;
             border-radius: 10px;
@@ -462,7 +411,6 @@
         }
         .contact-btn:hover { filter: brightness(1.2); }
 
-        /* 🐅 Tiger Theme Emerald Green Music Button with Yellow Border (Eye-soothing) */
         .btn-center-theme-music {
             background: rgba(16, 185, 129, 0.2);
             border: 1.5px solid #fbbf24;
@@ -482,7 +430,6 @@
         }
         .btn-center-theme-music:hover { background: rgba(16, 185, 129, 0.4); color: #fff; }
 
-        /* Course Wallpaper Popup Modal Styles */
         #courseWallpaperModal { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.96); z-index: 60000; justify-content: center; align-items: center; padding: 15px; }
         .course-wallpaper-box { background: linear-gradient(135deg, #0b1326, #04060d); border: 2px solid var(--warning); border-radius: 20px; padding: 20px; width: 100%; max-width: 420px; display: flex; flex-direction: column; gap: 12px; text-align: center; box-shadow: 0 0 30px rgba(251, 191, 36, 0.3); }
         .course-wallpaper-box img { width: 100%; max-height: 320px; object-fit: contain; border-radius: 10px; border: 1px solid var(--card-border); background: #000; }
@@ -553,7 +500,7 @@
 </head>
 <body id="body-theme">
 
-    <!-- Hidden Audio Elements (Fire Entry + Background Melody) -->
+    <!-- Hidden Audio Elements -->
     <audio id="fireAudio" src="https://tigeracadamy.github.io/preperation-hub/tigerthemwmusic.mpeg" preload="auto"></audio>
     <audio id="melodyAudio" src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf756.mp3?filename=lofi-study-112191.mp3" preload="auto" loop></audio>
 
@@ -569,7 +516,7 @@
         </div>
     </div>
 
-    <!-- Auth Modal with New Registration & Login Tabs -->
+    <!-- Auth Modal -->
     <div class="auth-modal" id="authModal">
         <div class="auth-box">
             <h3>🔒 SECURE COURSE ACCESS</h3>
@@ -580,7 +527,6 @@
                 <button class="auth-tab" onclick="switchAuthTab('existing')">ஏற்கனவே பதிவு செய்தவர் (Login)</button>
             </div>
 
-            <!-- New User Registration Form -->
             <div class="auth-form active" id="newUserForm">
                 <label>பெயர் (Student Name):</label>
                 <input type="text" id="regName" placeholder="உங்கள் பெயர்">
@@ -590,7 +536,7 @@
                 <select id="regCourse">
                     <option value="TNPSC Group 1">🏛 TNPSC Group 1</option>
                     <option value="TNPSC Group 2">🏛 TNPSC Group 2</option>
-                    <option value="TNPSC Group 2A">🏛️️ TNPSC Group 2A</option>
+                    <option value="TNPSC Group 2A">🏛 TNPSC Group 2A</option>
                     <option value="TNPSC Group 4">🏛 TNPSC Group 4</option>
                     <option value="TRB / NET / SET Tamil">📖 TRB / NET / SET தமிழ் துறை</option>
                     <option value="TRB / NET / SET Chemistry">🧪 TRB / NET / SET வேதியியல் துறை</option>
@@ -610,7 +556,6 @@
                 <button class="btn-start" style="padding: 12px; font-size: 13px; background: linear-gradient(135deg, var(--accent-cyan), #4facfe); color: #000; margin-top: 5px;" onclick="handleNewRegistration()">PAY & GET ACCESS 💬</button>
             </div>
 
-            <!-- Existing User Login Form -->
             <div class="auth-form" id="existingUserForm">
                 <label>வாட்ஸ்அப் எண் (WhatsApp Number):</label>
                 <input type="text" id="loginPhone" placeholder="பதிவு செய்த வாட்ஸ்அப் எண்">
@@ -624,7 +569,7 @@
         </div>
     </div>
 
-    <!-- My Warrior's Locker Modal with Full Folder Hierarchy -->
+    <!-- My Warrior's Locker Modal -->
     <div class="locker-modal" id="lockerModal" onclick="closeLockerModal()">
         <div class="locker-box" onclick="event.stopPropagation()">
             <h3 style="color: var(--success);">🛡 My Warrior's Locker</h3>
@@ -638,7 +583,6 @@
                 <button class="locker-tab-btn" id="tabBtnTasks" onclick="switchLockerTab('tasks')">🎯 Tasks</button>
             </div>
 
-            <!-- Tab 1: PDF File Uploader -->
             <div class="locker-tab-content" id="lockerTabPdf" style="display:flex; flex-direction:column; gap:6px; text-align:left;">
                 <div id="pdfFolderMainView">
                     <div style="font-size:11px; color:var(--warning); margin-bottom:6px;">📂 போல்டரைத் தேர்ந்தெடுக்கவும்:</div>
@@ -656,7 +600,6 @@
                 </div>
             </div>
 
-            <!-- Tab 2: Image File Uploader -->
             <div class="locker-tab-content" id="lockerTabImg" style="display:none; flex-direction:column; gap:6px; text-align:left;">
                 <div id="imgFolderMainView">
                     <div style="font-size:11px; color:var(--warning); margin-bottom:6px;">📂 போல்டரைத் தேர்ந்தெடுக்கவும்:</div>
@@ -674,14 +617,13 @@
                 </div>
             </div>
 
-            <!-- Tab 3: Video File Uploader -->
             <div class="locker-tab-content" id="lockerTabVideo" style="display:none; flex-direction:column; gap:6px; text-align:left;">
                 <div id="videoFolderMainView">
                     <div style="font-size:11px; color:var(--warning); margin-bottom:6px;">📂 போல்டரைத் தேர்ந்தெடுக்கவும்:</div>
                     <div id="savedVideoFoldersList" style="max-height:220px; overflow-y:auto; display:flex; flex-direction:column; gap:4px;"></div>
                 </div>
                 <div id="videoFolderDetailView" style="display:none;">
-                    <button onclick="backToFolders('video')" style="background:rgba(255,255,255,0.2); color:#fff; border:none; padding:4px 8px; border-radius:4px; font-size:10px; cursor:pointer; margin-bottom:6px;">⬅️ Back to Folders</button>
+                    <button onclick="backToFolders('video')" style="background:rgba(255,255,255,0.2); color:#fff; border:none; padding:4px 8px; border-radius:4px; font-size:10px; cursor:pointer; margin-bottom:6px;">⬅️️ Back to Folders</button>
                     <h4 id="videoFolderTitle" style="font-size:13px; color:var(--success); margin-bottom:6px;"></h4>
                     <div style="background:rgba(0,0,0,0.4); padding:8px; border-radius:8px; margin-bottom:8px; display:flex; flex-direction:column; gap:6px;">
                         <input type="text" id="vidTitleInput" placeholder="வீடியோ தலைப்பு (Name)" style="background:rgba(0,0,0,0.6); color:#fff; border:1px solid var(--card-border); padding:6px; border-radius:6px; font-size:11px;">
@@ -692,7 +634,6 @@
                 </div>
             </div>
 
-            <!-- Tab 4: Date-wise Notes -->
             <div class="locker-tab-content" id="lockerTabNotes" style="display:none; flex-direction:column; gap:6px; text-align:left;">
                 <label style="font-size:10px; color:var(--warning);">தேதி வாரியான குறிப்புகள் (Date-wise Notes):</label>
                 <input type="date" id="noteDateInput" style="background:rgba(0,0,0,0.6); color:#fff; border:1px solid var(--card-border); padding:6px; border-radius:6px; font-size:11px;">
@@ -701,7 +642,6 @@
                 <div id="savedNotesList" style="max-height:120px; overflow-y:auto; display:flex; flex-direction:column; gap:4px; margin-top:4px;"></div>
             </div>
 
-            <!-- Tab 5: Tasks / Targets -->
             <div class="locker-tab-content" id="lockerTabTasks" style="display:none; flex-direction:column; gap:6px; text-align:left;">
                 <label style="font-size:10px; color:var(--success);">இன்றைய இலக்குகள் (Daily Study Targets):</label>
                 <input type="text" id="taskInput" placeholder="முடிக்க வேண்டிய டாஸ்க்..." style="background:rgba(0,0,0,0.6); color:#fff; border:1px solid var(--card-border); padding:6px; border-radius:6px; font-size:11px;">
@@ -722,7 +662,7 @@
         </div>
     </div>
 
-    <!-- Royal Black Card Alert Modal with Purchase Another Course Option -->
+    <!-- Royal Black Card Alert Modal -->
     <div class="royal-alert-modal" id="royalAlertModal">
         <div class="royal-alert-box">
             <h3>🚫 அனுமதி மறுக்கப்படுகிறது</h3>
@@ -734,7 +674,6 @@
         </div>
     </div>
 
-    <!-- All Tests Categories Hub Modal -->
     <div class="modal-overlay" id="allTestsModal" onclick="closeAllTestsModal()">
         <div class="modal-box" onclick="event.stopPropagation()">
             <h3 style="color: var(--accent-cyan);">🎯 SELECT EXAM CATEGORY</h3>
@@ -745,38 +684,28 @@
     </div>
 
     <div class="main-container">
-        <!-- Top Bar -->
         <div class="top-bar">
             <div class="brand-box" onclick="playClickSound(); handleSecretAdminTap()" title="Tap 3 times">
-                <div class="brand-logo-single">
-                    <span>🐯</span>
-                    <span>⚔</span>
-                </div>
+                <img src="https://tigeracadamy.github.io/preperation-hub/tigergoldlogo.jpeg" alt="Tiger Gold Logo" class="brand-logo-img">
                 <div class="brand-name-box">
                     <div class="brand-name">TIGER WARRIORS COACHING CENTRE</div>
                     <div class="brand-sub">(தேர்வு பயிற்சிப் பட்டறை 🎯)</div>
                 </div>
-                <div class="brand-logo-single">
-                    <span>🔥</span>
-                    <span>⚔</span>
-                </div>
+                <img src="https://tigeracadamy.github.io/preperation-hub/tigergoldlogo.jpeg" alt="Tiger Gold Logo" class="brand-logo-img">
             </div>
         </div>
 
-        <!-- PWA Install Button Container -->
         <div id="install-container" style="text-align: center; display: none;">
             <button id="pwa-install-btn" style="background: linear-gradient(135deg, #00f2fe, #4facfe); color: #060913; border: none; padding: 10px 20px; font-size: 14px; font-weight: bold; border-radius: 30px; cursor: pointer; box-shadow: 0 4px 15px rgba(0,242,254,0.4);">
                 📥 Install Tiger Warriors App
             </button>
         </div>
 
-        <!-- Floating Download/Install App Button (Hidden inside WebView via JS) -->
-        <div id="install-banner" style="position: fixed; bottom: 35px; right: 20px; background: linear-gradient(135deg, #f5af19, #f12711); color: white; padding: 10px 18px; border-radius: 50px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 9999; display: flex; align-items: center; cursor: pointer; font-weight: bold;" onclick="downloadApp()">
+        <div id="install-banner" style="position: fixed; bottom: 30px; right: 20px; background: linear-gradient(135deg, #f5af19, #f12711); color: white; padding: 10px 18px; border-radius: 50px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 9999; display: flex; align-items: center; cursor: pointer; font-weight: bold;" onclick="downloadApp()">
             <span style="margin-right: 6px;">📲</span> ஆப் இன்ஸ்டால் செய்
             <span style="margin-left: 10px; background: rgba(0,0,0,0.2); padding: 2px 7px; border-radius: 50%; font-size: 13px;" onclick="closeBanner(event)">×</span>
         </div>
 
-        <!-- Hero Banner with Separated Date & Time -->
         <div class="hero-banner">
             <span class="mission-tag">🎯 TIGER WARRIORS PREPARATION HUB</span>
             <h2 style="margin: 4px 0;">💡 FOR DREAM COME TRUE 🔥</h2>
@@ -791,7 +720,7 @@
             </div>
         </div>
 
-        <!-- Notice Corner: 📺 Mini News Channel with 3D Collision Header -->
+        <!-- Notice Corner with Next / Prev Controls for News Popup -->
         <div class="notice-corner" id="noticeCornerBox">
             <div class="notice-header" id="noticeHeaderBox">
                 <span class="news-title-left">🐅 TIGER WARRIORS</span>
@@ -801,16 +730,23 @@
                     <a id="display-news-pdf" class="news-pdf-btn" href="#" target="_blank" onclick="playClickSound()">📥 PDF</a>
                 </div>
             </div>
+            
             <div class="news-channel-screen" id="newsScreenBox" onclick="playClickSound(); openCurrentNewsModal()">
                 <div class="news-visual-box" id="display-visual-container">
-                    <span>🐅</span>
+                    <img src="https://tigeracadamy.github.io/preperation-hub/tigergoldlogo.jpeg" alt="Tiger Logo" style="width:100%; height:100%; object-fit:cover; border-radius:6px;">
                 </div>
                 <div class="notice-body-wrapper">
                     <div class="notice-body" id="display-notice-text">செய்திகள் ஏற்றப்படுகின்றன...</div>
                 </div>
             </div>
+
+            <!-- Next & Previous News Navigation Buttons Added -->
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: 2px;">
+                <button class="btn-top-social" onclick="event.stopPropagation(); prevNewsItem()" style="flex:1; justify-content:center; background:rgba(0,242,254,0.15);">◀ முந்தையது (Prev)</button>
+                <span id="news-counter-indicator" style="font-size:10px; color:var(--warning); font-weight:900;">1 / 1</span>
+                <button class="btn-top-social" onclick="event.stopPropagation(); nextNewsItem()" style="flex:1; justify-content:center; background:rgba(0,242,254,0.15);">அடுத்தது (Next) ▶</button>
+            </div>
             
-            <!-- 🐅 Telegram, Centered Tiger Emerald Theme Music Button with Yellow Border & WhatsApp -->
             <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 6px; align-items: center; width: 100%; margin-top: 4px;">
                 <a href="https://t.me/+RNZzz8tk4cRkYTBl" target="_blank" class="btn-top-social btn-fire-pop" style="justify-content: center;" onclick="playClickSound()">✈️ Telegram</a>
                 <button class="btn-center-theme-music" id="playThemeBtn" onclick="toggleFireThemeMusic()">🐅 ▶ Play Theme</button>
@@ -818,10 +754,8 @@
             </div>
         </div>
 
-        <!-- Category Tabs -->
         <div class="category-tabs" id="category-tabs-container"></div>
 
-        <!-- Stats Grid -->
         <div class="stats-grid">
             <div class="stat-box">
                 <div class="stat-info"><span>Total Tests</span><h3 id="total-tests-count">0</h3></div>
@@ -833,22 +767,18 @@
             </div>
         </div>
 
-        <!-- 🛡 Royal Gold Study Lockers Banner Button -->
         <div class="royal-locker-banner" id="royalLockerBanner" onclick="playClickSound(); openLockerModal()">
             <div class="royal-locker-title">🛡️ MY STUDY LOCKERS</div>
             <div class="royal-locker-sub">உங்கள் பிரத்யேக டிஜிட்டல் ஸ்டடி பெட்டகம் (PDF, Images, Videos, Notes) 🚀</div>
         </div>
 
-        <!-- Search Unit -->
         <div class="search-box" id="tests-section-anchor">
             <span>🔍</span>
             <input type="text" id="search-input" placeholder="Search Unit, Topic, Subject..." onkeyup="filterTests()">
         </div>
 
-        <!-- Tests List Container -->
         <div class="test-list" id="test-container"></div>
 
-        <!-- Contact Card -->
         <div class="contact-card">
             <div class="contact-title">📞 FOR MORE CONTACT & SUPPORT</div>
             <div style="font-size: 11px; color: var(--text-muted); font-weight: 900;">உங்களுக்கு சந்தேகம் அல்லது வழிகாட்டல் தேவையா? எங்களை உடனே தொடர்பு கொள்ளுங்கள்! GPay: 9790933025</div>
@@ -860,7 +790,6 @@
             </div>
         </div>
 
-        <!-- Bottom Actions -->
         <div class="bottom-actions">
             <button class="btn-bottom btn-bottom-donate" onclick="playClickSound(); openDonationModal()">
                 <span>💖 Donate</span>
@@ -974,16 +903,22 @@
         </div>
     </div>
 
-    <!-- 🐅 Mini News Channel Popup Modal with 3D Zoom & Image -->
+    <!-- Mini News Channel Popup Modal with Next/Prev Controls Inside -->
     <div class="modal-overlay" id="currentNewsModal" onclick="closeCurrentNewsModal()">
         <div class="modal-box" onclick="event.stopPropagation()">
             <h3>🐅 நடப்பு நிகழ்வுகள்</h3>
             <img id="modal-news-img" src="" alt="News Image" style="width: 100%; max-height: 220px; object-fit: contain; border-radius: 8px; border: 1px solid var(--card-border); display: none; margin-bottom: 8px; background: #000;">
             <p id="modal-current-news-text"></p>
-            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 5px;">
-                <button class="modal-option-btn" onclick="playClickSound(); playModalNewsVoice()">🔊 Listen</button>
-                <a id="modal-news-video-btn" href="#" target="_blank" class="modal-option-btn" style="display:none; text-decoration:none;" onclick="playClickSound()">🎥 Video</a>
-                <a id="modal-news-pdf-btn" href="#" target="_blank" class="modal-option-btn" style="display:none; text-decoration:none;" onclick="playClickSound()">📥 PDF</a>
+            
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: 8px;">
+                <button class="modal-option-btn" onclick="playClickSound(); modalPrevNews()" style="flex:1; justify-content:center;">◀ முந்தையது</button>
+                <button class="modal-option-btn" onclick="playClickSound(); playModalNewsVoice()" style="flex:1; justify-content:center;">🔊 Listen</button>
+                <button class="modal-option-btn" onclick="playClickSound(); modalNextNews()" style="flex:1; justify-content:center;">அடுத்தது ▶</button>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; margin-top: 5px;">
+                <a id="modal-news-video-btn" href="#" target="_blank" class="modal-option-btn" style="display:none; text-decoration:none; justify-content:center;" onclick="playClickSound()">🎥 Video</a>
+                <a id="modal-news-pdf-btn" href="#" target="_blank" class="modal-option-btn" style="display:none; text-decoration:none; justify-content:center;" onclick="playClickSound()">📥 PDF</a>
             </div>
             <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:5px; padding:10px; font-weight:900;" onclick="playClickSound(); closeCurrentNewsModal()">Close ❌</button>
         </div>
@@ -1000,7 +935,6 @@
         </div>
     </div>
 
-    <!-- Admin Main Category Selection Modal -->
     <div class="admin-modal-overlay" id="adminMainModal">
         <div class="admin-modal-box" style="text-align:center;">
             <h3 style="color: var(--accent-cyan); text-align:center;">⚙️ ADMIN PANEL SELECTION</h3>
@@ -1030,7 +964,6 @@
 
     <!-- Script Section -->
     <script>
-        // 🌟 PWA Service Worker Registration Added Here
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./sw.js')
@@ -1039,7 +972,6 @@
             });
         }
 
-        // 🎵 Dual Audio Flow Logic (Fire Theme -> Auto Melody Loop)
         const fireAudio = document.getElementById('fireAudio');
         const melodyAudio = document.getElementById('melodyAudio');
         let isThemePlaying = false;
@@ -1106,7 +1038,6 @@
         ];
 
         let courseWallpapers = {};
-
         let currentActiveCategoryForResource = '';
         let currentActiveGroupForResource = '';
         let currentNewsIndex = 0;
@@ -1134,7 +1065,6 @@
 
         let currentOpenFolder = { pdf: null, img: null, video: null };
 
-        // --- 🛡️ PWA INSTALL PROMPT LOGIC ---
         let deferredPrompt;
         const installContainer = document.getElementById('install-container');
         const installBtn = document.getElementById('pwa-install-btn');
@@ -1150,15 +1080,11 @@
                 if (!deferredPrompt) return;
                 deferredPrompt.prompt();
                 const { outcome } = await deferredPrompt.userChoice;
-                if (outcome === 'accepted') {
-                    console.log('User accepted the install prompt');
-                }
                 deferredPrompt = null;
                 if(installContainer) installContainer.style.display = 'none';
             });
         }
 
-        // --- 🛡 INDEXEDDB DATABASE SETUP FOR LARGE VIDEOS ---
         let db;
         const dbRequest = indexedDB.open("TigerWarriorsDB", 1);
         dbRequest.onerror = function(event) { console.error("IndexedDB error: " + event.target.errorCode); };
@@ -1173,7 +1099,6 @@
             }
         };
 
-        // --- 🛡️ MY STUDY LOCKERS LOGIC (FIXED: ALWAYS SHOWN ON LOGIN) ---
         function checkUserLoginStatus() {
             let authPassed = localStorage.getItem('tiger_auth_passed');
             let phone = localStorage.getItem('tiger_student_phone');
@@ -1202,11 +1127,8 @@
                 
                 let btnEl = document.getElementById('tabBtn' + t.charAt(0).toUpperCase() + t.slice(1));
                 if(btnEl) {
-                    if(t === tabKey) {
-                        btnEl.classList.add('active-tab');
-                    } else {
-                        btnEl.classList.remove('active-tab');
-                    }
+                    if(t === tabKey) btnEl.classList.add('active-tab');
+                    else btnEl.classList.remove('active-tab');
                 }
             });
             if(['pdf', 'img', 'video'].includes(tabKey)) {
@@ -1260,22 +1182,13 @@
             let transaction = db.transaction(["videos"], "readwrite");
             let store = transaction.objectStore("videos");
 
-            let videoRecord = {
-                title: title,
-                folder: folderId,
-                fileBlob: file,
-                fileName: file.name
-            };
-
+            let videoRecord = { title: title, folder: folderId, fileBlob: file, fileName: file.name };
             let request = store.add(videoRecord);
             request.onsuccess = function() {
                 titleInput.value = '';
                 fileInput.value = '';
                 loadLockerItems();
                 alert("✅ பெரிய அளவிலான வீடியோ (Large Video) வெற்றிகரமாக சேமிக்கப்பட்டது! 🚀");
-            };
-            request.onerror = function() {
-                alert("❌ வீடியோ சேமிப்பதில் பிழை ஏற்பட்டது!");
             };
         }
 
@@ -1334,7 +1247,6 @@
             let storageKey = type === 'pdf' ? 'locker_pdfs' : 'locker_imgs';
             let items = JSON.parse(localStorage.getItem(storageKey) || '[]');
             let container = document.getElementById(type === 'pdf' ? 'savedPdfFoldersList' : 'savedImgFoldersList');
-            
             if(!container) return;
 
             container.innerHTML = folderList.map(folder => {
@@ -1399,13 +1311,12 @@
             let storageKey = type === 'pdf' ? 'locker_pdfs' : 'locker_imgs';
             let items = JSON.parse(localStorage.getItem(storageKey) || '[]');
             let container = document.getElementById(type === 'pdf' ? 'savedPdfFilesList' : 'savedImgFilesList');
-            
             if(!container) return;
 
             let filtered = items.map((item, originalIndex) => ({ ...item, originalIndex })).filter(i => (i.folder || 'Other Materials') === folderId);
 
             container.innerHTML = filtered.map(item => {
-                let icon = type === 'pdf' ? '📄' : '🖼️';
+                let icon = type === 'pdf' ? '📄' : '🖼️️';
                 return `
                     <div style="background:rgba(0,0,0,0.5); padding:8px; border-radius:6px; display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
                         <a href="javascript:void(0)" onclick="openMediaViewer('${icon} ${item.title}', '${item.dataUrl}', '${type}')" style="color:var(--text-main); font-size:12px; text-decoration:none;">${icon} ${item.title}</a>
@@ -1486,20 +1397,15 @@
             document.getElementById('mediaViewerContent').innerHTML = '';
         }
 
-        // --- RENDER TESTS & CATEGORIES ---
         function renderTests() {
             const container = document.getElementById('test-container');
             if(!container) return;
             container.innerHTML = "";
 
             let filtered = tests.filter(t => {
-                if (currentFilterCategory === 'ALL') {
-                    return t.category.toUpperCase() === 'ALL' || t.category.toUpperCase() === 'FREE';
-                }
+                if (currentFilterCategory === 'ALL') return t.category.toUpperCase() === 'ALL' || t.category.toUpperCase() === 'FREE';
                 if (currentFilterCategory === 'NONE') return false;
-                if (currentFilterCategory === 'Kids Study') {
-                    return t.category.toLowerCase().includes('kids');
-                }
+                if (currentFilterCategory === 'Kids Study') return t.category.toLowerCase().includes('kids');
                 if (currentFilterSubCategory && currentFilterSubCategory !== 'ALL') {
                     return t.category === currentFilterCategory && t.dept === currentFilterSubCategory;
                 }
@@ -1570,7 +1476,6 @@
             if(el) el.textContent = attendedCount;
         }
 
-        // --- AUTH & STUDENT REGISTRATION LOGIC ---
         function switchAuthTab(tabName) {
             const tabs = document.querySelectorAll('.auth-tab');
             const forms = document.querySelectorAll('.auth-form');
@@ -1599,9 +1504,7 @@
             document.getElementById('royalAlertText').textContent = msg;
             document.getElementById('royalAlertModal').style.display = 'flex';
         }
-        function closeRoyalAlert() {
-            document.getElementById('royalAlertModal').style.display = 'none';
-        }
+        function closeRoyalAlert() { document.getElementById('royalAlertModal').style.display = 'none'; }
 
         function openNewRegistrationForOtherCourse() {
             closeRoyalAlert();
@@ -1611,10 +1514,7 @@
 
         function handleExistingLogin() {
             const phone = document.getElementById('loginPhone').value.trim();
-            if (!phone) {
-                alert("தயவுசெய்து உங்கள் வாட்ஸ்அப் எண்ணை உள்ளிடவும்!");
-                return;
-            }
+            if (!phone) { alert("தயவுசெய்து உங்கள் வாட்ஸ்அப் எண்ணை உள்ளிடவும்!"); return; }
 
             const deviceId = getUniqueDeviceId();
             playClickSound();
@@ -1641,15 +1541,11 @@
                     } else if (data.status === "unauthorized") {
                         document.getElementById('authModal').style.display = 'none';
                         showRoyalAlert("🚫 இதில் உங்களுக்கு அனுமதி இல்லை! நீங்கள் வாங்கிய கோர்ஸை மட்டும் அணுகவும்.");
-                    } else if (data.status === "device_mismatch") {
-                        alert("⚠️ " + data.message);
                     } else {
                         alert("❌ " + data.message);
                     }
                 })
-                .catch(err => {
-                    alert("❌ சர்வர் இணைப்புப்பிழை அல்லது எண் பதிவு செய்யப்படவில்லை!");
-                });
+                .catch(err => { alert("❌ சர்வர் இணைப்புப்பிழை அல்லது எண் பதிவு செய்யப்படவில்லை!"); });
         }
 
         function handleNewRegistration() {
@@ -1657,10 +1553,7 @@
             const phone = document.getElementById('regPhone').value.trim();
             const course = document.getElementById('regCourse').value;
 
-            if (!name || !phone) {
-                alert("தயவுசெய்து பெயர் மற்றும் வாட்ஸ்அப் எண்ணை உள்ளிடவும்!");
-                return;
-            }
+            if (!name || !phone) { alert("தயவுசெய்து பெயர் மற்றும் வாட்ஸ்அப் எண்ணை உள்ளிடவும்!"); return; }
             playClickSound();
 
             const payload = { type: "register", name: name, phone: phone, course: course };
@@ -1673,8 +1566,6 @@
                 let whatsappUrl = `https://wa.me/919790933025?text=Hello%20Sir,%20My%20Name:%20${encodeURIComponent(name)},%20Phone:%20${phone},%20Purchased%20Course:%20${encodeURIComponent(course)}.%20I%20have%20paid.%20Please%20approve%20my%20login.`;
                 window.open(whatsappUrl, '_blank');
                 alert("✅ பதிவு விவரங்கள் அனுப்பப்பட்டன! அட்மின் அப்ரூவ் செய்தவுடன் நீங்கள் லாகின் செய்யலாம்.");
-            }).catch(err => {
-                alert("❌ பிழை: " + err);
             });
         }
 
@@ -1683,12 +1574,7 @@
             currentActiveCategoryForResource = targetCategory;
             currentActiveGroupForResource = targetSubDept;
 
-            if (targetCategory === 'ALL') {
-                actionCallback();
-                return;
-            }
-
-            if (targetCategory === 'Kids Study' || targetCategory === 'Eco Tech Lab') {
+            if (targetCategory === 'ALL' || targetCategory === 'Kids Study' || targetCategory === 'Eco Tech Lab') {
                 actionCallback();
                 return;
             }
@@ -1703,13 +1589,9 @@
                 fetch(verifyUrl)
                     .then(res => res.json())
                     .then(data => {
-                        if (data.status === "success") {
-                            actionCallback();
-                        } else if (data.status === "unauthorized") {
-                            showRoyalAlert("🚫 இதில் உங்களுக்கு அனுமதி இல்லை! நீங்கள் வாங்கிய கோர்ஸை மட்டும் அணுகவும்.");
-                        } else {
-                            document.getElementById('authModal').style.display = 'flex';
-                        }
+                        if (data.status === "success") actionCallback();
+                        else if (data.status === "unauthorized") showRoyalAlert("🚫 இதில் உங்களுக்கு அனுமதி இல்லை! நீங்கள் வாங்கிய கோர்ஸை மட்டும் அணுகவும்.");
+                        else document.getElementById('authModal').style.display = 'flex';
                     }).catch(err => { actionCallback(); });
             } else {
                 pendingCategoryAction = actionCallback;
@@ -1722,7 +1604,6 @@
             pendingCategoryAction = null;
         }
 
-        // 🌟 Flexible Wallpaper Key Matcher
         function checkWallpaperAndProceed(catId, subDept, nextCallback) {
             if (isAdminLoggedIn || catId === 'ALL' || catId === 'Kids Study' || catId === 'Eco Tech Lab') {
                 nextCallback();
@@ -1730,16 +1611,11 @@
             }
 
             let key = "";
-            if (catId === 'TRB / NET / SET') {
-                key = subDept ? `TRB ${subDept}` : 'TRB Tamil';
-            } else if (catId === 'TNPSC') {
-                key = subDept ? `TNPSC ${subDept}` : 'TNPSC Group 1';
-            } else {
-                key = catId;
-            }
+            if (catId === 'TRB / NET / SET') key = subDept ? `TRB ${subDept}` : 'TRB Tamil';
+            else if (catId === 'TNPSC') key = subDept ? `TNPSC ${subDept}` : 'TNPSC Group 1';
+            else key = catId;
 
             let config = courseWallpapers[key] || courseWallpapers[catId];
-
             if (!config || config.status !== 'ON' || !config.img || config.img.trim() === '') {
                 nextCallback();
                 return;
@@ -1751,9 +1627,8 @@
             if (authPassed === 'true' && phone) {
                 let verifyUrl = `${GOOGLE_SCRIPT_URL}?action=login&phone=${encodeURIComponent(phone)}&deviceId=${encodeURIComponent(getUniqueDeviceId())}&category=${encodeURIComponent(catId)}&subDept=${encodeURIComponent(subDept)}`;
                 fetch(verifyUrl).then(res => res.json()).then(data => {
-                    if (data.status === "success") {
-                        nextCallback();
-                    } else {
+                    if (data.status === "success") nextCallback();
+                    else {
                         selectedCategoryForWallpaper = catId;
                         selectedSubDeptForWallpaper = subDept;
                         showWallpaperPopup(config);
@@ -1774,16 +1649,13 @@
             }, 1000);
         }
 
-        function closeCourseWallpaper() {
-            document.getElementById('courseWallpaperModal').style.display = 'none';
-        }
+        function closeCourseWallpaper() { document.getElementById('courseWallpaperModal').style.display = 'none'; }
 
         function proceedToLoginFromWallpaper() {
             closeCourseWallpaper();
             checkAuthAndProceed(() => {
-                if (selectedSubDeptForWallpaper) {
-                    openResourceModal(selectedCategoryForWallpaper, selectedSubDeptForWallpaper);
-                } else {
+                if (selectedSubDeptForWallpaper) openResourceModal(selectedCategoryForWallpaper, selectedSubDeptForWallpaper);
+                else {
                     currentFilterCategory = selectedCategoryForWallpaper;
                     currentFilterSubCategory = 'ALL';
                     renderTests();
@@ -1792,26 +1664,20 @@
             }, selectedCategoryForWallpaper, selectedSubDeptForWallpaper);
         }
 
-        // --- Sub-menu checks ---
         function selectTrbDept(deptName) {
             closeTrbModal();
             checkWallpaperAndProceed('TRB / NET / SET', deptName, () => {
-                checkAuthAndProceed(() => {
-                    openResourceModal('TRB / NET / SET', deptName);
-                }, 'TRB / NET / SET', deptName);
+                checkAuthAndProceed(() => { openResourceModal('TRB / NET / SET', deptName); }, 'TRB / NET / SET', deptName);
             });
         }
 
         function selectTnpscGroup(groupName) {
             closeTnpscModal();
             checkWallpaperAndProceed('TNPSC', groupName, () => {
-                checkAuthAndProceed(() => {
-                    openResourceModal('TNPSC', groupName);
-                }, 'TNPSC', groupName);
+                checkAuthAndProceed(() => { openResourceModal('TNPSC', groupName); }, 'TNPSC', groupName);
             });
         }
 
-        // --- ALL TESTS HUB POPUP ---
         function openAllTestsHubModal() {
             const container = document.getElementById('all-tests-categories-list');
             container.innerHTML = "";
@@ -1848,14 +1714,11 @@
         }
         function closeAllTestsModal() { document.getElementById('allTestsModal').style.display = 'none'; }
 
-        // --- SPLIT CLOCK & APP BANNER HIDE CHECK ---
         window.addEventListener('DOMContentLoaded', () => {
-            // 🛡️ ஆப்பிற்குள் மட்டும் இன்ஸ்டால் பட்டனை மறைக்கும் கோடு
             if (navigator.userAgent.includes("TigerWarriorApp")) {
                 const banner = document.getElementById('install-banner');
                 if (banner) banner.style.display = 'none';
             }
-
             renderCategories();
             renderTests();
             startSplitLiveClock();
@@ -1863,18 +1726,12 @@
             checkUserLoginStatus();
         });
 
-        function downloadApp() {
-            window.location.href = "https://github.com/tigeracadamy/preperation-hub/raw/refs/heads/main/app-debug.apk";
-        }
-        function closeBanner(event) {
-            event.stopPropagation();
-            document.getElementById('install-banner').style.display = 'none';
-        }
+        function downloadApp() { window.location.href = "https://github.com/tigeracadamy/preperation-hub/raw/refs/heads/main/app-debug.apk"; }
+        function closeBanner(event) { event.stopPropagation(); document.getElementById('install-banner').style.display = 'none'; }
 
         function startSplitLiveClock() {
             const dateEl = document.getElementById('embedded-live-date');
             const timeEl = document.getElementById('embedded-live-time');
-            
             const updateClock = () => {
                 const now = new Date();
                 if(dateEl) dateEl.textContent = `📅 ${now.toLocaleDateString('ta-IN', { weekday: 'short', month: 'short', day: 'numeric' })}`;
@@ -1888,9 +1745,8 @@
         let tapTimer = null;
         function handleSecretAdminTap() {
             tapCount++;
-            if (tapCount === 1) {
-                tapTimer = setTimeout(() => { tapCount = 0; }, 1000);
-            } else if (tapCount === 3) {
+            if (tapCount === 1) tapTimer = setTimeout(() => { tapCount = 0; }, 1000);
+            else if (tapCount === 3) {
                 clearTimeout(tapTimer);
                 tapCount = 0;
                 verifyAdmin();
@@ -1914,11 +1770,7 @@
                 btn.className = 'modal-option-btn';
                 let hasUrl = song.url && song.url.trim() !== "";
                 btn.innerHTML = `🎵 ${song.title || `மோட்டிவேஷன் பாடல் ${idx+1}`} <span>${hasUrl ? '▶ Play' : '⏳ Soon'}</span>`;
-                btn.onclick = () => {
-                    playClickSound();
-                    if(hasUrl) window.open(song.url, '_blank');
-                    else alert("⚠ இந்தப் பாடலுக்கான லிங்க் இன்னும் சேர்க்கப்படவில்லை!");
-                };
+                btn.onclick = () => { playClickSound(); if(hasUrl) window.open(song.url, '_blank'); else alert("⚠ இந்தப் பாடலுக்கான லிங்க் இன்னும் சேர்க்கப்படவில்லை!"); };
                 container.appendChild(btn);
             });
             document.getElementById('musicModal').style.display = 'flex';
@@ -1945,26 +1797,19 @@
         function openStudyNotesLink() {
             closeResourceModal();
             let matched = tests.find(t => t.category === currentActiveCategoryForResource && (!currentActiveGroupForResource || t.dept === currentActiveGroupForResource) && (t.pdf || t.link));
-            if (matched && matched.pdf && matched.pdf.trim() !== "") {
-                window.open(matched.pdf, '_blank');
-            } else {
-                alert(`📚 மன்னிக்கவும்! ${currentActiveCategoryForResource} பிரிவிற்கான ஸ்டடி மெட்டீரியல் (PDF Notes) இன்னும் இணைக்கப்படவில்லை.`);
-            }
+            if (matched && matched.pdf && matched.pdf.trim() !== "") window.open(matched.pdf, '_blank');
+            else alert(`📚 மன்னிக்கவும்! ${currentActiveCategoryForResource} பிரிவிற்கான ஸ்டடி மெட்டீரியல் இன்னும் இணைக்கப்படவில்லை.`);
         }
 
         function openVideoClassesLink() {
             closeResourceModal();
             let matched = tests.find(t => t.category === currentActiveCategoryForResource && (!currentActiveGroupForResource || t.dept === currentActiveGroupForResource) && (t.video || t.link));
-            if (matched && matched.video && matched.video.trim() !== "") {
-                window.open(matched.video, '_blank');
-            } else {
-                alert(`🎥 மன்னிக்கவும்! ${currentActiveCategoryForResource} பிரிவிற்கான வீடியோ வகுப்புகள் (Video Links) இன்னும் இணைக்கப்படவில்லை.`);
-            }
+            if (matched && matched.video && matched.video.trim() !== "") window.open(matched.video, '_blank');
+            else alert(`🎥 மன்னிக்கவும்! ${currentActiveCategoryForResource} பிரிவிற்கான வீடியோ வகுப்புகள் இன்னும் இணைக்கப்படவில்லை.`);
         }
 
         function openTnpscModal() { document.getElementById('tnpscModal').style.display = 'flex'; }
         function closeTnpscModal() { document.getElementById('tnpscModal').style.display = 'none'; }
-        
         function openTrbModal() { document.getElementById('trbModal').style.display = 'flex'; }
         function closeTrbModal() { document.getElementById('trbModal').style.display = 'none'; }
 
@@ -1976,10 +1821,7 @@
                 btn.className = 'modal-option-btn';
                 let emoji = idx === 0 ? '💧' : (idx === 1 ? '🌱' : (idx === 2 ? '🥛' : (idx === 3 ? '🥤' : (idx === 4 ? '🛢️' : '📦'))));
                 btn.innerHTML = `<span>${emoji} ${test.name}</span> <span style="font-size:11px; color:var(--warning);">🔍 Test</span>`;
-                btn.onclick = () => {
-                    playClickSound();
-                    openEcoTestDetail(test.name, test.url);
-                };
+                btn.onclick = () => { playClickSound(); openEcoTestDetail(test.name, test.url); };
                 container.appendChild(btn);
             });
             document.getElementById('ecoTechModal').style.display = 'flex';
@@ -1990,7 +1832,6 @@
             closeEcoTechModal();
             document.getElementById('eco-detail-title').textContent = "🧪 " + testName;
             document.getElementById('eco-detail-text').textContent = testName + " தொடர்பான தரச் சோதனை மற்றும் ஆய்வக முடிவுகள் விவரங்கள்:";
-            
             const testBtn = document.getElementById('eco-test-link-btn');
             if (customUrl && customUrl.trim() !== "") {
                 testBtn.href = customUrl;
@@ -1999,11 +1840,7 @@
             } else {
                 testBtn.href = "#";
                 testBtn.innerHTML = `🔬 Test Your Product (Coming Soon) 🚀`;
-                testBtn.onclick = (e) => {
-                    e.preventDefault();
-                    playClickSound();
-                    alert("🚀 Test Your Product (Coming Soon)! இந்த வசதி விரைவில் நடைமுறைக்கு வரும்.");
-                };
+                testBtn.onclick = (e) => { e.preventDefault(); playClickSound(); alert("🚀 Test Your Product (Coming Soon)! இந்த வசதி விரைவில் நடைமுறைக்கு வரும்."); };
             }
             document.getElementById('ecoDetailModal').style.display = 'flex';
         }
@@ -2068,45 +1905,28 @@
             alert("✅ UPI எண் (9790933025) நகலெடுக்கப்பட்டது!");
         }
 
-        // 🌟 Safe Web Audio TTS Implementation
         function playModalNewsVoice() {
             try {
-                if (!('speechSynthesis' in window)) {
-                    alert("⚠ உங்கள் சாதனத்தில் வாய்ஸ் ரீடர் (Speech Synthesis) ஆதரிக்கப்படவில்லை!");
-                    return;
-                }
-                
+                if (!('speechSynthesis' in window)) { alert("⚠ உங்கள் சாதனத்தில் வாய்ஸ் ரீடர் ஆதரிக்கப்படவில்லை!"); return; }
                 window.speechSynthesis.cancel();
-
                 let currentItem = newsList[currentNewsIndex];
                 let textToRead = currentItem ? currentItem.text : "";
-                if (!textToRead) {
-                    alert("வாசிக்க செய்தி இல்லை!");
-                    return;
-                }
-
+                if (!textToRead) return;
                 let utterance = new SpeechSynthesisUtterance(textToRead);
                 utterance.lang = 'ta-IN';
                 utterance.rate = 0.90;
                 utterance.pitch = 1.0;
-
-                let voices = window.speechSynthesis.getVoices();
-                if (voices && voices.length > 0) {
-                    let tamilVoice = voices.find(v => v.lang && (v.lang.toLowerCase().includes('ta') || v.lang.toLowerCase().includes('tam')));
-                    if (tamilVoice) {
-                        utterance.voice = tamilVoice;
-                    }
-                }
-
                 window.speechSynthesis.speak(utterance);
-            } catch (err) {
-                console.error("Audio playback exception:", err);
-                alert("⚠ ஆடியோ இயக்குவதில் குறுக்கீடு ஏற்பட்டுள்ளது.");
-            }
+            } catch (err) { console.error(err); }
         }
 
         function openCurrentNewsModal() {
             if(!newsList || newsList.length === 0) return;
+            populateNewsModalData();
+            document.getElementById('currentNewsModal').style.display = 'flex';
+        }
+
+        function populateNewsModalData() {
             let currentItem = newsList[currentNewsIndex];
             document.getElementById('modal-current-news-text').textContent = currentItem.text;
             
@@ -2119,16 +1939,45 @@
                 modalImg.src = "";
             }
 
-            document.getElementById('currentNewsModal').style.display = 'flex';
+            let modalPdfBtn = document.getElementById('modal-news-pdf-btn');
+            if (currentItem.pdf && currentItem.pdf.trim() !== "") {
+                modalPdfBtn.style.display = "flex";
+                modalPdfBtn.href = currentItem.pdf;
+            } else {
+                modalPdfBtn.style.display = "none";
+            }
+
+            let modalVideoBtn = document.getElementById('modal-news-video-btn');
+            if (currentItem.video && currentItem.video.trim() !== "") {
+                modalVideoBtn.style.display = "flex";
+                modalVideoBtn.href = currentItem.video;
+            } else {
+                modalVideoBtn.style.display = "none";
+            }
         }
+
         function closeCurrentNewsModal() { 
-            try {
-                if ('speechSynthesis' in window) {
-                    window.speechSynthesis.cancel();
-                }
-            } catch(e) {}
+            try { if ('speechSynthesis' in window) window.speechSynthesis.cancel(); } catch(e) {}
             document.getElementById('currentNewsModal').style.display = 'none'; 
         }
+
+        // 🌟 Next & Previous News Functions Added
+        function nextNewsItem() {
+            if (!newsList || newsList.length === 0) return;
+            currentNewsIndex = (currentNewsIndex + 1) % newsList.length;
+            updateNewsDisplay();
+            populateNewsModalData();
+        }
+
+        function prevNewsItem() {
+            if (!newsList || newsList.length === 0) return;
+            currentNewsIndex = (currentNewsIndex - 1 + newsList.length) % newsList.length;
+            updateNewsDisplay();
+            populateNewsModalData();
+        }
+
+        function modalNextNews() { nextNewsItem(); }
+        function modalPrevNews() { prevNewsItem(); }
 
         const categories = [
             { id: 'Eco Tech Lab', name: '🧪 Eco Tech Lab' },
@@ -2164,14 +2013,11 @@
                             video: item.video || ""
                         }));
                     }
-                    if (data && data.courseWallpapers) {
-                        courseWallpapers = data.courseWallpapers;
-                    }
+                    if (data && data.courseWallpapers) courseWallpapers = data.courseWallpapers;
                     if (data && data.news && Array.isArray(data.news)) {
                         newsList = data.news.map(n => typeof n === 'string' ? { text: n, img: "", pdf: "", video: "" } : { text: n.text || "", img: n.img || "", pdf: n.pdf || "", video: n.video || "" });
                     }
-                    if (data && data.quote) { quoteMessage = data.quote; }
-                    
+                    if (data && data.quote) quoteMessage = data.quote;
                     if (data && data.music && Array.isArray(data.music)) {
                         musicList = data.music.map((m, idx) => ({ title: m.title || `மோட்டிவேஷன் பாடல் ${idx+1}`, url: m.url || "" }));
                     }
@@ -2198,7 +2044,6 @@
             renderTests();
         }
 
-        // 📺 Mini News Channel Screen Renderer with Continuous 3D Animations
         function updateNewsDisplay() {
             const noticeEl = document.getElementById('display-notice-text');
             const visualContainer = document.getElementById('display-visual-container');
@@ -2206,16 +2051,18 @@
             const videoEl = document.getElementById('display-news-video');
             const headerBox = document.getElementById('noticeHeaderBox');
             const newsScreenBox = document.getElementById('newsScreenBox');
+            const counterEl = document.getElementById('news-counter-indicator');
             
             if(!newsList || newsList.length === 0) return;
 
             let currentItem = newsList[currentNewsIndex];
             noticeEl.textContent = currentItem.text;
+            if(counterEl) counterEl.textContent = `${currentNewsIndex + 1} / ${newsList.length}`;
 
             if (currentItem.img && currentItem.img.trim() !== "") {
                 visualContainer.innerHTML = `<img src="${currentItem.img}" alt="News Visual">`;
             } else {
-                visualContainer.innerHTML = `<span>🐅</span>`;
+                visualContainer.innerHTML = `<img src="https://tigeracadamy.github.io/preperation-hub/tigergoldlogo.jpeg" alt="Tiger Logo" style="width:100%; height:100%; object-fit:cover; border-radius:6px;">`;
             }
 
             pdfEl.style.display = (currentItem.pdf && currentItem.pdf.trim() !== "") ? "inline-block" : "none";
@@ -2223,7 +2070,6 @@
             videoEl.style.display = (currentItem.video && currentItem.video.trim() !== "") ? "inline-block" : "none";
             if(currentItem.video) videoEl.href = currentItem.video;
 
-            // 🌟 Re-trigger 3D Collision Header & 3D Flip News Content Animation on every news change
             if (headerBox) {
                 headerBox.classList.remove('trigger-animation');
                 void headerBox.offsetWidth;
@@ -2240,7 +2086,6 @@
         function startNewsRotation() {
             updateNewsDisplay();
             if(newsInterval) clearInterval(newsInterval);
-            // 🌟 8 seconds interval for comfortable reading speed
             newsInterval = setInterval(() => {
                 currentNewsIndex = (currentNewsIndex + 1) % newsList.length;
                 updateNewsDisplay();
@@ -2256,17 +2101,12 @@
                 btn.textContent = cat.name;
                 btn.onclick = () => {
                     playClickSound();
-                    if (cat.id === 'Eco Tech Lab') {
-                        checkWallpaperAndProceed('Eco Tech Lab', '', () => { openEcoTechModal(); });
-                    } else if (cat.id === 'Kids Study') {
-                        checkWallpaperAndProceed('Kids Study', '', () => { openKidsStudyModal(); });
-                    } else if (cat.id === 'TNPSC') {
-                        checkWallpaperAndProceed('TNPSC', '', () => { openTnpscModal(); });
-                    } else if (cat.id === 'TRB / NET / SET') {
-                        checkWallpaperAndProceed('TRB / NET / SET', '', () => { openTrbModal(); });
-                    } else if (cat.id === 'ALL') {
-                        checkWallpaperAndProceed('ALL', '', () => { openFreeTestForAll(); });
-                    } else {
+                    if (cat.id === 'Eco Tech Lab') checkWallpaperAndProceed('Eco Tech Lab', '', () => { openEcoTechModal(); });
+                    else if (cat.id === 'Kids Study') checkWallpaperAndProceed('Kids Study', '', () => { openKidsStudyModal(); });
+                    else if (cat.id === 'TNPSC') checkWallpaperAndProceed('TNPSC', '', () => { openTnpscModal(); });
+                    else if (cat.id === 'TRB / NET / SET') checkWallpaperAndProceed('TRB / NET / SET', '', () => { openTrbModal(); });
+                    else if (cat.id === 'ALL') checkWallpaperAndProceed('ALL', '', () => { openFreeTestForAll(); });
+                    else {
                         let mappedCat = cat.id === 'POLICE' ? 'Police Exam' : cat.id;
                         checkWallpaperAndProceed(mappedCat, '', () => {
                             checkAuthAndProceed(() => {
@@ -2287,7 +2127,6 @@
             if (anchor) anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
-        // --- ADMIN PANEL LOGIC ---
         function verifyAdmin() {
             let pwd = prompt("🔒 Admin Password உள்ளிடவும்:");
             if (pwd === getAdminKey()) {
@@ -2357,12 +2196,10 @@
                     <select id="adm-cw-status" style="margin-bottom:6px;"><option value="ON">ON (Show Popup)</option><option value="OFF">OFF (Hide Popup)</option></select>
                     <label>Title:</label>
                     <input type="text" id="adm-cw-title" style="margin-bottom:6px;">
-                    <label>Banner Image URL (எடிட்டபிள் இமேஜ் லிங்க்):</label>
+                    <label>Banner Image URL:</label>
                     <input type="text" id="adm-cw-img" placeholder="https://...">
                 `;
-                if (Object.keys(courseWallpapers).length > 0) {
-                    loadCourseWallpaperAdmin(Object.keys(courseWallpapers)[0]);
-                }
+                if (Object.keys(courseWallpapers).length > 0) loadCourseWallpaperAdmin(Object.keys(courseWallpapers)[0]);
                 saveBtn.style.background = "var(--warning)";
                 saveBtn.style.color = "#000";
                 saveBtn.onclick = () => { playClickSound(); saveCourseWallpaperAdmin(); };
@@ -2448,7 +2285,7 @@
             }).then(() => {
                 alert("✅ Course Popups & Banners Saved to Cloud!");
                 closeAdminSubModal();
-            }).catch(err => { alert("❌ பிழை: " + err); });
+            });
         }
 
         function toggleDeptSelectAdmin() {
@@ -2489,8 +2326,7 @@
                 let su = document.getElementById(`admin-song-url-${i}`).value;
                 updatedMusic.push({ title: st, url: su });
             }
-            const payload = { type: "music", music: updatedMusic };
-            sendDataToCloud(payload, "🎵 மோட்டிவேஷன் பாடல்கள் சேமிக்கப்பட்டன!");
+            sendDataToCloud({ type: "music", music: updatedMusic }, "🎵 மோட்டிவேஷன் பாடல்கள் சேமிக்கப்பட்டன!");
         }
 
         function saveRhymesToSheet() {
@@ -2500,8 +2336,7 @@
                 let ru = document.getElementById(`admin-rhyme-url-${i}`).value;
                 updatedRhymes.push({ title: rt, url: ru });
             }
-            const payload = { type: "rhymes", rhymes: updatedRhymes };
-            sendDataToCloud(payload, "🎶 ரைம்ஸ் பாடல்கள் சேமிக்கப்பட்டன!");
+            sendDataToCloud({ type: "rhymes", rhymes: updatedRhymes }, "🎶 ரைம்ஸ் பாடல்கள் சேமிக்கப்பட்டன!");
         }
 
         function saveScienceToSheet() {
@@ -2511,8 +2346,7 @@
                 let scu = document.getElementById(`admin-science-url-${i}`).value;
                 updatedScience.push({ title: sct, url: scu });
             }
-            const payload = { type: "science", science: updatedScience };
-            sendDataToCloud(payload, "🧪 சயின்ஸ் ஃபேக்ட்ஸ் சேமிக்கப்பட்டன!");
+            sendDataToCloud({ type: "science", science: updatedScience }, "🧪 சயின்ஸ் ஃபேக்ட்ஸ் சேமிக்கப்பட்டன!");
         }
 
         function saveEcoTechToSheet() {
@@ -2522,8 +2356,7 @@
                 let eu = document.getElementById(`admin-eco-url-${i}`).value;
                 updatedEco.push({ name: en, url: eu });
             }
-            const payload = { type: "ecotech", ecoTests: updatedEco };
-            sendDataToCloud(payload, "🔬 எக்கோ டெக் லேப் லிங்குகள் சேமிக்கப்பட்டன!");
+            sendDataToCloud({ type: "ecotech", ecoTests: updatedEco }, "🔬 எக்கோ டெக் லேப் லிங்குகள் சேமிக்கப்பட்டன!");
         }
 
         function sendDataToCloud(payload, successMsg) {
@@ -2534,15 +2367,9 @@
                 body: JSON.stringify(payload)
             }).then(() => {
                 alert(successMsg);
-                if(payload.title) {
-                    document.getElementById('admin-title').value = "";
-                    document.getElementById('admin-link').value = "";
-                    document.getElementById('admin-pdf').value = "";
-                    document.getElementById('admin-video').value = "";
-                }
                 closeAdminSubModal();
                 setTimeout(fetchSheetData, 2000);
-            }).catch(err => { alert("❌ பிழை ஏற்பட்டது: " + err); });
+            });
         }
 
         function deleteTest(id) {
