@@ -35,7 +35,7 @@
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; font-weight: bold; scroll-behavior: smooth; }
-        body { background-color: var(--bg-color); color: var(--text-main); padding: 12px; display: flex; justify-content: center; }
+        body { background-color: var(--bg-color); color: var(--text-main); padding: 12px; padding-bottom: 30px; display: flex; justify-content: center; }
         
         .main-container { width: 100%; max-width: 480px; display: flex; flex-direction: column; gap: 10px; transition: all 0.3s ease; }
 
@@ -191,7 +191,45 @@
             animation: goldSubtlePulse 3s infinite ease-in-out;
             position: relative;
         }
-        .notice-header { display: flex; justify-content: space-between; align-items: center; font-size: 11px; font-weight: 900; color: #fde047; gap: 4px; }
+
+        /* 🐅 3D Collision Animation for Header */
+        @keyframes leftSlideCollision {
+            0% { transform: translateX(-150px) perspective(400px) rotateY(60deg); opacity: 0; }
+            70% { transform: translateX(10px) perspective(400px) rotateY(-15deg); opacity: 1; }
+            85% { transform: translateX(-5px) perspective(400px) rotateY(5deg); }
+            100% { transform: translateX(0) perspective(400px) rotateY(0deg); opacity: 1; }
+        }
+
+        @keyframes rightSlideCollision {
+            0% { transform: translateX(150px) perspective(400px) rotateY(-60deg); opacity: 0; }
+            70% { transform: translateX(-10px) perspective(400px) rotateY(15deg); opacity: 1; }
+            85% { transform: translateX(5px) perspective(400px) rotateY(-5deg); }
+            100% { transform: translateX(0) perspective(400px) rotateY(0deg); opacity: 1; }
+        }
+
+        .notice-header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            font-size: 11px; 
+            font-weight: 900; 
+            color: #fde047; 
+            gap: 4px; 
+            border-bottom: 1px solid rgba(255,255,255,0.1); 
+            padding-bottom: 6px; 
+            overflow: hidden;
+        }
+        
+        .news-title-left { display: inline-block; }
+        .news-title-right { display: inline-block; }
+
+        .trigger-animation .news-title-left {
+            animation: leftSlideCollision 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+        .trigger-animation .news-title-right {
+            animation: rightSlideCollision 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
         .header-actions { display: flex; gap: 5px; align-items: center; flex-wrap: wrap; }
         
         .live-datetime-container {
@@ -216,9 +254,53 @@
         }
         .live-time-tag { color: var(--warning); border-color: rgba(251,191,36,0.4); }
         
-        .news-content-box { display: flex; align-items: center; gap: 8px; cursor: pointer; }
-        .news-img { width: 50px; height: 50px; border-radius: 6px; object-fit: cover; border: 1px solid var(--accent-cyan); display: none; flex-shrink: 0; }
-        
+        /* 📺 3D Flip & Zoom Drop Animation for News Content and Image */
+        @keyframes news3DFlipDrop {
+            0% { transform: perspective(800px) rotateX(90deg) scale(0.7); opacity: 0; }
+            60% { transform: perspective(800px) rotateX(-15deg) scale(1.05); opacity: 1; }
+            80% { transform: perspective(800px) rotateX(5deg) scale(0.98); }
+            100% { transform: perspective(800px) rotateX(0deg) scale(1); opacity: 1; }
+        }
+
+        .news-channel-screen {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(0, 242, 254, 0.4);
+            border-radius: 10px;
+            padding: 8px;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.2s;
+        }
+        .news-channel-screen:hover { border-color: var(--warning); background: rgba(0, 0, 0, 0.8); }
+
+        .trigger-news-anim {
+            animation: news3DFlipDrop 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        .news-visual-box {
+            width: 75px !important;
+            height: 70px !important;
+            min-width: 75px !important;
+            max-width: 75px !important;
+            border-radius: 8px;
+            border: 1.5px solid var(--warning);
+            background: #000;
+            flex-shrink: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        .news-visual-box img { 
+            width: 100% !important; 
+            height: 100% !important; 
+            object-fit: cover !important; 
+            border-radius: 6px; 
+        }
+
         .notice-body-wrapper { 
             position: relative; 
             height: auto !important; 
@@ -380,6 +462,26 @@
         }
         .contact-btn:hover { filter: brightness(1.2); }
 
+        /* 🐅 Tiger Theme Emerald Green Music Button with Yellow Border (Eye-soothing) */
+        .btn-center-theme-music {
+            background: rgba(16, 185, 129, 0.2);
+            border: 1.5px solid #fbbf24;
+            color: #10b981;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 11px;
+            cursor: pointer;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            text-decoration: none;
+            transition: all 0.2s;
+            box-shadow: 0 0 10px rgba(251, 191, 36, 0.25);
+        }
+        .btn-center-theme-music:hover { background: rgba(16, 185, 129, 0.4); color: #fff; }
+
         /* Course Wallpaper Popup Modal Styles */
         #courseWallpaperModal { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.96); z-index: 60000; justify-content: center; align-items: center; padding: 15px; }
         .course-wallpaper-box { background: linear-gradient(135deg, #0b1326, #04060d); border: 2px solid var(--warning); border-radius: 20px; padding: 20px; width: 100%; max-width: 420px; display: flex; flex-direction: column; gap: 12px; text-align: center; box-shadow: 0 0 30px rgba(251, 191, 36, 0.3); }
@@ -451,6 +553,10 @@
 </head>
 <body id="body-theme">
 
+    <!-- Hidden Audio Elements (Fire Entry + Background Melody) -->
+    <audio id="fireAudio" src="https://tigeracadamy.github.io/preperation-hub/tigerthemwmusic.mpeg" preload="auto"></audio>
+    <audio id="melodyAudio" src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf756.mp3?filename=lofi-study-112191.mp3" preload="auto" loop></audio>
+
     <!-- Course Wallpaper Popup Modal -->
     <div id="courseWallpaperModal">
         <div class="course-wallpaper-box">
@@ -484,7 +590,7 @@
                 <select id="regCourse">
                     <option value="TNPSC Group 1">🏛 TNPSC Group 1</option>
                     <option value="TNPSC Group 2">🏛 TNPSC Group 2</option>
-                    <option value="TNPSC Group 2A">🏛️ TNPSC Group 2A</option>
+                    <option value="TNPSC Group 2A">🏛️️ TNPSC Group 2A</option>
                     <option value="TNPSC Group 4">🏛 TNPSC Group 4</option>
                     <option value="TRB / NET / SET Tamil">📖 TRB / NET / SET தமிழ் துறை</option>
                     <option value="TRB / NET / SET Chemistry">🧪 TRB / NET / SET வேதியியல் துறை</option>
@@ -644,15 +750,15 @@
             <div class="brand-box" onclick="playClickSound(); handleSecretAdminTap()" title="Tap 3 times">
                 <div class="brand-logo-single">
                     <span>🐯</span>
-                    <span>⚔</span>
+                    <span>⚔️</span>
                 </div>
                 <div class="brand-name-box">
                     <div class="brand-name">TIGER WARRIORS COACHING CENTRE</div>
                     <div class="brand-sub">(தேர்வு பயிற்சிப் பட்டறை 🎯)</div>
                 </div>
                 <div class="brand-logo-single">
-                    <span>🔥</span>
-                    <span>⚔</span>
+                    <span>🐯</span>
+                    <span>⚔️</span>
                 </div>
             </div>
         </div>
@@ -665,9 +771,9 @@
         </div>
 
         <!-- Floating Download/Install App Button (Hidden inside WebView via JS) -->
-        <div id="install-banner" style="position: fixed; bottom: 20px; right: 20px; background: linear-gradient(135deg, #f5af19, #f12711); color: white; padding: 12px 20px; border-radius: 50px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 9999; display: flex; align-items: center; cursor: pointer; font-weight: bold;" onclick="downloadApp()">
-            <span style="margin-right: 8px;">📲</span> ஆப் இன்ஸ்டால் செய்
-            <span style="margin-left: 12px; background: rgba(0,0,0,0.2); padding: 2px 8px; border-radius: 50%; font-size: 14px;" onclick="closeBanner(event)">×</span>
+        <div id="install-banner" style="position: fixed; bottom: 35px; right: 20px; background: linear-gradient(135deg, #f5af19, #f12711); color: white; padding: 10px 18px; border-radius: 50px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 9999; display: flex; align-items: center; cursor: pointer; font-weight: bold;" onclick="downloadApp()">
+            <span style="margin-right: 6px;">📲</span> ஆப் இன்ஸ்டால் செய்
+            <span style="margin-left: 10px; background: rgba(0,0,0,0.2); padding: 2px 7px; border-radius: 50%; font-size: 13px;" onclick="closeBanner(event)">×</span>
         </div>
 
         <!-- Hero Banner with Separated Date & Time -->
@@ -685,24 +791,30 @@
             </div>
         </div>
 
-        <!-- Notice Corner -->
-        <div class="notice-corner">
-            <div class="notice-header">
-                <span>🐅 TIGER WARRIORS | நடப்பு நிகழ்வுகள்</span>
+        <!-- Notice Corner: 📺 Mini News Channel with 3D Collision Header -->
+        <div class="notice-corner" id="noticeCornerBox">
+            <div class="notice-header" id="noticeHeaderBox">
+                <span class="news-title-left">🐅 TIGER WARRIORS</span>
+                <span class="news-title-right">நடப்பு நிகழ்வுகள் ⚡</span>
                 <div class="header-actions">
                     <a id="display-news-video" class="news-video-btn" href="#" target="_blank" onclick="playClickSound()">🎥 Video</a>
                     <a id="display-news-pdf" class="news-pdf-btn" href="#" target="_blank" onclick="playClickSound()">📥 PDF</a>
                 </div>
             </div>
-            <div class="news-content-box" onclick="playClickSound(); openCurrentNewsModal()">
-                <img id="display-news-img" class="news-img" src="" alt="News Image">
+            <div class="news-channel-screen" id="newsScreenBox" onclick="playClickSound(); openCurrentNewsModal()">
+                <div class="news-visual-box" id="display-visual-container">
+                    <span>🐅</span>
+                </div>
                 <div class="notice-body-wrapper">
                     <div class="notice-body" id="display-notice-text">செய்திகள் ஏற்றப்படுகின்றன...</div>
                 </div>
             </div>
-            <div style="display: flex; justify-content: space-between; align-items: center; gap: 5px; width: 100%; margin-top: 2px;">
-                <a href="https://t.me/+RNZzz8tk4cRkYTBl" target="_blank" class="btn-top-social btn-fire-pop" title="Join Telegram Group" onclick="playClickSound()">✈️ Telegram</a>
-                <a href="https://chat.whatsapp.com/K7kbJ0a7DwN3pbTMyqplgD" target="_blank" class="btn-top-social btn-fire-pop" title="Join WhatsApp Group" onclick="playClickSound()">💬 WhatsApp Group</a>
+            
+            <!-- 🐅 Telegram, Centered Tiger Emerald Theme Music Button with Yellow Border & WhatsApp -->
+            <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 6px; align-items: center; width: 100%; margin-top: 4px;">
+                <a href="https://t.me/+RNZzz8tk4cRkYTBl" target="_blank" class="btn-top-social btn-fire-pop" style="justify-content: center;" onclick="playClickSound()">✈️ Telegram</a>
+                <button class="btn-center-theme-music" id="playThemeBtn" onclick="toggleFireThemeMusic()">🐅 ▶ Play Theme</button>
+                <a href="https://chat.whatsapp.com/K7kbJ0a7DwN3pbTMyqplgD" target="_blank" class="btn-top-social btn-fire-pop" style="justify-content: center;" onclick="playClickSound()">💬 WhatsApp</a>
             </div>
         </div>
 
@@ -862,11 +974,11 @@
         </div>
     </div>
 
-    <!-- 🌟 Fixed Safe TTS Audio Integration with Fallback Alert -->
+    <!-- 🐅 Mini News Channel Popup Modal with 3D Zoom & Image -->
     <div class="modal-overlay" id="currentNewsModal" onclick="closeCurrentNewsModal()">
         <div class="modal-box" onclick="event.stopPropagation()">
             <h3>🐅 நடப்பு நிகழ்வுகள்</h3>
-            <img id="modal-news-img" src="" alt="News Image" style="width: 100%; max-height: 220px; object-fit: contain; border-radius: 8px; border: 1px solid var(--card-border); display: none; margin-bottom: 8px;">
+            <img id="modal-news-img" src="" alt="News Image" style="width: 100%; max-height: 220px; object-fit: contain; border-radius: 8px; border: 1px solid var(--card-border); display: none; margin-bottom: 8px; background: #000;">
             <p id="modal-current-news-text"></p>
             <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 5px;">
                 <button class="modal-option-btn" onclick="playClickSound(); playModalNewsVoice()">🔊 Listen</button>
@@ -907,7 +1019,7 @@
 
     <div class="admin-modal-overlay" id="adminSubModal">
         <div class="admin-modal-box">
-            <h3 id="admin-sub-title" style="color: var(--accent-cyan);">⚙️️ Edit Section</h3>
+            <h3 id="admin-sub-title" style="color: var(--accent-cyan);">⚙️ Edit Section</h3>
             <div id="admin-sub-content" style="display: flex; flex-direction: column; gap: 8px; max-height: 60vh; overflow-y: auto; margin-top: 5px;"></div>
             <div style="display: flex; gap: 10px; margin-top: 10px;">
                 <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; padding:8px; width:50%;" onclick="playClickSound(); backToAdminMain()">⬅️ Back</button>
@@ -925,6 +1037,38 @@
                     .then((reg) => console.log('Service Worker Registered Successfully! Scope:', reg.scope))
                     .catch((err) => console.log('Service Worker Registration Failed:', err));
             });
+        }
+
+        // 🎵 Dual Audio Flow Logic (Fire Theme -> Auto Melody Loop)
+        const fireAudio = document.getElementById('fireAudio');
+        const melodyAudio = document.getElementById('melodyAudio');
+        let isThemePlaying = false;
+
+        function toggleFireThemeMusic() {
+            playClickSound();
+            if (!isThemePlaying) {
+                melodyAudio.pause();
+                fireAudio.currentTime = 0;
+                fireAudio.play().then(() => {
+                    isThemePlaying = true;
+                    document.getElementById('playThemeBtn').textContent = "🐅 ⏹ Stop";
+                }).catch(e => {
+                    console.log("Autoplay blocked or error:", e);
+                    alert("⚠ ஆடியோ பிளே செய்வதில் தடை உள்ளது. மீண்டும் முயற்சிக்கவும்.");
+                });
+
+                fireAudio.onended = function() {
+                    isThemePlaying = false;
+                    document.getElementById('playThemeBtn').textContent = "🐅 ▶ Play Theme";
+                    melodyAudio.play().catch(e => console.log("Melody autoplay error:", e));
+                };
+            } else {
+                fireAudio.pause();
+                fireAudio.currentTime = 0;
+                melodyAudio.pause();
+                isThemePlaying = false;
+                document.getElementById('playThemeBtn').textContent = "🐅 ▶ Play Theme";
+            }
         }
 
         function playClickSound() {
@@ -1289,7 +1433,7 @@
                     return `
                         <div style="background:rgba(0,0,0,0.5); padding:8px; border-radius:6px; display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
                             <a href="javascript:void(0)" onclick="openVideoViewerFromBlob('${item.title}', '${blobUrl}')" style="color:var(--text-main); font-size:12px; text-decoration:none;">🎥 ${item.title}</a>
-                            <button onclick="deleteVideoFromIndexedDB(${item.id})" style="background:var(--danger); color:#fff; border:none; padding:4px 8px; border-radius:6px; font-size:10px; cursor:pointer;">🗑️️ Delete</button>
+                            <button onclick="deleteVideoFromIndexedDB(${item.id})" style="background:var(--danger); color:#fff; border:none; padding:4px 8px; border-radius:6px; font-size:10px; cursor:pointer;">🗑️ Delete</button>
                         </div>
                     `;
                 }).join('') || '<span style="font-size:10px; color:var(--text-muted);">இந்தப் போல்டரில் வீடியோக்கள் எதுவும் இல்லை</span>';
@@ -1769,7 +1913,7 @@
                 const btn = document.createElement('div');
                 btn.className = 'modal-option-btn';
                 let hasUrl = song.url && song.url.trim() !== "";
-                btn.innerHTML = `🎵 ${song.title || `பாடல் ${idx+1}`} <span>${hasUrl ? '▶ Play' : '⏳ Soon'}</span>`;
+                btn.innerHTML = `🎵 ${song.title || `மோட்டிவேஷன் பாடல் ${idx+1}`} <span>${hasUrl ? '▶ Play' : '⏳ Soon'}</span>`;
                 btn.onclick = () => {
                     playClickSound();
                     if(hasUrl) window.open(song.url, '_blank');
@@ -1924,7 +2068,7 @@
             alert("✅ UPI எண் (9790933025) நகலெடுக்கப்பட்டது!");
         }
 
-        // 🌟 Safe Speech Synthesis implementation with WebView check and error handling
+        // 🌟 Safe Web Audio TTS Implementation
         function playModalNewsVoice() {
             try {
                 if (!('speechSynthesis' in window)) {
@@ -1946,7 +2090,6 @@
                 utterance.rate = 0.90;
                 utterance.pitch = 1.0;
 
-                // Load voices safely
                 let voices = window.speechSynthesis.getVoices();
                 if (voices && voices.length > 0) {
                     let tamilVoice = voices.find(v => v.lang && (v.lang.toLowerCase().includes('ta') || v.lang.toLowerCase().includes('tam')));
@@ -1954,15 +2097,6 @@
                         utterance.voice = tamilVoice;
                     }
                 }
-
-                utterance.onend = function() {
-                    console.log("Speech finished successfully.");
-                };
-
-                utterance.onerror = function(e) {
-                    console.error("Speech synthesis error event:", e);
-                    // Fallback alert removed to avoid annoying users if browser silently cancels
-                };
 
                 window.speechSynthesis.speak(utterance);
             } catch (err) {
@@ -2064,30 +2198,53 @@
             renderTests();
         }
 
+        // 📺 Mini News Channel Screen Renderer with Continuous 3D Animations
         function updateNewsDisplay() {
             const noticeEl = document.getElementById('display-notice-text');
-            const imgEl = document.getElementById('display-news-img');
+            const visualContainer = document.getElementById('display-visual-container');
             const pdfEl = document.getElementById('display-news-pdf');
             const videoEl = document.getElementById('display-news-video');
+            const headerBox = document.getElementById('noticeHeaderBox');
+            const newsScreenBox = document.getElementById('newsScreenBox');
+            
             if(!newsList || newsList.length === 0) return;
 
             let currentItem = newsList[currentNewsIndex];
             noticeEl.textContent = currentItem.text;
-            imgEl.src = currentItem.img || "";
-            imgEl.style.display = (currentItem.img && currentItem.img.trim() !== "") ? "block" : "none";
+
+            if (currentItem.img && currentItem.img.trim() !== "") {
+                visualContainer.innerHTML = `<img src="${currentItem.img}" alt="News Visual">`;
+            } else {
+                visualContainer.innerHTML = `<span>🐅</span>`;
+            }
+
             pdfEl.style.display = (currentItem.pdf && currentItem.pdf.trim() !== "") ? "inline-block" : "none";
             if(currentItem.pdf) pdfEl.href = currentItem.pdf;
             videoEl.style.display = (currentItem.video && currentItem.video.trim() !== "") ? "inline-block" : "none";
             if(currentItem.video) videoEl.href = currentItem.video;
+
+            // 🌟 Re-trigger 3D Collision Header & 3D Flip News Content Animation on every news change
+            if (headerBox) {
+                headerBox.classList.remove('trigger-animation');
+                void headerBox.offsetWidth;
+                headerBox.classList.add('trigger-animation');
+            }
+
+            if (newsScreenBox) {
+                newsScreenBox.classList.remove('trigger-news-anim');
+                void newsScreenBox.offsetWidth;
+                newsScreenBox.classList.add('trigger-news-anim');
+            }
         }
 
         function startNewsRotation() {
             updateNewsDisplay();
             if(newsInterval) clearInterval(newsInterval);
+            // 🌟 8 seconds interval for comfortable reading speed
             newsInterval = setInterval(() => {
                 currentNewsIndex = (currentNewsIndex + 1) % newsList.length;
                 updateNewsDisplay();
-            }, 5000); 
+            }, 8000); 
         }
 
         function renderCategories() {
