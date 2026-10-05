@@ -175,7 +175,6 @@
             background: rgba(251, 191, 36, 0.1) !important;
         }
 
-        /* 🌟 5% - 7% Gentle Dim Pulse for Borders & Glows */
         @keyframes goldSubtlePulse {
             0% { box-shadow: 0 0 3px rgba(0, 242, 254, 0.15); border-color: rgba(0, 242, 254, 0.25); }
             50% { box-shadow: 0 0 8px rgba(0, 242, 254, 0.35); border-color: rgba(0, 242, 254, 0.55); }
@@ -442,6 +441,17 @@
         .modal-option-btn { background: linear-gradient(135deg, rgba(0,242,254,0.2), rgba(11,19,38,0.95)); border: 1.5px solid var(--accent-cyan); color: var(--accent-cyan); padding: 12px 14px; border-radius: 12px; font-size: 13px; font-weight: 900; cursor: pointer; text-align: center; transition: all 0.2s; text-decoration: none; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
         .modal-option-btn:hover { background: var(--accent-cyan); color: #000; }
 
+        /* 🌟 டெரரான ராயல் கோல்டு & ரெட் 3D இன்டர்நெட் அலர்ட் மோடல் ஸ்டைல் */
+        .tiger-net-alert-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.96); justify-content: center; align-items: center; z-index: 99999; padding: 20px; }
+        @keyframes tigerPulseBox {
+            0% { transform: scale(1); box-shadow: 0 0 30px rgba(251, 191, 36, 0.4), inset 0 0 15px rgba(239, 68, 68, 0.4); }
+            50% { transform: scale(1.03); box-shadow: 0 0 50px rgba(251, 191, 36, 0.8), inset 0 0 25px rgba(251, 191, 36, 0.6); }
+            100% { transform: scale(1); box-shadow: 0 0 30px rgba(251, 191, 36, 0.4), inset 0 0 15px rgba(239, 68, 68, 0.4); }
+        }
+        .tiger-net-alert-box { background: linear-gradient(135deg, #1f1205, #080e1b); border: 3px solid var(--warning); border-radius: 22px; padding: 26px; width: 100%; max-width: 390px; display: flex; flex-direction: column; gap: 14px; text-align: center; animation: tigerPulseBox 2s infinite ease-in-out; box-shadow: 0 0 50px rgba(251, 191, 36, 0.5); }
+        .tiger-net-alert-box h3 { color: var(--warning); font-size: 20px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; text-shadow: 0 0 12px rgba(251,191,36,0.8); }
+        .tiger-net-alert-box p { color: #ffffff; font-size: 14px; line-height: 1.6; font-weight: 900; background: rgba(0,0,0,0.7); padding: 16px; border-radius: 12px; border: 1.5px solid rgba(239, 68, 68, 0.6); text-align: center; text-shadow: 0 0 5px rgba(255,255,255,0.3); }
+
         .royal-alert-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.95); justify-content: center; align-items: center; z-index: 20000; padding: 20px; }
         .royal-alert-box { background: linear-gradient(135deg, #0e172c, #060913); border: 2px solid var(--danger); border-radius: 20px; padding: 26px; width: 100%; max-width: 380px; display: flex; flex-direction: column; gap: 14px; text-align: center; box-shadow: 0 0 50px rgba(239, 68, 68, 0.4); }
         .royal-alert-box h3 { color: var(--danger); font-size: 18px; text-transform: uppercase; text-shadow: 0 0 10px rgba(239,68,68,0.5); }
@@ -503,6 +513,15 @@
     <!-- Hidden Audio Elements -->
     <audio id="fireAudio" src="https://tigeracadamy.github.io/preperation-hub/tigerthemwmusic.mpeg" preload="auto"></audio>
     <audio id="melodyAudio" src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf756.mp3?filename=lofi-study-112191.mp3" preload="auto" loop></audio>
+
+    <!-- 🌟 டெரரான பிராண்ட் 3D இன்டர்நெட் அலர்ட் பாப்-அப் மாடல் -->
+    <div class="tiger-net-alert-modal" id="tigerNetAlertModal">
+        <div class="tiger-net-alert-box">
+            <h3>🐅 TIGER WARRIORS ALERT 🔥</h3>
+            <p>தயவுசெய்து மாணவ மாணவிகளே, போட்டித் தேர்வர்களே! உங்களது இணையம் (Internet) ஆஃப்-ல் உள்ளது. உடனடியாக இணையத்தை ஆன் செய்யவும்!</p>
+            <button class="btn-start" style="padding: 12px; font-size: 13px; background: linear-gradient(135deg, var(--warning), #d97706); color: #000; margin-top: 4px;" onclick="closeTigerNetAlert()">புரிந்துவிட்டது (OK) 🚀</button>
+        </div>
+    </div>
 
     <!-- Course Wallpaper Popup Modal -->
     <div id="courseWallpaperModal">
@@ -623,7 +642,7 @@
                     <div id="savedVideoFoldersList" style="max-height:220px; overflow-y:auto; display:flex; flex-direction:column; gap:4px;"></div>
                 </div>
                 <div id="videoFolderDetailView" style="display:none;">
-                    <button onclick="backToFolders('video')" style="background:rgba(255,255,255,0.2); color:#fff; border:none; padding:4px 8px; border-radius:4px; font-size:10px; cursor:pointer; margin-bottom:6px;">⬅️️ Back to Folders</button>
+                    <button onclick="backToFolders('video')" style="background:rgba(255,255,255,0.2); color:#fff; border:none; padding:4px 8px; border-radius:4px; font-size:10px; cursor:pointer; margin-bottom:6px;">⬅ Back to Folders</button>
                     <h4 id="videoFolderTitle" style="font-size:13px; color:var(--success); margin-bottom:6px;"></h4>
                     <div style="background:rgba(0,0,0,0.4); padding:8px; border-radius:8px; margin-bottom:8px; display:flex; flex-direction:column; gap:6px;">
                         <input type="text" id="vidTitleInput" placeholder="வீடியோ தலைப்பு (Name)" style="background:rgba(0,0,0,0.6); color:#fff; border:1px solid var(--card-border); padding:6px; border-radius:6px; font-size:11px;">
@@ -786,7 +805,7 @@
                 <a href="https://wa.me/919790933025" target="_blank" class="contact-btn contact-btn-whatsapp" onclick="playClickSound()">💬 WhatsApp Chat</a>
                 <a href="https://t.me/PROFESSORMANIKASI" target="_blank" class="contact-btn contact-btn-telegram" onclick="playClickSound()">✈️ Telegram</a>
                 <a href="tel:9790933025" class="contact-btn contact-btn-phone" onclick="playClickSound()">📞 9790933025</a>
-                <a href="mailto:manivarmachem@gmail.com" class="contact-btn contact-btn-mail" onclick="playClickSound()">✉ Mail Us</a>
+                <a href="mailto:manivarmanchem@gmail.com" class="contact-btn contact-btn-mail" onclick="playClickSound()">✉ Mail Us</a>
             </div>
         </div>
 
@@ -970,6 +989,30 @@
                     .then((reg) => console.log('Service Worker Registered Successfully! Scope:', reg.scope))
                     .catch((err) => console.log('Service Worker Registration Failed:', err));
             });
+        }
+
+        // 🌟 டெரரான பிராண்ட் 3D இன்டர்நெட் அலர்ட் லாஜிக்
+        window.addEventListener('load', () => {
+            function checkInternetConnection() {
+                if (!navigator.onLine) {
+                    document.getElementById('tigerNetAlertModal').style.display = 'flex';
+                }
+            }
+            
+            window.addEventListener('online', () => {
+                document.getElementById('tigerNetAlertModal').style.display = 'none';
+            });
+            
+            window.addEventListener('offline', () => {
+                document.getElementById('tigerNetAlertModal').style.display = 'flex';
+            });
+
+            checkInternetConnection();
+        });
+
+        function closeTigerNetAlert() {
+            playClickSound();
+            document.getElementById('tigerNetAlertModal').style.display = 'none';
         }
 
         const fireAudio = document.getElementById('fireAudio');
@@ -1316,7 +1359,7 @@
             let filtered = items.map((item, originalIndex) => ({ ...item, originalIndex })).filter(i => (i.folder || 'Other Materials') === folderId);
 
             container.innerHTML = filtered.map(item => {
-                let icon = type === 'pdf' ? '📄' : '🖼️️';
+                let icon = type === 'pdf' ? '📄' : '🖼';
                 return `
                     <div style="background:rgba(0,0,0,0.5); padding:8px; border-radius:6px; display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
                         <a href="javascript:void(0)" onclick="openMediaViewer('${icon} ${item.title}', '${item.dataUrl}', '${type}')" style="color:var(--text-main); font-size:12px; text-decoration:none;">${icon} ${item.title}</a>
@@ -1359,7 +1402,7 @@
         }
 
         function deleteVideoFromIndexedDB(id) {
-            if (confirm("⚠️ இந்த வீடியோவை நிச்சயமாக நீக்க விரும்புகிறீர்களா?")) {
+            if (confirm("⚠️️ இந்த வீடியோவை நிச்சயமாக நீக்க விரும்புகிறீர்களா?")) {
                 let transaction = db.transaction(["videos"], "readwrite");
                 let store = transaction.objectStore("videos");
                 let request = store.delete(id);
@@ -1687,7 +1730,7 @@
                 { id: 'Kids Study', name: '🧸 Kids Study' },
                 { id: 'TRB / NET / SET', name: '📚 TRB / NET / SET' },
                 { id: 'TNPSC', name: '🏛 TNPSC' },
-                { id: 'POLICE', name: '🛡️ Police Exam' },
+                { id: 'POLICE', name: '🛡 Police Exam' },
                 { id: 'NEET Exam', name: '🧬 NEET Exam' },
                 { id: 'Railway Exam', name: '🚆 Railway Exam' }
             ];
@@ -1867,7 +1910,7 @@
                 const btn = document.createElement('div');
                 btn.className = 'modal-option-btn';
                 let hasUrl = rhyme.url && rhyme.url.trim() !== "";
-                btn.innerHTML = `🎶 ${rhyme.title || `Rhyme ${idx+1}`} <span>${hasUrl ? '▶️ Play' : '⏳ Soon'}</span>`;
+                btn.innerHTML = `🎶 ${rhyme.title || `Rhyme ${idx+1}`} <span>${hasUrl ? '▶ Play' : '⏳ Soon'}</span>`;
                 btn.onclick = () => { playClickSound(); if(hasUrl) window.open(rhyme.url, '_blank'); else alert("⚠️ லிங்க் இல்லை!"); };
                 container.appendChild(btn);
             });
@@ -1961,7 +2004,6 @@
             document.getElementById('currentNewsModal').style.display = 'none'; 
         }
 
-        // 🌟 Next & Previous News Functions Added
         function nextNewsItem() {
             if (!newsList || newsList.length === 0) return;
             currentNewsIndex = (currentNewsIndex + 1) % newsList.length;
@@ -1985,7 +2027,7 @@
             { id: 'ALL', name: '🔥 Free Test for All' },
             { id: 'TRB / NET / SET', name: '📚 TRB / NET / SET' },
             { id: 'TNPSC', name: '🏛️ TNPSC' },
-            { id: 'POLICE', name: '🛡️ Police Exam' },
+            { id: 'POLICE', name: '🛡️️ Police Exam' },
             { id: 'NEET Exam', name: '🧬 NEET Exam' },
             { id: 'Railway Exam', name: '🚆 Railway Exam' }
         ];
