@@ -175,6 +175,38 @@
             background: rgba(251, 191, 36, 0.1) !important;
         }
 
+        /* 🌟 கரண்ட் அஃபையர்ஸ் கேட்டகிரி ஃபில்டர் பட்டன்கள் (Gold & 3D Effect) */
+        .ca-filter-container {
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+            margin-bottom: 6px;
+            width: 100%;
+            scrollbar-width: none;
+        }
+        .ca-filter-container::-webkit-scrollbar { display: none; }
+
+        .ca-filter-btn {
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(11, 19, 38, 0.9));
+            border: 1.5px solid var(--warning);
+            color: var(--warning);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 900;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+            box-shadow: 0 0 10px rgba(251, 191, 36, 0.2);
+        }
+        .ca-filter-btn.active, .ca-filter-btn:hover {
+            background: linear-gradient(135deg, #fbbf24, #d97706);
+            color: #000;
+            box-shadow: 0 0 15px rgba(251, 191, 36, 0.6);
+            transform: scale(1.05);
+        }
+
         @keyframes goldSubtlePulse {
             0% { box-shadow: 0 0 3px rgba(0, 242, 254, 0.15); border-color: rgba(0, 242, 254, 0.25); }
             50% { box-shadow: 0 0 8px rgba(0, 242, 254, 0.35); border-color: rgba(0, 242, 254, 0.55); }
@@ -749,6 +781,16 @@
                     <a id="display-news-pdf" class="news-pdf-btn" href="#" target="_blank" onclick="playClickSound()">📥 PDF</a>
                 </div>
             </div>
+
+            <!-- 🌟 கரண்ட் அஃபையர்ஸ் கேட்டகிரி ஃபில்டர் பட்டன்கள் -->
+            <div class="ca-filter-container">
+                <button class="ca-filter-btn active" onclick="filterNewsByCategory('ALL')">🔥 அனைத்தும் (All)</button>
+                <button class="ca-filter-btn" onclick="filterNewsByCategory('Polity')">🏛️ Polity</button>
+                <button class="ca-filter-btn" onclick="filterNewsByCategory('Economy')">💰 Economy</button>
+                <button class="ca-filter-btn" onclick="filterNewsByCategory('History')">📜 History</button>
+                <button class="ca-filter-btn" onclick="filterNewsByCategory('Geography')">🌍 Geography</button>
+                <button class="ca-filter-btn" onclick="filterNewsByCategory('TN Administration')">🦁 TN Admin</button>
+            </div>
             
             <div class="news-channel-screen" id="newsScreenBox" onclick="playClickSound(); openCurrentNewsModal()">
                 <div class="news-visual-box" id="display-visual-container">
@@ -1063,10 +1105,11 @@
         }
 
         const getAdminKey = () => "tiger" + "2026";
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwC8sG1pvpg2MlKyXFnqOz0b-ub3OM_1ZC9qJyjCklH9OxUcxdfDGZ0vHNQ2rqfp_nc2Q/exec";
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxXQaeCboBpTt3JZgaU46szeLqEsxAi5fazvIn-Lpqj929cNfao8nppTbzKk9NR6N0QCA/exec";
 
         let tests = [];
-        let newsList = [{ text: "அனைத்துத் தேர்வுகளுக்கான யூனிட்கள் ஆன்லைனில் இணைக்கப்பட்டுள்ளன!", img: "", pdf: "", video: "" }];
+        let newsList = [{ text: "அனைத்துத் தேர்வுகளுக்கான யூனிட்கள் ஆன்லைனில் இணைக்கப்பட்டுள்ளன!", img: "", pdf: "", video: "", category: "ALL" }];
+        let originalNewsList = [];
         let quoteMessage = "";
         let musicList = Array.from({length: 10}, (_, i) => ({ title: `மோட்டிவேஷன் பாடல் ${i+1}`, url: "" }));
         let rhymesList = Array.from({length: 10}, (_, i) => ({ title: `Rhyme ${i+1}`, url: "" }));
@@ -1085,6 +1128,7 @@
         let currentActiveGroupForResource = '';
         let currentNewsIndex = 0;
         let newsInterval = null;
+        let currentSelectedCategory = 'ALL';
 
         let attendedCount = parseInt(localStorage.getItem('tiger_attended_count')) || 0;
         let isAdminLoggedIn = false;
@@ -1402,7 +1446,7 @@
         }
 
         function deleteVideoFromIndexedDB(id) {
-            if (confirm("⚠️️ இந்த வீடியோவை நிச்சயமாக நீக்க விரும்புகிறீர்களா?")) {
+            if (confirm("⚠ இந்த வீடியோவை நிச்சயமாக நீக்க விரும்புகிறீர்களா?")) {
                 let transaction = db.transaction(["videos"], "readwrite");
                 let store = transaction.objectStore("videos");
                 let request = store.delete(id);
@@ -2004,6 +2048,38 @@
             document.getElementById('currentNewsModal').style.display = 'none'; 
         }
 
+        // 🌟 கரண்ட் அஃபையர்ஸ் கேட்டகிரி ஃபில்டர் லாஜிக் (Case-Insensitive Match)
+        function filterNewsByCategory(category) {
+            playClickSound();
+            currentSelectedCategory = category;
+            
+            const buttons = document.querySelectorAll('.ca-filter-btn');
+            buttons.forEach(btn => {
+                if(btn.textContent.includes(category) || (category === 'ALL' && btn.textContent.includes('அனைத்தும்'))) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            if (category === 'ALL') {
+                newsList = [...originalNewsList];
+            } else {
+                newsList = originalNewsList.filter(item => {
+                    if (!item.category) return false;
+                    return item.category.toString().trim().toLowerCase() === category.toLowerCase();
+                });
+            }
+
+            currentNewsIndex = 0;
+            if(newsList.length > 0) {
+                updateNewsDisplay();
+            } else {
+                newsList = [{ text: `⚠ ${category} பிரிவில் தற்போது நடப்பு நிகழ்வுகள் இல்லை.`, img: "", pdf: "", video: "" }];
+                updateNewsDisplay();
+            }
+        }
+
         function nextNewsItem() {
             if (!newsList || newsList.length === 0) return;
             currentNewsIndex = (currentNewsIndex + 1) % newsList.length;
@@ -2027,7 +2103,7 @@
             { id: 'ALL', name: '🔥 Free Test for All' },
             { id: 'TRB / NET / SET', name: '📚 TRB / NET / SET' },
             { id: 'TNPSC', name: '🏛️ TNPSC' },
-            { id: 'POLICE', name: '🛡️️ Police Exam' },
+            { id: 'POLICE', name: '🛡 Police Exam' },
             { id: 'NEET Exam', name: '🧬 NEET Exam' },
             { id: 'Railway Exam', name: '🚆 Railway Exam' }
         ];
@@ -2057,7 +2133,8 @@
                     }
                     if (data && data.courseWallpapers) courseWallpapers = data.courseWallpapers;
                     if (data && data.news && Array.isArray(data.news)) {
-                        newsList = data.news.map(n => typeof n === 'string' ? { text: n, img: "", pdf: "", video: "" } : { text: n.text || "", img: n.img || "", pdf: n.pdf || "", video: n.video || "" });
+                        originalNewsList = data.news.map(n => typeof n === 'string' ? { text: n, img: "", pdf: "", video: "", category: "ALL" } : { text: n.text || "", img: n.img || "", pdf: n.pdf || "", video: n.video || "", category: n.category || "ALL" });
+                        newsList = [...originalNewsList];
                     }
                     if (data && data.quote) quoteMessage = data.quote;
                     if (data && data.music && Array.isArray(data.music)) {
@@ -2200,7 +2277,7 @@
                         <option value="Kids Study">🧸 Kids Study</option>
                         <option value="TRB / NET / SET">📚 TRB / NET / SET</option>
                         <option value="TNPSC">🏛️ TNPSC</option>
-                        <option value="POLICE">🛡️ Police Exam</option>
+                        <option value="POLICE">🛡 Police Exam</option>
                         <option value="NEET Exam">🧬 NEET Exam</option>
                         <option value="Railway Exam">🚆 Railway Exam</option>
                         <option value="ALL">🔥 Free Test for All</option>
