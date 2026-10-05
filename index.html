@@ -404,6 +404,42 @@
         .royal-locker-title { font-size: 16px; font-weight: 900; color: var(--accent-cyan); text-transform: uppercase; letter-spacing: 0.5px; }
         .royal-locker-sub { font-size: 11px; color: var(--text-muted); font-weight: 900; margin-top: 4px; }
 
+        /* 🌟 Warrior's Chat Banner & Modal Styling (Royal Gold Theme with 3 People Logo) */
+        .royal-chat-banner {
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.18), rgba(11, 19, 38, 0.95));
+            border: 1.5px solid var(--warning);
+            border-radius: 14px;
+            padding: 14px 16px;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(251, 191, 36, 0.25);
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 5px;
+        }
+        .royal-chat-banner:hover { background: linear-gradient(135deg, rgba(251, 191, 36, 0.3), rgba(11, 19, 38, 0.9)); box-shadow: 0 0 22px rgba(251, 191, 36, 0.4); }
+        .royal-chat-left { display: flex; align-items: center; gap: 10px; text-align: left; }
+        .royal-chat-avatar-group { display: flex; align-items: center; position: relative; width: 45px; height: 35px; }
+        .royal-chat-avatar-group img { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--warning); position: absolute; }
+        .royal-chat-avatar-group img:nth-child(2) { left: 12px; border-color: var(--accent-cyan); }
+        .royal-chat-avatar-group img:nth-child(3) { left: 24px; border-color: var(--success); }
+        .royal-chat-title { font-size: 14px; font-weight: 900; color: var(--warning); text-transform: uppercase; letter-spacing: 0.5px; }
+        .royal-chat-sub { font-size: 10px; color: var(--text-muted); font-weight: 900; margin-top: 2px; }
+
+        .chat-modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.94); justify-content: center; align-items: center; z-index: 50000; padding: 15px; }
+        .chat-modal-box { background: linear-gradient(135deg, #0b1326, #04060d); border: 2px solid var(--warning); border-radius: 20px; width: 100%; max-width: 440px; height: 85vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 0 30px rgba(251, 191, 36, 0.3); }
+        .chat-header { background: linear-gradient(135deg, #1f1205, #0b1326); padding: 12px 16px; border-bottom: 1px solid var(--warning); display: flex; justify-content: space-between; align-items: center; }
+        .chat-rooms-container { display: flex; gap: 6px; padding: 8px 12px; background: rgba(0,0,0,0.5); overflow-x: auto; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .chat-room-btn { background: rgba(251, 191, 36, 0.1); border: 1px solid var(--warning); color: var(--warning); padding: 5px 10px; border-radius: 12px; font-size: 10px; font-weight: 900; cursor: pointer; white-space: nowrap; }
+        .chat-room-btn.active-room { background: var(--warning); color: #000; box-shadow: 0 0 10px rgba(251,191,36,0.5); }
+        .chat-messages-area { flex: 1; padding: 12px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; background: rgba(0,0,0,0.7); }
+        .chat-msg-bubble { background: rgba(0, 242, 254, 0.12); border: 1px solid var(--card-border); padding: 8px 12px; border-radius: 10px; max-width: 85%; font-size: 12px; line-height: 1.4; word-break: break-word; position: relative; }
+        .chat-msg-bubble.my-msg { background: rgba(251, 191, 36, 0.15); border-color: var(--warning); align-self: flex-end; }
+        .chat-input-bar { padding: 10px; background: #0b1326; border-top: 1px solid var(--warning); display: flex; gap: 8px; align-items: center; }
+        .chat-input-bar input { flex: 1; background: rgba(0,0,0,0.6); border: 1px solid var(--warning); padding: 8px 12px; border-radius: 10px; color: #fff; font-size: 12px; outline: none; font-weight: 900; }
+
         .locker-tab-btn {
             font-size: 10px;
             padding: 6px;
@@ -577,8 +613,6 @@
 
     <audio id="fireAudio" src="https://tigeracadamy.github.io/preperation-hub/tigerthemwmusic.mpeg" preload="auto"></audio>
     <audio id="melodyAudio" src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf756.mp3?filename=lofi-study-112191.mp3" preload="auto" loop></audio>
-
-    <!-- 🎵 In-app Dedicated Audio Player for 10 Motivation Songs -->
     <audio id="inAppMusicPlayer" preload="none"></audio>
 
     <div class="tiger-net-alert-modal" id="tigerNetAlertModal">
@@ -598,6 +632,48 @@
                 <span id="royalPopupExplanationText" style="color: #cbd5e1; font-size: 12px; font-weight: normal; line-height: 1.5;"></span>
             </div>
             <button class="btn-start" style="padding: 12px; font-size: 13px; background: linear-gradient(135deg, var(--warning), #d97706); color: #000; margin-top: 6px;" onclick="closeRoyalCustomPopup()">சரி (OK) 🚀</button>
+        </div>
+    </div>
+
+    <!-- 💬 Warrior's Live Chat Modal (WhatsApp Style) -->
+    <div class="chat-modal-overlay" id="warriorChatModal" onclick="closeWarriorChatModal()">
+        <div class="chat-modal-box" onclick="event.stopPropagation()">
+            <div class="chat-header">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="royal-chat-avatar-group">
+                        <img src="https://tigeracadamy.github.io/preperation-hub/tigergoldlogo.jpeg" alt="1">
+                        <img src="https://tigeracadamy.github.io/preperation-hub/tigergoldlogo.jpeg" alt="2">
+                        <img src="https://tigeracadamy.github.io/preperation-hub/tigergoldlogo.jpeg" alt="3">
+                    </div>
+                    <div>
+                        <h4 style="color: var(--warning); font-size: 14px; text-transform: uppercase;">💬 Warrior's Discussion</h4>
+                        <span style="font-size: 9px; color: var(--success);">● Live Online</span>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 6px; align-items: center;">
+                    <button onclick="clearCurrentChatRoom()" style="background: rgba(239,68,68,0.2); color: var(--danger); border: 1px solid var(--danger); padding: 4px 8px; border-radius: 6px; font-size: 10px; cursor: pointer;" title="Clear Messages">🗑 Clear</button>
+                    <button onclick="closeWarriorChatModal()" style="background: var(--danger); color: #fff; border: none; padding: 4px 8px; border-radius: 6px; font-size: 11px; cursor: pointer;">✕ Close</button>
+                </div>
+            </div>
+
+            <!-- Chat Rooms Navigation -->
+            <div class="chat-rooms-container">
+                <button class="chat-room-btn active-room" id="roomBtnTNPSC" onclick="switchChatRoom('TNPSC')">🏛️ TNPSC Group</button>
+                <button class="chat-room-btn" id="roomBtnTRB" onclick="switchChatRoom('TRB')">📚 TRB / Chemistry</button>
+                <button class="chat-room-btn" id="roomBtnGeneral" onclick="switchChatRoom('General')">💬 General Doubts</button>
+            </div>
+
+            <!-- Messages Stream Area -->
+            <div class="chat-messages-area" id="chatMessagesArea">
+                <div style="text-align: center; color: var(--text-muted); font-size: 11px; margin-top: 10px;">செய்திகள் ஏற்றப்படுகின்றன...</div>
+            </div>
+
+            <!-- Chat Input & Send Bar -->
+            <div class="chat-input-bar">
+                <input type="text" id="chatNameInput" placeholder="உங்கள் பெயர்..." style="max-width: 100px;">
+                <input type="text" id="chatMessageInput" placeholder="செய்தியை இங்கே எழுதவும்..." onkeypress="if(event.key === 'Enter') sendChatMessage()">
+                <button class="btn-start" style="padding: 8px 14px; background: var(--warning); color: #000;" onclick="sendChatMessage()">Send 🚀</button>
+            </div>
         </div>
     </div>
 
@@ -842,6 +918,22 @@
             </div>
         </div>
 
+        <!-- 💬 Warrior's Live Chat Banner (Controlled dynamically via Firebase Admin Switch) -->
+        <div class="royal-chat-banner" id="chatBannerContainer" onclick="playClickSound(); openWarriorChatModal()">
+            <div class="royal-chat-left">
+                <div class="royal-chat-avatar-group">
+                    <img src="https://tigeracadamy.github.io/preperation-hub/tigergoldlogo.jpeg" alt="1">
+                    <img src="https://tigeracadamy.github.io/preperation-hub/tigergoldlogo.jpeg" alt="2">
+                    <img src="https://tigeracadamy.github.io/preperation-hub/tigergoldlogo.jpeg" alt="3">
+                </div>
+                <div>
+                    <div class="royal-chat-title">💬 Warrior's Discussion Corner</div>
+                    <div class="royal-chat-sub">வினா-விடை விவாதம் & டவுட் க்ளியரிங் சாட் 🚀</div>
+                </div>
+            </div>
+            <span style="background: var(--warning); color: #000; padding: 5px 12px; border-radius: 20px; font-size: 10px; font-weight: 900;">Join Live 🔴</span>
+        </div>
+
         <div class="notice-corner" id="noticeCornerBox">
             <div class="notice-header" id="noticeHeaderBox">
                 <span class="news-title-left">🐅 TIGER WARRIORS</span>
@@ -1072,6 +1164,7 @@
                 <button class="modal-option-btn" onclick="playClickSound(); openSpecificAdmin('test')">📚 Tests & Study Materials</button>
                 <button class="modal-option-btn" onclick="playClickSound(); openSpecificAdmin('wallpapers')">🖼️ Edit Course Popups & Banners (12 Sections)</button>
                 <button class="modal-option-btn" onclick="playClickSound(); openSpecificAdmin('music')">🎵 Motivation Songs (10)</button>
+                <button class="modal-option-btn" onclick="playClickSound(); openSpecificAdmin('chatSettings')">💬 Live Chat ON/OFF Control 🔴</button>
                 <button class="modal-option-btn" onclick="playClickSound(); openSpecificAdmin('rhymes')">🎶 Kids Rhymes (10)</button>
                 <button class="modal-option-btn" onclick="playClickSound(); openSpecificAdmin('science')">🧪 Science Facts (10)</button>
                 <button class="modal-option-btn" onclick="playClickSound(); openSpecificAdmin('ecotech')">🔬 Eco Tech Links (6)</button>
@@ -1104,10 +1197,8 @@
         function showRoyalAlertPopup(title, message, explanation = "") {
             document.getElementById('royalPopupTitle').textContent = title || "🐅 TIGER WARRIORS ALERT 🔥";
             document.getElementById('royalPopupMessage').textContent = message;
-            
             let expBox = document.getElementById('royalPopupExplanationBox');
             let expText = document.getElementById('royalPopupExplanationText');
-            
             if (explanation && explanation.trim() !== "") {
                 expText.textContent = explanation;
                 expBox.style.display = "block";
@@ -1115,7 +1206,6 @@
                 expBox.style.display = "none";
                 expText.textContent = "";
             }
-
             document.getElementById('royalCustomPopupModal').style.display = 'flex';
         }
 
@@ -1230,6 +1320,109 @@
         let selectedCategoryForWallpaper = '';
         let selectedSubDeptForWallpaper = '';
 
+        // 💬 Live Chat Logic & State + Admin Switch Listener
+        let currentChatRoom = "TNPSC";
+
+        function checkChatStatusAndToggle() {
+            rtdb.ref('settings/chatEnabled').on('value', (snapshot) => {
+                let isEnabled = snapshot.val();
+                let chatBanner = document.getElementById('chatBannerContainer');
+                if (chatBanner) {
+                    if (isEnabled === false || isEnabled === "OFF") {
+                        chatBanner.style.display = 'none';
+                    } else {
+                        chatBanner.style.display = 'flex';
+                    }
+                }
+            });
+        }
+
+        function openWarriorChatModal() {
+            playClickSound();
+            document.getElementById('warriorChatModal').style.display = 'flex';
+            loadChatMessages();
+        }
+
+        function closeWarriorChatModal() {
+            playClickSound();
+            document.getElementById('warriorChatModal').style.display = 'none';
+        }
+
+        function switchChatRoom(roomName) {
+            playClickSound();
+            currentChatRoom = roomName;
+            ['TNPSC', 'TRB', 'General'].forEach(r => {
+                let btn = document.getElementById('roomBtn' + r);
+                if(btn) {
+                    if(r === roomName) btn.classList.add('active-room');
+                    else btn.classList.remove('active-room');
+                }
+            });
+            loadChatMessages();
+        }
+
+        function loadChatMessages() {
+            let chatArea = document.getElementById('chatMessagesArea');
+            chatArea.innerHTML = `<div style="text-align: center; color: var(--text-muted); font-size: 11px;">செய்திகள் ஏற்றப்படுகின்றன...</div>`;
+
+            rtdb.ref('chats/' + currentChatRoom).limitToLast(50).on('value', (snapshot) => {
+                chatArea.innerHTML = "";
+                const msgs = snapshot.val();
+                if (!msgs) {
+                    chatArea.innerHTML = `<div style="text-align: center; color: var(--text-muted); font-size: 11px; margin-top: 15px;">இந்த ரூமில் இப்போதைக்கு செய்திகள் இல்லை. முதல் செய்தியை அனுப்புங்கள்! 🚀</div>`;
+                    return;
+                }
+
+                Object.keys(msgs).forEach(key => {
+                    let m = msgs[key];
+                    let bubble = document.createElement('div');
+                    let isMyMsg = localStorage.getItem('tiger_chat_name') === m.name;
+                    bubble.className = `chat-msg-bubble ${isMyMsg ? 'my-msg' : ''}`;
+                    bubble.innerHTML = `<div style="font-size: 10px; color: var(--warning); margin-bottom: 2px;"><b>${m.name}</b> <span style="font-size: 8px; color: #94a3b8; float: right;">${m.time || ''}</span></div><div style="color: #fff;">${m.text}</div>`;
+                    chatArea.appendChild(bubble);
+                });
+                chatArea.scrollTop = chatArea.scrollHeight;
+            });
+        }
+
+        function sendChatMessage() {
+            let nameInput = document.getElementById('chatNameInput');
+            let msgInput = document.getElementById('chatMessageInput');
+
+            let name = nameInput.value.trim();
+            let text = msgInput.value.trim();
+
+            if (!name) {
+                name = localStorage.getItem('tiger_chat_name') || ("Student_" + Math.floor(Math.random() * 1000));
+                nameInput.value = name;
+            }
+            localStorage.setItem('tiger_chat_name', name);
+
+            if (!text) return;
+            playClickSound();
+
+            let timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+            rtdb.ref('chats/' + currentChatRoom).push({
+                name: name,
+                text: text,
+                time: timeStr,
+                timestamp: Date.now()
+            }).then(() => {
+                msgInput.value = "";
+            }).catch(err => {
+                showRoyalAlertPopup("🐅 TIGER WARRIORS ALERT 🔥", "⚠ செய்தி அனுப்புவதில் தடை. இணையத்தைச் சரிபார்க்கவும்!");
+            });
+        }
+
+        function clearCurrentChatRoom() {
+            if (confirm("⚠️ இந்த ரூமில் உள்ள அனைத்து மெசேஜ்களையும் நிச்சயமாக அழிக்க விரும்புகிறீர்களா?")) {
+                rtdb.ref('chats/' + currentChatRoom).remove().then(() => {
+                    showRoyalAlertPopup("🐅 TIGER WARRIORS CONGRATULATIONS 🔥", "🗑️️ அனைத்து மெசேஜ்களும் வெற்றிகரமாக அழிக்கப்பட்டன!");
+                });
+            }
+        }
+
         const folderList = [
             { id: 'Polity', name: '🏛️ Polity (அரசியலமைப்பு)' },
             { id: 'History', name: '📜 History (வரலாறு)' },
@@ -1279,44 +1472,14 @@
             }
         }
 
+        // 🚀 BULLET-PROOF 107-STABLE FETCH LOGIC (Tries Firebase first, instantly falls back to Google Sheets API if Firebase data is missing)
         function fetchSheetData() {
             rtdb.ref('/').once('value').then((snapshot) => {
                 const data = snapshot.val();
-                if (data) {
-                    if (data.tests) tests = data.tests;
-                    if (data.courseWallpapers) courseWallpapers = data.courseWallpapers;
-                    if (data.news && Array.isArray(data.news)) {
-                        originalNewsList = data.news.map(n => typeof n === 'string' ? { text: n, img: "", pdf: "", video: "", category: "ALL" } : { text: n.text || "", img: n.img || "", pdf: n.pdf || "", video: n.video || "", category: n.category || "ALL" });
-                        newsList = [...originalNewsList];
-                    }
-                    if (data.quote) quoteMessage = data.quote;
-                    if (data.quiz && Array.isArray(data.quiz)) {
-                        quizList = data.quiz.map(q => ({
-                            category: q.category || q.Category || "பொது அறிவு (General)",
-                            question: q.question || q.Question || "",
-                            image: q.image || q.Image || "",
-                            optionA: q.optionA || q.OptionA || "",
-                            optionB: q.optionB || q.OptionB || "",
-                            optionC: q.optionC || q.OptionC || "",
-                            optionD: q.optionD || q.OptionD || "",
-                            answer: q.answer || q.Answer || "A",
-                            explanation: q.explanation || q.Explanation || q.note || q.Note || ""
-                        }));
-                    }
-                    if (data.music && Array.isArray(data.music)) {
-                        musicList = data.music.map((m, idx) => ({ title: m.title || `மோட்டிவேஷன் பாடல் ${idx+1}`, url: m.url || "" }));
-                    }
-                    if (data.rhymes && Array.isArray(data.rhymes)) {
-                        rhymesList = data.rhymes.map((r, idx) => ({ title: r.title || `Rhyme ${idx+1}`, url: r.url || "" }));
-                    }
-                    if (data.science && Array.isArray(data.science)) {
-                        scienceList = data.science.map((s, idx) => ({ title: s.title || `Science Fact ${idx+1}`, url: s.url || "" }));
-                    }
-                    if (data.ecoTestsList && Array.isArray(data.ecoTestsList)) {
-                        ecoTestsList = data.ecoTestsList.map((e, idx) => ({ name: e.name || ecoTestsList[idx].name, url: e.url || "" }));
-                    }
-                    initPortal();
+                if (data && data.news) {
+                    processFetchedData(data);
                 } else {
+                    // Fallback directly to Google Script to guarantee news load
                     fetchFromGoogleScriptFallback();
                 }
             }).catch((err) => {
@@ -1328,20 +1491,51 @@
             fetch(GOOGLE_SCRIPT_URL)
                 .then(response => response.json())
                 .then(data => {
-                    if (data && data.tests) tests = data.tests;
-                    if (data && data.courseWallpapers) courseWallpapers = data.courseWallpapers;
-                    if (data && data.news) {
-                        originalNewsList = data.news.map(n => typeof n === 'string' ? { text: n, img: "", pdf: "", video: "", category: "ALL" } : { text: n.text || "", img: n.img || "", pdf: n.pdf || "", video: n.video || "", category: n.category || "ALL" });
-                        newsList = [...originalNewsList];
-                    }
-                    if (data && data.quote) quoteMessage = data.quote;
-                    if (data && data.quiz) quizList = data.quiz;
-                    if (data && data.music) musicList = data.music;
-                    if (data && data.rhymes) rhymesList = data.rhymes;
-                    if (data && data.science) scienceList = data.science;
-                    if (data && data.ecoTestsList) ecoTestsList = data.ecoTestsList;
-                    initPortal();
+                    processFetchedData(data);
                 }).catch(e => { initPortal(); });
+        }
+
+        function processFetchedData(data) {
+            if (!data) return;
+            if (data.tests) tests = data.tests;
+            if (data.courseWallpapers) courseWallpapers = data.courseWallpapers;
+            
+            if (data.news) {
+                if (Array.isArray(data.news)) {
+                    originalNewsList = data.news.map(n => typeof n === 'string' ? { text: n, img: "", pdf: "", video: "", category: "ALL" } : { text: n.text || "", img: n.img || "", pdf: n.pdf || "", video: n.video || "", category: n.category || "ALL" });
+                } else {
+                    originalNewsList = Object.values(data.news).map(n => ({ text: n.text || "", img: n.img || "", pdf: n.pdf || "", video: n.video || "", category: n.category || "ALL" }));
+                }
+                newsList = [...originalNewsList];
+            }
+
+            if (data.quote) quoteMessage = data.quote;
+            if (data.quiz && Array.isArray(data.quiz)) {
+                quizList = data.quiz.map(q => ({
+                    category: q.category || q.Category || "பொது அறிவு (General)",
+                    question: q.question || q.Question || "",
+                    image: q.image || q.Image || "",
+                    optionA: q.optionA || q.OptionA || "",
+                    optionB: q.optionB || q.OptionB || "",
+                    optionC: q.optionC || q.OptionC || "",
+                    optionD: q.optionD || q.OptionD || "",
+                    answer: q.answer || q.Answer || "A",
+                    explanation: q.explanation || q.Explanation || q.note || q.Note || ""
+                }));
+            }
+            if (data.music && Array.isArray(data.music)) {
+                musicList = data.music.map((m, idx) => ({ title: m.title || `மோட்டிவேஷன் பாடல் ${idx+1}`, url: m.url || "" }));
+            }
+            if (data.rhymes && Array.isArray(data.rhymes)) {
+                rhymesList = data.rhymes.map((r, idx) => ({ title: r.title || `Rhyme ${idx+1}`, url: r.url || "" }));
+            }
+            if (data.science && Array.isArray(data.science)) {
+                scienceList = data.science.map((s, idx) => ({ title: s.title || `Science Fact ${idx+1}`, url: s.url || "" }));
+            }
+            if (data.ecoTestsList && Array.isArray(data.ecoTestsList)) {
+                ecoTestsList = data.ecoTestsList.map((e, idx) => ({ name: e.name || ecoTestsList[idx].name, url: e.url || "" }));
+            }
+            initPortal();
         }
 
         function initPortal() {
@@ -1350,6 +1544,7 @@
             document.body.className = localStorage.getItem('tiger_theme_pref') || '';
             renderCategories();
             renderTests();
+            checkChatStatusAndToggle();
         }
 
         function renderTests() {
@@ -1610,14 +1805,13 @@
                         inAppPlayer.pause();
                         inAppPlayer.currentTime = 0;
                         currentPlayingAudioUrl = null;
-                        openMusicModal(); // Refresh modal view
+                        openMusicModal();
                     } else {
-                        // Pause background music if playing
                         if(isThemePlaying) { toggleFireThemeMusic(); }
                         inAppPlayer.src = song.url;
                         inAppPlayer.play().then(() => {
                             currentPlayingAudioUrl = song.url;
-                            openMusicModal(); // Refresh modal view to show Stop
+                            openMusicModal();
                         }).catch(err => {
                             showRoyalAlertPopup("🐅 TIGER WARRIORS ALERT 🔥", "⚠ ஆடியோ பிளே செய்வதில் தடை. டைரக்ட் MP3 லிங்காக உள்ளதா எனச் சரிபார்க்கவும்!");
                         });
@@ -1988,8 +2182,30 @@
                     contentEl.innerHTML += `<div style="display:flex; gap:5px;"><input type="text" id="admin-song-title-${i}" value="${song.title}" style="flex:1;"><input type="text" id="admin-song-url-${i}" value="${song.url}" style="flex:1.5;"></div>`;
                 }
                 saveBtn.onclick = () => { playClickSound(); saveMusicToSheet(); };
+            } else if (sectionType === 'chatSettings') {
+                titleEl.textContent = "💬 Live Chat ON/OFF Control";
+                contentEl.innerHTML = `
+                    <label>Live Discussion Chat Status:</label>
+                    <select id="adm-chat-status" style="margin-bottom:10px;">
+                        <option value="ON">ON (Show Chat Banner to Students)</option>
+                        <option value="OFF">OFF (Hide Chat Banner Completely)</option>
+                    </select>
+                `;
+                rtdb.ref('settings/chatEnabled').once('value').then(snap => {
+                    let val = snap.val();
+                    document.getElementById('adm-chat-status').value = (val === false || val === "OFF") ? "OFF" : "ON";
+                });
+                saveBtn.onclick = () => { playClickSound(); saveChatStatusAdmin(); };
             }
             document.getElementById('adminSubModal').style.display = 'flex';
+        }
+
+        function saveChatStatusAdmin() {
+            let statusVal = document.getElementById('adm-chat-status').value;
+            rtdb.ref('settings').update({ chatEnabled: (statusVal === "ON") }).then(() => {
+                showRoyalAlertPopup("🐅 TIGER WARRIORS CONGRATULATIONS 🔥", "✅ Live Chat Status Saved Successfully!");
+                closeAdminSubModal();
+            });
         }
 
         function loadCourseWallpaperAdmin(key) {
