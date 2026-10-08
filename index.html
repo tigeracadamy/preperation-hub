@@ -39,8 +39,156 @@
             --card-border: rgba(16, 185, 129, 0.3);
         }
 
+        /* 🐯 TIGER STARTUP ROAR — startup animation only */
+        #tiger-startup-roar {
+            position: fixed;
+            inset: 0;
+            z-index: 999999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background:
+                radial-gradient(circle at center, rgba(38,20,4,0.96) 0%, rgba(15,8,2,0.98) 34%, #02040a 76%);
+            pointer-events: none;
+            overflow: hidden;
+            perspective: 1100px;
+            animation: tigerStartupOverlay 2.7s ease forwards;
+        }
+
+        /* 🔥 Four-side fire burst — only on the startup screen */
+        #tiger-startup-roar::before,
+        #tiger-startup-roar::after {
+            content: "";
+            position: absolute;
+            inset: -18%;
+            pointer-events: none;
+            opacity: 0;
+            mix-blend-mode: screen;
+        }
+        #tiger-startup-roar::before {
+            background:
+                radial-gradient(ellipse at 50% 0%, rgba(255,214,64,0.95) 0%, rgba(255,96,0,0.72) 10%, transparent 31%),
+                radial-gradient(ellipse at 50% 100%, rgba(255,176,0,0.95) 0%, rgba(255,55,0,0.70) 10%, transparent 31%);
+            filter: blur(3px) saturate(1.35);
+            animation: tigerFireVertical 2.45s ease-out forwards;
+        }
+        #tiger-startup-roar::after {
+            background:
+                radial-gradient(ellipse at 0% 50%, rgba(255,210,50,0.95) 0%, rgba(255,70,0,0.72) 10%, transparent 31%),
+                radial-gradient(ellipse at 100% 50%, rgba(255,185,0,0.95) 0%, rgba(255,45,0,0.70) 10%, transparent 31%);
+            filter: blur(3px) saturate(1.35);
+            animation: tigerFireHorizontal 2.45s ease-out forwards;
+        }
+
+        #tiger-startup-roar img {
+            position: relative;
+            z-index: 3;
+            width: min(220px, 55vw);
+            height: min(220px, 55vw);
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid #ffd34d;
+            box-shadow:
+                0 0 10px rgba(255,174,0,0.95),
+                0 0 28px rgba(255,76,0,0.75),
+                0 0 65px rgba(255,42,0,0.38);
+            transform-style: preserve-3d;
+            will-change: transform, filter, opacity;
+            animation: tigerStartupRoar 2.45s cubic-bezier(0.16,0.84,0.24,1) forwards;
+        }
+
+        #tiger-startup-roar .roar-text {
+            position: relative;
+            z-index: 4;
+            margin-top: 18px;
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 900;
+            letter-spacing: 3px;
+            text-shadow:
+                0 0 8px #fff,
+                0 0 18px #ffb300,
+                0 0 30px #ff3d00;
+            animation: tigerRoarText 2.45s ease forwards;
+        }
+
+        @keyframes tigerStartupRoar {
+            0% {
+                opacity: 0;
+                transform: perspective(1100px) translateZ(-360px) translateY(-85px)
+                    rotateX(18deg) rotateY(-28deg) rotateZ(-5deg) scale(0.32);
+                filter: brightness(0.65) saturate(0.8) blur(5px);
+            }
+            15% {
+                opacity: 1;
+                transform: perspective(1100px) translateZ(-40px) translateY(12px)
+                    rotateX(-7deg) rotateY(12deg) rotateZ(2deg) scale(0.88);
+                filter: brightness(1.25) saturate(1.4) blur(0);
+            }
+            31% {
+                transform: perspective(1100px) translateZ(20px) translateY(0)
+                    rotateX(3deg) rotateY(-5deg) scale(1.06);
+            }
+            46% {
+                transform: perspective(1100px) translateZ(35px) scale(0.98);
+            }
+            62% {
+                transform: perspective(1100px) translateZ(65px) scale(1.08);
+                filter: brightness(1.45) saturate(1.65);
+            }
+            78% {
+                transform: perspective(1100px) translateZ(170px) scale(1.45);
+                filter: brightness(1.7) saturate(1.9);
+            }
+            91% {
+                opacity: 1;
+                transform: perspective(1100px) translateZ(390px) scale(2.25);
+                filter: brightness(2.0) saturate(2.2) blur(0.5px);
+            }
+            100% {
+                opacity: 0;
+                transform: perspective(1100px) translateZ(620px) scale(3.1);
+                filter: brightness(2.2) saturate(2.3) blur(2px);
+            }
+        }
+
+        @keyframes tigerFireVertical {
+            0% { opacity: 0; transform: scaleY(0.55); }
+            14% { opacity: 1; transform: scaleY(1.15); }
+            45% { opacity: 0.96; transform: scaleY(1.0) scaleX(1.08); }
+            72% { opacity: 0.82; transform: scaleY(1.28) scaleX(1.16); }
+            100% { opacity: 0; transform: scaleY(1.55) scaleX(1.28); }
+        }
+
+        @keyframes tigerFireHorizontal {
+            0% { opacity: 0; transform: scaleX(0.55); }
+            14% { opacity: 1; transform: scaleX(1.15); }
+            45% { opacity: 0.96; transform: scaleX(1.0) scaleY(1.08); }
+            72% { opacity: 0.82; transform: scaleX(1.28) scaleY(1.16); }
+            100% { opacity: 0; transform: scaleX(1.55) scaleY(1.28); }
+        }
+        @keyframes tigerRoarText {
+            0%, 20% { opacity: 0; transform: translateY(8px); }
+            35%, 78% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-4px); }
+        }
+        @keyframes tigerStartupOverlay {
+            0%, 82% { opacity: 1; }
+            100% { opacity: 0; visibility: hidden; }
+        }
+
+        /* Auto Smart Dark / Light Mode Overrides */
+        body.mode-light {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --card-border: rgba(0, 150, 255, 0.25);
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+        }
+
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; font-weight: bold; scroll-behavior: smooth; }
-        body { background-color: var(--bg-color); color: var(--text-main); padding: 12px; padding-bottom: 30px; display: flex; justify-content: center; }
+        body { background-color: var(--bg-color); color: var(--text-main); padding: 12px; padding-bottom: 30px; display: flex; justify-content: center; transition: background 0.3s ease, color 0.3s ease; }
         
         .main-container { width: 100%; max-width: 480px; display: flex; flex-direction: column; gap: 10px; transition: all 0.3s ease; }
 
@@ -90,13 +238,13 @@
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid var(--warning);
-            animation: yAxisSpinWithPause 7s infinite cubic-bezier(0.4, 0, 0.2, 1);
+            animation: yAxisSpinWithPause 12s infinite cubic-bezier(0.4, 0, 0.2, 1);
             transform-style: preserve-3d;
             box-shadow: 0 0 15px rgba(251, 191, 36, 0.5);
         }
 
         .brand-name-box { display: flex; flex-direction: column; align-items: center; gap: 2px; }
-        .brand-name { font-size: 18px; font-weight: 900; color: #ffffff; letter-spacing: 0.5px; text-transform: uppercase; text-shadow: 0 0 8px rgba(255,255,255,0.4); }
+        .brand-name { font-size: 18px; font-weight: 900; color: var(--text-main); letter-spacing: 0.5px; text-transform: uppercase; text-shadow: 0 0 8px rgba(255,255,255,0.4); }
         .brand-sub { font-size: 13px; color: var(--accent-cyan); font-weight: 900; }
         
         .hero-banner {
@@ -108,6 +256,7 @@
             text-align: center;
             position: relative;
         }
+        body.mode-light .hero-banner { background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%); }
 
         @keyframes missionFireSpin3D {
             0% { transform: perspective(800px) rotateY(0deg) scale(1); box-shadow: none; border-color: rgba(255, 255, 255, 0.3); }
@@ -128,7 +277,7 @@
             border: 1px solid rgba(255, 255, 255, 0.3); 
             letter-spacing: 0.8px;
             text-transform: uppercase;
-            animation: missionFireSpin3D 7s infinite cubic-bezier(0.4, 0, 0.2, 1);
+            animation: missionFireSpin3D 12s infinite cubic-bezier(0.4, 0, 0.2, 1);
             transform-style: preserve-3d;
         }
 
@@ -140,7 +289,7 @@
             letter-spacing: 0.2px; 
             text-shadow: 0 0 10px var(--accent-glow); 
             text-align: center; 
-            animation: bulbGlowPulse 2s infinite ease-in-out;
+            animation: bulbGlowPulse 4s infinite ease-in-out;
         }
 
         .hero-banner p { font-size: 12px; color: var(--text-main); font-weight: 900; margin-bottom: 8px; }
@@ -174,7 +323,7 @@
         }
         .btn-top-donate { color: var(--warning); border-color: var(--warning); background: rgba(251, 191, 36, 0.15); }
         .btn-fire-pop {
-            animation: firePopPulse 5s infinite ease-in-out;
+            animation: firePopPulse 8s infinite ease-in-out;
             color: #fbbf24 !important;
             border-color: rgba(251, 191, 36, 0.4) !important;
             background: rgba(251, 191, 36, 0.1) !important;
@@ -196,7 +345,7 @@
             z-index: 9999;
             cursor: pointer;
             border: 2px solid rgba(0, 242, 254, 0.6);
-            animation: yAxisSpinWithPause 7s infinite cubic-bezier(0.4, 0, 0.2, 1);
+            animation: goldSubtlePulse 5s infinite ease-in-out;
             transform-style: preserve-3d;
             text-align: center;
             overflow: hidden;
@@ -237,21 +386,62 @@
         }
 
         @keyframes goldSubtlePulse {
-            0% { box-shadow: 0 0 2px rgba(0, 242, 254, 0.1); border-color: rgba(0, 242, 254, 0.15); }
-            50% { box-shadow: 0 0 5px rgba(0, 242, 254, 0.2); border-color: rgba(0, 242, 254, 0.3); }
-            100% { box-shadow: 0 0 2px rgba(0, 242, 254, 0.1); border-color: rgba(0, 242, 254, 0.15); }
+            0%, 50%, 100% { box-shadow: none; border-color: rgba(251, 191, 36, 0.45); }
         }
 
         .notice-corner {
-            background: linear-gradient(135deg, rgba(0, 242, 254, 0.05), rgba(11, 19, 38, 0.95));
-            border: 1px solid var(--accent-cyan);
-            border-radius: 12px;
+            background: linear-gradient(145deg, #080b12 0%, #111827 46%, #0a0d14 100%);
+            border: 1px solid rgba(251, 191, 36, 0.45);
+            border-radius: 14px;
             padding: 10px 12px;
             display: flex;
             flex-direction: column;
             gap: 6px;
-            animation: goldSubtlePulse 3s infinite ease-in-out;
+            animation: news3DRotateSubtleLight 12s infinite cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes newsLightPulse {
+            0%, 100%, 50% { box-shadow: none; }
+        }
+
+        /* News 3D rotate ON — zero light / zero glow; premium dark-gold finish */
+        @keyframes news3DRotateSubtleLight {
+            0% { transform: perspective(600px) rotateY(0deg) scale(1); filter: none; }
+            15% { transform: perspective(600px) rotateY(360deg) scale(1.15); filter: none; }
+            20% { transform: perspective(600px) rotateY(360deg) scale(1); filter: none; }
+            100% { transform: perspective(600px) rotateY(360deg) scale(1); filter: none; }
+        }
+
+        /* Only the News/Current Affairs content rotates in 3D; outer box stays still. */
+        .notice-corner { animation: none; }
+        .notice-corner #newsScreenBox {
+            animation: news3DRotateSubtleLight 12s infinite cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: center center;
+            will-change: transform;
+        }
+
+        .notice-corner .notice-header {
+            border-bottom: 1px solid rgba(251, 191, 36, 0.28);
+        }
+
+        .notice-corner .news-title-left,
+        .notice-corner .news-title-right {
+            color: #ffffff;
+            -webkit-text-fill-color: #ffffff;
+            font-weight: 950;
+            letter-spacing: 0.25px;
+            text-shadow: none;
+        }
+
+        .notice-corner .notice-body {
+            color: #ffffff;
+            -webkit-text-fill-color: #ffffff;
+            font-weight: 850;
+            letter-spacing: 0.15px;
+            line-height: 1.65;
+            text-shadow: 0 0 5px rgba(255,255,255,0.12);
         }
 
         @keyframes leftSlideCollision {
@@ -404,7 +594,7 @@
         .royal-locker-title { font-size: 16px; font-weight: 900; color: var(--accent-cyan); text-transform: uppercase; letter-spacing: 0.5px; }
         .royal-locker-sub { font-size: 11px; color: var(--text-muted); font-weight: 900; margin-top: 4px; }
 
-        /* 🌟 Warrior's Chat Banner & Modal Styling (Royal Gold Theme with 3 People Logo) */
+        /* 🌟 Warrior's Chat Banner & Modal Styling */
         .royal-chat-banner {
             background: linear-gradient(135deg, rgba(251, 191, 36, 0.18), rgba(11, 19, 38, 0.95));
             border: 1.5px solid var(--warning);
@@ -430,14 +620,42 @@
 
         .chat-modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.94); justify-content: center; align-items: center; z-index: 50000; padding: 15px; }
         .chat-modal-box { background: linear-gradient(135deg, #0b1326, #04060d); border: 2px solid var(--warning); border-radius: 20px; width: 100%; max-width: 440px; height: 85vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 0 30px rgba(251, 191, 36, 0.3); }
-        .chat-header { background: linear-gradient(135deg, #1f1205, #0b1326); padding: 12px 16px; border-bottom: 1px solid var(--warning); display: flex; justify-content: space-between; align-items: center; }
-        .chat-rooms-container { display: flex; gap: 6px; padding: 8px 12px; background: rgba(0,0,0,0.5); overflow-x: auto; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .chat-room-btn { background: rgba(251, 191, 36, 0.1); border: 1px solid var(--warning); color: var(--warning); padding: 5px 10px; border-radius: 12px; font-size: 10px; font-weight: 900; cursor: pointer; white-space: nowrap; }
+        .chat-header { background: linear-gradient(135deg, #1f1205, #0b1326); padding: 12px 16px; border-bottom: 1px solid rgba(251,191,36,0.72); display: flex; justify-content: space-between; align-items: center; }
+        .chat-rooms-container {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 7px;
+            padding: 8px 10px;
+            background: rgba(0,0,0,0.5);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+        }
+        .chat-room-btn {
+            width: 100%;
+            min-height: 38px;
+            background: rgba(251, 191, 36, 0.1);
+            border: 1px solid var(--warning);
+            color: var(--warning);
+            padding: 7px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 900;
+            cursor: pointer;
+            white-space: normal;
+            line-height: 1.2;
+            text-align: center;
+        }
         .chat-room-btn.active-room { background: var(--warning); color: #000; box-shadow: 0 0 10px rgba(251,191,36,0.5); }
+        .chat-room-btn:hover { filter: brightness(1.15); }
+        .chat-room-btn.tiger-ai-room-btn {
+            background: linear-gradient(135deg, rgba(251,191,36,0.32), rgba(0,242,254,0.18)) !important;
+            border-color: #00f2fe !important;
+            color: #fff !important;
+        }
         .chat-messages-area { flex: 1; padding: 12px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; background: rgba(0,0,0,0.7); }
         .chat-msg-bubble { background: rgba(0, 242, 254, 0.12); border: 1px solid var(--card-border); padding: 8px 12px; border-radius: 10px; max-width: 85%; font-size: 12px; line-height: 1.4; word-break: break-word; position: relative; }
         .chat-msg-bubble.my-msg { background: rgba(251, 191, 36, 0.15); border-color: var(--warning); align-self: flex-end; }
-        .chat-input-bar { padding: 10px; background: #0b1326; border-top: 1px solid var(--warning); display: flex; gap: 8px; align-items: center; }
+        .chat-input-bar { padding: 10px; background: #0b1326; border-top: 1px solid var(--warning); display: flex; flex-direction: column; gap: 6px; align-items: stretch; }
         .chat-input-bar input { flex: 1; background: rgba(0,0,0,0.6); border: 1px solid var(--warning); padding: 8px 12px; border-radius: 10px; color: #fff; font-size: 12px; outline: none; font-weight: 900; }
 
         .locker-tab-btn {
@@ -542,7 +760,7 @@
         @keyframes tigerPulseBox {
             0% { transform: scale(1); box-shadow: 0 0 10px rgba(251, 191, 36, 0.15), inset 0 0 5px rgba(239, 68, 68, 0.15); }
             50% { transform: scale(1.02); box-shadow: 0 0 20px rgba(251, 191, 36, 0.25), inset 0 0 10px rgba(251, 191, 36, 0.2); }
-            100% { transform: scale(1); box-shadow: 0 0 10px rgba(251, 191, 36, 0.15), inset 0 0 5px rgba(239, 68, 68, 0.15); }
+            100% { transform: scale(1); box-shadow: 0 0 10px rgba(251, 191, 36, 0.15), inset 0 0 5px rgba(251, 191, 36, 0.15); }
         }
         .tiger-net-alert-box { background: linear-gradient(135deg, #1f1205, #080e1b); border: 1.5px solid rgba(251, 191, 36, 0.4); border-radius: 22px; padding: 26px; width: 100%; max-width: 390px; display: flex; flex-direction: column; gap: 14px; text-align: center; animation: tigerPulseBox 3s infinite ease-in-out; box-shadow: 0 0 25px rgba(251, 191, 36, 0.2); }
         .tiger-net-alert-box h3 { color: var(--warning); font-size: 20px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; text-shadow: 0 0 6px rgba(251,191,36,0.3); }
@@ -607,9 +825,914 @@
         .announcement-box, .admin-modal-box { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 20px; width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 12px; text-align: center; }
         .admin-modal-box { border-color: var(--accent-cyan); text-align: left; }
         .admin-modal-box input, .admin-modal-box select, .admin-modal-box textarea { background: rgba(0, 0, 0, 0.4); border: 1px solid var(--card-border); padding: 8px 10px; border-radius: 8px; color: var(--text-main); font-size: 13px; width: 100%; outline: none; font-weight: 900; }
+
+        /* 🤖 Tiger Warriors Room AI */
+        .tiger-ai-room-btn {
+            background: linear-gradient(135deg, #fbbf24, #d97706) !important;
+            border-color: #fbbf24 !important;
+            color: #080b12 !important;
+            box-shadow: 0 0 16px rgba(251,191,36,0.38);
+        }
+        /* 🤖 Floating AI button inside the chat room */
+        .tiger-ai-floating-btn {
+            position: absolute;
+            right: 12px;
+            bottom: 74px;
+            z-index: 20;
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            border: 2px solid #fbbf24;
+            background: linear-gradient(145deg, #fbbf24, #d97706);
+            color: #05070b;
+            font-size: 23px;
+            cursor: pointer;
+            box-shadow: 0 0 0 4px rgba(251,191,36,0.12), 0 0 24px rgba(251,191,36,0.55);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: tigerAiFloat 4.5s ease-in-out infinite;
+        }
+        .tiger-ai-floating-btn span {
+            position: absolute;
+            right: -2px;
+            bottom: -8px;
+            font-size: 8px;
+            background: #0b1326;
+            color: #fbbf24;
+            border: 1px solid #fbbf24;
+            padding: 3px 5px;
+            border-radius: 8px;
+            font-weight: 900;
+        }
+        .tiger-ai-floating-btn:hover { transform: scale(1.06); }
+        @keyframes tigerAiFloat {
+            0%,100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        .tiger-ai-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.94);
+            justify-content: center;
+            align-items: center;
+            z-index: 70000;
+            padding: 15px;
+        }
+        /* ===== TIGER AI PREMIUM BORDER =====
+           No flashlight/sweep over the content.
+           Gold base border + one single cyan/blue travelling highlight. */
+        .tiger-ai-box {
+            position: relative;
+            width: 100%;
+            max-width: 460px;
+            height: min(76vh, 620px);
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(135deg,#0b1326,#04060d);
+            border: 2px solid #fbbf24;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 0 18px rgba(251,191,36,0.14);
+            isolation: isolate;
+        }
+
+        /* Mobile-safe: keep the AI box clean; no animated layer over the content. */
+        .tiger-ai-box::before {
+            content: none !important;
+            display: none !important;
+        }
+
+        .tiger-ai-header {
+            padding: 13px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg,#1f1205,#0b1326);
+            border-bottom: 1px solid var(--warning);
+        }
+        .tiger-ai-title { color: var(--warning); font-size: 15px; font-weight: 900; }
+        .tiger-ai-subtitle { color: var(--success); font-size: 9px; margin-top: 3px; font-weight: 900; }
+        .tiger-ai-close {
+            border: none; background: var(--danger); color: #fff;
+            border-radius: 7px; padding: 5px 9px; cursor: pointer; font-weight: 900;
+        }
+        .tiger-ai-context {
+            margin: 10px 12px 0;
+            padding: 9px 10px;
+            border: 1px dashed rgba(251,191,36,0.45);
+            border-radius: 9px;
+            color: var(--text-muted);
+            font-size: 10px;
+            line-height: 1.4;
+        }
+        .tiger-ai-answer {
+            flex: 1;
+            margin: 10px 12px;
+            padding: 12px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-break: break-word;
+            background: rgba(0,0,0,0.58);
+            border: 1px solid var(--card-border);
+            border-radius: 11px;
+            color: var(--text-main);
+            font-size: 12px;
+            line-height: 1.55;
+            font-weight: 700;
+        }
+        .tiger-ai-input-row {
+            display: flex;
+            gap: 7px;
+            padding: 10px 12px 5px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+        .tiger-ai-input-row textarea {
+            flex: 1;
+            min-height: 58px;
+            resize: none;
+            background: rgba(0,0,0,0.65);
+            border: 1px solid rgba(0,242,254,0.72);
+            border-radius: 10px;
+            color: #fff;
+            padding: 9px;
+            font-size: 12px;
+            font-weight: 700;
+            outline: none;
+        }
+        .tiger-ai-ask-btn {
+            align-self: stretch;
+            min-width: 72px;
+            border: 1px solid var(--warning);
+            border-radius: 10px;
+            background: linear-gradient(135deg,var(--warning),#d97706);
+            color: #000;
+            font-weight: 900;
+            cursor: pointer;
+        }
+        .tiger-ai-ask-btn:disabled { opacity: .55; cursor: wait; }
+        .tiger-ai-note {
+            padding: 0 12px 11px;
+            color: var(--text-muted);
+            font-size: 9px;
+            text-align: center;
+        }
+
+    
+        /* ===== TIGER AI BOX CLEAN MOBILE LAYOUT ===== */
+        .tiger-ai-modal { box-sizing: border-box; padding: 10px !important; }
+        .tiger-ai-box { width: min(100%, 460px) !important; height: min(82vh, 650px) !important; max-height: calc(100dvh - 20px) !important; border: 2px solid #fbbf24 !important; overflow: hidden !important; }
+        .tiger-ai-answer { min-height: 0 !important; flex: 1 1 auto !important; overflow-y: auto !important; overflow-x: hidden !important; }
+        .tiger-ai-input-row { flex: 0 0 auto !important; position: relative !important; z-index: 5 !important; }
+        .tiger-ai-ask-btn { touch-action: manipulation !important; -webkit-tap-highlight-color: transparent !important; }
+        @media (max-width:600px) {
+            .tiger-ai-modal { padding: 8px !important; align-items: center !important; }
+            .tiger-ai-box { width: 100% !important; height: min(84vh, 680px) !important; max-height: calc(100dvh - 16px) !important; border-radius: 18px !important; }
+            .tiger-ai-answer { margin: 10px 12px !important; padding: 12px !important; font-size: 13px !important; }
+            .tiger-ai-input-row textarea { min-height: 58px !important; font-size: 13px !important; }
+        }
+
+        /* ===== TIGER AI MOBILE CHAT FIX ===== */
+        .chat-modal-box { box-sizing: border-box; width: min(100%, 440px); }
+        .chat-rooms-container { width: 100%; box-sizing: border-box; overflow-x: hidden; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .chat-room-btn { min-width: 0; box-sizing: border-box; }
+        .chat-messages-area { min-width: 0; position: relative; overflow-x: hidden; padding-bottom: 82px; }
+        .chat-input-bar { width: 100%; box-sizing: border-box; overflow: hidden; padding: 8px 10px; }
+        .chat-input-row { width: 100%; min-width: 0; display: flex; gap: 5px; align-items: center; box-sizing: border-box; }
+        .chat-input-row input { min-width: 0 !important; box-sizing: border-box !important; }
+        #chatNameInput { flex: 0 0 74px !important; width: 74px !important; max-width: 74px !important; }
+        #chatMessageInput { flex: 1 1 auto !important; width: auto !important; min-width: 0 !important; }
+        .chat-input-row button, .chat-input-row label { flex: 0 0 40px; width: 40px; height: 40px; min-width: 40px; box-sizing: border-box; padding: 0 !important; display: inline-flex; align-items: center; justify-content: center; }
+        .chat-input-row .chat-send-btn { flex: 0 0 58px; width: 58px; min-width: 58px; font-size: 10px; }
+        .tiger-ai-floating-btn {
+            right: 12px !important; bottom: 14px !important; width: 62px !important; height: 62px !important;
+            border: 2px solid #00f2fe !important;
+            background: linear-gradient(145deg, #00f2fe, #2563eb) !important;
+            color: #fff !important; font-size: 24px !important;
+            box-shadow: 0 0 0 4px rgba(0,242,254,0.12), 0 0 26px rgba(0,170,255,0.7) !important;
+        }
+        .tiger-ai-floating-btn span { background: #071326 !important; color: #00f2fe !important; border-color: #00f2fe !important; }
+        @media (max-width: 380px) {
+            .chat-header { padding: 10px 10px; }
+            .chat-rooms-container { gap: 5px; padding: 7px 8px; }
+            .chat-room-btn { font-size: 9px; }
+            #chatNameInput { flex-basis: 66px !important; width: 66px !important; max-width: 66px !important; }
+            .chat-input-row { gap: 4px; }
+            .chat-input-row button, .chat-input-row label { flex-basis: 36px; width: 36px; min-width: 36px; }
+            .chat-input-row .chat-send-btn { flex-basis: 52px; width: 52px; min-width: 52px; }
+        }
+
     </style>
+
+
+
+
+
+
+
+<style id="quiz-button-final-float">
+/* FINAL: Daily Quiz floating button only */
+#floatingQuizBtn {
+    width: 68px !important;
+    height: 68px !important;
+    bottom: 20px !important;
+    left: 14px !important;
+    background:
+        radial-gradient(circle at 35% 30%,
+            rgba(120,245,255,0.95) 0%,
+            rgba(0,210,255,0.90) 22%,
+            rgba(0,145,255,0.82) 55%,
+            rgba(0,80,210,0.78) 100%) !important;
+    border: 2px solid rgba(150,250,255,0.95) !important;
+    box-shadow:
+        0 0 7px rgba(0,220,255,0.45),
+        0 0 18px rgba(0,190,255,0.38),
+        0 0 32px rgba(0,140,255,0.31),
+        inset 0 0 10px rgba(220,255,255,0.14) !important;
+    transform-style: preserve-3d !important;
+    will-change: transform, box-shadow;
+    animation: quizTotalFloat3D 4.2s ease-in-out infinite !important;
+    overflow: visible !important;
+}
+
+#floatingQuizBtn::before {
+    content: "";
+    position: absolute;
+    inset: -13px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: -1;
+    background: radial-gradient(circle,
+        rgba(0,235,255,0.25) 0%,
+        rgba(0,190,255,0.16) 35%,
+        rgba(0,120,255,0.08) 58%,
+        rgba(0,80,255,0) 78%);
+    filter: blur(8px);
+    animation: quizBlueAura 2.6s ease-in-out infinite;
+}
+
+#floatingQuizBtn::after {
+    content: "";
+    position: absolute;
+    inset: -5px;
+    border-radius: 50%;
+    pointer-events: none;
+    border: 1px solid rgba(120,245,255,0.28);
+    box-shadow: 0 0 14px rgba(0,220,255,0.23);
+    animation: quizRingPulse 2.2s ease-in-out infinite;
+}
+
+#floatingQuizBtn img {
+    width: 36px !important;
+    height: 36px !important;
+    border: 2px solid rgba(220,255,255,0.95) !important;
+    box-shadow: 0 0 12px rgba(0,230,255,0.65) !important;
+}
+
+#floatingQuizBtn span {
+    font-size: 11px !important;
+    color: #ffffff !important;
+    text-shadow:
+        0 0 5px rgba(0,80,255,1),
+        0 0 10px rgba(0,220,255,0.9) !important;
+}
+
+@keyframes quizTotalFloat3D {
+    0%, 100% {
+        transform: translate3d(0, 0, 0) rotateX(0deg) rotateY(-8deg) rotateZ(-1deg) scale(1);
+    }
+    20% {
+        transform: translate3d(0, -8px, 0) rotateX(7deg) rotateY(7deg) rotateZ(2deg) scale(1.035);
+    }
+    40% {
+        transform: translate3d(2px, -4px, 0) rotateX(-5deg) rotateY(12deg) rotateZ(-2deg) scale(1.07);
+    }
+    60% {
+        transform: translate3d(-2px, -10px, 0) rotateX(6deg) rotateY(-10deg) rotateZ(2deg) scale(1.045);
+    }
+    80% {
+        transform: translate3d(1px, -5px, 0) rotateX(-6deg) rotateY(-4deg) rotateZ(-1deg) scale(1.025);
+    }
+}
+
+@keyframes quizBlueAura {
+    0%, 100% { transform: scale(0.94); opacity: 0.62; }
+    50% { transform: scale(1.14); opacity: 1; }
+}
+
+@keyframes quizRingPulse {
+    0%, 100% { transform: scale(0.98); opacity: 0.45; }
+    50% { transform: scale(1.10); opacity: 0.9; }
+}
+</style>
+
+
+<style id="startup-3d-cyan-light">
+/* One-shot 3D cyan light sweep when the app opens */
+#tiger-startup-roar {
+    perspective: 1200px;
+    overflow: hidden;
+}
+#tiger-startup-roar::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 190px;
+    height: 190px;
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%) rotateX(68deg) rotateZ(0deg) scale(0.72);
+    transform-origin: center;
+    border: 3px solid rgba(150, 250, 255, 0.0);
+    box-shadow:
+        0 0 7px rgba(120, 245, 255, 0.0),
+        0 0 18px rgba(0, 220, 255, 0.0),
+        0 0 36px rgba(0, 180, 255, 0.0);
+    opacity: 0;
+    animation: tigerCyanOrbit 2.35s cubic-bezier(.22,.75,.25,1) 0.18s 1 forwards;
+}
+#tiger-startup-roar::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 245px;
+    height: 245px;
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%) rotateX(68deg) rotateZ(0deg) scale(0.66);
+    background: conic-gradient(
+        from 0deg,
+        rgba(0, 230, 255, 0) 0deg,
+        rgba(0, 230, 255, 0) 245deg,
+        rgba(110, 250, 255, 0.72) 300deg,
+        rgba(0, 190, 255, 0.34) 326deg,
+        rgba(0, 120, 255, 0) 352deg
+    );
+    -webkit-mask: radial-gradient(circle, transparent 59%, #000 61%, #000 64%, transparent 67%);
+    mask: radial-gradient(circle, transparent 59%, #000 61%, #000 64%, transparent 67%);
+    filter: blur(1px);
+    opacity: 0;
+    animation: tigerCyanOrbitGlow 2.35s cubic-bezier(.22,.75,.25,1) 0.18s 1 forwards;
+}
+
+@keyframes tigerCyanOrbit {
+    0% {
+        transform: translate(-50%, -50%) rotateX(68deg) rotateZ(-35deg) scale(0.72);
+        opacity: 0;
+        border-color: rgba(150,250,255,0);
+    }
+    12% {
+        opacity: 1;
+        border-color: rgba(150,250,255,0.82);
+        box-shadow:
+            0 0 7px rgba(120,245,255,0.72),
+            0 0 18px rgba(0,220,255,0.55),
+            0 0 36px rgba(0,180,255,0.32);
+    }
+    55% {
+        transform: translate(-50%, -50%) rotateX(68deg) rotateZ(175deg) scale(1.02);
+        opacity: 0.95;
+    }
+    86% {
+        transform: translate(-50%, -50%) rotateX(68deg) rotateZ(325deg) scale(1.16);
+        opacity: 0.72;
+    }
+    100% {
+        transform: translate(-50%, -50%) rotateX(68deg) rotateZ(360deg) scale(1.22);
+        opacity: 0;
+        border-color: rgba(150,250,255,0);
+        box-shadow:
+            0 0 7px rgba(120,245,255,0),
+            0 0 18px rgba(0,220,255,0),
+            0 0 36px rgba(0,180,255,0);
+    }
+}
+
+@keyframes tigerCyanOrbitGlow {
+    0% {
+        transform: translate(-50%, -50%) rotateX(68deg) rotateZ(-35deg) scale(0.66);
+        opacity: 0;
+    }
+    12% { opacity: 0.9; }
+    55% {
+        transform: translate(-50%, -50%) rotateX(68deg) rotateZ(175deg) scale(1.02);
+        opacity: 0.72;
+    }
+    86% {
+        transform: translate(-50%, -50%) rotateX(68deg) rotateZ(325deg) scale(1.16);
+        opacity: 0.35;
+    }
+    100% {
+        transform: translate(-50%, -50%) rotateX(68deg) rotateZ(360deg) scale(1.22);
+        opacity: 0;
+    }
+}
+</style>
+
+
+<style id="premium-live-effects">
+/* Premium live feel — visual effects only */
+#tiger-startup-roar img {
+    animation: startupLogoBreathe 2.8s ease-in-out infinite;
+}
+@keyframes startupLogoBreathe {
+    0%,100% { filter: drop-shadow(0 0 7px rgba(0,220,255,.35)); }
+    50% { filter: drop-shadow(0 0 15px rgba(0,220,255,.62)); }
+}
+
+/* Header/logo breathing */
+.tiger-logo, .header-logo, .logo-img, .brand-logo {
+    animation: premiumLogoBreath 3.6s ease-in-out infinite;
+}
+@keyframes premiumLogoBreath {
+    0%,100% { filter: drop-shadow(0 0 5px rgba(0,220,255,.22)); }
+    50% { filter: drop-shadow(0 0 13px rgba(0,220,255,.48)); }
+}
+
+62% { opacity:1; }
+    82% { left:125%; opacity:.75; }
+    100% { left:125%; opacity:0; }
+}
+
+/* Join Live attention pulse */
+#joinLiveBtn, .join-live-btn, .join-live, [id*="joinLive"] {
+    animation: liveButtonPulse 2.2s ease-in-out infinite;
+    transform: scale(1.30);
+    transform-origin: center;
+    z-index: 5;
+}
+#joinLiveBtn::before, .join-live-btn::before, .join-live::before {
+    content:"";
+    position:absolute;
+    inset:-3px;
+    border-radius:inherit;
+    pointer-events:none;
+    box-shadow:0 0 0 0 rgba(255,55,55,.42);
+    animation: liveRingPulse 2.2s ease-out infinite;
+}
+@keyframes liveButtonPulse {
+    0%,100% { filter:brightness(1); }
+    50% { filter:brightness(1.09); }
+}
+@keyframes liveRingPulse {
+    0% { box-shadow:0 0 0 0 rgba(255,55,55,.38); opacity:.8; }
+    70% { box-shadow:0 0 0 9px rgba(255,55,55,0); opacity:0; }
+    100% { opacity:0; }
+}
+
+/* Category navigation gets a restrained active shine */
+.news-tabs button.active,
+.category-tabs button.active,
+.filter-btn.active,
+.tab-btn.active {
+    position:relative;
+    overflow:hidden;
+}
+.news-tabs button.active::after,
+.category-tabs button.active::after,
+.filter-btn.active::after,
+.tab-btn.active::after {
+    content:"";
+    position:absolute;
+    top:-20%;
+    left:-70%;
+    width:45%;
+    height:140%;
+    transform:skewX(-20deg);
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent);
+    animation: activeTabShine 4.8s ease-in-out infinite;
+    pointer-events:none;
+}
+@keyframes activeTabShine {
+    0%,60% { left:-70%; opacity:0; }
+    70% { opacity:1; }
+    90%,100% { left:140%; opacity:0; }
+}
+
+/* Keep motion accessible */
+@media (prefers-reduced-motion: reduce) {
+    #tiger-startup-roar img,
+    .tiger-logo, .header-logo, .logo-img, .brand-logo,
+    #joinLiveBtn, .join-live-btn, .join-live, [id*="joinLive"],
+    #joinLiveBtn::before, .join-live-btn::before, .join-live::before,
+    .news-tabs button.active::after, .category-tabs button.active::after,
+    .filter-btn.active::after, .tab-btn.active::after {
+        animation:none !important;
+    }
+}
+</style>
+
+
+<style id="premium-outer-border-light">
+/* Subtle cyan light travels around the APP OUTER BORDER only */
+body::before {
+    content:"";
+    position: fixed;
+    inset: 7px;
+    pointer-events:none;
+    z-index: 2147483000;
+    border-radius: 18px;
+    padding: 1.5px;
+    background: conic-gradient(
+        from 0deg,
+        rgba(0,220,255,0) 0deg,
+        rgba(0,220,255,0) 305deg,
+        rgba(120,250,255,.70) 330deg,
+        rgba(0,190,255,.32) 344deg,
+        rgba(0,220,255,0) 360deg
+    );
+    -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    filter: drop-shadow(0 0 4px rgba(0,210,255,.28));
+    animation: outerBorderOrbit 8s linear infinite;
+    opacity: .72;
+}
+@keyframes outerBorderOrbit {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body::before { animation:none !important; }
+}
+</style>
+
+
+
+
+
+<style id="final-board-border-live">
+/* Only the two requested outer boards get the very subtle cyan edge light */
+#chatBannerContainer,
+#noticeCornerBox {
+    position: relative;
+    overflow: hidden;
+}
+#chatBannerContainer::after,
+#noticeCornerBox::after {
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:inherit;
+    pointer-events:none;
+    padding:1px;
+    background:conic-gradient(
+        from 0deg,
+        rgba(0,220,255,0) 0deg,
+        rgba(0,220,255,0) 326deg,
+        rgba(130,250,255,.16) 340deg,
+        rgba(0,190,255,.07) 351deg,
+        rgba(0,220,255,0) 360deg
+    );
+    -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor;
+    mask-composite:exclude;
+    animation: boardEdgeLight 11s linear infinite;
+}
+@keyframes boardEdgeLight {
+    from { transform:rotate(0deg); }
+    to { transform:rotate(360deg); }
+}
+
+/* Join Live pill — bigger + gentle floating pop */
+#chatBannerContainer > span {
+    display:inline-flex !important;
+    align-items:center;
+    justify-content:center;
+    min-width:116px !important;
+    min-height:48px !important;
+    padding:8px 16px !important;
+    border-radius:28px !important;
+    font-size:13px !important;
+    transform-origin:center;
+    z-index:20;
+    will-change:transform, filter;
+    animation: joinLiveFloatPop 3s ease-in-out infinite !important;
+}
+@keyframes joinLiveFloatPop {
+    0%,100% {
+        transform:translateY(-1px) scale(1.30);
+        filter:brightness(1);
+    }
+    25% {
+        transform:translateY(-4px) scale(1.34);
+        filter:brightness(1.05);
+    }
+    50% {
+        transform:translateY(-1px) scale(1.38);
+        filter:brightness(1.08);
+    }
+    75% {
+        transform:translateY(-5px) scale(1.33);
+        filter:brightness(1.04);
+    }
+}
+#chatBannerContainer > span::before {
+    content:"";
+    position:absolute;
+    inset:-3px;
+    border-radius:inherit;
+    pointer-events:none;
+    box-shadow:0 0 0 0 rgba(255,55,55,.32);
+    animation:joinLiveRing 2.6s ease-out infinite;
+}
+@keyframes joinLiveRing {
+    0% { box-shadow:0 0 0 0 rgba(255,55,55,.34); opacity:.75; }
+    70% { box-shadow:0 0 0 10px rgba(255,55,55,0); opacity:0; }
+    100% { opacity:0; }
+}
+
+@media (prefers-reduced-motion:reduce) {
+    #chatBannerContainer::after,
+    #noticeCornerBox::after,
+    #chatBannerContainer > span,
+    #chatBannerContainer > span::before {
+        animation:none !important;
+    }
+}
+</style>
+
+
+<style id="button-green-loading-state">
+.tw-green-loading{
+  background:#10b981 !important;
+  border-color:#059669 !important;
+  color:#06281f !important;
+  box-shadow:0 0 14px rgba(16,185,129,.65) !important;
+  transform:scale(.98);
+  position:relative;
+}
+.tw-green-loading::after{
+  content:"";
+  display:inline-block;
+  width:12px;
+  height:12px;
+  margin-left:8px;
+  vertical-align:-2px;
+  border:2px solid rgba(6,40,31,.28);
+  border-top-color:#06281f;
+  border-radius:50%;
+  animation:twButtonSpin .7s linear infinite;
+}
+@keyframes twButtonSpin{to{transform:rotate(360deg)}}
+</style>
+
+
+<style id="ui-green-live-popup-image-fix">
+/* Join Live: match the green version shown in the reference screenshot */
+#chatBannerContainer > span {
+  background: linear-gradient(135deg, #16a34a, #22c55e) !important;
+  color: #fff !important;
+  border: 1px solid rgba(74, 222, 128, .9) !important;
+  box-shadow: 0 0 18px rgba(34, 197, 94, .45) !important;
+}
+
+/* Course wallpaper popup: let the supplied image use the available space */
+#courseWallpaperModal {
+  padding: 10px !important;
+}
+#courseWallpaperModal .course-wallpaper-box {
+  width: min(96vw, 620px) !important;
+  max-width: 620px !important;
+  max-height: 94vh !important;
+  padding: 14px !important;
+}
+#courseWallpaperModal .course-wallpaper-box img {
+  width: 100% !important;
+  max-height: 72vh !important;
+  object-fit: contain !important;
+  display: block !important;
+  border-radius: 10px !important;
+}
+
+/* Keep a clearly visible red close button inside the popup */
+#courseWallpaperModal .course-wallpaper-box button[onclick="closeCourseWallpaper()"] {
+  background: #ef4444 !important;
+  color: #fff !important;
+  border: 1px solid #f87171 !important;
+  box-shadow: 0 0 12px rgba(239,68,68,.35) !important;
+}
+</style>
+
+<style id="join-live-small-and-avatar-sequence">
+/* Join Live: reduce the current pill by about 40%, keeping the same green look */
+#chatBannerContainer > span {
+  min-width: 70px !important;
+  min-height: 32px !important;
+  padding: 5px 9px !important;
+  font-size: 10px !important;
+  line-height: 1.1 !important;
+  transform-origin: center !important;
+  animation: joinLiveSmallFloat 3s ease-in-out infinite !important;
+}
+
+@keyframes joinLiveSmallFloat {
+  0%,100% { transform: translateY(-1px) scale(.78); filter: brightness(1); }
+  25% { transform: translateY(-2px) scale(.80); filter: brightness(1.04); }
+  50% { transform: translateY(-1px) scale(.82); filter: brightness(1.07); }
+  75% { transform: translateY(-2px) scale(.80); filter: brightness(1.03); }
+}
+
+/* Three Tiger logos: dramatic zoom-in, settle small, then repeat one-by-one.
+   0-5s: logo 1, 5-10s: logo 2, 10-15s: logo 3.
+   15-25s: all three stay arranged.
+   25-30s: the sequence begins again. */
+#chatBannerContainer .royal-chat-avatar-group {
+  position: relative !important;
+  width: 92px !important;
+  height: 44px !important;
+  flex: 0 0 92px !important;
+  overflow: visible !important;
+}
+
+#chatBannerContainer .royal-chat-avatar-group img {
+  position: absolute !important;
+  top: 50% !important;
+  width: 38px !important;
+  height: 38px !important;
+  object-fit: cover !important;
+  border-radius: 50% !important;
+  transform-origin: center !important;
+  will-change: transform, opacity, filter !important;
+  animation: warriorAvatarSequence 30s ease-in-out infinite !important;
+}
+
+/* Keep the three logos visibly arranged left-to-right when settled */
+#chatBannerContainer .royal-chat-avatar-group img:nth-child(1) { left: 0 !important; animation-delay: 0s !important; }
+#chatBannerContainer .royal-chat-avatar-group img:nth-child(2) { left: 27px !important; animation-delay: -5s !important; }
+#chatBannerContainer .royal-chat-avatar-group img:nth-child(3) { left: 54px !important; animation-delay: -10s !important; }
+
+@keyframes warriorAvatarSequence {
+  /* Initial waiting */
+  0%, 2% {
+    opacity: .18;
+    transform: translateY(-50%) scale(.35);
+    filter: blur(2px) brightness(.75);
+  }
+
+  /* Logo zooms in dramatically */
+  8% {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.75);
+    filter: blur(0) brightness(1.18);
+    z-index: 5;
+  }
+
+  /* Settles down into the final small arranged size */
+  15%, 50% {
+    opacity: 1;
+    transform: translateY(-50%) scale(.72);
+    filter: blur(0) brightness(1);
+    z-index: 2;
+  }
+
+  /* Hold the arranged state */
+  51%, 78% {
+    opacity: 1;
+    transform: translateY(-50%) scale(.72);
+    filter: blur(0) brightness(1);
+    z-index: 2;
+  }
+
+  /* Pull back before the next 10-second cycle */
+  82% {
+    opacity: .35;
+    transform: translateY(-50%) scale(.45);
+    filter: blur(1px) brightness(.85);
+  }
+
+  88%, 100% {
+    opacity: .18;
+    transform: translateY(-50%) scale(.35);
+    filter: blur(2px) brightness(.75);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #chatBannerContainer > span,
+  #chatBannerContainer .royal-chat-avatar-group img {
+    animation: none !important;
+  }
+}
+</style>
+
+
+<style id="join-live-3d-round-finish">
+/* Join Live: larger, fully rounded, tactile 3D pill */
+#chatBannerContainer > span {
+  min-width: 92px !important;
+  min-height: 42px !important;
+  padding: 8px 16px !important;
+  border-radius: 999px !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  line-height: 1.1 !important;
+  border: 1px solid rgba(255,255,255,.24) !important;
+  box-shadow:
+    inset 0 2px 0 rgba(255,255,255,.22),
+    inset 0 -4px 0 rgba(0,0,0,.18),
+    0 5px 0 rgba(0,0,0,.22),
+    0 8px 18px rgba(0,0,0,.25) !important;
+  transform-origin: center !important;
+  transition: transform .16s ease, box-shadow .16s ease, filter .16s ease !important;
+}
+
+/* Gentle 3D breathing */
+@keyframes joinLive3DBreathe {
+  0%,100% {
+    transform: translateY(-1px) scale(.94);
+    filter: brightness(1);
+  }
+  50% {
+    transform: translateY(-2px) scale(.98);
+    filter: brightness(1.06);
+  }
+}
+
+#chatBannerContainer > span {
+  animation: joinLive3DBreathe 3s ease-in-out infinite !important;
+}
+
+/* Touch/click: looks physically pressed */
+#chatBannerContainer > span:active {
+  transform: translateY(3px) scale(.94) !important;
+  box-shadow:
+    inset 0 2px 0 rgba(255,255,255,.12),
+    inset 0 -2px 0 rgba(0,0,0,.16),
+    0 2px 0 rgba(0,0,0,.22),
+    0 4px 10px rgba(0,0,0,.20) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #chatBannerContainer > span {
+    animation: none !important;
+  }
+}
+</style>
+
+
+<style id="original-news-image-display-fix">
+/* Keep the original image aspect ratio; don't paint black bars behind it. */
+#currentNewsModal #modal-news-img {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  max-height: 360px !important;
+  object-fit: contain !important;
+  background: transparent !important;
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+</style>
+
+
+<style id="tiger-ai-touch-fix">
+/* Keep the AI control above the message stream and make touch/click unambiguous. */
+#chatMessagesArea #tigerAiFloatingBtn {
+  z-index: 9999 !important;
+  position: absolute !important;
+  pointer-events: auto !important;
+  pointer-events: auto !important;
+  touch-action: manipulation !important;
+  -webkit-tap-highlight-color: transparent !important;
+  cursor: pointer !important;
+}
+
+/* Never let the floating AI button visually collide with the input bar. */
+@media (max-width: 600px) {
+  #chatMessagesArea #tigerAiFloatingBtn {
+    right: 12px !important;
+    bottom: 18px !important;
+  }
+}
+
+/* AI window always stays above the chat modal. */
+#tigerAiModal {
+  z-index: 100000 !important;
+  pointer-events: auto !important;
+  touch-action: manipulation !important;
+}
+#tigerAiModal .tiger-ai-box, #tigerAiModal .tiger-ai-ask-btn, #tigerAiModal textarea {
+  pointer-events: auto !important;
+  touch-action: manipulation !important;
+}
+</style>
+
 </head>
 <body id="body-theme">
+    <div id="tiger-startup-roar" aria-hidden="true">
+        <img src="https://tigeracadamy.github.io/preperation-hub/tigergoldlogo.jpeg" alt="Tiger Warriors">
+        <div class="roar-text">TIGER WARRIORS</div>
+    </div>
 
     <audio id="fireAudio" src="https://tigeracadamy.github.io/preperation-hub/tigerthemwmusic.mpeg" preload="auto"></audio>
     <audio id="melodyAudio" src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf756.mp3?filename=lofi-study-112191.mp3" preload="auto" loop></audio>
@@ -635,7 +1758,39 @@
         </div>
     </div>
 
-    <!-- 💬 Warrior's Live Chat Modal (WhatsApp Style) -->
+
+    <!-- 🤖 TIGER WARRIORS ROOM AI MODAL -->
+    <div class="tiger-ai-modal" id="tigerAiModal" onclick="closeRoomAI()">
+        <div class="tiger-ai-box" onclick="event.stopPropagation()">
+            <div class="tiger-ai-header">
+                <div>
+                    <div class="tiger-ai-title">🤖 Tiger AI Study Assistant</div>
+                    <div class="tiger-ai-subtitle" id="tigerAiRoomLabel">Room AI</div>
+                </div>
+                <button class="tiger-ai-close" onclick="closeRoomAI()">✕</button>
+            </div>
+
+            <div class="tiger-ai-context" id="tigerAiContext">
+                இந்த ரூமுக்கான கேள்வியை AI-யிடம் கேளுங்கள்.
+            </div>
+
+            <div class="tiger-ai-answer" id="tigerAiAnswer">
+                👋 வணக்கம்! உங்கள் கேள்வியை கீழே எழுதுங்கள். தமிழ் அல்லது English-ல் கேட்கலாம்.
+            </div>
+
+            <div class="tiger-ai-input-row">
+                <textarea id="tigerAiQuestion"
+                    placeholder="உங்கள் கேள்வியை கேளுங்கள்... உதா: இந்திய அரசியலமைப்பின் அடிப்படை உரிமைகள் என்ன?"
+                    onkeydown="if(event.key==='Enter' && !event.shiftKey){event.preventDefault();askRoomAI();}"></textarea>
+                <button class="tiger-ai-ask-btn" id="tigerAiAskBtn" onclick="askRoomAI()">🚀 Ask</button>
+            </div>
+            <div class="tiger-ai-note">
+                💡 Shift + Enter = புதிய வரி &nbsp;|&nbsp; AI பதில் வர சிறிது நேரம் ஆகலாம்.
+            </div>
+        </div>
+    </div>
+
+    <!-- 💬 Warrior's Live Chat Modal (WhatsApp Style with Photo, Video, Voice & AI Study Assistant) -->
     <div class="chat-modal-overlay" id="warriorChatModal" onclick="closeWarriorChatModal()">
         <div class="chat-modal-box" onclick="event.stopPropagation()">
             <div class="chat-header">
@@ -646,8 +1801,8 @@
                         <img src="https://tigeracadamy.github.io/preperation-hub/tigergoldlogo.jpeg" alt="3">
                     </div>
                     <div>
-                        <h4 style="color: var(--warning); font-size: 14px; text-transform: uppercase;">💬 Warrior's Discussion</h4>
-                        <span style="font-size: 9px; color: var(--success);">● Live Online</span>
+                        <h4 style="color: var(--warning); font-size: 14px; text-transform: uppercase;">💬 Warrior's Discussion & AI</h4>
+                        <span style="font-size: 9px; color: var(--success);">● Live Online & AI Assistant</span>
                     </div>
                 </div>
                 <div style="display: flex; gap: 6px; align-items: center;">
@@ -661,18 +1816,30 @@
                 <button class="chat-room-btn active-room" id="roomBtnTNPSC" onclick="switchChatRoom('TNPSC')">🏛️ TNPSC Group</button>
                 <button class="chat-room-btn" id="roomBtnTRB" onclick="switchChatRoom('TRB')">📚 TRB / Chemistry</button>
                 <button class="chat-room-btn" id="roomBtnGeneral" onclick="switchChatRoom('General')">💬 General Doubts</button>
+                <button class="chat-room-btn" id="roomBtnStudy" onclick="switchChatRoom('Study')">📖 Study Discussion</button>
             </div>
 
             <!-- Messages Stream Area -->
-            <div class="chat-messages-area" id="chatMessagesArea">
+            <div class="chat-messages-area" id="chatMessagesArea" style="position:relative;">
                 <div style="text-align: center; color: var(--text-muted); font-size: 11px; margin-top: 10px;">செய்திகள் ஏற்றப்படுகின்றன...</div>
+                <button id="tigerAiFloatingBtn" type="button" class="tiger-ai-floating-btn" onclick="event.preventDefault(); event.stopPropagation(); openRoomAI(); return false;" ontouchend="event.preventDefault(); event.stopPropagation(); openRoomAI(); return false;" aria-label="Open Tiger AI" title="Tiger AI">🤖<span>AI</span></button>
             </div>
 
-            <!-- Chat Input & Send Bar -->
+            <!-- Chat Input & Send Bar with Attachments & Voice Search / AI Bot -->
             <div class="chat-input-bar">
-                <input type="text" id="chatNameInput" placeholder="உங்கள் பெயர்..." style="max-width: 100px;">
-                <input type="text" id="chatMessageInput" placeholder="செய்தியை இங்கே எழுதவும்..." onkeypress="if(event.key === 'Enter') sendChatMessage()">
-                <button class="btn-start" style="padding: 8px 14px; background: var(--warning); color: #000;" onclick="sendChatMessage()">Send 🚀</button>
+                <div class="chat-input-row">
+                    <input type="text" id="chatNameInput" placeholder="உங்கள் பெயர்..." style="max-width: 90px; background: rgba(0,0,0,0.6); border: 1px solid var(--warning); padding: 8px; border-radius: 8px; color: #fff; font-size: 11px; font-weight: 900;">
+                    <input type="text" id="chatMessageInput" placeholder="செய்தி எழுதுங்கள்... AIக்கு மேலே 🤖 அழுத்தவும்" style="flex: 1; background: rgba(0,0,0,0.6); border: 1px solid var(--warning); padding: 8px; border-radius: 8px; color: #fff; font-size: 12px; font-weight: 900;" onkeypress="if(event.key === 'Enter') sendChatMessage()">
+                    
+                    <!-- Voice Search Button -->
+                    <button type="button" onclick="startVoiceSearchChat()" style="background: rgba(0,242,254,0.2); border: 1px solid var(--accent-cyan); color: var(--accent-cyan); padding: 8px 10px; border-radius: 8px; cursor: pointer; font-size: 14px;" title="Voice Search / Type">🎙️</button>
+
+                    <!-- Attachment Button -->
+                    <label for="chatFileInput" style="background: rgba(251,191,36,0.2); border: 1px solid var(--warning); color: var(--warning); padding: 8px 10px; border-radius: 8px; cursor: pointer; font-size: 14px;" title="Attach Photo/Video">📎</label>
+                    <input type="file" id="chatFileInput" accept="image/*,video/*" style="display: none;" onchange="handleChatFileUpload(this)">
+
+                    <button class="btn-start chat-send-btn" style="padding: 8px 12px; background: var(--warning); color: #000;" onclick="sendChatMessage()">Send 🚀</button>
+                </div>
             </div>
         </div>
     </div>
@@ -740,6 +1907,7 @@
         </div>
     </div>
 
+    <!-- My Warrior's Locker Modal -->
     <div class="locker-modal" id="lockerModal" onclick="closeLockerModal()">
         <div class="locker-box" onclick="event.stopPropagation()">
             <h3 style="color: var(--success);">🛡 My Warrior's Locker</h3>
@@ -1128,7 +2296,7 @@
     <div class="modal-overlay" id="currentNewsModal" onclick="closeCurrentNewsModal()">
         <div class="modal-box" onclick="event.stopPropagation()">
             <h3>🐅 நடப்பு நிகழ்வுகள்</h3>
-            <img id="modal-news-img" src="" alt="News Image" style="width: 100%; max-height: 220px; object-fit: contain; border-radius: 8px; border: 1px solid var(--card-border); display: none; margin-bottom: 8px; background: #000;">
+            <img id="modal-news-img" src="" alt="News Image" style="width: 100%; max-height: 360px; object-fit: contain; border-radius: 8px; border: 1px solid var(--card-border); display: none; margin-bottom: 8px; background: transparent;">
             <p id="modal-current-news-text"></p>
             
             <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: 8px;">
@@ -1186,8 +2354,14 @@
 
     <!-- Script Section -->
     <script>
+        // 🐯 Startup roar runs once, then the normal app remains untouched.
+        setTimeout(() => {
+            const startup = document.getElementById('tiger-startup-roar');
+            if (startup) startup.remove();
+        }, 2200);
+
         if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
+        window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./sw.js')
                     .then((reg) => console.log('Service Worker Registered Successfully! Scope:', reg.scope))
                     .catch((err) => console.log('Service Worker Registration Failed:', err));
@@ -1223,7 +2397,24 @@
             window.addEventListener('online', () => { document.getElementById('tigerNetAlertModal').style.display = 'none'; });
             window.addEventListener('offline', () => { document.getElementById('tigerNetAlertModal').style.display = 'flex'; });
             checkInternetConnection();
+            applySmartAutoTheme();
         });
+
+        // 🌟 Auto Smart Dark / Light Mode based on Time (6 PM to 6 AM Dark, else Light)
+        function applySmartAutoTheme() {
+            let hour = new Date().getHours();
+            let manualPref = localStorage.getItem('tiger_manual_theme_mode');
+            if (manualPref) {
+                if (manualPref === 'light') document.body.classList.add('mode-light');
+                else document.body.classList.remove('mode-light');
+            } else {
+                if (hour >= 18 || hour < 6) {
+                    document.body.classList.remove('mode-light'); // Dark Mode (Default)
+                } else {
+                    document.body.classList.add('mode-light'); // Light Mode during day
+                }
+            }
+        }
 
         function closeTigerNetAlert() {
             playClickSound();
@@ -1277,7 +2468,7 @@
         }
 
         const getAdminKey = () => "tiger" + "2026";
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzKS3uiF8GZeAKtwMMXKnFP2-X8jP8UEuTR265CuzP9QsYtgSD68dU_pxNkv_qs9P_PDQ/exec";
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz88gGgPSHKH5J6M1Si3-X0o3t3wlYgiCI0d_lFgox0RpXmvlmCxl2pTwVf2SkicfmItg/exec";
 
         const firebaseConfig = {
             databaseURL: "https://tigerwarriorsdb-default-rtdb.firebaseio.com/"
@@ -1320,8 +2511,10 @@
         let selectedCategoryForWallpaper = '';
         let selectedSubDeptForWallpaper = '';
 
-        // 💬 Live Chat Logic & State + Admin Switch Listener
+        // 💬 Live Chat Logic & State + Admin Switch Listener + WhatsApp Media & AI Assistant
         let currentChatRoom = "TNPSC";
+        let selectedMediaBase64 = null;
+        let selectedMediaType = 'text';
 
         function checkChatStatusAndToggle() {
             rtdb.ref('settings/chatEnabled').on('value', (snapshot) => {
@@ -1351,7 +2544,7 @@
         function switchChatRoom(roomName) {
             playClickSound();
             currentChatRoom = roomName;
-            ['TNPSC', 'TRB', 'General'].forEach(r => {
+            ['TNPSC', 'TRB', 'General', 'Study'].forEach(r => {
                 let btn = document.getElementById('roomBtn' + r);
                 if(btn) {
                     if(r === roomName) btn.classList.add('active-room');
@@ -1361,15 +2554,62 @@
             loadChatMessages();
         }
 
+        function ensureTigerAIFloatingButton() {
+            const chatArea = document.getElementById('chatMessagesArea');
+            if (!chatArea) return;
+            let aiBtn = document.getElementById('tigerAiFloatingBtn');
+            if (!aiBtn || aiBtn.parentElement !== chatArea) {
+                aiBtn = document.createElement('button');
+                aiBtn.id = 'tigerAiFloatingBtn';
+                aiBtn.className = 'tiger-ai-floating-btn';
+                aiBtn.type = 'button';
+                aiBtn.setAttribute('aria-label', 'Open Tiger AI');
+                aiBtn.title = 'Tiger AI';
+                aiBtn.innerHTML = '🤖<span>AI</span>';
+                aiBtn.onclick = function(event){
+                    if (event) { event.preventDefault(); event.stopPropagation(); }
+                    openRoomAI();
+                    return false;
+                };
+                aiBtn.ontouchend = function(event){
+                    if (event) { event.preventDefault(); event.stopPropagation(); }
+                    openRoomAI();
+                    return false;
+                };
+                chatArea.appendChild(aiBtn);
+            }
+        }
+
+        // Mobile-safe AI launcher: catches touch/pointer release before the chat overlay can consume it.
+        (function installTigerAITouchFallback(){
+            if (window.__tigerAITouchFallbackInstalled) return;
+            window.__tigerAITouchFallbackInstalled = true;
+            let lastOpen = 0;
+            function launch(e){
+                const btn = e.target && e.target.closest ? e.target.closest('#tigerAiFloatingBtn') : null;
+                if (!btn) return;
+                const now = Date.now();
+                if (now - lastOpen < 450) return;
+                lastOpen = now;
+                if (e.cancelable) e.preventDefault();
+                e.stopPropagation();
+                openRoomAI();
+            }
+            document.addEventListener('pointerup', launch, true);
+            document.addEventListener('touchend', launch, {capture:true, passive:false});
+        })();
+
         function loadChatMessages() {
             let chatArea = document.getElementById('chatMessagesArea');
             chatArea.innerHTML = `<div style="text-align: center; color: var(--text-muted); font-size: 11px;">செய்திகள் ஏற்றப்படுகின்றன...</div>`;
+            ensureTigerAIFloatingButton();
 
             rtdb.ref('chats/' + currentChatRoom).limitToLast(50).on('value', (snapshot) => {
-                chatArea.innerHTML = "";
+                chatArea.innerHTML = '';
                 const msgs = snapshot.val();
                 if (!msgs) {
-                    chatArea.innerHTML = `<div style="text-align: center; color: var(--text-muted); font-size: 11px; margin-top: 15px;">இந்த ரூமில் இப்போதைக்கு செய்திகள் இல்லை. முதல் செய்தியை அனுப்புங்கள்! 🚀</div>`;
+                    chatArea.innerHTML = `<div style="text-align: center; color: var(--text-muted); font-size: 11px; margin-top: 15px;">இந்த ரூமில் இப்போதைக்கு செய்திகள் இல்லை. முதல் செய்தியை அனுப்புங்கள் அல்லது @ai என டவுட் கேளுங்கள்! 🚀</div>`;
+                    ensureTigerAIFloatingButton();
                     return;
                 }
 
@@ -1378,11 +2618,227 @@
                     let bubble = document.createElement('div');
                     let isMyMsg = localStorage.getItem('tiger_chat_name') === m.name;
                     bubble.className = `chat-msg-bubble ${isMyMsg ? 'my-msg' : ''}`;
-                    bubble.innerHTML = `<div style="font-size: 10px; color: var(--warning); margin-bottom: 2px;"><b>${m.name}</b> <span style="font-size: 8px; color: #94a3b8; float: right;">${m.time || ''}</span></div><div style="color: #fff;">${m.text}</div>`;
+
+                    let mediaContent = '';
+                    if (m.type === 'image' && m.mediaUrl) {
+                        mediaContent = `<br><img src="${m.mediaUrl}" style="max-width:100%; max-height:180px; border-radius:6px; margin-top:4px; object-fit:contain;">`;
+                    } else if (m.type === 'video' && m.mediaUrl) {
+                        mediaContent = `<br><video src="${m.mediaUrl}" controls style="max-width:100%; max-height:180px; border-radius:6px; margin-top:4px;"></video>`;
+                    }
+
+                    bubble.innerHTML = `
+                        <div style="font-size: 10px; color: var(--warning); margin-bottom: 2px;"><b>${m.name}</b> <span style="font-size: 8px; color: #94a3b8; float: right;">${m.time || ''}</span></div>
+                        <div style="color: #fff;">${m.text}</div>
+                        ${mediaContent}
+                    `;
                     chatArea.appendChild(bubble);
                 });
+                ensureTigerAIFloatingButton();
                 chatArea.scrollTop = chatArea.scrollHeight;
             });
+        }
+
+        function handleChatFileUpload(input) {
+            if (input.files && input.files[0]) {
+                let file = input.files[0];
+                let reader = new FileReader();
+                reader.onload = function(e) {
+                    selectedMediaBase64 = e.target.result;
+                    selectedMediaType = file.type.startsWith('image') ? 'image' : 'video';
+                    showRoyalAlertPopup("🐅 TIGER WARRIORS ALERT 🔥", `📎 ${file.name} இணைக்கப்பட்டது! இப்போது 'Send' பட்டனை அழுத்தவும்.`);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function startVoiceSearchChat() {
+            try {
+                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                if (!SpeechRecognition) {
+                    showRoyalAlertPopup("🐅 TIGER WARRIORS ALERT 🔥", "⚠ உங்கள் பிரவுசரில் குரல் தேடல் ஆதரிக்கப்படவில்லை!");
+                    return;
+                }
+                const recognition = new SpeechRecognition();
+                recognition.lang = 'ta-IN';
+                recognition.start();
+                recognition.onresult = function(event) {
+                    let speechText = event.results[0][0].transcript;
+                    document.getElementById('chatMessageInput').value = speechText;
+                };
+            } catch (e) {
+                showRoyalAlertPopup("🐅 TIGER WARRIORS ALERT 🔥", "⚠ மைக்ரோபோன் அனுமதி கிடைக்கவில்லை.");
+            }
+        }
+
+        // 🤖 TIGER WARRIORS ROOM AI
+        // IMPORTANT: Do not publish a real API key in client-side HTML.
+        // Preferred production setup: point TIGER_AI_ENDPOINT to your own secure
+        // backend/Google Apps Script endpoint that keeps the provider API key secret.
+        const TIGER_AI_ENDPOINT = "https://script.google.com/macros/s/AKfycbz88gGgPSHKH5J6M1Si3-X0o3t3wlYgiCI0d_lFgox0RpXmvlmCxl2pTwVf2SkicfmItg/exec";
+
+        function getRoomAIInstruction(room) {
+            if (room === "TNPSC") {
+                return "You are Tiger Warriors TNPSC study assistant. Explain answers clearly, accurately and exam-focused. Prefer Tamil when the student asks in Tamil.";
+            }
+            if (room === "TRB") {
+                return "You are Tiger Warriors TRB / Chemistry study assistant. Give clear, educational, technically accurate answers. Prefer Tamil when the student asks in Tamil.";
+            }
+            if (room === "Study") {
+                return "You are Tiger Warriors Study Discussion assistant. Help with study planning, concepts, notes, exam preparation and educational questions. Prefer Tamil when the student asks in Tamil.";
+            }
+            return "You are Tiger Warriors General Doubts study assistant. Answer the student's question clearly and safely. Prefer Tamil when the student asks in Tamil.";
+        }
+
+        function openRoomAI() {
+            playClickSound();
+            const modal = document.getElementById('tigerAiModal');
+            const label = document.getElementById('tigerAiRoomLabel');
+            const context = document.getElementById('tigerAiContext');
+
+            const roomNames = {
+                TNPSC: "🏛️ TNPSC Group — AI Assistant",
+                TRB: "📚 TRB / Chemistry — AI Assistant",
+                General: "💬 General Doubts — AI Assistant",
+                Study: "📖 Study Discussion — AI Assistant"
+            };
+
+            const roomHelp = {
+                TNPSC: "TNPSC syllabus, polity, history, geography, Tamil, current-affairs concepts போன்ற கேள்விகளை கேட்கலாம்.",
+                TRB: "TRB / Chemistry concepts, reactions, mechanisms, research basics போன்ற கேள்விகளை கேட்கலாம்.",
+                General: "எந்த study doubt-யும் கேட்கலாம். தமிழ் அல்லது English-ல் கேட்கலாம்.",
+                Study: "பாடங்கள், குறிப்புகள், தேர்வு தயாரிப்பு மற்றும் பொதுப் படிப்பு சந்தேகங்களை கேட்கலாம்."
+            };
+
+            label.textContent = roomNames[currentChatRoom] || "🤖 Room AI";
+            context.textContent = roomHelp[currentChatRoom] || "இந்த ரூமுக்கான கேள்வியை AI-யிடம் கேளுங்கள்.";
+
+            const aiBox = modal.querySelector('.tiger-ai-box');
+            if (aiBox) aiBox.classList.remove('border-run');
+            modal.style.display = 'flex';
+            modal.style.pointerEvents = 'auto';
+            setTimeout(() => document.getElementById('tigerAiQuestion').focus(), 100);
+        }
+
+        function closeRoomAI() {
+            playClickSound();
+            const modal = document.getElementById('tigerAiModal');
+            const aiBox = modal.querySelector('.tiger-ai-box');
+            if (aiBox) aiBox.classList.remove('border-run');
+            modal.style.display = 'none';
+            modal.style.pointerEvents = 'none';
+        }
+
+        function setRoomAIAnswer(text) {
+            const answer = document.getElementById('tigerAiAnswer');
+            answer.textContent = text;
+            answer.scrollTop = answer.scrollHeight;
+        }
+
+        async function askRoomAI() {
+            const input = document.getElementById('tigerAiQuestion');
+            const button = document.getElementById('tigerAiAskBtn');
+            const question = input.value.trim();
+            if (!question) { setRoomAIAnswer("⚠️ முதலில் உங்கள் கேள்வியை எழுதுங்கள்."); return; }
+            if (!TIGER_AI_ENDPOINT) { setRoomAIAnswer("⚙️ Tiger AI server connect செய்யப்படவில்லை."); return; }
+            button.disabled = true; button.textContent = "⏳";
+            setRoomAIAnswer("🤖 Tiger AI யோசித்துக்கொண்டிருக்கிறது...\n\nசிறிது நேரம் காத்திருக்கவும்.");
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 20000);
+            try {
+                const payload = { type:"tiger_ai", question, room:currentChatRoom, systemInstruction:getRoomAIInstruction(currentChatRoom) };
+                const response = await fetch(TIGER_AI_ENDPOINT, { method:"POST", redirect:"follow", headers:{"Content-Type":"text/plain;charset=utf-8"}, body:JSON.stringify(payload), signal:controller.signal });
+                const raw = await response.text();
+                if (!response.ok) throw new Error("AI endpoint HTTP " + response.status);
+                let data = {};
+                try { data = JSON.parse(raw); } catch (_) { const cleaned=raw.replace(/^\uFEFF/,'').trim(); if(cleaned) data={reply:cleaned}; }
+                const reply = String(data.reply || data.answer || data.text || data.output || (data.candidates?.[0]?.content?.parts?.map(p=>p.text||"").join("")) || "").trim();
+                if (!reply) throw new Error(data.error || data.details || "AI response is empty");
+                setRoomAIAnswer("🤖 Tiger AI:\n\n" + reply);
+                const name=localStorage.getItem('tiger_chat_name') || "Student";
+                const timeStr=new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+                rtdb.ref('chats/'+currentChatRoom).push({name:"🤖 Tiger AI Bot",text:reply,question,askedBy:name,time:timeStr,timestamp:Date.now(),type:'text',mediaUrl:''}).catch(()=>{});
+                input.value="";
+            } catch(error) {
+                console.error("Tiger AI error:",error);
+                if(error && error.name==='AbortError') setRoomAIAnswer("⏱️ Tiger AI பதில் வர நேரம் எடுத்துக்கொள்கிறது.\n\n20 seconds-க்கு பிறகு முயற்சி நிறுத்தப்பட்டது. Internet / AI server-ஐ சரிபார்த்து மீண்டும் Ask செய்யவும்.");
+                else setRoomAIAnswer("❌ Tiger AI பதிலை பெற முடியவில்லை.\n\nAI server / Internet connection-ஐ சரிபார்த்து மீண்டும் முயற்சி செய்யவும்.");
+            } finally { clearTimeout(timeoutId); button.disabled=false; button.textContent="🚀 Ask"; }
+        }
+
+        // 🤖 TIGER AI — Unified @ai chat assistant
+        // Uses the same secure Apps Script endpoint as the Tiger AI modal.
+        async function triggerAIStudyAssistant(userQuery, userName) {
+            const cleanQuery = String(userQuery || '').replace(/@ai/ig, '').trim();
+            if (!cleanQuery) return;
+
+            const room = currentChatRoom || 'General';
+            const name = userName || localStorage.getItem('tiger_chat_name') || 'Student';
+
+            try {
+                const response = await fetch(TIGER_AI_ENDPOINT, {
+                    method: 'POST',
+                    redirect: 'follow',
+                    headers: {
+                        'Content-Type': 'text/plain;charset=utf-8'
+                    },
+                    body: JSON.stringify({
+                        type: 'tiger_ai',
+                        question: cleanQuery,
+                        room: room,
+                        systemInstruction: getRoomAIInstruction(room)
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('AI endpoint HTTP ' + response.status);
+                }
+
+                const data = await response.json();
+                const reply =
+                    data.reply ||
+                    data.answer ||
+                    data.text ||
+                    data.output ||
+                    (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts
+                        ? data.candidates[0].content.parts.map(function(part) { return part.text || ''; }).join('')
+                        : '');
+
+                if (!reply) {
+                    throw new Error(data.error || data.details || 'AI response is empty');
+                }
+
+                const aiText = '🤖 [Tiger AI]: ' + reply;
+                const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+                await rtdb.ref('chats/' + room).push({
+                    name: '🤖 Tiger AI Bot',
+                    text: aiText,
+                    question: cleanQuery,
+                    askedBy: name,
+                    time: timeStr,
+                    timestamp: Date.now(),
+                    type: 'text',
+                    mediaUrl: ''
+                });
+
+                return reply;
+            } catch (error) {
+                console.error('Tiger AI @ai error:', error);
+
+                const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                rtdb.ref('chats/' + room).push({
+                    name: '🤖 Tiger AI Bot',
+                    text: '🤖 [Tiger AI]: மன்னிக்கவும் மச்சி, இப்போது AI பதிலை பெற முடியவில்லை.',
+                    question: cleanQuery,
+                    askedBy: name,
+                    time: timeStr,
+                    timestamp: Date.now(),
+                    type: 'text',
+                    mediaUrl: ''
+                }).catch(function() {});
+
+                return null;
+            }
         }
 
         function sendChatMessage() {
@@ -1398,18 +2854,33 @@
             }
             localStorage.setItem('tiger_chat_name', name);
 
-            if (!text) return;
+            if (!text && !selectedMediaBase64) return;
             playClickSound();
 
             let timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-            rtdb.ref('chats/' + currentChatRoom).push({
+            let messageData = {
                 name: name,
-                text: text,
+                text: text || (selectedMediaType === 'image' ? '📷 [Photo]' : '🎥 [Video]'),
                 time: timeStr,
-                timestamp: Date.now()
-            }).then(() => {
+                timestamp: Date.now(),
+                type: selectedMediaType,
+                mediaUrl: selectedMediaBase64 || ""
+            };
+
+            rtdb.ref('chats/' + currentChatRoom).push(messageData).then(() => {
                 msgInput.value = "";
+                let isAiTriggered = text.toLowerCase().includes('@ai');
+                let userNameUsed = name;
+
+                selectedMediaBase64 = null;
+                selectedMediaType = 'text';
+                document.getElementById('chatFileInput').value = "";
+
+                if (isAiTriggered) {
+                    // Use the same unified Tiger AI backend as the AI modal.
+                    triggerAIStudyAssistant(text, userNameUsed);
+                }
             }).catch(err => {
                 showRoyalAlertPopup("🐅 TIGER WARRIORS ALERT 🔥", "⚠ செய்தி அனுப்புவதில் தடை. இணையத்தைச் சரிபார்க்கவும்!");
             });
@@ -1418,11 +2889,12 @@
         function clearCurrentChatRoom() {
             if (confirm("⚠️ இந்த ரூமில் உள்ள அனைத்து மெசேஜ்களையும் நிச்சயமாக அழிக்க விரும்புகிறீர்களா?")) {
                 rtdb.ref('chats/' + currentChatRoom).remove().then(() => {
-                    showRoyalAlertPopup("🐅 TIGER WARRIORS CONGRATULATIONS 🔥", "🗑️️ அனைத்து மெசேஜ்களும் வெற்றிகரமாக அழிக்கப்பட்டன!");
+                    showRoyalAlertPopup("🐅 TIGER WARRIORS CONGRATULATIONS 🔥", "🗑 அனைத்து மெசேஜ்களும் வெற்றிகரமாக அழிக்கப்பட்டன!");
                 });
             }
         }
 
+        /* 🛡 MY WARRIOR'S LOCKER FOLDERS & INDEXEDDB SYSTEM */
         const folderList = [
             { id: 'Polity', name: '🏛️ Polity (அரசியலமைப்பு)' },
             { id: 'History', name: '📜 History (வரலாறு)' },
@@ -1472,14 +2944,240 @@
             }
         }
 
-        // 🚀 BULLET-PROOF 107-STABLE FETCH LOGIC (Tries Firebase first, instantly falls back to Google Sheets API if Firebase data is missing)
+        function saveFileLockerItem(type) {
+            let titleInput = document.getElementById(type === 'pdf' ? 'pdfTitleInput' : 'imgTitleInput');
+            let fileInput = document.getElementById(type === 'pdf' ? 'pdfFileInput' : 'imgFileInput');
+            let folderId = currentOpenFolder[type];
+            let title = titleInput.value.trim();
+            if(!title) { showRoyalAlertPopup("🐅 TIGER WARRIORS ALERT 🔥", "தலைப்பை உள்ளிடவும்!"); return; }
+            if(fileInput.files.length === 0) { showRoyalAlertPopup("🐅 TIGER WARRIORS ALERT 🔥", "ஃபைலைத் தேர்ந்தெடுக்கவும்!"); return; }
+            if(!folderId) { showRoyalAlertPopup("🐅 TIGER WARRIORS ALERT 🔥", "போல்டர் தேர்வு செய்யப்படவில்லை!"); return; }
+            let file = fileInput.files[0];
+            let reader = new FileReader();
+            reader.onload = function(e) {
+                let base64Data = e.target.result;
+                let storageKey = type === 'pdf' ? 'locker_pdfs' : 'locker_imgs';
+                let items = JSON.parse(localStorage.getItem(storageKey) || '[]');
+                items.push({ title: title, folder: folderId, dataUrl: base64Data, fileName: file.name });
+                localStorage.setItem(storageKey, JSON.stringify(items));
+                titleInput.value = ''; fileInput.value = '';
+                loadLockerItems();
+                showRoyalAlertPopup("🐅 TIGER WARRIORS CONGRATULATIONS 🔥", "✅ வெற்றிகரமாக சேமிக்கப்பட்டது!");
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function saveVideoToIndexedDB() {
+            let titleInput = document.getElementById('vidTitleInput');
+            let fileInput = document.getElementById('vidFileInput');
+            let folderId = currentOpenFolder.video;
+            let title = titleInput.value.trim();
+            if(!title) { showRoyalAlertPopup("🐅 TIGER WARRIORS ALERT 🔥", "வீடியோ தலைப்பை உள்ளிடவும்!"); return; }
+            if(fileInput.files.length === 0) { showRoyalAlertPopup("🐅 TIGER WARRIORS ALERT 🔥", "வீடியோ ஃபைலைத் தேர்ந்தெடுக்கவும்!"); return; }
+            if(!folderId) { showRoyalAlertPopup("🐅 TIGER WARRIORS ALERT 🔥", "போல்டர் தேர்வு செய்யப்படவில்லை!"); return; }
+            let file = fileInput.files[0];
+            let transaction = db.transaction(["videos"], "readwrite");
+            let store = transaction.objectStore("videos");
+            let request = store.add({ title: title, folder: folderId, fileBlob: file, fileName: file.name });
+            request.onsuccess = function() {
+                titleInput.value = ''; fileInput.value = '';
+                loadLockerItems();
+                showRoyalAlertPopup("🐅 TIGER WARRIORS CONGRATULATIONS 🔥", "✅ வீடியோ சேமிக்கப்பட்டது!");
+            };
+        }
+
+        function saveNoteLockerItem() {
+            let date = document.getElementById('noteDateInput').value;
+            let content = document.getElementById('noteContentInput').value.trim();
+            if(!date || !content) { showRoyalAlertPopup("🐅 TIGER WARRIORS ALERT 🔥", "தேதி மற்றும் குறிப்பை உள்ளிடவும்!"); return; }
+            let items = JSON.parse(localStorage.getItem('locker_notes') || '[]');
+            items.push({date, content});
+            localStorage.setItem('locker_notes', JSON.stringify(items));
+            document.getElementById('noteContentInput').value = '';
+            loadLockerItems();
+            showRoyalAlertPopup("🐅 TIGER WARRIORS CONGRATULATIONS 🔥", "✅ குறிப்பு சேமிக்கப்பட்டது!");
+        }
+
+        function saveTaskLockerItem() {
+            let task = document.getElementById('taskInput').value.trim();
+            if(!task) { showRoyalAlertPopup("🐅 TIGER WARRIORS ALERT 🔥", "டாஸ்க்கை உள்ளிடவும்!"); return; }
+            let items = JSON.parse(localStorage.getItem('locker_tasks') || '[]');
+            items.push({task, done: false});
+            localStorage.setItem('locker_tasks', JSON.stringify(items));
+            document.getElementById('taskInput').value = '';
+            loadLockerItems();
+            showRoyalAlertPopup("🐅 TIGER WARRIORS CONGRATULATIONS 🔥", "✅ இலக்கு சேர்க்கப்பட்டது!");
+        }
+
+        function loadLockerItems() {
+            renderFolders('pdf');
+            renderFolders('img');
+            renderVideoFolders();
+            if(currentOpenFolder.pdf) renderFiles('pdf', currentOpenFolder.pdf);
+            if(currentOpenFolder.img) renderFiles('img', currentOpenFolder.img);
+            if(currentOpenFolder.video) renderVideoFiles(currentOpenFolder.video);
+
+            let notes = JSON.parse(localStorage.getItem('locker_notes') || '[]');
+            let noteContainer = document.getElementById('savedNotesList');
+            if(noteContainer) {
+                noteContainer.innerHTML = notes.map((n, idx) => `
+                    <div style="background:rgba(0,0,0,0.5); padding:8px; border-radius:6px; font-size:11px; display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                        <div><b style="color:var(--warning);">${n.date}:</b> ${n.content}</div>
+                        <button onclick="confirmDeleteLockerItem('note', ${idx})" style="background:var(--danger); color:#fff; border:none; padding:4px 8px; border-radius:6px; font-size:10px; cursor:pointer;">🗑️ Delete</button>
+                    </div>
+                `).join('') || '<span style="font-size:10px; color:var(--text-muted);">குறிப்புகள் எதுவும் இல்லை</span>';
+            }
+
+            let tasks = JSON.parse(localStorage.getItem('locker_tasks') || '[]');
+            let taskContainer = document.getElementById('savedTasksList');
+            if(taskContainer) {
+                taskContainer.innerHTML = tasks.map((tk, idx) => `
+                    <div style="background:rgba(0,0,0,0.5); padding:8px; border-radius:6px; font-size:11px; display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                        <span>🎯 ${tk.task}</span>
+                        <button onclick="confirmDeleteLockerItem('task', ${idx})" style="background:var(--danger); color:#fff; border:none; padding:4px 8px; border-radius:6px; font-size:10px; cursor:pointer;">🗑 Delete</button>
+                    </div>
+                `).join('') || '<span style="font-size:10px; color:var(--text-muted);">டாஸ்க்குகள் எதுவும் இல்லை</span>';
+            }
+        }
+
+        function renderFolders(type) {
+            let storageKey = type === 'pdf' ? 'locker_pdfs' : 'locker_imgs';
+            let items = JSON.parse(localStorage.getItem(storageKey) || '[]');
+            let container = document.getElementById(type === 'pdf' ? 'savedPdfFoldersList' : 'savedImgFoldersList');
+            if(!container) return;
+            container.innerHTML = folderList.map(folder => {
+                let count = items.filter(i => (i.folder || 'Other Materials') === folder.id).length;
+                return `
+                    <div class="folder-card" onclick="openFolder('${type}', '${folder.id}')">
+                        <span style="font-size:12px; color:var(--accent-cyan);">${folder.name}</span>
+                        <span style="font-size:11px; color:var(--warning); background:rgba(251,191,36,0.15); padding:2px 8px; border-radius:6px;">${count} Files</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderVideoFolders() {
+            if(!db) return;
+            let transaction = db.transaction(["videos"], "readonly");
+            let store = transaction.objectStore("videos");
+            let request = store.getAll();
+            request.onsuccess = function(event) {
+                let items = event.target.result;
+                let container = document.getElementById('savedVideoFoldersList');
+                if(!container) return;
+                container.innerHTML = folderList.map(folder => {
+                    let count = items.filter(i => (i.folder || 'Other Materials') === folder.id).length;
+                    return `
+                        <div class="folder-card" onclick="openFolder('video', '${folder.id}')">
+                            <span style="font-size:12px; color:var(--accent-cyan);">${folder.name}</span>
+                            <span style="font-size:11px; color:var(--warning); background:rgba(251,191,36,0.15); padding:2px 8px; border-radius:6px;">${count} Videos</span>
+                        </div>
+                    `;
+                }).join('');
+            };
+        }
+
+        function openFolder(type, folderId) {
+            currentOpenFolder[type] = folderId;
+            let mainView = document.getElementById(type === 'video' ? 'videoFolderMainView' : type + 'FolderMainView');
+            let detailView = document.getElementById(type === 'video' ? 'videoFolderDetailView' : type + 'FolderDetailView');
+            if(mainView) mainView.style.display = 'none';
+            if(detailView) detailView.style.display = 'block';
+            let folderObj = folderList.find(f => f.id === folderId);
+            let titleEl = document.getElementById(type === 'video' ? 'videoFolderTitle' : type + 'FolderTitle');
+            if(titleEl) titleEl.textContent = "📂 " + (folderObj ? folderObj.name : folderId);
+            if(type === 'video') renderVideoFiles(folderId);
+            else renderFiles(type, folderId);
+        }
+
+        function backToFolders(type) {
+            currentOpenFolder[type] = null;
+            let mainView = document.getElementById(type === 'video' ? 'videoFolderMainView' : type + 'FolderMainView');
+            let detailView = document.getElementById(type === 'video' ? 'videoFolderDetailView' : type + 'FolderDetailView');
+            if(mainView) mainView.style.display = 'block';
+            if(detailView) detailView.style.display = 'none';
+            loadLockerItems();
+        }
+
+        function renderFiles(type, folderId) {
+            let storageKey = type === 'pdf' ? 'locker_pdfs' : 'locker_imgs';
+            let items = JSON.parse(localStorage.getItem(storageKey) || '[]');
+            let container = document.getElementById(type === 'pdf' ? 'savedPdfFilesList' : 'savedImgFilesList');
+            if(!container) return;
+            let filtered = items.map((item, originalIndex) => ({ ...item, originalIndex })).filter(i => (i.folder || 'Other Materials') === folderId);
+            container.innerHTML = filtered.map(item => {
+                let icon = type === 'pdf' ? '📄' : '🖼';
+                return `
+                    <div style="background:rgba(0,0,0,0.5); padding:8px; border-radius:6px; display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                        <a href="javascript:void(0)" onclick="openMediaViewer('${icon} ${item.title}', '${item.dataUrl}', '${type}')" style="color:var(--text-main); font-size:12px; text-decoration:none;">${icon} ${item.title}</a>
+                        <button onclick="confirmDeleteLockerItem('${type}', ${item.originalIndex})" style="background:var(--danger); color:#fff; border:none; padding:4px 8px; border-radius:6px; font-size:10px; cursor:pointer;">🗑️ Delete</button>
+                    </div>
+                `;
+            }).join('') || '<span style="font-size:10px; color:var(--text-muted);">ஃபைல்கள் எதுவும் இல்லை</span>';
+        }
+
+        function renderVideoFiles(folderId) {
+            if(!db) return;
+            let transaction = db.transaction(["videos"], "readonly");
+            let store = transaction.objectStore("videos");
+            let request = store.getAll();
+            request.onsuccess = function(event) {
+                let items = event.target.result;
+                let container = document.getElementById('savedVideoFilesList');
+                if(!container) return;
+                let filtered = items.filter(i => (i.folder || 'Other Materials') === folderId);
+                container.innerHTML = filtered.map(item => {
+                    let blobUrl = URL.createObjectURL(item.fileBlob);
+                    return `
+                        <div style="background:rgba(0,0,0,0.5); padding:8px; border-radius:6px; display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                            <a href="javascript:void(0)" onclick="openVideoViewerFromBlob('${item.title}', '${blobUrl}')" style="color:var(--text-main); font-size:12px; text-decoration:none;">🎥 ${item.title}</a>
+                            <button onclick="deleteVideoFromIndexedDB(${item.id})" style="background:var(--danger); color:#fff; border:none; padding:4px 8px; border-radius:6px; font-size:10px; cursor:pointer;">🗑 Delete</button>
+                        </div>
+                    `;
+                }).join('') || '<span style="font-size:10px; color:var(--text-muted);">வீடியோக்கள் எதுவும் இல்லை</span>';
+            };
+        }
+
+        function openVideoViewerFromBlob(title, blobUrl) {
+            document.getElementById('mediaViewerTitle').textContent = "🎥 " + title;
+            document.getElementById('mediaViewerContent').innerHTML = `<video src="${blobUrl}" controls autoplay style="width:100%; max-height:65vh; border-radius:6px;"></video>`;
+            document.getElementById('mediaViewerModal').style.display = 'flex';
+        }
+
+        function deleteVideoFromIndexedDB(id) {
+            if (confirm("⚠ இந்த வீடியோவை நிச்சயமாக நீக்க விரும்புகிறீர்களா?")) {
+                let transaction = db.transaction(["videos"], "readwrite");
+                let store = transaction.objectStore("videos");
+                store.delete(id).onsuccess = function() { loadLockerItems(); };
+            }
+        }
+
+        function confirmDeleteLockerItem(type, index) {
+            if (confirm("⚠️ இந்த ஃபைலை நிச்சயமாக நீக்க விரும்புகிறீர்களா?")) {
+                let key = type === 'pdf' ? 'locker_pdfs' : (type === 'img' ? 'locker_imgs' : (type === 'note' ? 'locker_notes' : 'locker_tasks'));
+                let items = JSON.parse(localStorage.getItem(key) || '[]');
+                items.splice(index, 1);
+                localStorage.setItem(key, JSON.stringify(items));
+                loadLockerItems();
+            }
+        }
+
+        function openMediaViewer(title, dataUrl, type) {
+            document.getElementById('mediaViewerTitle').textContent = title;
+            let contentDiv = document.getElementById('mediaViewerContent');
+            if (type === 'img') contentDiv.innerHTML = `<img src="${dataUrl}" style="max-width:100%; max-height:65vh; border-radius:6px; object-fit:contain;">`;
+            else if (type === 'pdf') contentDiv.innerHTML = `<div style="width:100%; height:65vh; display:flex; flex-direction:column; justify-content:center; align-items:center; gap:10px;"><a href="${dataUrl}" target="_blank" class="btn-start" style="padding:10px 20px; text-decoration:none;">Open PDF 🚀</a></div>`;
+            document.getElementById('mediaViewerModal').style.display = 'flex';
+        }
+        function closeMediaViewer() { document.getElementById('mediaViewerModal').style.display = 'none'; document.getElementById('mediaViewerContent').innerHTML = ''; }
+
+        // 🚀 BULLET-PROOF FETCH LOGIC
         function fetchSheetData() {
             rtdb.ref('/').once('value').then((snapshot) => {
                 const data = snapshot.val();
                 if (data && data.news) {
                     processFetchedData(data);
                 } else {
-                    // Fallback directly to Google Script to guarantee news load
                     fetchFromGoogleScriptFallback();
                 }
             }).catch((err) => {
@@ -1498,7 +3196,17 @@
         function processFetchedData(data) {
             if (!data) return;
             if (data.tests) tests = data.tests;
-            if (data.courseWallpapers) courseWallpapers = data.courseWallpapers;
+            if (data.courseWallpapers) {
+                courseWallpapers = data.courseWallpapers;
+                // Warm the browser cache so the course image is ready before tap.
+                Object.values(courseWallpapers).forEach(item => {
+                    if (item && item.status === 'ON' && item.img) {
+                        const preloader = new Image();
+                        preloader.decoding = 'async';
+                        preloader.src = item.img;
+                    }
+                });
+            }
             
             if (data.news) {
                 if (Array.isArray(data.news)) {
@@ -1683,6 +3391,37 @@
         }
 
         let pendingCategoryAction = null;
+        // Short in-memory auth cache: avoids repeating the same server check
+        // when the user immediately opens the same protected course/resource.
+        const tigerAuthCache = new Map();
+        const TIGER_AUTH_CACHE_MS = 15000;
+
+        function tigerAuthCacheKey(phone, deviceId, category, subDept) {
+            return [phone, deviceId, category, subDept].join('|');
+        }
+
+        function checkCachedAuth(phone, deviceId, category, subDept) {
+            const key = tigerAuthCacheKey(phone, deviceId, category, subDept);
+            const hit = tigerAuthCache.get(key);
+            if (hit && (Date.now() - hit.time) < TIGER_AUTH_CACHE_MS) return hit.status;
+            tigerAuthCache.delete(key);
+            return null;
+        }
+
+        function setCachedAuth(phone, deviceId, category, subDept, status) {
+            tigerAuthCache.set(tigerAuthCacheKey(phone, deviceId, category, subDept), { time: Date.now(), status });
+        }
+
+        function verifyCourseAccess(phone, deviceId, category, subDept) {
+            const cached = checkCachedAuth(phone, deviceId, category, subDept);
+            if (cached !== null) return Promise.resolve(cached);
+            const verifyUrl = `${GOOGLE_SCRIPT_URL}?action=login&phone=${encodeURIComponent(phone)}&deviceId=${encodeURIComponent(deviceId)}&category=${encodeURIComponent(category)}&subDept=${encodeURIComponent(subDept)}`;
+            return fetch(verifyUrl).then(res => res.json()).then(data => {
+                setCachedAuth(phone, deviceId, category, subDept, data.status);
+                return data.status;
+            });
+        }
+
         function checkAuthAndProceed(actionCallback, targetCategory = '', targetSubDept = '') {
             currentActiveCategoryForResource = targetCategory;
             currentActiveGroupForResource = targetSubDept;
@@ -1691,10 +3430,9 @@
                 let phone = localStorage.getItem('tiger_student_phone');
                 let deviceId = getUniqueDeviceId();
                 if(isAdminLoggedIn) { actionCallback(); return; }
-                let verifyUrl = `${GOOGLE_SCRIPT_URL}?action=login&phone=${encodeURIComponent(phone)}&deviceId=${encodeURIComponent(deviceId)}&category=${encodeURIComponent(targetCategory)}&subDept=${encodeURIComponent(targetSubDept)}`;
-                fetch(verifyUrl).then(res => res.json()).then(data => {
-                    if (data.status === "success") actionCallback();
-                    else if (data.status === "unauthorized") showRoyalAlert("🚫 இதில் உங்களுக்கு அனுமதி இல்லை!");
+                verifyCourseAccess(phone, deviceId, targetCategory, targetSubDept).then(status => {
+                    if (status === "success") actionCallback();
+                    else if (status === "unauthorized") showRoyalAlert("🚫 இதில் உங்களுக்கு அனுமதி இல்லை!");
                     else document.getElementById('authModal').style.display = 'flex';
                 }).catch(err => { actionCallback(); });
             } else {
@@ -1716,20 +3454,26 @@
             let phone = localStorage.getItem('tiger_student_phone');
             let authPassed = localStorage.getItem('tiger_auth_passed');
             if (authPassed === 'true' && phone) {
-                let verifyUrl = `${GOOGLE_SCRIPT_URL}?action=login&phone=${encodeURIComponent(phone)}&deviceId=${encodeURIComponent(getUniqueDeviceId())}&category=${encodeURIComponent(catId)}&subDept=${encodeURIComponent(subDept)}`;
-                fetch(verifyUrl).then(res => res.json()).then(data => {
-                    if (data.status === "success") nextCallback();
+                const deviceId = getUniqueDeviceId();
+                verifyCourseAccess(phone, deviceId, catId, subDept).then(status => {
+                    if (status === "success") nextCallback();
                     else { selectedCategoryForWallpaper = catId; selectedSubDeptForWallpaper = subDept; showWallpaperPopup(config); }
                 }).catch(e => { showWallpaperPopup(config); });
             } else { selectedCategoryForWallpaper = catId; selectedSubDeptForWallpaper = subDept; showWallpaperPopup(config); }
         }
 
         function showWallpaperPopup(config) {
-            setTimeout(() => {
-                document.getElementById('cwTitle').textContent = config.title || "🎯 COURSE BANNER";
-                document.getElementById('cwImg').src = config.img;
-                document.getElementById('courseWallpaperModal').style.display = 'flex';
-            }, 1000);
+            // No artificial 1-second delay. Start image loading immediately.
+            const title = document.getElementById('cwTitle');
+            const img = document.getElementById('cwImg');
+            if (title) title.textContent = config.title || "🎯 COURSE BANNER";
+            if (img) {
+                img.loading = 'eager';
+                img.decoding = 'async';
+                img.src = config.img;
+            }
+            const modal = document.getElementById('courseWallpaperModal');
+            if (modal) modal.style.display = 'flex';
         }
 
         function closeCourseWallpaper() { document.getElementById('courseWallpaperModal').style.display = 'none'; }
@@ -1989,7 +3733,7 @@
                 btn.style.background = "linear-gradient(135deg, rgba(251, 191, 36, 0.2), rgba(11, 19, 38, 0.95))";
                 btn.style.borderColor = "var(--warning)";
                 btn.style.color = "var(--warning)";
-                btn.innerHTML = `<span>🏛️ ${catName}</span> <span style="font-size:11px; color:#fff;">Start 🚀</span>`;
+                btn.innerHTML = `<span>🏛️️ ${catName}</span> <span style="font-size:11px; color:#fff;">Start 🚀</span>`;
                 btn.onclick = () => { playClickSound(); startQuizForCategory(catName); };
                 catListContainer.appendChild(btn);
             });
@@ -2268,5 +4012,91 @@
             }
         }
     </script>
+
+<script id="premium-news-transition">
+(function(){
+  if (window.__premiumNewsTransitionInstalled) return;
+  window.__premiumNewsTransitionInstalled = true;
+
+  const style = document.createElement('style');
+  style.textContent = `
+    #display-notice-text, #display-visual-container {
+      transition: opacity .24s ease, transform .42s cubic-bezier(.2,.8,.2,1), filter .42s ease;
+    }
+    .premium-news-exit {
+      opacity:0 !important;
+      transform:translateY(7px) scale(.985) !important;
+      filter:blur(2px) !important;
+    }
+    .premium-news-enter {
+      opacity:1 !important;
+      transform:translateY(0) scale(1) !important;
+      filter:blur(0) !important;
+    }
+  `;
+  document.head.appendChild(style);
+
+  const box = document.getElementById('display-notice-text');
+  const visual = document.getElementById('display-visual-container');
+  if (!box && !visual) return;
+
+  let lastText = box ? box.textContent : '';
+  const observer = new MutationObserver(function(){
+    const now = box ? box.textContent : '';
+    if (now === lastText) return;
+    lastText = now;
+
+    [box, visual].filter(Boolean).forEach(el => {
+      el.classList.remove('premium-news-enter');
+      el.classList.add('premium-news-exit');
+    });
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        [box, visual].filter(Boolean).forEach(el => {
+          el.classList.remove('premium-news-exit');
+          el.classList.add('premium-news-enter');
+          setTimeout(() => el.classList.remove('premium-news-enter'), 480);
+        });
+      });
+    });
+  });
+
+  if (box) observer.observe(box, {childList:true, subtree:true, characterData:true});
+})();
+</script>
+
+
+<script id="button-green-loading-logic">
+(function(){
+  // Visual feedback only; this does NOT delay the real button/Firebase action.
+  const TW_GREEN_MS = 250;
+  const skip = /close|cancel|back|logout|install|dismiss|security|auth|login|register|wallpaper|push.?up|tiger.?ai/i;
+
+  function activate(el){
+    if (!el || el.dataset.twGreenLoading === "1") return;
+    const label = ((el.id || "") + " " + (el.textContent || "")).trim();
+    if (skip.test(label)) return;
+    el.dataset.twGreenLoading = "1";
+    el.classList.add("tw-green-loading");
+    setTimeout(function(){
+      el.classList.remove("tw-green-loading");
+      delete el.dataset.twGreenLoading;
+    }, TW_GREEN_MS);
+  }
+
+  document.addEventListener("pointerdown", function(e){
+    const el = e.target.closest("button, a");
+    if (el) activate(el);
+  }, true);
+
+  document.addEventListener("keydown", function(e){
+    if (e.key !== "Enter" && e.key !== " ") return;
+    const el = e.target.closest("button, a");
+    if (el) activate(el);
+  }, true);
+})();
+</script>
+
 </body>
 </html>
