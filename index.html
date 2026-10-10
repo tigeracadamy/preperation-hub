@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="ta" style="background:#060913;color-scheme:dark;">
 <head>
-<script>const TIGER_WARRIORS_HTML_VERSION = "VTE07-LATEST-SYNC-FIXED-VIDEO-FOLDER-FIXED";</script>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="color-scheme" content="dark">
     <title>Tiger Warriors - Preparation Hub & Eco Tech Lab</title>
@@ -2980,7 +2979,45 @@ body::before {
                     <span>The Hindu</span>
                 </a>
             </div>
-            <div class="current-news-channel-hint">📰 சேனலைத் தொட்டால் நேரடியாக அந்த News page திறக்கும்</div>
+            <button type="button" id="tamilNewspapersOpenBtn" class="current-news-channel-card"
+                style="width:100%; justify-content:center; margin:8px 0 4px; min-height:48px; font-size:12px;"
+                aria-haspopup="dialog" aria-controls="tamilNewspapersModal" onclick="playClickSound(); document.getElementById('tamilNewspapersModal').style.display='flex';">
+                <img src="https://www.google.com/s2/favicons?domain=dinamani.com&sz=64" alt="" style="width:32px;height:32px;flex-basis:32px;">
+                <span>🗞️ தமிழ் செய்தித்தாள்கள் <span aria-hidden="true">▾</span></span>
+            </button>
+            <div class="current-news-channel-hint">📰 பட்டனைத் தொட்டால் 6 தமிழ் செய்தித்தாள்கள் பாப்-அப்பில் திறக்கும்</div>
+
+            <div id="tamilNewspapersModal" role="dialog" aria-modal="true" aria-labelledby="tamilNewspapersModalTitle"
+                style="display:none; position:fixed; inset:0; z-index:100000; background:rgba(0,0,0,.82); padding:18px; align-items:center; justify-content:center;"
+                onclick="if(event.target===this)this.style.display='none';">
+                <div style="width:100%; max-width:420px; max-height:82vh; overflow-y:auto; background:linear-gradient(145deg,#0b1326,#040812); border:1.5px solid var(--accent-cyan); border-radius:18px; padding:16px; box-shadow:0 0 28px var(--accent-glow);">
+                    <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:12px;">
+                        <h3 id="tamilNewspapersModalTitle" style="color:var(--accent-cyan); font-size:16px;">🗞️ தமிழ் செய்தித்தாள்கள்</h3>
+                        <button type="button" aria-label="மூடு" onclick="document.getElementById('tamilNewspapersModal').style.display='none';"
+                            style="border:1px solid var(--card-border); background:var(--btn-mild); color:var(--text-main); border-radius:9px; padding:6px 10px; font-size:18px; cursor:pointer;">✕</button>
+                    </div>
+                    <div class="current-news-channel-grid" style="margin:0;">
+                        <a class="current-news-channel-card" href="https://www.dinamani.com/" target="_blank" rel="noopener noreferrer" onclick="playClickSound()">
+                            <img src="https://www.google.com/s2/favicons?domain=dinamani.com&sz=64" alt="Dinamani logo"><span>தினமணி</span>
+                        </a>
+                        <a class="current-news-channel-card" href="https://www.dailythanthi.com/" target="_blank" rel="noopener noreferrer" onclick="playClickSound()">
+                            <img src="https://www.google.com/s2/favicons?domain=dailythanthi.com&sz=64" alt="Daily Thanthi logo"><span>தினத்தந்தி</span>
+                        </a>
+                        <a class="current-news-channel-card" href="https://www.hindutamil.in/" target="_blank" rel="noopener noreferrer" onclick="playClickSound()">
+                            <img src="https://www.google.com/s2/favicons?domain=hindutamil.in&sz=64" alt="Hindu Tamil Thisai logo"><span>தி இந்து தமிழ்</span>
+                        </a>
+                        <a class="current-news-channel-card" href="https://www.dinamalar.com/" target="_blank" rel="noopener noreferrer" onclick="playClickSound()">
+                            <img src="https://www.google.com/s2/favicons?domain=dinamalar.com&sz=64" alt="Dinamalar logo"><span>தினமலர்</span>
+                        </a>
+                        <a class="current-news-channel-card" href="https://www.maalaimalar.com/" target="_blank" rel="noopener noreferrer" onclick="playClickSound()">
+                            <img src="https://www.google.com/s2/favicons?domain=maalaimalar.com&sz=64" alt="Maalai Malar logo"><span>மாலை மலர்</span>
+                        </a>
+                        <a class="current-news-channel-card" href="https://tamil.news18.com/" target="_blank" rel="noopener noreferrer" onclick="playClickSound()">
+                            <img src="https://www.google.com/s2/favicons?domain=tamil.news18.com&sz=64" alt="News18 Tamil logo"><span>நியூஸ்18 தமிழ்</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
             <img id="modal-news-img" src="" alt="News Image" style="width: 100%; max-height: 360px; object-fit: contain; border-radius: 8px; border: 1px solid var(--card-border); display: none; margin-bottom: 8px; background: transparent;">
             <p id="modal-current-news-text"></p>
             
@@ -5561,6 +5598,18 @@ body::before {
     const el = e.target.closest("button, a");
     if (el) activate(el);
   }, true);
+})();
+</script>
+
+
+<script>
+(function () {
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
+            var modal = document.getElementById('tamilNewspapersModal');
+            if (modal) modal.style.display = 'none';
+        }
+    });
 })();
 </script>
 
