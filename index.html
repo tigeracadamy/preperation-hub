@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="ta" style="background:#060913;color-scheme:dark;">
 <head>
-<script>const TIGER_WARRIORS_HTML_VERSION = "VTE09-AUTO-NEWS-IMAGE-SEARCH";</script>
+<script>const TIGER_WARRIORS_HTML_VERSION = "VTE11-ADMIN-EDIT-CATEGORIES-FIX";</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="color-scheme" content="dark">
     <title>Tiger Warriors - Preparation Hub & Eco Tech Lab</title>
-    <script>const TIGER_WARRIORS_HTML_BUILD_TAG = "VTE07-LATEST-SYNC-FIXED";</script>
+    <script>const TIGER_WARRIORS_HTML_BUILD_TAG = "VTE08-QUIZ-DATA-LOAD-FIX";</script>
     <!-- 🌟 PWA Manifest & Theme Integration -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#00f2fe">
@@ -4543,12 +4543,13 @@ body::before {
         }
         function closeMediaViewer() { document.getElementById('mediaViewerModal').style.display = 'none'; document.getElementById('mediaViewerContent').innerHTML = ''; }
 
-        // 🚀 BULLET-PROOF FETCH LOGIC
+        // 🚀 Load the complete sheet (including Quiz) independently from Current Affairs.
+        // Previously, a successful Current Affairs response skipped the full-sheet request,
+        // leaving quizList empty even though quiz rows existed in the main endpoint.
         function fetchSheetData() {
-            // Cache-bust every request so the latest Google Sheets rows can be fetched.
             const caUrl = GOOGLE_SCRIPT_URL + "?action=current_affairs&ts=" + Date.now();
 
-            fetch(caUrl, {
+            const currentAffairsRequest = fetch(caUrl, {
                 method: "GET",
                 mode: "cors",
                 redirect: "follow",
@@ -4561,43 +4562,48 @@ body::before {
                     try { caData = raw ? JSON.parse(raw) : {}; }
                     catch (e) { throw new Error("Current Affairs endpoint did not return valid JSON."); }
                     if (!response.ok) throw new Error("Current Affairs request failed: HTTP " + response.status);
-                    return caData;
-                })
-                .then(caData => {
-                    // Accept the common Apps Script response shapes:
-                    // {news:[...]}, {current_affairs:[...]}, {currentAffairs:[...]},
-                    // {data:[...]}, {items:[...]} or a plain JSON array.
-                    const caRows = Array.isArray(caData) ? caData :
+                    const rows = Array.isArray(caData) ? caData :
                         (caData && (caData.news || caData.current_affairs ||
                          caData.currentAffairs || caData.items || caData.data));
-                    if (Array.isArray(caRows) && caRows.length > 0) {
-                        originalNewsList = caRows.map(n => normalizeNewsItem(n));
-                        newsList = [...originalNewsList];
-                        updateNewsDateOptions();
-                        applyNewsFilters();
-                    } else {
-                        // Keep the complete-sheet loader as a fallback.
-                        fetchFreshCloudData()
-                            .then(data => processFetchedData(data))
-                            .catch(() => loadFirebaseFallback());
-                    }
+                    return Array.isArray(rows) && rows.length ? rows : null;
                 })
                 .catch(err => {
-                    console.log("Current affairs fetch error, trying full data:", err);
-                    fetchFreshCloudData()
-                        .then(data => processFetchedData(data))
-                        .catch(() => loadFirebaseFallback());
+                    console.log("Current affairs fetch error:", err);
+                    return null;
                 });
+
+            // Always request the main endpoint so Quiz, tests, music and other data load.
+            const fullDataRequest = fetchFreshCloudData()
+                .then(data => { processFetchedData(data); return true; })
+                .catch(err => {
+                    console.log("Full Google Sheets fetch error, trying Firebase:", err);
+                    return loadFirebaseFallback().then(() => false);
+                });
+
+            Promise.all([currentAffairsRequest, fullDataRequest]).then(([caRows]) => {
+                // Prefer the dedicated Current Affairs response when it contains rows.
+                if (caRows && caRows.length) {
+                    originalNewsList = caRows.map(n => normalizeNewsItem(n));
+                    newsList = [...originalNewsList];
+                    updateNewsDateOptions();
+                    applyNewsFilters();
+                }
+                // If neither endpoint supplied quiz rows, leave a useful diagnostic in console.
+                if (!quizList.length) console.warn("Tiger Warriors: no Quiz rows received from the main endpoint/Firebase.");
+            });
         }
 
         function loadFirebaseFallback() {
-            rtdb.ref('/').once('value')
+            return rtdb.ref('/').once('value')
                 .then(snapshot => {
                     const data = snapshot.val();
                     if (data) processFetchedData(data);
                     else initPortal();
                 })
-                .catch(() => initPortal());
+                .catch(err => {
+                    console.error("Firebase fallback failed:", err);
+                    initPortal();
+                });
         }
 
         function fetchFreshCloudData() {
@@ -4740,16 +4746,16 @@ body::before {
             if (data.quote) quoteMessage = data.quote;
             if (data.quiz && Array.isArray(data.quiz)) {
                 quizList = data.quiz.map(q => ({
-                    category: q.category || q.Category || "பொது அறிவு (General)",
-                    question: q.question || q.Question || "",
-                    image: q.image || q.Image || "",
-                    optionA: q.optionA || q.OptionA || "",
-                    optionB: q.optionB || q.OptionB || "",
-                    optionC: q.optionC || q.OptionC || "",
-                    optionD: q.optionD || q.OptionD || "",
-                    answer: q.answer || q.Answer || "A",
-                    explanation: q.explanation || q.Explanation || q.note || q.Note || ""
-                }));
+                    category: String(q.category || q.Category || q.subject || q.Subject || "பொது அறிவு (General)").trim(),
+                    question: String(q.question || q.Question || q.Questions || q["Quiz Question"] || "").trim(),
+                    image: String(q.image || q.Image || q.imageUrl || q["Image URL"] || "").trim(),
+                    optionA: String(q.optionA || q.OptionA || q["Option A"] || q["Option 1"] || q.A || "").trim(),
+                    optionB: String(q.optionB || q.OptionB || q["Option B"] || q["Option 2"] || q.B || "").trim(),
+                    optionC: String(q.optionC || q.OptionC || q["Option C"] || q["Option 3"] || q.C || "").trim(),
+                    optionD: String(q.optionD || q.OptionD || q["Option D"] || q["Option 4"] || q.D || "").trim(),
+                    answer: String(q.answer || q.Answer || q["Correct Answer"] || q["Correct Option"] || q["Answer Key"] || "A").trim(),
+                    explanation: String(q.explanation || q.Explanation || q.note || q.Note || q["Explanation"] || "").trim()
+                })).filter(q => q.question);
             }
             if (data.music && Array.isArray(data.music)) {
                 musicList = data.music.map((m, idx) => ({ title: m.title || `மோட்டிவேஷன் பாடல் ${idx+1}`, url: m.url || "" }));
@@ -5814,7 +5820,7 @@ body::before {
                     </select>
                     <div id="dept-select-group-admin" style="display:none; flex-direction:column; gap:4px; margin-bottom:6px;">
                         <label>Department:</label>
-                        <select id="admin-department"><option value="Tamil">தமிழ் துறை</option><option value="Chemistry">வேதியியல் துறை</option><option value="Group 1">Group 1</option><option value="Group 4">Group 4</option></select>
+                        <select id="admin-department"><option value="Tamil">தமிழ் துறை</option><option value="Chemistry">வேதியியல் துறை</option><option value="Physics">இயற்பியல் துறை</option><option value="Zoology">விலங்கியல் துறை</option><option value="Botany">தாவரவியல் துறை</option><option value="Group 1">Group 1</option><option value="Group 2">Group 2</option><option value="Group 2A">Group 2A</option><option value="Group 4">Group 4</option><option value="CCS">CCS</option></select>
                     </div>
                     <input type="text" id="admin-time" placeholder="Duration" value="60 Mins • 50 Qs" style="margin-bottom:6px;">
                     <input type="text" id="admin-link" placeholder="Test URL" style="margin-bottom:6px;">
@@ -5889,6 +5895,18 @@ body::before {
                     contentEl.innerHTML += `<div style="display:flex; gap:5px;"><input type="text" id="admin-song-title-${i}" value="${song.title}" style="flex:1;"><input type="text" id="admin-song-url-${i}" value="${song.url}" style="flex:1.5;"></div>`;
                 }
                 saveBtn.onclick = () => { playClickSound(); saveMusicToSheet(); };
+            } else if (sectionType === 'rhymes') {
+                titleEl.textContent = "🎶 Kids Rhymes & Videos";
+                for (let i=0; i<10; i++) { const item = rhymesList[i] || {title:`Rhyme ${i+1}`,url:""}; contentEl.innerHTML += `<div style="display:flex;gap:5px;margin-bottom:6px;"><input type="text" id="admin-rhyme-title-${i}" value="${String(item.title||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;')}" placeholder="Rhyme title" style="flex:1;"><input type="text" id="admin-rhyme-url-${i}" value="${String(item.url||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;')}" placeholder="Video URL" style="flex:1.5;"></div>`; }
+                saveBtn.onclick = () => { playClickSound(); const rhymes=[]; for(let i=0;i<10;i++) rhymes.push({title:document.getElementById(`admin-rhyme-title-${i}`).value,url:document.getElementById(`admin-rhyme-url-${i}`).value}); sendDataToCloud({type:"rhymes",rhymes},"🎶 Rhymes saved!"); };
+            } else if (sectionType === 'science') {
+                titleEl.textContent = "🧪 Science Facts";
+                for (let i=0; i<10; i++) { const item = scienceList[i] || {title:`Science Fact ${i+1}`,url:""}; contentEl.innerHTML += `<div style="display:flex;gap:5px;margin-bottom:6px;"><input type="text" id="admin-science-title-${i}" value="${String(item.title||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;')}" placeholder="Fact title" style="flex:1;"><input type="text" id="admin-science-url-${i}" value="${String(item.url||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;')}" placeholder="PDF / URL" style="flex:1.5;"></div>`; }
+                saveBtn.onclick = () => { playClickSound(); const science=[]; for(let i=0;i<10;i++) science.push({title:document.getElementById(`admin-science-title-${i}`).value,url:document.getElementById(`admin-science-url-${i}`).value}); sendDataToCloud({type:"science",science},"🧪 Science facts saved!"); };
+            } else if (sectionType === 'ecotech') {
+                titleEl.textContent = "🔬 Eco Tech Lab Links";
+                for (let i=0; i<6; i++) { const item = ecoTestsList[i] || {name:`Eco Tech ${i+1}`,url:""}; contentEl.innerHTML += `<div style="display:flex;gap:5px;margin-bottom:6px;"><input type="text" id="admin-eco-name-${i}" value="${String(item.name||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;')}" placeholder="Test name" style="flex:1;"><input type="text" id="admin-eco-url-${i}" value="${String(item.url||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;')}" placeholder="URL" style="flex:1.5;"></div>`; }
+                saveBtn.onclick = () => { playClickSound(); const ecoTestsListUpdated=[]; for(let i=0;i<6;i++) ecoTestsListUpdated.push({name:document.getElementById(`admin-eco-name-${i}`).value,url:document.getElementById(`admin-eco-url-${i}`).value}); sendDataToCloud({type:"ecoTestsList",ecoTestsList:ecoTestsListUpdated},"🔬 Eco Tech links saved!"); };
             } else if (sectionType === 'chatSettings') {
                 titleEl.textContent = "💬 Live Chat ON/OFF Control";
                 contentEl.innerHTML = `
@@ -5950,7 +5968,7 @@ body::before {
             const video = document.getElementById('admin-video').value;
             if(!title || !link) { showRoyalAlertPopup("🐅 TIGER WARRIORS ALERT 🔥", "தலைப்பு மற்றும் லிங்கை நிரப்பவும்!"); return; }
             const payload = {
-                type: "tests",
+                type: "single_test",
                 tests: [{
                     id: Date.now(),
                     title,
