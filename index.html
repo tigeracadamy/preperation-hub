@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="ta" style="background:#060913;color-scheme:dark;">
 <head>
-<meta charset="UTF-8">
+<script>const TIGER_WARRIORS_HTML_VERSION = "VTE09-AUTO-NEWS-IMAGE-SEARCH";</script>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="color-scheme" content="dark">
     <title>Tiger Warriors - Preparation Hub & Eco Tech Lab</title>
-    <script>const TIGER_WARRIORS_HTML_VERSION = "VTE07-LATEST-SYNC-FIXED";</script>
+    <script>const TIGER_WARRIORS_HTML_BUILD_TAG = "VTE07-LATEST-SYNC-FIXED";</script>
     <!-- 🌟 PWA Manifest & Theme Integration -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#00f2fe">
@@ -537,6 +538,12 @@
             scrollbar-width: none;
         }
         .ca-filter-container::-webkit-scrollbar { display: none; }
+        .ca-period-launch { width:100%; margin:7px 0; }
+        .ca-period-launch-btn { width:100%; min-height:42px; border:1.5px solid #00d9ff; border-radius:12px; padding:9px 12px; color:#fff; font-weight:900; font-size:13px; background:linear-gradient(110deg,#063a50,#075985,#0e7490); box-shadow:0 0 13px rgba(0,217,255,.2); cursor:pointer; }
+        .ca-period-choices { display:none; grid-template-columns:1fr 1fr; gap:8px; margin-top:7px; }
+        .ca-period-choices.open { display:grid; }
+        .ca-period-choice { min-height:40px; border:1.5px solid #fbbf24; border-radius:10px; color:#fcd34d; background:linear-gradient(135deg,rgba(251,191,36,.17),rgba(11,19,38,.95)); font-size:12px; font-weight:900; padding:8px; cursor:pointer; }
+        .ca-period-choice.active { color:#06131a; background:linear-gradient(135deg,#fde047,#f59e0b); }
 
         .ca-filter-btn {
             background: linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(11, 19, 38, 0.9));
@@ -561,6 +568,16 @@
         @keyframes goldSubtlePulse {
             0%, 50%, 100% { box-shadow: none; border-color: rgba(251, 191, 36, 0.45); }
         }
+
+        /* Current Affairs date search controls */
+        .ca-date-search{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;padding:9px;margin:4px 0 7px;border:1px solid rgba(0,242,254,.28);border-radius:11px;background:rgba(0,0,0,.24)}
+        .ca-date-search label{display:flex;flex-direction:column;gap:4px;color:var(--text-muted);font-size:10px;font-weight:800;min-width:0}
+        .ca-date-search select,.ca-date-search input{width:100%;min-width:0;box-sizing:border-box;padding:8px 9px;border:1px solid rgba(0,242,254,.35);border-radius:8px;background:#0b1326;color:#fff;font-size:12px;outline:none}
+        .ca-date-search .ca-search-actions{display:flex;gap:6px;grid-column:1/-1}
+        .ca-date-search button{flex:1;border:1px solid #00f2fe;border-radius:8px;padding:9px 8px;background:linear-gradient(135deg,#0891b2,#0e7490);color:#fff;font-weight:900;font-size:11px}
+        .ca-date-search button.ca-reset{background:rgba(148,163,184,.12);border-color:rgba(148,163,184,.4)}
+        #ca-search-count{grid-column:1/-1;color:var(--accent-cyan);font-size:10px;font-weight:800}
+        @media(min-width:520px){.ca-date-search{grid-template-columns:repeat(4,minmax(0,1fr))}.ca-date-search .ca-search-actions{grid-column:1/-1}}
 
         .notice-corner {
             background: linear-gradient(145deg, #080b12 0%, #111827 46%, #0a0d14 100%);
@@ -739,6 +756,16 @@
             transition: all 0.2s;
         }
 
+        /* 📰 Paired Current Affairs actions — news media on the left, AI on the right */
+        .ca-action-pair{display:grid;grid-template-columns:1.12fr .88fr;gap:7px;width:100%;margin:0 0 6px;align-items:stretch}
+        .current-affairs-news-strip{min-width:0;display:flex;align-items:center;justify-content:center;gap:6px;padding:7px 8px;border-radius:9px;border:1px solid rgba(251,191,36,.78);background:linear-gradient(135deg,rgba(120,53,15,.96),rgba(180,83,9,.88));color:#fff;box-shadow:0 0 12px rgba(251,191,36,.16);cursor:pointer;text-align:left;-webkit-tap-highlight-color:transparent}
+        .ca-action-icon{font-size:19px;flex:0 0 auto}
+        .ca-action-label{display:flex;flex-direction:column;gap:3px;min-width:0}
+        .ca-action-label strong{font-size:10px;line-height:1.15;white-space:normal}
+        .ca-action-label small{font-size:8px;line-height:1.2;opacity:.88;font-weight:800}
+        .ca-action-arrow{font-size:14px;margin-left:auto}
+        .current-affairs-news-strip:active,.current-affairs-ai-strip:active{transform:scale(.98)}
+        @media(max-width:380px){.ca-action-pair{gap:5px}.current-affairs-news-strip{padding:6px 5px;gap:4px}.ca-action-label strong{font-size:9px}.ca-action-label small{font-size:7px}.ca-action-icon{font-size:17px}}
         /* 🐅 Current Affairs AI — separate header strip, so no news text is covered */
         .current-affairs-ai-strip {
             width: 100%;
@@ -781,6 +808,15 @@
         .current-affairs-ai-strip .ca-live-sub { font-size: 10px; opacity: .96; }
         .news-channel-screen:hover { border-color: var(--warning); background: rgba(0, 0, 0, 0.8); }
 
+        .news-directory-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0 5px;align-items:start}
+        .news-directory-column{min-width:0;padding:7px;border:1px solid rgba(0,242,254,.25);border-radius:12px;background:rgba(0,0,0,.16)}
+        .news-directory-column h4{font-size:10px;line-height:1.3;color:#fbbf24;text-align:center;margin:0 0 7px;padding-bottom:6px;border-bottom:1px solid rgba(251,191,36,.25)}
+        .news-directory-column .current-news-channel-card{min-height:39px;padding:6px;gap:5px;margin-bottom:6px;font-size:9px}
+        .news-directory-column .current-news-channel-card:last-child{margin-bottom:0}
+        .news-directory-column .current-news-channel-card img{width:23px;height:23px;flex-basis:23px}
+        .news-directory-column .current-news-channel-card span{flex:1;min-width:0;overflow-wrap:anywhere}
+        .news-directory-column .current-news-channel-card b{font-size:10px;color:var(--accent-cyan)}
+        @media(max-width:360px){.news-directory-grid{gap:5px}.news-directory-column{padding:5px}.news-directory-column .current-news-channel-card{font-size:8px;gap:4px;padding:5px}}
         .current-news-channel-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -1276,8 +1312,11 @@
             border-top: 1px solid rgba(255,255,255,0.08);
         }
         .tiger-ai-input-row textarea {
-            flex: 1;
+            flex: 1 1 auto;
             min-height: 58px;
+            height: 58px;
+            max-height: 145px;
+            overflow-y: auto;
             resize: none;
             background: rgba(0,0,0,0.65);
             border: 1px solid rgba(0,242,254,0.72);
@@ -2363,6 +2402,7 @@ body::before {
             <div class="tiger-ai-input-row">
                 <textarea id="tigerAiQuestion"
                     placeholder="உங்கள் கேள்வியை கேளுங்கள்... உதா: இந்திய அரசியலமைப்பின் அடிப்படை உரிமைகள் என்ன?"
+                    oninput="autoResizeTigerAIQuestion(this)"
                     onkeydown="if(event.key==='Enter' && !event.shiftKey){event.preventDefault();askRoomAI();}"></textarea>
                 <button class="tiger-ai-ask-btn ready" id="tigerAiAskBtn" onclick="askRoomAI()" aria-live="polite">➤ AI கேள்</button>
             </div>
@@ -2757,8 +2797,36 @@ body::before {
                 </div>
             </div>
 
-            <div class="ca-filter-container">
-                <button class="ca-filter-btn active" onclick="filterNewsByCategory('ALL')">🔥 அனைத்தும் (All)</button>
+            <div class="ca-filter-container" aria-label="Current affairs time period">
+                <button class="ca-filter-btn active" data-period="ALL" onclick="filterNewsByPeriod('ALL', this)">🗂️ அனைத்துக் காலமும்</button>
+                <button class="ca-filter-btn" data-period="DAILY" onclick="filterNewsByPeriod('DAILY', this)">📅 Daily / தினசரி</button>
+                <button class="ca-filter-btn" data-period="WEEKLY" onclick="filterNewsByPeriod('WEEKLY', this)">🗓️ Weekly / வாரம்</button>
+                <button class="ca-filter-btn" data-period="MONTHLY" onclick="filterNewsByPeriod('MONTHLY', this)">📆 Monthly / மாதம்</button>
+                <button class="ca-filter-btn" data-period="YEARLY" onclick="filterNewsByPeriod('YEARLY', this)">📚 Yearly / ஆண்டு</button>
+            </div>
+            <div class="ca-date-search" aria-label="Current affairs date and subject search">
+                <label>🗓️ Year / ஆண்டு
+                    <select id="ca-search-year" onchange="onNewsDateSearchChange()"><option value="ALL">All Years</option></select>
+                </label>
+                <label>📆 Month / மாதம்
+                    <select id="ca-search-month" onchange="onNewsDateSearchChange()">
+                        <option value="ALL">All Months</option><option value="1">January</option><option value="2">February</option><option value="3">March</option><option value="4">April</option><option value="5">May</option><option value="6">June</option><option value="7">July</option><option value="8">August</option><option value="9">September</option><option value="10">October</option><option value="11">November</option><option value="12">December</option>
+                    </select>
+                </label>
+                <label>🗓️ Week / வாரம்
+                    <select id="ca-search-week" onchange="onNewsDateSearchChange()"><option value="ALL">All Weeks</option><option value="1">Week 1 (1–7)</option><option value="2">Week 2 (8–14)</option><option value="3">Week 3 (15–21)</option><option value="4">Week 4 (22–28)</option><option value="5">Week 5 (29–31)</option></select>
+                </label>
+                <label>📅 Day / தேதி
+                    <select id="ca-search-day" onchange="onNewsDateSearchChange()"><option value="ALL">All Days</option></select>
+                </label>
+                <label style="grid-column:1/-1">🔎 Keyword / செய்தியைத் தேடு
+                    <input id="ca-search-keyword" type="search" placeholder="Headline அல்லது செய்திச் சொல்..." onkeydown="if(event.key==='Enter'){event.preventDefault();runNewsDateSearch();}">
+                </label>
+                <div class="ca-search-actions"><button type="button" onclick="runNewsDateSearch()">🔍 Search</button><button type="button" class="ca-reset" onclick="resetNewsDateSearch()">↺ Reset</button></div>
+                <div id="ca-search-count" aria-live="polite">செய்திகள் ஏற்றப்படுகின்றன...</div>
+            </div>
+            <div class="ca-filter-container" aria-label="Current affairs subject category">
+                <button class="ca-filter-btn active" data-subject="ALL" onclick="filterNewsByCategory('ALL')">🔥 அனைத்தும் (All)</button>
                 <button class="ca-filter-btn" onclick="filterNewsByCategory('Polity')">🏛️ Polity</button>
                 <button class="ca-filter-btn" onclick="filterNewsByCategory('Economy')">💰 Economy</button>
                 <button class="ca-filter-btn" onclick="filterNewsByCategory('History')">📜 History</button>
@@ -2767,13 +2835,28 @@ body::before {
                 <button class="ca-filter-btn" onclick="filterNewsByCategory('தமிழ் பண்பாடு வரலாறு')">🏛️ தமிழ் பண்பாடு வரலாறு</button>
             </div>
             
-            <button type="button" id="currentAffairsAIFloatingBtn" class="current-affairs-ai-strip" onclick="event.stopPropagation(); playClickSound(); openCurrentNewsModal();" aria-label="Tiger Current Affairs AI and News Channels">
-                <span class="ca-live-dot" aria-hidden="true"></span>
-                <span class="ca-live-text">
-                    <span class="ca-live-main">🐅 Current Affairs AI</span>
-                    <span class="ca-live-sub">🤖 AI பதில்</span>
-                </span>
-            </button>
+            <div class="ca-period-launch" aria-label="Current affairs daily weekly shortcuts">
+                <button type="button" id="caPeriodLaunchBtn" class="ca-period-launch-btn" aria-expanded="false" aria-controls="caPeriodChoices" onclick="toggleCurrentAffairsPeriods()">📚 Current Affairs — Daily / Weekly தேர்வு ▾</button>
+                <div id="caPeriodChoices" class="ca-period-choices" role="group" aria-label="Daily and weekly current affairs">
+                    <button type="button" class="ca-period-choice" data-short-period="DAILY" onclick="chooseCurrentAffairsPeriod('DAILY', this)">📅 Daily / தினசரி</button>
+                    <button type="button" class="ca-period-choice" data-short-period="WEEKLY" onclick="chooseCurrentAffairsPeriod('WEEKLY', this)">🗓️ Weekly / வாராந்திரம்</button>
+                </div>
+            </div>
+
+            <div class="ca-action-pair" role="group" aria-label="நடப்பு நிகழ்வுகள் தேர்வுகள்">
+                <button type="button" id="currentAffairsNewsBtn" class="current-affairs-news-strip" onclick="event.stopPropagation(); playClickSound(); openCurrentNewsModal();" aria-label="செய்தித்தாள்கள் மற்றும் செய்தி ஊடகங்கள்">
+                    <span class="ca-action-icon" aria-hidden="true">📰</span>
+                    <span class="ca-action-label"><strong>செய்தி ஊடகங்கள்</strong><small>Newspapers &amp; Live News</small></span>
+                    <span class="ca-action-arrow" aria-hidden="true">↗</span>
+                </button>
+                <button type="button" id="currentAffairsAIFloatingBtn" class="current-affairs-ai-strip" onclick="event.stopPropagation(); playClickSound(); openCurrentAffairsAI();" aria-label="Current Affairs AI பதில்">
+                    <span class="ca-live-dot" aria-hidden="true"></span>
+                    <span class="ca-live-text">
+                        <span class="ca-live-main">🤖 Current Affairs</span>
+                        <span class="ca-live-sub">AI பதில்</span>
+                    </span>
+                </button>
+            </div>
 
             <div class="news-channel-screen" id="newsScreenBox" onclick="playClickSound(); openCurrentNewsModal()">
                 <div class="news-visual-box" id="display-visual-container">
@@ -2961,63 +3044,27 @@ body::before {
     <div class="modal-overlay" id="currentNewsModal" onclick="closeCurrentNewsModal()">
         <div class="modal-box" onclick="event.stopPropagation()">
             <h3>🐅 நடப்பு நிகழ்வுகள்</h3>
-            <div class="current-news-channel-grid" aria-label="News channels">
-                <a class="current-news-channel-card" href="https://www.youtube.com/@polimernews" target="_blank" rel="noopener noreferrer" onclick="playClickSound()">
-                    <img src="https://www.google.com/s2/favicons?domain=polimernews.com&sz=64" alt="Polimer News logo">
-                    <span>Polimer News</span>
-                </a>
-                <a class="current-news-channel-card" href="https://www.youtube.com/@EduDevotion" target="_blank" rel="noopener noreferrer" onclick="playClickSound()">
-                    <img src="https://www.google.com/s2/favicons?domain=youtube.com&sz=64" alt="Edu Devotion logo">
-                    <span>Edu Devotion</span>
-                </a>
-                <a class="current-news-channel-card" href="https://www.puthiyathalaimurai.com/" target="_blank" rel="noopener noreferrer" onclick="playClickSound()">
-                    <img src="https://www.google.com/s2/favicons?domain=puthiyathalaimurai.com&sz=64" alt="Puthiya Thalaimurai logo">
-                    <span>புதிய தலைமுறை</span>
-                </a>
-                <a class="current-news-channel-card" href="https://www.thehindu.com/" target="_blank" rel="noopener noreferrer" onclick="playClickSound()">
-                    <img src="https://www.google.com/s2/favicons?domain=thehindu.com&sz=64" alt="The Hindu logo">
-                    <span>The Hindu</span>
-                </a>
+            <div class="news-directory-grid">
+                <section class="news-directory-column newspapers-column">
+                    <h4>📰 முக்கிய செய்தித்தாள்கள்</h4>
+                    <a class="current-news-channel-card" href="https://www.dinamani.com/" target="_blank" rel="noopener noreferrer" onclick="playClickSound()"><img src="https://www.google.com/s2/favicons?domain=dinamani.com&amp;sz=64" alt="Dinamani logo"><span>தினமணி</span><b>↗</b></a>
+                    <a class="current-news-channel-card" href="https://www.thehindu.com/" target="_blank" rel="noopener noreferrer" onclick="playClickSound()"><img src="https://www.google.com/s2/favicons?domain=thehindu.com&amp;sz=64" alt="The Hindu logo"><span>The Hindu</span><b>↗</b></a>
+                    <a class="current-news-channel-card" href="https://www.dinamalar.com/" target="_blank" rel="noopener noreferrer" onclick="playClickSound()"><img src="https://www.google.com/s2/favicons?domain=dinamalar.com&amp;sz=64" alt="Dinamalar logo"><span>தினமலர்</span><b>↗</b></a>
+                    <a class="current-news-channel-card" href="https://www.maalaimalar.com/" target="_blank" rel="noopener noreferrer" onclick="playClickSound()"><img src="https://www.google.com/s2/favicons?domain=maalaimalar.com&amp;sz=64" alt="Maalaimalar logo"><span>மாலைமலர்</span><b>↗</b></a>
+                    <a class="current-news-channel-card" href="https://www.dailythanthi.com/" target="_blank" rel="noopener noreferrer" onclick="playClickSound()"><img src="https://www.google.com/s2/favicons?domain=dailythanthi.com&amp;sz=64" alt="Daily Thanthi logo"><span>தினத்தந்தி</span><b>↗</b></a>
+                    <a class="current-news-channel-card" href="https://www.murasoli.in/" target="_blank" rel="noopener noreferrer" onclick="playClickSound()"><img src="https://www.google.com/s2/favicons?domain=murasoli.in&amp;sz=64" alt="Murasoli logo"><span>முரசொலி</span><b>↗</b></a>
+                </section>
+                <section class="news-directory-column channels-column">
+                    <h4>📺 நேரலை செய்தி சேனல்கள்</h4>
+                    <a class="current-news-channel-card" href="https://www.youtube.com/@polimernews/live" target="_blank" rel="noopener noreferrer" onclick="playClickSound()"><img src="https://www.google.com/s2/favicons?domain=polimernews.com&amp;sz=64" alt="Polimer News logo"><span>Polimer News</span><b>↗</b></a>
+                    <a class="current-news-channel-card" href="https://www.youtube.com/@PuthiyaThalaimuraiTV/live" target="_blank" rel="noopener noreferrer" onclick="playClickSound()"><img src="https://www.google.com/s2/favicons?domain=youtube.com&amp;sz=64" alt="Puthiya Thalaimurai logo"><span>புதிய தலைமுறை</span><b>↗</b></a>
+                    <a class="current-news-channel-card" href="https://www.youtube.com/@ThanthiTV/live" target="_blank" rel="noopener noreferrer" onclick="playClickSound()"><img src="https://www.google.com/s2/favicons?domain=youtube.com&amp;sz=64" alt="Thanthi TV logo"><span>Thanthi TV</span><b>↗</b></a>
+                    <a class="current-news-channel-card" href="https://www.youtube.com/@News7Tamil/live" target="_blank" rel="noopener noreferrer" onclick="playClickSound()"><img src="https://www.google.com/s2/favicons?domain=youtube.com&amp;sz=64" alt="News7 Tamil logo"><span>News7 Tamil</span><b>↗</b></a>
+                    <a class="current-news-channel-card" href="https://www.youtube.com/@SunNewsTamil/live" target="_blank" rel="noopener noreferrer" onclick="playClickSound()"><img src="https://www.google.com/s2/favicons?domain=youtube.com&amp;sz=64" alt="Sun News logo"><span>Sun News</span><b>↗</b></a>
+                    <a class="current-news-channel-card" href="https://www.bbc.com/tamil" target="_blank" rel="noopener noreferrer" onclick="playClickSound()"><img src="https://www.google.com/s2/favicons?domain=bbc.com&amp;sz=64" alt="BBC Tamil logo"><span>BBC தமிழ்</span><b>↗</b></a>
+                </section>
             </div>
-            <button type="button" id="tamilNewspapersOpenBtn" class="current-news-channel-card"
-                style="width:100%; justify-content:center; margin:8px 0 4px; min-height:48px; font-size:12px;"
-                aria-haspopup="dialog" aria-controls="tamilNewspapersModal" onclick="playClickSound(); document.getElementById('tamilNewspapersModal').style.display='flex';">
-                <img src="https://www.google.com/s2/favicons?domain=dinamani.com&sz=64" alt="" style="width:32px;height:32px;flex-basis:32px;">
-                <span>🗞️ தமிழ் செய்தித்தாள்கள் <span aria-hidden="true">▾</span></span>
-            </button>
-            <div class="current-news-channel-hint">📰 பட்டனைத் தொட்டால் 6 தமிழ் செய்தித்தாள்கள் பாப்-அப்பில் திறக்கும்</div>
-
-            <div id="tamilNewspapersModal" role="dialog" aria-modal="true" aria-labelledby="tamilNewspapersModalTitle"
-                style="display:none; position:fixed; inset:0; z-index:100000; background:rgba(0,0,0,.82); padding:18px; align-items:center; justify-content:center;"
-                onclick="if(event.target===this)this.style.display='none';">
-                <div style="width:100%; max-width:420px; max-height:82vh; overflow-y:auto; background:linear-gradient(145deg,#0b1326,#040812); border:1.5px solid var(--accent-cyan); border-radius:18px; padding:16px; box-shadow:0 0 28px var(--accent-glow);">
-                    <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:12px;">
-                        <h3 id="tamilNewspapersModalTitle" style="color:var(--accent-cyan); font-size:16px;">🗞️ தமிழ் செய்தித்தாள்கள்</h3>
-                        <button type="button" aria-label="மூடு" onclick="document.getElementById('tamilNewspapersModal').style.display='none';"
-                            style="border:1px solid var(--card-border); background:var(--btn-mild); color:var(--text-main); border-radius:9px; padding:6px 10px; font-size:18px; cursor:pointer;">✕</button>
-                    </div>
-                    <div class="current-news-channel-grid" style="margin:0;">
-                        <a class="current-news-channel-card" href="https://www.dinamani.com/" target="_blank" rel="noopener noreferrer" onclick="playClickSound()">
-                            <img src="https://www.google.com/s2/favicons?domain=dinamani.com&sz=64" alt="Dinamani logo"><span>தினமணி</span>
-                        </a>
-                        <a class="current-news-channel-card" href="https://www.dailythanthi.com/" target="_blank" rel="noopener noreferrer" onclick="playClickSound()">
-                            <img src="https://www.google.com/s2/favicons?domain=dailythanthi.com&sz=64" alt="Daily Thanthi logo"><span>தினத்தந்தி</span>
-                        </a>
-                        <a class="current-news-channel-card" href="https://www.hindutamil.in/" target="_blank" rel="noopener noreferrer" onclick="playClickSound()">
-                            <img src="https://www.google.com/s2/favicons?domain=hindutamil.in&sz=64" alt="Hindu Tamil Thisai logo"><span>தி இந்து தமிழ்</span>
-                        </a>
-                        <a class="current-news-channel-card" href="https://www.dinamalar.com/" target="_blank" rel="noopener noreferrer" onclick="playClickSound()">
-                            <img src="https://www.google.com/s2/favicons?domain=dinamalar.com&sz=64" alt="Dinamalar logo"><span>தினமலர்</span>
-                        </a>
-                        <a class="current-news-channel-card" href="https://www.maalaimalar.com/" target="_blank" rel="noopener noreferrer" onclick="playClickSound()">
-                            <img src="https://www.google.com/s2/favicons?domain=maalaimalar.com&sz=64" alt="Maalai Malar logo"><span>மாலை மலர்</span>
-                        </a>
-                        <a class="current-news-channel-card" href="https://tamil.news18.com/" target="_blank" rel="noopener noreferrer" onclick="playClickSound()">
-                            <img src="https://www.google.com/s2/favicons?domain=tamil.news18.com&sz=64" alt="News18 Tamil logo"><span>நியூஸ்18 தமிழ்</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
+            <div class="current-news-channel-hint">🔗 லோகோ அல்லது பெயரைத் தொட்டால் அந்த செய்தி தளம் / சேனல் திறக்கும்</div>
             <img id="modal-news-img" src="" alt="News Image" style="width: 100%; max-height: 360px; object-fit: contain; border-radius: 8px; border: 1px solid var(--card-border); display: none; margin-bottom: 8px; background: transparent;">
             <p id="modal-current-news-text"></p>
             
@@ -3233,7 +3280,7 @@ body::before {
         }
 
         const getAdminKey = () => "tiger" + "2026";
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz88gGgPSHKH5J6M1Si3-X0o3t3wlYgiCI0d_lFgox0RpXmvlmCxl2pTwVf2SkicfmItg/exec";
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxM2mcc4bAutKbHbJRSzMSf6r85RzrCDuJTuMrFjiyJo-zx3dBWrj47xB6JdyJjJQ7Hgw/exec";
 
         const firebaseConfig = {
             databaseURL: "https://tigerwarriorsdb-default-rtdb.firebaseio.com/"
@@ -3442,7 +3489,7 @@ body::before {
         // IMPORTANT: Do not publish a real API key in client-side HTML.
         // Preferred production setup: point TIGER_AI_ENDPOINT to your own secure
         // backend/Google Apps Script endpoint that keeps the provider API key secret.
-        const TIGER_AI_ENDPOINT = "https://script.google.com/macros/s/AKfycbz88gGgPSHKH5J6M1Si3-X0o3t3wlYgiCI0d_lFgox0RpXmvlmCxl2pTwVf2SkicfmItg/exec";
+        const TIGER_AI_ENDPOINT = "https://script.google.com/macros/s/AKfycbxM2mcc4bAutKbHbJRSzMSf6r85RzrCDuJTuMrFjiyJo-zx3dBWrj47xB6JdyJjJQ7Hgw/exec";
 
         function getRoomAIInstruction(room) {
             if (tigerAIInstructionOverride) return tigerAIInstructionOverride;
@@ -3522,8 +3569,19 @@ body::before {
                 input.value = newsText
                     ? "இந்த நடப்பு நிகழ்வை விளக்கவும்:\n\n" + newsText
                     : "இந்த நடப்பு நிகழ்வுகள் குறித்து முக்கியமான TNPSC தகவல்களை விளக்கவும்.";
+                autoResizeTigerAIQuestion(input);
                 setTimeout(() => input.focus(), 100);
             }
+        }
+
+        // Expand the question field to show more of the typed/prefilled prompt.
+        // Long prompts remain scrollable instead of pushing the AI window off-screen.
+        function autoResizeTigerAIQuestion(input) {
+            if (!input) return;
+            input.style.height = 'auto';
+            const maxHeight = 145;
+            input.style.height = Math.min(Math.max(input.scrollHeight, 58), maxHeight) + 'px';
+            input.style.overflowY = input.scrollHeight > maxHeight ? 'auto' : 'hidden';
         }
 
         function setRoomAIAnswer(text, state = "") {
@@ -3555,6 +3613,7 @@ body::before {
 
             const query = String(question || '').trim();
             if (!query) return;
+            answer.textContent += "📝 நீங்கள் கேட்ட கேள்வி முழுவதும்:\n" + query + "\n\n";
 
             // The student's exact question is carried into every fallback service.
             // Google searches it immediately; the AI services open with the question
@@ -3665,6 +3724,7 @@ body::before {
             if (tigerAIFallbackTimer) clearTimeout(tigerAIFallbackTimer);
             setRoomAIAnswer(
                 "🟡 Tiger AI-க்கு கேள்வி சென்றுகொண்டிருக்கிறது...\n\n" +
+                "📝 நீங்கள் கேட்ட கேள்வி முழுவதும்:\n" + question + "\n\n" +
                 "⚡ பதில் வந்தவுடன் இங்கே முழுமையாக காட்டப்படும்.",
                 "waiting"
             );
@@ -4485,21 +4545,59 @@ body::before {
 
         // 🚀 BULLET-PROOF FETCH LOGIC
         function fetchSheetData() {
-            // Google Sheet / Apps Script is the source of truth for admin-edited content.
-            // Firebase remains only as a fallback so fresh Sheet edits are never hidden
-            // by older Firebase data.
-            fetchFreshCloudData()
-                .then(data => {
-                    processFetchedData(data);
+            // Cache-bust every request so the latest Google Sheets rows can be fetched.
+            const caUrl = GOOGLE_SCRIPT_URL + "?action=current_affairs&ts=" + Date.now();
+
+            fetch(caUrl, {
+                method: "GET",
+                mode: "cors",
+                redirect: "follow",
+                cache: "no-store",
+                headers: { "Accept": "application/json, text/plain, */*" }
+            })
+                .then(async response => {
+                    const raw = await response.text();
+                    let caData = {};
+                    try { caData = raw ? JSON.parse(raw) : {}; }
+                    catch (e) { throw new Error("Current Affairs endpoint did not return valid JSON."); }
+                    if (!response.ok) throw new Error("Current Affairs request failed: HTTP " + response.status);
+                    return caData;
                 })
-                .catch(() => {
-                    // Offline / Apps Script failure: preserve the existing Firebase fallback.
-                    rtdb.ref('/').once('value').then((snapshot) => {
-                        const data = snapshot.val();
-                        if (data) processFetchedData(data);
-                        else initPortal();
-                    }).catch(() => initPortal());
+                .then(caData => {
+                    // Accept the common Apps Script response shapes:
+                    // {news:[...]}, {current_affairs:[...]}, {currentAffairs:[...]},
+                    // {data:[...]}, {items:[...]} or a plain JSON array.
+                    const caRows = Array.isArray(caData) ? caData :
+                        (caData && (caData.news || caData.current_affairs ||
+                         caData.currentAffairs || caData.items || caData.data));
+                    if (Array.isArray(caRows) && caRows.length > 0) {
+                        originalNewsList = caRows.map(n => normalizeNewsItem(n));
+                        newsList = [...originalNewsList];
+                        updateNewsDateOptions();
+                        applyNewsFilters();
+                    } else {
+                        // Keep the complete-sheet loader as a fallback.
+                        fetchFreshCloudData()
+                            .then(data => processFetchedData(data))
+                            .catch(() => loadFirebaseFallback());
+                    }
+                })
+                .catch(err => {
+                    console.log("Current affairs fetch error, trying full data:", err);
+                    fetchFreshCloudData()
+                        .then(data => processFetchedData(data))
+                        .catch(() => loadFirebaseFallback());
                 });
+        }
+
+        function loadFirebaseFallback() {
+            rtdb.ref('/').once('value')
+                .then(snapshot => {
+                    const data = snapshot.val();
+                    if (data) processFetchedData(data);
+                    else initPortal();
+                })
+                .catch(() => initPortal());
         }
 
         function fetchFreshCloudData() {
@@ -4529,6 +4627,87 @@ body::before {
                 .catch(e => { initPortal(); });
         }
 
+        // Accept common Google Sheets / Apps Script field names for news text and images.
+        // Drive share links are converted to direct-view links so they can be used in <img>.
+        function extractNewsImageValue(n) {
+            if (!n || typeof n !== "object") return "";
+            // Explicit image fields from CurrentAffairs columns L / API img are trusted
+            // as image URLs even when the URL has no .jpg/.png extension.
+            const explicitImage = n.img || n.image || n.imageUrl || n.imageURL || n.image_url ||
+                n.imgUrl || n.imgURL || n.photo || n.thumbnail || n.thumbnailUrl ||
+                n.thumbnailURL || n.thumbnail_url || n.picture || n.imageLink || n.image_link ||
+                n["Image URL"] || n["ImageURL"] || n["image url"] || n["Image"] ||
+                n["Photo URL"] || n["Thumbnail"];
+            if (explicitImage) {
+                const explicitValue = typeof explicitImage === "object"
+                    ? (explicitImage.url || explicitImage.src || explicitImage.href || explicitImage.thumbnail || "")
+                    : String(explicitImage).trim();
+                const explicitHtml = String(explicitValue).match(/<img\b[^>]*?src\s*=\s*["']([^"']+)["']/i);
+                const directValue = (explicitHtml && explicitHtml[1]) || explicitValue;
+                if (/^(https?:\/\/|data:image\/)/i.test(String(directValue || "").trim())) {
+                    return String(directValue).trim();
+                }
+            }
+            const candidates = [
+                n.mediaUrl, n.media_url,
+                n.media && (n.media.url || n.media.src || n.media.thumbnail || n.media.image),
+                n.enclosure && (n.enclosure.url || n.enclosure.link),
+                n.content && (n.content.image || n.content.imageUrl || n.content.html || n.content),
+                n.description && n.description
+            ];
+            for (const candidate of candidates) {
+                if (!candidate) continue;
+                if (typeof candidate === "object") {
+                    const nested = candidate.url || candidate.src || candidate.href || candidate.thumbnail || "";
+                    if (nested) return String(nested);
+                    continue;
+                }
+                const value = String(candidate).trim();
+                if (!value) continue;
+                const htmlImg = value.match(/<img\b[^>]*?src\s*=\s*["']([^"']+)["']/i);
+                if (htmlImg && htmlImg[1]) return htmlImg[1];
+                if (/^(https?:\/\/|data:image\/)/i.test(value)) {
+                    if (/\.(png|jpe?g|webp|gif|avif)(?:[?#].*)?$/i.test(value) || /drive\.google\.com|googleusercontent\.com|images\.|image|photo|upload|thumbnail/i.test(value)) return value;
+                }
+            }
+            return "";
+        }
+
+        // Normalize direct image URLs and common Google Drive sharing links.
+        function normalizeNewsImageUrl(value) {
+            if (value && typeof value === "object") value = value.url || value.src || value.href || value.thumbnail || "";
+            let url = String(value || "").trim();
+            if (!url) return "";
+            const embedded = url.match(/<img\b[^>]*?src\s*=\s*["']([^"']+)["']/i);
+            if (embedded && embedded[1]) url = embedded[1].trim();
+            if (/^data:image\//i.test(url)) return url;
+            const driveId = url.match(/drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?(?:[^#]*&)?id=)([a-zA-Z0-9_-]+)/i);
+            if (driveId) return "https://drive.google.com/uc?export=view&id=" + driveId[1];
+            return url;
+        }
+
+        function normalizeNewsItem(n) {
+            if (typeof n === "string") {
+                const embeddedImage = (n.match(/<img\b[^>]*?src\s*=\s*["']([^"']+)["']/i) || [])[1] || "";
+                const cleanText = n.replace(/<img\b[^>]*>/ig, "").replace(/<[^>]+>/g, " ").trim();
+                return { text: cleanText || n, img: normalizeNewsImageUrl(embeddedImage), pdf: "", video: "", category: "ALL", date: "", period: "" };
+            }
+            n = n || {};
+            const headline = n.headline || n.text || n.title || n.news || n.News || n.Headline || n.Title || "";
+            const summary = n.summary || n.description || n.details || n.contentText || "";
+            return {
+                text: String(headline).replace(/<[^>]+>/g, " ").trim() + (summary && String(summary) !== String(headline) ? "\n\n" + String(summary).replace(/<img\b[^>]*>/ig, "").replace(/<[^>]+>/g, " ").trim() : ""),
+                img: normalizeNewsImageUrl(extractNewsImageValue(n)),
+                // Apps Script returns L/M/N sheet values as img/pdf/video.
+                // Accept alternate sheet-header spellings too; never use column K/GUID as media.
+                pdf: String(n.pdf || n.pdfUrl || n.pdfURL || n.pdf_url || n["PDF URL"] || n["PDF / Other URL"] || n["Pdf URL"] || "").trim(),
+                video: String(n.video || n.videoUrl || n.videoURL || n.video_url || n["Video URL"] || "").trim(),
+                category: n.category || n.subject || n.Category || n.Subject || "ALL",
+                date: n.date || n.publishedAt || n.published_at || n.timestamp || n.createdAt || n.created_at || n.Date || "",
+                period: n.period || n.frequency || n.timeCategory || n.week || ""
+            };
+        }
+
         function processFetchedData(data) {
             if (!data) return;
             if (data.tests) tests = data.tests;
@@ -4544,13 +4723,18 @@ body::before {
                 });
             }
             
-            if (data.news) {
-                if (Array.isArray(data.news)) {
-                    originalNewsList = data.news.map(n => typeof n === 'string' ? { text: n, img: "", pdf: "", video: "", category: "ALL" } : { text: n.text || "", img: n.img || "", pdf: n.pdf || "", video: n.video || "", category: n.category || "ALL" });
+            const incomingNews = data.news || data.currentAffairs || data.current_affairs;
+            if (incomingNews) {
+                if (Array.isArray(incomingNews)) {
+                    originalNewsList = incomingNews.map(n => normalizeNewsItem(n));
                 } else {
-                    originalNewsList = Object.values(data.news).map(n => ({ text: n.text || "", img: n.img || "", pdf: n.pdf || "", video: n.video || "", category: n.category || "ALL" }));
+                    originalNewsList = Object.values(incomingNews).map(n => normalizeNewsItem(n));
                 }
                 newsList = [...originalNewsList];
+                updateNewsDateOptions();
+                applyNewsFilters();
+                const syncStatus = document.getElementById('ca-search-count');
+                if (syncStatus) syncStatus.textContent = `🔄 Google Sheets synced • ${new Date().toLocaleTimeString()} • ${originalNewsList.length} பதிவுகள்`;
             }
 
             if (data.quote) quoteMessage = data.quote;
@@ -4779,22 +4963,49 @@ body::before {
         function closeAuthModal() { document.getElementById('authModal').style.display = 'none'; pendingCategoryAction = null; }
 
         function checkWallpaperAndProceed(catId, subDept, nextCallback) {
+            // Popup-only repair: match common legacy admin keys without changing auth/security logic.
             if (isAdminLoggedIn || catId === 'ALL' || catId === 'Kids Study' || catId === 'Eco Tech Lab') { nextCallback(); return; }
-            let key = "";
-            if (catId === 'TRB / NET / SET') key = subDept ? `TRB ${subDept}` : 'TRB Tamil';
-            else if (catId === 'TNPSC') key = subDept ? `TNPSC ${subDept}` : 'TNPSC Group 1';
-            else key = catId;
-            let config = courseWallpapers[key] || courseWallpapers[catId];
-            if (!config || config.status !== 'ON' || !config.img || config.img.trim() === '') { nextCallback(); return; }
-            let phone = localStorage.getItem('tiger_student_phone');
-            let authPassed = localStorage.getItem('tiger_auth_passed');
-            if (authPassed === 'true' && phone) {
-                const deviceId = getUniqueDeviceId();
-                verifyCourseAccess(phone, deviceId, catId, subDept).then(status => {
-                    if (status === "success") nextCallback();
-                    else { selectedCategoryForWallpaper = catId; selectedSubDeptForWallpaper = subDept; showWallpaperPopup(config); }
-                }).catch(e => { showWallpaperPopup(config); });
-            } else { selectedCategoryForWallpaper = catId; selectedSubDeptForWallpaper = subDept; showWallpaperPopup(config); }
+
+            const keys = [];
+            if (catId === 'TRB / NET / SET') {
+                if (subDept) {
+                    const dept = String(subDept).trim();
+                    keys.push(`TRB ${dept}`, `TRB / NET / SET ${dept}`, `TRB / NET / SET - ${dept}`);
+                    if (/tamil/i.test(dept)) keys.push('TRB Tamil', 'TRB / NET / SET Tamil');
+                    if (/chemistry/i.test(dept)) keys.push('TRB Chemistry', 'TRB / NET / SET Chemistry');
+                } else keys.push('TRB Tamil', 'TRB / NET / SET Tamil', catId);
+            } else if (catId === 'TNPSC') {
+                if (subDept) {
+                    const group = String(subDept).trim().replace(/^TNPSC\s*/i, '');
+                    keys.push(`TNPSC ${group}`, group, catId);
+                } else keys.push('TNPSC Group 1', 'TNPSC Group 2', 'TNPSC Group 2A', 'TNPSC Group 4', catId);
+            } else {
+                keys.push(catId);
+                const aliases = {
+                    'POLICE': ['Police Exam'], 'Police Exam': ['POLICE'],
+                    'NEET': ['NEET Exam'], 'NEET Exam': ['NEET'],
+                    'Railway': ['Railway Exam'], 'Railway Exam': ['Railway']
+                };
+                if (aliases[catId]) keys.push(...aliases[catId]);
+            }
+
+            let config = null;
+            for (const key of keys) {
+                const candidate = (typeof courseWallpapers !== 'undefined' && courseWallpapers) ? courseWallpapers[key] : null;
+                if (candidate && String(candidate.status || '').trim().toUpperCase() === 'ON' && String(candidate.img || '').trim()) {
+                    config = candidate;
+                    break;
+                }
+            }
+
+            // No active image popup configured: continue the original app flow unchanged.
+            if (!config) { nextCallback(); return; }
+
+            // Show the configured popup first. The existing login/security checks still run
+            // through proceedToLoginFromWallpaper() and checkAuthAndProceed().
+            selectedCategoryForWallpaper = catId;
+            selectedSubDeptForWallpaper = subDept;
+            showWallpaperPopup(config);
         }
 
         function showWallpaperPopup(config) {
@@ -4828,6 +5039,13 @@ body::before {
             renderTests();
             startSplitLiveClock();
             fetchSheetData();
+            // Refresh the Google Sheets-backed content automatically while the page is open.
+            // This syncs new rows already present in Sheets; it does not create news articles by itself.
+            if (!window.__tigerWarriorsSheetSyncTimer) {
+                window.__tigerWarriorsSheetSyncTimer = window.setInterval(() => {
+                    if (document.visibilityState === 'visible') fetchSheetData();
+                }, 60 * 1000);
+            }
             checkUserLoginStatus();
         });
 
@@ -5026,7 +5244,12 @@ body::before {
             let currentItem = newsList[currentNewsIndex];
             document.getElementById('modal-current-news-text').textContent = currentItem.text;
             let modalImg = document.getElementById('modal-news-img');
-            if (currentItem.img && currentItem.img.trim() !== "") { modalImg.src = currentItem.img; modalImg.style.display = "block"; } else { modalImg.style.display = "none"; modalImg.src = ""; }
+            const modalImageUrl = normalizeNewsImageUrl(currentItem.img || currentItem.image || currentItem.imageUrl || currentItem.image_url || "");
+            if (modalImageUrl) {
+                modalImg.onerror = function() { this.onerror = null; this.style.display = "none"; };
+                modalImg.src = modalImageUrl;
+                modalImg.style.display = "block";
+            } else { modalImg.style.display = "none"; modalImg.src = ""; }
             let modalPdfBtn = document.getElementById('modal-news-pdf-btn');
             if (currentItem.pdf && currentItem.pdf.trim() !== "") { modalPdfBtn.style.display = "flex"; modalPdfBtn.href = currentItem.pdf; } else { modalPdfBtn.style.display = "none"; }
             let modalVideoBtn = document.getElementById('modal-news-video-btn');
@@ -5034,23 +5257,163 @@ body::before {
         }
         function closeCurrentNewsModal() { try { if ('speechSynthesis' in window) window.speechSynthesis.cancel(); } catch(e) {} document.getElementById('currentNewsModal').style.display = 'none'; }
 
+        let currentSelectedPeriod = 'ALL';
+
+        function getNewsItemDate(item) {
+            const raw = item.date || item.publishedAt || item.published_at || item.timestamp || item.createdAt || item.created_at || '';
+            if (raw === null || raw === undefined || raw === '') return null;
+            if (raw instanceof Date) return Number.isNaN(raw.getTime()) ? null : raw;
+            if (typeof raw === 'number' || /^\d{10,13}$/.test(String(raw).trim())) {
+                let n = Number(raw); if (String(Math.trunc(n)).length === 10) n *= 1000;
+                const d = new Date(n); return Number.isNaN(d.getTime()) ? null : d;
+            }
+            const value = String(raw).trim();
+            // Prefer unambiguous ISO dates; Google Sheets commonly sends YYYY-MM-DD.
+            let match = value.match(/^(\d{4})[-/](\d{1,2})[-/](\d{1,2})/);
+            if (match) { const d = new Date(Number(match[1]), Number(match[2])-1, Number(match[3])); return Number.isNaN(d.getTime()) ? null : d; }
+            // Handle DD/MM/YYYY text without relying on browser locale.
+            match = value.match(/^(\d{1,2})[/.](\d{1,2})[/.](\d{4})$/);
+            if (match) { const d = new Date(Number(match[3]), Number(match[2])-1, Number(match[1])); return Number.isNaN(d.getTime()) ? null : d; }
+            const d = new Date(value); return Number.isNaN(d.getTime()) ? null : d;
+        }
+
+        function updateNewsDateOptions() {
+            const yearSelect = document.getElementById('ca-search-year');
+            const daySelect = document.getElementById('ca-search-day');
+            const monthSelect = document.getElementById('ca-search-month');
+            if (!yearSelect || !daySelect) return;
+            const selectedYear = yearSelect.value || 'ALL';
+            const years = new Set([new Date().getFullYear()]);
+            originalNewsList.forEach(item => { const d = getNewsItemDate(item); if (d) years.add(d.getFullYear()); });
+            yearSelect.innerHTML = '<option value="ALL">All Years</option>' + [...years].sort((a,b)=>b-a).map(y=>`<option value="${y}">${y}</option>`).join('');
+            if ([...years].map(String).includes(selectedYear)) yearSelect.value = selectedYear;
+            const selectedDay = daySelect.value || 'ALL';
+            const month = monthSelect && monthSelect.value !== 'ALL' ? Number(monthSelect.value) : 0;
+            const year = yearSelect.value !== 'ALL' ? Number(yearSelect.value) : new Date().getFullYear();
+            const daysInMonth = month ? new Date(year, month, 0).getDate() : 31;
+            daySelect.innerHTML = '<option value="ALL">All Days</option>' + Array.from({length:daysInMonth},(_,i)=>i+1).map(d=>`<option value="${d}">${String(d).padStart(2,'0')}</option>`).join('');
+            if (selectedDay !== 'ALL' && Number(selectedDay) <= daysInMonth) daySelect.value = selectedDay;
+        }
+
+        function onNewsDateSearchChange() {
+            updateNewsDateOptions();
+            // Specific date controls take precedence over rolling Daily/Weekly/Monthly/Yearly buttons.
+            currentSelectedPeriod = 'ALL';
+            document.querySelectorAll('.ca-filter-btn[data-period]').forEach(btn => btn.classList.toggle('active', btn.dataset.period === 'ALL'));
+        }
+
+        function newsMatchesPeriod(item, period) {
+            if (period === 'ALL') return true;
+            const d = getNewsItemDate(item);
+            if (!d) return false;
+            const now = new Date(); now.setHours(0,0,0,0);
+            const itemDay = new Date(d.getFullYear(),d.getMonth(),d.getDate());
+            const age = Math.floor((now.getTime() - itemDay.getTime()) / 86400000);
+            if (period === 'DAILY') return itemDay.getTime() === now.getTime();
+            if (period === 'WEEKLY') return age >= 0 && age < 7;
+            if (period === 'MONTHLY') return age >= 0 && age < 30;
+            if (period === 'YEARLY') return age >= 0 && age < 365;
+            return true;
+        }
+
+        function applyNewsFilters() {
+            const category = currentSelectedCategory || 'ALL';
+            const period = currentSelectedPeriod || 'ALL';
+            const yearEl = document.getElementById('ca-search-year');
+            const monthEl = document.getElementById('ca-search-month');
+            const weekEl = document.getElementById('ca-search-week');
+            const dayEl = document.getElementById('ca-search-day');
+            const keywordEl = document.getElementById('ca-search-keyword');
+            const year = yearEl ? yearEl.value : 'ALL';
+            const month = monthEl ? monthEl.value : 'ALL';
+            const week = weekEl ? weekEl.value : 'ALL';
+            const day = dayEl ? dayEl.value : 'ALL';
+            const keyword = keywordEl ? keywordEl.value.trim().toLocaleLowerCase() : '';
+            const hasDateSearch = year !== 'ALL' || month !== 'ALL' || week !== 'ALL' || day !== 'ALL';
+            newsList = originalNewsList.filter(item => {
+                const categoryMatch = category === 'ALL' || String(item.category || 'ALL').trim().toLowerCase() === category.toLowerCase();
+                if (!categoryMatch) return false;
+                if (!hasDateSearch && !newsMatchesPeriod(item, period)) return false;
+                const d = getNewsItemDate(item);
+                if (hasDateSearch && !d) return false;
+                if (year !== 'ALL' && d.getFullYear() !== Number(year)) return false;
+                if (month !== 'ALL' && d.getMonth()+1 !== Number(month)) return false;
+                if (week !== 'ALL' && Math.ceil(d.getDate()/7) !== Number(week)) return false;
+                if (day !== 'ALL' && d.getDate() !== Number(day)) return false;
+                if (keyword && !String(item.text || item.title || item.headline || '').toLocaleLowerCase().includes(keyword)) return false;
+                return true;
+            });
+            currentNewsIndex = 0;
+            const countEl = document.getElementById('ca-search-count');
+            if (countEl) countEl.textContent = `🔎 ${newsList.length} செய்தி(கள்) கிடைத்தன`;
+            if (newsList.length) updateNewsDisplay();
+            else {
+                const label = [year !== 'ALL' ? year : '', month !== 'ALL' ? new Date(2000,Number(month)-1,1).toLocaleString('en',{month:'long'}) : '', week !== 'ALL' ? 'Week '+week : '', day !== 'ALL' ? 'Day '+day : '', period !== 'ALL' ? period : '', category !== 'ALL' ? category : 'All Subjects'].filter(Boolean).join(' / ');
+                newsList = [{ text: `ℹ️ ${label} பிரிவில் செய்திகள் இல்லை. Google Sheets news பதிவில் date (YYYY-MM-DD) மற்றும் category புலங்களைச் சரியாக நிரப்பவும்.`, img: '', pdf: '', video: '', category: category, date: '', period: '' }];
+                updateNewsDisplay();
+            }
+            startNewsRotation();
+        }
+
+        function runNewsDateSearch() {
+            playClickSound();
+            onNewsDateSearchChange();
+            applyNewsFilters();
+        }
+
+        function resetNewsDateSearch() {
+            ['ca-search-year','ca-search-month','ca-search-week','ca-search-day','ca-search-keyword'].forEach(id => { const el=document.getElementById(id); if(el) el.value='ALL' === id ? 'ALL' : ''; });
+            const monthEl=document.getElementById('ca-search-month'); if(monthEl) monthEl.value='ALL';
+            const weekEl=document.getElementById('ca-search-week'); if(weekEl) weekEl.value='ALL';
+            const dayEl=document.getElementById('ca-search-day'); if(dayEl) dayEl.value='ALL';
+            const yearEl=document.getElementById('ca-search-year'); if(yearEl) yearEl.value='ALL';
+            const keywordEl=document.getElementById('ca-search-keyword'); if(keywordEl) keywordEl.value='';
+            currentSelectedPeriod='ALL';
+            document.querySelectorAll('.ca-filter-btn[data-period]').forEach(btn=>btn.classList.toggle('active',btn.dataset.period==='ALL'));
+            updateNewsDateOptions(); applyNewsFilters();
+        }
+
+        function toggleCurrentAffairsPeriods() {
+            const choices = document.getElementById('caPeriodChoices');
+            const button = document.getElementById('caPeriodLaunchBtn');
+            if (!choices || !button) return;
+            const isOpen = choices.classList.toggle('open');
+            button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            button.textContent = isOpen ? '📚 Current Affairs — Daily / Weekly தேர்வு ▴' : '📚 Current Affairs — Daily / Weekly தேர்வு ▾';
+            playClickSound();
+        }
+
+        function chooseCurrentAffairsPeriod(period, button) {
+            document.querySelectorAll('.ca-period-choice').forEach(btn => btn.classList.toggle('active', btn === button));
+            filterNewsByPeriod(period, button);
+            const choices = document.getElementById('caPeriodChoices');
+            const launch = document.getElementById('caPeriodLaunchBtn');
+            if (choices) choices.classList.add('open');
+            if (launch) { launch.setAttribute('aria-expanded', 'true'); launch.textContent = '📚 Current Affairs — ' + (period === 'DAILY' ? 'Daily / தினசரி' : 'Weekly / வாராந்திரம்') + ' ▴'; }
+            const screen = document.getElementById('newsScreenBox');
+            if (screen) screen.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function filterNewsByPeriod(period, clickedButton) {
+            playClickSound();
+            currentSelectedPeriod = period;
+            // Clear explicit date selections so the period button works independently.
+            ['ca-search-year','ca-search-month','ca-search-week','ca-search-day'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='ALL';});
+            const kw=document.getElementById('ca-search-keyword'); if(kw) kw.value='';
+            updateNewsDateOptions();
+            document.querySelectorAll('.ca-filter-btn[data-period]').forEach(btn => btn.classList.toggle('active', btn.dataset.period === period));
+            applyNewsFilters();
+        }
+
         function filterNewsByCategory(category) {
             playClickSound();
             currentSelectedCategory = category;
-            const buttons = document.querySelectorAll('.ca-filter-btn');
-            buttons.forEach(btn => {
-                if(btn.textContent.includes(category) || (category === 'ALL' && btn.textContent.includes('அனைத்தும்'))) btn.classList.add('active');
-                else btn.classList.remove('active');
-            });
-            if (category === 'ALL') newsList = [...originalNewsList];
-            else newsList = originalNewsList.filter(item => item.category && item.category.toString().trim().toLowerCase() === category.toLowerCase());
-            currentNewsIndex = 0;
-            if(newsList.length > 0) updateNewsDisplay();
-            else { newsList = [{ text: `⚠ ${category} பிரிவில் தற்போது நடப்பு நிகழ்வுகள் இல்லை.`, img: "", pdf: "", video: "" }]; updateNewsDisplay(); }
+            document.querySelectorAll('.ca-filter-btn[data-subject]').forEach(btn => btn.classList.toggle('active', btn.dataset.subject === category));
+            applyNewsFilters();
         }
 
-        function nextNewsItem() { if (!newsList || newsList.length === 0) return; currentNewsIndex = (currentNewsIndex + 1) % newsList.length; updateNewsDisplay(); populateNewsModalData(); }
-        function prevNewsItem() { if (!newsList || newsList.length === 0) return; currentNewsIndex = (currentNewsIndex - 1 + newsList.length) % newsList.length; updateNewsDisplay(); populateNewsModalData(); }
+        function nextNewsItem() { if (!newsList || newsList.length === 0) return; currentNewsIndex = (currentNewsIndex + 1) % newsList.length; updateNewsDisplay(); populateNewsModalData(); startNewsRotation(); }
+        function prevNewsItem() { if (!newsList || newsList.length === 0) return; currentNewsIndex = (currentNewsIndex - 1 + newsList.length) % newsList.length; updateNewsDisplay(); populateNewsModalData(); startNewsRotation(); }
         function modalNextNews() { nextNewsItem(); }
         function modalPrevNews() { prevNewsItem(); }
 
@@ -5068,7 +5431,8 @@ body::before {
                 btn.style.background = "linear-gradient(135deg, rgba(251, 191, 36, 0.2), rgba(11, 19, 38, 0.95))";
                 btn.style.borderColor = "var(--warning)";
                 btn.style.color = "var(--warning)";
-                btn.innerHTML = `<span>🏛️️ ${catName}</span> <span style="font-size:11px; color:#fff;">Start 🚀</span>`;
+                const subjectCount = quizList.filter(q => ((q.category && q.category.trim()) ? q.category.trim() : "பொது அறிவு (General)") === catName).length;
+                btn.innerHTML = `<span>🏛️ ${catName}<small style="display:block;font-size:9px;color:#cbd5e1;margin-top:3px;">${subjectCount} கேள்விகள்</small></span><span style="font-size:11px;color:#fff;">தேர்வு செய் ➜</span>`;
                 btn.onclick = () => { playClickSound(); startQuizForCategory(catName); };
                 catListContainer.appendChild(btn);
             });
@@ -5083,7 +5447,10 @@ body::before {
                 let qCat = (q.category && q.category.trim() !== "") ? q.category.trim() : "பொது அறிவு (General)";
                 return qCat === categoryName;
             });
-            if(filteredQuizList.length === 0) filteredQuizList = [...quizList];
+            if(filteredQuizList.length === 0) {
+                showRoyalAlertPopup("🐅 QUIZ ALERT", `“${categoryName}” பாடத்தில் தற்போது கேள்விகள் இல்லை. வேறு பாடத்தைத் தேர்ந்தெடுக்கவும்.`);
+                return;
+            }
             currentQuizIndex = 0;
             document.getElementById('quizModalHeaderTitle').textContent = `🎯 ${categoryName}`;
             document.getElementById('quiz-category-selection-view').style.display = 'none';
@@ -5135,6 +5502,7 @@ body::before {
                 if (!input) throw new Error("Tiger AI input not found");
 
                 input.value = prompt;
+                autoResizeTigerAIQuestion(input);
                 await askRoomAI();
             } catch (error) {
                 console.error("Quiz AI error:", error);
@@ -5277,6 +5645,30 @@ body::before {
             toggleThemeMode();
         }
 
+        // If column L has no usable image, look for a related image on Wikimedia Commons.
+        // This needs an internet connection and may not find a suitable image for every headline.
+        async function findNewsImageByTitle(title) {
+            const query = String(title || '').replace(/https?:\/\/\S+/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 180);
+            if (!query) return '';
+            const api = 'https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrnamespace=6&gsrsearch=' + encodeURIComponent(query) + '&gsrlimit=8&prop=imageinfo&iiprop=url&iiurlwidth=640&format=json&origin=*';
+            try {
+                const response = await fetch(api, { method: 'GET', mode: 'cors', cache: 'no-store' });
+                if (!response.ok) return '';
+                const data = await response.json();
+                const pages = data && data.query && data.query.pages ? Object.values(data.query.pages) : [];
+                const usable = pages.find(page => {
+                    const info = page && page.imageinfo && page.imageinfo[0];
+                    const url = info && (info.thumburl || info.url);
+                    return url && /^https?:\/\//i.test(url) && !/\.(svg|pdf|djvu)(?:[?#]|$)/i.test(url);
+                });
+                const info = usable && usable.imageinfo && usable.imageinfo[0];
+                return info ? (info.thumburl || info.url || '') : '';
+            } catch (error) {
+                console.log('Automatic news image search unavailable:', error);
+                return '';
+            }
+        }
+
         function updateNewsDisplay() {
             const noticeEl = document.getElementById('display-notice-text');
             const visualContainer = document.getElementById('display-visual-container');
@@ -5286,22 +5678,88 @@ body::before {
             const newsScreenBox = document.getElementById('newsScreenBox');
             const counterEl = document.getElementById('news-counter-indicator');
             if(!newsList || newsList.length === 0) return;
+            currentNewsIndex = ((currentNewsIndex % newsList.length) + newsList.length) % newsList.length;
             let currentItem = newsList[currentNewsIndex];
-            noticeEl.textContent = currentItem.text;
+            noticeEl.textContent = currentItem.text || currentItem.title || "நடப்பு நிகழ்வு";
             if(counterEl) counterEl.textContent = `${currentNewsIndex + 1} / ${newsList.length}`;
-            if (currentItem.img && currentItem.img.trim() !== "") visualContainer.innerHTML = `<img src="${currentItem.img}" alt="News Visual">`;
-            else visualContainer.innerHTML = `<img src="https://tigeracadamy.github.io/preperation-hub/tigergoldlogo.jpeg" alt="Tiger Logo" style="width:100%; height:100%; object-fit:cover; border-radius:6px;">`;
+            const fallbackLogo = "https://tigeracadamy.github.io/preperation-hub/tigergoldlogo.jpeg";
+            const imageUrl = normalizeNewsImageUrl(extractNewsImageValue(currentItem) || currentItem.img || currentItem.image || currentItem.imageUrl || currentItem.image_url || "");
+            visualContainer.innerHTML = "";
+            const newsImg = document.createElement("img");
+            newsImg.alt = "News image";
+            newsImg.loading = "eager";
+            newsImg.referrerPolicy = "no-referrer";
+            newsImg.decoding = "async";
+            newsImg.style.cssText = "width:100%;height:100%;object-fit:cover;border-radius:6px;display:block;";
+            const displayedNewsIndex = currentNewsIndex;
+            let autoSearchStarted = false;
+            const tryAutomaticImageSearch = async () => {
+                if (autoSearchStarted) return;
+                autoSearchStarted = true;
+                const foundUrl = await findNewsImageByTitle(currentItem.text || currentItem.title || '');
+                // Prevent a slow search for one headline from changing the next headline's image.
+                if (!foundUrl || currentNewsIndex !== displayedNewsIndex || newsList[currentNewsIndex] !== currentItem) return;
+                newsImg.onerror = function() { this.onerror = null; this.src = fallbackLogo; };
+                newsImg.src = foundUrl;
+            };
+            newsImg.onerror = function() {
+                if (imageUrl && !this.dataset.fallbackTried) {
+                    this.dataset.fallbackTried = "1";
+                    // Retry Drive images through the thumbnail endpoint, which works in more WebViews.
+                    const driveId = imageUrl.match(/drive\.google\.com\/(?:uc\?(?:[^#]*&)?id=|file\/d\/)([a-zA-Z0-9_-]+)/i);
+                    if (driveId) { this.src = "https://drive.google.com/thumbnail?id=" + driveId[1] + "&sz=w800"; return; }
+                }
+                if (!autoSearchStarted) { tryAutomaticImageSearch(); return; }
+                this.onerror = null;
+                this.src = fallbackLogo;
+            };
+            newsImg.src = imageUrl || fallbackLogo;
+            visualContainer.appendChild(newsImg);
+            if (!imageUrl) tryAutomaticImageSearch();
             pdfEl.style.display = (currentItem.pdf && currentItem.pdf.trim() !== "") ? "inline-block" : "none";
             if(currentItem.pdf) pdfEl.href = currentItem.pdf;
             videoEl.style.display = (currentItem.video && currentItem.video.trim() !== "") ? "inline-block" : "none";
             if(currentItem.video) videoEl.href = currentItem.video;
         }
 
-        function startNewsRotation() {
-            updateNewsDisplay();
-            if(newsInterval) clearInterval(newsInterval);
-            newsInterval = setInterval(() => { currentNewsIndex = (currentNewsIndex + 1) % newsList.length; updateNewsDisplay(); }, 8000); 
+        function getNewsReadingDelay(item) {
+            // Short headlines get at least 5 seconds; longer news gets proportionally more reading time.
+            const text = String((item && (item.text || item.title)) || "நடப்பு நிகழ்வு").trim();
+            const words = text ? text.split(/\s+/).filter(Boolean).length : 0;
+            return Math.max(5000, Math.min(15000, 5000 + Math.max(0, words - 8) * 350));
         }
+
+        function startNewsRotation() {
+            // Use a single adaptive timeout so each headline gets time based on its length.
+            if (newsInterval) {
+                window.clearTimeout(newsInterval);
+                newsInterval = null;
+            }
+            if (!Array.isArray(newsList) || newsList.length === 0) return;
+
+            currentNewsIndex = ((Number(currentNewsIndex) || 0) % newsList.length + newsList.length) % newsList.length;
+            updateNewsDisplay();
+
+            const scheduleNextNews = () => {
+                if (!Array.isArray(newsList) || newsList.length <= 1) return;
+                const currentItem = newsList[currentNewsIndex];
+                newsInterval = window.setTimeout(() => {
+                    if (!Array.isArray(newsList) || newsList.length === 0) return;
+                    currentNewsIndex = (currentNewsIndex + 1) % newsList.length;
+                    updateNewsDisplay();
+                    scheduleNextNews();
+                }, getNewsReadingDelay(currentItem));
+            };
+            // Restart safely on Android content:// WebViews; image, headline and counter update together.
+            scheduleNextNews();
+        }
+
+        // Re-start rotation when the app returns to the foreground.
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'visible' && Array.isArray(newsList) && newsList.length > 1) {
+                startNewsRotation();
+            }
+        });
 
         function renderCategories() {
             const container = document.getElementById('category-tabs-container');
@@ -5367,7 +5825,53 @@ body::before {
                 toggleDeptSelectAdmin();
             } else if (sectionType === 'wallpapers') {
                 titleEl.textContent = "🖼️ Edit Course Popups";
-                let optionsHtml = Object.keys(courseWallpapers).map(k => `<option value="${k}">${courseWallpapers[k].title}</option>`).join('');
+                // Category dropdown repair only: show configured sheet keys when available,
+                // and keep known course categories selectable if the sheet data has not loaded yet.
+                const wallpaperFallbackCategories = [
+                    ['TNPSC Group 1', '🏛️ TNPSC Group 1'],
+                    ['TNPSC Group 2', '🏛️ TNPSC Group 2'],
+                    ['TNPSC Group 2A', '🏛️ TNPSC Group 2A'],
+                    ['TNPSC Group 4', '🏛️ TNPSC Group 4'],
+                    ['TRB / NET / SET', '📚 TRB / NET / SET'],
+                    ['TRB / NET / SET Tamil', '📖 TRB / NET / SET Tamil'],
+                    ['TRB / NET / SET Chemistry', '🧪 TRB / NET / SET Chemistry'],
+                    ['TRB / NET / SET Physics', '⚡ TRB / NET / SET Physics'],
+                    ['TRB / NET / SET Zoology', '🧬 TRB / NET / SET Zoology'],
+                    ['TRB / NET / SET Botany', '🌿 TRB / NET / SET Botany'],
+                    ['Police Exam', '🛡️ Police Exam'],
+                    ['NEET Exam', '🧬 NEET Exam'],
+                    ['Railway Exam', '🚆 Railway Exam'],
+                    ['Kids Study', '🧸 Kids Study'],
+                    ['ALL', '🔥 All Courses']
+                ];
+                // Always merge the known categories with every category received
+                // from Google Sheets. Previously, even one loaded sheet row caused
+                // the fallback list to be hidden, so Admin Edit showed only one category.
+                const wallpaperKeys = Object.keys(courseWallpapers || {});
+                const wallpaperOptionMap = new Map();
+                wallpaperFallbackCategories.forEach(([key, label]) => {
+                    wallpaperOptionMap.set(key, label);
+                });
+                // Include the canonical keys returned by Apps Script as well.
+                [
+                    ['TRB Tamil', '📖 TRB தமிழ் துறை'],
+                    ['TRB Chemistry', '🧪 TRB வேதியியல்'],
+                    ['TRB Physics', '⚡ TRB இயற்பியல்'],
+                    ['TRB Zoology', '🧬 TRB விலங்கியல்'],
+                    ['TRB Botany', '🌿 TRB தாவரவியல்'],
+                    ['Eco Tech Lab', '🧪 Eco Tech Lab'],
+                    ['Free Test for All', '🔥 Free Test for All']
+                ].forEach(([key, label]) => {
+                    if (!wallpaperOptionMap.has(key)) wallpaperOptionMap.set(key, label);
+                });
+                // Sheet values win for existing keys, while missing known categories
+                // remain visible and selectable in the popup.
+                wallpaperKeys.forEach(key => {
+                    const item = courseWallpapers[key] || {};
+                    wallpaperOptionMap.set(key, item.title || key);
+                });
+                const wallpaperOptions = Array.from(wallpaperOptionMap.entries());
+                let optionsHtml = wallpaperOptions.map(([k, label]) => `<option value="${String(k).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')}">${String(label).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</option>`).join('');
                 contentEl.innerHTML = `
                     <label>Select Section:</label>
                     <select id="adm-cw-key" onchange="loadCourseWallpaperAdmin(this.value)" style="margin-bottom:6px;">${optionsHtml}</select>
@@ -5376,7 +5880,7 @@ body::before {
                     <label>Title:</label><input type="text" id="adm-cw-title" style="margin-bottom:6px;">
                     <label>Image URL:</label><input type="text" id="adm-cw-img">
                 `;
-                if (Object.keys(courseWallpapers).length > 0) loadCourseWallpaperAdmin(Object.keys(courseWallpapers)[0]);
+                if (wallpaperOptions.length > 0) loadCourseWallpaperAdmin(wallpaperOptions[0][0]);
                 saveBtn.onclick = () => { playClickSound(); saveCourseWallpaperAdmin(); };
             } else if (sectionType === 'music') {
                 titleEl.textContent = "🎵 Motivation Songs";
@@ -5602,14 +6106,43 @@ body::before {
 </script>
 
 
-<script>
-(function () {
-    document.addEventListener('keydown', function (event) {
-        if (event.key === 'Escape') {
-            var modal = document.getElementById('tamilNewspapersModal');
-            if (modal) modal.style.display = 'none';
-        }
-    });
+<style id="tw-sheet-ads-styles">
+#twAdOverlay{position:fixed;inset:0;z-index:999999;background:rgba(0,0,0,.94);display:none;align-items:center;justify-content:center;padding:12px;box-sizing:border-box}
+#twAdOverlay.tw-ad-half{inset:auto 10px 12px 10px;max-height:48vh;border:1px solid #eab308;border-radius:16px;background:#111827;padding:10px;box-shadow:0 10px 40px #000b}
+#twAdPanel{position:relative;width:100%;height:100%;max-width:1000px;max-height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:white;text-align:center}
+#twAdOverlay.tw-ad-full #twAdPanel{height:92vh}
+#twAdTitle{font-weight:900;font-size:clamp(16px,3vw,25px);color:#facc15;margin:0}
+#twAdMedia{width:100%;height:100%;min-height:120px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+#twAdMedia img,#twAdMedia video,#twAdMedia iframe{width:100%;height:100%;max-height:78vh;object-fit:contain;border:0;border-radius:8px;background:#000}
+#twAdOverlay.tw-ad-half #twAdMedia{height:28vh;min-height:100px}
+#twAdOverlay.tw-ad-half #twAdMedia img,#twAdOverlay.tw-ad-half #twAdMedia video,#twAdOverlay.tw-ad-half #twAdMedia iframe{max-height:30vh}
+#twAdClose{position:absolute;right:0;top:0;z-index:3;border:1px solid #facc15;border-radius:999px;background:#111827;color:white;font-weight:900;padding:8px 12px;cursor:pointer}
+#twAdTimer{font-size:12px;color:#d1d5db}
+</style>
+<div id="twAdOverlay" role="dialog" aria-label="Tiger Warriors advertisement" aria-modal="true">
+ <div id="twAdPanel"><button id="twAdClose" type="button" aria-label="Close advertisement">✕ Close</button><h2 id="twAdTitle"></h2><div id="twAdMedia"></div><div id="twAdTimer"></div></div>
+</div>
+<script id="tw-sheet-ads-runtime">
+(function(){
+ 'use strict';
+ const ENDPOINT = 'https://script.google.com/macros/s/AKfycbxM2mcc4bAutKbHbJRSzMSf6r85RzrCDuJTuMrFjiyJo-zx3dBWrj47xB6JdyJjJQ7Hgw/exec';
+ const overlay=document.getElementById('twAdOverlay'), media=document.getElementById('twAdMedia'), title=document.getElementById('twAdTitle'), timer=document.getElementById('twAdTimer'), closeBtn=document.getElementById('twAdClose');
+ if(!overlay||!media||!title||!timer||!closeBtn)return;
+ let ads=[], index=0, timeoutId=null, tickId=null, shown=false, currentAd=null, nextShowId=null;
+ function dateOnly(v){if(!v)return ''; if(/^\d{4}-\d{2}-\d{2}$/.test(String(v).trim()))return String(v).trim(); const d=new Date(v); return isNaN(d.getTime())?'':d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+ function isCurrent(a){if(String(a.status||'OFF').toUpperCase()!=='ON'||!a.mediaUrl)return false; const today=new Date();today.setHours(0,0,0,0); const start=dateOnly(a.startDate),end=dateOnly(a.endDate); if(start&&today<new Date(start+'T00:00:00'))return false; if(end&&today>new Date(end+'T23:59:59'))return false; return true}
+ function youtubeEmbed(url){try{const u=new URL(url);let id=''; if(u.hostname.includes('youtu.be'))id=u.pathname.split('/').filter(Boolean)[0]||'';else if(u.hostname.includes('youtube.com')){id=u.searchParams.get('v')||'';const parts=u.pathname.split('/').filter(Boolean);if(!id&&(parts[0]==='live'||parts[0]==='embed'||parts[0]==='shorts')&&parts[1])id=parts[1]}return id?'https://www.youtube-nocookie.com/embed/'+encodeURIComponent(id)+'?autoplay=1&mute=1&playsinline=1&rel=0':''}catch(e){return ''}}
+ function driveFileId(url){try{const u=new URL(url);if(!u.hostname.includes('drive.google.com'))return '';let id='';const m=u.pathname.match(/\/file\/d\/([^/]+)/);if(m)id=m[1];if(!id)id=u.searchParams.get('id')||'';return id}catch(e){return ''}}
+ function drivePreview(url){const id=driveFileId(url);return id?'https://drive.google.com/file/d/'+encodeURIComponent(id)+'/preview':''}
+ function driveDirectVideo(url){const id=driveFileId(url);return id?'https://drive.google.com/uc?export=download&id='+encodeURIComponent(id):''}
+ function closeAd(){clearTimeout(timeoutId);clearInterval(tickId);clearTimeout(nextShowId);overlay.style.display='none';overlay.classList.remove('tw-ad-half','tw-ad-full');media.innerHTML='';timer.textContent='';shown=false;const waitMinutes=Number(currentAd&&currentAd.repeatIntervalMinutes);const waitMs=([5,10,15,20].includes(waitMinutes)?waitMinutes:5)*60*1000;if(ads.length){index=(index+1)%ads.length;nextShowId=setTimeout(()=>{nextShowId=null;loadAds()},waitMs)}currentAd=null}
+ function showNext(){if(!ads.length||shown)return; let attempts=0;while(attempts<ads.length&&!isCurrent(ads[index])){index=(index+1)%ads.length;attempts++}if(!isCurrent(ads[index]))return;const a=ads[index];currentAd=a;shown=true;overlay.classList.add(String(a.placement||'Half Page').toLowerCase().includes('full')?'tw-ad-full':'tw-ad-half');overlay.style.display='flex';title.textContent=a.title||'Tiger Warriors';media.innerHTML='';const url=String(a.mediaUrl||'').trim(), type=String(a.mediaType||'image').toLowerCase(), live=String(a.videoMode||'').toLowerCase()==='live';
+  if(type.includes('video')||live){const yt=youtubeEmbed(url),drive=drivePreview(url);if(yt){const f=document.createElement('iframe');f.src=yt;f.title=a.title||'Video Advertisement';f.allow='autoplay; encrypted-media; picture-in-picture; fullscreen';f.allowFullscreen=true;f.setAttribute('referrerpolicy','strict-origin-when-cross-origin');media.appendChild(f)}else if(drive){/* Google Drive preview is used directly: Drive's download URL is not a reliable HTML5 streaming source. */const f=document.createElement('iframe');f.src=drive;f.title=a.title||'Video Advertisement';f.allow='autoplay; encrypted-media; picture-in-picture; fullscreen';f.allowFullscreen=true;f.setAttribute('referrerpolicy','strict-origin-when-cross-origin');f.style.width='100%';f.style.height='100%';f.style.minHeight='180px';f.style.border='0';media.appendChild(f)}else{const v=document.createElement('video');v.src=url;v.controls=true;v.autoplay=true;v.muted=true;v.playsInline=true;v.preload='metadata';v.style.width='100%';v.style.height='100%';v.style.objectFit='contain';media.appendChild(v)}}else{const img=document.createElement('img');img.src=url;img.alt=a.title||'Advertisement';img.onerror=()=>{media.textContent='இந்த விளம்பரப் படத்தை ஏற்ற முடியவில்லை. Media URL-ஐச் சரிபார்க்கவும்.'};media.appendChild(img)}
+  if(live){timer.textContent='🔴 LIVE • முடிக்க Close அழுத்தவும்';return}let left=Math.max(10,Math.min(180,Math.floor(Number(a.duration)||100)));timer.textContent='விளம்பரம் முடிவதற்கு '+left+' வினாடிகள்';tickId=setInterval(()=>{left--;timer.textContent=left>0?'விளம்பரம் முடிவதற்கு '+left+' வினாடிகள்':'விளம்பரம் முடிந்தது';if(left<=0)closeAd()},1000);timeoutId=setTimeout(closeAd,left*1000+100)
+ }
+ closeBtn.addEventListener('click',closeAd);
+ function loadAds(){fetch(ENDPOINT+'?ads_ts='+Date.now(),{method:'GET',cache:'no-store',redirect:'follow'}).then(r=>r.json()).then(data=>{if(Array.isArray(data.ads)){ads=data.ads.filter(isCurrent);if(ads.length&&!shown&&!nextShowId){index=Math.min(index,Math.max(ads.length-1,0));nextShowId=setTimeout(()=>{nextShowId=null;showNext()},1800)}}}).catch(()=>{});}
+ loadAds();setInterval(()=>{if(!shown)loadAds()},60000);
 })();
 </script>
 
