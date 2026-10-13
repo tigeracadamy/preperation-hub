@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ta" style="background:#060913;color-scheme:dark;">
 <head>
-<script>const TIGER_WARRIORS_HTML_VERSION = "VTE11-ADMIN-EDIT-CATEGORIES-FIX";</script>
+<script>const TIGER_WARRIORS_HTML_VERSION = "VTE12-MOBILE-LAPTOP-RESPONSIVE-FIX";</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="color-scheme" content="dark">
@@ -2677,7 +2677,7 @@ body.mode-light .tph-exam-hub{background:radial-gradient(ellipse at 0% 0%,rgba(1
 /* TEST PANEL should span the same full content width as the AI panel above. */
 #tphTestPanel.tph-test-panel {
   box-sizing: border-box !important;
-  width: min(850px, 200%) !important;
+  width: min(100%, 850px) !important;
   max-width: 850px !important;
   min-width: 0 !important;
   margin-left: 0 !important;
@@ -2686,7 +2686,7 @@ body.mode-light .tph-exam-hub{background:radial-gradient(ellipse at 0% 0%,rgba(1
   align-self: stretch !important;
 }
 @media (max-width: 620px) {
-  #tphTestPanel.tph-test-panel { width: min(850px, 200%) !important; max-width: 850px !important; }
+  #tphTestPanel.tph-test-panel { width: min(100%, 850px) !important; max-width: 850px !important; }
 }
 </style>
 </head>
@@ -6747,6 +6747,167 @@ function tphTestPanelSelect(button, label) {
  loadAds();setInterval(()=>{if(!shown)loadAds()},60000);
 })();
 </script>
+
+
+
+<style id="tph-final-mobile-laptop-responsive-fix">
+/* Final responsive pass: keep the existing desktop design, make phone layouts fit the viewport. */
+*, *::before, *::after { box-sizing: border-box; }
+html { width: 100%; max-width: 100%; overflow-x: clip; }
+body { width: 100%; max-width: 100%; overflow-x: clip; }
+img, video, iframe, canvas, svg { max-width: 100%; }
+.main-container { width: 100% !important; max-width: 1180px; min-width: 0 !important; margin-left: auto !important; margin-right: auto !important; }
+.main-container > *, .tph-exam-hub, #tphExamHub, #tphTestPanel, .tph-test-panel,
+.top-bar, .hero-banner, .notice-corner, .stats-grid, #test-container,
+#tests-section-anchor, #chatBannerContainer, .contact-card, .bottom-actions {
+  min-width: 0 !important; max-width: 100%;
+}
+#tphTestPanel.tph-test-panel { width: min(100%, 850px) !important; max-width: 850px !important; margin-left: auto !important; margin-right: auto !important; }
+#tphTestPanel .tph-test-panel-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+#tphTestPanel .tph-test-panel-col { min-width: 0; }
+#tphTestPanel .tph-test-panel-btn { min-width: 0; overflow-wrap: anywhere; white-space: normal; }
+
+@media (max-width: 760px) {
+  body { padding: 10px !important; padding-bottom: max(28px, env(safe-area-inset-bottom)) !important; }
+  .main-container { display: flex !important; flex-direction: column !important; gap: 12px !important; padding: 0 !important; }
+  .main-container > * { width: 100% !important; max-width: 100% !important; }
+  .top-bar { padding: 14px !important; border-radius: 17px !important; }
+  .brand-box { min-width: 0 !important; gap: 9px !important; flex-wrap: wrap; }
+  .brand-name { overflow-wrap: anywhere; letter-spacing: .02em !important; }
+  .brand-sub { overflow-wrap: anywhere; }
+  .hero-banner { min-height: 0 !important; padding: 16px !important; border-radius: 17px !important; }
+  .hero-banner h2 { font-size: clamp(17px, 4.8vw, 22px) !important; }
+  .hero-banner p { font-size: 13px !important; }
+  .category-tabs { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 8px !important; }
+  .tab-btn { min-width: 0 !important; min-height: 58px !important; padding: 10px 8px !important; font-size: clamp(12px, 3.4vw, 15px) !important; overflow-wrap: anywhere; }
+  .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 8px !important; }
+  .tph-exam-hub, #tphExamHub { width: 100% !important; margin: 10px 0 14px !important; padding: 16px 12px !important; border-radius: 20px !important; }
+  #tphExamHub .tph-exam-grid, #tphExamHub .tph-ai-tools-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 8px !important; }
+  #tphExamHub .tph-exam-btn { min-width: 0 !important; padding: 11px 9px !important; }
+  #tphExamHub .tph-btn-copy strong { overflow-wrap: anywhere; }
+  #tphExamHub .tph-btn-copy small { line-height: 1.4 !important; overflow-wrap: anywhere; }
+  #tphTestPanel.tph-test-panel { width: 100% !important; max-width: 100% !important; margin: 12px 0 16px !important; padding: 16px 12px !important; border-radius: 20px !important; }
+  #tphTestPanel .tph-test-panel-grid { grid-template-columns: minmax(0, 1fr) !important; gap: 12px !important; }
+  #tphTestPanel .tph-test-panel-col h3 { font-size: 11px !important; }
+  #tphTestPanel .tph-test-panel-btn { min-height: 48px !important; padding: 12px !important; font-size: 12px !important; line-height: 1.4 !important; }
+  .current-affairs-news-strip, .hero-control-row { max-width: 100% !important; flex-wrap: wrap !important; }
+  .news-directory-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  input, select, textarea { max-width: 100%; font-size: 16px; }
+  .modal-box, .admin-modal-box, .locker-box, .course-wallpaper-box, .donation-box, .auth-box, .chat-modal-box, .tiger-ai-box {
+    width: min(100% - 16px, 620px) !important; max-width: calc(100vw - 16px) !important; margin-left: auto !important; margin-right: auto !important;
+  }
+}
+@media (max-width: 420px) {
+  body { padding: 7px !important; }
+  .main-container { gap: 9px !important; }
+  .top-bar { padding: 11px !important; }
+  .brand-logo-img { width: 42px !important; height: 42px !important; }
+  .category-tabs { gap: 6px !important; }
+  .tab-btn { min-height: 54px !important; padding: 8px 6px !important; font-size: 12px !important; }
+  .stats-grid { gap: 6px !important; }
+  #tphExamHub .tph-exam-grid, #tphExamHub .tph-ai-tools-grid { grid-template-columns: minmax(0, 1fr) !important; }
+  .news-directory-grid { grid-template-columns: minmax(0, 1fr) !important; }
+  #tphTestPanel.tph-test-panel { padding: 13px 10px !important; }
+}
+@media (min-width: 761px) {
+  body { overflow-x: clip; }
+  .main-container { margin-left: auto !important; margin-right: auto !important; }
+  #tphTestPanel.tph-test-panel { width: 100% !important; max-width: 850px !important; }
+}
+</style>
+
+
+<!-- Physical-mobile override: also works when Chrome's "Desktop site" is enabled -->
+<style id="tph-physical-mobile-view-fix">
+html.tph-physical-mobile, html.tph-physical-mobile body { width:100% !important; min-width:0 !important; max-width:100% !important; overflow-x:hidden !important; }
+html.tph-physical-mobile body { padding:8px !important; box-sizing:border-box !important; }
+html.tph-physical-mobile *, html.tph-physical-mobile *::before, html.tph-physical-mobile *::after { box-sizing:border-box !important; }
+html.tph-physical-mobile .main-container,
+html.tph-physical-mobile .container,
+html.tph-physical-mobile .content-wrapper,
+html.tph-physical-mobile .page-container,
+html.tph-physical-mobile #tphExamHub,
+html.tph-physical-mobile #tphTestPanel,
+html.tph-physical-mobile .tph-test-panel,
+html.tph-physical-mobile .hero-banner,
+html.tph-physical-mobile .top-bar,
+html.tph-physical-mobile .main-content { width:100% !important; min-width:0 !important; max-width:100% !important; margin-left:auto !important; margin-right:auto !important; }
+html.tph-physical-mobile .tph-test-panel { padding:12px !important; }
+html.tph-physical-mobile .tph-test-panel-grid,
+html.tph-physical-mobile .tph-test-panel-columns,
+html.tph-physical-mobile .test-panel-grid { grid-template-columns:minmax(0,1fr) !important; }
+html.tph-physical-mobile #tphTestPanel .tph-test-panel-col { min-width:0 !important; width:100% !important; }
+html.tph-physical-mobile img, html.tph-physical-mobile video, html.tph-physical-mobile iframe { max-width:100% !important; }
+html.tph-physical-mobile input, html.tph-physical-mobile select, html.tph-physical-mobile textarea { max-width:100% !important; font-size:16px !important; }
+html.tph-physical-mobile .tph-exam-grid { grid-template-columns:minmax(0,1fr) !important; }
+html.tph-physical-mobile .stats-grid { grid-template-columns:repeat(2,minmax(0,1fr)) !important; }
+html.tph-physical-mobile .tph-test-panel-btn { width:100% !important; min-width:0 !important; white-space:normal !important; overflow-wrap:anywhere !important; }
+html.tph-physical-mobile .tph-test-panel-title { font-size:15px !important; }
+html.tph-physical-mobile .tph-test-panel-col h3 { font-size:11px !important; }
+html.tph-physical-mobile .tph-test-panel-btn { font-size:12px !important; }
+html.tph-physical-mobile .main-container { gap:12px !important; }
+</style>
+<script id="tph-physical-mobile-view-detect">
+(function(){
+  function applyPhysicalMobileView(){
+    var root=document.documentElement;
+    var physicalWidth=(window.screen && window.screen.width) ? window.screen.width : 9999;
+    var touch=('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+    if (physicalWidth <= 600 && touch) {
+      root.classList.add('tph-physical-mobile');
+      var viewport=document.querySelector('meta[name="viewport"]');
+      if(viewport) viewport.setAttribute('content','width=device-width, initial-scale=1, viewport-fit=cover');
+    } else {
+      root.classList.remove('tph-physical-mobile');
+    }
+  }
+  applyPhysicalMobileView();
+  window.addEventListener('resize',applyPhysicalMobileView,{passive:true});
+})();
+</script>
+
+
+<style id="tph-requested-final-two-column-layout">
+/* User-requested layout: AI panel = 2 left + 2 right; Test Panel = 8 left + 8 right. */
+#tphExamHub .tph-ai-tools-grid,
+#tphExamHub .tph-exam-grid.tph-ai-tools-grid {
+  display:grid !important;
+  grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  gap:clamp(7px,1.5vw,12px) !important;
+  width:100% !important; min-width:0 !important;
+}
+#tphExamHub .tph-ai-tools-grid > *,
+#tphExamHub .tph-exam-grid.tph-ai-tools-grid > * { min-width:0 !important; max-width:100% !important; }
+#tphTestPanel.tph-test-panel { width:100% !important; max-width:850px !important; min-width:0 !important; margin-left:auto !important; margin-right:auto !important; }
+#tphTestPanel .tph-test-panel-grid {
+  display:grid !important;
+  grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  gap:clamp(6px,1.4vw,12px) !important;
+  align-items:start !important; width:100% !important; min-width:0 !important;
+}
+#tphTestPanel .tph-test-panel-col { min-width:0 !important; width:100% !important; }
+#tphTestPanel .tph-test-panel-btn { width:100% !important; min-width:0 !important; overflow-wrap:anywhere !important; white-space:normal !important; }
+@media(max-width:600px) {
+  #tphExamHub.tph-exam-hub { width:100% !important; max-width:100% !important; padding:16px 12px !important; margin:12px auto !important; }
+  #tphExamHub .tph-ai-tools-grid { grid-template-columns:repeat(2,minmax(0,1fr)) !important; gap:8px !important; }
+  #tphExamHub .tph-ai-tools-grid .tph-exam-btn { min-height:72px !important; padding:9px 7px !important; gap:6px !important; align-items:center !important; }
+  #tphExamHub .tph-ai-tools-grid .tph-btn-copy strong { font-size:clamp(9px,2.8vw,12px) !important; overflow-wrap:anywhere !important; }
+  #tphExamHub .tph-ai-tools-grid .tph-btn-copy small { font-size:clamp(8px,2.2vw,10px) !important; }
+  #tphTestPanel.tph-test-panel { padding:14px 10px !important; border-radius:18px !important; }
+  #tphTestPanel .tph-test-panel-grid { grid-template-columns:repeat(2,minmax(0,1fr)) !important; gap:7px !important; }
+  #tphTestPanel .tph-test-panel-col { padding:6px !important; }
+  #tphTestPanel .tph-test-panel-col h3 { font-size:clamp(8px,2.2vw,11px) !important; overflow-wrap:anywhere !important; }
+  #tphTestPanel .tph-test-panel-btn { min-height:52px !important; padding:8px 5px !important; margin-bottom:6px !important; border-radius:10px !important; font-size:clamp(8px,2.2vw,10px) !important; line-height:1.3 !important; }
+}
+@media(min-width:601px) and (max-width:900px) {
+  #tphExamHub .tph-ai-tools-grid { grid-template-columns:repeat(2,minmax(0,1fr)) !important; }
+  #tphTestPanel .tph-test-panel-grid { grid-template-columns:repeat(2,minmax(0,1fr)) !important; }
+}
+@media(min-width:901px) {
+  #tphExamHub .tph-ai-tools-grid { grid-template-columns:repeat(2,minmax(0,1fr)) !important; }
+  #tphTestPanel .tph-test-panel-grid { grid-template-columns:repeat(2,minmax(0,1fr)) !important; }
+}
+</style>
 
 </body>
 </html>
