@@ -538,7 +538,7 @@
             scrollbar-width: none;
         }
         .ca-filter-container::-webkit-scrollbar { display: none; }
-        .ca-period-launch { width:100%; margin:7px 0; }
+        .ca-period-launch { width:min(100%,560px); margin:10px auto; text-align:center; }
         .ca-period-launch-btn { width:100%; min-height:42px; border:1.5px solid #00d9ff; border-radius:12px; padding:9px 12px; color:#fff; font-weight:900; font-size:13px; background:linear-gradient(110deg,#063a50,#075985,#0e7490); box-shadow:0 0 13px rgba(0,217,255,.2); cursor:pointer; }
         .ca-period-choices { display:none; grid-template-columns:1fr 1fr; gap:8px; margin-top:7px; }
         .ca-period-choices.open { display:grid; }
@@ -757,7 +757,7 @@
         }
 
         /* 📰 Paired Current Affairs actions — news media on the left, AI on the right */
-        .ca-action-pair{display:grid;grid-template-columns:1.12fr .88fr;gap:7px;width:100%;margin:0 0 6px;align-items:stretch}
+        .ca-action-pair{display:grid;grid-template-columns:1fr 1fr;gap:9px;width:min(100%,560px);margin:8px auto 10px;align-items:stretch;justify-content:center}
         .current-affairs-news-strip{min-width:0;display:flex;align-items:center;justify-content:center;gap:6px;padding:7px 8px;border-radius:9px;border:1px solid rgba(251,191,36,.78);background:linear-gradient(135deg,rgba(120,53,15,.96),rgba(180,83,9,.88));color:#fff;box-shadow:0 0 12px rgba(251,191,36,.16);cursor:pointer;text-align:left;-webkit-tap-highlight-color:transparent}
         .ca-action-icon{font-size:19px;flex:0 0 auto}
         .ca-action-label{display:flex;flex-direction:column;gap:3px;min-width:0}
@@ -765,7 +765,7 @@
         .ca-action-label small{font-size:8px;line-height:1.2;opacity:.88;font-weight:800}
         .ca-action-arrow{font-size:14px;margin-left:auto}
         .current-affairs-news-strip:active,.current-affairs-ai-strip:active{transform:scale(.98)}
-        @media(max-width:380px){.ca-action-pair{gap:5px}.current-affairs-news-strip{padding:6px 5px;gap:4px}.ca-action-label strong{font-size:9px}.ca-action-label small{font-size:7px}.ca-action-icon{font-size:17px}}
+        @media(max-width:380px){.ca-action-pair{gap:6px}.current-affairs-news-strip{padding:7px 5px;gap:4px}.ca-action-label strong{font-size:9px}.ca-action-label small{font-size:7px}.ca-action-icon{font-size:17px}}
         /* 🐅 Current Affairs AI — separate header strip, so no news text is covered */
         .current-affairs-ai-strip {
             width: 100%;
@@ -806,6 +806,17 @@
         }
         .current-affairs-ai-strip .ca-live-main { font-size: 11px; letter-spacing: .15px; }
         .current-affairs-ai-strip .ca-live-sub { font-size: 10px; opacity: .96; }
+        /* Compact AI button under the current-affairs news card; existing AI logic reused. */
+        .current-news-ai-mini {
+            display: flex; align-items: center; justify-content: center; gap: 7px;
+            width: fit-content; max-width: 100%; margin: 7px auto 2px; padding: 7px 14px;
+            border: 1px solid rgba(0,242,254,.65); border-radius: 999px;
+            color: #eafcff; background: linear-gradient(135deg, rgba(9,35,75,.96), rgba(0,115,160,.94));
+            box-shadow: 0 0 10px rgba(0,242,254,.18); font-size: 10px; font-weight: 900;
+            line-height: 1.2; cursor: pointer; -webkit-tap-highlight-color: transparent;
+        }
+        .current-news-ai-mini:active { transform: scale(.97); }
+        .current-news-ai-mini .mini-ai-icon { font-size: 14px; }
         .news-channel-screen:hover { border-color: var(--warning); background: rgba(0, 0, 0, 0.8); }
 
         .news-directory-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0 5px;align-items:start}
@@ -2348,6 +2359,49 @@ body::before {
     .hero-banner .live-datetime-container{margin-top:3px !important;}
 }
 </style>
+
+<style id="tw-premium-classy-mobile-v2">
+/* TIGER WARRIORS — premium mobile skin; presentation only, original content and scripts retained */
+:root{--bg-color:#070b14;--card-bg:#0d1727;--card-border:rgba(70,210,226,.24);--accent-cyan:#39d9f2;--accent-glow:rgba(57,217,242,.18);--text-main:#f5f7fb;--text-muted:#a8b5c7;--success:#39d69a;--gold:#f3c65e;--tw-radius:22px}
+html{background:#070b14!important;scroll-behavior:smooth}
+body{background:radial-gradient(ellipse at 50% -10%,rgba(18,111,139,.22),transparent 42%),linear-gradient(180deg,#070b14 0%,#0a1020 52%,#070b14 100%)!important;color:var(--text-main)!important;letter-spacing:.05px}
+body:before{opacity:.18!important;filter:saturate(.7)}
+button,a,input,select,textarea{font-family:inherit}
+button,.btn,.btn-top-social,.current-affairs-news-strip,.ca-period-launch,.category-tab,.test-card,.stat-box,.contact-card{transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+button:active,.btn:active,.btn-top-social:active{transform:scale(.985)}
+/* Main content cards: calmer borders, richer depth, consistent corners */
+.news-channel-screen,#newsScreenBox{background:linear-gradient(145deg,rgba(11,19,33,.98),rgba(5,10,19,.98))!important;border:1px solid rgba(57,217,242,.34)!important;border-radius:22px!important;box-shadow:0 12px 32px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.035)!important;overflow:hidden}
+#display-visual-container,.news-visual-box{border-radius:15px!important;overflow:hidden!important;border:1px solid rgba(243,198,94,.55)!important;box-shadow:0 5px 18px rgba(0,0,0,.24)!important}
+#display-notice-text,.notice-body{line-height:1.62!important;letter-spacing:.1px}
+.current-affairs-news-strip,.current-affairs-ai-strip,#currentAffairsNewsBtn{border-radius:17px!important;box-shadow:0 5px 18px rgba(0,0,0,.2)!important}
+#currentAffairsAIFloatingBtn{border-radius:999px!important;box-shadow:0 0 0 1px rgba(57,217,242,.22),0 7px 22px rgba(0,183,220,.2)!important;font-weight:800!important}
+#category-tabs-container,.category-tabs{gap:9px!important;padding-top:8px!important;padding-bottom:12px!important}
+#category-tabs-container button,.category-tabs button{border-radius:999px!important;min-height:42px!important;box-shadow:0 4px 12px rgba(0,0,0,.2)!important}
+.stats-grid{gap:12px!important}
+.stat-box,.test-card,.contact-card{border-radius:19px!important;border:1px solid rgba(57,217,242,.19)!important;background:linear-gradient(145deg,rgba(15,30,47,.96),rgba(9,17,31,.98))!important;box-shadow:0 8px 24px rgba(0,0,0,.2)!important}
+.stat-box{padding:15px!important}
+.test-card{margin-bottom:12px!important}
+.test-card:hover,.stat-box:hover,.contact-card:hover{border-color:rgba(57,217,242,.4)!important;box-shadow:0 12px 28px rgba(0,0,0,.28)!important}
+.contact-card{padding:18px!important}
+.btn-top-social{border-radius:14px!important}
+input,select,textarea{border-radius:13px!important}
+#search-input{min-height:46px!important;background:rgba(4,10,20,.78)!important;border:1px solid rgba(57,217,242,.28)!important;color:#fff!important}
+#floatingQuizBtn{box-shadow:0 0 0 4px rgba(57,217,242,.1),0 8px 25px rgba(0,0,0,.45)!important}
+#todayTaskFloatingBtn{box-shadow:0 7px 22px rgba(0,0,0,.35)!important}
+/* Mobile-first spacing without changing element order or functionality */
+@media(max-width:600px){
+ body{padding-left:0!important;padding-right:0!important}
+ .news-channel-screen,#newsScreenBox{margin-top:10px!important;margin-bottom:10px!important}
+ .notice-body-wrapper{min-width:0!important}
+ #display-notice-text,.notice-body{font-size:clamp(15px,4vw,18px)!important;overflow-wrap:anywhere}
+ .stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ .stat-box{min-width:0!important}
+ .test-card,.contact-card{margin-left:0!important;margin-right:0!important}
+ .btn-top-social{min-width:0!important;padding-left:8px!important;padding-right:8px!important}
+}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important;animation-duration:.01ms!important;animation-iteration-count:1!important}}
+
+</style>
 </head>
 <body style="background:#060913 !important;" id="body-theme" data-tiger-version="V12-AI-ROUND-FLOATING">
     <div id="tiger-startup-roar" aria-hidden="true">
@@ -2844,17 +2898,14 @@ body::before {
             </div>
 
             <div class="ca-action-pair" role="group" aria-label="நடப்பு நிகழ்வுகள் தேர்வுகள்">
+                <button type="button" class="current-affairs-news-strip current-news-quiz-mini" onclick="event.stopPropagation(); openCurrentNewsQuiz();" aria-label="இந்தச் செய்தியிலிருந்து 5 கேள்விகள் கொண்ட Quiz உருவாக்கவும்">
+                    <span class="ca-action-icon" aria-hidden="true">📝</span>
+                    <span class="ca-action-label"><strong>AI Quiz</strong><small>5 கேள்விகள்</small></span>
+                </button>
                 <button type="button" id="currentAffairsNewsBtn" class="current-affairs-news-strip" onclick="event.stopPropagation(); playClickSound(); openCurrentNewsModal();" aria-label="செய்தித்தாள்கள் மற்றும் செய்தி ஊடகங்கள்">
                     <span class="ca-action-icon" aria-hidden="true">📰</span>
                     <span class="ca-action-label"><strong>செய்தி ஊடகங்கள்</strong><small>Newspapers &amp; Live News</small></span>
                     <span class="ca-action-arrow" aria-hidden="true">↗</span>
-                </button>
-                <button type="button" id="currentAffairsAIFloatingBtn" class="current-affairs-ai-strip" onclick="event.stopPropagation(); playClickSound(); openCurrentAffairsAI();" aria-label="Current Affairs AI பதில்">
-                    <span class="ca-live-dot" aria-hidden="true"></span>
-                    <span class="ca-live-text">
-                        <span class="ca-live-main">🤖 Current Affairs</span>
-                        <span class="ca-live-sub">AI பதில்</span>
-                    </span>
                 </button>
             </div>
 
@@ -2871,6 +2922,13 @@ body::before {
                 <button class="btn-top-social" onclick="event.stopPropagation(); prevNewsItem()" style="flex:1; justify-content:center; background:rgba(0,242,254,0.15);">◀ முந்தையது (Prev)</button>
                 <span id="news-counter-indicator" style="font-size:10px; color:var(--warning); font-weight:900;">1 / 1</span>
                 <button class="btn-top-social" onclick="event.stopPropagation(); nextNewsItem()" style="flex:1; justify-content:center; background:rgba(0,242,254,0.15);">அடுத்தது (Next) ▶</button>
+            </div>
+            <div class="current-news-ai-actions" style="display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin:7px auto 2px;">
+                <button type="button" class="current-news-ai-mini" onclick="event.stopPropagation(); openCurrentAffairsAI();" aria-label="இந்தச் செய்திக்கு AI விளக்கம் கேட்கவும்">
+                    <span class="mini-ai-icon" aria-hidden="true">🤖</span>
+                    <span>இந்தச் செய்திக்கு AI விளக்கம்</span>
+                    <span aria-hidden="true">✦</span>
+                </button>
             </div>
             
             <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 6px; align-items: center; width: 100%; margin-top: 4px;">
@@ -3569,6 +3627,33 @@ body::before {
                 input.value = newsText
                     ? "இந்த நடப்பு நிகழ்வை விளக்கவும்:\n\n" + newsText
                     : "இந்த நடப்பு நிகழ்வுகள் குறித்து முக்கியமான TNPSC தகவல்களை விளக்கவும்.";
+                autoResizeTigerAIQuestion(input);
+                setTimeout(() => input.focus(), 100);
+            }
+        }
+
+        // Build a 5-question practice quiz from the currently displayed news item using the existing AI connection.
+        function openCurrentNewsQuiz() {
+            playClickSound();
+            const currentItem = (newsList && newsList[currentNewsIndex]) ? newsList[currentNewsIndex] : null;
+            const modal = document.getElementById('tigerAiModal');
+            const label = document.getElementById('tigerAiRoomLabel');
+            const context = document.getElementById('tigerAiContext');
+            const input = document.getElementById('tigerAiQuestion');
+            const newsText = currentItem && currentItem.text ? String(currentItem.text).trim() : '';
+            if (!newsText) {
+                showRoyalAlertPopup('🐅 TIGER WARRIORS ALERT', 'முதலில் செய்தி ஏற்றப்படட்டும்; பிறகு Quiz உருவாக்கலாம்.');
+                return;
+            }
+            tigerAIInstructionOverride = 'You are Tiger Warriors exam quiz creator. Use ONLY the supplied current-affairs news item as the source. Do not invent facts or silently add outside facts. Create exactly 5 Tamil quiz questions based only on the news. Mix formats where the source supports them: (1) direct fact, (2) identify the correct statement, (3) identify the incorrect statement, (4) match related items only if pairs are explicitly supported, and (5) one more distinct source-grounded question. For every question give A/B/C/D options, clearly mark the correct answer, and provide a short explanation. Do not force unsupported matching questions; use another valid question type instead. If the news cannot support five distinct questions, state that honestly rather than inventing details. Format clearly for a student to practice.';
+            label.textContent = '📝 Current Affairs — 5 Question Quiz';
+            context.textContent = 'செய்தியை மட்டும் ஆதாரமாகக் கொண்டு 5 கேள்விகள் — நேரடி வினா, சரியான/தவறான கூற்று உள்ளிட்ட கலவை.';
+            const aiBox = modal.querySelector('.tiger-ai-box');
+            if (aiBox) aiBox.classList.remove('border-run');
+            modal.style.display = 'flex';
+            modal.style.pointerEvents = 'auto';
+            if (input) {
+                input.value = `இந்த செய்தியை மட்டும் ஆதாரமாகக் கொண்டு சரியாக 5 கேள்விகள் கொண்ட Tamil Quiz உருவாக்கு. கேள்வி வகைகளை கலக்கவும்: நேரடி தகவல், சரியான கூற்றைத் தேர்வு செய், தவறான கூற்றைத் தேர்வு செய், செய்தி ஆதரித்தால் பொருத்துக, மேலும் ஒரு தனித்துவமான கேள்வி. ஒவ்வொன்றுக்கும் A/B/C/D options, சரியான விடை, சுருக்கமான விளக்கம் கொடு. பொருத்துக வகைக்கு செய்தியில் போதுமான தகவல் இல்லையெனில் அதை கட்டாயப்படுத்தாதே. செய்தியில் இல்லாத தகவலை கற்பனை செய்யாதே.\n\nசெய்தி:\n${newsText}`;
                 autoResizeTigerAIQuestion(input);
                 setTimeout(() => input.focus(), 100);
             }
@@ -4581,12 +4666,14 @@ body::before {
                 });
 
             Promise.all([currentAffairsRequest, fullDataRequest]).then(([caRows]) => {
-                // Prefer the dedicated Current Affairs response when it contains rows.
+                // IMPORTANT: Do not replace the full news list with the dedicated CA endpoint.
+                // Some deployments return only a small (e.g. 5-item) CA batch there.
+                // Merge both sources and de-duplicate so the carousel can rotate through ALL
+                // educational/current-affairs records returned by either endpoint.
                 if (caRows && caRows.length) {
-                    originalNewsList = caRows.map(n => normalizeNewsItem(n));
-                    newsList = [...originalNewsList];
-                    updateNewsDateOptions();
-                    applyNewsFilters();
+                    mergeNewsWithoutReset(caRows);
+                    const countEl = document.getElementById('ca-search-count');
+                    if (countEl) countEl.textContent = `📰 ${originalNewsList.length} தனித்துவமான செய்திகள் • அனைத்தும் சுழற்சியில் வரும்`;
                 }
                 // If neither endpoint supplied quiz rows, leave a useful diagnostic in console.
                 if (!quizList.length) console.warn("Tiger Warriors: no Quiz rows received from the main endpoint/Firebase.");
@@ -4714,6 +4801,36 @@ body::before {
             };
         }
 
+        function newsStableKey(item) {
+            return String((item && (item.text || item.title || item.headline)) || "")
+                .replace(/<[^>]*>/g, " ").replace(/\\s+/g, " ").trim().toLocaleLowerCase();
+        }
+
+        // Merge periodic/small API responses; never discard the other news rows.
+        function mergeNewsWithoutReset(incomingRows) {
+            if (!Array.isArray(incomingRows) || !incomingRows.length) return;
+            const currentItem = (Array.isArray(newsList) && newsList.length) ? newsList[currentNewsIndex] : null;
+            const currentKey = newsStableKey(currentItem);
+            const combined = [...(Array.isArray(originalNewsList) ? originalNewsList : []), ...incomingRows.map(n => normalizeNewsItem(n))];
+            const seen = new Set();
+            originalNewsList = combined.filter(item => {
+                const key = newsStableKey(item);
+                if (!key || seen.has(key)) return false;
+                seen.add(key);
+                return true;
+            });
+            updateNewsDateOptions();
+            applyNewsFilters();
+            if (currentKey && Array.isArray(newsList)) {
+                const keepIndex = newsList.findIndex(item => newsStableKey(item) === currentKey);
+                if (keepIndex >= 0) {
+                    currentNewsIndex = keepIndex;
+                    updateNewsDisplay();
+                    startNewsRotation();
+                }
+            }
+        }
+
         function processFetchedData(data) {
             if (!data) return;
             if (data.tests) tests = data.tests;
@@ -4731,16 +4848,10 @@ body::before {
             
             const incomingNews = data.news || data.currentAffairs || data.current_affairs;
             if (incomingNews) {
-                if (Array.isArray(incomingNews)) {
-                    originalNewsList = incomingNews.map(n => normalizeNewsItem(n));
-                } else {
-                    originalNewsList = Object.values(incomingNews).map(n => normalizeNewsItem(n));
-                }
-                newsList = [...originalNewsList];
-                updateNewsDateOptions();
-                applyNewsFilters();
+                const rows = Array.isArray(incomingNews) ? incomingNews : Object.values(incomingNews);
+                mergeNewsWithoutReset(rows);
                 const syncStatus = document.getElementById('ca-search-count');
-                if (syncStatus) syncStatus.textContent = `🔄 Google Sheets synced • ${new Date().toLocaleTimeString()} • ${originalNewsList.length} பதிவுகள்`;
+                if (syncStatus) syncStatus.textContent = `🔄 Google Sheets synced • ${new Date().toLocaleTimeString()} • ${originalNewsList.length} தனித்துவமான பதிவுகள்`;
             }
 
             if (data.quote) quoteMessage = data.quote;
@@ -5752,7 +5863,9 @@ body::before {
                 newsInterval = window.setTimeout(() => {
                     if (!Array.isArray(newsList) || newsList.length === 0) return;
                     currentNewsIndex = (currentNewsIndex + 1) % newsList.length;
-                    updateNewsDisplay();
+                    try { updateNewsDisplay(); }
+                    catch (rotationError) { console.error("News rotation display error:", rotationError); }
+                    // Keep the rotation moving even if one item's image/display has a problem.
                     scheduleNextNews();
                 }, getNewsReadingDelay(currentItem));
             };
