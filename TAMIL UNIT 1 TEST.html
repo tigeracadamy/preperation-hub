@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Royal Brown Gold Test Panel</title>
+    <style>
+        body {
+            background-color: #080604;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #ffffff;
+            padding: 20px;
+            margin: 0;
+        }
+        .panel-container {
+            max-width: 480px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #16100a 0%, #0d0906 100%);
+            border: 2px solid #d4af37;
+            border-radius: 18px;
+            padding: 24px;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.25), inset 0 0 15px rgba(0, 0, 0, 0.8);
+        }
+        .panel-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ffdf73;
+            text-align: center;
+            margin-bottom: 24px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            text-shadow: 0 2px 6px rgba(212, 175, 55, 0.4);
+        }
+        .btn-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        /* 3D மற்றும் கோல்டு ராயல் பிரவுன் பட்டன் டிசைன் */
+        .test-btn {
+            position: relative;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(145deg, #322315 0%, #1f140b 100%);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 16px 20px;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 600;
+            overflow: hidden;
+            z-index: 1;
+            
+            /* 3D எஃபெக்ட் ஷேடோஸ் */
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6), 
+                        inset 0 1px 1px rgba(255, 255, 255, 0.15), 
+                        inset 0 -3px 6px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        /* பட்டனைச் சுற்றிலும் கோல்டு லைட் சுழன்று கொண்டே இருக்க (Animated Gold Border) */
+        .test-btn::before {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            background: linear-gradient(45deg, #d4af37, #ffe082, #996515, #d4af37);
+            background-size: 400%;
+            border-radius: 15px;
+            z-index: -1;
+            animation: goldGlow 4s linear infinite;
+        }
+
+        /* உள்ளே இருக்கும் கேப் (கருப்பு நிற பேக்ரவுண்ட் மறைக்காமல் இருக்க) */
+        .test-btn::after {
+            content: '';
+            position: absolute;
+            top: 2px; left: 2px; right: 2px; bottom: 2px;
+            background: linear-gradient(145deg, #26190f 0%, #170e08 100%);
+            border-radius: 12px;
+            z-index: -1;
+            transition: background 0.3s ease;
+        }
+
+        @keyframes goldGlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* பட்டனுக்கு பின்னாடி மங்கலான 'தமிழ்' வாட்டர்மார்க் */
+        .watermark-tamil {
+            position: absolute;
+            right: 20px;
+            font-size: 38px;
+            font-weight: 900;
+            color: rgba(212, 175, 55, 0.05);
+            pointer-events: none;
+            letter-spacing: 2px;
+            transition: color 0.3s ease;
+        }
+
+        /* டச் செய்யும் போது / கிளிக் செய்யும் போது கிரீன் கலருக்கு மாறுவது */
+        .test-btn:hover, .test-btn:active {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4), 
+                        inset 0 1px 1px rgba(255, 255, 255, 0.3);
+        }
+
+        .test-btn:hover::before, .test-btn:active::before {
+            background: linear-gradient(45deg, #10b981, #34d399, #047857, #10b981); /* கோல்டு லைட் கிரீன் லைட்டாக மாறும் */
+        }
+
+        .test-btn:hover::after, .test-btn:active::after {
+            background: linear-gradient(145deg, #064e3b 0%, #022c22 100%);
+        }
+
+        .test-btn:hover .watermark-tamil, .test-btn:active .watermark-tamil {
+            color: rgba(255, 255, 255, 0.12);
+        }
+
+        .icon {
+            margin-right: 14px;
+            font-size: 18px;
+            z-index: 2;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+        }
+        .btn-text {
+            z-index: 2;
+            letter-spacing: 0.5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="panel-container">
+    <div class="panel-title">
+        👑 TAMIL TEST PANEL 👑
+    </div>
+    
+    <div class="btn-grid">
+        <!-- 1 முதல் 15 வரையிலான யூனிட் பட்டன்கள் (href-ல் உங்கள் URL-ஐ மாற்றிக் கொள்ளவும்) -->
+        <a href="உங்கள்_URL_இங்கே_1" class="test-btn" target="_blank">
+            <span class="icon">📖</span>
+            <span class="btn-text">TAMIL UNIT 1</span>
+            <span class="watermark-tamil">தமிழ்</span>
+        </a>
+        <a href="உங்கள்_URL_இங்கே_2" class="test-btn" target="_blank">
+            <span class="icon">📖</span>
+            <span class="btn-text">TAMIL UNIT 2</span>
+            <span class="watermark-tamil">தமிழ்</span>
+        </a>
+        <a href="உங்கள்_URL_இங்கே_3" class="test-btn" target="_blank">
+            <span class="icon">📖</span>
+            <span class="btn-text">TAMIL UNIT 3</span>
+            <span class="watermark-tamil">தமிழ்</span>
+        </a>
+        <a href="உங்கள்_URL_இங்கே_4" class="test-btn" target="_blank">
+            <span class="icon">📖</span>
+            <span class="btn-text">TAMIL UNIT 4</span>
+            <span class="watermark-tamil">தமிழ்</span>
+        </a>
+        <a href="உங்கள்_URL_இங்கே_5" class="test-btn" target="_blank">
+            <span class="icon">📖</span>
+            <span class="btn-text">TAMIL UNIT 5</span>
+            <span class="watermark-tamil">தமிழ்</span>
+        </a>
+        <a href="உங்கள்_URL_இங்கே_6" class="test-btn" target="_blank">
+            <span class="icon">📖</span>
+            <span class="btn-text">TAMIL UNIT 6</span>
+            <span class="watermark-tamil">தமிழ்</span>
+        </a>
+        <a href="உங்கள்_URL_இங்கே_7" class="test-btn" target="_blank">
+            <span class="icon">📖</span>
+            <span class="btn-text">TAMIL UNIT 7</span>
+            <span class="watermark-tamil">தமிழ்</span>
+        </a>
+        <a href="உங்கள்_URL_இங்கே_8" class="test-btn" target="_blank">
+            <span class="icon">📖</span>
+            <span class="btn-text">TAMIL UNIT 8</span>
+            <span class="watermark-tamil">தமிழ்</span>
+        </a>
+        <a href="உங்கள்_URL_இங்கே_9" class="test-btn" target="_blank">
+            <span class="icon">📖</span>
+            <span class="btn-text">TAMIL UNIT 9</span>
+            <span class="watermark-tamil">தமிழ்</span>
+        </a>
+        <a href="உங்கள்_URL_இங்கே_10" class="test-btn" target="_blank">
+            <span class="icon">📖</span>
+            <span class="btn-text">TAMIL UNIT 10</span>
+            <span class="watermark-tamil">தமிழ்</span>
+        </a>
+        <a href="உங்கள்_URL_இங்கே_11" class="test-btn" target="_blank">
+            <span class="icon">📖</span>
+            <span class="btn-text">TAMIL UNIT 11</span>
+            <span class="watermark-tamil">தமிழ்</span>
+        </a>
+        <a href="உங்கள்_URL_இங்கே_12" class="test-btn" target="_blank">
+            <span class="icon">📖</span>
+            <span class="btn-text">TAMIL UNIT 12</span>
+            <span class="watermark-tamil">தமிழ்</span>
+        </a>
+        <a href="உங்கள்_URL_இங்கே_13" class="test-btn" target="_blank">
+            <span class="icon,">📖</span>
+            <span class="btn-text">TAMIL UNIT 13</span>
+            <span class="watermark-tamil">தமிழ்</span>
+        </a>
+        <a href="உங்கள்_URL_இங்கே_14" class="test-btn" target="_blank">
+            <span class="icon">📖</span>
+            <span class="btn-text">TAMIL UNIT 14</span>
+            <span class="watermark-tamil">தமிழ்</span>
+        </a>
+        <a href="உங்கள்_URL_இங்கே_15" class="test-btn" target="_blank">
+            <span class="icon">📖</span>
+            <span class="btn-text">TAMIL UNIT 15</span>
+            <span class="watermark-tamil">தமிழ்</span>
+        </a>
+    </div>
+</div>
+
+</body>
+</html>
