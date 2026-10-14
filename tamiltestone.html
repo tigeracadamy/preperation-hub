@@ -71,7 +71,7 @@
             animation: goldGlow 4s linear infinite;
         }
 
-        /* உள்ளே இருக்கும் கேப் (கருப்பு நிற பேக்ரவுண்ட் மறைக்காமல் இருக்க) */
+        /* உள்ளே இருக்கும் கேப் */
         .test-btn::after {
             content: '';
             position: absolute;
@@ -108,7 +108,7 @@
         }
 
         .test-btn:hover::before, .test-btn:active::before {
-            background: linear-gradient(45deg, #10b981, #34d399, #047857, #10b981); /* கோல்டு லைட் கிரீன் லைட்டாக மாறும் */
+            background: linear-gradient(45deg, #10b981, #34d399, #047857, #10b981);
         }
 
         .test-btn:hover::after, .test-btn:active::after {
@@ -139,8 +139,7 @@
     </div>
     
     <div class="btn-grid">
-        <!-- 1 முதல் 15 வரையிலான யூனிட் பட்டன்கள் (href-ல் உங்கள் URL-ஐ மாற்றிக் கொள்ளவும்) -->
-        <a href="https://ithazh150-maker.github.io/tigerwarrior/kids6.html"test-btn" target="_blank">
+        <a href="https://ithazh150-maker.github.io/tigerwarrior/kids6.html" class="test-btn" target="_blank">
             <span class="icon">📖</span>
             <span class="btn-text">TAMIL UNIT 1</span>
             <span class="watermark-tamil">தமிழ்</span>
@@ -201,7 +200,7 @@
             <span class="watermark-tamil">தமிழ்</span>
         </a>
         <a href="உங்கள்_URL_இங்கே_13" class="test-btn" target="_blank">
-            <span class="icon,">📖</span>
+            <span class="icon">📖</span>
             <span class="btn-text">TAMIL UNIT 13</span>
             <span class="watermark-tamil">தமிழ்</span>
         </a>
