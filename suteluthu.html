@@ -5,166 +5,48 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tiger Warriors - சுட்டெழுத்துக்கள் 50 வினாக்கள்</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-weight: bold; }
-    body { background: #080604; color: #f8fafc; padding: 16px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; font-weight: bold; }
+    body { background: #080604; color: #f8fafc; padding: 12px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+    .card { width: 100%; max-width: 950px; background: #0f172a; border-radius: 14px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); border: 1px solid #1e293b; }
     
-    .card { 
-      width: 100%; 
-      max-width: 950px; 
-      background: linear-gradient(135deg, #16100a 0%, #0d0906 100%); 
-      border-radius: 20px; 
-      padding: 24px; 
-      box-shadow: 0 15px 40px rgba(0,0,0,0.8), inset 0 0 20px rgba(212, 175, 55, 0.15); 
-      border: 2px solid #d4af37; 
-    }
+    .test-header { display: flex; justify-content: space-between; align-items: center; background: #1e293b; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; }
+    .timer { font-size: 16px; font-weight: bold; color: #f59e0b; background: #091326; padding: 6px 12px; border-radius: 6px; border: 1px solid #f59e0b; }
     
-    .test-header { 
-      display: flex; 
-      justify-content: space-between; 
-      align-items: center; 
-      background: linear-gradient(145deg, #24180e 0%, #150e08 100%); 
-      padding: 14px 18px; 
-      border-radius: 12px; 
-      margin-bottom: 20px; 
-      flex-wrap: wrap; 
-      gap: 10px; 
-      border: 1px solid rgba(212, 175, 55, 0.4);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-    }
-    
-    .timer { 
-      font-size: 16px; 
-      font-weight: bold; 
-      color: #ffdf73; 
-      background: #080604; 
-      padding: 8px 14px; 
-      border-radius: 8px; 
-      border: 1px solid #d4af37; 
-      box-shadow: inset 0 2px 5px rgba(0,0,0,0.8);
-    }
-    
-    .q-grid { 
-      display: flex; 
-      flex-wrap: wrap; 
-      gap: 6px; 
-      margin-bottom: 20px; 
-      max-height: 150px; 
-      overflow-y: auto; 
-      padding: 10px; 
-      background: #0d0906; 
-      border-radius: 10px; 
-      justify-content: center; 
-      border: 1px solid rgba(212, 175, 55, 0.2);
-    }
-    
-    .q-num-btn { 
-      width: 32px; 
-      height: 32px; 
-      border-radius: 6px; 
-      border: 1px solid rgba(212, 175, 55, 0.3); 
-      background: #1f140b; 
-      color: #ffdf73; 
-      font-size: 11px; 
-      cursor: pointer; 
-      font-weight: bold; 
-      transition: 0.2s;
-    }
-    .q-num-btn:hover { border-color: #d4af37; background: #322315; }
-    .q-num-btn.active { border: 2px solid #ffdf73; background: #996515; color: #fff; box-shadow: 0 0 10px rgba(212, 175, 55, 0.6); }
-    .q-num-btn.answered { background: #064e3b; border-color: #10b981; color: #34d399; }
+    .q-grid { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 16px; max-height: 140px; overflow-y: auto; padding: 8px; background: #1e293b; border-radius: 8px; justify-content: center; }
+    .q-num-btn { width: 30px; height: 30px; border-radius: 5px; border: none; background: #334155; color: #fff; font-size: 10px; cursor: pointer; font-weight: bold; }
+    .q-num-btn.active { border: 2px solid #38bdf8; background: #0284c7; }
+    .q-num-btn.answered { background: #10b981; }
 
-    .q-box { 
-      background: linear-gradient(145deg, #18110a 0%, #0d0906 100%); 
-      padding: 22px; 
-      border-radius: 14px; 
-      margin-bottom: 20px; 
-      border: 1px solid rgba(212, 175, 55, 0.3);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.6);
-    }
+    .q-box { background: #1e293b; padding: 18px; border-radius: 10px; margin-bottom: 16px; }
+    .q-text { white-space: pre-line; line-height: 1.6; font-size: 15px; color: #f8fafc; }
     
-    .q-text { white-space: pre-line; line-height: 1.6; font-size: 16px; color: #fff; font-weight: 600; }
-    
-    .option-card { 
-      position: relative;
-      background: linear-gradient(145deg, #26190f 0%, #170e08 100%); 
-      border: 1px solid rgba(212, 175, 55, 0.3); 
-      padding: 14px 18px; 
-      border-radius: 10px; 
-      margin-top: 12px; 
-      cursor: pointer; 
-      display: flex; 
-      align-items: center; 
-      gap: 12px; 
-      transition: all 0.3s ease; 
-      white-space: pre-line; 
-      line-height: 1.4;
-      color: #f8fafc;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-    }
-    .option-card:hover { 
-      border-color: #ffdf73; 
-      background: linear-gradient(145deg, #322315 0%, #1f140b 100%);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 15px rgba(212, 175, 55, 0.2);
-    }
-    .option-card.selected { 
-      border-color: #10b981; 
-      background: linear-gradient(145deg, #064e3b 0%, #022c22 100%); 
-      box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
-    }
+    .option-card { background: #0f172a; border: 1px solid #334155; padding: 12px 16px; border-radius: 8px; margin-top: 10px; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: 0.2s; white-space: pre-line; line-height: 1.4; }
+    .option-card:hover { border-color: #38bdf8; background: #1e293b; }
+    .option-card.selected { border-color: #10b981; background: #064e3b; }
     .option-card.correct-ans { border-color: #10b981; background: #065f46; font-weight: bold; }
     .option-card.wrong-ans { border-color: #ef4444; background: #7f1d1d; }
 
-    .explanation-box { 
-      background: #080604; 
-      border: 1px solid #d4af37; 
-      border-radius: 10px; 
-      padding: 14px; 
-      margin-top: 16px; 
-      font-size: 14px; 
-      color: #ffdf73; 
-      line-height: 1.6; 
-      box-shadow: inset 0 0 10px rgba(212, 175, 55, 0.1);
-    }
+    .explanation-box { background: #091326; border: 1px solid #38bdf8; border-radius: 8px; padding: 12px; margin-top: 14px; font-size: 13px; color: #7dd3fc; line-height: 1.5; }
     
-    .nav-btns { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
-    
-    .btn-action { 
-      position: relative;
-      background: linear-gradient(145deg, #322315 0%, #1f140b 100%); 
-      color: #ffdf73; 
-      border: 1px solid #d4af37; 
-      padding: 12px 20px; 
-      border-radius: 10px; 
-      font-weight: bold; 
-      cursor: pointer; 
-      transition: all 0.3s ease; 
-      font-size: 14px; 
-      text-align: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.6);
-    }
-    .btn-action:hover { 
-      transform: translateY(-2px);
-      background: linear-gradient(145deg, #422f1c 0%, #2b1c10 100%);
-      box-shadow: 0 6px 18px rgba(212, 175, 55, 0.3);
-      color: #fff;
-    }
-    .btn-blue { background: linear-gradient(145deg, #1e3a8a 0%, #172554 100%); border-color: #3b82f6; color: #93c5fd; }
-    .btn-purple { background: linear-gradient(145deg, #581c87 0%, #3b0764 100%); border-color: #a855f7; color: #d8b4fe; }
-    .btn-danger { background: linear-gradient(145deg, #7f1d1d00 0%, #450a0a 100%); border-color: #ef4444; color: #fca5a5; }
-    .btn-green { background: linear-gradient(145deg, #064e3b 0%, #022c22 100%); border-color: #10b981; color: #34d399; }
+    .nav-btns { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+    .btn-action { background: #334155; color: #fff; border: none; padding: 10px 16px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 13px; text-align: center; }
+    .btn-action:hover { opacity: 0.9; }
+    .btn-blue { background: #2563eb; }
+    .btn-purple { background: #7c3aed; }
+    .btn-danger { background: #ef4444; }
+    .btn-green { background: #22c55e; }
 
-    .result-box { text-align: center; padding: 30px; background: linear-gradient(145deg, #18110a 0%, #0d0906 100%); border-radius: 16px; margin-top: 10px; border: 2px solid #d4af37; display: flex; flex-direction: column; align-items: center; box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
-    .score-circle { width: 140px; height: 140px; border-radius: 50%; background: conic-gradient(#10b981 0deg, #1f140b 0deg); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 15px auto; border: 4px solid #d4af37; box-shadow: 0 0 25px rgba(212, 175, 55, 0.4); }
-    .score-num { font-size: 32px; color: #ffdf73; font-weight: bold; }
+    .result-box { text-align: center; padding: 25px; background: #1e293b; border-radius: 16px; margin-top: 10px; border: 1px solid rgba(0, 242, 254, 0.3); display: flex; flex-direction: column; align-items: center; }
+    .score-circle { width: 130px; height: 130px; border-radius: 50%; background: conic-gradient(#10b981 0deg, #0f172a 0deg); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 15px auto; border: 4px solid #38bdf8; box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); }
+    .score-num { font-size: 30px; color: #f8fafc; font-weight: bold; }
     
-    .result-stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 15px; width: 100%; max-width: 450px; }
-    .stat-pill { background: #080604; border-radius: 12px; padding: 12px; border: 1px solid #334155; text-align: center; box-shadow: inset 0 2px 5px rgba(0,0,0,0.5); }
-    .stat-pill.gold { border-color: #d4af37; }
-    .stat-pill.blue { border-color: #3b82f6; }
+    .result-stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; width: 100%; max-width: 400px; }
+    .stat-pill { background: #0f172a; border-radius: 12px; padding: 10px; border: 1px solid #334155; text-align: center; }
+    .stat-pill.gold { border-color: #fbbf24; }
+    .stat-pill.blue { border-color: #38bdf8; }
     .stat-pill.red { border-color: #ef4444; }
 
-    .footer-badge { text-align: center; font-size: 12px; color: #ffdf73; margin-top: 20px; font-weight: bold; letter-spacing: 1px; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+    .footer-badge { text-align: center; font-size: 11px; color: #38bdf8; margin-top: 15px; font-weight: bold; letter-spacing: 0.5px; }
   </style>
 </head>
 <body>
@@ -180,8 +62,8 @@
   <div id="testView">
     <div class="test-header">
       <div>
-        <h3 style="color: #ffdf73; font-size: 16px; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">🐅 TIGER WARRIORS - சுட்டெழுத்துக்கள் (50 வினாக்கள்)</h3>
-        <span style="font-size: 11px; color: #cbd5e1; letter-spacing: 0.5px;">TNPSC / TRB • TAMIL UNIT 1</span>
+        <h3 style="color: #38bdf8; font-size: 15px;">🐅 TIGER WARRIORS - சுட்டெழுத்துக்கள் (50 வினாக்கள்)</h3>
+        <span style="font-size: 11px; color: #94a3b8;">TNPSC / TRB • TAMIL UNIT 1</span>
       </div>
       <div style="display: flex; gap: 8px; align-items: center;">
         <div class="timer" id="timerBox">⏱️ 45:00</div>
@@ -207,30 +89,30 @@
   </div>
 
   <div id="resultView" style="display: none;">
-    <h2 style="color: #ffdf73; text-align: center; margin-bottom: 15px; text-shadow: 0 2px 5px rgba(0,0,0,0.6);">👑 தேர்வு முடிவுகள் (Test Results) 🎯</h2>
+    <h2 style="color: #38bdf8; text-align: center; margin-bottom: 10px;">🏆 தேர்வு முடிவுகள் (Test Results) 🎯</h2>
     <div class="result-box">
       <div class="score-circle" id="scoreCircle">
         <div class="score-num" id="scoreDisplay">0/50</div>
-        <span id="percentageDisplay" style="font-size: 12px; color: #ffdf73; font-weight: bold;">0%</span>
+        <span id="percentageDisplay" style="font-size: 11px; color: #fbbf24;">0%</span>
       </div>
 
       <div class="result-stats-grid">
         <div class="stat-pill gold">
-          <h3 id="correctCnt" style="color: #10b981; font-size: 20px;">0</h3>
-          <span style="font-size: 11px; color: #e2e8f0;">சரியானது ✅</span>
+          <h3 id="correctCnt" style="color: #10b981; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;">சரியானது ✅</span>
         </div>
         <div class="stat-pill red">
-          <h3 id="wrongCnt" style="color: #ef4444; font-size: 20px;">0</h3>
-          <span style="font-size: 11px; color: #e2e8f0;">தவறானது ❌</span>
+          <h3 id="wrongCnt" style="color: #ef4444; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;">தவறானது ❌</span>
         </div>
         <div class="stat-pill blue">
-          <h3 id="unansCnt" style="color: #f59e0b; font-size: 20px;">0</h3>
-          <span style="font-size: 11px; color: #e2e8f0;">விடையில்லை ⚠️</span>
+          <h3 id="unansCnt" style="color: #f59e0b; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;">விடையில்லை ⚠️</span>
         </div>
       </div>
     </div>
 
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
       <button class="btn-action btn-blue" onclick="reviewAnswerKey()">🔍 விடை குறிப்பு (Answer Key)</button>
       <button class="btn-action btn-purple" onclick="returnToDashboard()">🏠 முகப்புப் பக்கம்</button>
       <button class="btn-action btn-green" onclick="retakeTest()">🔄 மீண்டும் தேர்வு</button>
@@ -254,13 +136,13 @@
     { q: "10. 'அமரன்', 'இம்மரம்' என்பவை எத்தகைய சுட்டுகள்?", o: ["அ. அகச்சுட்டு (அமரவன் என்பது அகச்சுட்டு, இம்மரம் என்பது புறச்சுட்டு)", "ஆ. புறச்சுட்டு", "இ. சுட்டுப்பெயர்", "ஈ. சுட்டுத்திரிபு"], a: 1, exp: "விளக்கம்: 'இம்மரம்' - இ+மரம் என சுட்டெழுத்து வெளியே நின்று 'மரம்' என்ற சொல்லைச் சுட்டுகிறது (புறச்சுட்டு)." },
     { q: "11. 'அவன்' என்பதில் உள்ள சுட்டெழுத்து எது?", o: ["அ. அ", "ஆ. வ", "இ. ன்", "ஈ. வன"], a: 0, exp: "விளக்கம்: 'அ' என்பது சுட்டெழுத்து ஆகும்." },
     { q: "12. 'இந்த வீடு' என்பதில் உள்ள சுட்டெழுத்து மற்றும் சுட்டு வகை?", o: ["அ. இ - அகச்சுட்டு", "ஆ. இ - புறச்சுட்டு", "இ. த - அகச்சுட்டு", "ஈ. து - புறச்சுட்டு"], a: 1, exp: "விளக்கம்: 'இ' என்பது வெளியே நின்று வீட்டைச் சுட்டுவதால் இது புறச்சுட்டு." },
-    { q: "13. சுட்டுப் பெயர் என்றால் என்ன?", o: ["அ. சுட்டெழுத்துகள் பெயராக நின்று பொருளை உணர்த்துவது", "B. சுட்டெழுத்துகள் கெட்டு வருவது", "C. சுட்டெழுத்துகள் திரிந்து வருவது", "D. இவற்றில் எதுவுமில்லை"], a: 0, exp: "விளக்கம்: சுட்டெழுத்துகள் பெயரைக் குறிக்காமல் தாமே பெயராக நின்று பொருளை உணர்த்துவது சுட்டுப்பெயர் ஆகும்." },
+    { q: "13. சுட்டுப் பெயர் என்றால் என்ன?", o: ["அ. சுட்டெழுத்துகள் பெயராக நின்று பொருளை உணர்த்துவது", "B. சுட்டெழுத்துகள் கெட்டு வருவது", "C. சுட்டெழுத்துகள் திரிந்து வருவது", "D. இவற்றിൽ எதுவுமில்லை"], a: 0, exp: "விளக்கம்: சுட்டெழுத்துகள் பெயரைக் குறிக்காமல் தாமே பெயராக நின்று பொருளை உணர்த்துவது சுட்டுப்பெயர் ஆகும்." },
     { q: "14. கீழ்க்கண்டவற்றுள் சுட்டுப் பெயர்ச் சொல் எது?", o: ["அ. அவன்", "ஆ. இவள்", "இ. அது", "ஈ. இவை அனைத்தும்"], a: 3, exp: "விளக்கம்: அவன், இவள், அது, இது போன்றவை சுட்டுப்பெயர்கள் ஆகும்." },
     { q: "15. சுட்டுத் திரிபு (அண்மைச் சுட்டு / சேய்மைச் சுட்டு திரிவது) என்றால் என்ன?", o: ["அ. அ, இ ஆகிய சுட்டெழுத்துகள் 'அப்', 'இப்' எனத் திரிந்து வருவது", "ஆ. எழுத்து மாறுவது", "இ. பொருள் மாறுவது", "ஈ. சுட்டெழுத்து மறைவது"], a: 0, exp: "விளக்கம்: அ, இ என்னும் சுட்டெழுத்துகள் 'அந்த', 'இந்த' எனத் திரிந்து வருவது சுட்டுத்திரிபு (அப்போது அது புறச்சுட்டாகவும் செயல்படும்)." },
     { q: "16. 'அந்தப் பையன்' என்பதில் உள்ள சுட்டு வகை என்ன?", o: ["அ. அகச்சுட்டு", "ஆ. புறச்சுட்டு", "இ. சுட்டுத்திரிபு (அண்மை/சேய்மைத் திரிபு)", "ஈ. சுட்டுப்பெயர்"], a: 2, exp: "விளக்கம்: 'அ' என்பது 'அந்த' எனத் திரிந்து வந்துள்ளதால் இது சுட்டுத்திரிபு எனப்படும்." },
     { q: "17. 'இம்மூன்று' என்பதில் உள்ள சுட்டெழுத்து எது?", o: ["அ. இ", "ஆ. ம", "இ. மூ", "ஈ. து"], a: 0, exp: "விளக்கம்: 'இ' என்பது சுட்டெழுத்து ஆகும்." },
     { q: "18. அகச்சுட்டுக்குச் சான்று தருக:", o: ["அ. அவன்", "ஆ. இவள்", "இ. அது", "ஈ. மேற்கண்ட அனைத்தும்"], a: 3, exp: "விளக்கம்: மேற்கண்ட அனைத்துமே அகச்சுட்டுச் சொற்கள் ஆகும்." },
-    { q: "19. புறச்சுட்டுக்குச் சான்று தருக:", o: ["அ. அந்த மனிதன்", "ஆ. இந்தப் புத்தகம்", "இ. அவ்வீடு", "ஈ. மேற்கண்ட அனைத்தும்"], a: 3, exp: "விளக்கம்: சுட்டெழுத்து தனித்து நின்று அடுத்த சொல்லைச் சுட்டுவதால் இவை புறச்சுட்டுகள்." },
+    { q: "19. புறச்சுட்டுக்குச் சான்று தருக:", o: ["அ. அந்த மனிதன்", "ஆ. இந்தப் புத்தகம்", "இ. அவ்வீடு", "ஈ. மேற்கண்ட அனைத்தும்"], a: 3, exp: "விளக்கம்: சுட்டெழுத்து தனித்து நின்று அடுத்த சொलंனைச் சுட்டுவதால் இவை புறச்சுட்டுகள்." },
     { q: "20. 'உது' என்ற சொல் எதைக் குறிக்கிறது?", o: ["அ. அருகில் உள்ளதை", "ஆ. தொலைவில் உள்ளதை", "இ. அருகில் உள்ளதற்கும் தொலைவில் உள்ளதற்கும் இடையில் உள்ளதை", "ஈ. எங்குமில்லை"], a: 2, exp: "விளக்கம்: 'உ' என்பது இடைச்சுட்டு; அருகில் உள்ளதற்கும் தொலைவில் உள்ளதற்கும் இடைப்பட்டதைக் குறிக்கும்." },
     { q: "21. நன்னூல் இலக்கணத்தின்படி சுட்டெழுத்துகள் எத்தனை?", o: ["அ. 2", "ஆ. 3", "இ. 4", "ஈ. 5"], a: 1, exp: "விளக்கம்: நன்னூல் சுட்டெழுத்துகள் 'அ', 'இ', 'உ' என மூன்றாகக் குறிப்பிடுகிறது." },
     { q: "22. 'அவன் வந்தான்' - இதில் 'அ' என்பது என்ன?", o: ["அ. விகுதி", "ஆ. சுட்டெழுத்து", "இ. இடைநிலை", "ஈ. சாரியை"], a: 1, exp: "விளக்கம்: 'அ' என்பது சேய்மைச் சுட்டெழுத்து ஆகும்." },
@@ -283,7 +165,7 @@
     { q: "39. 'இங்கு' என்ற சொல் எதைக் குறிக்கிறது?", o: ["அ. அண்மைச் சுட்டு இடம்", "ஆ. சேய்மைச் சுட்டு இடம்", "இ. இடைச்சுட்டு இடம்", "ஈ. வினா இடம்"], a: 0, exp: "விளக்கம்: இங்கு என்பது அண்மைச் சுட்டு இடத்தைக் குறிக்கும் சொல்." },
     { q: "40. 'அங்கு' என்ற சொல் எதைக் குறிக்கிறது?", o: ["அ. அண்மைச் சுட்டு", "ஆ. சேய்மைச் சுட்டு", "இ. வினாச் சுட்டு", "ஈ. சுட்டுப்பெயர்"], a: 1, exp: "விளக்கம்: அங்கு என்பது சேய்மைச் சுட்டு இடத்தைக் குறிக்கும் சொல்." },
     { q: "41. 'உங் கண்' என்பதில் 'உ' என்பது என்ன?", o: ["அ. இடைச்சுட்டு", "ஆ. அண்மைச்சுட்டு", "இ. சேய்மைச்சுட்டு", "ஈ. வினா எழுத்து"], a: 0, exp: "விளக்கம்: 'உ' என்பது இடைச்சுட்டு ஆகும்." },
-    { q: "42. சுட்டெழுத்துகள் அடிப்படையில் எங்கு நின்று பொருளைத் தருகின்றன?", o: ["அ. சுட்டுப்பொருளை மட்டும் தந்து நிற்கும்", "ஆ. பெயர்ச்சொல் மற்றும் வினைச்சொற்களுக்கு முன்பாக", "இ. வாக்கிய இறுதியில்", "ஈ. சொல்லின் நடுவில்"], a: 1, exp: "விளக்கம்: சுட்டெழுத்துகள் பெயர்ச்சொல் அல்லது சுட்டுப் பெயர்களின் முன்பாக நின்று சுட்டிப் பொருள் தருகின்றன." },
+    { q: "42. சுட்டெழுத்துகள் அடிப்படையில் எங்கு நின்று பொருளைத் தருகின்றன?", o: ["அ. சுட்டுப்பொருளை மட்டும் தந்து நிற்கும்", "ஆ. பெயர்ச்சொல் மற்றும் வினைச்சொற்களுக்கு முன்பாக", "இ. வாக்கிய இறுதியில்", "ஈ. சொல்லின் நடுவில்"], a: 1, exp: "விளக்கம்: சுட்டெழுத்துகள் பெயர்ச்சொல் அல்லது சுட்டுப் பெயرهای முன்பாக நின்று சுட்டிப் பொருள் தருகின்றன." },
     { q: "43. 'அவன், அவள், அது, அவை' - இவற்றுள் சேய்மைச் சுட்டுப் பெயர்கள் எவை?", o: ["அ. அவன், அவள் மட்டும்", "ஆ. அது, அவை மட்டும்", "இ. மேற்கண்ட நான்கும்", "ஈ. எதுவும் இல்லை"], a: 2, exp: "விளக்கம்: 'அ' வைக் கொண்டு தொடங்கும் அவன், அவள், அது, அவை அனைத்துமே சேய்மைச் சுட்டுப்பெயர்கள் ஆகும்." },
     { q: "44. 'இவன், இவள், இது, இவை' - இவற்றுள் அண்மைச் சுட்டுப் பெயர்கள் எவை?", o: ["அ. இவன், இவள் மட்டும்", "ஆ. இது, இவை மட்டும்", "இ. மேற்கண்ட நான்கும்", "ஈ. எதுவும் இல்லை"], a: 2, exp: "விளக்கம்: 'இ' வைக் கொண்டு தொடங்கும் இவன், இவள், இது, இவை அனைத்தும் அண்மைச் சுட்டுப்பெயர்கள் ஆகும்." },
     { q: "45. சுட்டுத்திரிபு எப்போது நிகழ்கிறது?", o: ["அ. அ, இ என்பன 'அந்த', 'இந்த' எனத் திரியும் போது", "ஆ. உ என்ற எழுத்து மறையும் போது", "இ. அகச்சுட்டு புறச்சுட்டாக மாறும்போது", "ஈ. சுட்டுப்பெயர் வினாவாக மாறும் போது"], a: 0, exp: "விளக்கம்: அ, இ என்னும் சுட்டெழுத்துகள் 'அந்த', 'இந்த' எனத் திரிவது சுட்டுத்திரிபு எனப்படும்." },
