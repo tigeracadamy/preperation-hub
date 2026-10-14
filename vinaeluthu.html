@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tiger Warriors - வினா எழுத்துகள் 50 வினாக்கள்</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; font-weight: bold; }
+    body { background: #080604; color: #f8fafc; padding: 12px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+    .card { width: 100%; max-width: 950px; background: #0f172a; border-radius: 14px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); border: 1px solid #334155; }
+    
+    .test-header { display: flex; justify-content: space-between; align-items: center; background: #1e293b; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; border: 1px solid #334155; }
+    .timer { font-size: 15px; font-weight: bold; color: #fbbf24; background: #091326; padding: 6px 12px; border-radius: 6px; border: 1px solid #fbbf24; box-shadow: inset 0 0 5px rgba(251, 191, 36, 0.2); }
+    
+    .q-grid { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 16px; max-height: 140px; overflow-y: auto; padding: 8px; background: #1e293b; border-radius: 8px; justify-content: center; }
+    .q-num-btn { width: 30px; height: 30px; border-radius: 5px; border: none; background: #334155; color: #fff; font-size: 10px; cursor: pointer; font-weight: bold; }
+    .q-num-btn.active { border: 2px solid #38bdf8; background: #0284c7; }
+    .q-num-btn.answered { background: #10b981; }
+
+    .q-box { background: #1e293b; padding: 18px; border-radius: 10px; margin-bottom: 16px; border: 1px solid #334155; }
+    .q-text { white-space: pre-line; line-height: 1.6; font-size: 15px; color: #f8fafc; }
+    
+    .option-card { background: #0f172a; border: 1px solid #334155; padding: 12px 16px; border-radius: 8px; margin-top: 10px; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: 0.2s; white-space: pre-line; line-height: 1.4; }
+    .option-card:hover { border-color: #38bdf8; background: #1e293b; }
+    .option-card.selected { border-color: #10b981; background: #064e3b; }
+    .option-card.correct-ans { border-color: #10b981; background: #065f46; font-weight: bold; }
+    .option-card.wrong-ans { border-color: #ef4444; background: #7f1d1d; }
+
+    .explanation-box { background: #091326; border: 1px solid #38bdf8; border-radius: 8px; padding: 12px; margin-top: 14px; font-size: 13px; color: #7dd3fc; line-height: 1.5; }
+    
+    .nav-btns { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+    .btn-action { background: #334155; color: #fff; border: none; padding: 10px 16px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 13px; text-align: center; }
+    .btn-action:hover { opacity: 0.9; }
+    .btn-blue { background: #2563eb; }
+    .btn-purple { background: #7c3aed; }
+    .btn-danger { background: #ef4444; }
+    .btn-green { background: #22c55e; }
+
+    .result-box { text-align: center; padding: 25px; background: #1e293b; border-radius: 16px; margin-top: 10px; border: 1px solid rgba(0, 242, 254, 0.3); display: flex; flex-direction: column; align-items: center; }
+    .score-circle { width: 130px; height: 130px; border-radius: 50%; background: conic-gradient(#10b981 0deg, #0f172a 0deg); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 15px auto; border: 4px solid #38bdf8; box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); }
+    .score-num { font-size: 30px; color: #f8fafc; font-weight: bold; }
+    
+    .result-stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; width: 100%; max-width: 400px; }
+    .stat-pill { background: #0f172a; border-radius: 12px; padding: 10px; border: 1px solid #334155; text-align: center; }
+    .stat-pill.gold { border-color: #fbbf24; }
+    .stat-pill.blue { border-color: #38bdf8; }
+    .stat-pill.red { border-color: #ef4444; }
+
+    .footer-badge { text-align: center; font-size: 11px; color: #38bdf8; margin-top: 15px; font-weight: bold; letter-spacing: 0.5px; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <script>
+      if (localStorage.getItem('tiger_auth_passed') !== 'true') {
+          alert("⚠ பாதுகாப்பு எச்சரிக்கை: நீங்கள் Tiger Warriors போர்ட்டலில் லாகின் செய்யவில்லை! முதலில் மெயின் போர்ட்டலில் லாகின் செய்யவும்.");
+          window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html"); 
+      }
+  </script>
+
+  <div id="testView">
+    <div class="test-header">
+      <div>
+        <h3 style="color: #38bdf8; font-size: 15px;">🐅 TIGER WARRIORS - வினா எழுத்துகள் (50 வினாக்கள்)</h3>
+        <span style="font-size: 11px; color: #94a3b8;">TNPSC / 2 / 2A / 4 • TAMIL UNIT 1</span>
+      </div>
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <div class="timer" id="timerBox">⏱️ 45:00</div>
+        <button class="btn-action btn-purple" id="backToResultBtn" onclick="returnToResult()" style="display: none; padding: 6px 12px; font-size: 12px;">📊 ரிசல்ட் செல்</button>
+        <button class="btn-action btn-danger" id="dashFromKeyBtn" onclick="returnToDashboard()" style="display: none; padding: 6px 12px; font-size: 12px;">🏠 முகப்பு</button>
+      </div>
+    </div>
+
+    <div class="q-grid" id="questionGrid"></div>
+
+    <div class="q-box">
+      <div id="qTitle" class="q-text"></div>
+      <div id="optionsBox"></div>
+      <div id="expBox" class="explanation-box" style="display: none;"></div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn-action" id="prevBtn" onclick="navigateNumberQuery(-1)">⬅️ முந்தையது</button>
+      <button class="btn-action" id="clearBtn" onclick="clearChoice()">🧹 விடையை நீக்கு</button>
+      <button class="btn-action btn-blue" id="nextBtn" onclick="navigateNumberQuery(1)">அடுத்து ➡️</button>
+      <button class="btn-action btn-danger" id="finalSubmitBtn" onclick="submitTest()">✅ தேர்வைச் சமர்ப்பிக்க (Submit)</button>
+    </div>
+  </div>
+
+  <div id="resultView" style="display: none;">
+    <h2 style="color: #38bdf8; text-align: center; margin-bottom: 10px;">🏆 தேர்வு முடிவுகள் (Test Results) 🎯</h2>
+    <div class="result-box">
+      <div class="score-circle" id="scoreCircle">
+        <div class="score-num" id="scoreDisplay">0/50</div>
+        <span id="percentageDisplay" style="font-size: 11px; color: #fbbf24;">0%</span>
+      </div>
+
+      <div class="result-stats-grid">
+        <div class="stat-pill gold">
+          <h3 id="correctCnt" style="color: #10b981; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;">சரியானது ✅</span>
+        </div>
+        <div class="stat-pill red">
+          <h3 id="wrongCnt" style="color: #ef4444; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;">தவறானது ❌</span>
+        </div>
+        <div class="stat-pill blue">
+          <h3 id="unansCnt" style="color: #f59e0b; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;">விடையில்லை ⚠️</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
+      <button class="btn-action btn-blue" onclick="reviewAnswerKey()">🔍 விடை குறிப்பு (Answer Key)</button>
+      <button class="btn-action btn-purple" onclick="returnToDashboard()">🏠 முகப்புப் பக்கம்</button>
+      <button class="btn-action btn-green" onclick="retakeTest()">🔄 மீண்டும் தேர்வு</button>
+      <button class="btn-action btn-danger" onclick="exitPortal()">🚪 வெளியேறு</button>
+    </div>
+    <div class="footer-badge" style="margin-top: 20px;">🐅 டைகர் வாரியர் போர்டல் - இயக்குநர்: Dr. K. மணிகாசி 🐅</div>
+  </div>
+</div>
+
+<script>
+  const questionsData = [
+    { q: "1. வினாப் பொருளைத் தரும் எழுத்துகள் எவ்வாறு அழைக்கப்படுகின்றன?", o: ["அ. சுட்டெழுத்துகள்", "ஆ. வினா எழுத்துகள்", "இ. சார்பெழுத்துகள்", "ஈ. போலி எழுத்துகள்"], a: 1, exp: "விளக்கம்: வினாப் பொருளைத் தரும் எழுத்துகள் வினா எழுத்துகள் எனப்படும்." },
+    { q: "2. தமிழில் வினா எழுத்துகள் மொத்தம் எத்தனை உள்ளன?", o: ["அ. மூன்று", "ஆ. நான்கு", "இ. ஐந்து", "ஈ. ஆறு"], a: 2, exp: "விளக்கம்: தமிழில் வினா எழுத்துகள் 'எ, யா, ஆ, ஓ, ஏ' என மொத்தம் ஐந்து ஆகும்." },
+    { q: "3. கீழ்க்கண்டவற்றுள் வினா எழுத்து அல்லாதது எது?", o: ["அ. எ", "ஆ. யா", "இ. உ", "ஈ. ஏ"], a: 2, exp: "விளக்கம்: 'உ' என்பது வினா எழுத்து அல்ல, அது ஒரு சுட்டெழுத்து (இடைச்சுட்டு)." },
+    { q: "4. சொல்லின் அகத்தே (உள்ளே) நின்று வினாப் பொருளைத் தருவது எத்தகைய வினா எனப்படும்?", o: ["அ. அகவினா", "ஆ. புறவினா", "இ. சுட்டுவினா", "ஈ. ஐயவினா"], a: 0, exp: "விளக்கம்: சொல்லின் உள்ளேயே நின்று வினாப் பொருள் தருவது அகவினா ஆகும் (எ.கா: எது, யார்)." },
+    { q: "5. சொல்லின் புறத்தே (வெளியே) நின்று வினாப் பொருளைத் தருவது எத்தகைய வினா எனப்படும்?", o: ["அ. அகவினா", "ஆ. புறவினா", "இ. சுட்டுத்திரிபு", "ஈ. இணைவினா"], a: 1, exp: "விளக்கம்: சொல்லின் வெளியே தனித்து நின்று வினாப் பொருள் தருவது புறவினா ஆகும்." },
+    { q: "6. 'எவன்', 'எது' என்பவை எத்தகைய வினாச் சொற்கள்?", o: ["அ. அகவினா", "ஆ. புறவினா", "இ. சுட்டுப்பெயர்", "ஈ. வினாத்திரிபு"], a: 0, exp: "விளக்கம்: இச்சொற்களில் வினா எழுத்தை நீக்கினால் பொருள் தராது; எனவே இவை அகவினா." },
+    { q: "7. 'அவனா?', 'நீயா?' என்பவை எத்தகைய வினாக்கள்?", o: ["அ. அகவினா", "ஆ. புறவினா", "இ. சுட்டுவினா", "ஈ. வினாவிடை"], a: 1, exp: "விளக்கம்: இச்சொற்களில் 'அவன்', 'நீ' என்ற சொற்கள் தனித்து நின்று பொருள் தரும்; 'ஆ' வினா எழுத்து வெளியே வந்துள்ளது." },
+    { q: "8. மொழிக்கு முதலில் வரும் வினா எழுத்துகள் எவை?", o: ["அ. ஆ, ஓ", "ஆ. எ, யா", "இ. ஏ மட்டும்", "ஈ. அ, இ"], a: 1, exp: "விளக்கம்: 'எ', 'யா' ஆகிய இரண்டு வினா எழுத்துகளும் சொல்லின் முதலில் மட்டுமே வரும் (எ.கா: எங்கு, யாது)." },
+    { q: "9. மொழிக்கு இறுதியில் வரும் வினா எழுத்துகள் எவை?", o: ["அ. எ, யா", "ஆ. ஆ, ஓ", "இ. ஏ மட்டும்", "ஈ. உ, ஊ"], a: 1, exp: "விளக்கம்: 'ஆ', 'ஓ' ஆகிய இரண்டு வினா எழுத்துகளும் சொல்லின் இறுதியில் மட்டுமே வரும் (எ.கா: அவனா, அவனோ)." },
+    { q: "10. மொழிக்கு முதலிலும் இறுதியிலும் வரும் வினா எழுத்து எது?", o: ["அ. எ", "ஆ. யா", "இ. ஏ", "ஈ. ஓ"], a: 2, exp: "விளக்கம்: 'ஏ' என்ற வினா எழுத்து சொல்லின் முதலிலும் வரும் (ஏன்), இறுதியிலும் வரும் (அவனே)." },
+    { q: "11. 'ஏன்' என்ற சொல்லில் வினா எழுத்து எங்கு வந்துள்ளது?", o: ["அ. முதலில்", "ஆ. இடையில்", "இ. இறுதியில்", "ஈ. எங்குமில்லை"], a: 0, exp: "விளக்கம்: 'ஏன்' என்பதில் 'ஏ' முதலில் வந்துள்ளது." },
+    { q: "12. 'அவனே' என்ற சொல்லில் வினா எழுத்து எங்கு வந்துள்ளது?", o: ["அ. முதலில்", "ஆ. இறுதியில்", "இ. நடுவில்", "ஈ. வரவில்லை"], a: 1, exp: "விளக்கம்: 'அவனே' என்பதில் 'ஏ' இறுதியில் வந்து வினாப் பொருள் தருகிறது." },
+    { q: "13. 'ஆ' என்ற வினா எழுத்து எந்த இடத்தில் வரும்?", o: ["அ. சொல்லின் முதலில்", "ஆ. சொல்லின் இறுதியில்", "இ. சொல்லின் இடையில்", "ஈ. எங்கு வேண்டுமானாலும்"], a: 1, exp: "விளக்கம்: 'ஆ' எப்போதும் சொல்லின் இறுதியில் மட்டுமே இடம்பெறும்." },
+    { q: "14. 'ஓ' என்ற வினா எழுத்து எங்கு வரும்?", o: ["அ. சொல்லின் இறுதியில்", "ஆ. சொல்லின் முதலில்", "இ. தனித்து மட்டும்", "ஈ. சுட்டின் அருகில்"], a: 0, exp: "விளக்கம்: 'ஓ' என்ற வினா எழுத்து சொல்லின் இறுதியில் வரும்." },
+    { q: "15. 'எ' என்ற வினா எழுத்து எங்கு வரும்?", o: ["அ. சொல்லின் இறுதியில்", "ஆ. சொல்லின் முதலில்", "இ. இறுதியிலும் முதலிலும்", "ஈ. நடுவில்"], a: 1, exp: "விளக்கம்: 'எ' வினா எழுத்து சொல்லின் முதலில் வரும்." },
+    { q: "16. 'யா' என்ற வினா எழுத்து எங்கு வரும்?", o: ["அ. சொல்லின் முதலில்", "ஆ. சொல்லின் இறுதியில்", "இ. இடையில்", "ஈ. எங்கும் வராது"], a: 0, exp: "விளக்கம்: 'யா' வினா எழுத்து சொல்லின் தொடக்கத்தில் (முதலில்) வரும்." },
+    { q: "17. நன்னூல் இலக்கணத்தின்படி வினா எழுத்துகள் எத்தனை வகைப்படும்?", o: ["அ. இரண்டு", "ஆ. மூன்று", "இ. நான்கு", "ஈ. ஐந்து"], a: 0, exp: "விளக்கம்: வினா எழுத்துகள் அகவினா, புறவினா என இரு வகைப்படும்." },
+    { q: "18. 'யார்' என்ற சொல்லில் உள்ள வினா எழுத்து எது?", o: ["அ. யா", "ஆ. ர்", "இ. ஆ", "ஈ. ற்"], a: 0, exp: "விளக்கம்: 'யார்' என்பதில் 'யா' என்பது வினா எழுத்து ஆகும்." },
+    { q: "19. 'எங்கு' என்ற சொல்லில் உள்ள வினா எழுத்து எது?", o: ["அ. ங்", "ஆ. கு", "இ. எ", "ஈ. ங்கு"], a: 2, exp: "விளக்கம்: 'எங்கு' என்பதில் 'எ' வினா எழுத்து ஆகும்." },
+    { q: "20. 'மரம் வந்ததா?' என்பதில் உள்ள வினா எழுத்து எது?", o: ["அ. ம", "ஆ. த", "இ. ஆ", "ஈ. தா"], a: 2, exp: "விளக்கம்: 'வந்ததா' என்பதில் இறுதியில் உள்ள 'ஆ' வினா எழுத்து ஆகும்." },
+    { q: "21. 'அவனோ சென்றான்?' என்பதில் உள்ள வினா எழுத்து எது?", o: ["அ. அ", "ஆ. ஓ", "இ. ன்", "ஈ. ற"], a: 1, exp: "விளக்கம்: 'அவனோ' என்பதில் இறுதியில் வந்துள்ள 'ஓ' வினா எழுத்து ஆகும்." },
+    { q: "22. 'நீதானே சொன்னாய்?' என்பதில் அமைந்துள்ள வினா எழுத்து எது?", o: ["அ. த", "ஆ. நா", "இ. ஏ", "ஈ. ய்"], a: 2, exp: "விளக்கம்: 'நீதானே' என்பதில் இறுதியில் உள்ள 'ஏ' வினா எழுத்து ஆகும்." },
+    { q: "23. அகவினாச் சொற்களில் வினா எழுத்தை நீக்கினால் என்ன நடக்கும்?", o: ["அ. பொருள் தரும்", "ஆ. பொருள் தராது", "இ. சொல் மாறும்", "ஈ. எழுத்து நீடிக்கும்"], a: 1, exp: "விளக்கம்: அகவினாவில் வினா எழுத்து சொல்லின் உள்ளே இருப்பதால் அதை நீக்கினால் பொருள் தராது." },
+    { q: "24. புறவினாச் சொற்களில் வினா எழுத்தை நீக்கினால் என்ன நடக்கும்?", o: ["அ. பொருள் தராது", "ஆ. பொருள் தரும்", "இ. எழுத்து கெடும்", "ஈ. சுட்டாக மாறும்"], a: 1, exp: "விளக்கம்: புறவினாவில் வினா எழுத்து வெளியே நிற்பதால் அதை நீக்கினாலும் மூலச்சொல் பொருள் தரும்." },
+    { q: "25. கீழ்க்கண்டவற்றுள் அகவினாச் சொல் எது?", o: ["அ. அவனா?", "B. நீயா?", "C. எவன்", "D. ஊரோ?"], a: 2, exp: "விளக்கம்: 'எவன்' என்பது அகவினா ஆகும் (எ-வை நீக்கினால் 'வன்' பொருள் தராது)." },
+    { q: "26. கீழ்க்கண்டவற்றுள் புறவினாச் சொல் எது?", o: ["அ. எது", "ஆ. யார்", "இ. அவனா?", "ஈ. எங்கு"], a: 2, exp: "விளக்கம்: 'அவனா?' என்பது புறவினா ஆகும்." },
+    { q: "27. வினா எழுத்துகள் எதற்காகப் பயன்படுகின்றன?", o: ["அ. சுட்டிக்காட்ட", "ஆ. வினாப் பொருள் (கேள்வி கேட்க)", "இ. ஓசை நயம் பெற", "ஈ. வியக்க"], a: 1, exp: "விளக்கம்: வினா எழுத்துகளின் முக்கியப் பணி கேள்வி கேட்பது (வினா எழுப்புவது) ஆகும்." },
+    { q: "28. 'எந்த ஊர்' என்பதில் உள்ள வினா எழுத்து எது?", o: ["அ. எ", "ஆ. த", "இ. ஊ", "ஈ. ர்"], a: 0, exp: "விளக்கம்: 'எந்த' என்பதில் முதலில் உள்ள 'எ' வினா எழுத்து ஆகும்." },
+    { q: "29. 'யாது' என்ற சொல்லில் அமைந்துள்ள வினா எழுத்து மற்றும் அதன் இடம்?", o: ["அ. யா - இறுதியில்", "ஆ. யா - முதலில்", "இ. து - நடுவில்", "ஈ. ய - முதலில்"], a: 1, exp: "விளக்கம்: 'யா' என்பது சொல்லின் முதலில் வந்துள்ள வினா எழுத்து." },
+    { q: "30. 'அவர்தானா?' என்ற தொடரில் வினாப் பொருளைத் தரும் எழுத்து எது?", o: ["அ. அ", "ஆ. வ", "இ. தா", "ஈ. ஆ"], a: 3, exp: "விளக்கம்: 'அவர்தானா' என்பதில் இறுதியில் உள்ள 'ஆ' வினா எழுத்து ஆகும்." },
+    { q: "31. 'வருவானோ?' என்பதில் உள்ள வினா எழுத்து எந்த வகையைச் சார்ந்தது?", o: ["அ. அகவினா", "ஆ. புறவினா", "இ. சுட்டுவினா", "ஈ. ஐயவினா"], a: 1, exp: "விளக்கம்: 'வருவானோ' என்பதில் 'ஓ' வெளியே நின்று வினாப் பொருள் தருவதால் இது புறவினா." },
+    { q: "32. 'நீதானா அது?' என்பதில் உள்ள வினா எழுத்து எது?", o: ["அ. நீ", "ஆ. தா", "இ. ஆ", "ஈ. து"], a: 2, exp: "விளக்கம்: இறுதியில் உள்ள 'ஆ' வினா எழுத்து ஆகும்." },
+    { q: "33. 'ஏன் வந்தாய்?' என்பதில் வினா எழுத்து எங்குள்ளது?", o: ["அ. முதலில் ('ஏ')", "ஆ. இறுதியில்", "இ. இடையில்", "ஈ. இல்லை"], a: 0, exp: "விளக்கம்: 'ஏன்' என்பதில் 'ஏ' முதலில் வந்துள்ளது." },
+    { q: "34. தமிழ்மொழியில் உள்ள மொத்த வினா எழுத்துகளின் கூட்டுத் தொகை என்ன?", o: ["அ. 3", "ஆ. 5", "இ. 8", "ஈ. 12"], a: 1, exp: "விளக்கம்: வினா எழுத்துகள் மொத்தம் 5 ஆகும்." },
+    { q: "35. 'எதுவும் நடக்கும்' - இதில் உள்ள 'எது' என்பது எத்தகைய சொல்?", o: ["அ. வினாச் சொல் (அகவினா)", "ஆ. சுட்டுச் சொல்", "இ. பெயர்ச்சொல்", "ஈ. இடைச்சொல்"], a: 0, exp: "விளக்கம்: 'எது' என்பது வினா எழுத்தைக் கொண்ட அகவினாச் சொல் ஆகும்." },
+    { q: "36. வினா எழுத்துகளில் குறில் எழுத்துகள் எவை?", o: ["அ. ஆ, ஓ, ஏ", "ஆ. எ, யா", "இ. எ மட்டும்", "ஈ. அ, இ, உ"], a: 1, exp: "விளக்கம்: வினா எழுத்துகளில் 'எ', 'யா' என்பவை குறில் எழுத்துகள் (குறிப்பிட்ட நிலையில் யா என்பது நெடிலாக இருந்தாலும் இலக்கணத்தில் வினா எழுத்துச் சுட்டுகளில் எ குறில்)." },
+    { q: "37. வினா எழுத்துகளில் நெடில் எழுத்துகள் எவை?", o: ["அ. ஆ, ஓ, ஏ", "ஆ. எ, யா", "இ. ஐ, ஔ", "ஈ. ஈ, ஊ"], a: 0, exp: "விளக்கம்: 'ஆ', 'ஓ', 'ஏ' ஆகிய மூன்றும் வினா எழுத்துகளில் உள்ள நெடில் எழுத்துகள் ஆகும்." },
+    { q: "38. 'யாரது?' என்ற சொல்லில் உள்ள வினா எழுத்து எது?", o: ["அ. யா", "ஆ. து", "இ. து+ஆ", "ஈ. ரு"], a: 0, exp: "விளக்கம்: 'யாரது' என்பதில் 'யா' என்பது வினா எழுத்து." },
+    { q: "39. 'அவனா அவன்?' என்பதில் வினா எழுத்து எங்கு வந்துள்ளது?", o: ["அ. சொல்லின் இறுதியில்", "ஆ. சொல்லின் முதலில்", "இ. இடையில்", "ஈ. வரவில்லை"], a: 0, exp: "விளக்கம்: 'அவனா' என்பதில் 'ஆ' சொல்லின் இறுதியில் வந்துள்ளது." },
+    { q: "40. அகவினாவுக்குச் சரியான சான்று எது?", o: ["அ. யார்", "ஆ. அவனா", "இ. நீயோ", "ஈ. ஊரா"], a: 0, exp: "விளக்கம்: 'யார்' என்பது அகவினா ஆகும்." },
+    { q: "41. புறவினாவுக்குச் சரியான சான்று எது?", o: ["அ. எது", "ஆ. எங்கு", "இ. அவனா?", "ஈ. யாது"], a: 2, exp: "விளக்கம்: 'அவனா?' என்பது புறவினாச் சொல்லாகும்." },
+    { q: "42. 'எப்போது' என்ற சொல்லின் வினா எழுத்து எங்குள்ளது?", o: ["அ. முதலில் ('எ')", "ஆ. இறுதியில்", "இ. நடுவில்", "ஈ. இல்லை"], a: 0, exp: "விளக்கம்: 'எப்போது' என்பதில் 'எ' முதலில் வந்துள்ளது." },
+    { q: "43. 'ஏன்' என்ற சொல்லில் உள்ள வினா எழுத்து எங்கு அமைகிறது?", o: ["அ. மொழி முதலில்", "ஆ. மொழி இறுதியில்", "இ. மொழி இடையில்", "ஈ. தனித்து"], a: 0, exp: "விளக்கம்: 'ஏன்' என்பதில் 'ஏ' மொழி முதலில் அமைகிறது." },
+    { q: "44. 'நீதானே' என்ற சொல்லில் 'ஏ' வினா எழுத்து எங்குள்ளது?", o: ["அ. முதலில்", "ஆ. இறுதியில்", "இ. நடுவில்", "ஈ. எங்குமில்லை"], a: 1, exp: "விளக்கம்: 'நீதானே' என்பதில் 'ஏ' இறுதியில் வந்துள்ளது." },
+    { q: "45. வினா எழுத்துகள் இலக்கண அடிப்படையில் எதனுடன் தொடர்புடையவை?", o: ["அ. எழுத்துக்களின் பிறப்பு மற்றும் இட அமைவு", "ஆ. அணி இலக்கணம்", "இ. யாப்பு இலக்கணம்", "ஈ. பாவகை"], a: 0, exp: "விளக்கம்: வினா எழுத்துகள் எழுத்து இலக்கணத்தின் கீழ் சொல்லின் முதல், இறுதி இடங்களில் வரும் தன்மையால் விளக்கப்படுகின்றன." },
+    { q: "46. 'யாவர்' என்ற சொல்லில் உள்ள வினா எழுத்து எது?", o: ["அ. யா", "ஆ. வ", "இ. ர்", "ஈ. ய"], a: 0, exp: "விளக்கம்: 'யாவர்' என்பதில் 'யா' என்பது வினா எழுத்து ஆகும்." },
+    { q: "47. 'எந்தப் புத்தகம்?' என்பதில் வினா எழுத்து எது?", o: ["அ. ப", "ஆ. எ", "இ. க", "ஈ. து"], a: 1, exp: "விளக்கம்: 'எந்த' என்பதில் உள்ள 'எ' வினா எழுத்து ஆகும்." },
+    { q: "48. வினா எழுத்துகளில் எத்தனை எழுத்துகள் மொழிக்கு முதலில் வரும்?", o: ["அ. ஒன்று", "ஆ. இரண்டு (எ, யா)", "இ. மூன்று", "ஈ. நான்கு"], a: 1, exp: "விளக்கம்: 'எ', 'யா' ஆகிய இரண்டும் மொழிக்கு முதலில் வரும்." },
+    { q: "49. வினா எழுத்துகளில் எத்தனை எழுத்துகள் மொழிக்கு இறுதியில் வரும்?", o: ["அ. இரண்டு (ஆ, ஓ)", "ஆ. மூன்று", "இ. நான்கு", "ஈ. ஐந்து"], a: 0, exp: "விளக்கம்: 'ஆ', 'ஓ' ஆகிய இரண்டும் மொழிக்கு இறுதியில் வரும்." },
+    { q: "50. 'அவனா சென்றான்?' - இத்தொடரில் அமைந்துள்ள வினா வகை என்ன?", o: ["அ. அகவினா", "ஆ. புறவினா", "இ. சுட்டுவினா", "ஈ. ஐயவினா"], a: 1, exp: "விளக்கம்: 'அவனா' என்பது புறவினா ஆகும்." }
+  ];
+
+  let currentQuestion = 0;
+  let userAnswers = new Array(questionsData.length).fill(null);
+  let isReviewMode = false;
+  let timerInterval;
+  let timeLeft = 45 * 60;
+
+  function initTest() {
+    buildGrid();
+    loadQuestion(0);
+    startTimer();
+  }
+
+  function buildGrid() {
+    const grid = document.getElementById('questionGrid');
+    grid.innerHTML = '';
+    questionsData.forEach((_, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'q-num-btn';
+      btn.innerText = idx + 1;
+      btn.id = `q_btn_${idx}`;
+      btn.onclick = () => jumpToQuestion(idx);
+      grid.appendChild(btn);
+    });
+    updateGridStatus();
+  }
+
+  function updateGridStatus() {
+    questionsData.forEach((_, idx) => {
+      const btn = document.getElementById(`q_btn_${idx}`);
+      if(!btn) return;
+      btn.className = 'q-num-btn';
+      if(idx === currentQuestion) {
+        btn.classList.add('active');
+      } else if(userAnswers[idx] !== null) {
+        btn.classList.add('answered');
+      }
+    });
+  }
+
+  function loadQuestion(idx) {
+    currentQuestion = idx;
+    const q = questionsData[idx];
+    document.getElementById('qTitle').innerText = q.q;
+    
+    const optsBox = document.getElementById('optionsBox');
+    optsBox.innerHTML = '';
+
+    q.o.forEach((optText, oIdx) => {
+      const card = document.createElement('div');
+      card.className = 'option-card';
+      
+      if(userAnswers[idx] === oIdx) {
+        card.classList.add('selected');
+      }
+
+      if(isReviewMode) {
+        if(oIdx === q.a) {
+          card.classList.add('correct-ans');
+        } else if(userAnswers[idx] === oIdx && oIdx !== q.a) {
+          card.classList.add('wrong-ans');
+        }
+      }
+
+      card.innerHTML = `<span><b>${String.fromCharCode(65 + oIdx)}.</b> ${optText}</span>`;
+      card.onclick = () => selectOption(oIdx);
+      optsBox.appendChild(card);
+    });
+
+    const expBox = document.getElementById('expBox');
+    if(isReviewMode) {
+      expBox.style.display = 'block';
+      expBox.innerText = q.exp;
+    } else {
+      expBox.style.display = 'none';
+    }
+
+    document.getElementById('prevBtn').style.display = idx === 0 ? 'none' : 'block';
+    document.getElementById('nextBtn').style.display = idx === questionsData.length - 1 ? 'none' : 'block';
+    updateGridStatus();
+  }
+
+  function selectOption(oIdx) {
+    if(isReviewMode) return;
+    userAnswers[currentQuestion] = oIdx;
+    loadQuestion(currentQuestion);
+  }
+
+  function clearChoice() {
+    if(isReviewMode) return;
+    userAnswers[currentQuestion] = null;
+    loadQuestion(currentQuestion);
+  }
+
+  function navigateNumberQuery(dir) {
+    const next = currentQuestion + dir;
+    if(next >= 0 && next < questionsData.length) {
+      loadQuestion(next);
+    }
+  }
+
+  function jumpToQuestion(idx) {
+    loadQuestion(idx);
+  }
+
+  function startTimer() {
+    if (timerInterval) clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+      timeLeft--;
+      let m = Math.floor(timeLeft / 60);
+      let s = timeLeft % 60;
+      const timerElem = document.getElementById('timerBox');
+      if(timerElem) {
+        timerElem.innerText = `⏱️ ${m}:${s < 10 ? '0' : ''}${s}`;
+      }
+      if(timeLeft <= 0) {
+        clearInterval(timerInterval);
+        submitTest();
+      }
+    }, 1000);
+  }
+
+  function submitTest() {
+    if (timerInterval) clearInterval(timerInterval);
+    document.getElementById('testView').style.display = 'none';
+    document.getElementById('resultView').style.display = 'block';
+
+    let correct = 0, wrong = 0, unans = 0;
+    userAnswers.forEach((ans, idx) => {
+      if(ans === null) unans++;
+      else if(ans === questionsData[idx].a) correct++;
+      else wrong++;
+    });
+
+    document.getElementById('scoreDisplay').innerText = `${correct} / ${questionsData.length}`;
+    let pct = ((correct / questionsData.length) * 100).toFixed(1);
+    document.getElementById('percentageDisplay').innerText = `சதவீதம்: ${pct}%`;
+    document.getElementById('correctCnt').innerText = correct;
+    document.getElementById('wrongCnt').innerText = wrong;
+    document.getElementById('unansCnt').innerText = unans;
+  }
+
+  function reviewAnswerKey() {
+    isReviewMode = true;
+    document.getElementById('resultView').style.display = 'none';
+    document.getElementById('testView').style.display = 'block';
+    document.getElementById('finalSubmitBtn').style.display = 'none';
+    document.getElementById('backToResultBtn').style.display = 'block';
+    document.getElementById('dashFromKeyBtn').style.display = 'block';
+    loadQuestion(0);
+  }
+
+  function returnToResult() {
+    document.getElementById('testView').style.display = 'none';
+    document.getElementById('resultView').style.display = 'block';
+  }
+
+  function returnToDashboard() {
+    window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html"); 
+  }
+
+  function exitPortal() {
+    window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html");
+  }
+
+  function retakeTest() {
+    userAnswers = new Array(questionsData.length).fill(null);
+    isReviewMode = false;
+    timeLeft = 45 * 60;
+    document.getElementById('resultView').style.display = 'none';
+    document.getElementById('testView').style.display = 'block';
+    document.getElementById('finalSubmitBtn').style.display = 'inline-block';
+    document.getElementById('backToResultBtn').style.display = 'none';
+    document.getElementById('dashFromKeyBtn').style.display = 'none';
+    initTest();
+  }
+
+  window.onload = function() {
+    initTest();
+  }
+</script>
+
+</body>
+</html>
