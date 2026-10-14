@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tiger Warriors - குறில் நெடில் வேறுபாடு 50 வினாக்கள்</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; font-weight: bold; }
+    body { background: #080604; color: #f8fafc; padding: 12px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+    .card { width: 100%; max-width: 950px; background: #0f172a; border-radius: 14px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); border: 1px solid #334155; }
+    
+    .test-header { display: flex; justify-content: space-between; align-items: center; background: #1e293b; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; border: 1px solid #334155; }
+    .timer { font-size: 15px; font-weight: bold; color: #fbbf24; background: #091326; padding: 6px 12px; border-radius: 6px; border: 1px solid #fbbf24; box-shadow: inset 0 0 5px rgba(251, 191, 36, 0.2); }
+    
+    .q-grid { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 16px; max-height: 140px; overflow-y: auto; padding: 8px; background: #1e293b; border-radius: 8px; justify-content: center; }
+    .q-num-btn { width: 30px; height: 30px; border-radius: 5px; border: none; background: #334155; color: #fff; font-size: 10px; cursor: pointer; font-weight: bold; }
+    .q-num-btn.active { border: 2px solid #38bdf8; background: #0284c7; }
+    .q-num-btn.answered { background: #10b981; }
+
+    .q-box { background: #1e293b; padding: 18px; border-radius: 10px; margin-bottom: 16px; border: 1px solid #334155; }
+    .q-text { white-space: pre-line; line-height: 1.6; font-size: 15px; color: #f8fafc; }
+    
+    .option-card { background: #0f172a; border: 1px solid #334155; padding: 12px 16px; border-radius: 8px; margin-top: 10px; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: 0.2s; white-space: pre-line; line-height: 1.4; }
+    .option-card:hover { border-color: #38bdf8; background: #1e293b; }
+    .option-card.selected { border-color: #10b981; background: #064e3b; }
+    .option-card.correct-ans { border-color: #10b981; background: #065f46; font-weight: bold; }
+    .option-card.wrong-ans { border-color: #ef4444; background: #7f1d1d; }
+
+    .explanation-box { background: #091326; border: 1px solid #38bdf8; border-radius: 8px; padding: 12px; margin-top: 14px; font-size: 13px; color: #7dd3fc; line-height: 1.5; }
+    
+    .nav-btns { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+    .btn-action { background: #334155; color: #fff; border: none; padding: 10px 16px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 13px; text-align: center; }
+    .btn-action:hover { opacity: 0.9; }
+    .btn-blue { background: #2563eb; }
+    .btn-purple { background: #7c3aed; }
+    .btn-danger { background: #ef4444; }
+    .btn-green { background: #22c55e; }
+
+    .result-box { text-align: center; padding: 25px; background: #1e293b; border-radius: 16px; margin-top: 10px; border: 1px solid rgba(0, 242, 254, 0.3); display: flex; flex-direction: column; align-items: center; }
+    .score-circle { width: 130px; height: 130px; border-radius: 50%; background: conic-gradient(#10b981 0deg, #0f172a 0deg); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 15px auto; border: 4px solid #38bdf8; box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); }
+    .score-num { font-size: 30px; color: #f8fafc; font-weight: bold; }
+    
+    .result-stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; width: 100%; max-width: 400px; }
+    .stat-pill { background: #0f172a; border-radius: 12px; padding: 10px; border: 1px solid #334155; text-align: center; }
+    .stat-pill.gold { border-color: #fbbf24; }
+    .stat-pill.blue { border-color: #38bdf8; }
+    .stat-pill.red { border-color: #ef4444; }
+
+    .footer-badge { text-align: center; font-size: 11px; color: #38bdf8; margin-top: 15px; font-weight: bold; letter-spacing: 0.5px; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <script>
+      if (localStorage.getItem('tiger_auth_passed') !== 'true') {
+          alert("⚠ பாதுகாப்பு எச்சரிக்கை: நீங்கள் Tiger Warriors போர்ட்டலில் லாகின் செய்யவில்லை! முதலில் மெயின் போர்ட்டலில் லாகின் செய்யவும்.");
+          window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html"); 
+      }
+  </script>
+
+  <div id="testView">
+    <div class="test-header">
+      <div>
+        <h3 style="color: #38bdf8; font-size: 15px;">🐅 TIGER WARRIORS - குறில் நெடில் வேறுபாடு (50 வினாக்கள்)</h3>
+        <span style="font-size: 11px; color: #94a3b8;">TNPSC / 2 / 2A / 4 • TAMIL UNIT 1</span>
+      </div>
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <div class="timer" id="timerBox">⏱️ 45:00</div>
+        <button class="btn-action btn-purple" id="backToResultBtn" onclick="returnToResult()" style="display: none; padding: 6px 12px; font-size: 12px;">📊 ரிசல்ட் செல்</button>
+        <button class="btn-action btn-danger" id="dashFromKeyBtn" onclick="returnToDashboard()" style="display: none; padding: 6px 12px; font-size: 12px;">🏠 முகப்பு</button>
+      </div>
+    </div>
+
+    <div class="q-grid" id="questionGrid"></div>
+
+    <div class="q-box">
+      <div id="qTitle" class="q-text"></div>
+      <div id="optionsBox"></div>
+      <div id="expBox" class="explanation-box" style="display: none;"></div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn-action" id="prevBtn" onclick="navigateNumberQuery(-1)">⬅️ முந்தையது</button>
+      <button class="btn-action" id="clearBtn" onclick="clearChoice()">🧹 விடையை நீக்கு</button>
+      <button class="btn-action btn-blue" id="nextBtn" onclick="navigateNumberQuery(1)">அடுத்து ➡️</button>
+      <button class="btn-action btn-danger" id="finalSubmitBtn" onclick="submitTest()">✅ தேர்வைச் சமர்ப்பிக்க (Submit)</button>
+    </div>
+  </div>
+
+  <div id="resultView" style="display: none;">
+    <h2 style="color: #38bdf8; text-align: center; margin-bottom: 10px;">🏆 தேர்வு முடிவுகள் (Test Results) 🎯</h2>
+    <div class="result-box">
+      <div class="score-circle" id="scoreCircle">
+        <div class="score-num" id="scoreDisplay">0/50</div>
+        <span id="percentageDisplay" style="font-size: 11px; color: #fbbf24;">0%</span>
+      </div>
+
+      <div class="result-stats-grid">
+        <div class="stat-pill gold">
+          <h3 id="correctCnt" style="color: #10b981; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;">சரியானது ✅</span>
+        </div>
+        <div class="stat-pill red">
+          <h3 id="wrongCnt" style="color: #ef4444; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;">தவறானது ❌</span>
+        </div>
+        <div class="stat-pill blue">
+          <h3 id="unansCnt" style="color: #f59e0b; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;">விடையில்லை ⚠️</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
+      <button class="btn-action btn-blue" onclick="reviewAnswerKey()">🔍 விடை குறிப்பு (Answer Key)</button>
+      <button class="btn-action btn-purple" onclick="returnToDashboard()">🏠 முகப்புப் பக்கம்</button>
+      <button class="btn-action btn-green" onclick="retakeTest()">🔄 மீண்டும் தேர்வு</button>
+      <button class="btn-action btn-danger" onclick="exitPortal()">🚪 வெளியேறு</button>
+    </div>
+    <div class="footer-badge" style="margin-top: 20px;">🐅 டைகர் வாரியர் போர்டல் - இயக்குநர்: Dr. K. மணிகாசி 🐅</div>
+  </div>
+</div>
+
+<script>
+  const questionsData = [
+    { q: "1. குறில்‌-நெடில் மாற்றத்தில் தவறான இணையைக் கண்டறிக:\na) இரை, ஈகை\nb) சிறகு, வளர்த்தல்\nc) உடல், ஊண்\d) படம், பார்த்தல்", o: ["a) இரை, ஈகை", "b) சிறகு, வளர்த்தல்", "c) உடல், ஊண்", "d) படம், பார்த்தல்"], a: 1, exp: "விளக்கம்: 'சிறகு, வளர்த்தல்' என்பது குறில் நெடில் பொருத்தம் அல்ல." },
+    { q: "2. குறில்-நெடில் மாற்றம் அறிந்து, பொருள் வேறுபாடு சரியானதைக் கண்டறிக: (கனகம் – கானகம்)", o: ["a) செல்வம் – அரசன்", "b) காடு – தொடுதல்", "c) பொன் – காடு", "d) நங்கை – தங்கை"], a: 2, exp: "விளக்கம்: கனகம் என்றால் பொன்; கானகம் என்றால் காடு." },
+    { q: "3. குறில்-நெடில் வேறுபாடுணர்ந்து பொருளறிக: (அறு – ஆறு)", o: ["a) நதி – ஓர் எண்", "b) வெட்டுதல் – நதி", "c) வெட்டுதல் – அறுத்தல்", "d) அறுத்தல் – கட்டுதல்"], a: 1, exp: "விளக்கம்: அறு (வெட்டுதல்) - ஆறு (நதி / எண்)." },
+    { q: "4. கோடிட்ட இடங்களுக்கு பொருந்திய சொற்களைத்‌ தேர்க:\n(———— வில் ———— குளித்தது.)", o: ["a) விடு, வீடு", "b) சுடு, சூடு", "c) மடு, மாடு", "d) அடு, ஆடு"], a: 2, exp: "விளக்கம்: மடுவில் மாடு குளித்தது." },
+    { q: "5. பொருந்தா இணையைக்‌ கண்டறிக:", o: ["a) மடு – மாடு", "b) தடு – தாடு", "c) விடு – வீடு", "d) எடு – ஏடு"], a: 1, exp: "விளக்கம்: 'தடு - தாடு' என்பது முறையான குறில் நெடில் பொருள் இணை அல்ல." },
+    { q: "6. குறில் நெடில்‌ மாற்றத்தில்‌ தவறான இணையைக் கண்டறிக:", o: ["a) இன்பம்‌, ஈகை", "b) அகல்‌, ஆவல்‌", "c) உணவு, ஊதல்‌", "d) எறும்பு, ஐவர்‌"], a: 3, exp: "விளக்கம்: எறும்பு, ஐவர் என்பவை சரியான குறில் நெடில் ஜோடி அல்ல." },
+    { q: "7. குறில்‌ நெடில்‌ அடிப்படையில்‌ பொருள்‌ வேறுபாடு காண்க: (விடு – வீடு)", o: ["a) தங்குமிடம்‌ – விட்டுவிடுதல்‌", "b) விட்டுவிடுதல்‌ – தங்குமிடம்‌", "c) விட்டுவிடுதல்‌ – தவிர்த்துவிடுதல்‌", "d) தங்குமிடம்‌ – தாங்குமிடம்‌"], a: 1, exp: "விளக்கம்: விடு (விட்டுவிடுதல்) - வீடு (தங்குமிடம்)." },
+    { q: "8. குறில்‌ நெடில்‌ வேறுபாடு அறிந்து சரியான இணையைத்‌ தேர்க: (சிலை – சீலை)", o: ["a) சிற்பம்‌ – புடவை", "b) புடவை – சிற்பம்‌", "c) கற்சிலை – ஓவியம்‌", "d) சிற்பம்‌ – ஒழுக்கம்‌"], a: 0, exp: "விளக்கம்: சிலை (சிற்பம்) - சீலை (புடவை/துணி)." },
+    { q: "9. தழை – தாழை – பொருள்‌ சரியாகப்‌ பொருந்திய இணையைத்‌ தேர்க:", o: ["a) செழிக்கச் செய்‌ – வாடச்செய்‌", "b) மலர்‌ – மடல்‌", "c) மலர்‌ – இலை", "d) இலை – மலர்‌ வகை"], a: 3, exp: "விளக்கம்: தழை (இலை) - தாழை (மலர் வகை/தாவரம்)." },
+    { q: "10. குறில்‌ நெடில்‌ மாற்றம்‌ அறிந்து பொருள்‌ வேறுபாடு சரியானதைக் கண்டறிக: (சிலை – சீலை)", o: ["a) ஓவியம்‌ – வண்ணம்‌", "b) இறைவன்‌ திருவுருவம்‌ – துணி", "c) மணல்‌ – குன்று", "d) மறை – வேதம்‌"], a: 1, exp: "விளக்கம்: சிலை (இறைவன் திருவுருவம்/சிற்பம்) - சீலை (துணி)." },
+    { q: "11. குறில்‌ நெடில்‌ மாற்றம்‌ சரியான பொருள்‌ வேறுபாடறிந்து தெரிவு செய்க: (சிலை – சீலை)", o: ["a) சிற்பி – துணி", "b) சிற்பம்‌ – துணி", "c) வில்‌ – அம்பு", "d) அம்பு – வில்‌"], a: 1, exp: "விளக்கம்: சிலை என்றால் சிற்பம், சீலை என்றால் துணி." },
+    { q: "12. குறில்‌ நெடில்‌ பொருள்‌ வேறுபாடறிந்து சரியான விடையைத்‌ தெரிவு செய்க: (பாரி – பரி)", o: ["a) தலைவன்‌ – கழுதை", "b) வீரன்‌ – பரித்துக்கொள்", "c) வள்ளல்‌ – குதிரை", "d) மாரி – குதிரை"], a: 2, exp: "விளக்கம்: பாரி (வள்ளல்) - பரி (குதிரை/பரிசு)." },
+    { q: "13. குறில்‌ நெடில்‌ மாற்றம்‌ அறிந்து பொருள்‌ வேறுபாடு சரியானதைக் கண்டறிக: (அழி – ஆழி)", o: ["a) அழித்தல்‌ – வீரம்‌", "b) வயல்‌ – கடல்‌", "c) நெருப்பு - பறவை", "d) அழித்தல்‌ – கடல்‌"], a: 3, exp: "விளக்கம்: அழி (அழித்தல்) - ஆழி (கடல்/வளையல்)." },
+    { q: "14. குறில்‌ நெடில் மாற்றம்‌ அறிந்து தவறான இணையைக்‌ கண்டறிக:", o: ["a) கலம்‌ - காலம்‌", "b) சுழல் - சூழல்‌", "c) புகழ் - திகழ்‌", "d) வளம்‌ - வாழ்வு"], a: 2, exp: "விளக்கம்: 'புகழ் - திகழ்' என்பது குறில் நெடில் மாற்றச் சொல் அல்ல." },
+    { q: "15. குறில்‌ நெடில்‌ மாற்றம்‌ அறிந்து, பொருள்‌ வேறுபாடு சரியானதைக் கண்டறிக: (வனம்‌ – வானம்‌)", o: ["a) விசும்பு – அரண்‌", "b) கான்‌ – விசும்பு", "c) முளி – ஆரம்பம்‌", "d) சோலை – பொழில்‌"], a: 1, exp: "விளக்கம்: வனம் (கான்/காடு) - வானம் (விசும்பு)." },
+    { q: "16. குறில்‌ நெடில்‌ மாற்றம்‌ அறிந்து பொருள்‌ வேறுபாடு சரியானதைக் கண்டறிக: (மலை – மாலை)", o: ["a) மழை – வெள்ளம்‌", "b) தொடுதல்‌ – விடுதல்‌", "c) சிகரம்‌ – சிறு பொழுது", "d) விலங்கு – ஓவியம்‌"], a: 2, exp: "விளக்கம்: மலை (சிகரம்/குன்று) - மாலை (சிறு பொழுது/பூமாலை)." },
+    { q: "17. குறில்‌ நெடில்‌ மாற்றம்‌ – பொருள்‌ வேறுபாடு அறிக: (கொடு – கோடு)", o: ["a) செய்தல்‌ – வட்டம்‌", "b) தருதல்‌ – நேராக வரைதல்‌", "c) விருப்பம்‌ – வளைவு", "d) உயரம்‌ – குழந்தை"], a: 1, exp: "விளக்கம்: கொடு (தருதல்) - கோடு (நேராக வரைதல்/கோடு)." },
+    { q: "18. குறில்‌ – நெடில்‌ மாற்றம்‌ பொருள்‌ வேறுபாடு அறிக: (விதி – வீதி)", o: ["a) அகலம்‌ – வீடு", "b) தலையெழுத்து – தெரு", "c) தடைவிதித்தல்‌ – தலைவலி", "d) வீடு பேறு – தலையெழுத்து"], a: 1, exp: "விளக்கம்: விதி (தலையெழுத்து/கட்டளை) - வீதி (தெரு)." },
+    { q: "19. அடைப்புக்‌ குறிக்குள்‌ உள்ள சொற்கள்‌ பொருந்தக்‌ கூடிய தொடரைக்‌ கண்டறிக: (பட்டு – பாட்டு)", o: ["a) கவலைப்பட்ட வாழ்விற்குப்‌ பாட்டு அவசியம்‌", "b) தூண்டிலில்‌ பட்ட மீனைப்‌ பாட்டுப்‌ பாடி இழுத்தான்‌", "c) பட்டு மெத்தையில்‌ பாட்டுக்‌ கேட்டபடி தூங்கினாள்‌", "d) துன்பப்பட்டு வாழும்‌ வாழ்வில்‌ பாட்டுக்கு என்ன வேலை?"], a: 2, exp: "விளக்கம்: பட்டு மெத்தையில் பாட்டுக் கேட்டபடி தூங்கினாள் என்பது சரியான தொடர்." },
+    { q: "20. குறில்‌ – நெடில்‌ மாற்றம்‌, பொருள்‌ வேறுபாடு தருக: (சிறு – சீறு)", o: ["a) வறுமை – புலி", "b) கருமை – வலிமை", "c) சிறுமை – பாய்தல்‌ / கோபப்படுதல்‌", "d) கருவி – சிறியது"], a: 2, exp: "விளக்கம்: சிறு (சிறியது) - சீறு (கோபப்படுதல்/சீறுதல்)." },
+    { q: "21. குறில்‌ நெடில்‌ மாற்றம்‌ அறிந்து, பொருள்‌ வேறுபாடு சரியானதைக் கண்டறிக: (தொடு – தோடு)", o: ["a) இயற்கை – செயற்கை", "b) வெகுளி – கோபம்‌", "c) கேண்மை – நட்பு", "d) தொடுதல்‌ – அணிகலன்‌"], a: 3, exp: "விளக்கம்: தொடு (தொடுதல்) - தோடு (அணிகலன்/காதுத்தோடு)." },
+    { q: "22. சிறு – சீறு என்ற சொற்களின்‌ பொருள்‌ தரும்‌ தொடரைத்‌ தேர்ந்தெடுக்க:", o: ["a) சிறிய வீடு கட்டிச்‌ சிறப்பாக வாழ்ந்தான்‌.", "b) ஆற்றங்கரையோரம்‌ கோபத்துடன்‌ அமர்ந்திருந்தான்‌", "c) சின்னச்‌ சின்ன ஆசைகள்‌ நிறைவேற உழைக்க வேண்டும்‌", "d) சிறு குட்டியாக இருந்தாலும்‌ சீறுவதில்‌ புலியை மிஞ்ச முடியாது"], a: 3, exp: "விளக்கம்: சிறு மற்றும் சீறு சொற்களின் பொருள் விளங்கும் தொடர் இதுவாகும்." },
+    { q: "23. குறில்‌ நெடில்‌ மாற்றம்‌ பொருள்‌ வேறுபாடறிந்து சரியானதைத்‌ தெரிக: (மடு – மாடு)", o: ["a) செல்வம்‌ – பக்கம்‌", "b) நீர்நிலை – எருது / பசு", "c) கிராமம்‌ – செல்வம்‌", "d) மடித்துவை – பசு"], a: 1, exp: "விளக்கம்: மடு (நீர்நிலை) - மாடு (எருது/பசு)." },
+    { q: "24. குறில்‌ நெடில்‌ மாற்றம்‌, பொருள்‌ வேறுபாடறிந்து சரியான இணையைத்‌ தெரிக: (கொள்‌ – கோள்)", o: ["a) புறங்‌ கூறல்‌ – வாங்கு", "b) புறங்‌ கூறல்‌ – கிரகம்‌", "c) கொல்லுதல்‌ – கிரகம்‌", "d) வாங்கு – புறங்கூறல்‌ / கிரகம்‌"], a: 3, exp: "விளக்கம்: கொள் (வாங்கு) - கோள் (புறங்கூறல்/கிரகம்)." },
+    { q: "25. குறில்‌ நெடில்‌ பிழையான சொல்‌ எது?", o: ["a) கல்‌ – கால்‌", "b) கிரி – கீரி", "c) குடம்‌ – கூடம்‌", "d) கெண்டை – கொண்டை"], a: 3, exp: "விளக்கம்: கெண்டை - கொண்டை என்பது குறில் நெடில் மாற்றம் அல்ல." },
+    { q: "26. கீழே கொடுக்கப்பட்டுள்ள சொற்களில் வலஞ்சுழி எழுத்துகளில் தொடங்கும் சொல் எது?", o: ["a) டவாரம்", "b) ழக்கம்", "c) அகம்", "d) யாரம்"], a: 2, exp: "விளக்கம்: 'அ' என்பது வலஞ்சுழி எழுத்து ஆகும்." },
+    { q: "27. தமிழ் மொழியில் இடஞ்சுழி எழுத்துகளில் ஒன்றைக் கண்டறிக:", o: ["a) அ", "b) ழ", "c) ஔ", "d) ஞ"], a: 1, exp: "விளக்கம்: ட, ய, ழ என்பவை இடஞ்சுழி எழுத்துகள் ஆகும்." },
+    { q: "28. தமிழ் இலக்கணங்களின் மொத்த வகைகளின் எண்ணிக்கை எத்தனை?", o: ["a) மூன்று", "b) நான்கு", "c) ஐந்து", "d) ஆறு"], a: 2, exp: "விளக்கம்: தமிழ் இலக்கணம் எழுத்து, சொல், பொருள், யாப்பு, அணி என ஐந்து வகைப்படும்." },
+    { q: "29. உயிர் எழுத்துகளில் குறில் எழுத்துகளின் எண்ணிக்கை எத்தனை?", o: ["a) 5", "b) 7", "c) 12", "d) 18"], a: 0, exp: "விளக்கம்: உயிர் குறில் எழுத்துகள் 5 (அ, இ, உ, எ, ஒ) ஆகும்." },
+    { q: "30. உயிர் எழுத்துகளில் நெடில் எழுத்துகளின் எண்ணிக்கை எத்தனை?", o: ["a) 5", "b) 7", "c) 12", "d) 216"], a: 1, exp: "விளக்கம்: உயிர் நெடில் எழுத்துகள் 7 ஆகும்." },
+    { q: "31. மெய்யெழுத்துகளில் வல்லின எழுத்துகளின் எண்ணிக்கை எத்தனை?", o: ["a) 4", "b) 6", "c) 18", "d) 12"], a: 1, exp: "விளக்கம்: வல்லின எழுத்துகள் 6 (க், ச், ட், த், ப், ற்) ஆகும்." },
+    { q: "32. மெய்யெழுத்துகளில் மெல்லின எழுத்துகளின் எண்ணிக்கை எத்தனை?", o: ["a) 4", "b) 6", "c) 12", "d) 18"], a: 1, exp: "விளக்கம்: மெல்லின எழுத்துகள் 6 (ங், ஞ், ண், ந், ம், ன்) ஆகும்." },
+    { q: "33. மெய்யெழுத்துகளில் இடையின எழுத்துகளின் எண்ணிக்கை எத்தனை?", o: ["a) 4", "b) 6", "c) 12", "d) 18"], a: 1, exp: "விளக்கம்: இடையின எழுத்துகள் 6 (ய், ர், ல், வ், ழ், ள்) ஆகும்." },
+    { q: "34. உயிர்மெய் எழுத்துகளின் மொத்த எண்ணிக்கை எத்தனை?", o: ["a) 18", "b) 12", "c) 216", "d) 90"], a: 2, exp: "விளக்கம்: உயிர்மெய் எழுத்துகள் மொத்தம் 216 ஆகும்." },
+    { q: "35. ஆய்த எழுத்தின் மாத்திரை அளவு என்ன?", o: ["a) 1", "b) 2", "c) அரை மாத்திரை (1/2)", "d) கால் மாத்திரை"], a: 2, exp: "விளக்கம்: ஆய்த எழுத்து மற்றும் மெய்யெழுத்துகளின் மாத்திரை அளவு அரை மாத்திரை ஆகும்." },
+    { q: "36. குறில் எழுத்துகளைக் குறிக்கப் பயன்படும் பழைய சொல் என்ன?", o: ["a) கான்", "b) கரம்", "c) காரம்", "d) கேணம்"], a: 1, exp: "விளக்கம்: குறிலைக் குறிக்க 'கரம்' பயன்படுத்தப்படும்." },
+    { q: "37. நெடில் எழுத்துகளைக் குறிக்கப் பயன்படும் பழைய சொல் என்ன?", o: ["a) கரம்", "b) கான்", "c) காரம்", "d) மாத்திரை"], a: 1, exp: "விளக்கம்: நெடிலைக் குறிக்க 'கான்' பயன்படுத்தப்படும்." },
+    { q: "38. குறிலும் நெடிலும் சேர்ந்து வருவதைக் குறிக்கப் பயன்படும் சொல் என்ன?", o: ["a) கரம்", "b) கான்", "c) காரம்", "d) அசை"], a: 2, exp: "விளக்கம்: குறில் நெடில் சேர்வதைக் குறிக்க 'காரம்' பயன்படுத்தப்படும்." },
+    { q: "39. யாப்பிலக்கணத்தின்படி அசை எத்தனை வகைப்படும்?", o: ["a) இரண்டு (நேரசை, நிரையசை)", "b) மூன்று", "c) நான்கு", "d) ஐந்து"], a: 0, exp: "விளக்கம்: அசை நேரசை, நிரையசை என இரு வகைப்படும்." },
+    { q: "40. குறில் அல்லது நெடில் தனித்து நின்றோ அல்லது ஒற்றுடன் சேர்ந்தோ வருவது என்ன அசை எனப்படும்?", o: ["a) நிரையசை", "b) நேரசை", "c) நிறை", "d) நேர்"], a: 1, exp: "விளக்கம்: இது நேரசை எனப்படும் (எ.கா: ந, நம், நா, நாம்)." },
+    { q: "41. இரண்டு குறில் எழுத்துகள் இணைந்து அல்லது ஒற்றுடன் வருவது என்ன அசை எனப்படும்?", o: ["a) நேரசை", "b) நிரையசை", "c) நெடில்", "d) ஒற்று"], a: 1, exp: "விளக்கம்: இது நிரையசை எனப்படும் (எ.கா: கட, கடல்)." },
+    { q: "42. 'வளி' என்பதன் பொருள் என்ன?", o: ["a) நீர்", "b) காற்று", "c) நெருப்பு", "d) நிலம்"], a: 1, exp: "விளக்கம்: வளி என்றால் காற்று என்று பொருள்." },
+    { q: "43. 'வாளி' என்பதன் பொருள் என்ன?", o: ["a) காற்று", "b) அம்பு / நீர் இறைக்கும் கருவி", "c) மரம்", "d) குகை"], a: 1, exp: "விளக்கம்: வாளி என்றால் அம்பு அல்லது நீர் இறைக்கும் கருவி." },
+    { q: "44. பழைய எழுத்து மரபுப்படி எகர ஒகர குறிலைக் குறிக்க எழுத்தின் மேல் என்ன வைக்கப்பட்டது?", o: ["a) கோடு", "b) புள்ளி", "c) சுழி", "d) வளைவு"], a: 1, exp: "விளக்கம்: குறிலைக் குறிக்க எழுத்தின் மேல் புள்ளி வைக்கப்பட்டது." },
+    { q: "45. பழைய மரபுப்படி ஐகார எழுத்தைக் குறிக்க எழுத்தின் முன் என்ன வைக்கப்பட்டது?", o: ["a) ஒரு புள்ளி", "b) இரட்டைப் புள்ளி", "c) கோடு", "d) வட்டம்"], a: 1, exp: "விளக்கம்: ஐகாரத்தைக் குறிக்க எழுத்தின் முன் இரட்டைப் புள்ளி வைக்கப்படும்." },
+    { q: "46. தமிழ் எழுத்துகளில் காற்றின் இயக்கத்தால் பிறக்கும் எழுத்துகள் எவை?", o: ["a) மெய்யெழுத்துகள்", "b) உயிர் எழுத்துகள்", "c) ஆய்த எழுத்து", "d) சார்பெழுத்துகள்"], a: 1, exp: "விளக்கம்: காற்றின் இயக்கத்தால் பிறப்பவை உயிர் எழுத்துகள் ஆகும்." },
+    { q: "47. உடலின் இயக்கத்தால் பிறக்கும் எழுத்துகள் எவை?", o: ["a) உயிர் எழுத்துகள்", "b) மெய்யெழுத்துகள்", "c) சுட்டெழுத்துகள்", "d) வினா எழுத்துகள்"], a: 1, exp: "விளக்கம்: உடலின் இயக்கத்தால் பிறப்பவை மெய்யெழுத்துகள் ஆகும்." },
+    { q: "48. தமிழ் எழுத்துக்களில் ஒற்றைக் குறில் மாத்திரை அளவு என்ன?", o: ["a) 1 மாத்திரை", "b) 2 மாத்திரை", "c) 1/2 மாத்திரை", "d) 0 மாத்திரை"], a: 0, exp: "விளக்கம்: குறில் எழுத்துகளுக்குரிய மாத்திரை அளவு 1 ஆகும்." },
+    { q: "49. தமிழ் எழுத்துக்களில் நெடில் எழுத்துகளுக்குரிய மாத்திரை அளவு என்ன?", o: ["a) 1", "b) 2", "c) 1.5", "d) 3"], a: 1, exp: "விளக்கம்: நெடில் எழுத்துகளுக்குரிய மாத்திரை அளவு 2 ஆகும்." },
+    { q: "50. 'அடி' மற்றும் 'ஆடி' சொற்களுக்கிடையேயான குறில் நெடில் மாற்றத்தைக் கண்டறிக:", o: ["a) அளவு / பொருத்துதல் – நடனம் செய்தல் / மாதம்", "b) காடு – மலை", "c) நீர் – நெருப்பு", "d) நிலம் – விசும்பு"], a: 0, exp: "விளக்கம்: அடி என்பது குறில் (தூர அளவு/பொருத்துதல்), ஆடி என்பது நெடில் (நடனம் செய்தல்/மாதம்) ஆகும்." }
+  ];
+
+  let currentQuestion = 0;
+  let userAnswers = new Array(questionsData.length).fill(null);
+  let isReviewMode = false;
+  let timerInterval;
+  let timeLeft = 45 * 60;
+
+  function initTest() {
+    buildGrid();
+    loadQuestion(0);
+    startTimer();
+  }
+
+  function buildGrid() {
+    const grid = document.getElementById('questionGrid');
+    grid.innerHTML = '';
+    questionsData.forEach((_, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'q-num-btn';
+      btn.innerText = idx + 1;
+      btn.id = `q_btn_${idx}`;
+      btn.onclick = () => jumpToQuestion(idx);
+      grid.appendChild(btn);
+    });
+    updateGridStatus();
+  }
+
+  function updateGridStatus() {
+    questionsData.forEach((_, idx) => {
+      const btn = document.getElementById(`q_btn_${idx}`);
+      if(!btn) return;
+      btn.className = 'q-num-btn';
+      if(idx === currentQuestion) {
+        btn.classList.add('active');
+      } else if(userAnswers[idx] !== null) {
+        btn.classList.add('answered');
+      }
+    });
+  }
+
+  function loadQuestion(idx) {
+    currentQuestion = idx;
+    const q = questionsData[idx];
+    document.getElementById('qTitle').innerText = q.q;
+    
+    const optsBox = document.getElementById('optionsBox');
+    optsBox.innerHTML = '';
+
+    q.o.forEach((optText, oIdx) => {
+      const card = document.createElement('div');
+      card.className = 'option-card';
+      
+      if(userAnswers[idx] === oIdx) {
+        card.classList.add('selected');
+      }
+
+      if(isReviewMode) {
+        if(oIdx === q.a) {
+          card.classList.add('correct-ans');
+        } else if(userAnswers[idx] === oIdx && oIdx !== q.a) {
+          card.classList.add('wrong-ans');
+        }
+      }
+
+      card.innerHTML = `<span><b>${String.fromCharCode(65 + oIdx)}.</b> ${optText}</span>`;
+      card.onclick = () => selectOption(oIdx);
+      optsBox.appendChild(card);
+    });
+
+    const expBox = document.getElementById('expBox');
+    if(isReviewMode) {
+      expBox.style.display = 'block';
+      expBox.innerText = q.exp;
+    } else {
+      expBox.style.display = 'none';
+    }
+
+    document.getElementById('prevBtn').style.display = idx === 0 ? 'none' : 'block';
+    document.getElementById('nextBtn').style.display = idx === questionsData.length - 1 ? 'none' : 'block';
+    updateGridStatus();
+  }
+
+  function selectOption(oIdx) {
+    if(isReviewMode) return;
+    userAnswers[currentQuestion] = oIdx;
+    loadQuestion(currentQuestion);
+  }
+
+  function clearChoice() {
+    if(isReviewMode) return;
+    userAnswers[currentQuestion] = null;
+    loadQuestion(currentQuestion);
+  }
+
+  function navigateNumberQuery(dir) {
+    const next = currentQuestion + dir;
+    if(next >= 0 && next < questionsData.length) {
+      loadQuestion(next);
+    }
+  }
+
+  function jumpToQuestion(idx) {
+    loadQuestion(idx);
+  }
+
+  function startTimer() {
+    if (timerInterval) clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+      timeLeft--;
+      let m = Math.floor(timeLeft / 60);
+      let s = timeLeft % 60;
+      const timerElem = document.getElementById('timerBox');
+      if(timerElem) {
+        timerElem.innerText = `⏱️ ${m}:${s < 10 ? '0' : ''}${s}`;
+      }
+      if(timeLeft <= 0) {
+        clearInterval(timerInterval);
+        submitTest();
+      }
+    }, 1000);
+  }
+
+  function submitTest() {
+    if (timerInterval) clearInterval(timerInterval);
+    document.getElementById('testView').style.display = 'none';
+    document.getElementById('resultView').style.display = 'block';
+
+    let correct = 0, wrong = 0, unans = 0;
+    userAnswers.forEach((ans, idx) => {
+      if(ans === null) unans++;
+      else if(ans === questionsData[idx].a) correct++;
+      else wrong++;
+    });
+
+    document.getElementById('scoreDisplay').innerText = `${correct} / ${questionsData.length}`;
+    let pct = ((correct / questionsData.length) * 100).toFixed(1);
+    document.getElementById('percentageDisplay').innerText = `சதவீதம்: ${pct}%`;
+    document.getElementById('correctCnt').innerText = correct;
+    document.getElementById('wrongCnt').innerText = wrong;
+    document.getElementById('unansCnt').innerText = unans;
+  }
+
+  function reviewAnswerKey() {
+    isReviewMode = true;
+    document.getElementById('resultView').style.display = 'none';
+    document.getElementById('testView').style.display = 'block';
+    document.getElementById('finalSubmitBtn').style.display = 'none';
+    document.getElementById('backToResultBtn').style.display = 'block';
+    document.getElementById('dashFromKeyBtn').style.display = 'block';
+    loadQuestion(0);
+  }
+
+  function returnToResult() {
+    document.getElementById('testView').style.display = 'none';
+    document.getElementById('resultView').style.display = 'block';
+  }
+
+  function returnToDashboard() {
+    window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html"); 
+  }
+
+  function exitPortal() {
+    window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html");
+  }
+
+  function retakeTest() {
+    userAnswers = new Array(questionsData.length).fill(null);
+    isReviewMode = false;
+    timeLeft = 45 * 60;
+    document.getElementById('resultView').style.display = 'none';
+    document.getElementById('testView').style.display = 'block';
+    document.getElementById('finalSubmitBtn').style.display = 'inline-block';
+    document.getElementById('backToResultBtn').style.display = 'none';
+    document.getElementById('dashFromKeyBtn').style.display = 'none';
+    initTest();
+  }
+
+  window.onload = function() {
+    initTest();
+  }
+</script>
+
+</body>
+</html>
