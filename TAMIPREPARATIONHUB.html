@@ -3232,87 +3232,110 @@ body.mode-light .tph-exam-hub{background:radial-gradient(ellipse at 0% 0%,rgba(1
   </div>
 </section>
 <script id="tph-test-panel-actions">
-// Separate Apps Script endpoint for TEST PANEL only. Existing AI URL is untouched.
-const TPH_TEST_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby_pCSrpD3V8uNC2LZc2GO-5sBEVB7T1_1b2YbTBlkfsYKWXGT8L4ItMwRajiq2kuOb/exec';
+// Mobile-safe TEST PANEL navigation. Preserve the existing Apps Script endpoint.
+const TPH_TEST_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz2i_vr9LzX5uzu_78sghGBXKwBjcp8aslOA3CVy5dcy0rGKuDlaqW7RtV6H_hkJ0-s/exec";
 
 function tphTestPanelSelect(button, label) {
-  document.querySelectorAll('#tphTestPanel .tph-test-panel-btn').forEach(function(btn){btn.classList.remove('active');});
+  document.querySelectorAll('#tphTestPanel .tph-test-panel-btn').forEach(function(btn) {
+    btn.classList.remove('active');
+  });
   button.classList.add('active');
   button.disabled = true;
 
-  // Open a tab immediately during the tap; mobile browsers may block
-  // window.open() when it is delayed until the JSONP callback returns.
-  var testWindow = null;
-  try { testWindow = window.open('about:blank', '_blank'); } catch (_) {}
-  if (testWindow) {
-    try { testWindow.document.title = 'Test link loading…'; } catch (_) {}
-  }
-
-  var callbackName = 'tphTestLink_' + Date.now() + '_' + Math.floor(Math.random() * 100000);
-  var script = document.createElement('script');
   var finished = false;
-  var callbackReceived = false;
-  var timeout = setTimeout(function(){
-    if (finished) return;
-    cleanup();
-    if (testWindow && !testWindow.closed) { try { testWindow.close(); } catch (_) {} }
-    alert('TEST PANEL CONNECTION TIMEOUT\n\nSubject: ' + label + '\n\nApps Script callback வரவில்லை. கீழே உள்ளவற்றைச் சரிபார்க்கவும்:\n1. HTML-ல் உள்ள TPH_TEST_SCRIPT_URL தற்போதைய Web App /exec URL தானா?\n2. Apps Script > Deploy > Manage deployments > Edit > New version > Deploy செய்தீர்களா?\n3. Who has access: Anyone என உள்ளதா?\n4. doGet(e) code-ல் callback parameter ஆதரவு உள்ளதா?');
-  }, 15000);
+  var jsonpScript = null;
+  var timeoutId = null;
+  var callbackName = 'tphTestLink_' + Date.now() + '_' + Math.floor(Math.random() * 100000);
 
-  function cleanup(){
-    finished = true;
-    clearTimeout(timeout);
+  function cleanup() {
+    if (timeoutId) clearTimeout(timeoutId);
     try { delete window[callbackName]; } catch (_) { window[callbackName] = undefined; }
-    script.remove();
+    if (jsonpScript && jsonpScript.parentNode) jsonpScript.parentNode.removeChild(jsonpScript);
     button.disabled = false;
   }
 
-  window[callbackName] = function(data){
+  function fail(message) {
     if (finished) return;
-    callbackReceived = true;
+    finished = true;
     cleanup();
+    alert('TEST PANEL ERROR\n\nSubject: ' + label + '\n\n' + message);
+  }
+
+  function handleResponse(data) {
+    if (finished) return;
     if (!data || data.success !== true || !data.url) {
-      if (testWindow && !testWindow.closed) { try { testWindow.close(); } catch (_) {} }
-      var reason = (data && (data.error || data.message)) || 'Apps Script வெற்றிகரமான URL-ஐத் திருப்பவில்லை.';
-      if (data && data.availableTabs && data.availableTabs.length) reason += '\n\nSheet tabs: ' + data.availableTabs.join(', ');
-      alert('TEST PANEL ERROR\n\nSubject: ' + label + '\n' + reason);
+      var reason = (data && (data.error || data.message)) || 'Apps Script valid test URL-ஐத் திருப்பவில்லை.';
+      if (data && data.availableTabs && data.availableTabs.length) {
+        reason += '\n\nSpreadsheet tabs: ' + data.availableTabs.join(', ');
+      }
+      fail(reason);
       return;
     }
-    if (!/^https:\/\//i.test(String(data.url).trim())) {
-      if (testWindow && !testWindow.closed) { try { testWindow.close(); } catch (_) {} }
-      alert('TEST PANEL ERROR\n\nஇந்த test link HTTPS URL இல்லை. Sheet-ல் ' + label + ' tab-இன் B1 cell-ஐச் சரிபார்க்கவும்.');
-      return;
-    }
+
     var targetUrl = String(data.url).trim();
-    if (testWindow && !testWindow.closed) {
-      try { testWindow.location.href = targetUrl; }
-      catch (_) { try { testWindow.close(); } catch (__) {} window.location.href = targetUrl; }
-    } else {
-      // Fallback if the browser refused the initial tab.
-      window.location.href = targetUrl;
+    if (!/^https:\/\/\S+$/i.test(targetUrl)) {
+      fail('Sheet-ல் ' + label + ' tab-இன் Column B-ல் HTTPS test URL இல்லை.');
+      return;
     }
+
+    finished = true;
+    cleanup();
+    window.location.assign(targetUrl);
+  }
+
+  // First try JSONP (works even when browser fetch CORS is unavailable).
+  window[callbackName] = handleResponse;
+  jsonpScript = document.createElement('script');
+  jsonpScript.async = true;
+  jsonpScript.onerror = function() {
+    if (finished) return;
+    // If JSONP is blocked by a redirect/browser policy, try a normal JSON fetch.
+    if (typeof fetch !== 'function') {
+      fail('Apps Script request blocked. Check the deployed /exec URL and Web App access = Anyone.');
+      return;
+    }
+
+    var url = TPH_TEST_SCRIPT_URL +
+      (TPH_TEST_SCRIPT_URL.indexOf('?') === -1 ? '?' : '&') +
+      'subject=' + encodeURIComponent(label) +
+      '&_=' + Date.now();
+
+    fetch(url, { method: 'GET', mode: 'cors', redirect: 'follow', cache: 'no-store' })
+      .then(function(response) {
+        if (!response.ok) throw new Error('HTTP ' + response.status);
+        return response.json();
+      })
+      .then(handleResponse)
+      .catch(function(err) {
+        fail('Apps Script URL-ஐ browser ஏற்ற முடியவில்லை (' +
+          (err && err.message ? err.message : 'network/CORS error') +
+          '). Deploy → Manage deployments-ல் Web app URL-ஐ மீண்டும் copy செய்து, Who has access = Anyone என்பதை உறுதிசெய்.');
+      });
   };
 
-  script.onerror = function(){
-    if (finished) return;
-    cleanup();
-    if (testWindow && !testWindow.closed) { try { testWindow.close(); } catch (_) {} }
-    alert('TEST PANEL SCRIPT LOAD FAILED\n\nApps Script URL திறக்கப்படவில்லை. TPH_TEST_SCRIPT_URL சரியான /exec URL தானா, deployment access Anyone-ஆக உள்ளதா என்பதைச் சரிபார்க்கவும்.');
-  };
-  // onload without callback usually means the deployed code is old or returned non-JSONP content.
-  script.onload = function(){
-    setTimeout(function(){
-      if (!finished && !callbackReceived) {
-        cleanup();
-        if (testWindow && !testWindow.closed) { try { testWindow.close(); } catch (_) {} }
-        alert('TEST PANEL RESPONSE INVALID\n\nApps Script load ஆனது; ஆனால் JSONP callback இயக்கப்படவில்லை. புதிய doGet(e) code-ஐ Web App-ல் New version ஆக redeploy செய்து, சரியான /exec URL-ஐ HTML-ல் வைக்கவும்.');
+  jsonpScript.onload = function() {
+    // A script can load successfully but fail to call the JSONP callback.
+    setTimeout(function() {
+      if (!finished) {
+        // Try plain JSON fetch as a fallback.
+        jsonpScript.onerror();
       }
     }, 1200);
   };
 
   var separator = TPH_TEST_SCRIPT_URL.indexOf('?') === -1 ? '?' : '&';
-  script.src = TPH_TEST_SCRIPT_URL + separator + 'subject=' + encodeURIComponent(label) + '&callback=' + encodeURIComponent(callbackName) + '&_=' + Date.now();
-  document.body.appendChild(script);
+  jsonpScript.src = TPH_TEST_SCRIPT_URL + separator +
+    'subject=' + encodeURIComponent(label) +
+    '&callback=' + encodeURIComponent(callbackName) +
+    '&_=' + Date.now();
+
+  timeoutId = setTimeout(function() {
+    if (!finished) {
+      fail('20 விநாடிகளுக்குள் Apps Script பதில் வரவில்லை. இணைய இணைப்பு, deployed /exec URL, மற்றும் access = Anyone என்பதைச் சரிபார்.');
+    }
+  }, 20000);
+
+  document.body.appendChild(jsonpScript);
 }
 </script>
 
