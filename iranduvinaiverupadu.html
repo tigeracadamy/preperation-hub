@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tiger Warriors - இரண்டு வினைச் சொற்களின் வேறுபாடு (10 Model Patterns) 50 வினாக்கள்</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; font-weight: bold; }
+    body { background: #080604; color: #f8fafc; padding: 12px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+    .card { width: 100%; max-width: 950px; background: #0f172a; border-radius: 14px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); border: 1px solid #334155; }
+    
+    .test-header { display: flex; justify-content: space-between; align-items: center; background: #1e293b; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; border: 1px solid #334155; }
+    .timer { font-size: 15px; font-weight: bold; color: #fbbf24; background: #091326; padding: 6px 12px; border-radius: 6px; border: 1px solid #fbbf24; box-shadow: inset 0 0 5px rgba(251, 191, 36, 0.2); }
+    
+    .q-grid { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 16px; max-height: 140px; overflow-y: auto; padding: 8px; background: #1e293b; border-radius: 8px; justify-content: center; }
+    .q-num-btn { width: 30px; height: 30px; border-radius: 5px; border: none; background: #334155; color: #fff; font-size: 10px; cursor: pointer; font-weight: bold; }
+    .q-num-btn.active { border: 2px solid #38bdf8; background: #0284c7; }
+    .q-num-btn.answered { background: #10b981; }
+
+    .q-box { background: #1e293b; padding: 18px; border-radius: 10px; margin-bottom: 16px; border: 1px solid #334155; }
+    .q-text { white-space: pre-line; line-height: 1.6; font-size: 15px; color: #f8fafc; }
+    
+    .option-card { background: #0f172a; border: 1px solid #334155; padding: 12px 16px; border-radius: 8px; margin-top: 10px; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: 0.2s; white-space: pre-line; line-height: 1.4; }
+    .option-card:hover { border-color: #38bdf8; background: #1e293b; }
+    .option-card.selected { border-color: #10b981; background: #064e3b; }
+    .option-card.correct-ans { border-color: #10b981; background: #065f46; font-weight: bold; }
+    .option-card.wrong-ans { border-color: #ef4444; background: #7f1d1d; }
+
+    .explanation-box { background: #091326; border: 1px solid #38bdf8; border-radius: 8px; padding: 12px; margin-top: 14px; font-size: 13px; color: #7dd3fc; line-height: 1.5; }
+    
+    .nav-btns { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+    .btn-action { background: #334155; color: #fff; border: none; padding: 10px 16px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 13px; text-align: center; }
+    .btn-action:hover { opacity: 0.9; }
+    .btn-blue { background: #2563eb; }
+    .btn-purple { background: #7c3aed; }
+    .btn-danger { background: #ef4444; }
+    .btn-green { background: #22c55e; }
+
+    .result-box { text-align: center; padding: 25px; background: #1e293b; border-radius: 16px; margin-top: 10px; border: 1px solid rgba(0, 242, 254, 0.3); display: flex; flex-direction: column; align-items: center; }
+    .score-circle { width: 130px; height: 130px; border-radius: 50%; background: conic-gradient(#10b981 0deg, #0f172a 0deg); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 15px auto; border: 4px solid #38bdf8; box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); }
+    .score-num { font-size: 30px; color: #f8fafc; font-weight: bold; }
+    
+    .result-stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; width: 100%; max-width: 400px; }
+    .stat-pill { background: #0f172a; border-radius: 12px; padding: 10px; border: 1px solid #334155; text-align: center; }
+    .stat-pill.gold { border-color: #fbbf24; }
+    .stat-pill.blue { border-color: #38bdf8; }
+    .stat-pill.red { border-color: #ef4444; }
+
+    .footer-badge { text-align: center; font-size: 11px; color: #38bdf8; margin-top: 15px; font-weight: bold; letter-spacing: 0.5px; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <script>
+      if (localStorage.getItem('tiger_auth_passed') !== 'true') {
+          alert("⚠ பாதுகாப்பு எச்சரிக்கை: நீங்கள் Tiger Warriors போர்ட்டலில் லாகின் செய்யவில்லை! முதலில் மெயின் போர்ட்டலில் லாகின் செய்யவும்.");
+          window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html"); 
+      }
+  </script>
+
+  <div id="testView">
+    <div class="test-header">
+      <div>
+        <h3 style="color: #38bdf8; font-size: 15px;">🐅 TIGER WARRIORS - இரண்டு வினைச் சொற்களின் வேறுபாடு (10 Patterns - 50 Q)</h3>
+        <span style="font-size: 11px; color: #94a3b8;">TNPSC / 2 / 2A / 4 • GENERAL TAMIL</span>
+      </div>
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <div class="timer" id="timerBox">⏱️ 45:00</div>
+        <button class="btn-action btn-purple" id="backToResultBtn" onclick="returnToResult()" style="display: none; padding: 6px 12px; font-size: 12px;">📊 ரிசல்ட் செல்</button>
+        <button class="btn-action btn-danger" id="dashFromKeyBtn" onclick="returnToDashboard()" style="display: none; padding: 6px 12px; font-size: 12px;">🏠 முகப்பு</button>
+      </div>
+    </div>
+
+    <div class="q-grid" id="questionGrid"></div>
+
+    <div class="q-box">
+      <div id="qTitle" class="q-text"></div>
+      <div id="optionsBox"></div>
+      <div id="expBox" class="explanation-box" style="display: none;"></div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn-action" id="prevBtn" onclick="navigateNumberQuery(-1)">⬅️ முந்தையது</button>
+      <button class="btn-action" id="clearBtn" onclick="clearChoice()">🧹 விடையை நீக்கு</button>
+      <button class="btn-action btn-blue" id="nextBtn" onclick="navigateNumberQuery(1)">அடுத்து ➡️</button>
+      <button class="btn-action btn-danger" id="finalSubmitBtn" onclick="submitTest()">✅ தேர்வைச் சமர்ப்பிக்க (Submit)</button>
+    </div>
+  </div>
+
+  <div id="resultView" style="display: none;">
+    <h2 style="color: #38bdf8; text-align: center; margin-bottom: 10px;">🏆 தேர்வு முடிவுகள் (Test Results) 🎯</h2>
+    <div class="result-box">
+      <div class="score-circle" id="scoreCircle">
+        <div class="score-num" id="scoreDisplay">0/50</div>
+        <span id="percentageDisplay" style="font-size: 11px; color: #fbbf24;">0%</span>
+      </div>
+
+      <div class="result-stats-grid">
+        <div class="stat-pill gold">
+          <h3 id="correctCnt" style="color: #10b981; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;">சரியானவை ✅</span>
+        </div>
+        <div class="stat-pill red">
+          <h3 id="wrongCnt" style="color: #ef4444; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;">தவறானவை ❌</span>
+        </div>
+        <div class="stat-pill blue">
+          <h3 id="unansCnt" style="color: #f59e0b; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;">விடையில்லை ⚠️</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
+      <button class="btn-action btn-blue" onclick="reviewAnswerKey()">🔍 விடை குறிப்பு (Answer Key)</button>
+      <button class="btn-action btn-purple" onclick="returnToDashboard()">🏠 முகப்புப் பக்கம்</button>
+      <button class="btn-action btn-green" onclick="retakeTest()">🔄 மீண்டும் தேர்வு</button>
+      <button class="btn-action btn-danger" onclick="exitPortal()">🚪 வெளியேறு</button>
+    </div>
+    <div class="footer-badge" style="margin-top: 20px;">🐅 டைகர் வாரியர் போர்டல் - இயக்குநர்: Dr. K. மணிகாசி 🐅</div>
+  </div>
+</div>
+
+<script>
+  const questionsData = [
+    // Model 1: Direct Single Fact Questions (1-5)
+    { q: "1. 'குவிந்து' மற்றும் 'குவித்து' ஆகிய வினைச் சொற்களில் 'குவிந்து' என்பதன் பொருள் என்ன?", o: ["தானாகக் குவிதல்", "ஒருவர் குவித்தல்", "பிரித்தல்", "அழித்தல்"], a: 0, exp: "விளக்கம்: 'குவிந்து' என்பது தானாகக் குவிவதைக் குறிக்கும்; 'குவித்து' என்பது ஒருவர் சேர்ப்பதைக் குறிக்கும்." },
+    { q: "2. 'நனைந்து' என்னும் சொல்லுக்குரிய சரியான பொருள் வேறுபாடு:", o: ["மழையில் நனைதல்", "ஒருவர் நனைத்தல்", "வெயிலில் காய்தல்", "துணியைத்லைத்தல்"], a: 0, exp: "விளக்கம்: 'நனைந்து' என்பது தானாக நனைவதைக் குறிக்கும்." },
+    { q: "3. 'மறைந்து' மற்றும் 'மறைத்து' என்பவற்றுள் 'மறைத்து' என்பதன் பொருள் யாது?", o: ["பொருளை ஒளித்து வைத்தல்", "தானாக மறைதல்", "வெளியில் வருதல்", "தெரிதல்"], a: 0, exp: "விளக்கம்: 'மறைத்து' என்பது ஒருவர் ஒரு பொருளை ஒளித்து வைப்பதைக் குறிக்கும்." },
+    { q: "4. 'உடைந்து' என்பதன் சரியான செயல் வடிவம்:", o: ["கண்ணாடி உடைதல்", "கல்லை உடைத்தல்", "மரத்தை வெட்டுதல்", "துணியைக் கிழித்தல்"], a: 0, exp: "விளக்கம்: 'உடைந்து' என்பது தானாக உடைவதைக் குறிக்கும்." },
+    { q: "5. 'அழிந்து' என்னும் வினைச்சொல் எதனைக் குறிக்கும்?", o: ["பழையன அழிதல்", "ஒருவர் சிதைத்தல்", "புதிதாக உருவாக்குதல்", "சேகரித்தல்"], a: 0, exp: "விளக்கம்: 'அழிந்து' என்பது இயல்பாக அழிவதைக் குறிக்கும்." },
+
+    // Model 2: Correct / Incorrect Pairs (6-10)
+    { q: "6. கீழ்க்கண்டவற்றுள் சரியான வினைச்சொல் இணை எது?\n- மடிந்து : துணி சுருளுதல்\n- மடித்து : துணியைச் சுருட்டுதல்\n- மேற்கண்ட இரண்டும் சரி", o: ["மேற்கண்ட இரண்டும் சரி", "மடிந்துமட்டும் சரி", "மடித்து மட்டும் சரி", "இரண்டும் தவறு"], a: 0, exp: "விளக்கம்: மடிந்து (தானாக), மடித்து (செய்து) - இரண்டும் சரியான இணைகளாகும்." },
+    { q: "7. தவறான இணைக் கண்டறிக:\n- ஒளிந்து - பயந்து ஒளிதல்\n- ஒளித்து - பொருளை மறைத்தல்\n- ஓய்ந்து - அலை ஓய்தல்\n- ஓய்த்து - ஓடுதல்", o: ["ஓய்ந்து - அலை ஓய்தல்", "ஓய்த்து - ஓடுதல்", "ஒளிந்து - பயந்து ஒளிதல்", "ஒளித்து - பொருளை மறைத்தல்"], a: 1, exp: "விளக்கம்: ஓய்த்து என்பது ஒன்றை ஓய்வடையச் செய்தலைக் குறிக்கும் (ஓடுதல் அல்ல)." },
+    { q: "8. சரியான இணையைத் தெரிவு செய்க:\n1. நிரம்பி - குளம் நிரம்புதல்\n2. நிரப்பி - குடத்தை நிரப்புதல்\n3. நிறைந்து - மனம் நிறைதல்", o: ["அனைத்தும் சரி", "1 மற்றும் 2 மட்டும்", "2 மற்றும் 3 மட்டும்", "1 மட்டும்"], a: 0, exp: "விளக்கம்: கொடுக்கப்பட்ட அனைத்து வினைச் சொற்களின் வேறுபாடுகளும் சரியானவையே." },
+    { q: "9. பொருந்தாத இணையைத் தேர்ந்தெடுக்க:\n- அடங்கி - அமைதியாக இருத்தல்\n- அடக்கி - விலங்கைக் கட்டுப்படுத்துதல்\n- குறைந்து - அளவு குறைதல்\n- குறைத்து - உயர்த்துதல்", o: ["குறைத்து - உயர்த்துதல்", "அடங்கி - அமைதியாக இருத்தல்", "அடக்கி - விலங்கைக் கட்டுப்படுத்துதல்", "குறைந்து - அளவு குறைதல்"], a: 0, exp: "விளக்கம்: குறைத்து என்பது குறைப்பதைக் குறிக்கும் (உயர்த்துதல் அல்ல)." },
+    { q: "10. சரியான இணை எது?\n- வளர்ந்து : செடி வளர்தல்\n- வளர்த்து : குழந்தையை வளர்த்தல்\n- உலர்ந்து : துணி உலர்தல்", o: ["மேற்கண்ட அனைத்தும் சரி", "1 மட்டும்", "2 மட்டும்", "3 மட்டும்"], a: 0, exp: "விளக்கம்: அனைத்து வினைச்சொல் வேறுபாடுகளும் சரியாகப் பொருத்தப்பட்டுள்ளன." },
+
+    // Model 3: Match the Following (11-15)
+    { q: "11. பொருத்துக:\n1. தணிந்து — அ. கோபம் தணிதல்\n2. தணித்து — ஆ. தாகத்தைத் தணித்தல்\n3. கரைந்து — இ. உப்பு கரைதல்\n4. கரைத்து — ஈ. மாவைக் கலக்குதல்", o: ["1-அ, 2-ஆ, 3-இ, 4-ஈ", "1-ஆ, 2-அ, 3-ஈ, 4-இ", "1-இ, 2-ஈ, 3-அ, 4-ஆ", "1-ஈ, 2-இ, 3-ஆ, 4-அ"], a: 0, exp: "விளக்கம்: தணிந்து, தணித்து, கரைந்து, கரைத்து சரியான பொருத்தங்கள்." },
+    { q: "12. பொருத்துக:\n1. கலந்து — அ. இரண்டும் இணைதல்\n2. கலக்கி — ஆ. நீரைக் குழப்புதல்\n3. சரிந்து — இ. மண் சரிதல்\n4. சரித்து — ஈ. மரத்தைச் சாய்த்தல்", o: ["1-அ, 2-ஆ, 3-இ, 4-ஈ", "1-ஆ, 2-அ, 3-ஈ, 4-இ", "1-இ, 2-ஈ, 3-அ, 4-ஆ", "1-ஈ, 2-இ, 3-ஆ, 4-அ"], a: 0, exp: "விளக்கம்: புணர்ச்சி மற்றும் செயல் சார்ந்த வினைப் பொருத்தங்கள்." },
+    { q: "13. பொருத்துக:\n1. திரிந்து — அ. பால் கெடுதல்\n2. திரித்து — ஆ. நூலைத் திரித்தல்\n3. முறிந்து — இ. சங்கிலி முறிதல்\n4. முறித்து — ஈ. எதிர்ப்பை நீக்குதல்", o: ["1-அ, 2-ஆ, 3-இ, 4-ஈ", "1-அ, 2-இ, 3-ஆ, 4-ஈ", "1-ஈ, 2-இ, 3-அ, 4-ஆ", "1-ஆ, 2-அ, 3-ஈ, 4-இ"], a: 0, exp: "விளக்கம்: திரிந்து, திரித்து, முறிந்து, முறித்து சரியான பொருத்தங்கள்." },
+    { q: "14. பொருத்துக:\n1. தெளிந்து — அ. மனம் தெளிதல்\n2. தெளித்து — ஆ. நீரைத் தெளித்தல்\n3. சுருங்கி — இ. துணி சுருங்குதல்\n4. சுருக்கி — ஈ. பேச்சைக் குறைத்தல்", o: ["1-அ, 2-ஆ, 3-இ, 4-ஈ", "1-ஆ, 2-அ, 3-ஈ, 4-இ", "1-இ, 2-ஈ, 3-அ, 4-ஆ", "1-ஈ, 2-இ, 3-ஆ, 4-அ"], a: 0, exp: "விளக்கம்: தெளிதல் மற்றும் சுருக்குதல் சார்ந்த வினைச் சொற்கள்." },
+    { q: "15. பொருத்துக:\n1. விரிந்து — அ. பரப்பு கூடுதல்\n2. விரித்து — ஆ. பாய் விரித்தல்\n3. குளிர்ந்து — இ. காற்று குளிர்தல்\n4. குளிர்த்தி — ஈ. மனம் குளிரச் செய்தல்", o: ["1-அ, 2-ஆ, 3-இ, 4-ஈ", "1-ஆ, 2-அ, 3-ஈ, 4-இ", "1-இ, 2-ஈ, 3-அ, 4-ஆ", "1-ஈ, 2-இ, 3-ஆ, 4-அ"], a: 0, exp: "விளக்கம்: விரிதல் மற்றும் குளிர்ச்சி சார்ந்த வினைச் சொற்களின் பொருத்தங்கள்." },
+
+    // Model 4: Multiple Statement / 4 Statements Model (16-20)
+    { q: "16. வினைச் சொற்களின் வேறுபாடுகள் குறித்த கூற்றுகள்:\nI. 'பரிந்து' என்பது அன்பு காட்டுதலைக் குறிக்கும்.\nII. 'பரித்து' என்பது பரிசு வழங்குதலைக் குறிக்கும்.\nIII. 'அவிழ்ந்து' என்பது முடி அவிழ்வதைக் குறிக்கும்.\nIV. 'அவிழ்த்து' என்பது கட்டை அவிழ்த்தலைக் குறிக்கும்.\nஎவை சரியானவை?", o: ["I, III மற்றும் IV சரி", "I, II மற்றும் III சரி", "II, III மற்றும் IV சரி", "அனைத்தும் சரி"], a: 0, exp: "விளக்கம்: 'பரித்து' என்பது பறித்தலைக் குறிக்கும் (பரிசு வழங்குதல் அல்ல). எனவே II தவறு; I, III, IV சரி." },
+    { q: "17. செயல் மற்றும் நிலை வினைச் சொற்கள்:\nI. 'பிணைந்து' என்பது ஒன்றோடு ஒன்று இணைவதாகும்.\nII. 'பிணைத்து' என்பது கயிற்றைக் கட்டுவதாகும்.\nIII. 'வளைந்து' என்பது வில் வளைவதாகும்.\nIV. 'வளைத்து' என்பது இரும்பை நேராக்குவதாகும்.\nஎவை தவறு?", o: ["IV மட்டும்", "I மற்றும் II", "III மட்டும்", "எதுவுமில்லை"], a: 0, exp: "விளக்கம்: வளைத்து என்பது இரும்பை வளைத்தலைக் குறிக்கும் (நேராக்குவது அல்ல). எனவே IV தவறு." },
+    { q: "18. இயக்கம் சார்ந்த வினைச் சொற்கள்:\nI. நிமிர்ந்து - நேராக நிற்றல்\nII. நிமிர்த்தி - சாய்ந்ததைச் சரி செய்தல்\nIII. தளர்ந்து - சோர்வடைதல்\nIV. தளர்த்தி - கட்டு அவிழ்த்தல்\nஎவை சரியானவை?", o: ["அனைத்தும் சரி", "I, II மற்றும் III மட்டும்", "II, III மற்றும் IV மட்டும்", "I மட்டும் சரி"], a: 0, exp: "விளக்கம்: கொடுக்கப்பட்ட அனைத்துக் கூற்றுகளும் சரியானவையே." },
+    { q: "19. உருளுதல் மற்றும் புரளுதல் சொற்கள்:\nI. உருண்டு - பந்து உருளுதல்\nII. உருட்டி - மாவை உருண்டையாக்குதல்\nIII. புரண்டு - நீர் புரளுதல்\nIV. புரட்டி - பக்கத்தைத் திருப்புதல்\nஎவை சரி?", o: ["அனைத்தும் சரி", "1 மட்டும்", "2 மற்றும் 3 மட்டும்", "எதுவுமில்லை"], a: 0, exp: "விளக்கம்: அனைத்து உருள் மற்றும் புரள் வினைச் சொற்களின் விளக்கங்களும் சரியானவை." },
+    { q: "20. உணர்ச்சி மற்றும் இயக்கம் சார்ந்த சொற்கள்:\nI. அதிர்ந்து - பூமி அதிர்வது\nII. அதிர்த்து - சத்தமிட்டு மிரட்டுவது\nIII. மலர்ந்து - பூ மலர்தல்\nIV. மலர்த்தி - முகத்தைப் பொலிவாக்குவது\nஎவை சரி?", o: ["அனைத்தும் சரி", "I மற்றும் II மட்டும்", "III மற்றும் IV மட்டும்", "I மட்டும் சரி"], a: 0, exp: "விளக்கம்: கொடுக்கப்பட்ட அனைத்து வினைகளின் வேறுபாடுகளும் சரியானவையே." },
+
+    // Model 5: Assertion & Reason (A & R Model) (21-25)
+    { q: "21. கூற்று (A): 'குவிந்து' மற்றும் 'குவித்து' ஆகிய சொற்கள் தானாக நிகழும் செயலுக்கும் பிறர் செய்யும் செயலுக்கும் உள்ள வேறுாட்டைக் காட்டுகின்றன.\nகாரணம் (R): தமிழில் 'து' விகுதி தன்வினையையும், 'த்து' விகுதி பிறவினையையும் குறிக்கும் இயல்புடையது.", o: ["(A) மற்றும் (R) இரண்டும் சரி; (R) என்பது (A)-க்கான சரியான விளக்கம்.", "(A) மற்றும் (R) இரண்டும் சரி; விளக்கமல்ல.", "(A) சரி, (R) தவறு.", "(A) தவறு, (R) சரி."], a: 0, exp: "விளக்கம்: தன்வினை மற்றும் பிறவினை வேறுபாட்டிற்கான சரியான இலக்கண விளக்கம்." },
+    { q: "22. கூற்று (A): 'நனைந்து' என்பது பிறவினைச் செயலாகும்.\nகாரணம் (R): இது ஒருவர் மற்றவரை நனைப்பதைக் குறிக்கும்.", o: ["(A) தவறு, (R) தவறு", "(A) சரி, (R) தவறு", "(A) தவறு, (R) சரி", "இரண்டும் சரி"], a: 0, exp: "விளக்கம்: நனைந்து என்பது தன்வினை (தானாக நனைவது). எனவே கூற்றும் காரணமும் தவறு." },
+    { q: "23. கூற்று (A): 'மறைந்து' மற்றும் 'மறைத்து' என்பவற்றில் எழுத்து மாற்றத்தால் பொருள் வேறுபடுகிறது.\nகாரணம் (R): ஒற்று மிகுவதும் குறுகுவதும் வினைச் சொற்களின் தன்மையை மாற்றும்.", o: ["(A) மற்றும் (R) இரண்டும் சரி; (R) சரியான விளக்கம்.", "இரண்டும் தவறு", "(A) சரி, (R) தவறு", "(A) தவறு, (R) சரி"], a: 0, exp: "விளக்கம்: சொற்களின் பொருள் மாறுபாட்டிற்கான சரியான கூற்றும் காரணமும் ஆகும்." },
+    { q: "24. கூற்று (A): 'கரைந்து' என்பது உப்புக் கரைவதைக் குறிக்கும்.\nகாரணம் (R): உப்பு நீரில் தானாகக் கரைவது தன்வினையாகும்.", o: ["(A) மற்றும் (R) இரண்டும் சரி; (R) சரியான விளக்கம்.", "(A) தவறு, (R) சரி", "இரண்டும் சரி", "இரண்டும் தவறு"], a: 0, exp: "விளக்கம்: உப்பு கரைதல் என்பது தன்வினைப் புணர்ச்சி விதியாகும்." },
+    { q: "25. கூற்று (A): இரண்டு வினைச் சொற்களின் வேறுபாடுகளை அறிவது போட்டித் தேர்வுகளில் மதிப்பெண் பெற உதவும்.\nகாரணம் (R): குழப்பமான சொற்களைத் தெளிவாகப் புரிந்து கொள்ள இது பயன்படுகிறது.", o: ["(A) மற்றும் (R) இரண்டும் சரி; (R) சரியான விளக்கம்.", "இரண்டும் சரி, விளக்கமல்ல", "(A) சரி, (R) தவறு", "இரண்டும் தவறு"], a: 0, exp: "விளக்கம்: தேர்வுக்கு உதவும் நோக்கத்திற்கான சரியான விளக்கம்." },
+
+    // Model 6: Chronological / Analytical Order Model (26-30)
+    { q: "26. செயல்களின் வரிசைமுறை:\n1. குவிந்து / நனைந்து\n2. குவித்து / நனைத்து\n3. அதற்கான பொருள் வேறுபாட்டை அறிதல்", o: ["1, 2, 3", "3, 2, 1", "2, 1, 3", "1, 3, 2"], a: 0, exp: "விளக்கம்: தன்வினை, பிறவினை சொற்களை வரிசைப்படுத்தும் முறை." },
+    { q: "27. தாவர வளர்ச்சி சார்ந்த வினைச் சொற்களின் வரிசை:\n1. முளைத்தல்\n2. வளர்ந்து\n3. வளர்த்து (பராமரித்தல்)", o: ["1, 2, 3", "3, 2, 1", "2, 1, 3", "1, 3, 2"], a: 0, exp: "விளக்கம்: செடியின் வளர்ச்சி மற்றும் பராமரிப்பு முறை." },
+    { q: "28. சமையல் செயல் முறையின் வினை வரிசை:\n1.கரைந்து / கலக்கப்படுதல்\n2. கொதித்தல்\n3. இறக்குதல்", o: ["1, 2, 3", "3, 2, 1", "2, 1, 3", "1, 3, 2"], a: 0, exp: "விளக்கம்: சமையலில் உணவுப் பொருட்கள் கலக்கும் முறை." },
+    { q: "29. இயக்கம் சார்ந்த செயல்களின் வரிசை:\n1. நினிமிர்ந்து\n2. நடந்து\n3. ஓடி", o: ["1, 2, 3", "3, 2, 1", "2, 1, 3", "1, 3, 2"], a: 0, exp: "விளக்கம்: உடல் அசைவியக்கத்தின் வரிசை." },
+    { q: "30. எழுத்து மற்றும் பொருள் வேறுபாட்டைக் கண்டறியும் முறை:\n1. சொல்லைக் கவனித்தல்\n2. தன்வினை / பிறவினை பிரித்தல்\n3. சரியான பொருளைத் தேர்ந்தெடுத்தல்", o: ["1, 2, 3", "3, 2, 1", "2, 1, 3", "1, 3, 2"], a: 0, exp: "விளக்கம்: வினைச் சொற்களைப் பகுத்தாயும் முறை." },
+
+    // Model 7: Odd One Out Model (31-35)
+    { q: "31. பொருந்தாத வினைச்சொல்லைத் தேர்ந்தெடுக்க:\n- குவிந்து\n- நனைந்து\n- குவித்து\n- மறைந்து", o: ["குவித்து", "குவிந்து", "நனைந்து", "மறைந்து"], a: 0, exp: "விளக்கம்: 'குவித்து' என்பது பிறவினை; மற்ற மூன்றும் தன்வினைகள் ஆகும்." },
+    { q: "32. பொருந்தாத சொலைக் கண்டறிக:\n- நனைத்து\n- மறைத்து\n- உடைத்து\n- மடிந்து", o: ["மடிந்து", "நனைத்து", "மறைத்து", "உடைத்து"], a: 0, exp: "விளக்கம்: 'மடிந்து' தன்வினை; மற்றவை பிறவினைகள்." },
+    { q: "33. வகைக்குப் பொருந்தாத ஒன்றைத் தேர்ந்தெடுக்க:\n- பந்து உருண்டது\n- மாவை உருட்டினான்\n- நீர் புரண்டது\n- மரம் சரிந்தது", o: ["மாாவை உருட்டினான்", "பந்து உருண்டது", "நீர் புரண்டது", "மரம் சரிந்தது"], a: 0, exp: "விளக்கம்: உருட்டினான் என்பது பிறவினை; மற்றவை தன்வினைகள்." },
+    { q: "34. பொருந்தாத வினைச் சொல்லைத் தேர்ந்தெடுக்க:\n- சிரித்து\n- அழுது\n- மலர்த்தி\n- அதிர்த்து", o: ["அழுது", "சிரித்து", "மலர்த்தி", "அதிர்த்து"], a: 0, exp: "விளக்கம்: அழுது என்பது தன்வினை; மற்றவை பிறவினைகள்." },
+    { q: "35. பொருந்தாததை நீக்குக:\n- காய்ந்து\n- உலர்ந்து\n- உலர்த்தி\n- தணிந்து", o: ["உலர்த்தி", "காய்ந்து", "உலர்ந்து", "தணிந்து"], a: 0, exp: "விளக்கம்: உலர்த்தி என்பது பிறவினை; மற்றவை தன்வினைகள்." },
+
+    // Model 8: Fill in the Blanks / Sentence Completion (36-40)
+    { q: "36. 'மழை பெய்து துணிகள் __________' - பொருத்தமான வினைச்சொல்:", o: ["உலர்ந்தன", "உலர்த்தின", "காய்ந்தன", "அழிந்தன"], a: 0, exp: "விளக்கம்: துணிகள் தானாக உலர்ந்தன (தன்வினை)." },
+    { q: "37. 'தாய் குழந்தைக்குத் துணியை __________' - பொருத்தமான சொல்:", o: ["உலர்த்தினாள்", "உலர்ந்தாள்", "மடிந்தாள்", "அமைந்தாள்"], a: 0, exp: "விளக்கம்: தாய் துணியை உலர்த்தினாள் (பிறவினை)." },
+    { q: "38. 'கோபம் __________' - பொருத்தமான சொல்:", o: ["தணிந்தது", "தணித்தது", "மலர்ந்தது", "உருண்டது"], a: 0, exp: "விளக்கம்: கோபம் தானாகத் தணிந்தது." },
+    { q: "39. 'அவன் தன் கைகளால் கல்லை __________' - பொருத்தமான வினை:", o: ["உடைத்தான்", "உடைந்தது", "மறைந்தது", "சரிந்தது"], a: 0, exp: "விளக்கம்: கல்லை உடைத்தான் என்பது பிறவினைச் செயலாகும்." },
+    { q: "40. 'பூக்கள் காற்றில் __________' - பொருத்தமான சொல்:", o: ["அசைந்தன", "அசைத்தன", "குவிந்தன", "நனைந்தன"], a: 0, exp: "விளக்கம்: பூக்கள் காற்றில் தானாக அசைந்தன." },
+
+    // Model 9: Matching Codes / Combination Code Model (41-45)
+    { q: "41. தன்வினைச் சொற்களைக் கொண்ட தொகுதியைத் தேர்ந்தெடுக்க:\n1. குவிந்து\n2. நனைந்து\n3. மறைந்து\nகுறியீடு:", o: ["1, 2 மற்றும் 3 சரி", "1 மற்றும் 2 மட்டும்", "2 மற்றும் 3 மட்டும்", "1 மட்டும்"], a: 0, exp: "விளக்கம்: மூன்று சொற்களுமே தன்வினையைக் குறிக்கின்றன." },
+    { q: "42. பிறவினைச் சொற்களைத் தேர்ந்தெடு:\n1. குவித்து\n2. நனைத்து\n3. மறைத்து\nகுறியீடு:", o: ["அனைத்தும் சரி", "1 மற்றும் 2 மட்டும்", "2 மற்றும் 3 மட்டும்", "1 மட்டும்"], a: 0, exp: "விளக்கம்: மூன்று சொற்களுமே பிறவினையைக் குறிக்கின்றன." },
+    { q: "43. இயக்கம் சார்ந்த சரியான இணைகள்:\n1. உருண்டு - உருட்டி\n2. புரண்டு - புரட்டி\n3. சுழன்று - சுழற்றி\nகுறியீடு:", o: ["1, 2 மற்றும் 3 சரி", "1 மட்டும்", "2 மற்றும் 3 மட்டும்", "எதுவுமில்லை"], a: 0, exp: "விளக்கம்: இயக்கச் சொற்களின் தன்வினை, பிறவினை இணைகள் சரியானவை." },
+    { q: "44. உணர்ச்சி சார்ந்த சொற்கள்:\n1. அதிர்ந்து - அதிர்த்து\n2. மலர்ந்து - மலர்த்தி\n3. சிரித்து - சிரிக்க வைத்து\nகுறியீடு:", o: ["அனைத்தும் சரி", "1 மற்றும் 2 மட்டும்", "2 மற்றும் 3 மட்டும்", "1 மட்டும்"], a: 0, exp: "விளக்கம்: அனைத்து உணர்ச்சிச் சொற்களும் சரியாகப் பொருத்தப்பட்டுள்ளன." },
+    { q: "45. சரியான வினைச் சொற்கள்:\n1. தணிந்து - தணித்து\n2. கரைந்து - கரைத்து\n3. திரிந்து - திரித்து\nகுறியீடு:", o: ["அனைத்தும் சரி", "1 மற்றும் 2 மட்டும்", "2 மற்றும் 3 மட்டும்", "1 மட்டும்"], a: 0, exp: "விளக்கம்: அனைத்து வினைச் சொற்களும் சரியான வேறுபாடுகளுடன் உள்ளன." },
+
+    // Model 10: Comparative Statement / Analytical Model (46-50)
+    { q: "46. பத்தியை ஆராய்ந்து விடையளி:\n'மழை பெய்து குளம் நிரம்பியது; விவசாயி குடத்தால் நீரை நிரப்பினான்.'\nஇத்தொடரில் வந்துள்ள 'நிரம்பியது' மற்றும் 'நிரப்பினான்' என்பவற்றின் இலக்கண வேறுபாடு என்ன?", o: ["நிரம்பியது தன்வினை; நிரப்பினான் பிறவினை ஆகும்.", "இரண்டும் தன்வினை", "இரண்டும் பிறவினை", "வேறுபாடு இல்லை"], a: 0, exp: "விளக்கம்: தானாக நிகழ்வது தன்வினை, ஒருவர் செய்வது பிறவினை." },
+    { q: "47. ஒப்பிட்டாய்வுக் கேள்வி:\n'மடிந்து' மற்றும் 'மடித்து' ஆகிய சொற்களுக்கு இடையேயான முக்கிய வேறுபாடு:", o: ["மடிந்து என்பது தானாகச் சுருளுவது; மடித்து என்பது ஒருவர் சுருட்டுவது.", "இரண்டும் ஒன்றுதான்", "மடிந்து என்பது பிறவினை", "மடித்து என்பது தன்வினை"], a: 0, exp: "விளக்கம்: தன்வினை மற்றும் பிறவினைக்கான தெளிவான விளக்கம்." },
+    { q: "48. பத்தியை ஆராய்ந்து விடையளி:\n'மரம் காற்றில் முறிந்தது; ஆனால் வேலன் அந்த மரக் கிளையை முறித்தான்.'\nஇங்கு வந்துள்ள சொற்களின் செயல் வடிவம்:", o: ["முறிந்தது தன்வினை; முறித்தான் பிறவினை.", "முறிந்தது பிறவினை; முறித்தான் தன்வினை", "இரண்டும் தன்வினை", "இரண்டும் பிறவினை"], a: 0, exp: "விளக்கம்: முறிந்தது தன்வினை, முறித்தான் பிறவினை ஆகும்." },
+    { q: "49. இலக்கண ஒப்பீடு:\n'தண்ணீர் கரைந்தது' மற்றும் 'அவன் உப்புக் கரைத்தான்' - இவற்றின் தன்மைகள்:", o: ["கரைந்தது தன்வினை; கரைத்தான் பிறவினை.", "இரண்டும் பிறவினை", "இரண்டும் தன்வினை", "தவறான தொடர்கள்"], a: 0, exp: "விளக்கம்: தன்வினை மற்றும் பிறவினைக் মধ্যকার ஒப்பீட்டுச் சரியான விளக்கம்." },
+    { q: "50. இறுதி ஆய்வு வினா:\nஇரண்டு வினைச் சொற்களின் (தன்வினை - பிறவினை) வேறுபாடுகளைத் தெளிவாக அறிந்துகொள்வதன் பயன் என்ன?", o: ["வாக்கியங்களில் ஏற்படும் பிழைகளைத் தவிர்த்து சரியான விடையைத் தேர்ந்தெடுக்கலாம்.", "நேரம் வீணாகும்", "பயன் இல்லை", "குழப்பம் அதிகமாகும்"], a: 0, exp: "விளக்கம்: தேர்வில் முழு மதிப்பெண் பெற இது மிகவும் அவசியமான பயிற்சியாகும்." }
+  ];
+
+  let currentQuestion = 0;
+  let userAnswers = new Array(questionsData.length).fill(null);
+  let isReviewMode = false;
+  let timerInterval;
+  let timeLeft = 45 * 60;
+
+  function initTest() {
+    buildGrid();
+    loadQuestion(0);
+    startTimer();
+  }
+
+  function buildGrid() {
+    const grid = document.getElementById('questionGrid');
+    grid.innerHTML = '';
+    questionsData.forEach((_, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'q-num-btn';
+      btn.innerText = idx + 1;
+      btn.id = `q_btn_${idx}`;
+      btn.onclick = () => jumpToQuestion(idx);
+      grid.appendChild(btn);
+    });
+    updateGridStatus();
+  }
+
+  function updateGridStatus() {
+    questionsData.forEach((_, idx) => {
+      const btn = document.getElementById(`q_btn_${idx}`);
+      if(!btn) return;
+      btn.className = 'q-num-btn';
+      if(idx === currentQuestion) {
+        btn.classList.add('active');
+      } else if(userAnswers[idx] !== null) {
+        btn.classList.add('answered');
+      }
+    });
+  }
+
+  function loadQuestion(idx) {
+    currentQuestion = idx;
+    const q = questionsData[idx];
+    document.getElementById('qTitle').innerText = q.q;
+    
+    const optsBox = document.getElementById('optionsBox');
+    optsBox.innerHTML = '';
+
+    q.o.forEach((optText, oIdx) => {
+      const card = document.createElement('div');
+      card.className = 'option-card';
+      
+      if(userAnswers[idx] === oIdx) {
+        card.classList.add('selected');
+      }
+
+      if(isReviewMode) {
+        if(oIdx === q.a) {
+          card.classList.add('correct-ans');
+        } else if(userAnswers[idx] === oIdx && oIdx !== q.a) {
+          card.classList.add('wrong-ans');
+        }
+      }
+
+      card.innerHTML = `<span><b>${String.fromCharCode(65 + oIdx)}.</b> ${optText}</span>`;
+      card.onclick = () => selectOption(oIdx);
+      optsBox.appendChild(card);
+    });
+
+    const expBox = document.getElementById('expBox');
+    if(isReviewMode) {
+      expBox.style.display = 'block';
+      expBox.innerText = q.exp;
+    } else {
+      expBox.style.display = 'none';
+    }
+
+    document.getElementById('prevBtn').style.display = idx === 0 ? 'none' : 'block';
+    document.getElementById('nextBtn').style.display = idx === questionsData.length - 1 ? 'none' : 'block';
+    updateGridStatus();
+  }
+
+  function selectOption(oIdx) {
+    if(isReviewMode) return;
+    userAnswers[currentQuestion] = oIdx;
+    loadQuestion(currentQuestion);
+  }
+
+  function clearChoice() {
+    if(isReviewMode) return;
+    userAnswers[currentQuestion] = null;
+    loadQuestion(currentQuestion);
+  }
+
+  function navigateNumberQuery(dir) {
+    const next = currentQuestion + dir;
+    if(next >= 0 && next < questionsData.length) {
+      loadQuestion(next);
+    }
+  }
+
+  function jumpToQuestion(idx) {
+    loadQuestion(idx);
+  }
+
+  function startTimer() {
+    if (timerInterval) clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+      timeLeft--;
+      let m = Math.floor(timeLeft / 60);
+      let s = timeLeft % 60;
+      const timerElem = document.getElementById('timerBox');
+      if(timerElem) {
+        timerElem.innerText = `⏱️ ${m}:${s < 10 ? '0' : ''}${s}`;
+      }
+      if(timeLeft <= 0) {
+        clearInterval(timerInterval);
+        submitTest();
+      }
+    }, 1000);
+  }
+
+  function submitTest() {
+    if (timerInterval) clearInterval(timerInterval);
+    document.getElementById('testView').style.display = 'none';
+    document.getElementById('resultView').style.display = 'block';
+
+    let correct = 0, wrong = 0, unans = 0;
+    userAnswers.forEach((ans, idx) => {
+      if(ans === null) unans++;
+      else if(ans === questionsData[idx].a) correct++;
+      else wrong++;
+    });
+
+    document.getElementById('scoreDisplay').innerText = `${correct} / ${questionsData.length}`;
+    let pct = ((correct / questionsData.length) * 100).toFixed(1);
+    document.getElementById('percentageDisplay').innerText = `சதவீதம்: ${pct}%`;
+    document.getElementById('correctCnt').innerText = correct;
+    document.getElementById('wrongCnt').innerText = wrong;
+    document.getElementById('unansCnt').innerText = unans;
+  }
+
+  function reviewAnswerKey() {
+    isReviewMode = true;
+    document.getElementById('resultView').style.display = 'none';
+    document.getElementById('testView').style.display = 'block';
+    document.getElementById('finalSubmitBtn').style.display = 'none';
+    document.getElementById('backToResultBtn').style.display = 'block';
+    document.getElementById('dashFromKeyBtn').style.display = 'block';
+    loadQuestion(0);
+  }
+
+  function returnToResult() {
+    document.getElementById('testView').style.display = 'none';
+    document.getElementById('resultView').style.display = 'block';
+  }
+
+  function returnToDashboard() {
+    window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html"); 
+  }
+
+  function exitPortal() {
+    window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html");
+  }
+
+  function retakeTest() {
+    userAnswers = new Array(questionsData.length).fill(null);
+    isReviewMode = false;
+    timeLeft = 45 * 60;
+    document.getElementById('resultView').style.display = 'none';
+    document.getElementById('testView').style.display = 'block';
+    document.getElementById('finalSubmitBtn').style.display = 'inline-block';
+    document.getElementById('backToResultBtn').style.display = 'none';
+    document.getElementById('dashFromKeyBtn').style.display = 'none';
+    initTest();
+  }
+
+  window.onload = function() {
+    initTest();
+  }
+</script>
+
+</body>
+</html>
