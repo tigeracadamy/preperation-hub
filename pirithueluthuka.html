@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tiger Warriors - பிரித்து எழுதுக 50 வினாக்கள்</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; font-weight: bold; }
+    body { background: #080604; color: #f8fafc; padding: 12px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+    .card { width: 100%; max-width: 950px; background: #0f172a; border-radius: 14px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); border: 1px solid #334155; }
+    
+    .test-header { display: flex; justify-content: space-between; align-items: center; background: #1e293b; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; border: 1px solid #334155; }
+    .timer { font-size: 15px; font-weight: bold; color: #fbbf24; background: #091326; padding: 6px 12px; border-radius: 6px; border: 1px solid #fbbf24; box-shadow: inset 0 0 5px rgba(251, 191, 36, 0.2); }
+    
+    .q-grid { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 16px; max-height: 140px; overflow-y: auto; padding: 8px; background: #1e293b; border-radius: 8px; justify-content: center; }
+    .q-num-btn { width: 30px; height: 30px; border-radius: 5px; border: none; background: #334155; color: #fff; font-size: 10px; cursor: pointer; font-weight: bold; }
+    .q-num-btn.active { border: 2px solid #38bdf8; background: #0284c7; }
+    .q-num-btn.answered { background: #10b981; }
+
+    .q-box { background: #1e293b; padding: 18px; border-radius: 10px; margin-bottom: 16px; border: 1px solid #334155; }
+    .q-text { white-space: pre-line; line-height: 1.6; font-size: 15px; color: #f8fafc; }
+    
+    .option-card { background: #0f172a; border: 1px solid #334155; padding: 12px 16px; border-radius: 8px; margin-top: 10px; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: 0.2s; white-space: pre-line; line-height: 1.4; }
+    .option-card:hover { border-color: #38bdf8; background: #1e293b; }
+    .option-card.selected { border-color: #10b981; background: #064e3b; }
+    .option-card.correct-ans { border-color: #10b981; background: #065f46; font-weight: bold; }
+    .option-card.wrong-ans { border-color: #ef4444; background: #7f1d1d; }
+
+    .explanation-box { background: #091326; border: 1px solid #38bdf8; border-radius: 8px; padding: 12px; margin-top: 14px; font-size: 13px; color: #7dd3fc; line-height: 1.5; }
+    
+    .nav-btns { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+    .btn-action { background: #334155; color: #fff; border: none; padding: 10px 16px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 13px; text-align: center; }
+    .btn-action:hover { opacity: 0.9; }
+    .btn-blue { background: #2563eb; }
+    .btn-purple { background: #7c3aed; }
+    .btn-danger { background: #ef4444; }
+    .btn-green { background: #22c55e; }
+
+    .result-box { text-align: center; padding: 25px; background: #1e293b; border-radius: 16px; margin-top: 10px; border: 1px solid rgba(0, 242, 254, 0.3); display: flex; flex-direction: column; align-items: center; }
+    .score-circle { width: 130px; height: 130px; border-radius: 50%; background: conic-gradient(#10b981 0deg, #0f172a 0deg); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 15px auto; border: 4px solid #38bdf8; box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); }
+    .score-num { font-size: 30px; color: #f8fafc; font-weight: bold; }
+    
+    .result-stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; width: 100%; max-width: 400px; }
+    .stat-pill { background: #0f172a; border-radius: 12px; padding: 10px; border: 1px solid #334155; text-align: center; }
+    .stat-pill.gold { border-color: #fbbf24; }
+    .stat-pill.blue { border-color: #38bdf8; }
+    .stat-pill.red { border-color: #ef4444; }
+
+    .footer-badge { text-align: center; font-size: 11px; color: #38bdf8; margin-top: 15px; font-weight: bold; letter-spacing: 0.5px; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <script>
+      if (localStorage.getItem('tiger_auth_passed') !== 'true') {
+          alert("⚠ பாதுகாப்பு எச்சரிக்கை: நீங்கள் Tiger Warriors போர்ட்டலில் லாகின் செய்யவில்லை! முதலில் மெயின் போர்ட்டலில் லாகின் செய்யவும்.");
+          window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html"); 
+      }
+  </script>
+
+  <div id="testView">
+    <div class="test-header">
+      <div>
+        <h3 style="color: #38bdf8; font-size: 15px;">🐅 TIGER WARRIORS - பிரித்து எழுதுக (50 வினாக்கள்)</h3>
+        <span style="font-size: 11px; color: #94a3b8;">TNPSC / 2 / 2A / 4 • TAMIL GRAMMAR</span>
+      </div>
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <div class="timer" id="timerBox">⏱️ 45:00</div>
+        <button class="btn-action btn-purple" id="backToResultBtn" onclick="returnToResult()" style="display: none; padding: 6px 12px; font-size: 12px;">📊 ரிசல்ட் செல்</button>
+        <button class="btn-action btn-danger" id="dashFromKeyBtn" onclick="returnToDashboard()" style="display: none; padding: 6px 12px; font-size: 12px;">🏠 முகப்பு</button>
+      </div>
+    </div>
+
+    <div class="q-grid" id="questionGrid"></div>
+
+    <div class="q-box">
+      <div id="qTitle" class="q-text"></div>
+      <div id="optionsBox"></div>
+      <div id="expBox" class="explanation-box" style="display: none;"></div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn-action" id="prevBtn" onclick="navigateNumberQuery(-1)">⬅️ முந்தையது</button>
+      <button class="btn-action" id="clearBtn" onclick="clearChoice()">🧹 விடையை நீக்கு</button>
+      <button class="btn-action btn-blue" id="nextBtn" onclick="navigateNumberQuery(1)">அடுத்து ➡️</button>
+      <button class="btn-action btn-danger" id="finalSubmitBtn" onclick="submitTest()">✅ தேர்வைச் சமர்ப்பிக்க (Submit)</button>
+    </div>
+  </div>
+
+  <div id="resultView" style="display: none;">
+    <h2 style="color: #38bdf8; text-align: center; margin-bottom: 10px;">🏆 தேர்வு முடிவுகள் (Test Results) 🎯</h2>
+    <div class="result-box">
+      <div class="score-circle" id="scoreCircle">
+        <div class="score-num" id="scoreDisplay">0/50</div>
+        <span id="percentageDisplay" style="font-size: 11px; color: #fbbf24;">0%</span>
+      </div>
+
+      <div class="result-stats-grid">
+        <div class="stat-pill gold">
+          <h3 id="correctCnt" style="color: #10b981; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;">சரியானவை ✅</span>
+        </div>
+        <div class="stat-pill red">
+          <h3 id="wrongCnt" style="color: #ef4444; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;">தவறானவை ❌</span>
+        </div>
+        <div class="stat-pill blue">
+          <h3 id="unansCnt" style="color: #f59e0b; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;">விடையில்லை ⚠️</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
+      <button class="btn-action btn-blue" onclick="reviewAnswerKey()">🔍 விடை குறிப்பு (Answer Key)</button>
+      <button class="btn-action btn-purple" onclick="returnToDashboard()">🏠 முகப்புப் பக்கம்</button>
+      <button class="btn-action btn-green" onclick="retakeTest()">🔄 மீண்டும் தேர்வு</button>
+      <button class="btn-action btn-danger" onclick="exitPortal()">🚪 வெளியேறு</button>
+    </div>
+    <div class="footer-badge" style="margin-top: 20px;">🐅 டைகர் வாரியர் போர்டல் - இயக்குநர்: Dr. K. மணிகாசி 🐅</div>
+  </div>
+</div>
+
+<script>
+  const questionsData = [
+    { q: "1. நிலவென்று – பிரித்து எழுதுக", o: ["a) நிலவு + என்று", "b) நில + என்று", "c) நிலவ் + என்று", "d) நிலவு + வென்று"], a: 0, exp: "விளக்கம்: நிலவு + என்று = நிலவென்று (உயிர்வரின் உக்குறள் மெய்விட்டோடும் விதிப்படி உகரம் கெட்டு உடல்மேல் உயிர் வந்து ஒன்றுவது இயல்பு)." },
+    { q: "2. தமிழெங்கள் – பிரித்து எழுதுக", o: ["a) தமிழ் + எங்கள்", "b) தமிழே + எங்கள்", "c) தமிழ் + செங்கள்", "d) தமிழன் + கள்"], a: 0, exp: "விளக்கம்: தமிழ் + எங்கள் = தமிழெங்கள்." },
+    { q: "3. செம்பயிர் – பிரித்து எழுதுக", o: ["a) செம்மை + பயிர்", "b) செமை + பயிர்", "c) செம்பு + பயிர்", "d) செம் + பயிர்"], a: 0, exp: "விளக்கம்: ஈறுபோதல் விதிப்படி செம்மை என்பது செம் என நின்று, இனமிகல் விதிப்படி செம்பயிர் ஆனது." },
+    { q: "4. சீரிளமை – பிரித்து எழுதுக", o: ["a) சீர் + இளமை", "b) சீர்மை + இளமை", "c) சீர்மை + இமை", "d) சீரிய + இளமை"], a: 1, exp: "விளக்கம்: சீர்மை + இளமை = சீரிளமை (இடைச்சங்கம் மருவியது)." },
+    { q: "5. சிலப்பதிகாரம் – பிரித்து எழுதுக", o: ["a) சிலம்பு + அதிகாரம்", "b) சிலம் + அதிகாரம்", "c) சிலப்பதிகாரம் + உரை", "d) சிலம்பு + பதிிகாரம்"], a: 0, exp: "விளக்கம்: சிலம்பு + அதிகாரம் = சிலப்பதிகாரம்." },
+    { q: "6. பொற்கோட்டு – பிரித்து எழுதுக", o: ["a) பொன் + கோட்டு", "b) பொன் + கோடு", "c) பொரா + கோட்டு", "d) பொற் + கோட்டு"], a: 0, exp: "விளக்கம்: பொன் + கோட்டு = பொற்கோட்டு (னகர ஒற்று றகரமாகத் திரிந்தது)." },
+    { q: "7. கொங்கலர் – பிரித்து எழுதுக", o: ["a) கொங்கு + அலர்", "b) கொங் + மலர்", "c) கொங்கு + மலர்", "d) கொங் + அலர்"], a: 0, exp: "விளக்கம்: கொங்கு + அலர் = கொங்கலர் (உடல்மேல் உயிர் வந்து ஒன்றுவது இயல்பு)." },
+    { q: "8. தட்பவெப்பம் – பிரித்து எழுதுக", o: ["a) தட்ப + வெப்பம்", "b) தள் + வெப்பம்", "c) தட்பம் + வெப்பம்", "d) தட்பு + வெப்பம்"], a: 2, exp: "விளக்கம்: தட்பம் + வெப்பம் = தட்பவெப்பம் (ம ஈறு கெட்டது)." },
+    { q: "9. ஆழக்கடல் – பிரித்து எழுதுக", o: ["a) ஆழம் + கடல்", "b) ஆழ + கடல்", "c) ஆழக் + கடல்", "d) ஆழமான + கடல்"], a: 0, exp: "விளக்கம்: ஆழம் + கடல் = ஆழக்கடல் (ம ஈறு கெட்டு க்கரம் தோன்றியது)." },
+    { q: "10. அஃறிணை – பிரித்து எழுதுக", o: ["a) அஃது + திணை", "b) அல் + திணை", "c) அன்று + திணை", "d) அ + திணை"], a: 1, exp: "விளக்கம்: அல் + திணை = அஃறிணை (அல்லது திணை - உயர்வு அல்லாத திணை)." },
+    { q: "11. மாசற – பிரித்து எழுதுக", o: ["a) மாசு + அற", "b) மா + சற", "c) மாசு + உறை", "d) மாச + அற"], a: 0, exp: "விளக்கம்: மாசு + அற = மாசற (உயிர்வரின் உக்குறள் மெய்விட்டோடும்)." },
+    { q: "12. குற்றமில்லாதவர் – பிரித்து எழுதுக", o: ["a) குற்றம் + இல்லாதவர்", "b) குற்ற + இல்லாதவர்", "c) குற்றம் + இலாதவர்", "d) குற்றமி + இல்லாதவர்"], a: 0, exp: "விளக்கம்: குற்றம் + இல்லாதவர் = குற்றமில்லாதவர்." },
+    { q: "13. சிறப்படையார் – பிரித்து எழுதுக", o: ["a) சிறப்பு + உடையார்", "b) சிறப் + உடையார்", "c) சிறப்பு + அடையார்", "d) சிறப்பி + உடையார்"], a: 0, exp: "விளக்கம்: சிறப்பு + உடையார் = சிறப்படையார் (உயிர்வரின் உக்குறள் கெட்டு புணர்ந்தது)." },
+    { q: "14. கைப்பொருள் – பிரித்து எழுதுக", o: ["a) கை + பொருள்", "b) கைப் + பொருள்", "c) கைமை + பொருள்", "d) கையில் + பொருள்"], a: 0, exp: "விளக்கம்: கை + பொருள் = கைப்பொருள் (வன்கடம்வரின் வல்லினம் மிகும்)." },
+    { q: "15. காட்டாறு – பிரித்து எழுதுக", o: ["a) காடு + ஆறு", "b) காட் + ஆறு", "c) காட்டு + ஆறு", "d) காடு + நாறு"], a: 0, exp: "விளக்கம்: காடு + ஆறு = காட்டாறு (இடையினம் மிகும் / வல்லினம் மிகும் விதிப்படி டகரம் இரட்டித்தது)." },
+    { q: "16. அறிவுடைமை – பிரித்து எழுதுக", o: ["a) அறிவு + உடைமை", "b) அறி + உடைமை", "c) அறிவு + டைமை", "d) அறிவ + உடைமை"], a: 0, exp: "விளக்கம்: அறிவு + உடைமை = அறிவுடைமை." },
+    { q: "17. இவையெட்டும் – பிரித்து எழுதுக", o: ["a) இவை + எட்டும்", "b) இவ + எட்டும்", "c) இவை + வட்டும்", "d) இவையே + எட்டும்"], a: 0, exp: "விளக்கம்: இவை + எட்டும் = இவையெட்டும் (ஐகார ஈற்றுச் சொல் முன் உயிர் வந்தால் உடம்படுமெய் விகாரம் பெறும்)." },
+    { q: "18. நன்றியறிதல் – பிரித்து எழுதுக", o: ["a) நன்றி + அறிதல்", "b) நன்று + அறிதல்", "c) நன்றிய + அறிதல்", "d) நன்றி + யறிதல்"], a: 0, exp: "விளக்கம்: நன்றி + அறிதல் = நன்றியறிதல் (ய் உடம்படுமெய் பெற்றது)." },
+    { q: "19. பாட்டிசைத்து – பிரித்து எழுதுக", o: ["a) பாட்டு + இசைத்து", "b) பாட்டு + சைத்து", "c) பாட் + இசைத்து", "d) பாட்டு + திசைத்து"], a: 0, exp: "விளக்கம்: பாட்டு + இசைத்து = பாட்டிசைத்து." },
+    { q: "20. கண்ணுறங்கு – பிரித்து எழுதுக", o: ["a) கண் + உறங்கு", "b) கண்ணு + உறங்கு", "c) கண் + ður", "d) கண்ணி + உறங்கு"], a: 0, exp: "விளக்கம்: கண் + உறங்கு = கண்ணுறங்கு (உடல்மேல் உயிர் வந்து ஒன்றுவது இயல்பு)." },
+    { q: "21. வாழையிலை – பிரித்து எழுதுக", o: ["a) வாழை + இலை", "b) வாழையின் + இலை", "c) வாளை + இலை", "d) வாழை + லை"], a: 0, exp: "விளக்கம்: வாழை + இலை = வாழையிலை (ய் உடம்படுமெய்)." },
+    { q: "22. பொங்கலன்று – பிரித்து எழுதுக", o: ["a) பொங்கல் + அன்று", "b) பொங்கு + அன்று", "c) பொங்கல் + இன்று", "d) பொங் + அன்று"], a: 0, exp: "விளக்கம்: பொங்கல் + அன்று = பொங்கலன்று." },
+    { q: "23. நானிலம் – பிரித்து எழுதுக", o: ["a) நான்கு + நிலம்", "b) நா + நிலம்", "c) நான் + நிலம்", "d) நாம் + நிலம்"], a: 0, exp: "விளக்கம்: நான்கு + நிலம் = நானிலம் (ங்கு திரிந்து புணர்ந்தது)." },
+    { q: "24. நாடென்ற – பிரித்து எழுதுக", o: ["a) நாடு + என்ற", "b) நாட் + என்ற", "c) நாடு + சென்ற", "d) நாடென் + ற"], a: 0, exp: "விளக்கம்: நாடு + என்ற = நாடென்ற." },
+    { q: "25. கலமேறி – பிரித்து எழுதுக", o: ["a) கலம் + ஏறி", "b) கலை + ஏறி", "c) கலம் + தேறி", "d) கல + ஏறி"], a: 0, exp: "விளக்கம்: கலம் + ஏறி = கலமேறி." },
+    { q: "26. கதிர்ச்சுடர் – பிரித்து எழுதுக", o: ["a) கதிர் + சுடர்", "b) கதிர்க + சுடர்", "c) கதிர்ச் + சுடர்", "d) கதி + சுடர்"], a: 0, exp: "விளக்கம்: கதிர் + சுடர் = கதிர்ச்சுடர் (ச, த, ப வரின் வல்லினம் மிகும்)." },
+    { q: "27. பெருவானம் – பிரித்து எழுதுக", o: ["a) பெருமை + வானம்", "b) பெரு + வானம்", "c) பெருமை + ானம்", "d) பேர் + வானம்"], a: 0, exp: "விளக்கம்: பெருமை + வானம் = பெருவானம் (ஈறுபோதல் விதிப்படி மை கெட்டது)." },
+    { q: "28. வணிகச்சாத்து – பிரித்து எழுதுக", o: ["a) வணிகம் + சாத்து", "b) வணிக + சாத்து", "c) வணிகம் + காத்து", "d) வணி + சாத்து"], a: 0, exp: "விளக்கம்: வணிகம் + சாத்து = வணிகச்சாத்து (ம கெட்டு ச் தோன்றியது)." },
+    { q: "29. மின்னணு – பிரித்து எழுதுக", o: ["a) மின் + அணு", "b) மின்மை + அணு", "c) மின்னل + அணு", "d) மின்னு + அணு"], a: 0, exp: "விளக்கம்: மின் + அணு = மின்னணு." },
+    { q: "30. நூலாடை – பிரித்து எழுதுக", o: ["a) நூல் + ஆடை", "b) நூலா + ஆடை", "c) நூ + ஆடை", "d) நூல் + லாடை"], a: 0, exp: "விளக்கம்: நூல் + ஆடை = நூலாடை (லகரம் றகரமாகி பின்னர் புணர்வது)." },
+    { q: "31. எதிரொலிக்க – பிரித்து எழுதுக", o: ["a) எதிர் + ஒலிக்க", "b) எதிரி + ஒலிக்க", "c) எதி + ஒலிக்க", "d) எதிர் + தொலிக்க"], a: 0, exp: "விளக்கம்: எதிர் + ஒலிக்க = எதிரொலிக்க." },
+    { q: "32. இன்னுயிர் – பிரித்து எழுதுக", o: ["a) இனிமை + உயிர்", "b) இன் + உயிர்", "c) இனி + உயிர்", "d) இன்னு + உயிர்"], a: 0, exp: "விளக்கம்: இனிமை + உயிர் = இன்னுயிர் (இனிமை திரிந்து புணர்ந்தது)." },
+    { q: "33. தீந்தேன் – பிரித்து எழுதுக", o: ["a) தீ + தேன்", "b) தீமை + தேன்", "c) தீம் + தேன்", "d) தித்திப்பு + தேன்"], a: 2, exp: "விளக்கம்: தீம் + தேன் = தீந்தேன் (ம, ந ஆனது)." },
+    { q: "34. மணியரசு – பிரித்து எழுதுக", o: ["a) மணியில் + அரசு", "b) மணி + அரசு", "c) மணியின் + அரசு", "d) மணிக்கு + அரசு"], a: 1, exp: "விளக்கம்: மணி + அரசு = மணியரசு." },
+    { q: "35. பேரானந்தம் – பிரித்து எழுதுக", o: ["a) பெருமை + ஆனந்தம்", "b) பேர் + ஆனந்தம்", "c) பெரிய + ஆனந்தம்", "d) பெரு + ஆனந்தம்"], a: 0, exp: "விளக்கம்: பெருமை + ஆனந்தம் = பேரானந்தம்." },
+    { q: "36. மற்றோர் – பிரித்து எழுதுக", o: ["a) மற்று + ஓர்", "b) மறு + ஓர்", "c) மற்ற + ஓர்", "d) மற்று + ஒரு"], a: 0, exp: "விளக்கம்: மற்று + ஓர் = மற்றோர்." },
+    { q: "37. வன்றனி – பிரித்து எழுதுக", o: ["a) வன் + தனி", "b) வல் + தனி", "c) வன்மை + தனி", "d) வன் + றனி"], a: 2, exp: "விளக்கம்: வன்மை + தனி = வன்றனி (மை கெட்டு ன் ஆனது)." },
+    { q: "38. பொறியியல் – பிரித்து எழுதுக", o: ["a) பொறி + இயல்", "b) பொது + இயல்", "c) பொறி + யியல்", "d) பொருள் + இயல்"], a: 0, exp: "விளக்கம்: பொறி + இயல் = பொறியியல்." },
+    { q: "39. வீற்றிருக்கை – பிரித்து எழுதுக", o: ["a) வீல் + திருக்கை", "b) வீற்று + திருக்கை", "c) வீற்று + இருக்கை", "d) வீற் + றிக்கை"], a: 2, exp: "விளக்கம்: வீற்று + இருக்கை = வீற்றிருக்கை." },
+    { q: "40. தெங்கம்பழம் – பிரித்து எழுதுக", o: ["a) தெங்கு + பழம்", "b) தேங்காய் + பழம்", "c) தெங்கம் + பழம்", "d) தெங்கு + அம் + பழம்"], a: 3, exp: "விளக்கம்: தெங்கு + அம் + பழம் = தெங்கம்பழம் (சாரியை பெற்றது)." },
+    { q: "41. தெண்ணீர் – பிரித்து எழுதுக", o: ["a) தெண் + ணீர்", "b) தெண் + நீர்", "c) தெள் + நீர்", "d) தெண்மை + நீர்"], a: 3, exp: "விளக்கம்: தெண்மை + நீர் = தெண்ணீர் (மை கெட்டு ள் ண ஆனது)." },
+    { q: "42. ஆடரவம் – பிரித்து எழுதுக", o: ["a) ஆடு + அரவம்", "b) ஆட + அரவம்", "c) ஆடவர் + அரவம்", "d) ஆடு + ரவம்"], a: 0, exp: "விளக்கம்: ஆடு + அரவம் = ஆடரவம் (உயிர்வரின் உக்குறள் மெய்விட்டோடும்)." },
+    { q: "43. அருந்துணை – பிரித்து எழுதுக", o: ["a) அருமை + துணை", "b) அரு + துணை", "c) அருமை + இணை", "d) அருங் + துணை"], a: 0, exp: "விளக்கம்: அருமை + துணை = அருந்துணை (மை கெட்டு ங் தோன்றியது)." },
+    { q: "44. சிற்றோடை – பிரித்து எழுதுக", o: ["a) சிற்று + ஓடை", "b) சிறுமை + ஓடை", "c) சிறு + ஓடை", "d) சிற் + ஓடை"], a: 1, exp: "விளக்கம்: சிறுமை + ஓடை = சிற்றோடை (ஈறுபோதல், அடி அகரம் குறுகுதல்)." },
+    { q: "45. பைங்கூல் – பிரித்து எழுதுக", o: ["a) பைமை + கூூல்", "b) பசுமை + கூழ்", "c) பைங் + கூழ்", "d) பைய + கூழ்"], a: 1, exp: "விளக்கம்: பசுமை + கூழ் = பைங்கூல்." },
+    { q: "46. செந்தமிழ் – பிரித்து எழுதுக", o: ["a) செம்மை + தமிழ்", "b) செம் + தமிழ்", "c) செந்து + தமிழ்", "d) செமை + தமிழ்"], a: 0, exp: "விளக்கம்: செம்மை + தமிழ் = செந்தமிழ் (ம ஈறு ந ஆனது)." },
+    { q: "47. வெண்குடை – பிரித்து எழுதுக", o: ["a) வெண்மை + குடை", "b) வெள் + குடை", "c) வெண்மை + குடை", "d) வெண் + குடை"], a: 0, exp: "விளக்கம்: வெண்மை + குடை = வெண்குடை." },
+    { q: "48. ஒட்டலரிது – பிரித்து எழுதுக", o: ["a) ஒட்ட + அரிது", "b) ஒட்டு + அரிது", "c) ஒட்டல் + அரிது", "d) ஒட்டு + இரிது"], a: 2, exp: "விளக்கம்: ஒட்டல் + அரிது = ஒட்டலரிது." },
+    { q: "49. பசியின்றி – பிரித்து எழுதுக", o: ["a) பசி + இன்றி", "b) பசியின் +றி", "c) பசி + யின்றி", "d) பசி + நன்றி"], a: 0, exp: "விளக்கம்: பசி + இன்றி = பசியின்றி." },
+    { q: "50. படிப்பறிவு – பிரித்து எழுதுக", o: ["a) படிப்பு + அறிவு", "b) படி + அறிவு", "c) படிப்ப + அறிவு", "d) படிப்பு + றிவு"], a: 0, exp: "விளக்கம்: படிப்பு + அறிவு = படிப்பறிவு." }
+  ];
+
+  let currentQuestion = 0;
+  let userAnswers = new Array(questionsData.length).fill(null);
+  let isReviewMode = false;
+  let timerInterval;
+  let timeLeft = 45 * 60;
+
+  function initTest() {
+    buildGrid();
+    loadQuestion(0);
+    startTimer();
+  }
+
+  function buildGrid() {
+    const grid = document.getElementById('questionGrid');
+    grid.innerHTML = '';
+    questionsData.forEach((_, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'q-num-btn';
+      btn.innerText = idx + 1;
+      btn.id = `q_btn_${idx}`;
+      btn.onclick = () => jumpToQuestion(idx);
+      grid.appendChild(btn);
+    });
+    updateGridStatus();
+  }
+
+  function updateGridStatus() {
+    questionsData.forEach((_, idx) => {
+      const btn = document.getElementById(`q_btn_${idx}`);
+      if(!btn) return;
+      btn.className = 'q-num-btn';
+      if(idx === currentQuestion) {
+        btn.classList.add('active');
+      } else if(userAnswers[idx] !== null) {
+        btn.classList.add('answered');
+      }
+    });
+  }
+
+  function loadQuestion(idx) {
+    currentQuestion = idx;
+    const q = questionsData[idx];
+    document.getElementById('qTitle').innerText = q.q;
+    
+    const optsBox = document.getElementById('optionsBox');
+    optsBox.innerHTML = '';
+
+    q.o.forEach((optText, oIdx) => {
+      const card = document.createElement('div');
+      card.className = 'option-card';
+      
+      if(userAnswers[idx] === oIdx) {
+        card.classList.add('selected');
+      }
+
+      if(isReviewMode) {
+        if(oIdx === q.a) {
+          card.classList.add('correct-ans');
+        } else if(userAnswers[idx] === oIdx && oIdx !== q.a) {
+          card.classList.add('wrong-ans');
+        }
+      }
+
+      card.innerHTML = `<span><b>${String.fromCharCode(65 + oIdx)}.</b> ${optText}</span>`;
+      card.onclick = () => selectOption(oIdx);
+      optsBox.appendChild(card);
+    });
+
+    const expBox = document.getElementById('expBox');
+    if(isReviewMode) {
+      expBox.style.display = 'block';
+      expBox.innerText = q.exp;
+    } else {
+      expBox.style.display = 'none';
+    }
+
+    document.getElementById('prevBtn').style.display = idx === 0 ? 'none' : 'block';
+    document.getElementById('nextBtn').style.display = idx === questionsData.length - 1 ? 'none' : 'block';
+    updateGridStatus();
+  }
+
+  function selectOption(oIdx) {
+    if(isReviewMode) return;
+    userAnswers[currentQuestion] = oIdx;
+    loadQuestion(currentQuestion);
+  }
+
+  function clearChoice() {
+    if(isReviewMode) return;
+    userAnswers[currentQuestion] = null;
+    loadQuestion(currentQuestion);
+  }
+
+  function navigateNumberQuery(dir) {
+    const next = currentQuestion + dir;
+    if(next >= 0 && next < questionsData.length) {
+      loadQuestion(next);
+    }
+  }
+
+  function jumpToQuestion(idx) {
+    loadQuestion(idx);
+  }
+
+  function startTimer() {
+    if (timerInterval) clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+      timeLeft--;
+      let m = Math.floor(timeLeft / 60);
+      let s = timeLeft % 60;
+      const timerElem = document.getElementById('timerBox');
+      if(timerElem) {
+        timerElem.innerText = `⏱️ ${m}:${s < 10 ? '0' : ''}${s}`;
+      }
+      if(timeLeft <= 0) {
+        clearInterval(timerInterval);
+        submitTest();
+      }
+    }, 1000);
+  }
+
+  function submitTest() {
+    if (timerInterval) clearInterval(timerInterval);
+    document.getElementById('testView').style.display = 'none';
+    document.getElementById('resultView').style.display = 'block';
+
+    let correct = 0, wrong = 0, unans = 0;
+    userAnswers.forEach((ans, idx) => {
+      if(ans === null) unans++;
+      else if(ans === questionsData[idx].a) correct++;
+      else wrong++;
+    });
+
+    document.getElementById('scoreDisplay').innerText = `${correct} / ${questionsData.length}`;
+    let pct = ((correct / questionsData.length) * 100).toFixed(1);
+    document.getElementById('percentageDisplay').innerText = `சதவீதம்: ${pct}%`;
+    document.getElementById('correctCnt').innerText = correct;
+    document.getElementById('wrongCnt').innerText = wrong;
+    document.getElementById('unansCnt').innerText = unans;
+  }
+
+  function reviewAnswerKey() {
+    isReviewMode = true;
+    document.getElementById('resultView').style.display = 'none';
+    document.getElementById('testView').style.display = 'block';
+    document.getElementById('finalSubmitBtn').style.display = 'none';
+    document.getElementById('backToResultBtn').style.display = 'block';
+    document.getElementById('dashFromKeyBtn').style.display = 'block';
+    loadQuestion(0);
+  }
+
+  function returnToResult() {
+    document.getElementById('testView').style.display = 'none';
+    document.getElementById('resultView').style.display = 'block';
+  }
+
+  function returnToDashboard() {
+    window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html"); 
+  }
+
+  function exitPortal() {
+    window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html");
+  }
+
+  function retakeTest() {
+    userAnswers = new Array(questionsData.length).fill(null);
+    isReviewMode = false;
+    timeLeft = 45 * 60;
+    document.getElementById('resultView').style.display = 'none';
+    document.getElementById('testView').style.display = 'block';
+    document.getElementById('finalSubmitBtn').style.display = 'inline-block';
+    document.getElementById('backToResultBtn').style.display = 'none';
+    document.getElementById('dashFromKeyBtn').style.display = 'none';
+    initTest();
+  }
+
+  window.onload = function() {
+    initTest();
+  }
+</script>
+
+</body>
+</html>
