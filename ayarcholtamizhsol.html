@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tiger Warriors - அயற்சொல் - தமிழ்ச்சொல் 50 வினாக்கள்</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; font-weight: bold; }
+    body { background: #080604; color: #f8fafc; padding: 12px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+    .card { width: 100%; max-width: 950px; background: #0f172a; border-radius: 14px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); border: 1px solid #334155; }
+    
+    .test-header { display: flex; justify-content: space-between; align-items: center; background: #1e293b; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; border: 1px solid #334155; }
+    .timer { font-size: 15px; font-weight: bold; color: #fbbf24; background: #091326; padding: 6px 12px; border-radius: 6px; border: 1px solid #fbbf24; box-shadow: inset 0 0 5px rgba(251, 191, 36, 0.2); }
+    
+    .q-grid { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 16px; max-height: 140px; overflow-y: auto; padding: 8px; background: #1e293b; border-radius: 8px; justify-content: center; }
+    .q-num-btn { width: 30px; height: 30px; border-radius: 5px; border: none; background: #334155; color: #fff; font-size: 10px; cursor: pointer; font-weight: bold; }
+    .q-num-btn.active { border: 2px solid #38bdf8; background: #0284c7; }
+    .q-num-btn.answered { background: #10b981; }
+
+    .q-box { background: #1e293b; padding: 18px; border-radius: 10px; margin-bottom: 16px; border: 1px solid #334155; }
+    .q-text { white-space: pre-line; line-height: 1.6; font-size: 15px; color: #f8fafc; }
+    
+    .option-card { background: #0f172a; border: 1px solid #334155; padding: 12px 16px; border-radius: 8px; margin-top: 10px; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: 0.2s; white-space: pre-line; line-height: 1.4; }
+    .option-card:hover { border-color: #38bdf8; background: #1e293b; }
+    .option-card.selected { border-color: #10b981; background: #064e3b; }
+    .option-card.correct-ans { border-color: #10b981; background: #065f46; font-weight: bold; }
+    .option-card.wrong-ans { border-color: #ef4444; background: #7f1d1d; }
+
+    .explanation-box { background: #091326; border: 1px solid #38bdf8; border-radius: 8px; padding: 12px; margin-top: 14px; font-size: 13px; color: #7dd3fc; line-height: 1.5; }
+    
+    .nav-btns { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+    .btn-action { background: #334155; color: #fff; border: none; padding: 10px 16px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 13px; text-align: center; }
+    .btn-action:hover { opacity: 0.9; }
+    .btn-blue { background: #2563eb; }
+    .btn-purple { background: #7c3aed; }
+    .btn-danger { background: #ef4444; }
+    .btn-green { background: #22c55e; }
+
+    .result-box { text-align: center; padding: 25px; background: #1e293b; border-radius: 16px; margin-top: 10px; border: 1px solid rgba(0, 242, 254, 0.3); display: flex; flex-direction: column; align-items: center; }
+    .score-circle { width: 130px; height: 130px; border-radius: 50%; background: conic-gradient(#10b981 0deg, #0f172a 0deg); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 15px auto; border: 4px solid #38bdf8; box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); }
+    .score-num { font-size: 30px; color: #f8fafc; font-weight: bold; }
+    
+    .result-stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; width: 100%; max-width: 400px; }
+    .stat-pill { background: #0f172a; border-radius: 12px; padding: 10px; border: 1px solid #334155; text-align: center; }
+    .stat-pill.gold { border-color: #fbbf24; }
+    .stat-pill.blue { border-color: #38bdf8; }
+    .stat-pill.red { border-color: #ef4444; }
+
+    .footer-badge { text-align: center; font-size: 11px; color: #38bdf8; margin-top: 15px; font-weight: bold; letter-spacing: 0.5px; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <script>
+      if (localStorage.getItem('tiger_auth_passed') !== 'true') {
+          alert("⚠ பாதுகாப்பு எச்சரிக்கை: நீங்கள் Tiger Warriors போர்ட்டலில் லாகின் செய்யவில்லை! முதலில் மெயின் போர்ட்டலில் லாகின் செய்யவும்.");
+          window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html"); 
+      }
+  </script>
+
+  <div id="testView">
+    <div class="test-header">
+      <div>
+        <h3 style="color: #38bdf8; font-size: 15px;">🐅 TIGER WARRIORS - அயற்சொல் - தமிழ்ச்சொல் (50 வினாக்கள்)</h3>
+        <span style="font-size: 11px; color: #94a3b8;">TNPSC / 2 / 2A / 4 • GENERAL TAMIL</span>
+      </div>
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <div class="timer" id="timerBox">⏱️ 45:00</div>
+        <button class="btn-action btn-purple" id="backToResultBtn" onclick="returnToResult()" style="display: none; padding: 6px 12px; font-size: 12px;">📊 ரிசல்ட் செல்</button>
+        <button class="btn-action btn-danger" id="dashFromKeyBtn" onclick="returnToDashboard()" style="display: none; padding: 6px 12px; font-size: 12px;">🏠 முகப்பு</button>
+      </div>
+    </div>
+
+    <div class="q-grid" id="questionGrid"></div>
+
+    <div class="q-box">
+      <div id="qTitle" class="q-text"></div>
+      <div id="optionsBox"></div>
+      <div id="expBox" class="explanation-box" style="display: none;"></div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn-action" id="prevBtn" onclick="navigateNumberQuery(-1)">⬅️ முந்தையது</button>
+      <button class="btn-action" id="clearBtn" onclick="clearChoice()">🧹 விடையை நீக்கு</button>
+      <button class="btn-action btn-blue" id="nextBtn" onclick="navigateNumberQuery(1)">அடுத்து ➡️</button>
+      <button class="btn-action btn-danger" id="finalSubmitBtn" onclick="submitTest()">✅ தேர்வைச் சமர்ப்பிக்க (Submit)</button>
+    </div>
+  </div>
+
+  <div id="resultView" style="display: none;">
+    <h2 style="color: #38bdf8; text-align: center; margin-bottom: 10px;">🏆 தேர்வு முடிவுகள் (Test Results) 🎯</h2>
+    <div class="result-box">
+      <div class="score-circle" id="scoreCircle">
+        <div class="score-num" id="scoreDisplay">0/50</div>
+        <span id="percentageDisplay" style="font-size: 11px; color: #fbbf24;">0%</span>
+      </div>
+
+      <div class="result-stats-grid">
+        <div class="stat-pill gold">
+          <h3 id="correctCnt" style="color: #10b981; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;">சரியானவை ✅</span>
+        </div>
+        <div class="stat-pill red">
+          <h3 id="wrongCnt" style="color: #ef4444; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;">தவறானவை ❌</span>
+        </div>
+        <div class="stat-pill blue">
+          <h3 id="unansCnt" style="color: #f59e0b; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;">விடையில்லை ⚠️</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
+      <button class="btn-action btn-blue" onclick="reviewAnswerKey()">🔍 விடை குறிப்பு (Answer Key)</button>
+      <button class="btn-action btn-purple" onclick="returnToDashboard()">🏠 முகப்புப் பக்கம்</button>
+      <button class="btn-action btn-green" onclick="retakeTest()">🔄 மீண்டும் தேர்வு</button>
+      <button class="btn-action btn-danger" onclick="exitPortal()">🚪 வெளியேறு</button>
+    </div>
+    <div class="footer-badge" style="margin-top: 20px;">🐅 டைகர் வாரியர் போர்டல் - இயக்குநர்: Dr. K. மணிகாசி 🐅</div>
+  </div>
+</div>
+
+<script>
+  const questionsData = [
+    // Model 1: Direct Single Fact Questions
+    { q: "1. 'தபால்' என்னும் அயற்சொல்லுக்கு இணையான தமிழ்ச்சொல் எது?", o: ["கடிதம்", "அஞ்சல்", "செய்தி", "குறிப்பு"], a: 1, exp: "விளக்கம்: தபால் என்பதன் சரியான தமிழ்ச்சொல் 'அஞ்சல்' ஆகும்." },
+    { q: "2. 'கம்ப்யூட்டர்' என்ற ஆங்கிலச் சொல்லுக்கு இணையான தமிழ்ச்சொல் என்ன?", o: ["வானொலி", "கணினி", "தொலைக்காட்சி", "இயந்திரம்"], a: 1, exp: "விளக்கம்: கம்ப்யூட்டர் என்பதன் தமிழ்ச்சொல் 'கணினி' ஆகும்." },
+    { q: "3. 'பாஸ்போர்ட்' என்பதன் தமிழ்ச்சொல் யாது?", o: ["அடையாள அட்டை", "கடவுச்சீட்டு", "பயணச் சீட்டு", "நுழைவுச் சீட்டு"], a: 1, exp: "விளக்கம்: பாஸ்போர்ட் என்பது 'கடவுச்சீட்டு' என அழைக்கப்படுகிறது." },
+    { q: "4. 'ரேடியோ' என்பதன் தமிழ்ச்சொல் என்ன?", o: ["தொலைபேசி", "வானொலி", "ஒலிபெருக்கி", "செய்தி மடல்"], a: 1, exp: "விளக்கம்: ரேடியோ என்பதன் தமிழ்ச்சொல் 'வானொலி' ஆகும்." },
+    { q: "5. 'டாக்டர்' என்னும் சொல்லின் தமிழ்ச்சொல் எது?", o: ["ஆசிரியர்", "மருத்துவர்", "பொறியாளர்", "বিজ্ঞானி"], a: 1, exp: "விளக்கம்: டாக்டர் என்பதன் தமிழ்ச்சொல் 'மருத்துவர்' ஆகும்." },
+
+    // Model 2: Correct / Incorrect Pairs
+    { q: "6. கீழ்க்கண்டவற்றுள் சரியான இணையைத் தேர்ந்தெடுக்க:\n- ரயில் : பேருந்து\n- பாஸ்போர்ட் : கடவுச்சீட்டு\n- டாக்டர் : பொறியாளர்\n- காகிதம் : அஞ்சல்", o: ["ரயில் : பேருந்து", "பாஸ்போர்ட் : கடவுச்சீட்டு", "டாக்டர் : பொறியாளர்", "காகிதம் : அஞ்சல்"], a: 1, exp: "விளக்கம்: பாஸ்போர்ட் என்பது கடவுச்சீட்டு எனப்படும்; மற்றவை தவறான பொருத்தங்கள்." },
+    { q: "7. தவறான இணைக் கண்டறிக:\n- கம்ப்யூட்டர் - கணினி\n- தபால் - அஞ்சல்\n- போலீஸ் - மருத்துவர்\n- கலெக்டர் - ஆட்சியர்", o: ["கம்ப்யூட்டர் - கணினி", "தபால் - அஞ்சல்", "போலீஸ் - மருத்துவர்", "கலெக்டர் - ஆட்சியர்"], a: 2, exp: "விளக்கம்: போலீஸ் என்பதன் தமிழ்ச்சொல் காவலர் (மருத்துவர் அல்ல)." },
+    { q: "8. சரியான இணையைத் தெரிவு செய்க:\n1. ஆபத்து - இடர்\n2. ஆச்சரியம் - வியப்பு\n3. இரத்து - நீக்குதல்", o: ["1 மற்றும் 2 மட்டும்", "2 மற்றும் 3 மட்டும்", "1 மற்றும் 3 மட்டும்", "அனைத்தும் சரி"], a: 3, exp: "விளக்கம்: கொடுக்கப்பட்ட அனைத்து அயற்சொல் - தமிழ்ச்சொல் இணைகளும் சரியானவையே." },
+    { q: "9. பொருந்தாத இணையைத் தேர்ந்தெடுக்க:\n- இன்ஜினியர் - பொறியாளர்\n- பஸ் - தொடருந்து\n- சவால் - அறைகூவல்\n- காபி - குளம்பி", o: ["இன்ஜினியர் - பொறியாளர்", "பஸ் - தொடருந்து", "சவால் - அறைகூவல்", "காபி - குளம்பி"], a: 1, exp: "விளக்கம்: பஸ் என்பதன் தமிழ்ச்சொல் பேருந்து (தொடருந்து என்பது ரயிலைக் குறிக்கும்)." },
+    { q: "10. சரியான இணை எது?\n- ஆபத்து : கேடு\n- காகிதம் : தாள்\n- இரத்து : தள்ளுபடி", o: ["ஆபத்து : கேடு", "காகிதம் : தாள்", "இரத்து : தள்ளுபடி", "மேற்கண்ட அனைத்தும் சரி"], a: 3, exp: "விளக்கம்: அனைத்து இணைகளும் சரியாகப் பொருத்தப்பட்டுள்ளன." },
+
+    // Model 3: Match the Following
+    { q: "11. பொருத்துக:\n1. கம்ப்யூட்டர் — அ. அஞ்சல்\n2. தபால் — ஆ. கணினி\n3. பாஸ்போர்ட் — இ. பேருந்து\n4. பஸ் — ஈ. கடவுச்சீட்டு", o: ["1-ஆ, 2-அ, 3-ஈ, 4-இ", "1-அ, 2-ஆ, 3-இ, 4-ஈ", "1-இ, 2-ஈ, 3-அ, 4-ஆ", "1-ஈ, 2-இ, 3-ஆ, 4-அ"], a: 0, exp: "விளக்கம்: கம்ப்யூட்டர்(கணினி), தபால்(அஞ்சல்), பாஸ்போர்ட்(கடவுச்சீட்டு), பஸ்(பேருந்து)." },
+    { q: "12. பொருத்துக:\n1. டாக்டர் — அ. ஆட்சியர்\n2. கலெக்டர் — ஆ. மருத்துவர்\n3. இன்ஜினியர் — இ. காவலர்\n4. போலீஸ் — ஈ. பொறியாளர்", o: ["1-ஆ, 2-அ, 3-ஈ, 4-இ", "1-அ, 2-ஆ, 3-இ, 4-ஈ", "1-இ, 2-ஈ, 3-அ, 4-ஆ", "1-ஈ, 2-இ, 3-ஆ, 4-அ"], a: 0, exp: "விளக்கம்: டாக்டர்(மருத்துவர்), கலெக்டர்(ஆட்சியர்), இன்ஜினியர்(பொறியாளர்), போலீஸ்(காவலர்)." },
+    { q: "13. பொருத்துக:\n1. ஆபத்து — அ. வியப்பு\n2. ஆச்சரியம் — ஆ. அறைகூவல்\n3. சவால் — இ. இடர்\n4. காபி — ஈ. குளம்பி", o: ["1-இ, 2-அ, 3-ஆ, 4-ஈ", "1-அ, 2-ஆ, 3-இ, 4-ஈ", "1-இ, 2-ஈ, 3-அ, 4-ஆ", "1-ஈ, 2-இ, 3-ஆ, 4-அ"], a: 0, exp: "விளக்கம்: ஆபத்து(இடர்), ஆச்சரியம்(வியப்பு), சவால்(அறைகூவல்), காபி(குளம்பி)." },
+    { q: "14. பொருத்துக:\n1. ரேடியோ — அ. தாள்\n2. காகிதம் — ஆ. வானொலி\n3. ரயில் — இ. செய்மதி\n4. தந்தி — ஈ. தொடருந்து", o: ["1-ஆ, 2-அ, 3-ஈ, 4-இ", "1-அ, 2-ஆ, 3-இ, 4-ஈ", "1-இ, 2-ஈ, 3-அ, 4-ஆ", "1-ஈ, 2-இ, 3-ஆ, 4-அ"], a: 0, exp: "விளக்கம்: ரேடியோ(வானொலி), காகிதம்(தாள்), ரயில்(தொடருந்து), தந்தி(செய்மதி)." },
+    { q: "15. பொருத்துக:\n1. இரத்து — அ. நீக்குதல்\n2. சவால் — ஆ. அறைகூவல்\n3. பாஸ்போர்ட் — இ. கடவுச்சீட்டு\n4. தபால் — ஈ. அஞ்சல்", o: ["1-அ, 2-ஆ, 3-இ, 4-ஈ", "1-ஆ, 2-அ, 3-ஈ, 4-இ", "1-இ, 2-ஈ, 3-அ, 4-ஆ", "1-ஈ, 2-இ, 3-ஆ, 4-அ"], a: 0, exp: "விளக்கம்: இரத்து(நீக்குதல்), சவால்(அறைகூவல்), பாஸ்போர்ட்(கடவுச்சீட்டு), தபால்(அஞ்சல்)." },
+
+    // Model 4: Multiple Statement / 4 Statements Model
+    { q: "16. அயற்சொல் மற்றும் தமிழ்ச்சொல் குறித்த கூற்றுகளை ஆராய்க:\nI. 'கம்ப்யூட்டர்' என்பதன் தமிழ்ச்சொல் கணினி ஆகும்.\nII. 'ரேடியோ' என்பதன் தமிழ்ச்சொல் தொலைக்காட்சி ஆகும்.\nIII. 'டாக்டர்' என்பதன் தமிழ்ச்சொல் மருத்துவர் ஆகும்.\nIV. 'தபால்' என்பதன் தமிழ்ச்சொல் அஞ்சல் ஆகும்.\nஎவை சரியானவை?", o: ["I, III மற்றும் IV சரி", "I, II மற்றும் III சரி", "II, III மற்றும் IV சரி", "அனைத்தும் சரி"], a: 0, exp: "விளக்கம்: ரேடியோ என்பதன் தமிழ்ச்சொல் வானொலி ஆகும் (தொலைக்காட்சி அல்ல). எனவே II தவறு; I, III, IV சரி." },
+    { q: "17. வெளிமொழிச் சொற்கள் மற்றும் தமிழாக்கங்கள்:\nI. பாஸ்போர்ட் - கடவுச்சீட்டு\nII. இன்ஜினியர் - பொறியாளர்\nIII. கலெக்டர் - ஆசிரியர்\nIV. போலீஸ் - காவலர்\nஎவை சரி?", o: ["I, II மற்றும் IV மட்டும்", "I, II மற்றும் III மட்டும்", "அனைத்தும் சரி", "I மட்டும் சரி"], a: 0, exp: "விளக்கம்: கலெக்டர் என்பதன் தமிழ்ச்சொல் ஆட்சியர் ஆகும் (ஆசிரியர் அல்ல). எனவே III தவறு." },
+    { q: "18. உணவு மற்றும் உறைவிடம் சார்ந்த அயற்சொற்கள்:\nI. காபி - குளம்பி\nII. காகிதம் - தாள்\nIII. ரயில் - பேருந்து\nIV. பஸ் - தொடருந்து\nஎவை தவறு?", o: ["III மற்றும் IV", "I மற்றும் II", "I மற்றும் IV", "II மற்றும் III"], a: 0, exp: "விளக்கம்: ரயில் என்பது தொடருந்து, பஸ் என்பது பேருந்து. தலைகீறாகக் கொடுக்கப்பட்டிருப்பதால் III மற்றும் IV தவறு." },
+    { q: "19. அலுவலகச் சொற்கள்:\nI. இரத்து - நீக்குதல்\nII. ஆபத்து - கேடு\nIII. சவால் - அறைகூவல்\nIV. ஆச்சரியம் - மகிழ்ச்சி\nஎவை சரி?", o: ["I, II மற்றும் III மட்டும்", "அனைத்தும் சரி", "II மற்றும் IV மட்டும்", "I மற்றும் IV மட்டும்"], a: 0, exp: "விளக்கம்: ஆச்சரியம் என்பது வியப்பு அல்லது அற்புதம் ஆகும் (மகிழ்ச்சி அல்ல). எனவே IV தவறு." },
+    { q: "20. தூய தமிழ்ச்சொற்கள் பயன்பாடு குறித்த கூற்றுகள்:\nI. அயற்சொற்களுக்குப் பதிலாகத் தூய தமிழ்ச்சொற்களைப் பயன்படுத்த வேண்டும்.\nII. 'தந்தி' என்பது செய்மதிச் செய்தியைக் குறிக்கும்.\nIII. 'பேருந்து' என்பது பஸ் என்பதன் தமிழ்ச்சொல்.\nIV. இவை அனைத்தும் மொழி வளத்தை மேம்படுத்தும்.\nஎவை சரி?", o: ["அனைத்தும் சரி", "I, II மற்றும் III மட்டும்", "II, III மற்றும் IV மட்டும்", "I மட்டும் சரி"], a: 0, exp: "விளக்கம்: கொடுக்கப்பட்ட அனைத்துக் கூற்றுகளும் சரி." },
+
+    // Model 5: Assertion & Reason (A & R Model)
+    { q: "21. கூற்று (A): 'கம்ப்யூட்டர்' என்ற ஆங்கிலச் சொல்லுக்கு மாற்றாக 'கணினி' என்னும் தமிழ்ச்சொல் பயன்படுத்தப்படுகிறது.\nகாரணம் (R): பிறமொழிச் சொற்களைத் தவிர்த்துத் தூய தமிழ்ச்சொற்களைப் பயன்படுத்துவது தாய்மொழிப் பற்றை வளர்க்கும்.", o: ["(A) மற்றும் (R) இரண்டும் சரி; (R) என்பது (A)-க்கான சரியான விளக்கம்.", "(A) மற்றும் (R) இரண்டும் சரி; விளக்கமல்ல.", "(A) சரி, (R) தவறு.", "(A) தவறு, (R) சரி."], a: 0, exp: "விளக்கம்: கூற்றும் காரணமும் சரியானவையே." },
+    { q: "22. கூற்று (A): 'தபால்' என்பது தூய தமிழ்ச்சொல் ஆகும்.\nகாரணம் (R): இது பழந்தமிழ் இலக்கியங்களில் பரவலாகக் பயின்று வந்துள்ள சொல்லாகும்.", o: ["(A) சரி, (R) தவறு", "(A) தவறு, (R) சரி", "இரண்டும் சரி", "இரண்டும் தவறு"], b: 1, exp: "விளக்கம்: தபால் என்பது அயற்சொல் (அஞ்சல் என்பதே தமிழ்ச்சொல்). எனவே கூற்று தவறு, காரணம் தவறு." },
+    { q: "23. கூற்று (A): 'பாஸ்போர்ட்' என்பதற்கு 'கடவுச்சீட்டு' என்பது சரியான தமிழ்ச்சொல் ஆகும்.\nகாரணம் (R): வெளிநாடு செல்ல உதவும் அந்த ஆவணத்திற்கு கடவுச்சீட்டு எனத் தமிழாக்கம் செய்யப்பட்டுள்ளது.", o: ["(A) மற்றும் (R) இரண்டும் சரி; (R) சரியான விளக்கம்.", "இரண்டும் தவறு", "(A) சரி, (R) தவறு", "(A) தவறு, (R) சரி"], a: 0, exp: "விளக்கம்: பாஸ்போர்ட் - கடவுச்சீட்டுக்கான சரியான கூற்றும் காரணமும் இதுவாகும்." },
+    { q: "24. கூற்று (A): 'டாக்டர்' என்னும் சொல்லுக்கு 'மருத்துவர்' என்பது தமிழ்ச்சொல்.\nகாரணம் (R): மருத்துவம் பார்க்கும் தொழிலைச் செய்பவரைக் குறிக்க இச்சொல் பயன்படுகிறது.", o: ["(A) மற்றும் (R) இரண்டும் சரி; (R) சரியான விளக்கம்.", "(A) தவறு, (R) சரி", "இரண்டும் சரி", "இரண்டும் தவறு"], a: 0, exp: "விளக்கம்: டாக்டர் - மருத்துவர் பொருத்தத்திற்கான சரியான விளக்கம்." },
+    { q: "25. கூற்று (A): 'காபி' என்பதன் தமிழ்ச்சொல் 'குளம்பி' ஆகும்.\nகாரணம் (R): குளம்பி என்பது காபி குளிர்பானத்தைக் குறிக்கும் தமிழாக்கச் சொல்லாகும்.", o: ["(A) மற்றும் (R) இரண்டும் சரி; (R) சரியான விளக்கம்.", "இரண்டும் சரி, விளக்கமல்ல", "(A) சரி, (R) தவறு", "இரண்டும் தவறு"], a: 0, exp: "விளக்கம்: காபி - குளம்பி என்பது சரியான இணையாகும்." },
+
+    // Model 6: Chronological / Evolution Order Model
+    { q: "26. தகவல் தொடர்புச் சாதனங்களின் தமிழ் வளர்ச்சியின் சரியான பரிணாம வரிசை:\n1. தந்தி (செய்தி முறை)\n2. ரேடியோ (வானொலி)\n3. கம்ப்யூட்டர் (கணினி)", o: ["1, 2, 3", "3, 2, 1", "2, 1, 3", "1, 3, 2"], a: 0, exp: "விளக்கம்: தந்தி, வானொலி, கணினி என்ற தகவல் தொடர்பு சாதனங்களின் வளர்ச்சி வரிசை." },
+    { q: "27. பயணச் சாதனங்களின் தமிழ்ச் சொற்களின் அமைப்பு முறை:\n1. பஸ் -> பேருந்து\n2. ரயில் -> தொடருந்து\n3. பாஸ்போர்ட் -> கடவுச்சீட்டு", o: ["1, 2, 3", "3, 2, 1", "2, 1, 3", "1, 3, 2"], a: 0, exp: "விளக்கம்: பயணச் சொற்கள் மற்றும் ஆவணச் சொற்களின் பொருத்தமான வரிசை." },
+    { q: "28. அலுவலகப் பதவிகளின் தமிழாக்க வரிசை:\n1. கலெக்டர் -> ஆட்சியர்\n2. இன்ஜினியர் -> பொறியாளர்\n3. டாக்டர் -> மருத்துவர்", o: ["1, 2, 3", "3, 2, 1", "2, 1, 3", "1, 3, 2"], a: 0, exp: "விளக்கம்: அலுவல் மற்றும் சேவைப் பதவிகளின் தமிழாக்க வரிசை." },
+    { q: "29. சொல் மாற்றத்தின் முறைகள்:\n1. அயற்சொல் கண்டறிதல்\n2. பொருள் அறிதல்\n3. நிகரான தமிழ்ச்சொல் சூட்டுதல்", o: ["1, 2, 3", "3, 2, 1", "2, 1, 3", "1, 3, 2"], a: 0, exp: "விளக்கம்: அயற்சொல்லுக்குத் தமிழ்ச்சொல் காணும் சரியான படிநிலை முறை." },
+    { q: "30. உணவு மற்றும் நுகர்வுப் பொருட்களின் வரிசை:\n1. காபி -> குளம்பி\n2. காகிதம் -> தாள்\n3. தபால் -> அஞ்சல்", o: ["1, 2, 3", "3, 2, 1", "2, 1, 3", "1, 3, 2"], a: 0, exp: "விளக்கம்: நுகர்வுப் பொருட்கள் மற்றும் பயன்பாட்டுச் சொற்களின் வரிசை." },
+
+    // Model 7: Odd One Out Model
+    { q: "31. கீழ்க்கண்டவற்றுள் பொருந்தாத ஒன்றைத் தேர்ந்தெடுக்க:\n- கணினி\n- வானொலி\n- அஞ்சல்\n- தபால்", o: ["தபால்", "அஞ்சல்", "வானொலி", "கணினி"], a: 0, exp: "விளக்கம்: 'தபால்' என்பது அயற்சொல்; மற்ற மூன்றும் தமிழ்ச்சொற்கள் ஆகும்." },
+    { q: "32. பொருந்தாத சொலைக் கண்டறிக:\n- மருத்துவர்\n- பொறியாளர்\n- ஆட்சியர்\n- டாக்டர்", o: ["டாக்டர்", "ஆட்சியர்", "பொறியாளர்", "மருத்துவர்"], a: 0, exp: "விளக்கம்: 'டாக்டர்' என்பது அயற்சொல்; மற்றவை தமிழ்ச்சொற்கள்." },
+    { q: "33. பொருந்தாததை நீக்குக:\n- பேருந்து\n- தொடருந்து\n- கடவுச்சீட்டு\n- ரயில்", o: ["ரயில்", "கடவுச்சீட்டு", "தொடருந்து", "பேருந்து"], a: 0, exp: "விளக்கம்: 'ரயில்' என்பது அயற்சொல்; மற்றவை தமிழ்ச்சொற்கள்." },
+    { q: "34. வகைக்குப் பொருந்தாத ஒன்றைத் தேர்ந்தெடுக்க:\n- குளம்பி\n- தாள்\n- அஞ்சல்\n- காகிதம்", o: ["காகிதம்", "அஞ்சல்", "தாள்", "குளம்பி"], a: 0, exp: "விளக்கம்: 'காகிதம்' என்பது அயற்சொல்; தாள் என்பது அதன் தமிழ்ச்சொல்." },
+    { q: "35. பொருந்தாத இலக்கண/மொழிச் சொல்லைத் தேர்ந்தெடுக்க:\n- இடர்\n- வியப்பு\n- ஆபத்து\n- அறைகூவல்", o: ["ஆபத்து", "அறைகூவல்", "வியப்பு", "இடர்"], a: 0, exp: "விளக்கம்: 'ஆபத்து' என்பது அயற்சொல்; மற்ற மூன்றும் தமிழ்ச்சொற்கள்." },
+
+    // Model 8: Fill in the Blanks / Sentence Completion
+    { q: "36. 'காவலர்' என்னும் தமிழ்ச்சொல் குறிக்கும் அயற்சொல் __________ ஆகும்.", o: ["டாக்டர்", "போலீஸ்", "கலெக்டர்", "இன்ஜினியர்"], b: 1, exp: "விளக்கம்: போலீஸ் என்பதன் தமிழ்ச்சொல் காவலர் ஆகும்." },
+    { q: "37. 'பேருந்து' என்பது __________ என்னும் ஆங்கிலச் சொல்லின் தமிழாக்கமாகும்.", o: ["ரயில்", "பஸ்", "கார்", "பைக்"], b: 1, exp: "விளக்கம்: பஸ் என்பதன் தமிழ்ச்சொல் பேருந்து ஆகும்." },
+    { q: "38. 'ஆட்சியர்' என்னும் சொல் __________ என்னும் அயற்சொல்லுக்கு இணையானது.", o: ["டாக்டர்", "கலெக்டர்", "இன்ஜினியர்", "போலீஸ்"], b: 1, exp: "விளக்கம்: கலெக்டர் என்பதன் தமிழ்ச்சொல் ஆட்சியர் ஆகும்." },
+    { q: "39. 'குளம்பி' என்னும் தூய தமிழ்ச்சொல் குறிக்கும் பானம் __________ ஆகும்.", o: ["டீ", "காபி", "பால்", "சாறு"], b: 1, exp: "விளக்கம்: காபி என்பதன் தமிழ்ச்சொல் குளம்பி ஆகும்." },
+    { q: "40. 'தாள்' என்னும் தமிழ்ச்சொல் எதைக் குறிக்கிறது?", o: ["காகிதம்", "புத்தகம்", "எழுதுகோல்", "அட்டை"], a: 0, exp: "விளக்கம்: காகிதம் என்பதன் தமிழ்ச்சொல் தாள் ஆகும்." },
+
+    // Model 9: Matching Codes / Combination Code Model
+    { q: "41. கீழே கொடுக்கப்பட்டுள்ளவற்றில் சரியான தமிழ்ச்சொல் இணைகளைக் கொண்ட குறியீட்டைத் தேர்ந்தெடுக்க:\n1. கம்ப்யூட்டர் - கணினி\n2. தபால் - அஞ்சல்\n3. டாக்டர் - மருத்துவர்\nகுறியீடு:", o: ["1, 2 மற்றும் 3 சரி", "1 மற்றும் 2 மட்டும்", "2 மற்றும் 3 மட்டும்", "1 மட்டும்"], a: 0, exp: "விளக்கம்: கொடுக்கப்பட்ட அனைத்து இணைகளும் சரியானவையே." },
+    { q: "42. சரியான அயற்சொல் - தமிழ்ச்சொல் தொகுதியைக் கண்டறிக:\n1. பாஸ்போர்ட் - கடவுச்சீட்டு\n2. ரேடியோ - வானொலி\n3. ரயில் - தொடருந்து\nகுறியீடு:", o: ["அனைத்தும் சரி", "1 மற்றும் 2 மட்டும்", "3 மட்டும்", "அனைத்தும் தவறு"], a: 0, exp: "விளக்கம்: அனைத்து இணைகளும் சரியாகப் பொருத்தப்பட்டுள்ளன." },
+    { q: "43. சரியான இணை எவை?\n1. ஆபத்து - இடர்\n2. ஆச்சரியம் - வியப்பு\n3. இரத்து - நீக்குதல்\nகுறியீடு:", o: ["1, 2 மற்றும் 3 சரி", "1 மட்டும்", "2 மற்றும் 3 மட்டும்", "எதுவுமில்லை"], a: 0, exp: "விளக்கம்: அனைத்து இணைகளும் சரியான தமிழாக்கமாகும்." },
+    { q: "44. அலுவலகச் சொற்களில் சரியானவை:\n1. கலெக்டர் - ஆட்சியர்\n2. இன்ஜினியர் - பொறியாளர்\n3. போலீஸ் - காவலர்\nகுறியீடு:", o: ["அனைத்தும் சரி", "1 மற்றும் 2 மட்டும்", "2 மற்றும் 3 மட்டும்", "1 மட்டும்"], a: 0, exp: "விளக்கம்: அனைத்து அலுவலகச் சொற்களும் சரியாகப் பொருத்தப்பட்டுள்ளன." },
+    { q: "45. சரியான இணைகளைக் தேர்ந்தெடு:\n1. காபி - குளம்பி\n2. காகிதம் - தாள்\n3. சவால் - அறைகூவல்\nகுறியீடு:", o: ["அனைத்தும் சரி", "1 மற்றும் 2 மட்டும்", "2 மற்றும் 3 மட்டும்", "1 மட்டும்"], a: 0, exp: "விளக்கம்: கொடுக்கப்பட்ட அனைத்து இணைகளும் சரியானவையே." },
+
+    // Model 10: Comparative Statement / Analytical Model
+    { q: "46. பத்தியை ஆராய்ந்து விடையளி:\n'மதன் தனது அலுவலகத்திற்குப் பேருந்தில் சென்று, அங்குள்ள கணினியில் தன் பணிகளை முடித்துவிட்டு, அஞ்சல் வழியாகக் கடிதம் அனுப்பினார்.'\nஇத்தொடரில் வந்துள்ள 'பேருந்து', 'கணினி', 'அஞ்சல்' என்பன முறையே எவற்றின் தமிழ்ச்சொற்கள்?", o: ["பஸ், கம்ப்யூட்டர், தபால்", "ரயில், ரேடியோ, தந்தி", "கார், தொலைக்காட்சி, கடிதம்", "பஸ், தபால், கணினி"], a: 0, exp: "விளக்கம்: பேருந்து(பஸ்), கணினி(கம்ப்யூட்டர்), அஞ்சல்(தபால்) என்பனவற்றின் தமிழ்ச்சொற்கள் ஆகும்." },
+    { q: "47. ஒப்பிட்டாய்வுக் கேள்வி:\n'தபால்' மற்றும் 'அஞ்சல்' ஆகிய சொற்களுக்கு இடையேயான முக்கிய வேறுபாடு என்ன?", o: ["தபால் என்பது அயற்சொல்; அஞ்சல் என்பது அதற்கு இணையான தூய தமிழ்ச்சொல்.", "இரண்டும் அயற்சொற்கள்", "இரண்டும் தமிழ்ச்சொற்கள்", "அஞ்சல் என்பது அயற்சொல்"], a: 0, exp: "விளக்கம்: தபால் என்பது பிறமொழிச் சொல், அஞ்சல் என்பது தூய தமிழ்ச்சொல் ஆகும்." },
+    { q: "48. பத்தியை ஆராய்ந்து விடையளி:\n'மருத்துவர் ஒருவர் காயம் அடைந்த காவலருக்கு முதலுதவி செய்தார்.'\nஇத்தொடரில் இடம்பெற்றுள்ள அயற்சொற்களின் தமிழாக்கங்கள் முறையே:", o: ["டாக்டர், போலீஸ்", "இன்ஜினியர், கலெக்டர்", "டாக்டர், கலெக்டர்", "போலீஸ், டாக்டர்"], a: 0, exp: "விளக்கம்: மருத்துவர்(டாக்டர்), காவலர்(போலீஸ்) என்பவற்றின் தமிழாக்கங்கள் ஆகும்." },
+    { q: "49. மொழிபெயர்ப்பு ஒப்பீடு:\n'கடவுச்சீட்டு' மற்றும் 'விசா' (Visa) ஆகிய ஆவணங்களை ஒப்பிடும்போது, பாஸ்போர்ட் என்பதன் சரியான தமிழாக்கம் எது?", o: ["கடவுச்சீட்டு", "நுழைவுச் சீட்டு", "பயண அட்டை", "அடையாள அட்டை"], a: 0, exp: "விளக்கம்: பாஸ்போர்ட் என்பதன் சரியான தமிழாக்கம் கடவுச்சீட்டு ஆகும்." },
+    { q: "50. இறுதி ஆய்வு வினா:\nஅயற்சொற்களுக்குத் தமிழ்ச்சொற்களை உருவாக்குவதன் மூலமாகத் தமிழ் மொழி அடைவது என்ன?", o: ["மொழி வளமும், தனித்தன்மையும் பெருகும்.", "மொழி சுருங்கும்", "பயன்பாடு குறையும்", "மாற்றங்கள் நிகழாது"], a: 0, exp: "விளக்கம்: தூய தமிழ்ச்சொற்களைப் பயன்படுத்துவது மொழி வளத்தையும் தனித்தன்மையையும் பெருக்குகிறது." }
+  ];
+
+  let currentQuestion = 0;
+  let userAnswers = new Array(questionsData.length).fill(null);
+  let isReviewMode = false;
+  let timerInterval;
+  let timeLeft = 45 * 60;
+
+  function initTest() {
+    buildGrid();
+    loadQuestion(0);
+    startTimer();
+  }
+
+  function buildGrid() {
+    const grid = document.getElementById('questionGrid');
+    grid.innerHTML = '';
+    questionsData.forEach((_, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'q-num-btn';
+      btn.innerText = idx + 1;
+      btn.id = `q_btn_${idx}`;
+      btn.onclick = () => jumpToQuestion(idx);
+      grid.appendChild(btn);
+    });
+    updateGridStatus();
+  }
+
+  function updateGridStatus() {
+    questionsData.forEach((_, idx) => {
+      const btn = document.getElementById(`q_btn_${idx}`);
+      if(!btn) return;
+      btn.className = 'q-num-btn';
+      if(idx === currentQuestion) {
+        btn.classList.add('active');
+      } else if(userAnswers[idx] !== null) {
+        btn.classList.add('answered');
+      }
+    });
+  }
+
+  function loadQuestion(idx) {
+    currentQuestion = idx;
+    const q = questionsData[idx];
+    document.getElementById('qTitle').innerText = q.q;
+    
+    const optsBox = document.getElementById('optionsBox');
+    optsBox.innerHTML = '';
+
+    q.o.forEach((optText, oIdx) => {
+      const card = document.createElement('div');
+      card.className = 'option-card';
+      
+      if(userAnswers[idx] === oIdx) {
+        card.classList.add('selected');
+      }
+
+      if(isReviewMode) {
+        if(oIdx === q.a) {
+          card.classList.add('correct-ans');
+        } else if(userAnswers[idx] === oIdx && oIdx !== q.a) {
+          card.classList.add('wrong-ans');
+        }
+      }
+
+      card.innerHTML = `<span><b>${String.fromCharCode(65 + oIdx)}.</b> ${optText}</span>`;
+      card.onclick = () => selectOption(oIdx);
+      optsBox.appendChild(card);
+    });
+
+    const expBox = document.getElementById('expBox');
+    if(isReviewMode) {
+      expBox.style.display = 'block';
+      expBox.innerText = q.exp;
+    } else {
+      expBox.style.display = 'none';
+    }
+
+    document.getElementById('prevBtn').style.display = idx === 0 ? 'none' : 'block';
+    document.getElementById('nextBtn').style.display = idx === questionsData.length - 1 ? 'none' : 'block';
+    updateGridStatus();
+  }
+
+  function selectOption(oIdx) {
+    if(isReviewMode) return;
+    userAnswers[currentQuestion] = oIdx;
+    loadQuestion(currentQuestion);
+  }
+
+  function clearChoice() {
+    if(isReviewMode) return;
+    userAnswers[currentQuestion] = null;
+    loadQuestion(currentQuestion);
+  }
+
+  function navigateNumberQuery(dir) {
+    const next = currentQuestion + dir;
+    if(next >= 0 && next < questionsData.length) {
+      loadQuestion(next);
+    }
+  }
+
+  function jumpToQuestion(idx) {
+    loadQuestion(idx);
+  }
+
+  function startTimer() {
+    if (timerInterval) clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+      timeLeft--;
+      let m = Math.floor(timeLeft / 60);
+      let s = timeLeft % 60;
+      const timerElem = document.getElementById('timerBox');
+      if(timerElem) {
+        timerElem.innerText = `⏱️ ${m}:${s < 10 ? '0' : ''}${s}`;
+      }
+      if(timeLeft <= 0) {
+        clearInterval(timerInterval);
+        submitTest();
+      }
+    }, 1000);
+  }
+
+  function submitTest() {
+    if (timerInterval) clearInterval(timerInterval);
+    document.getElementById('testView').style.display = 'none';
+    document.getElementById('resultView').style.display = 'block';
+
+    let correct = 0, wrong = 0, unans = 0;
+    userAnswers.forEach((ans, idx) => {
+      if(ans === null) unans++;
+      else if(ans === questionsData[idx].a) correct++;
+      else wrong++;
+    });
+
+    document.getElementById('scoreDisplay').innerText = `${correct} / ${questionsData.length}`;
+    let pct = ((correct / questionsData.length) * 100).toFixed(1);
+    document.getElementById('percentageDisplay').innerText = `சதவீதம்: ${pct}%`;
+    document.getElementById('correctCnt').innerText = correct;
+    document.getElementById('wrongCnt').innerText = wrong;
+    document.getElementById('unansCnt').innerText = unans;
+  }
+
+  function reviewAnswerKey() {
+    isReviewMode = true;
+    document.getElementById('resultView').style.display = 'none';
+    document.getElementById('testView').style.display = 'block';
+    document.getElementById('finalSubmitBtn').style.display = 'none';
+    document.getElementById('backToResultBtn').style.display = 'block';
+    document.getElementById('dashFromKeyBtn').style.display = 'block';
+    loadQuestion(0);
+  }
+
+  function returnToResult() {
+    document.getElementById('testView').style.display = 'none';
+    document.getElementById('resultView').style.display = 'block';
+  }
+
+  function returnToDashboard() {
+    window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html"); 
+  }
+
+  function exitPortal() {
+    window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html");
+  }
+
+  function retakeTest() {
+    userAnswers = new Array(questionsData.length).fill(null);
+    isReviewMode = false;
+    timeLeft = 45 * 60;
+    document.getElementById('resultView').style.display = 'none';
+    document.getElementById('testView').style.display = 'block';
+    document.getElementById('finalSubmitBtn').style.display = 'inline-block';
+    document.getElementById('backToResultBtn').style.display = 'none';
+    document.getElementById('dashFromKeyBtn').style.display = 'none';
+    initTest();
+  }
+
+  window.onload = function() {
+    initTest();
+  }
+</script>
+
+</body>
+</html>
