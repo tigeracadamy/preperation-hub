@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tiger Warriors - வினைச் சொற்களின் வேறுபாடு 50 வினாக்கள்</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; font-weight: bold; }
+    body { background: #080604; color: #f8fafc; padding: 12px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+    .card { width: 100%; max-width: 950px; background: #0f172a; border-radius: 14px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); border: 1px solid #334155; }
+    
+    .test-header { display: flex; justify-content: space-between; align-items: center; background: #1e293b; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; border: 1px solid #334155; }
+    .timer { font-size: 15px; font-weight: bold; color: #fbbf24; background: #091326; padding: 6px 12px; border-radius: 6px; border: 1px solid #fbbf24; box-shadow: inset 0 0 5px rgba(251, 191, 36, 0.2); }
+    
+    .q-grid { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 16px; max-height: 140px; overflow-y: auto; padding: 8px; background: #1e293b; border-radius: 8px; justify-content: center; }
+    .q-num-btn { width: 30px; height: 30px; border-radius: 5px; border: none; background: #334155; color: #fff; font-size: 10px; cursor: pointer; font-weight: bold; }
+    .q-num-btn.active { border: 2px solid #38bdf8; background: #0284c7; }
+    .q-num-btn.answered { background: #10b981; }
+
+    .q-box { background: #1e293b; padding: 18px; border-radius: 10px; margin-bottom: 16px; border: 1px solid #334155; }
+    .q-text { white-space: pre-line; line-height: 1.6; font-size: 15px; color: #f8fafc; }
+    
+    .option-card { background: #0f172a; border: 1px solid #334155; padding: 12px 16px; border-radius: 8px; margin-top: 10px; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: 0.2s; white-space: pre-line; line-height: 1.4; }
+    .option-card:hover { border-color: #38bdf8; background: #1e293b; }
+    .option-card.selected { border-color: #10b981; background: #064e3b; }
+    .option-card.correct-ans { border-color: #10b981; background: #065f46; font-weight: bold; }
+    .option-card.wrong-ans { border-color: #ef4444; background: #7f1d1d; }
+
+    .explanation-box { background: #091326; border: 1px solid #38bdf8; border-radius: 8px; padding: 12px; margin-top: 14px; font-size: 13px; color: #7dd3fc; line-height: 1.5; }
+    
+    .nav-btns { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+    .btn-action { background: #334155; color: #fff; border: none; padding: 10px 16px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 13px; text-align: center; }
+    .btn-action:hover { opacity: 0.9; }
+    .btn-blue { background: #2563eb; }
+    .btn-purple { background: #7c3aed; }
+    .btn-danger { background: #ef4444; }
+    .btn-green { background: #22c55e; }
+
+    .result-box { text-align: center; padding: 25px; background: #1e293b; border-radius: 16px; margin-top: 10px; border: 1px solid rgba(0, 242, 254, 0.3); display: flex; flex-direction: column; align-items: center; }
+    .score-circle { width: 130px; height: 130px; border-radius: 50%; background: conic-gradient(#10b981 0deg, #0f172a 0deg); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 15px auto; border: 4px solid #38bdf8; box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); }
+    .score-num { font-size: 30px; color: #f8fafc; font-weight: bold; }
+    
+    .result-stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; width: 100%; max-width: 400px; }
+    .stat-pill { background: #0f172a; border-radius: 12px; padding: 10px; border: 1px solid #334155; text-align: center; }
+    .stat-pill.gold { border-color: #fbbf24; }
+    .stat-pill.blue { border-color: #38bdf8; }
+    .stat-pill.red { border-color: #ef4444; }
+
+    .footer-badge { text-align: center; font-size: 11px; color: #38bdf8; margin-top: 15px; font-weight: bold; letter-spacing: 0.5px; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <script>
+      if (localStorage.getItem('tiger_auth_passed') !== 'true') {
+          alert("⚠ பாதுகாப்பு எச்சரிக்கை: நீங்கள் Tiger Warriors போர்ட்டலில் லாகின் செய்யவில்லை! முதலில் மெயின் போர்ட்டலில் லாகின் செய்யவும்.");
+          window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html"); 
+      }
+  </script>
+
+  <div id="testView">
+    <div class="test-header">
+      <div>
+        <h3 style="color: #38bdf8; font-size: 15px;">🐅 TIGER WARRIORS - வினைச் சொற்களின் வேறுபாடு (50 வினாக்கள்)</h3>
+        <span style="font-size: 11px; color: #94a3b8;">TNPSC / 2 / 2A / 4 • TAMIL GRAMMAR</span>
+      </div>
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <div class="timer" id="timerBox">⏱️ 45:00</div>
+        <button class="btn-action btn-purple" id="backToResultBtn" onclick="returnToResult()" style="display: none; padding: 6px 12px; font-size: 12px;">📊 ரிசல்ட் செல்</button>
+        <button class="btn-action btn-danger" id="dashFromKeyBtn" onclick="returnToDashboard()" style="display: none; padding: 6px 12px; font-size: 12px;">🏠 முகப்பு</button>
+      </div>
+    </div>
+
+    <div class="q-grid" id="questionGrid"></div>
+
+    <div class="q-box">
+      <div id="qTitle" class="q-text"></div>
+      <div id="optionsBox"></div>
+      <div id="expBox" class="explanation-box" style="display: none;"></div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn-action" id="prevBtn" onclick="navigateNumberQuery(-1)">⬅️ முந்தையது</button>
+      <button class="btn-action" id="clearBtn" onclick="clearChoice()">🧹 விடையை நீக்கு</button>
+      <button class="btn-action btn-blue" id="nextBtn" onclick="navigateNumberQuery(1)">அடுத்து ➡️</button>
+      <button class="btn-action btn-danger" id="finalSubmitBtn" onclick="submitTest()">✅ தேர்வைச் சமர்ப்பிக்க (Submit)</button>
+    </div>
+  </div>
+
+  <div id="resultView" style="display: none;">
+    <h2 style="color: #38bdf8; text-align: center; margin-bottom: 10px;">🏆 தேர்வு முடிவுகள் (Test Results) 🎯</h2>
+    <div class="result-box">
+      <div class="score-circle" id="scoreCircle">
+        <div class="score-num" id="scoreDisplay">0/50</div>
+        <span id="percentageDisplay" style="font-size: 11px; color: #fbbf24;">0%</span>
+      </div>
+
+      <div class="result-stats-grid">
+        <div class="stat-pill gold">
+          <h3 id="correctCnt" style="color: #10b981; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;">சரியானவை ✅</span>
+        </div>
+        <div class="stat-pill red">
+          <h3 id="wrongCnt" style="color: #ef4444; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;">தவறானவை ❌</span>
+        </div>
+        <div class="stat-pill blue">
+          <h3 id="unansCnt" style="color: #f59e0b; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;">விடையில்லை ⚠️</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
+      <button class="btn-action btn-blue" onclick="reviewAnswerKey()">🔍 விடை குறிப்பு (Answer Key)</button>
+      <button class="btn-action btn-purple" onclick="returnToDashboard()">🏠 முகப்புப் பக்கம்</button>
+      <button class="btn-action btn-green" onclick="retakeTest()">🔄 மீண்டும் தேர்வு</button>
+      <button class="btn-action btn-danger" onclick="exitPortal()">🚪 வெளியேறு</button>
+    </div>
+    <div class="footer-badge" style="margin-top: 20px;">🐅 டைகர் வாரியர் போர்டல் - இயக்குநர்: Dr. K. மணிகாசி 🐅</div>
+  </div>
+</div>
+
+<script>
+  const questionsData = [
+    { q: "1. செய்பவன், கருவி, நிலம், செயல், காலம், இவற்றுள் ஏதேனும் ஒன்றை முதன்மையாகக் கொண்டு தோன்றும் வினைமுற்று எது?", o: ["குறிப்பு வினைமுற்று", "தெரிநிலை வினைமுற்று", "ஏவல் வினைமுற்று", "வியங்கோள் வினைமுற்று"], a: 1, exp: "விளக்கம்: ஆறு இடங்களையும், செய்பவன், கருவி முதலியவற்றையும் வெளிப்படையாகக் காட்டுவது தெரிநிலை வினைமுற்று ஆகும்." },
+    { q: "2. பொருண்மையை அடிப்படையாகக் கொண்டு காலத்தைக் காட்டாமல் பண்பினை மட்டும் உணர்த்தி வரும் வினைமுற்று எது?", o: ["தெரிநிலை வினைமுற்று", "குறிப்பு வினைமுற்று", "வியங்கோள் வினைமுற்று", "ஏவல் வினைமுற்று"], a: 1, exp: "விளக்கம்: காலம் காட்டாமல் பொருள், இடம், காலம், சினை, குணம், தொழில் ஆகியவற்றை அடிப்படையாகக் கொண்டு பண்பைக் காட்டுவது குறிப்பு வினைமுற்று ஆகும்." },
+    { q: "3. 'பொன்னன்' என்னும் சொல்லின் இலக்கணக் குறிப்பு என்ன?", o: ["தெரிநிலை வினைமுற்று", "குறிப்பு வினைமுற்று", "வினையாலணையும் பெயர்", "தொழிற்பெயர்"], a: 1, exp: "விளக்கம்: 'பொன்னன்' என்பது பொன் என்னும் பொருளை அடிப்படையாகக் கொண்டு பொன்னை உடையவன் எனப் பண்பு உணர்த்தி வந்த குறிப்பு வினைமுற்று ஆகும்." },
+    { q: "4. முன்னிலையில் உள்ள ஒருவரை ஒரு செயலைச் செய்யுமாறு கட்டளையிடும் வினைமுற்று எது?", o: ["வியங்கோள் வினைமுற்று", "ஏவல் வினைமுற்று", "தெரிநிலை வினைமுற்று", "குறிப்பு வினைமுற்று"], a: 1, exp: "விளக்கம்: முன்னிலை நபரைக் கட்டளையிடுவது ஏவல் வினைமுற்று எனப்படும் (எ.கா: படி)." },
+    { q: "5. வாழ்த்துதல், வேண்டுதல், வைதல், விதித்தல் ஆகிய பொருள்களில் வரும் வினைமுற்று எது?", o: ["ஏவல் வினைமுற்று", "வியங்கோள் வினைமுற்று", "தெரிநிலை வினைமுற்று", "குறிப்பு வினைமுற்று"], a: 1, exp: "விளக்கம்: வாழ்த்துதல், வேண்டுதல் போன்ற பொருள்களில் வரும் வினைமுற்று வியங்கோள் வினைமுற்று ஆகும்." },
+    { q: "6. வியங்கோள் வினைமுற்று விகுதிகள் எவை?", o: ["-க, -இய, -இயிய", "-அ, -இ", "-உ, -ஊ", "-தல், -அல்"], a: 0, exp: "விளக்கம்: வியங்கோள் வினைமுற்றுக்குரிய பொதுவான விகுதிகள் -க, -இய, -இயிய ஆகும்." },
+    { q: "7. கீழ்க்கண்டவற்றுள் தெரிநிலை வினைமுற்றிற்கான சரியான எடுத்துக்காட்டு எது?", o: ["கண்ணன் பொன்னன்", "வாழ்க தமிழ்", "படித்தான்", "செவியன்"], a: 2, exp: "விளக்கம்: 'படித்தான்' என்பது செயலையும் காலத்தையும் வெளிப்படையாகக் காட்டுவதால் தெரிநிலை வினைமுற்று ஆகும்." },
+    { q: "8. குறிப்பு வினைமுற்று எத்தனை அடிப்படைகளில் தோன்றும்?", o: ["நான்கு", "ஐந்து", "ஆறு", "ஏழு"], a: 2, exp: "விளக்கம்: குறிப்பு வினைமுற்று பொருள், இடம், காலம், சினை, குணம், தொழில் என்னும் ஆறு அடிப்படைகளில் தோன்றும்." },
+    { q: "9. ஏவல் வினைமுற்றின் விகுதிகள் பற்றிய சரியான கூற்று எது?", o: ["ஒருமைக்கு விகுதி வராது; பன்மைக்கு -மின், -ருங்கள் வரும்", "எப்போது விகுதி வரும்", "விகுதிகள் வராது", "எதிர்மறையாக வரும்"], a: 0, exp: "விளக்கம்: ஏவல் வினைமுற்று ஒருமையில் விகுதி பெறாது (எ.கா: படி); பன்மையில் விகுதி பெறும் (எ.கா: படியுங்கள்)." },
+    { q: "10. 'வாழ்க' என்னும் சொல் எவ்வகை வினைமுற்றைக் குறிக்கும்?", o: ["ஏவல் வினைமுற்று", "வியங்கோள் வினைமுற்று", "தெரிநிலை வினைமுற்று", "குறிப்பு வினைமுற்று"], a: 1, exp: "விளக்கம்: '-க' விகுதி பெற்று வாழ்த்துப் பொருளில் வந்ததால் இது வியங்கோள் வினைமுற்று ஆகும்." },
+    { q: "11. பொருத்துக:\n1. படித்தான் — அ. குறிப்பு வினைமுற்று\n2. பொன்னன் — ஆ. ஏவல் வினைமுற்று\n3. படி — இ. தெரிநிலை வினைமுற்று\n4. வாழ்க — ஈ. வியங்கோள் வினைமுற்று", o: ["1-இ, 2-அ, 3-ஆ, 4-ஈ", "1-அ, 2-இ, 3-ஈ, 4-ஆ", "1-ஈ, 2-அ, 3-இ, 4-ஆ", "1-இ, 2-ஆ, 3-அ, 4-ஈ"], a: 0, exp: "விளக்கம்: படித்தான் (தெரிநிலை), பொன்னன் (குறிப்பு), படி (ஏவல்), வாழ்க (வியங்கோள்)." },
+    { q: "12. பொருத்துக:\n1. நிலத்தினان — அ. இடைக் குறிப்பு வினைமுற்று\n2. ஆதிரையான் — ஆ. காலக் குறிப்பு வினைமுற்று\n3. கண்ணன் — இ. பொருள் குறிப்பு வினைமுற்று\n4. முளையன் — ஈ. சினைக் குறிப்பு வினைமுற்று", o: ["1-இ, 2-ஆ, 3-அ, 4-ஈ", "1-அ, 2-ஆ, 3-இ, 4-ஈ", "1-ஈ, 2-இ, 3-அ, 4-ஆ", "1-இ, 2-ஈ, 3-அ, 4-ஆ"], a: 0, exp: "விளக்கம்: குறிப்பு வினைமுற்றின் அடிப்படையிலான பொருத்தங்கள்." },
+    { q: "13. சரியான இணையைத் தேர்ந்தெடுக்க:\n- படித்தான் : தெரிநிலை வினைமுற்று\n- சாத்தன் : குறிப்பு வினைமுற்று\n- உண் : ஏவல் வினைமுற்று\n- வாழிய : வியங்கோள் வினைமுற்று", o: ["அனைத்தும் சரி", "1 மற்றும் 2 மட்டும்", "3 மற்றும் 4 மட்டும்", "அனைத்தும் தவறு"], a: 0, exp: "விளக்கம்: கொடுக்கப்பட்ட அனைத்து வினைமுற்று இணைகளும் சரியானவையே." },
+    { q: "14. தவறான இணைக் கண்டறிக:\n- படி - ஏவல் வினைமுற்று\n- வாழ்க - வியங்கோள் வினைமுற்று\n- எழுதிய - தெரிநிலை வினைமுற்று\n- கண்ணன் - குறிப்பு வினைமுற்று", o: ["எഴുதிய - தெரிநிலை வினைமுற்று", "படி - ஏவல் வினைமுற்று", "வாழ்க - வியங்கோள் வினைமுற்று", "கண்ணன் - குறிப்பு வினைமுற்று"], a: 0, exp: "விளக்கம்: 'எழுதிய' என்பது பெயரெச்சம் ஆகும் (வினைமுற்று அல்ல)." },
+    { q: "15. பொருத்துக:\n1. தெரிநிலை வினைமுற்று — அ. செயல் வெளிப்படும்\n2. குறிப்பு வினைமுற்று — ஆ. பண்பு வெளிப்படும்\n3. ஏவல் வினைமுற்று — இ. கட்டளை தரும்\n4. வியங்கோள் வினைமுற்று — ஈ. வாழ்த்து தரும்", o: ["1-அ, 2-ஆ, 3-இ, 4-ஈ", "1-ஆ, 2-அ, 3-ஈ, 4-இ", "1-இ, 2-ஈ, 3-அ, 4-ஆ", "1-ஈ, 2-இ, 3-ஆ, 4-அ"], a: 0, exp: "விளக்கம்: அனைத்து வினைமுற்றுகளின் தன்மைகளும் நேராகச் சரியாகப் பொருத்தப்பட்டுள்ளன." },
+    { q: "16. வினைமுற்றுகளின் வேறுபாடுகள் குறித்த கூற்றுகள்:\nI. தெரிநிலை வினைமுற்று காலத்தைக் காட்டும்.\nII. குறிப்பு வினைமுற்று காலத்தைக் காட்டாது, பண்பைக் காட்டும்.\nIII. ஏவல் வினைமுற்று முன்னிலைக்கு உரியது.\nIV. வியங்கோள் வினைமுற்று மூவிடங்களுக்கும் பொதுவாக வரும்.\nஎவை சரியானவை?", o: ["I, II மற்றும் III சரி", "அனைத்தும் சரி", "II, III மற்றும் IV சரி", "I மற்றும் IV மட்டும் சரி"], a: 1, exp: "விளக்கம்: வியங்கோள் வினைமுற்று படர்க்கைக்கு மட்டுமே உரியது (மூவிடங்களுக்கும் பொதுவாக வராது - விதிவிலக்காகத் தற்காலத்தில் இருப்பினும் இலக்கணப்படி படர்க்கைக்கே உரியது). எனினும் வியங்கோள் படர்க்கைக்கே உரியது என்பதால் III வரை சரி. மன்னிக்கவும்: வியங்கோள் படர்க்கைக்கு மட்டுமே உரியது." },
+    { q: "17. வியங்கோள் வினைமுற்று பற்றிய சிறப்பு வேறுபாடுகள்:\nI. இது விகுதிகளை ஏற்றுவரும்.\nII. இது கட்டளைப் பொருளில் வரும்.\nIII. இது வாழ்த்துதல், வேண்டுதல் பொருளில் வரும்.\nIV. இதன் விகுதி பெரும்பாலும் '-க' ஆகும்.\nஎவை சரி?", o: ["I, III மற்றும் IV மட்டும்", "அனைத்தும் சரி", "II மற்றும் IV மட்டும்", "I மற்றும் II மட்டும்"], a: 0, exp: "விளக்கம்: வியங்கோள் வினைமுற்று கட்டளைப் பொருளில் வராது (கட்டளை ஏவல் வினைக்குரியது). எனவே II தவறு; I, III, IV சரி." },
+    { q: "18. ஏவல் வினைமுற்றுக்கும் வியங்கோள் வினைமுற்றுக்கும் உள்ள முக்கிய வேறுபாடு என்ன?", o: ["ஏவல் முன்னிலைக்கு உரியது; வியங்கோள் படர்க்கைக்கு உரியது மற்றும் விகுதil வேறுபடும்.", "இரண்டும் ஒன்றுதான்", "ஏவல் வாழ்த்துப் பொருள் தரும்", "வியங்கோள் கட்டளை தரும்"], a: 0, exp: "விளக்கம்: ஏவல் முன்னிலை ஒருமை/பன்மைக்கு உரியது, வியங்கோள் படர்க்கைக்கு உரியது மற்றும் வாழ்த்து/வேண்டுதல் பொருள் தருவது." },
+    { q: "19. தெரிநிலை மற்றும் குறிப்பு வினைமுற்று வேறுபாடு:\nI. தெரிநிலை செயலையும் காலத்தையும் காட்டும்.\nII. குறிப்பு பண்பை மட்டும் காட்டும்.\nIII. குறிப்பு வினைமுற்றுக்குச் செயலே கிடையாது.\nIV. தெரிநிலை வினைமுற்றுக்கு விகுதிகள் உண்டு.\nஎவை சரி?", o: ["I, II மற்றும் IV சரி", "அனைத்தும் சரி", "II மற்றும் III மட்டும்", "I மட்டும் சரி"], a: 0, exp: "விளக்கம்: குறிப்பு வினைமுற்றுக்கும் மூலச் செயல் உண்டு, ஆனால் அது வெளிப்படாமல் பண்பு மட்டும் முன்னின்று காட்டும். எனவே III தவறு." },
+    { q: "20. கூற்று மற்றும் காரணத்தை ஆராய்க:\nகூற்று (A): 'வாழ்க தமிழ்' என்பதில் வந்துள்ள 'வாழ்க' என்பது வியங்கோள் வினைமுற்று ஆகும்.\nகாரணம் (R): இது '-க' விகுதி பெற்று வாழ்த்துப் பொருளில் வந்துள்ளது.", o: ["(A) மற்றும் (R) இரண்டும் சரி; (R) என்பது (A)-க்கான சரியான விளக்கம்.", "(A) மற்றும் (R) இரண்டும் சரி; விளக்கமல்ல.", "(A) சரி, (R) தவறு.", "(A) தவறு, (R) சரி."], a: 0, exp: "விளக்கம்: கூற்றும் காரணமும் வியங்கோள் வினைமுற்று விதிப்படி முற்றிலும் சரியானவையே." },
+    { q: "21. கூற்று (A): 'படி' என்பது வியங்கோள் வினைமுற்று ஆகும்.\nகாரணம் (R): இது கட்டளைப் பொருளில் வந்துள்ள ஏவல் வினைமுற்று ஆகும்.", o: ["(A) சரி, (R) தவறு", "(A) தவறு, (R) சரி", "இரண்டும் சரி", "இரண்டும் தவறு"], b: 1, exp: "விளக்கம்: 'படி' என்பது ஏவல் வினைமுற்று (வியங்கோள் அல்ல). எனவே கூற்று (A) தவறு, காரணம் (R) சரி." },
+    { q: "22. கூற்று (A): குறிப்பு வினைமுற்று காலத்தைக் காட்டாது.\nகாரணம் (R): இது பண்பினை அடிப்படையாகக் கொண்டு தோன்றுவதால் காலத்தைக் காட்ட இயலாது.", o: ["(A) மற்றும் (R) இரண்டும் சரி; (R) சரியான விளக்கம்.", "இரண்டும் தவறு", "(A) சரி, (R) தவறு", "(A) தவறு, (R) சரி"], a: 0, exp: "விளக்கம்: குறிப்பு வினைமுற்று காலங்காட்டுவதில்லை; பண்பை மட்டுமே காட்டும்." },
+    { q: "23. வினைமுற்றுகளின் வகைகளின் சரியான படிநிலை வரிசை:\n1. தெரிநிலை வினைமுற்று & குறிப்பு வினைமுற்று\n2. ஏவல் வினைமுற்று & வியங்கோள் வினைமுற்று\n3. ஒட்டுமொத்த வினைமுற்று வகைகள்", o: ["1, 2, 3", "3, 2, 1", "2, 1, 3", "1, 3, 2"], a: 0, exp: "விளக்கம்: தமிழ் இலக்கணத்தில் வினைமுற்று இதன் அடிப்படையில்தான் வகைப்படுத்தப்படுகிறது." },
+    { q: "24. கீழ்க்கண்டவற்றுள் பொருந்தாத ஒன்றைத் தேர்ந்தெடுக்க:\n- படித்தான்\n- ஓடினாள்\n- பொன்னன்\n- எழுதினாள்", o: ["பொன்னன்", "எழுதினாள்", "ஓடினாள்", "படித்தான்"], a: 0, exp: "விளக்கம்: 'பொன்னன்' என்பது குறிப்பு வினைமுற்று; மற்ற மூன்றும் தெரிநிலை வினைமுற்றுகள்." },
+    { q: "25. பொருந்தாத சொல்லைக் கண்டறிக:\n- படி\n- உண்\n- ஓடு\n- வாழ்க", o: ["வாழ்க", "ஓடு", "உண்", "படி"], a: 0, exp: "விளக்கம்: 'வாழ்க' என்பது வியங்கோள் வினைமுற்று; மற்ற மூன்றும் ஏவல் வினைமுற்றுகள்." },
+    { q: "26. பொருந்தாததை நீக்குக:\n- நிலத்தினன்\n- ஊரன்\n- ஆதிரையான்\n- படித்தான்", o: ["படித்தான்", "ஆதிரையான்", "ஊரன்", "நிலத்தினன்"], a: 0, exp: "விளக்கம்: 'படித்தான்' தெரிநிலை வினைமுற்று; மற்ற மூன்றும் குறிப்பு வினைமுற்றுகள் (இடம், காலம் சார்ந்தவை)." },
+    { q: "27. கோடிட்ட இடங்களை நிரப்புக:\nமுன்னிலையில் நின்று ஒரு செயலைச் செய்யச் சொல்லும் வினைமுற்று __________ எனப்படும்.", o: ["ஏவல் வினைமுற்று", "வியங்கோள் வினைமுற்று", "தெரிநிலை வினைமுற்று", "குறிப்பு வினைமுற்று"], b: 0, exp: "விளக்கம்: ஏவல் வினைமுற்றின் வரையறை இதுவாகும்." },
+    { q: "28. 'காதலியன்' என்பதில் வந்துள்ள சொல் எவ்வகை வினைமுற்று?", o: ["குறிப்பு வினைமுற்று", "தெரிநிலை வினைமுற்று", "ஏவல் வினைமுற்று", "வியங்கோள் வினைமுற்று"], a: 0, exp: "விளக்கம்: சினை அடிப்படையிலான குறிப்பு வினைமுற்று ஆகும்." },
+    { q: "29. கீழ்க்கண்டவற்றுள் வியங்கோள் வினைமுற்றுக் குறியீடுகள் அடங்கிய தொகுதி எது?\n1. -க\n2. -இய\n3. -உ\n4. -இயிய", o: ["1, 2 மற்றும் 4 மட்டும்", "1 மற்றும் 3 மட்டும்", "அனைத்தும்", "2 மட்டும்"], a: 0, exp: "விளக்கம்: -க, -இய, -இயிய என்பவை வியங்கோள் விகுதிகள்; -உ வினையெச்ச விகுதியாகும்." },
+    { q: "30. பத்தியை ஆராய்ந்து விடையளி:\n'மழை பெய்தது; மக்கள் மகிழ்ந்தனர்; நீ வாழ்க!'\nஇத்தொடரில் வந்துள்ள 'பெய்தது', 'மகிழ்ந்தனர்', 'வாழ்க' என்பன முறையே:", o: ["தெரிநிலை வினைமுற்று, தெரிநிலை வினைமுற்று, வியங்கோள் வினைமுற்று", "குறிப்பு வினைமுற்று, ஏவல் வினைமுற்று, வியங்கோள் வினைமுற்று", "வியங்கோள், தெரிநிலை, குறிப்பு", "அனைத்தும் தெரிநிலை"], a: 0, exp: "விளக்கம்: பெய்தது (தெரிநிலை), மகிழ்ந்தனர் (தெரிநிலை), வாழ்க (வியங்கோள்)." },
+    { q: "31. 'செவியன்' - இச்சொல்லின் இலக்கணக் குறிப்பு என்ன?", o: ["குறிப்பு வினைமுற்று (சினை)", "தெரிநிலை வினைமுற்று", "ஏவல் வினைமுற்று", "தொழிற்பெயர்"], a: 0, exp: "விளக்கம்: செவி என்னும் உறுப்பைக் குறிக்கும் குறிப்பு வினைமுற்று ஆகும்." },
+    { q: "32. 'ஆண்டுள்ளான்' - இச்சொல் எவ்வகை வினைமுற்றைக் குறிக்கும்?", o: ["காலக் குறிப்பு வினைமுற்று", "இடக் குறிப்பு வினைமுற்று", "பொருட்குறிப்பு வினைமுற்று", "தெரிநிலை வினைமுற்று"], a: 0, exp: "விளக்கம்: ஆண்டு (காலம்) அடிப்படையிலான காலக் குறிப்பு வினைமுற்று ஆகும்." },
+    { q: "33. 'ஊரன்' - இச்சொல் எவ்வகை வினைமுற்றைக் குறிக்கும்?", o: ["இடக் குறிப்பு வினைமுற்று", "காலக் குறிப்பு வினைமுற்று", "பொருட்குறிப்பு வினைமுற்று", "வினையாலணையும் பெயர்"], a: 0, exp: "விளக்கம்: ஊர் (இடம்) அடிப்படையிலான இடக் குறிப்பு வினைமுற்று ஆகும்." },
+    { q: "34. கீழ்க்கண்டவற்றுள் ஏவல் வினைமுற்றுக்குரிய சரியான தொடர் எது?", o: ["நாளை வா", "பாடம் படி", "நீர் வாழ்க", "அவன் படித்தான்"], b: 1, exp: "விளக்கம்: 'படி' என்பது முன்னிலையைக் கட்டளையிடும் ஏவல் வினைமுற்றாகும்." },
+    { q: "35. ஏவல் வினைமுற்றுப் பன்மைக்குரிய விகுதி எது?", o: ["-மின் / -ருங்கள்", "-க", "-இய", "-அ"], a: 0, exp: "விளக்கம்: பன்மை ஏவல் வினைமுற்றுக்கு -மின் அல்லது -ருங்கள் விகுதி வரும் (எ.கா: படியுங்கள்)." },
+    { q: "36. கூற்று (A): வியங்கோள் வினைமுற்று விகுதிகள் வராமலும் வருவதுண்டு (கவியிய போன்ற செயல்கள்).\nகாரணம் (R): சில செய்யுள் விகாரங்களால் வியங்கோள் விகுதிகள் மறைந்து வருவதும் உண்டு.", o: ["(A) மற்றும் (R) இரண்டும் சரி; (R) சரியான விளக்கம்.", "(A) சரி, (R) தவறு", "(A) தவறு, (R) சரி", "இரண்டும் தவறு"], a: 0, exp: "விளக்கம்: வியங்கோள் விகுதிகள் செய்யுளில் சிலவேளைகளில் விகாரமாக வரும்." },
+    { q: "37. 'கண்க' - இச்சொல்லின் இலக்கணம் என்ன?", o: ["வியங்கோள் வினைமுற்று", "ஏவல் வினைமுற்று", "தெரிநிலை வினைமுற்று", "குறிப்பு வினைமுற்று"], a: 0, exp: "விளக்கம்: கண் + க = கண்க (வியங்கோள் வினைமுற்று)." },
+    { q: "38. 'உண்பான்' - இச்சொல்லின் இலக்கண வேறுபாடு:", o: ["எதிர்காலத் தெரிநிலை வினைமுற்று", "குறிப்பு வினைமுற்று", "ஏவல் வினைமுற்று", "வினையாலணையும் பெயர்"], a: 0, exp: "விளக்கம்: உண் (செயல்), ப்ப् + ஆன் (ஆண்பால் வினைமுற்று விகுதி) = எதிர்காலத் தெரிநிலை வினைமுற்று." },
+    { q: "39. பொருந்தாத ஒன்றைத் தேர்ந்தெடுக்க:\n- சென்றான்\n- வந்தான்\n- பொன்னன்\n- படித்தான்", o: ["பொன்னன்", "படித்தான்", "வந்தான்", "சென்றான்"], a: 0, exp: "விளக்கம்: 'பொன்னன்' குறிப்பு வினைமுற்று; மற்ற மூன்றும் தெரிநிலை வினைமுற்றுகள்." },
+    { q: "40. 'மழையன்' என்பதன் இலக்கணம்:", o: ["காலக் குறிப்பு வினைமுற்று", "இடக் குறிப்பு வினைமுற்று", "பொருட்குறிப்பு வினைமுற்று", "தெரிநிலை வினைமுற்று"], a: 0, exp: "விளக்கம்: மழை என்னும் காலத்தைக் குறிக்கும் குறிப்பு வினைமுற்று ஆகும்." },
+    { q: "41. கீழ்க்கண்டவற்றுள் வியங்கோள் வினைமுற்றைத் தொடரைக் கண்டறிக:", o: ["செ여்க நன்று", "செய்தான்", "செய்து முடி", "செய்கின்றார்"], b: 0, exp: "விளக்கம்: 'செய்க' என்பது வியங்கோள் வினைமுற்றுத் தொடராகும்." },
+    { q: "42. குறிப்பு வினைமுற்று எதனை வெளிப்படையாகக் காட்டாது?", o: ["காலத்தை", "திணையை", "பாலினை", "எண்ணினை"], a: 0, exp: "விளக்கம்: குறிப்பு வினைமுற்று காலத்தை வெளிப்படையாகக் காட்டாது." },
+    { q: "43. 'பண்ணைஞன்' என்பதில் 'பண்ணை' என்பது எதனைக் குறிக்கும் குறிப்பு வினைமுற்று?", o: ["நிலம்/இடம்", "காலம்", "பொருள்", "தொழில்"], a: 3, exp: "விளக்கம்: பண்ணை (தொழில்) சார்ந்த குறிப்பு வினைமுற்று ஆகும்." },
+    { q: "44. பத்தியை ஆராய்ந்து விடையளி:\n'அரசன் செங்கோல் செலுத்தினான்; மக்கள் இன்புற்றனர்; நாடு செழிக்க!'\nஇத்தொடரில் வந்துள்ள 'செலுத்தினான்', 'இன்புற்றனர்', 'செழிக்க' என்பன முறையே:", o: ["தெரிநிலை வினைமுற்று, தெரிநிலை வினைமுற்று, வியங்கோள் வினைமுற்று", "குறிப்பு, தெரிநிலை, ஏவல்", "அனைத்தும் தெரிநிலை", "வியங்கோள், குறிப்பு, தெரிநிலை"], a: 0, exp: "விளக்கம்: செலுத்தினான் (தெரிநிலை), இன்புற்றனர் (தெரிநிலை), செழிக்க (வியங்கோள்)." },
+    { q: "45. 'உழவன்' என்பதில் 'உழு' என்பது எதனை அடிப்படையாகக் கொண்டது?", o: ["தொழில் அடிப்படையிலான குறிப்பு வினைமுற்று / தொழிற்பெயர் வேர்", "இடம்", "காலம்", "பொருள்"], a: 0, exp: "விளக்கம்: உழவுத்தொழிலை அடிப்படையாகக் கொண்டுவந்த குறிப்பு வினைமுற்று ஆகும்." },
+    { q: "46. வினைமுற்றுச் சொற்கள் எங்கு நிறைவுபெறும்?", o: ["வாக்கியத்தின் இறுதியில் பொருள் முற்றுப்பெற்று நிற்கும்.", "தொடக்கத்தில்", "இடையில்", "எச்சமாக"], a: 0, exp: "விளக்கம்: வினைமுற்று எப்போதும் வாக்கியத்தின் பொருளை முழுமைப்படுத்தும்." },
+    { q: "47. கீழ்க்கண்டவற்றுள் ஏவல் வினைமுற்றுத் தொடர் எது?", o: ["நூல் படி", "நூல் படித்தான்", "நூல் படிப்பான்", "நூல் படிக்கின்றார்"], a: 0, exp: "விளக்கம்: 'படி' என்பது கட்டளை ஏவல் வினைமுற்றாகும்." },
+    { q: "48. 'அறிஞன்' என்னும் சொல்லின் இலக்கணத் தன்மை:", o: ["பொருட்குறிப்பு வினைமுற்று", "இடக் குறிப்பு வினைமுற்று", "காலக் குறிப்பு வினைமுற்று", "தெரிநிலை வினைமுற்று"], a: 0, exp: "விளக்கம்: அறிவு என்னும் பொருளை அடிப்படையாகக் கொண்ட குறிப்பு வினைமுற்று ஆகும்." },
+    { q: "49. ஒப்பிட்டாய்வுக் கேள்வி:\n'சென்றான்' (தெரிநிலை) மற்றும் 'பொன்னன்' (குறிப்பு) ஆகியவற்றுக்கு இடையேயான முக்கிய வேறுபாடு:", o: ["சென்றான் காலம் காட்டிச் செயல் வெளிப்படுத்தும்; பொன்னன் காலம் காட்டாமல் பண்பு மட்டும் காட்டும்.", "இரண்டும் ஒன்றுதான்", "சென்றான் குறிப்பு வினைமுற்று", "பொன்னன் தெரிநிலை வினைமுற்று"], a: 0, exp: "விளக்கம்: தெரிநிலை காலமும் செயலும் காட்டும், குறிப்பு பண்பும் பொருளும் காட்டும்." },
+    { q: "50. இறுதி ஆய்வு வினா:\n'வாழிய செந்தமிழ்' என்பதில் 'வாழிய' என்பதன் இலக்கணம்:", o: ["வியங்கோள் வினைமுற்று (-இய விகுதி பெற்றது)", "ஏவல் வினைமுற்று", "தெரிநிலை வினைமுற்று", "குறிப்பு வினைமுற்று"], a: 0, exp: "விளக்கம்: வாழிய என்பது '-இய' விகுதி பெற்ற வியங்கோள் வினைமுற்று ஆகும்." }
+  ];
+
+  let currentQuestion = 0;
+  let userAnswers = new Array(questionsData.length).fill(null);
+  let isReviewMode = false;
+  let timerInterval;
+  let timeLeft = 45 * 60;
+
+  function initTest() {
+    buildGrid();
+    loadQuestion(0);
+    startTimer();
+  }
+
+  function buildGrid() {
+    const grid = document.getElementById('questionGrid');
+    grid.innerHTML = '';
+    questionsData.forEach((_, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'q-num-btn';
+      btn.innerText = idx + 1;
+      btn.id = `q_btn_${idx}`;
+      btn.onclick = () => jumpToQuestion(idx);
+      grid.appendChild(btn);
+    });
+    updateGridStatus();
+  }
+
+  function updateGridStatus() {
+    questionsData.forEach((_, idx) => {
+      const btn = document.getElementById(`q_btn_${idx}`);
+      if(!btn) return;
+      btn.className = 'q-num-btn';
+      if(idx === currentQuestion) {
+        btn.classList.add('active');
+      } else if(userAnswers[idx] !== null) {
+        btn.classList.add('answered');
+      }
+    });
+  }
+
+  function loadQuestion(idx) {
+    currentQuestion = idx;
+    const q = questionsData[idx];
+    document.getElementById('qTitle').innerText = q.q;
+    
+    const optsBox = document.getElementById('optionsBox');
+    optsBox.innerHTML = '';
+
+    q.o.forEach((optText, oIdx) => {
+      const card = document.createElement('div');
+      card.className = 'option-card';
+      
+      if(userAnswers[idx] === oIdx) {
+        card.classList.add('selected');
+      }
+
+      if(isReviewMode) {
+        if(oIdx === q.a) {
+          card.classList.add('correct-ans');
+        } else if(userAnswers[idx] === oIdx && oIdx !== q.a) {
+          card.classList.add('wrong-ans');
+        }
+      }
+
+      card.innerHTML = `<span><b>${String.fromCharCode(65 + oIdx)}.</b> ${optText}</span>`;
+      card.onclick = () => selectOption(oIdx);
+      optsBox.appendChild(card);
+    });
+
+    const expBox = document.getElementById('expBox');
+    if(isReviewMode) {
+      expBox.style.display = 'block';
+      expBox.innerText = q.exp;
+    } else {
+      expBox.style.display = 'none';
+    }
+
+    document.getElementById('prevBtn').style.display = idx === 0 ? 'none' : 'block';
+    document.getElementById('nextBtn').style.display = idx === questionsData.length - 1 ? 'none' : 'block';
+    updateGridStatus();
+  }
+
+  function selectOption(oIdx) {
+    if(isReviewMode) return;
+    userAnswers[currentQuestion] = oIdx;
+    loadQuestion(currentQuestion);
+  }
+
+  function clearChoice() {
+    if(isReviewMode) return;
+    userAnswers[currentQuestion] = null;
+    loadQuestion(currentQuestion);
+  }
+
+  function navigateNumberQuery(dir) {
+    const next = currentQuestion + dir;
+    if(next >= 0 && next < questionsData.length) {
+      loadQuestion(next);
+    }
+  }
+
+  function jumpToQuestion(idx) {
+    loadQuestion(idx);
+  }
+
+  function startTimer() {
+    if (timerInterval) clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+      timeLeft--;
+      let m = Math.floor(timeLeft / 60);
+      let s = timeLeft % 60;
+      const timerElem = document.getElementById('timerBox');
+      if(timerElem) {
+        timerElem.innerText = `⏱️ ${m}:${s < 10 ? '0' : ''}${s}`;
+      }
+      if(timeLeft <= 0) {
+        clearInterval(timerInterval);
+        submitTest();
+      }
+    }, 1000);
+  }
+
+  function submitTest() {
+    if (timerInterval) clearInterval(timerInterval);
+    document.getElementById('testView').style.display = 'none';
+    document.getElementById('resultView').style.display = 'block';
+
+    let correct = 0, wrong = 0, unans = 0;
+    userAnswers.forEach((ans, idx) => {
+      if(ans === null) unans++;
+      else if(ans === questionsData[idx].a) correct++;
+      else wrong++;
+    });
+
+    document.getElementById('scoreDisplay').innerText = `${correct} / ${questionsData.length}`;
+    let pct = ((correct / questionsData.length) * 100).toFixed(1);
+    document.getElementById('percentageDisplay').innerText = `சதவீதம்: ${pct}%`;
+    document.getElementById('correctCnt').innerText = correct;
+    document.getElementById('wrongCnt').innerText = wrong;
+    document.getElementById('unansCnt').innerText = unans;
+  }
+
+  function reviewAnswerKey() {
+    isReviewMode = true;
+    document.getElementById('resultView').style.display = 'none';
+    document.getElementById('testView').style.display = 'block';
+    document.getElementById('finalSubmitBtn').style.display = 'none';
+    document.getElementById('backToResultBtn').style.display = 'block';
+    document.getElementById('dashFromKeyBtn').style.display = 'block';
+    loadQuestion(0);
+  }
+
+  function returnToResult() {
+    document.getElementById('testView').style.display = 'none';
+    document.getElementById('resultView').style.display = 'block';
+  }
+
+  function returnToDashboard() {
+    window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html"); 
+  }
+
+  function exitPortal() {
+    window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html");
+  }
+
+  function retakeTest() {
+    userAnswers = new Array(questionsData.length).fill(null);
+    isReviewMode = false;
+    timeLeft = 45 * 60;
+    document.getElementById('resultView').style.display = 'none';
+    document.getElementById('testView').style.display = 'block';
+    document.getElementById('finalSubmitBtn').style.display = 'inline-block';
+    document.getElementById('backToResultBtn').style.display = 'none';
+    document.getElementById('dashFromKeyBtn').style.display = 'none';
+    initTest();
+  }
+
+  window.onload = function() {
+    initTest();
+  }
+</script>
+
+</body>
+</html>
