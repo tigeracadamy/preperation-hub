@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tiger Warriors - மயங்கொலிப் பிழைகளைக் கண்டறிதல் 50 வினாக்கள்</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; font-weight: bold; }
+    body { background: #080604; color: #f8fafc; padding: 12px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+    .card { width: 100%; max-width: 950px; background: #0f172a; border-radius: 14px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); border: 1px solid #334155; }
+    
+    .test-header { display: flex; justify-content: space-between; align-items: center; background: #1e293b; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; border: 1px solid #334155; }
+    .timer { font-size: 15px; font-weight: bold; color: #fbbf24; background: #091326; padding: 6px 12px; border-radius: 6px; border: 1px solid #fbbf24; box-shadow: inset 0 0 5px rgba(251, 191, 36, 0.2); }
+    
+    .q-grid { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 16px; max-height: 140px; overflow-y: auto; padding: 8px; background: #1e293b; border-radius: 8px; justify-content: center; }
+    .q-num-btn { width: 30px; height: 30px; border-radius: 5px; border: none; background: #334155; color: #fff; font-size: 10px; cursor: pointer; font-weight: bold; }
+    .q-num-btn.active { border: 2px solid #38bdf8; background: #0284c7; }
+    .q-num-btn.answered { background: #10b981; }
+
+    .q-box { background: #1e293b; padding: 18px; border-radius: 10px; margin-bottom: 16px; border: 1px solid #334155; }
+    .q-text { white-space: pre-line; line-height: 1.6; font-size: 15px; color: #f8fafc; }
+    
+    .option-card { background: #0f172a; border: 1px solid #334155; padding: 12px 16px; border-radius: 8px; margin-top: 10px; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: 0.2s; white-space: pre-line; line-height: 1.4; }
+    .option-card:hover { border-color: #38bdf8; background: #1e293b; }
+    .option-card.selected { border-color: #10b981; background: #064e3b; }
+    .option-card.correct-ans { border-color: #10b981; background: #065f46; font-weight: bold; }
+    .option-card.wrong-ans { border-color: #ef4444; background: #7f1d1d; }
+
+    .explanation-box { background: #091326; border: 1px solid #38bdf8; border-radius: 8px; padding: 12px; margin-top: 14px; font-size: 13px; color: #7dd3fc; line-height: 1.5; }
+    
+    .nav-btns { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+    .btn-action { background: #334155; color: #fff; border: none; padding: 10px 16px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 13px; text-align: center; }
+    .btn-action:hover { opacity: 0.9; }
+    .btn-blue { background: #2563eb; }
+    .btn-purple { background: #7c3aed; }
+    .btn-danger { background: #ef4444; }
+    .btn-green { background: #22c55e; }
+
+    .result-box { text-align: center; padding: 25px; background: #1e293b; border-radius: 16px; margin-top: 10px; border: 1px solid rgba(0, 242, 254, 0.3); display: flex; flex-direction: column; align-items: center; }
+    .score-circle { width: 130px; height: 130px; border-radius: 50%; background: conic-gradient(#10b981 0deg, #0f172a 0deg); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 15px auto; border: 4px solid #38bdf8; box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); }
+    .score-num { font-size: 30px; color: #f8fafc; font-weight: bold; }
+    
+    .result-stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; width: 100%; max-width: 400px; }
+    .stat-pill { background: #0f172a; border-radius: 12px; padding: 10px; border: 1px solid #334155; text-align: center; }
+    .stat-pill.gold { border-color: #fbbf24; }
+    .stat-pill.blue { border-color: #38bdf8; }
+    .stat-pill.red { border-color: #ef4444; }
+
+    .footer-badge { text-align: center; font-size: 11px; color: #38bdf8; margin-top: 15px; font-weight: bold; letter-spacing: 0.5px; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <script>
+      if (localStorage.getItem('tiger_auth_passed') !== 'true') {
+          alert("⚠ பாதுகாப்பு எச்சரிக்கை: நீங்கள் Tiger Warriors போர்ட்டலில் லாகின் செய்யவில்லை! முதலில் மெயின் போர்ட்டலில் லாகின் செய்யவும்.");
+          window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html"); 
+      }
+  </script>
+
+  <div id="testView">
+    <div class="test-header">
+      <div>
+        <h3 style="color: #38bdf8; font-size: 15px;">🐅 TIGER WARRIORS - மயங்கொலிப் பிழைகளைக் கண்டறிதல் (50 வினாக்கள்)</h3>
+        <span style="font-size: 11px; color: #94a3b8;">TNPSC / 2 / 2A / 4 • GENERAL TAMIL</span>
+      </div>
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <div class="timer" id="timerBox">⏱️ 45:00</div>
+        <button class="btn-action btn-purple" id="backToResultBtn" onclick="returnToResult()" style="display: none; padding: 6px 12px; font-size: 12px;">📊 ரிசல்ட் செல்</button>
+        <button class="btn-action btn-danger" id="dashFromKeyBtn" onclick="returnToDashboard()" style="display: none; padding: 6px 12px; font-size: 12px;">🏠 முகப்பு</button>
+      </div>
+    </div>
+
+    <div class="q-grid" id="questionGrid"></div>
+
+    <div class="q-box">
+      <div id="qTitle" class="q-text"></div>
+      <div id="optionsBox"></div>
+      <div id="expBox" class="explanation-box" style="display: none;"></div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn-action" id="prevBtn" onclick="navigateNumberQuery(-1)">⬅️ முந்தையது</button>
+      <button class="btn-action" id="clearBtn" onclick="clearChoice()">🧹 விடையை நீக்கு</button>
+      <button class="btn-action btn-blue" id="nextBtn" onclick="navigateNumberQuery(1)">அடுத்து ➡️</button>
+      <button class="btn-action btn-danger" id="finalSubmitBtn" onclick="submitTest()">✅ தேர்வைச் சமர்ப்பிக்க (Submit)</button>
+    </div>
+  </div>
+
+  <div id="resultView" style="display: none;">
+    <h2 style="color: #38bdf8; text-align: center; margin-bottom: 10px;">🏆 தேர்வு முடிவுகள் (Test Results) 🎯</h2>
+    <div class="result-box">
+      <div class="score-circle" id="scoreCircle">
+        <div class="score-num" id="scoreDisplay">0/50</div>
+        <span id="percentageDisplay" style="font-size: 11px; color: #fbbf24;">0%</span>
+      </div>
+
+      <div class="result-stats-grid">
+        <div class="stat-pill gold">
+          <h3 id="correctCnt" style="color: #10b981; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;">சரியானவை ✅</span>
+        </div>
+        <div class="stat-pill red">
+          <h3 id="wrongCnt" style="color: #ef4444; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;">தவறானவை ❌</span>
+        </div>
+        <div class="stat-pill blue">
+          <h3 id="unansCnt" style="color: #f59e0b; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;">விடையில்லை ⚠️</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
+      <button class="btn-action btn-blue" onclick="reviewAnswerKey()">🔍 விடை குறிப்பு (Answer Key)</button>
+      <button class="btn-action btn-purple" onclick="returnToDashboard()">🏠 முகப்புப் பக்கம்</button>
+      <button class="btn-action btn-green" onclick="retakeTest()">🔄 மீண்டும் தேர்வு</button>
+      <button class="btn-action btn-danger" onclick="exitPortal()">🚪 வெளியேறு</button>
+    </div>
+    <div class="footer-badge" style="margin-top: 20px;">🐅 டைகர் வாரியர் போர்டல் - இயக்குநர்: Dr. K. மணிகாசி 🐅</div>
+  </div>
+</div>
+
+<script>
+  const questionsData = [
+    // Model 1: Direct Single Fact Questions (1-5)
+    { q: "1. தமிழ் மொழியில் உள்ள மொத்த மயங்கொலி எழுத்துகளின் எண்ணிக்கை எத்தனை?", o: ["6", "8", "10", "12"], a: 1, exp: "விளக்கம்: ண, ன, ந, ல, ள, ழ, ர, ற ஆகிய 8 எழுத்துகளும் மயங்கொலி எழுத்துகள் எனப்படும்." },
+    { q: "2. 'அரி' மற்றும் 'அறி' ஆகிய சொற்களில் 'அரி' என்பதன் சரியான பொருள் என்ன?", o: ["அறுத்தல் / நெல் / திருமால்", "தெரிந்துகொள்ளுதல்", "பொன்", "மலை"], a: 0, exp: "விளக்கம்: 'அரி' என்றால் அறுத்தல், நெற்கதிர், திருமால்; 'அறி' என்றால் தெரிந்துகொள்ளுதல்." },
+    { q: "3. 'அலி' மற்றும் 'அளி' என்பவற்றுள் 'அளி' என்பதன் பொருள் யாது?", o: ["ஆண் பெண் தன்மையற்றவர்", "கருணை / கொடை / கொடுப்பது", "கடல்", "மரம்"], a: 1, exp: "விளக்கம்: 'அளி' என்றால் கருணை, கொடை அல்லது அளித்தல்." },
+    { q: "4. 'கூரை' மற்றும் 'கூறை' ஆகிய சொற்களில் 'கூறை' என்பதன் பொருள் யாது?", o: ["வீட்டின் கூரை", "புடவை / ஆடை", "மலை", "சுவர்"], a: 1, exp: "விளக்கம்: 'கூரை' என்பது வீட்டின் மேல்பகுதி; 'கூறை' என்பது ஆடை/புடவையைக் குறிக்கும்." },
+    { q: "5. 'இரை' மற்றும் 'இறை' என்பவற்றுள் 'இறை' என்பதன் பொருள் என்ன?", o: ["உணவு", "கடவுள் / அரசன் / வரி", "சத்தம்", "தண்ணீர்"], a: 1, exp: "விளக்கம்: 'இரை' என்றால் விலங்கின் உணவு; 'இறை' என்றால் கடவுள், அரசன் அல்லது வரி." },
+
+    // Model 2: Correct / Incorrect Pairs (6-10)
+    { q: "6. கீழ்க்கண்டவற்றுள் சரியான மயங்கொலிச் சொல் இணை எது?", o: ["ஆழி - மோதிரம் / கடல்", "ஆலி - மழைத்துளி", "மேற்கண்ட இரண்டும் சரி", "இரண்டும் தவறு"], a: 2, exp: "விளக்கம்: ஆழி (கடல்/மோதிரம்), ஆலி (மழைத்துளி/ஆலங்கட்டி) - இரண்டுமே சரியான பொருள் இணைகள்." },
+    { q: "7. தவறான மயங்கொலிப் பொருள் இணையைக் கண்டறிக:", o: ["வலை - மீன் பிடிக்கும் கருவி", "வாளை - ஒரு வகை மீன்", "வாழை - மரம்", "வாலை - வீட்டின் கூரை"], a: 3, exp: "விளக்கம்: 'வாலை' என்பது வாலைப்பெண்/சுருட்டை வால் அல்லது பாத்திரத்தைக் குறிக்கும் (கூரை என்பது 'கூரை' ஆகும்)." },
+    { q: "8. சரியான இணையைத் தெரிவு செய்க:\n1. கறி - காய்கறி / இறைச்சி\n2. கற்றி - கற்றல்\n3. கறி - யானை", o: ["1 மற்றும் 3 மட்டும் சரி", "1 மற்றும் 2 மட்டும் சரி", "2 மட்டும் சரி", "அனைத்தும் தவறு"], a: 0, exp: "விளக்கம்: 'கறி' என்றால் காய்கறி, இறைச்சி, யானை ஆகிய பொருள்கள் உண்டு." },
+    { q: "9. பொருந்தாத மயங்கொலி இணையைத் தேர்ந்தெடுக்க:", o: ["இலை - செடியின் உறுப்பு", "இளை - மெலிந்து போதல்", "இழை - நூலிழை", "இரை - கடவுள்"], a: 3, exp: "விளக்கம்: 'இரை' என்பது உணவு ('இறை' என்பதே கடவுள்)." },
+    { q: "10. சரியான மயங்கொலிப் பொருத்தம் எது?\n- வளி : காற்று\n- வழி : பாதை\n- வலி : வேதனை", o: ["மேற்கண்ட அனைத்தும் சரி", "வளி மட்டும் சரி", "வழி மட்டும் சரி", "வலி மட்டும் சரி"], a: 0, exp: "விளக்கம்: வளி (காற்று), வழி (பாதை), வலி (வேதனை) மூன்றும் மிகச் சரியான மயங்கொலிப் பொருத்தங்கள்." },
+
+    // Model 3: Match the Following (11-15)
+    { q: "11. பொருத்துக:\n1. அனல் — அ. நெருப்பு\n2. அணல் — ஆ. தாடி / கழுத்து\n3. ஆணி — இ. இரும்பு ஆணி\n4. ஆனி — ஈ. தமிழ் மாதம்", o: ["1-அ, 2-ஆ, 3-இ, 4-ஈ", "1-ஆ, 2-அ, 3-ஈ, 4-இ", "1-இ, 2-ஈ, 3-அ, 4-ஆ", "1-ஈ, 2-இ, 3-ஆ, 4-அ"], a: 0, exp: "விளக்கம்: ண - ன வேறுபாட்டுப் பொருள்கள் சரியாகப் பொருத்தப்பட்டுள்ளன." },
+    { q: "12. பொருத்துக:\n1. சுவால் — அ. பிடரி மயிர்\n2. சுவர் — ஆ. சுவரொட்டி / மதில்\n3. களம் — இ. இடம் / தொழிற்களம்\n4. கலம் — ஈ. பாத்திரம் / கப்பல்", o: ["1-அ, 2-ஆ, 3-இ, 4-ஈ", "1-ஆ, 2-அ, 3-ஈ, 4-இ", "1-இ, 2-ஈ, 3-அ, 4-ஆ", "1-ஈ, 2-இ, 3-ஆ, 4-அ"], a: 0, exp: "விளக்கம்: மயங்கொலிச் சொற்களின் சரியான அகராதிப் பொருள்கள்." },
+    { q: "13. பொருத்துக:\n1. கணை — அ. அம்பு\n2. கனை — ஆ. குதிரை ஒலி\n3. தணை — இ. அளவு\n4. தனை — ஈ. தன்னை", o: ["1-அ, 2-ஆ, 3-இ, 4-ஈ", "1-ஆ, 2-அ, 3-ஈ, 4-இ", "1-இ, 2-ஈ, 3-அ, 4-ஆ", "1-ஈ, 2-இ, 3-ஆ, 4-அ"], a: 0, exp: "விளக்கம்: கணை (அம்பு), கனை (குதிரை கனைத்தல்)." },
+    { q: "14. பொருத்துக:\n1. உலை — அ. சமையல் உலை\n2. உழை — ஆ. உழைப்பு / பாடுபடுதல்\n3. உலைவு — இ. கெடுதல் / மனக்கலக்கம்\n4. உறை — ஈ. உறைவிடம் / பாக்கெட்", o: ["1-அ, 2-ஆ, 3-இ, 4-ஈ", "1-ஆ, 2-அ, 3-ஈ, 4-இ", "1-இ, 2-ஈ, 3-அ, 4-ஆ", "1-ஈ, 2-இ, 3-ஆ, 4-அ"], a: 0, exp: "விளக்கம்: ல, ள, ழ மயங்கொலிச் சொற்களின் பொருள்கள்." },
+    { q: "15. பொருத்துக:\n1. பறவை — அ. பறக்கும் பறவை\n2. பரவை — ஆ. கடல்\n3. அறை — இ. அடித்தல் / அறை\n4. அறி — ஈ. அறிந்துகொள்", o: ["1-அ, 2-ஆ, 3-இ, 4-ஈ", "1-ஆ, 2-அ, 3-ஈ, 4-இ", "1-இ, 2-ஈ, 3-அ, 4-ஆ", "1-ஈ, 2-இ, 3-ஆ, 4-அ"], a: 0, exp: "விளக்கம்: ர - ற மற்றும் ண - ன மயங்கொலிகள் சரியாகப் பொருத்தப்பட்டுள்ளன." },
+
+    // Model 4: Multiple Statement / 4 Statements Model (16-20)
+    { q: "16. மயங்கொலி எழுத்துகள் பற்றிய கூற்றுகள்:\nI. 'ண, ன, ந' ஆகிய மூன்றும் நாவினுடைய நுனி அன்னத்தைத் தொடுவதால் பிறக்கின்றன.\nII. 'ல, ள, ழ' ஆகிய மூன்றும் மேல்வாய் பல் மற்றும் அன்னத்தைத் தொடுவதால் பிறக்கின்றன.\nIII. 'ர, ற' ஆகிய இரண்டும் இடைஇனம் மற்றும் வல்லினத்தைச் சேர்ந்தவை.\nIV. தமிழ் மொழியில் மொத்தம் 10 மயங்கொலி எழுத்துகள் உள்ளன.\nஎவை சரியானவை?", o: ["I, II மற்றும் III சரி", "I, II மற்றும் IV சரி", "II, III மற்றும் IV சரி", "அனைத்தும் சரி"], a: 0, exp: "விளக்கம்: மயங்கொலி எழுத்துகள் மொத்தம் 8 மட்டுமே. எனவே IV தவறு; I, II, III சரி." },
+    { q: "17. மயங்கொலிப் பொருள் வேறுபாடுகள்:\nI. 'மணம்' என்றால் வாசனை; 'மனம்' என்றால் உள்ளம்.\nII. 'சினம்' என்றால் கோபம்; 'சிணம்' என்ற சொல் தமிழில் இல்லை.\nIII. 'பணி' என்றால் வேலை; 'பனி' என்றால் குளிர்ந்த பனி.\nIV. 'கனை' என்றால் அம்பு; 'கணை' என்றால் குதிரை கனைத்தல்.\nஎவை தவறானவை?", o: ["IV மட்டும்", "I மற்றும் II", "III மட்டும்", "எதுவுமில்லை"], a: 0, exp: "விளக்கம்: 'கணை' என்றால் தான் அம்பு; 'கனை' என்றால் குதிரை ஒலி. தலைகீழாகக் கொடுக்கப்பட்டுள்ளதால் IV தவறு." },
+    { q: "18. ல, ள, ழ மயங்கொலி விதிகள்:\nI. 'ழ'கரம் தமிழுக்கே சிறப்பாக உரிய சிறப்பு எழுத்து ஆகும்.\nII. 'வாழை' என்பது மரம்; 'வாலை' என்பது பெண்/வால்.\nIII. 'வாலை' என்பது ஒரு வகை மீன்.\nIV. 'அலி' என்பது கொடையைக் குறிக்கும்.\nஎவை தவறு?", o: ["III மற்றும் IV", "I மற்றும் II", "I மற்றும் IV", "II மற்றும் III"], a: 0, exp: "விளக்கம்: 'வாளை' என்பதுதான் மீன்; 'அளி' என்பதுதான் கொடை. எனவே III மற்றும் IV தவறு." },
+    { q: "19. ர, ற மயங்கொலிச் சொற்கள்:\nI. 'கூரை' என்பது வீட்டின் மேல்பகுதி.\nII. 'கூறை' என்பது ஆடை.\nIII. 'இரை' என்பது விலங்கின் உணவு.\nIV. 'இறை' என்பது கடவுள் அல்லது அரசு.\nஎவை சரி?", o: ["அனைத்தும் சரி", "I, II மற்றும் III மட்டும்", "II, III மற்றும் IV மட்டும்", "I மட்டும் சரி"], a: 0, exp: "விளக்கம்: கொடுக்கப்பட்ட அனைத்து ர, ற வேறுபாடுகளும் மிகச் சரியானவை." },
+    { q: "20. மயங்கொலிச் சொற்களின் பிழை திருத்தம்:\nI. 'மனம் வீசியது' என்பது பிழை ('மணம் வீசியது' என்பதே சரி).\nII. 'பறவை கடலில் பறந்தது' என்பதில் பரவை என்பது கடலைக் குறிக்கும்.\nIII. 'சுவரில் ஆணி அடித்தான்' என்பதில் ஆணி என்பது இரும்பு ஆணி.\nIV. 'பனி பெய்தது' என்பதில் பனி என்பது குளிர்ந்த பனி.\nஎவை சரி?", o: ["அனைத்தும் சரி", "I, II மற்றும் III மட்டும்", "II, III மற்றும் IV மட்டும்", "I மட்டும் சரி"], a: 0, exp: "விளக்கம்: அனைத்துத் தொடர்களின் மயங்கொலிப் விளக்கங்களும் சரியானவை." },
+
+    // Model 5: Assertion & Reason (A & R Model) (21-25)
+    { q: "21. கூற்று (A): 'மணம்' மற்றும் 'மனம்' ஆகிய சொற்கள் உச்சரிப்பில் சிறிதே வேறுபட்டாலும் பொருளில் முற்றிலும் மாறுபடுகின்றன.\nகாரணம் (R): ண மற்றும் ன ஆகிய இரண்டும் மயங்கொலி எழுத்துகளாகும்.", o: ["(A) மற்றும் (R) இரண்டும் சரி; (R) என்பது (A)-க்கான சரியான விளக்கம்.", "(A) மற்றும் (R) இரண்டும் சரி; விளக்கமல்ல.", "(A) சரி, (R) தவறு.", "(A) தவறு, (R) சரி."], a: 0, exp: "விளக்கம்: மயங்கொலி எழுத்துகளால் பொருள் மாறுபடுவதற்கான சரியான கூற்றும் காரணமும் ஆகும்." },
+    { q: "22. கூற்று (A): 'வாழை' மரத்திற்கு 'வாலை' என்றும் எழுதலாம்.\nகாரணம் (R): ழ மற்றும் ல ஆகிய இரண்டும் ஒரே ஒலியுடைய மயங்கொலி எழுத்துகள் என்பதால் மாற்றி எழுதலாம்.", o: ["(A) தவறு, (R) தவறு", "(A) சரி, (R) தவறு", "(A) தவறு, (R) சரி", "இரண்டும் சரி"], a: 0, exp: "விளக்கம்: மயங்கொலிகள் உச்சரிப்பில் மட்டுமே ஒத்திருக்கும்; பிழையின்றிச் சரியான பொருள்தரும் எழுத்தையே எழுத வேண்டும். கூற்றும் காரணமும் தவறு." },
+    { q: "23. கூற்று (A): 'பரவை' என்பது பறக்கும் பறவையைக் குறிக்கும்.\nகாரணம் (R): 'ற'கரம் வந்துள்ளதால் இது பறத்தலைக் குறிக்கிறது.", o: ["(A) தவறு, (R) தவறு", "(A) சரி, (R) தவறு", "(A) தவறு, (R) சரி", "இரண்டும் சரி"], a: 0, exp: "விளக்கம்: 'பறவை' என்பது பறப்பது; 'பரவை' என்பது கடல். எனவே கூற்று தவறு." },
+    { q: "24. கூற்று (A): 'வளி' என்பது காற்றைக் குறிக்கும் தமிழ்ச்சொல் ஆகும்.\nகாரணம் (R): ளி, ழி, லி ஆகியவற்றின் பொருள் வேறுபாடு அறிவது மயங்கொலிப் பிழை தவிர்க்க உதவும்.", o: ["(A) மற்றும் (R) இரண்டும் சரி; (R) சரியான விளக்கம்.", "(A) தவறு, (R) சரி", "இரண்டும் சரி", "இரண்டும் தவறு"], a: 0, exp: "விளக்கம்: வளி - காற்று என்பதற்கான சரியான கூற்று மற்றும் காரணம்." },
+    { q: "25. கூற்று (A): மயங்கொலிப் பிழைகள் வாக்கியத்தின் பொருளை முற்றிலும் மாற்றிவிடும்.\nகாரணம் (R): 'கறி தின்றான்' என்பதற்குப் பதிலாக 'கற்றி தின்றான்' என எழுதினால் பொருள் தராது.", o: ["(A) மற்றும் (R) இரண்டும் சரி; (R) சரியான விளக்கம்.", "இரண்டும் சரி, விளக்கமல்ல", "(A) சரி, (R) தவறு", "இரண்டும் தவறு"], a: 0, exp: "விளக்கம்: மயங்கொலிப் பிழை ஏற்படுத்தும் விளைவுக்கான சரியான சான்று." },
+
+    // Model 6: Chronological / Analytical Order Model (26-30)
+    { q: "26. மயங்கொலி பிழை திருத்தும் சரியான வரிசைமுறை:\n1. வாக்கியத்தில் உள்ள மயங்கொலி எழுத்தைக் கண்டறிதல்\n2. அகராதிப் பொருளை ஒப்பிடுதல்\n3. சூழலுக்குச் சரியான எழுத்தை அமைத்து பிழை திருத்துதல்", o: ["1, 2, 3", "3, 2, 1", "2, 1, 3", "1, 3, 2"], a: 0, exp: "விளக்கம்: மயங்கொலிப் பிழை திருத்தும் சரியான படிநிலை முறை." },
+    { q: "27. ண - ன மயங்கொலிச் சொற்களின் அகராதி வரிசை:\n1. அணல் (தாடி)\n2. அனல் (நெருப்பு)\n3. ஆணி (இரும்பு)\n4. ஆனி (மாதம்)", o: ["1, 2, 3, 4", "4, 3, 2, 1", "2, 1, 4, 3", "1, 3, 2, 4"], a: 0, exp: "விளக்கம்: தமிழ் அகரவரிசைப் படி அமைந்த மயங்கொலி வரிசை." },
+    { q: "28. ல - ள - ழ மயங்கொலி எழுத்துகளின் வரிசை:\n1. ல - மேல்வாய் பல்லை நாவின் ஓரம் தடித்துப் தடவுதல்\n2. ள - மேல்வாய் அன்னத்தின் நடுப்பகுதியைத் தடவுதல்\n3. ழ - நாவின் நுனி மேல்நோக்கி வளைந்து வருடுதல்", o: ["1, 2, 3", "3, 2, 1", "2, 1, 3", "1, 3, 2"], a: 0, exp: "விளக்கம்: ல, ள, ழ எழுத்துகள் பிறக்கும் முறை வரிசை." },
+    { q: "29. ர - ற மயங்கொலி எழுத்துகளின் பிறப்பு வரிசை:\n1. ர - இடைஇன நாவருடொலி\n2. ற - வல்லின நாவருடொலி / அழுத்த ஒலி", o: ["1, 2", "2, 1", "இரண்டும் ஒன்றே", "வரிசை இல்லை"], a: 0, exp: "விளக்கம்: ர, ற எழுத்துகளின் ஒலிப்பு முறை வரிசை." },
+    { q: "30. மயங்கொலிச் சொற்கள் அறியும் படிநிலைகள்:\n1. ஒலிப்பு முறை பயிற்சி\n2. பொருள் வேறுபாடு கற்றல்\n3. தொடரில் அமைத்து எழுதுதல்", o: ["1, 2, 3", "3, 2, 1", "2, 1, 3", "1, 3, 2"], a: 0, exp: "விளக்கம்: மயங்கொலிகளைக் கற்றுக்கொள்ளும் சரியான முறை." },
+
+    // Model 7: Odd One Out Model (31-35)
+    { q: "31. மயங்கொலி எழுத்துகளுக்குள் பொருந்தாத ஒன்றைத் தேர்ந்தெடுக்க:\n- ண\n- ன\n- ந\n- ம", o: ["ம", "ந", "ன", "ண"], a: 0, exp: "விளக்கம்: 'ம' மயங்கொலி எழுத்து அல்ல (ண, ன, ந ஆகிய மூன்றும் னகர மயங்கொலிகள்)." },
+    { q: "32. பொருந்தாத சொல்லைக் கண்டறிக:\n- இலை\n- இளை\n- இழை\n- இரை", o: ["இரை", "இழை", "இளை", "இலை"], a: 0, exp: "விளக்கம்: 'இரை' ர-ற மயங்கொலித் தொகுதியைச் சேர்ந்தது; மற்ற மூன்றும் ல-ள-ழ தொகுதியைச் சேர்ந்தவை." },
+    { q: "33. பொருந்தாத மயங்கொலிப் பொருளை நீக்குக:\n- மணம் (வாசனை)\n- மனம் (உள்ளம்)\n- பணி (வேலை)\n- பனி (மரம்)", o: ["பனி (மரம்)", "பணி (வேலை)", "மனம் (உள்ளம்)", "மணம் (வாசனை)"], a: 0, exp: "விளக்கம்: 'பனி' என்பது குளிர்ந்த பனியைக் குறிக்கும் (மரம் அல்ல)." },
+    { q: "34. வகைக்குப் பொருந்தாத ஒன்றைத் தேர்ந்தெடுக்க:\n- கூரை\n- கூறை\n- இரை\n- இலை", o: ["இலை", "இரை", "கூறை", "கூரை"], a: 0, exp: "விளக்கம்: 'இலை' ல-ள-ழ வகையைச் சேர்ந்தது; மற்றவை ர-ற வகையைச் சேர்ந்தவை." },
+    { q: "35. பொருந்தாத இணையைத் தேர்ந்தெடுக்க:\n- ஆழி - கடல்\n- ஆலி - மழைத்துளி\n- ஆளி - சிங்கம் / ஒரு விலங்கு\n- ஆனி - இரும்பு ஆணி", o: ["ஆனி - இரும்பு ஆணி", "ஆளி - சிங்கம்", "ஆலி - மழைத்துளி", "ஆழி - கடல்"], a: 0, exp: "விளக்கம்: 'ஆணி' தான் இரும்பு ஆணி; 'ஆனி' என்பது தமிழ் மாதம்." },
+
+    // Model 8: Fill in the Blanks / Sentence Completion (36-40)
+    { q: "36. 'மல்லிகைப் பூ நறு__________ வீசியது' - சரியான மயங்கொலிச் சொல் எது?", o: ["மணம்", "மனம்", "மனனம்", "மணனம்"], a: 0, exp: "விளக்கம்: வாசனை என்பதைக் குறிக்க 'மணம்' என்பதே சரியானது." },
+    { q: "37. 'சுவரில் இரும்பு __________ அடித்தான்' - பொருத்தமான சொல்:", o: ["ஆணி", "ஆனி", "ஆனீ", "ஆனணி"], a: 0, exp: "விளக்கம்: பொருத்துவதற்கு பயன்படும் இரும்பு 'ஆணி' ஆகும்." },
+    { q: "38. 'வீட்டின் __________ மீது மழைநீர் விழுந்தது' - பொருத்தமான சொல்:", o: ["கூரை", "கூறை", "கூறைப்படை", "கூரைப்படை"], a: 0, exp: "விளக்கம்: வீட்டின் மேல்பகுதி 'கூரை' ஆகும்." },
+    { q: "39. 'பறவைகள் கடலின் மேல் பறந்தன' - இங்கு 'கடல்' என்பதைக் குறிக்கும் மயங்கொலிச் சொல் எது?", o: ["பரவை", "பறவை", "பறவைக்கடல்", "பரவைக்கடல்"], a: 0, exp: "விளக்கம்: கடல் என்பதைக் குறிக்கும் சொல் 'பரவை' ஆகும்." },
+    { q: "40. 'குளிர்காலத்தில் அடர்ந்த __________ பெய்தது' - பொருத்தமான சொல்:", o: ["பனி", "பணி", "பன்னீர்", "பனீர்"], a: 0, exp: "விளக்கம்: குளிர்ச்சியான பனியைக் குறிக்க 'பனி' என எழுத வேண்டும்." },
+
+    // Model 9: Matching Codes / Combination Code Model (41-45)
+    { q: "41. ல, ள, ழ மயங்கொலிச் சொற்களின் சரியான பொருள்களைக் கொண்ட குறியீட்டைத் தேர்ந்தெடுக்க:\n1. வளி - காற்று\n2. வழி - பாதை\n3. வலி - வேதனை\nகுறியீடு:", o: ["1, 2 மற்றும் 3 சரி", "1 மற்றும் 2 மட்டும்", "2 மற்றும் 3 மட்டும்", "1 மட்டும்"], a: 0, exp: "விளக்கம்: மூன்று இணைகளுமே சரியான மயங்கொலிப் பொருள்களைக் கொண்டுள்ளன." },
+    { q: "42. ண, ன மயங்கொலிச் சொற்களின் சரியான இணைகள்:\n1. மணம் - வாசனை\n2. மனம் - உள்ளம்\n3. பணி - வேலை\nகுறியீடு:", o: ["அனைத்தும் சரி", "1 மற்றும் 2 மட்டும்", "2 மற்றும் 3 மட்டும்", "1 மட்டும்"], a: 0, exp: "விளக்கம்: அனைத்து இணைகளும் சரியாகக் கொடுக்கப்பட்டுள்ளன." },
+    { q: "43. ர, ற மயங்கொலிச் சொற்களின் சரியான பொருள்கள்:\n1. கூரை - வீட்டின் கூரை\n2. கூறை - ஆடை\n3. இரை - உணவு\nகுறியீடு:", o: ["1, 2 மற்றும் 3 சரி", "1 மட்டும்", "2 மற்றும் 3 மட்டும்", "எதுவுமில்லை"], a: 0, exp: "விளக்கம்: ர-ற மயங்கொலிப் பொருள்கள் அனைத்தும் சரியானவை." },
+    { q: "44. சரியான மயங்கொலித் தொடர்கள்:\n1. பரவை மேல் பறவை பறந்தது.\n2. வீட்டின் கூரையில் ஆணி அடித்தான்.\n3. நறுமணம் வீசும் மலர்.\nகுறியீடு:", o: ["அனைத்தும் சரி", "1 மற்றும் 2 மட்டும்", "2 மற்றும் 3 மட்டும்", "1 மட்டும்"], a: 0, exp: "விளக்கம்: அனைத்துத் தொடர்களும் பிழையின்றி மயங்கொலிச் சொற்களைப் பெற்றுள்ளன." },
+    { q: "45. பிழையற்ற மயங்கொலித் தொகுதிகள்:\n1. அனல் - நெருப்பு\n2. அணல் - தாடி\n3. கணை - அம்பு\nகுறியீடு:", o: ["அனைத்தும் சரி", "1 மற்றும் 2 மட்டும்", "2 மற்றும் 3 மட்டும்", "1 மட்டும்"], a: 0, exp: "விளக்கம்: கொடுக்கப்பட்ட அனைத்து மயங்கொலிகளும் சரியானவை." },
+
+    // Model 10: Comparative Statement / Analytical Model (46-50)
+    { q: "46. பத்தியை ஆராய்ந்து விடையளி:\n'கடலின் பரவை மீது பறவை ஒன்று இரை தேடிப் பறந்தது.'\nஇத்தொடரில் வந்துள்ள 'பரவை', 'பறவை', 'இரை' ஆகிய சொற்களின் பொருள்கள் முறையே:", o: ["கடல், பறக்கும் உயிரினம், உணவு", "பறவை, கடல், கடவுள்", "கடல், உணவு, பறவை", "உணவு, கடல், பறவை"], a: 0, exp: "விளக்கம்: பரவை (கடல்), பறவை (பறக்கும் உயிரினம்), இரை (உணவு)." },
+    { q: "47. ஒப்பிட்டாய்வுக் கேள்வி:\n'மணம்' மற்றும் 'மனம்' ஆகிய சொற்களுக்கிடையேயான உச்சரிப்பு மற்றும் பொருள் வேறுபாடு:", o: ["மணம் (ண) மூச்சுக்காற்று மூக்கின் வழி வந்து நறுமணத்தைக் குறிக்கும்; மனம் (ன) உள்ளத்தைக் குறிக்கும்.", "இரண்டும் ஒரே பொருள்", "மணம் என்பது உள்ளம்", "மனம் என்பது வாசனை"], a: 0, exp: "விளக்கம்: ணகர, னகர உச்சரிப்பு மற்றும் பொருள் வேறுபாட்டிற்கான சரியான விளக்கம்." },
+    { q: "48. பத்தியை ஆராய்ந்து விடையளி:\n'வாழை மரத்தின் நிழலில் நின்ற பெண் தன் கை வாளையால் கறியை நறுக்கினாள்.'\nஇங்கு வந்துள்ள மயங்கொலிச் சொற்களின் பிழை நிலை என்ன?", o: ["வாளை என்பது மீன்; கறியை நறுக்கப் பயன்படுவது கத்தி (வாள்) என்பதால் 'வாளால்' என இருக்க வேண்டும்.", "அனைத்தும் சரி", "வாழை என்பது பிழை", "கறி என்பது பிழை"], a: 0, exp: "விளக்கம்: வாளை என்பது மீன், வாளால் என்பது கத்தியால் என்பதைக் குறிக்கும் மயங்கொலிப் பகுப்பாய்வு." },
+    { q: "49. இலக்கண ஒப்பீடு:\n'வளி', 'வழி', 'வலி' ஆகிய மூன்று சொற்களையும் ஒப்பிடும்போது 'காற்று' என்பதைக் குறிக்கும் சொல் எது?", o: ["வளி", "வழி", "வலி", "மூன்றும்"], a: 0, exp: "விளக்கம்: வளி என்பது காற்று, வழி என்பது பாதை, வலி என்பது வேதனை." },
+    { q: "50. இறுதி ஆய்வு வினா:\nமயங்கொலிப் பிழைகளைக் கண்டறிந்து திருத்துவதன் மூலமாக ஒருவர் தமிழ் மொழியில் அடையும் பயன் என்ன?", o: ["பிழையற்ற தெளிவான எழுத்து நடையும், சரியான பொருள் புரிதலும் ஏற்படும்.", "நேரம் விரயமாகும்", "எழுத்துக்கள் அதிகமாகும்", "பயனில்லை"], a: 0, exp: "விளக்கம்: மயங்கொலிப் பயிற்சியின் முக்கியத்துவத்தை விளக்கும் சரியான விடை." }
+  ];
+
+  let currentQuestion = 0;
+  let userAnswers = new Array(questionsData.length).fill(null);
+  let isReviewMode = false;
+  let timerInterval;
+  let timeLeft = 45 * 60;
+
+  function initTest() {
+    buildGrid();
+    loadQuestion(0);
+    startTimer();
+  }
+
+  function buildGrid() {
+    const grid = document.getElementById('questionGrid');
+    grid.innerHTML = '';
+    questionsData.forEach((_, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'q-num-btn';
+      btn.innerText = idx + 1;
+      btn.id = `q_btn_${idx}`;
+      btn.onclick = () => jumpToQuestion(idx);
+      grid.appendChild(btn);
+    });
+    updateGridStatus();
+  }
+
+  function updateGridStatus() {
+    questionsData.forEach((_, idx) => {
+      const btn = document.getElementById(`q_btn_${idx}`);
+      if(!btn) return;
+      btn.className = 'q-num-btn';
+      if(idx === currentQuestion) {
+        btn.classList.add('active');
+      } else if(userAnswers[idx] !== null) {
+        btn.classList.add('answered');
+      }
+    });
+  }
+
+  function loadQuestion(idx) {
+    currentQuestion = idx;
+    const q = questionsData[idx];
+    document.getElementById('qTitle').innerText = q.q;
+    
+    const optsBox = document.getElementById('optionsBox');
+    optsBox.innerHTML = '';
+
+    q.o.forEach((optText, oIdx) => {
+      const card = document.createElement('div');
+      card.className = 'option-card';
+      
+      if(userAnswers[idx] === oIdx) {
+        card.classList.add('selected');
+      }
+
+      if(isReviewMode) {
+        if(oIdx === q.a) {
+          card.classList.add('correct-ans');
+        } else if(userAnswers[idx] === oIdx && oIdx !== q.a) {
+          card.classList.add('wrong-ans');
+        }
+      }
+
+      card.innerHTML = `<span><b>${String.fromCharCode(65 + oIdx)}.</b> ${optText}</span>`;
+      card.onclick = () => selectOption(oIdx);
+      optsBox.appendChild(card);
+    });
+
+    const expBox = document.getElementById('expBox');
+    if(isReviewMode) {
+      expBox.style.display = 'block';
+      expBox.innerText = q.exp;
+    } else {
+      expBox.style.display = 'none';
+    }
+
+    document.getElementById('prevBtn').style.display = idx === 0 ? 'none' : 'block';
+    document.getElementById('nextBtn').style.display = idx === questionsData.length - 1 ? 'none' : 'block';
+    updateGridStatus();
+  }
+
+  function selectOption(oIdx) {
+    if(isReviewMode) return;
+    userAnswers[currentQuestion] = oIdx;
+    loadQuestion(currentQuestion);
+  }
+
+  function clearChoice() {
+    if(isReviewMode) return;
+    userAnswers[currentQuestion] = null;
+    loadQuestion(currentQuestion);
+  }
+
+  function navigateNumberQuery(dir) {
+    const next = currentQuestion + dir;
+    if(next >= 0 && next < questionsData.length) {
+      loadQuestion(next);
+    }
+  }
+
+  function jumpToQuestion(idx) {
+    loadQuestion(idx);
+  }
+
+  function startTimer() {
+    if (timerInterval) clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+      timeLeft--;
+      let m = Math.floor(timeLeft / 60);
+      let s = timeLeft % 60;
+      const timerElem = document.getElementById('timerBox');
+      if(timerElem) {
+        timerElem.innerText = `⏱️ ${m}:${s < 10 ? '0' : ''}${s}`;
+      }
+      if(timeLeft <= 0) {
+        clearInterval(timerInterval);
+        submitTest();
+      }
+    }, 1000);
+  }
+
+  function submitTest() {
+    if (timerInterval) clearInterval(timerInterval);
+    document.getElementById('testView').style.display = 'none';
+    document.getElementById('resultView').style.display = 'block';
+
+    let correct = 0, wrong = 0, unans = 0;
+    userAnswers.forEach((ans, idx) => {
+      if(ans === null) unans++;
+      else if(ans === questionsData[idx].a) correct++;
+      else wrong++;
+    });
+
+    document.getElementById('scoreDisplay').innerText = `${correct} / ${questionsData.length}`;
+    let pct = ((correct / questionsData.length) * 100).toFixed(1);
+    document.getElementById('percentageDisplay').innerText = `சதவீதம்: ${pct}%`;
+    document.getElementById('correctCnt').innerText = correct;
+    document.getElementById('wrongCnt').innerText = wrong;
+    document.getElementById('unansCnt').innerText = unans;
+  }
+
+  function reviewAnswerKey() {
+    isReviewMode = true;
+    document.getElementById('resultView').style.display = 'none';
+    document.getElementById('testView').style.display = 'block';
+    document.getElementById('finalSubmitBtn').style.display = 'none';
+    document.getElementById('backToResultBtn').style.display = 'block';
+    document.getElementById('dashFromKeyBtn').style.display = 'block';
+    loadQuestion(0);
+  }
+
+  function returnToResult() {
+    document.getElementById('testView').style.display = 'none';
+    document.getElementById('resultView').style.display = 'block';
+  }
+
+  function returnToDashboard() {
+    window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html"); 
+  }
+
+  function exitPortal() {
+    window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html");
+  }
+
+  function retakeTest() {
+    userAnswers = new Array(questionsData.length).fill(null);
+    isReviewMode = false;
+    timeLeft = 45 * 60;
+    document.getElementById('resultView').style.display = 'none';
+    document.getElementById('testView').style.display = 'block';
+    document.getElementById('finalSubmitBtn').style.display = 'inline-block';
+    document.getElementById('backToResultBtn').style.display = 'none';
+    document.getElementById('dashFromKeyBtn').style.display = 'none';
+    initTest();
+  }
+
+  window.onload = function() {
+    initTest();
+  }
+</script>
+
+</body>
+</html>
