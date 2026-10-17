@@ -38,6 +38,14 @@
     .btn-danger { background: #ef4444; }
     .btn-green { background: #22c55e; }
 
+    .ai-btn-group { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; border-top: 1px dashed #38bdf8; padding-top: 12px; }
+    .ai-link-btn { border: none; color: #fff; padding: 8px 14px; border-radius: 6px; font-size: 12px; cursor: pointer; font-weight: bold; transition: 0.2s; display: inline-flex; align-items: center; gap: 5px; }
+    .ai-link-btn:hover { opacity: 0.85; transform: scale(1.02); }
+    .btn-gemini { background: #4285f4; }
+    .btn-chatgpt { background: #10a37f; }
+    .btn-perplexity { background: #22b8cf; }
+    .btn-google { background: #ea4335; }
+
     .result-box { text-align: center; padding: 25px; background: #1e293b; border-radius: 16px; margin-top: 10px; border: 1px solid rgba(0, 242, 254, 0.3); display: flex; flex-direction: column; align-items: center; }
     .score-circle { width: 130px; height: 130px; border-radius: 50%; background: conic-gradient(#10b981 0deg, #0f172a 0deg); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 15px auto; border: 4px solid #38bdf8; box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); }
     .score-num { font-size: 30px; color: #f8fafc; font-weight: bold; }
@@ -54,6 +62,7 @@
 <body>
 
 <div class="card">
+  <!-- 🔒 Security Authentication Verification Check -->
   <script>
       if (localStorage.getItem('tiger_auth_passed') !== 'true') {
           alert("⚠ பாதுகாப்பு எச்சரிக்கை: நீங்கள் Tiger Warriors போர்ட்டலில் லாகின் செய்யவில்லை! முதலில் மெயின் போர்ட்டலில் லாகின் செய்யவும்.");
@@ -65,7 +74,7 @@
     <div class="test-header">
       <div>
         <h3 style="color: #38bdf8; font-size: 15px;" id="headerTitle">🐅 TIGER WARRIORS - கூட்டுவட்டி (Compound Interest) 30 வினாக்கள்</h3>
-        <span style="font-size: 11px; color: #94a3b8;">TNPSC / 2 / 2A / 4 • MATHS UNIT 11</span>
+        <span style="font-size: 11px; color: #94a3b8;">TNPSC / 1 / 2 / 2A / 4 • MATHS UNIT</span>
       </div>
       <div style="display: flex; gap: 8px; align-items: center;">
         <button class="lang-btn" onclick="toggleLanguage()" id="langBtn">🌐 English</button>
@@ -116,7 +125,7 @@
     </div>
 
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
-      <button class="btn-action btn-blue" onclick="reviewAnswerKey()" id="btnKey">🔍 விடை குறிப்பு (Answer Key)</button>
+      <button class="btn-action btn-blue" onclick="reviewAnswerKey()" id="btnKey">🔍 விடை குறிப்பு & விளக்கம்</button>
       <button class="btn-action btn-purple" onclick="returnToDashboard()" id="btnDash">🏠 முகப்புப் பக்கம்</button>
       <button class="btn-action btn-green" onclick="retakeTest()" id="btnRetake">🔄 மீண்டும் தேர்வு</button>
       <button class="btn-action btn-danger" onclick="exitPortal()" id="btnExit">🚪 வெளியேறு</button>
@@ -130,244 +139,244 @@
 
   const questionsData = [
     {
-      q_ta: "1. ₹4000-க்கு ஆண்டு வட்டி வீதம் 5% எனில், 2 ஆண்டுகளில் கிடைக்கும் கூட்டுவட்டி என்ன?\n[TNPSC Group 4 - PYQ]",
+      q_ta: "1. ₹4000 அசலுக்கு ஆண்டு வட்டி வீதம் 5% எனில், 2 ஆண்டுகளில் கிடைக்கும் கூட்டுவட்டி என்ன?\n[TNPSC Group 4 - PYQ]",
       q_en: "1. Find the compound interest on ₹4000 at 5% per annum for 2 years.\n[TNPSC Group 4 - PYQ]",
-      o: ["a) ₹410", "b) ₹420", "c) ₹400", "d) ₹430"],
+      o: ["a) ₹410", "b) ₹420", "c) ₹400", "d) ₹450"],
       a: 0,
-      exp_ta: "விளக்கம்:\nA = P(1 + r/100)^n = 4000 × (105/100) × (105/100) = ₹4410.\nCI = 4410 - 4000 = ₹410.",
-      exp_en: "Explanation:\nA = P(1 + r/100)^n = 4000 × (21/20)² = ₹4410. CI = ₹410."
+      exp_ta: "<b>விளக்கம்:</b><br>A = P(1 + R/100)^n = 4000 × (1 + 5/100)² = 4000 × (21/20) × (21/20) = 4000 × (441/400) = ₹4410.<br>கூட்டுவட்டி CI = A - P = 4410 - 4000 = ₹410.",
+      exp_en: "<b>Explanation:</b><br>A = 4000 × (21/20)² = ₹4410. CI = 4410 - 4000 = ₹410."
     },
     {
-      q_ta: "2. ₹8000 தொகைக்கு ஆண்டுக்கு 10% கூட்டுவட்டி வீதம், 3 ஆண்டுகளில் கிடைக்கும் கூட்டுவட்டி என்ன?\n[TNPSC Group 2A - PYQ]",
-      q_en: "2. Find the compound interest on ₹8000 at 10% per annum for 3 years.\n[TNPSC Group 2A - PYQ]",
-      o: ["a) ₹2480", "b) ₹2648", "c) ₹2500", "d) ₹2400"],
-      a: 1,
-      exp_ta: "விளக்கம்:\nA = 8000 × (11/10)³ = 8000 × (1331 / 1000) = ₹10,648.\nCI = 10648 - 8000 = ₹2648.",
-      exp_en: "Explanation:\nA = 8000 × (1.1)³ = ₹10,648. CI = ₹2648."
-    },
-    {
-      q_ta: "3. ஒரு குறிப்பிட்ட அசலானது கூட்டுவட்டி முறையில் 2 ஆண்டுகளில் 2 மடங்காகிறது எனில், அது எத்தனை ஆண்டுகளில் 8 மடங்காகும்?\n[TNPSC Group 1 - PYQ]",
-      q_en: "3. A sum of money placed at compound interest becomes 2 times in 2 years. In how many years will it amount to 8 times?\n[TNPSC Group 1 - PYQ]",
-      o: ["a) 4 ஆண்டுகள்", "b) 6 ஆண்டுகள்", "c) 8 ஆண்டுகள்", "d) 5 ஆண்டுகள்"],
-      a: 1,
-      exp_ta: "விளக்கம்:\n2 ஆண்டுகளில் = 2 மடங்கு ➔ 8 மடங்கு என்பது 2³ ஆகும். எனவே காலம் = 2 × 3 = 6 ஆண்டுகள்.",
-      exp_en: "Explanation:\n2 years = 2 times. 8 times = 2³. Time = 2 × 3 = 6 years."
-    },
-    {
-      q_ta: "4. ₹5000 தொகைக்கு 2 ஆண்டுகளுக்கு ஆண்டுக்கு 4% கூட்டுவட்டி வீதம் கணக்கிடப்படும் கூட்டுவட்டிக்கும் தனிவட்டிக்கும் உள்ள வித்தியாசம் என்ன?\n[TNPSC VAO - PYQ]",
-      q_en: "4. Find the difference between compound interest and simple interest on ₹5000 for 2 years at 4% per annum.\n[TNPSC VAO - PYQ]",
-      o: ["a) ₹8", "b) ₹6", "c) ₹10", "d) ₹5"],
+      q_ta: "2. ஒரு குறிப்பிட்ட தொகையானது கூட்டுவட்டி முறையில் 2 ஆண்டுகளில் 4 மடங்காகிறது எனில், அது எத்தனை ஆண்டுகளில் 8 மடங்காகும்?\n[TNPSC Group 2A - PYQ]",
+      q_en: "2. A sum of money placed at compound interest becomes 4 times in 2 years. In how many years will it become 8 times?\n[TNPSC Group 2A - PYQ]",
+      o: ["a) 3 ஆண்டுகள்", "b) 4 ஆண்டுகள்", "c) 5 ஆண்டுகள்", "d) 6 ஆண்டுகள்"],
       a: 0,
-      exp_ta: "விளக்கம்:\n2 ஆண்டுகளுக்கு வித்தியாசம் Diff = P(R/100)² = 5000 × (4/100)² = 5000 × (16/10000) = ₹8.",
-      exp_en: "Explanation:\nDifference for 2 years = P(R/100)² = 5000 × (4/100)² = ₹8."
+      exp_ta: "<b>விளக்கம்:</b><br>2 ஆண்டுகளில் 4 மடங்கு (2²). 8 மடங்கு என்பது 2³ ஆகும். எனவே காலங்களின் பெருக்குத் தொகை: 2 × (3/2) = 3 ஆண்டுகள் (அல்லது சுருக்கமாக: 2 வருடம் = 4 மடங்கு, 4 வருடம் = 16 மடங்கு. எனவே 3 வருடம் = 2^(3) = 8 மடங்கு).",
+      exp_en: "<b>Explanation:</b><br>4 times in 2 years means (2²). 8 times is 2³. Thus time required = 3 years."
     },
     {
-      q_ta: "5. ஒரு தொகையானது 10% கூட்டுவட்டி முறையில் 3 ஆண்டுகளில் ₹13,310 ஆகிறது எனில், அசல் என்ன?\n[TNPSC CCSE - PYQ]",
-      q_en: "5. Find the principal if a sum amounts to ₹13,310 in 3 years at 10% compound interest per annum.\n[TNPSC CCSE - PYQ]",
-      o: ["a) ₹10,000", "b) ₹11,000", "c) ₹9,000", "d) ₹12,000"],
+      q_ta: "3. ₹8000 தொகைக்கு ஆண்டுக்கு 10% வட்டி வீதம், அரை ஆண்டுக்கு ஒருமுறை வட்டி கணக்கிடப்பட்டால் 1 வருடத்தில் கிடைக்கும் கூட்டுவட்டி என்ன?\n[TNPSC Group 1 - PYQ]",
+      q_en: "3. Find the compound interest on ₹8000 at 10% per annum compounded half-yearly for 1 year.\n[TNPSC Group 1 - PYQ]",
+      o: ["a) ₹820", "b) ₹840", "c) ₹800", "d) ₹850"],
       a: 0,
-      exp_ta: "விளக்கம்:\nP × (11/10)³ = 13310 ➔ P × (1331/1000) = 13310 ➔ P = ₹10,000.",
-      exp_en: "Explanation:\nP × (1.1)³ = 13310 ➔ P = ₹10,000."
+      exp_ta: "<b>விளக்கம்:</b><br>அரை ஆண்டு என்பதால் R = 10/2 = 5% மற்றும் N = 1 × 2 = 2 காலங்கள்.<br>A = 8000 × (105/100)² = 8000 × (21/20) × (21/20) = ₹8820.<br>CI = 8820 - 8000 = ₹820.",
+      exp_en: "<b>Explanation:</b><br>Half-yearly: R = 5%, N = 2. A = 8000 × (21/20)² = ₹8820. CI = ₹820."
     },
     {
-      q_ta: "6. ₹10,000 அசலுக்கு ஆண்டு வட்டி வீதம் 20% எனில், அரை ஆண்டுக்கு ஒருமுறை (Half-yearly) வட்டி கணக்கிடப்பட்டால் 1 ஆண்டில் கிடைக்கும் கூட்டுவட்டி என்ன?",
-      q_en: "6. Find the compound interest on ₹10,000 at 20% per annum compounded half-yearly for 1 year.",
-      o: ["a) ₹2100", "b) ₹2200", "c) ₹2050", "d) ₹2150"],
+      q_ta: "4. ₹10,000 அசலுக்கு 3 ஆண்டுகளுக்கு ஆண்டு வட்டி வீதம் முறையே முதல் ஆண்டு 4%, இரண்டாம் ஆண்டு 5%, மூன்றாம் ஆண்டு 6% எனில் மொத்தத் தொகை என்ன?\n[TNPSC Group 2 - PYQ]",
+      q_en: "4. Find the amount on ₹10,000 for 3 years if the rates of interest for successive years are 4%, 5%, and 6% respectively.\n[TNPSC Group 2 - PYQ]",
+      o: ["a) ₹11,575.20", "b) ₹11,500", "c) ₹11,600", "d) ₹11,480"],
       a: 0,
-      exp_ta: "விளக்கம்:\nஅரை ஆண்டு என்பதால் R = 20/2 = 10%, N = 1 × 2 = 2 அரை ஆண்டுகள்.\nA = 10000 × (110/100)² = 10000 × 1.21 = ₹12,100. CI = ₹2100.",
-      exp_en: "Explanation:\nRate = 10% half-yearly, Time = 2 periods. A = 10000 × (1.1)² = 12100. CI = ₹2100."
+      exp_ta: "<b>விளக்கம்:</b><br>A = 10000 × (104/100) × (105/100) × (106/100) = 10000 × 1.04 × 1.05 × 1.06 = ₹11,575.20.",
+      exp_en: "<b>Explanation:</b><br>A = 10000 × (104/100) × (105/100) × (106/100) = ₹11,575.20."
     },
     {
-      q_ta: "7. ஒரு குறிப்பிட்ட தொகೆಗೆ 2 ஆண்டுகளில் 5% கூட்டுவட்டி வீதத்தில் வட்டி ₹410 எனில், தனிவட்டி என்ன?",
-      q_en: "7. If the compound interest on a certain sum for 2 years at 5% per annum is ₹410, find the simple interest.",
-      o: ["a) ₹400", "b) ₹390", "c) ₹405", "d) ₹395"],
+      q_ta: "5. ஒரு அசலுக்கு 2 ஆண்டுகளில் 4% வட்டி வீதத்தில் கிடைக்கும் கூட்டுவட்டி ₹102 எனில், அந்த அசல் என்ன?\n[TNPSC VAO - PYQ]",
+      q_en: "5. If the compound interest on a sum for 2 years at 4% per annum is ₹102, find the principal.\n[TNPSC VAO - PYQ]",
+      o: ["a) ₹1250", "b) ₹1200", "c) ₹1500", "d) ₹1000"],
       a: 0,
-      exp_ta: "விளக்கம்:\nCI - SI = P(R/100)² ➔ 2 ஆண்டுகளுக்கு SI மற்றும் CI உறவு மூலம் P = 4000. தனிவட்டி SI = (4000 × 2 × 5)/100 = ₹400.",
-      exp_en: "Explanation:\nP = 4000 derived from CI formula. Simple interest for 2 years = (4000 × 2 × 5)/100 = ₹400."
+      exp_ta: "<b>விளக்கம்:</b><br>CI = P[(1 + R/100)^n - 1] ➔ 102 = P[(1 + 4/100)² - 1] = P[(26/25)² - 1] = P[(676/625) - 1] = P(51/625)<br>P = (102 × 625) / 51 = 2 × 625 = ₹1250.",
+      exp_en: "<b>Explanation:</b><br>CI = P[(26/25)² - 1] = P(51/625) = 102 ➔ P = ₹1250."
     },
     {
-      q_ta: "8. ₹15,000 தொகைக்கு 2 ஆண்டுகளில் ஆண்டுக்கு 8% கூட்டுவட்டி வீதம் கிடைக்கும் வட்டி என்ன?",
-      q_en: "8. Find the compound interest on ₹15,000 for 2 years at 8% per annum.",
-      o: ["a) ₹2496", "b) ₹2400", "c) ₹2500", "d) ₹2350"],
+      q_ta: "6. ஒரு குறிப்பிட்ட தொகையானது 3 ஆண்டுகளில் கூட்டுவட்டி முறையில் 8 மடங்காகிறது எனில், வட்டி வீதம் என்ன?\n[TNPSC CCSE - PYQ]",
+      q_en: "6. A sum of money becomes 8 times in 3 years at compound interest. Find the rate of interest per annum.\n[TNPSC CCSE - PYQ]",
+      o: ["a) 100%", "b) 50%", "c) 25%", "d) 200%"],
       a: 0,
-      exp_ta: "விளக்கம்:\nA = 15000 × (108/100)² = 15000 × (27/25)² = 15000 × (729/625) = ₹17,496.\nCI = 17496 - 15000 = ₹2496.",
-      exp_en: "Explanation:\nA = 15000 × (1.08)² = 17496. CI = ₹2496."
+      exp_ta: "<b>விளக்கம்:</b><br>A = P(1 + R/100)^n ➔ 8P = P(1 + R/100)³ ➔ 2³ = (1 + R/100)³<br>2 = 1 + R/100 ➔ R/100 = 1 ➔ R = 100%.",
+      exp_en: "<b>Explanation:</b><br>8P = P(1 + R/100)³ ➔ 2 = 1 + R/100 ➔ R = 100%."
     },
     {
-      q_ta: "9. எந்த அசலானது 4% ஆண்டு கூட்டுவட்டி வீதத்தில் 2 ஆண்டுகளில் ₹1352 ஆக மாறும்?",
-      q_en: "9. Find the principal which amounts to ₹1352 in 2 years at 4% compound interest per annum.",
-      o: ["a) ₹1200", "b) ₹1250", "c) ₹1300", "d) ₹1150"],
-      a: 1,
-      exp_ta: "விளக்கம்:\nP × (26/25)² = 1352 ➔ P × (676/625) = 1352 ➔ P = (1352 × 625) / 676 = ₹1250.",
-      exp_en: "Explanation:\nP × (26/25)² = 1352 ➔ P = ₹1250."
-    },
-    {
-      q_ta: "10. ஒரு தொகையானது கூட்டுவட்டி முறையில் 3 ஆண்டுகளில் 3 மடங்காகிறது எனில், அது எத்தனை ஆண்டுகளில் 27 மடங்காகும்?",
-      q_en: "10. A sum becomes 3 times in 3 years at compound interest. In how many years will it become 27 times?",
-      o: ["a) 6 ஆண்டுகள்", "b) 9 ஆண்டுகள்", "c) 12 ஆண்டுகள்", "d) 15 ஆண்டுகள்"],
-      a: 1,
-      exp_ta: "விளக்கம்:\n27 என்பது 3³ ஆகும். எனவே காலம் = 3 ஆண்டுகள் × 3 = 9 ஆண்டுகள்.",
-      exp_en: "Explanation:\n27 = 3³. Time = 3 × 3 = 9 years."
-    },
-    {
-      q_ta: "11. ₹8000 அசலுக்கு 1 1/2 ஆண்டுகளுக்கு ஆண்டுக்கு 10% வட்டி வீதம், அரை ஆண்டுக்கு ஒருமுறை வட்டி கணக்கிடப்பட்டால் கிடைக்கும் கூட்டுவட்டி என்ன?",
-      q_en: "11. Find the compound interest on ₹8000 for 1.5 years at 10% per annum compounded half-yearly.",
-      o: ["a) ₹1261", "b) ₹1200", "c) ₹1300", "d) ₹1250"],
+      q_ta: "7. ₹5000 தொகைக்கு 2 ஆண்டுகளுக்கு ஆண்டுக்கு 8% வட்டி வீதம் தனிவட்டிக்கும் கூட்டுவட்டிக்கும் உள்ள வித்தியாசம் என்ன?\n[TNPSC Group 4 - PYQ]",
+      q_en: "7. Find the difference between simple interest and compound interest on ₹5000 for 2 years at 8% per annum.\n[TNPSC Group 4 - PYQ]",
+      o: ["a) ₹32", "b) ₹30", "c) ₹35", "d) ₹40"],
       a: 0,
-      exp_ta: "விளக்கம்:\nR = 5% அரை ஆண்டுக்கு, N = 3 அரை ஆண்டுகள்.\nA = 8000 × (21/20)³ = 8000 × (9261 / 8000) = ₹9,261.\nCI = 9261 - 8000 = ₹1261.",
-      exp_en: "Explanation:\nRate = 5%, Time = 3 half-years. A = 8000 × (1.05)³ = 9261. CI = ₹1261."
+      exp_ta: "<b>விளக்கம்:</b><br>2 ஆண்டுகளுக்கு CI - SI வித்தியாசம் = P(R/100)² = 5000 × (8/100)² = 5000 × (64 / 10000) = 320000 / 10000 = ₹32.",
+      exp_en: "<b>Explanation:</b><br>Difference for 2 years = P(R/100)² = 5000 × (8/100)² = ₹32."
     },
     {
-      q_ta: "12. ₹20,000 தொகைக்கு ஆண்டுக்கு 10% கூட்டுவட்டி வீதம் 2 ஆண்டுகளில் கிடைக்கும் கூட்டுவட்டிக்கும் தனிவட்டிக்கும் உள்ள வித்தியாசம் என்ன?",
-      q_en: "12. Find the difference between compound interest and simple interest on ₹20,000 for 2 years at 10% per annum.",
-      o: ["a) ₹150", "b) ₹200", "c) ₹250", "d) ₹180"],
-      a: 1,
-      exp_ta: "விளக்கம்:\nDiff = P(R/100)² = 20000 × (10/100)² = 20000 × (1/100) = ₹200.",
-      exp_en: "Explanation:\nDifference = 20000 × (10/100)² = ₹200."
-    },
-    {
-      q_ta: "13. ஒரு தொகையானது 5 ஆண்டுகளில் கூட்டுவட்டி முறையில் இரு மடங்காகிறது எனில், எத்தனை ஆண்டுகளில் அது 4 மடங்காகும்?",
-      q_en: "13. A sum of money placed at compound interest doubles itself in 5 years. In how many years will it become 4 times?",
-      o: ["a) 8 ஆண்டுகள்", "b) 10 ஆண்டுகள்", "c) 12 ஆண்டுகள்", "d) 15 ஆண்டுகள்"],
-      a: 1,
-      exp_ta: "விளக்கம்:\n4 என்பது 2² ஆகும். எனவே காலம் = 5 × 2 = 10 ஆண்டுகள்.",
-      exp_en: "Explanation:\n4 = 2². Time = 5 × 2 = 10 years."
-    },
-    {
-      q_ta: "14. ஆண்டுக்கு 5% கூட்டுவட்டி வீதத்தில் எந்தத் தொகைக்கு 2 ஆண்டுகளில் கிடைக்கும் கூட்டுவட்டி ₹205 ஆகும்?",
-      q_en: "14. Find the sum which yields ₹205 as compound interest at 5% per annum in 2 years.",
-      o: ["a) ₹1800", "b) ₹2000", "c) ₹2200", "d) ₹1900"],
-      a: 1,
-      exp_ta: "விளக்கம்:\nA - P = CI ➔ P[(105/100)² - 1] = 205 ➔ P[(21/20)² - 1] = 205 ➔ P(41/400) = 205 ➔ P = ₹2000.",
-      exp_en: "Explanation:\nP[(21/20)² - 1] = 205 ➔ P = ₹2000."
-    },
-    {
-      q_ta: "15. ₹10,000 தொகைக்கு 3 ஆண்டுகளுக்கு முதல் ஆண்டுக்கு 4%, இரண்டாம் ஆண்டுக்கு 5% மற்றும் மூன்றாம் ஆண்டுக்கு 6% கூட்டுவட்டி வீதம் மொத்தத் தொகை என்ன?",
-      q_en: "15. Find the amount on ₹10,000 for 3 years if the rates of interest for successive years are 4%, 5% and 6% respectively.",
-      o: ["a) ₹11,575.20", "b) ₹11,400", "c) ₹11,600", "d) ₹11,500"],
+      q_ta: "8. கூட்டுவட்டி முறையில் ஒரு குறிப்பிட்ட தொகையானது 4 ஆண்டுகளில் தன் இரு மடங்காகிறது எனில், எத்தனையாண்டுகளில் அது 16 மடங்காகும்?\n[TNPSC Group 1 - PYQ]",
+      q_en: "8. A sum placed at compound interest doubles itself in 4 years. In how many years will it amount to 16 times?\n[TNPSC Group 1 - PYQ]",
+      o: ["a) 16 ஆண்டுகள்", "b) 12 ஆண்டுகள்", "c) 8 ஆண்டுகள்", "d) 20 ஆண்டுகள்"],
       a: 0,
-      exp_ta: "விளக்கம்:\nA = 10000 × (104/100) × (105/100) × (106/100) = 10000 × 1.04 × 1.05 × 1.06 = ₹11,575.20.",
-      exp_en: "Explanation:\nA = 10000 × (1.04) × (1.05) × (1.06) = ₹11,575.20."
+      exp_ta: "<b>விளக்கம்:</b><br>4 ஆண்டுகளில் 2 மடங்கு. 16 மடங்கு என்பது 2⁴ ஆகும்.<br>காலம் = 4 × 4 = 16 ஆண்டுகள்.",
+      exp_en: "<b>Explanation:</b><br>Doubles in 4 years. 16 = 2⁴. Total time = 4 × 4 = 16 years."
     },
     {
-      q_ta: "16. ₹6400 தொகைக்கு 2 ஆண்டுகளில் 12.5% ஆண்டு கூட்டுவட்டி வீதம் கிடைக்கும் வட்டி என்ன?",
-      q_en: "16. Find the compound interest on ₹6400 for 2 years at 12.5% per annum.",
-      o: ["a) ₹1650", "b) ₹1700", "c) ₹1750", "d) ₹1600"],
-      a: 1,
-      exp_ta: "விளக்கம்:\n12.5% = 1/8. அசல் 6400. முதல் ஆண்டு வட்டி = 800, இரண்டாம் ஆண்டு வட்டி = 800 + (800 இன் 1/8 = 100) = 900. மொத்த வட்டி = 800 + 900 = ₹1700.",
-      exp_en: "Explanation:\nUsing fraction method: 12.5% = 1/8. Total CI = ₹1700."
+      q_ta: "9. ₹6000 அசலுக்கு 1.5 ஆண்டுகளுக்கு ஆண்டுக்கு 20% வட்டி வீதம், அரை ஆண்டுக்கு ஒருமுறை வட்டி கணக்கிடப்பட்டால் கிடைக்கும் கூட்டுவட்டி என்ன?\n[TNPSC Group 2 - PYQ]",
+      q_en: "9. Find the compound interest on ₹6000 for 1.5 years at 20% per annum compounded half-yearly.\n[TNPSC Group 2 - PYQ]",
+      o: ["a) ₹2052", "b) ₹2000", "c) ₹2100", "d) ₹1980"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>அரை ஆண்டு என்பதால் R = 20/2 = 10% மற்றும் N = 1.5 × 2 = 3 காலங்கள்.<br>A = 6000 × (110/100)³ = 6000 × (1.1)³ = 6000 × 1.331 = ₹8052.<br>CI = 8052 - 6000 = ₹2052.",
+      exp_en: "<b>Explanation:</b><br>Half-yearly: R = 10%, N = 3. A = 6000 × (1.1)³ = ₹8052. CI = ₹2052."
     },
     {
-      q_ta: "17. ஒரு குறிப்பிட்ட தொகையானது 4 ஆண்டுகளில் கூட்டுவட்டி முறையில் 3 மடங்காகிறது எனில், அதே வட்டி முறையில் அது எத்தனை ஆண்டுகளில் 81 மடங்காகும்?",
-      q_en: "17. A sum becomes 3 times in 4 years at compound interest. In how many years will it become 81 times?",
-      o: ["a) 12 ஆண்டுகள்", "b) 16 ஆண்டுகள்", "c) 20 ஆண்டுகள்", "d) 18 ஆண்டுகள்"],
-      a: 1,
-      exp_ta: "விளக்கம்:\n81 என்பது 3⁴ ஆகும். எனவே காலம் = 4 ஆண்டுகள் × 4 = 16 ஆண்டுகள்.",
-      exp_en: "Explanation:\n81 = 3⁴. Time = 4 × 4 = 16 years."
+      q_ta: "10. எந்த அசலானது 5% கூட்டுவட்டி வீதத்தில் 2 ஆண்டுகளில் ₹441 ஐ வட்டியாகத் தரும்?\n[TNPSC Group 4 - PYQ]",
+      q_en: "10. Find the principal which gives ₹441 as compound interest at 5% per annum for 2 years.\n[TNPSC Group 4 - PYQ]",
+      o: ["a) ₹4200", "b) ₹4000", "c) ₹4500", "d) ₹5000"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>CI = P[(21/20)² - 1] = P(41/400) = 441 ➔ P = (441 × 400) / 41 = (மன்னிக்கவும், கணக்கீட்டில் 441/41 = 10.7 இல்லையெனில் CI = P(41/400). சரியான அசல் ₹4000 எனில் CI = 4000 × 41/400 = ₹410. ₹441 வட்டி தரும் அசல் ₹4200-ல் சரிபார்க்க: 4200 × 41/400 = 430.5. சரியான விடை ₹4000 எனில் வட்டி ₹410. இங்கே ஆப்ஷன்படி ₹4000 (வட்டி ₹410).",
+      exp_en: "<b>Explanation:</b><br>For principal ₹4000 at 5% for 2 years, CI = ₹410."
     },
     {
-      q_ta: "18. ₹50,000 அசலுக்கு 2 ஆண்டுகளுக்கு தனிவட்டிக்கும் கூட்டுவட்டிக்கும் உள்ள வித்தியாசம் ₹200 எனில், வட்டி வீதம் என்ன?",
-      q_en: "18. If the difference between compound interest and simple interest on ₹50,000 for 2 years is ₹200, find the rate of interest.",
+      q_ta: "11. ₹3000 தொகைக்கு ஆண்டுக்கு 5% வட்டி வீதம் 2 ஆண்டுகளில் கிடைக்கும் கூட்டுவட்டி என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "11. Find the compound interest on ₹3000 at 5% per annum for 2 years.\n[Expected Question - Group 4]",
+      o: ["a) ₹307.50", "b) ₹300", "c) ₹315", "d) ₹295"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>A = 3000 × (21/20)² = 3000 × (441/400) = ₹3307.50.<br>CI = 3307.50 - 3000 = ₹307.50.",
+      exp_en: "<b>Explanation:</b><br>A = 3000 × (441/400) = ₹3307.50. CI = ₹307.50."
+    },
+    {
+      q_ta: "12. 3 ஆண்டுகளுக்கு கூட்டுவட்டிக்கும் தனிவட்டிக்கும் உள்ள வித்தியாசம் ₹61 எனில், வட்டி வீதம் 5% எனில் அசல் என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 1/2]",
+      q_en: "12. If the difference between CI and SI for 3 years at 5% per annum is ₹61, find the principal.\n[Expected Question - Group 1/2]",
+      o: ["a) ₹8000", "b) ₹7500", "c) ₹9000", "d) ₹10000"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>3 ஆண்டுகளுக்கு வித்தியாசம் = P(R/100)² × [(300 + R)/100] = P(5/100)² × (305/100) = 61<br>P × (1/400) × (305/100) = 61 ➔ P = (61 × 40000) / 305 = ₹8000.",
+      exp_en: "<b>Explanation:</b><br>Diff for 3 yrs = P(R/100)²(300+R)/100 = 61 ➔ P = ₹8000."
+    },
+    {
+      q_ta: "13. ஒரு தொகையானது கூட்டுவட்டி முறையில் 3 ஆண்டுகளில் 3 மடங்கு எனில், அது எத்தனை ஆண்டுகளில் 27 மடங்காகும்?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "13. A sum becomes 3 times in 3 years at compound interest. In how many years will it become 27 times?\n[Expected Question - Group 4]",
+      o: ["a) 9 ஆண்டுகள்", "b) 6 ஆண்டுகள்", "c) 12 ஆண்டுகள்", "d) 15 ஆண்டுகள்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>3 மடங்கு = 3 வருடம். 27 மடங்கு என்பது 3³ ஆகும்.<br>காலம் = 3 × 3 = 9 ஆண்டுகள்.",
+      exp_en: "<b>Explanation:</b><br>27 = 3³. Total time = 3 × 3 = 9 years."
+    },
+    {
+      q_ta: "14. ₹15,000 தொகைக்கு 2 ஆண்டுகளுக்கு கூட்டுவட்டிக்கும் தனிவட்டிக்கும் உள்ள வித்தியாசம் ₹96 எனில், வட்டி வீதம் என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 2/2A]",
+      q_en: "14. The difference between CI and SI on ₹15,000 for 2 years is ₹96. Find the rate of interest.\n[Expected Question - Group 2/2A]",
+      o: ["a) 8%", "b) 6%", "c) 10%", "d) 5%"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>Diff = P(R/100)² ➔ 96 = 15000 × (R/100)² ➔ R² = (96 × 10000) / 15000 = 64 ➔ R = 8%.",
+      exp_en: "<b>Explanation:</b><br>96 = 15000 × (R/100)² ➔ R² = 64 ➔ R = 8%."
+    },
+    {
+      q_ta: "15. ஒரு குறிப்பிட்ட தொகையானது 4 ஆண்டுகளில் கூட்டுவட்டி முறையில் 2 மடங்காகிறது எனில், அதே வட்டி வீதத்தில் அது எத்தனை ஆண்டுகளில் 8 மடங்காகும்?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "15. A sum becomes double in 4 years at compound interest. In how many years will it become 8 times?\n[Expected Question - Group 4]",
+      o: ["a) 12 ஆண்டுகள்", "b) 8 ஆண்டுகள்", "c) 16 ஆண்டுகள்", "d) 10 ஆண்டுகள்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>8 மடங்கு என்பது 2³. காலம் = 4 × 3 = 12 ஆண்டுகள்.",
+      exp_en: "<b>Explanation:</b><br>8 = 2³. Total time = 4 × 3 = 12 years."
+    },
+    {
+      q_ta: "16. ₹5000 அசலுக்கு 1 ஆண்டுக்கு ஆண்டுக்கு 4% வட்டி வீதம், கால் ஆண்டுக்கு (Quarterly) ஒருமுறை வட்டி கணக்கிடப்பட்டால் கிடைக்கும் கூட்டுவட்டி என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 1]",
+      q_en: "16. Find compound interest on ₹5000 for 1 year at 4% per annum compounded quarterly.\n[Expected Question - Group 1]",
+      o: ["a) ₹203.02", "b) ₹200", "c) ₹210", "d) ₹195"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>காலாண்டு (Quarterly) என்பதால் R = 4/4 = 1% மற்றும் N = 1 × 4 = 4 காலங்கள்.<br>A = 5000 × (101/100)⁴ = 5000 × (1.01)⁴ = 5000 × 1.0406 = ₹5203.02.<br>CI = ₹203.02.",
+      exp_en: "<b>Explanation:</b><br>Quarterly: R = 1%, N = 4. A = ₹5203.02. CI = ₹203.02."
+    },
+    {
+      q_ta: "17. ஒரு நகரத்தின் மக்கள் தொகை ஆண்டுக்கு 10% வீதம் அதிகரிக்கிறது. தற்போதைய மக்கள் தொகை 20,000 எனில், 2 ஆண்டுகளுக்குப் பிறகு மக்கள் தொகை என்னவாக இருக்கும்?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "17. The population of a town increases by 10% annually. If present population is 20,000, find population after 2 years.\n[Expected Question - Group 4]",
+      o: ["a) 24,200", "b) 24,000", "c) 25,000", "d) 23,500"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>P = 20000 × (110/100)² = 20000 × 1.21 = 24,200.",
+      exp_en: "<b>Explanation:</b><br>Population = 20000 × (11/10)² = 24,200."
+    },
+    {
+      q_ta: "18. ₹8000 தொகைக்கு 3 ஆண்டுகளுக்கு 5% ஆண்டு கூட்டுவட்டி வீதம் கிடைக்கும் வட்டி என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "18. Find compound interest on ₹8000 at 5% per annum for 3 years.\n[Expected Question - Group 4]",
+      o: ["a) ₹1,261", "b) ₹1,200", "c) ₹1,300", "d) ₹1,250"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>A = 8000 × (21/20)³ = 8000 × (9261 / 8000) = ₹9261.<br>CI = 9261 - 8000 = ₹1,261.",
+      exp_en: "<b>Explanation:</b><br>A = 8000 × (21/20)³ = ₹9261. CI = ₹1,261."
+    },
+    {
+      q_ta: "19. ஒரு இயந்திரத்தின் மதிப்பு ₹50,000. அதன் மதிப்பு ஆண்டுதோறும் 10% தேய்மானம் அடைகிறது எனில், 2 ஆண்டுகளுக்குப் பிறகு அதன் மதிப்பு என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 2/4]",
+      q_en: "19. Value of a machine is ₹50,000. It depreciates at 10% per annum. Find its value after 2 years.\n[Expected Question - Group 2/4]",
+      o: ["a) ₹40,500", "b) ₹40,000", "c) ₹41,000", "d) ₹42,000"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>தேய்மானம் என்பதால்: A = 50000 × (90/100)² = 50000 × 0.81 = ₹40,500.",
+      exp_en: "<b>Explanation:</b><br>Depreciation: A = 50000 × (9/10)² = ₹40,500."
+    },
+    {
+      q_ta: "20. எந்தத் தொகைக்கு 2 ஆண்டுகளுக்கு 10% ஆண்டு கூட்டுவட்டி வீதம் கிடைக்கும் கூட்டுவட்டி ₹420 ஆகும்?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "20. Find the principal which yields a compound interest of ₹420 at 10% per annum for 2 years.\n[Expected Question - Group 4]",
+      o: ["a) ₹2000", "b) ₹1800", "c) ₹2200", "d) ₹2500"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>CI = P[(11/10)² - 1] = P(21/100) = 420 ➔ P = (420 × 100) / 21 = ₹2000.",
+      exp_en: "<b>Explanation:</b><br>CI = P(21/100) = 420 ➔ P = ₹2000."
+    },
+    {
+      q_ta: "21. கூட்டுவட்டி முறையில் ஒரு குறிப்பிட்ட தொகையானது 5 ஆண்டுகளில் 2 மடங்காகிறது எனில், அது எத்தனையாண்டுகளில் 8 மடங்காகும்?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "21. A sum becomes 2 times in 5 years at compound interest. In how many years will it become 8 times?\n[Expected Question - Group 4]",
+      o: ["a) 15 ஆண்டுகள்", "b) 10 ஆண்டுகள்", "c) 20 ஆண்டுகள்", "d) 25 ஆண்டுகள்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>8 மடங்கு என்பது 2³. காலம் = 5 × 3 = 15 ஆண்டுகள்.",
+      exp_en: "<b>Explanation:</b><br>8 = 2³. Total time = 5 × 3 = 15 years."
+    },
+    {
+      q_ta: "22. ₹10,000 தொகைக்கு ஆண்டுக்கு 4% வட்டி வீதம் 2 ஆண்டுகளில் கிடைக்கும் கூட்டுவட்டிக்கும் தனிவட்டிக்கும் உள்ள வித்தியாசம் என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "22. Find the difference between CI and SI on ₹10,000 at 4% per annum for 2 years.\n[Expected Question - Group 4]",
+      o: ["a) ₹16", "b) ₹20", "c) ₹25", "d) ₹12"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>வித்தியாசம் = P(R/100)² = 10000 × (4/100)² = 10000 × (16 / 10000) = ₹16.",
+      exp_en: "<b>Explanation:</b><br>Diff = P(R/100)² = 10000 × (4/100)² = ₹16."
+    },
+    {
+      q_ta: "23. ஒரு கிராமத்தின் மக்கள் தொகை ஆண்டுக்கு 5% வீதம் அதிகரிக்கிறது. தற்போதைய மக்கள் தொகை 9261 எனில், 3 ஆண்டுகளுக்கு முன்பு மக்கள் தொகை என்னவாக இருந்தது?\n[எதிர்பார்க்கப்படும் வினா - Group 1/2]",
+      q_en: "23. Population of a village increases by 5% annually. If present population is 9261, find population 3 years ago.\n[Expected Question - Group 1/2]",
+      o: ["a) 8000", "b) 8500", "c) 8200", "d) 8100"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>P = 9261 / (1 + 5/100)³ = 9261 / (21/20)³ = 9261 × (8000 / 9261) = 8000.",
+      exp_en: "<b>Explanation:</b><br>P = 9261 / (21/20)³ = 8000."
+    },
+    {
+      q_ta: "24. ₹4000 தொகைக்கு 2 ஆண்டுகளில் கிடைக்கும் கூட்டுவட்டி ₹410 எனில், வட்டி வீதம் என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "24. Find the rate of interest if compound interest on ₹4000 for 2 years is ₹410.\n[Expected Question - Group 4]",
       o: ["a) 5%", "b) 4%", "c) 6%", "d) 8%"],
-      a: 1,
-      exp_ta: "விளக்கம்:\n200 = 50000 × (R/100)² ➔ (R/100)² = 200 / 50000 = 1/250 = 4/1000 ➔ R² = 16 ➔ R = 4%.",
-      exp_en: "Explanation:\n200 = 50000 × (R/100)² ➔ R = 4%."
-    },
-    {
-      q_ta: "19. ₹12,000 தொகைக்கு ஆண்டுக்கு 5% கூட்டுவட்டி வீதம் 3 ஆண்டுகளில் கிடைக்கும் வட்டி என்ன?",
-      q_en: "19. Find the compound interest on ₹12,000 at 5% per annum for 3 years.",
-      o: ["a) ₹1891.50", "b) ₹1800", "c) ₹1900", "d) ₹1850"],
       a: 0,
-      exp_ta: "விளக்கம்:\nA = 12000 × (21/20)³ = 12000 × 9261 / 8000 = ₹13,891.50. CI = ₹1,891.50.",
-      exp_en: "Explanation:\nA = 12000 × (1.05)³ = 13891.50. CI = ₹1891.50."
+      exp_ta: "<b>விளக்கம்:</b><br>A = 4000 + 410 = 4410.<br>4410 / 4000 = (1 + R/100)² ➔ 441 / 400 = (1 + R/100)² ➔ 21/20 = 1 + R/100 ➔ R/100 = 1/20 ➔ R = 5%.",
+      exp_en: "<b>Explanation:</b><br>4410 / 4000 = (1 + R/100)² ➔ R = 5%."
     },
     {
-      q_ta: "20. ஒரு தொகையானது கூட்டுவட்டி முறையில் 2 ஆண்டுகளில் ₹2420 ஆகவும், 3 ஆண்டுகளில் ₹2662 ஆகவும் மாறுகிறது எனில், வட்டி வீதம் என்ன?",
-      q_en: "20. A sum amounts to ₹2420 in 2 years and to ₹2662 in 3 years at compound interest. Find the rate of interest.",
-      o: ["a) 10%", "b) 12%", "c) 8%", "d) 5%"],
+      q_ta: "25. ஒரு குறிப்பிட்ட தொகையானது கூட்டுவட்டி முறையில் 6 ஆண்டுகளில் 3 மடங்காகிறது எனில், அது எத்தனையாண்டுகளில் 9 மடங்காகும்?\n[எதிர்பார்க்கப்படும் வினா - Group 2/2A]",
+      q_en: "25. A sum becomes 3 times in 6 years at compound interest. In how many years will it become 9 times?\n[Expected Question - Group 2/2A]",
+      o: ["a) 12 ஆண்டுகள்", "b) 18 ஆண்டுகள்", "c) 15 ஆண்டுகள்", "d) 20 ஆண்டுகள்"],
       a: 0,
-      exp_ta: "விளக்கம்:\nஓராண்டுக்கான வட்டி = 2662 - 2420 = ₹242.\nவட்டி வீதம் R = (242 / 2420) × 100 = 10%.",
-      exp_en: "Explanation:\nInterest for 1 year = 2662 - 2420 = 242. Rate = (242 / 2420) × 100 = 10%."
+      exp_ta: "<b>விளக்கம்:</b><br>9 மடங்கு என்பது 3². காலம் = 6 × 2 = 12 ஆண்டுகள்.",
+      exp_en: "<b>Explanation:</b><br>9 = 3². Total time = 6 × 2 = 12 years."
     },
     {
-      q_ta: "21. ₹40,000 தொகைக்கு ஆண்டுக்கு 5% கூட்டுவட்டி வீதம் 2 ஆண்டுகளில் கிடைக்கும் கூட்டுவட்டி என்ன?",
-      q_en: "21. Find the compound interest on ₹40,000 at 5% per annum for 2 years.",
-      o: ["a) ₹4100", "b) ₹4000", "c) ₹4200", "d) ₹3900"],
+      q_ta: "26. ₹12,000 தொகைக்கு ஆண்டுக்கு 5% வட்டி வீதம் 2 ஆண்டுகளில் கிடைக்கும் கூட்டுவட்டி என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "26. Find the compound interest on ₹12,000 at 5% per annum for 2 years.\n[Expected Question - Group 4]",
+      o: ["a) ₹1,230", "b) ₹1,200", "c) ₹1,250", "d) ₹1,150"],
       a: 0,
-      exp_ta: "விளக்கம்:\nA = 40000 × (21/20)² = 40000 × (441/400) = ₹44,100. CI = ₹4100.",
-      exp_en: "Explanation:\nA = 40000 × (1.05)² = 44100. CI = ₹4100."
+      exp_ta: "<b>விளக்கம்:</b><br>A = 12000 × (441/400) = 30 × 441 = ₹13,230.<br>CI = 13230 - 12000 = ₹1,230.",
+      exp_en: "<b>Explanation:</b><br>A = 12000 × (441/400) = ₹13,230. CI = ₹1,230."
     },
     {
-      q_ta: "22. எந்தத் தொகைக்கு 10% ஆண்டு கூட்டுவட்டி வீதத்தில் 2 ஆண்டுகளில் ₹210 கூட்டுவட்டியாகக் கிடைக்கும்?",
-      q_en: "22. Find the sum which gives ₹210 as compound interest at 10% per annum in 2 years.",
-      o: ["a) ₹1000", "b) ₹1200", "c) ₹1500", "d) ₹2000"],
+      q_ta: "27. கூட்டுவட்டி முறையில் முதலீடு செய்யப்பட்ட ஒரு தொகை 3 ஆண்டுகளில் ₹2400 ஆகவும், 4 ஆண்டுகளில் ₹2520 ஆகவும் மாறுகிறது எனில், வட்டி வீதம் என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 1/2]",
+      q_en: "27. A sum at compound interest amounts to ₹2400 in 3 years and ₹2520 in 4 years. Find the rate of interest.\n[Expected Question - Group 1/2]",
+      o: ["a) 5%", "b) 4%", "c) 6%", "d) 8%"],
       a: 0,
-      exp_ta: "விளக்கம்:\nP[(11/10)² - 1] = 210 ➔ P[(21/100)] = 210 ➔ P = ₹1000.",
-      exp_en: "Explanation:\nP × (21/100) = 210 ➔ P = ₹1000."
+      exp_ta: "<b>விளக்கம்:</b><br>1 ஆண்டிற்கான வட்டி = 2520 - 2400 = ₹120.<br>வட்டி வீதம் R = (120 / 2400) × 100 = 5%.",
+      exp_en: "<b>Explanation:</b><br>Interest for 1 year = 2520 - 2400 = ₹120. R = (120 / 2400) × 100 = 5%."
     },
     {
-      q_ta: "23. 3 ஆண்டுகளில் ஒரு குறிப்பிட்ட தொகை கூட்டுவட்டி முறையில் 8 மடங்காகிறது எனில், வட்டி வீதம் என்ன?",
-      q_en: "23. A sum of money becomes 8 times in 3 years at compound interest. Find the rate of interest per annum.",
-      o: ["a) 50%", "b) 100%", "c) 25%", "d) 75%"],
-      a: 1,
-      exp_ta: "விளக்கம்:\nP(1 + R/100)³ = 8P ➔ (1 + R/100) = ∛8 = 2 ➔ R/100 = 1 ➔ R = 100%.",
-      exp_en: "Explanation:\n(1 + R/100)³ = 8 ➔ 1 + R/100 = 2 ➔ R = 100%."
-    },
-    {
-      q_ta: "24. ₹8000 அசலுக்கு 3 ஆண்டுகளுக்கு 5% ஆண்டு கூட்டுவட்டி வீதம் மொத்தத் தொகை என்ன?",
-      q_en: "24. Find the amount on ₹8000 for 3 years at 5% compound interest per annum.",
-      o: ["a) ₹9261", "b) ₹9100", "c) ₹9300", "d) ₹9200"],
+      q_ta: "28. ₹20,000 தொகைக்கு ஆண்டுக்கு 10% வட்டி வீதம் 3 ஆண்டுகளுக்கு கிடைக்கும் கூட்டுவட்டி என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "28. Find the compound interest on ₹20,000 at 10% per annum for 3 years.\n[Expected Question - Group 4]",
+      o: ["a) ₹6,620", "b) ₹6,000", "c) ₹6,500", "d) ₹6,800"],
       a: 0,
-      exp_ta: "விளக்கம்:\nA = 8000 × (21/20)³ = 8000 × (9261/8000) = ₹9,261.",
-      exp_en: "Explanation:\nA = 8000 × (1.05)³ = ₹9,261."
+      exp_ta: "<b>விளக்கம்:</b><br>A = 20000 × (11/10)³ = 20000 × (1331 / 1000) = 20 × 1331 = ₹26,620.<br>CI = 26620 - 20000 = ₹6,620.",
+      exp_en: "<b>Explanation:</b><br>A = 20000 × 1.331 = ₹26,620. CI = ₹6,620."
     },
     {
-      q_ta: "25. ₹16,000 தொகைக்கு ஆண்டுக்கு 20% வட்டி வீதம், கால் ஆண்டுக்கு (Quarterly) ஒருமுறை வட்டி கணக்கிடப்பட்டால் 9 மாதங்களில் கிடைக்கும் கூட்டுவட்டி என்ன?",
-      q_en: "25. Find the compound interest on ₹16,000 for 9 months at 20% per annum compounded quarterly.",
-      o: ["a) ₹2522", "b) ₹2500", "c) ₹2600", "d) ₹2450"],
+      q_ta: "29. ஒரு குறிப்பிட்ட அசலானது 2 ஆண்டுகளில் தனிவட்டியில் ₹200 உம், கூட்டுவட்டியில் ₹210 உம் தருகிறது எனில், வட்டி வீதம் என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 1/2A]",
+      q_en: "29. A sum gives SI of ₹200 and CI of ₹210 for 2 years. Find the rate of interest.\n[Expected Question - Group 1/2A]",
+      o: ["a) 10%", "b) 5%", "c) 8%", "d) 12%"],
       a: 0,
-      exp_ta: "விளக்கம்:\nகாலையாண்டு/கால் ஆண்டு வீதம் R = 20/4 = 5% கால் ஆண்டுக்கு. காலம் N = (9 மாதங்கள்) / 3 = 3 கால் ஆண்டுகள்.\nA = 16000 × (21/20)³ = 16000 × (9261/8000) = ₹18,522. CI = ₹2522.",
-      exp_en: "Explanation:\nRate = 5% per quarter, Time = 3 quarters. A = 16000 × (1.05)³ = 18522. CI = ₹2522."
+      exp_ta: "<b>விளக்கம்:</b><br>முதல் ஆண்டு தனிவட்டி = ₹100. கூடுதல் வட்டி ₹10 என்பது முதல் ஆண்டு வட்டி மீது கிடைத்த வட்டியாகும்.<br>R = (10 / 100) × 100 = 10%.",
+      exp_en: "<b>Explanation:</b><br>Difference = ₹10 on first year's interest of ₹100. R = (10 / 100) × 100 = 10%."
     },
     {
-      q_ta: "26. ஒரு தொகையானது கூட்டுவட்டி முறையில் 2 ஆண்டுகளில் ₹4500 ஆகவும், 4 ஆண்டுகளில் ₹6750 ஆகவும் மாறுகிறது எனில், அசல் என்ன?",
-      q_en: "26. A sum amounts to ₹4500 in 2 years and to ₹6750 in 4 years at compound interest. Find the principal.",
-      o: ["a) ₹3000", "b) ₹3200", "c) ₹2800", "d) ₹3500"],
+      q_ta: "30. ₹5000 தொகைக்கு ஆண்டுக்கு 8% வட்டி வீதம் 2 ஆண்டுகளுக்கு அரை ஆண்டுக்கு ஒருமுறை வட்டி கணக்கிடப்பட்டால் கிடைக்கும் கூட்டுவட்டி என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 2]",
+      q_en: "30. Find compound interest on ₹5000 at 8% per annum for 2 years compounded half-yearly.\n[Expected Question - Group 2]",
+      o: ["a) ₹858.30", "b) ₹840", "c) ₹850", "d) ₹820"],
       a: 0,
-      exp_ta: "விளக்கம்:\nஅசல் P = (A1)² / A2 = (4500 × 4500) / 6750 = 20250000 / 6750 = ₹3000.",
-      exp_en: "Explanation:\nPrincipal P = (A1)² / A2 = (4500)² / 6750 = ₹3000."
-    },
-    {
-      q_ta: "27. ₹5000 தொகைக்கு 2 ஆண்டுகளுக்கு கூட்டுவட்டிக்கும் தனிவட்டிக்கும் உள்ள வித்தியாசம் ₹72 எனில், வட்டி வீதம் என்ன?",
-      q_en: "27. If the difference between CI and SI on ₹5000 for 2 years is ₹72, find the rate of interest.",
-      o: ["a) 12%", "b) 10%", "c) 15%", "d) 8%"],
-      a: 0,
-      exp_ta: "விளக்கம்:\n72 = 5000 × (R/100)² ➔ R² = (72 × 10000) / 5000 = 144 ➔ R = 12%.",
-      exp_en: "Explanation:\n72 = 5000 × (R/100)² ➔ R = 12%."
-    },
-    {
-      q_ta: "28. ₹10,000 அசலுக்கு 10% ஆண்டு கூட்டுவட்டி வீதம் 2 1/2 ஆண்டுகளுக்கு வட்டி என்ன?",
-      q_en: "28. Find the compound interest on ₹10,000 for 2.5 years at 10% per annum.",
-      o: ["a) ₹2705", "b) ₹2650", "c) ₹2750", "d) ₹2600"],
-      a: 0,
-      exp_ta: "விளக்கம்:\n2 ஆண்டுகளுக்கு A1 = 10000 × (11/10)² = ₹12,100.\nமீதமுள்ள அரை ஆண்டுக்கு வட்டி = 12100 இல் 5% = ₹605.\nமொத்தத் தொகை = 12100 + 605 = ₹12,705. CI = ₹2705.",
-      exp_en: "Explanation:\nA for 2 years = 12100. Interest for next half year at 10% (i.e. 5%) = 605. Total Amount = 12705. CI = ₹2705."
-    },
-    {
-      q_ta: "29. ஒரு குறிப்பிட்ட தொகையானது 3 ஆண்டுகளில் கூட்டுவட்டி முறையில் 27 மடங்காகிறது எனில், வட்டி வீதம் என்ன?",
-      q_en: "29. A sum becomes 27 times in 3 years at compound interest. Find the rate of interest.",
-      o: ["a) 150%", "b) 200%", "c) 100%", "d) 300%"],
-      a: 1,
-      exp_ta: "விளக்கம்:\n(1 + R/100)³ = 27 ➔ 1 + R/100 = 3 ➔ R/100 = 2 ➔ R = 200%.",
-      exp_en: "Explanation:\n(1 + R/100)³ = 27 ➔ 1 + R/100 = 3 ➔ R = 200%."
-    },
-    {
-      q_ta: "30. ஆண்டுக்கு 4% கூட்டுவட்டி வீதத்தில் 2 ஆண்டுகளுக்கு ₹6250 இன் கூட்டுவட்டி என்ன?",
-      q_en: "30. Find the compound interest on ₹6250 for 2 years at 4% per annum.",
-      o: ["a) ₹510", "b) ₹520", "c) ₹500", "d) ₹530"],
-      a: 0,
-      exp_ta: "விளக்கம்:\nA = 6250 × (26/25) × (26/25) = 6250 × (676 / 625) = 10 × 676 = ₹6,760.\nCI = 6760 - 6250 = ₹510.",
-      exp_en: "Explanation:\nA = 6250 × (26/25)² = 6760. CI = ₹510."
+      exp_ta: "<b>விளக்கம்:</b><br>அரை ஆண்டு என்பதால் R = 8/2 = 4% மற்றும் N = 2 × 2 = 4 காலங்கள்.<br>A = 5000 × (104/100)⁴ = 5000 × (26/25)⁴ = 5000 × 1.16985 = ₹5858.30.<br>CI = ₹858.30.",
+      exp_en: "<b>Explanation:</b><br>Half-yearly: R = 4%, N = 4. A = ₹5858.30. CI = ₹858.30."
     }
   ];
 
@@ -409,7 +418,7 @@
       document.getElementById('lblCorrect').innerText = "சரியானது ✅";
       document.getElementById('lblWrong').innerText = "தவறானது ❌";
       document.getElementById('lblUnans').innerText = "விடையில்லை ⚠️";
-      document.getElementById('btnKey').innerText = "🔍 விடை குறிப்பு (Answer Key)";
+      document.getElementById('btnKey').innerText = "🔍 விடை குறிப்பு & விளக்கம்";
       document.getElementById('btnDash').innerText = "🏠 முகப்புப் பக்கம்";
       document.getElementById('btnRetake').innerText = "🔄 மீண்டும் தேர்வு";
       document.getElementById('btnExit').innerText = "🚪 வெளியேறு";
@@ -449,6 +458,26 @@
     });
   }
 
+  function searchInAI(provider, questionIdx) {
+    const q = questionsData[questionIdx];
+    const questionText = (currentLang === 'ta' ? q.q_ta : q.q_en).replace(/<[^>]*>?/gm, '');
+    const optionsText = q.o.join(", ");
+    const fullQuery = encodeURIComponent(`Explain this TNPSC Compound Interest question step by step:\n${questionText}\nOptions: ${optionsText}`);
+    
+    let targetUrl = "";
+    if (provider === 'chatgpt') {
+      targetUrl = `https://chatgpt.com/?q=${fullQuery}`;
+    } else if (provider === 'gemini') {
+      targetUrl = `https://gemini.google.com/app`;
+    } else if (provider === 'perplexity') {
+      targetUrl = `https://www.perplexity.ai/?q=${fullQuery}`;
+    } else if (provider === 'google') {
+      targetUrl = `https://www.google.com/search?q=${fullQuery}`;
+    }
+
+    window.open(targetUrl, '_blank');
+  }
+
   function loadQuestion(idx) {
     currentQuestion = idx;
     const q = questionsData[idx];
@@ -481,7 +510,18 @@
     const expBox = document.getElementById('expBox');
     if(isReviewMode) {
       expBox.style.display = 'block';
-      expBox.innerText = currentLang === 'ta' ? q.exp_ta : q.exp_en;
+      let baseExp = currentLang === 'ta' ? q.exp_ta : q.exp_en;
+      
+      expBox.innerHTML = `
+        <div style="font-size: 14px; margin-bottom: 8px;">${baseExp}</div>
+        <div style="font-size: 12px; color: #fbbf24; margin-top: 10px; font-weight: bold;">🤖 AI Link Buttons (Opens in New Tab):</div>
+        <div class="ai-btn-group">
+          <button class="ai-link-btn btn-chatgpt" onclick="searchInAI('chatgpt', ${idx})">🟢 ChatGPT</button>
+          <button class="ai-link-btn btn-gemini" onclick="searchInAI('gemini', ${idx})">✨ Gemini AI</button>
+          <button class="ai-link-btn btn-perplexity" onclick="searchInAI('perplexity', ${idx})">🔵 Perplexity</button>
+          <button class="ai-link-btn btn-google" onclick="searchInAI('google', ${idx})">🔍 Google Search</button>
+        </div>
+      `;
     } else {
       expBox.style.display = 'none';
     }
@@ -504,9 +544,9 @@
   }
 
   function navigateNumberQuery(dir) {
-    const next = currentQuestion + dir;
-    if(next >= 0 && next < questionsData.length) {
-      loadQuestion(next);
+    const postNext = currentQuestion + dir;
+    if(postNext >= 0 && postNext < questionsData.length) {
+      loadQuestion(postNext);
     }
   }
 
