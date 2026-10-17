@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tiger Warriors - கூட்டுவட்டி (Compound Interest) 30 வினாக்கள்</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; font-weight: bold; }
+    body { background: #080604; color: #f8fafc; padding: 12px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+    .card { width: 100%; max-width: 950px; background: #0f172a; border-radius: 14px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); border: 1px solid #334155; }
+    
+    .test-header { display: flex; justify-content: space-between; align-items: center; background: #1e293b; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; border: 1px solid #334155; }
+    .timer { font-size: 15px; font-weight: bold; color: #fbbf24; background: #091326; padding: 6px 12px; border-radius: 6px; border: 1px solid #fbbf24; box-shadow: inset 0 0 5px rgba(251, 191, 36, 0.2); }
+    .lang-btn { background: #0284c7; color: #fff; border: 1px solid #38bdf8; padding: 6px 14px; border-radius: 6px; font-size: 13px; cursor: pointer; transition: 0.2s; }
+    .lang-btn:hover { background: #0369a1; }
+
+    .q-grid { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 16px; max-height: 140px; overflow-y: auto; padding: 8px; background: #1e293b; border-radius: 8px; justify-content: center; }
+    .q-num-btn { width: 30px; height: 30px; border-radius: 5px; border: none; background: #334155; color: #fff; font-size: 10px; cursor: pointer; font-weight: bold; }
+    .q-num-btn.active { border: 2px solid #38bdf8; background: #0284c7; }
+    .q-num-btn.answered { background: #10b981; }
+
+    .q-box { background: #1e293b; padding: 18px; border-radius: 10px; margin-bottom: 16px; border: 1px solid #334155; }
+    .q-text { white-space: pre-line; line-height: 1.6; font-size: 15px; color: #f8fafc; }
+    
+    .option-card { background: #0f172a; border: 1px solid #334155; padding: 12px 16px; border-radius: 8px; margin-top: 10px; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: 0.2s; white-space: pre-line; line-height: 1.4; }
+    .option-card:hover { border-color: #38bdf8; background: #1e293b; }
+    .option-card.selected { border-color: #10b981; background: #064e3b; }
+    .option-card.correct-ans { border-color: #10b981; background: #065f46; font-weight: bold; }
+    .option-card.wrong-ans { border-color: #ef4444; background: #7f1d1d; }
+
+    .explanation-box { background: #091326; border: 1px solid #38bdf8; border-radius: 8px; padding: 12px; margin-top: 14px; font-size: 13px; color: #7dd3fc; line-height: 1.5; }
+    
+    .nav-btns { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+    .btn-action { background: #334155; color: #fff; border: none; padding: 10px 16px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 13px; text-align: center; }
+    .btn-action:hover { opacity: 0.9; }
+    .btn-blue { background: #2563eb; }
+    .btn-purple { background: #7c3aed; }
+    .btn-danger { background: #ef4444; }
+    .btn-green { background: #22c55e; }
+
+    .result-box { text-align: center; padding: 25px; background: #1e293b; border-radius: 16px; margin-top: 10px; border: 1px solid rgba(0, 242, 254, 0.3); display: flex; flex-direction: column; align-items: center; }
+    .score-circle { width: 130px; height: 130px; border-radius: 50%; background: conic-gradient(#10b981 0deg, #0f172a 0deg); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 15px auto; border: 4px solid #38bdf8; box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); }
+    .score-num { font-size: 30px; color: #f8fafc; font-weight: bold; }
+    
+    .result-stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; width: 100%; max-width: 400px; }
+    .stat-pill { background: #0f172a; border-radius: 12px; padding: 10px; border: 1px solid #334155; text-align: center; }
+    .stat-pill.gold { border-color: #fbbf24; }
+    .stat-pill.blue { border-color: #38bdf8; }
+    .stat-pill.red { border-color: #ef4444; }
+
+    .footer-badge { text-align: center; font-size: 11px; color: #38bdf8; margin-top: 15px; font-weight: bold; letter-spacing: 0.5px; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <script>
+      if (localStorage.getItem('tiger_auth_passed') !== 'true') {
+          alert("⚠ பாதுகாப்பு எச்சரிக்கை: நீங்கள் Tiger Warriors போர்ட்டலில் லாகின் செய்யவில்லை! முதலில் மெயின் போர்ட்டலில் லாகின் செய்யவும்.");
+          window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html"); 
+      }
+  </script>
+
+  <div id="testView">
+    <div class="test-header">
+      <div>
+        <h3 style="color: #38bdf8; font-size: 15px;" id="headerTitle">🐅 TIGER WARRIORS - கூட்டுவட்டி (Compound Interest) 30 வினாக்கள்</h3>
+        <span style="font-size: 11px; color: #94a3b8;">TNPSC / 2 / 2A / 4 • MATHS UNIT 11</span>
+      </div>
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <button class="lang-btn" onclick="toggleLanguage()" id="langBtn">🌐 English</button>
+        <div class="timer" id="timerBox">⏱️ 45:00</div>
+        <button class="btn-action btn-purple" id="backToResultBtn" onclick="returnToResult()" style="display: none; padding: 6px 12px; font-size: 12px;">📊 ரிசல்ட் செல்</button>
+        <button class="btn-action btn-danger" id="dashFromKeyBtn" onclick="returnToDashboard()" style="display: none; padding: 6px 12px; font-size: 12px;">🏠 முகப்பு</button>
+      </div>
+    </div>
+
+    <div class="q-grid" id="questionGrid"></div>
+
+    <div class="q-box">
+      <div id="qTitle" class="q-text"></div>
+      <div id="optionsBox"></div>
+      <div id="expBox" class="explanation-box" style="display: none;"></div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn-action" id="prevBtn" onclick="navigateNumberQuery(-1)">⬅️ முந்தையது</button>
+      <button class="btn-action" id="clearBtn" onclick="clearChoice()">🧹 விடையை நீக்கு</button>
+      <button class="btn-action btn-blue" id="nextBtn" onclick="navigateNumberQuery(1)">அடுத்து ➡️</button>
+      <button class="btn-action btn-danger" id="finalSubmitBtn" onclick="submitTest()">✅ தேர்வைச் சமர்ப்பிக்க (Submit)</button>
+    </div>
+  </div>
+
+  <div id="resultView" style="display: none;">
+    <h2 style="color: #38bdf8; text-align: center; margin-bottom: 10px;" id="resHeader">🏆 தேர்வு முடிவுகள் (Test Results) 🎯</h2>
+    <div class="result-box">
+      <div class="score-circle" id="scoreCircle">
+        <div class="score-num" id="scoreDisplay">0/30</div>
+        <span id="percentageDisplay" style="font-size: 11px; color: #fbbf24;">0%</span>
+      </div>
+
+      <div class="result-stats-grid">
+        <div class="stat-pill gold">
+          <h3 id="correctCnt" style="color: #10b981; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;" id="lblCorrect">சரியானது ✅</span>
+        </div>
+        <div class="stat-pill red">
+          <h3 id="wrongCnt" style="color: #ef4444; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;" id="lblWrong">தவறானது ❌</span>
+        </div>
+        <div class="stat-pill blue">
+          <h3 id="unansCnt" style="color: #f59e0b; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;" id="lblUnans">விடையில்லை ⚠️</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
+      <button class="btn-action btn-blue" onclick="reviewAnswerKey()" id="btnKey">🔍 விடை குறிப்பு (Answer Key)</button>
+      <button class="btn-action btn-purple" onclick="returnToDashboard()" id="btnDash">🏠 முகப்புப் பக்கம்</button>
+      <button class="btn-action btn-green" onclick="retakeTest()" id="btnRetake">🔄 மீண்டும் தேர்வு</button>
+      <button class="btn-action btn-danger" onclick="exitPortal()" id="btnExit">🚪 வெளியேறு</button>
+    </div>
+    <div class="footer-badge" style="margin-top: 20px;">🐅 டைகர் வாரியர் போர்டல் - இயக்குநர்: Dr. K. மணிகாசி 🐅</div>
+  </div>
+</div>
+
+<script>
+  let currentLang = 'ta';
+
+  const questionsData = [
+    {
+      q_ta: "1. ₹4000-க்கு ஆண்டு வட்டி வீதம் 5% எனில், 2 ஆண்டுகளில் கிடைக்கும் கூட்டுவட்டி என்ன?\n[TNPSC Group 4 - PYQ]",
+      q_en: "1. Find the compound interest on ₹4000 at 5% per annum for 2 years.\n[TNPSC Group 4 - PYQ]",
+      o: ["a) ₹410", "b) ₹420", "c) ₹400", "d) ₹430"],
+      a: 0,
+      exp_ta: "விளக்கம்:\nA = P(1 + r/100)^n = 4000 × (105/100) × (105/100) = ₹4410.\nCI = 4410 - 4000 = ₹410.",
+      exp_en: "Explanation:\nA = P(1 + r/100)^n = 4000 × (21/20)² = ₹4410. CI = ₹410."
+    },
+    {
+      q_ta: "2. ₹8000 தொகைக்கு ஆண்டுக்கு 10% கூட்டுவட்டி வீதம், 3 ஆண்டுகளில் கிடைக்கும் கூட்டுவட்டி என்ன?\n[TNPSC Group 2A - PYQ]",
+      q_en: "2. Find the compound interest on ₹8000 at 10% per annum for 3 years.\n[TNPSC Group 2A - PYQ]",
+      o: ["a) ₹2480", "b) ₹2648", "c) ₹2500", "d) ₹2400"],
+      a: 1,
+      exp_ta: "விளக்கம்:\nA = 8000 × (11/10)³ = 8000 × (1331 / 1000) = ₹10,648.\nCI = 10648 - 8000 = ₹2648.",
+      exp_en: "Explanation:\nA = 8000 × (1.1)³ = ₹10,648. CI = ₹2648."
+    },
+    {
+      q_ta: "3. ஒரு குறிப்பிட்ட அசலானது கூட்டுவட்டி முறையில் 2 ஆண்டுகளில் 2 மடங்காகிறது எனில், அது எத்தனை ஆண்டுகளில் 8 மடங்காகும்?\n[TNPSC Group 1 - PYQ]",
+      q_en: "3. A sum of money placed at compound interest becomes 2 times in 2 years. In how many years will it amount to 8 times?\n[TNPSC Group 1 - PYQ]",
+      o: ["a) 4 ஆண்டுகள்", "b) 6 ஆண்டுகள்", "c) 8 ஆண்டுகள்", "d) 5 ஆண்டுகள்"],
+      a: 1,
+      exp_ta: "விளக்கம்:\n2 ஆண்டுகளில் = 2 மடங்கு ➔ 8 மடங்கு என்பது 2³ ஆகும். எனவே காலம் = 2 × 3 = 6 ஆண்டுகள்.",
+      exp_en: "Explanation:\n2 years = 2 times. 8 times = 2³. Time = 2 × 3 = 6 years."
+    },
+    {
+      q_ta: "4. ₹5000 தொகைக்கு 2 ஆண்டுகளுக்கு ஆண்டுக்கு 4% கூட்டுவட்டி வீதம் கணக்கிடப்படும் கூட்டுவட்டிக்கும் தனிவட்டிக்கும் உள்ள வித்தியாசம் என்ன?\n[TNPSC VAO - PYQ]",
+      q_en: "4. Find the difference between compound interest and simple interest on ₹5000 for 2 years at 4% per annum.\n[TNPSC VAO - PYQ]",
+      o: ["a) ₹8", "b) ₹6", "c) ₹10", "d) ₹5"],
+      a: 0,
+      exp_ta: "விளக்கம்:\n2 ஆண்டுகளுக்கு வித்தியாசம் Diff = P(R/100)² = 5000 × (4/100)² = 5000 × (16/10000) = ₹8.",
+      exp_en: "Explanation:\nDifference for 2 years = P(R/100)² = 5000 × (4/100)² = ₹8."
+    },
+    {
+      q_ta: "5. ஒரு தொகையானது 10% கூட்டுவட்டி முறையில் 3 ஆண்டுகளில் ₹13,310 ஆகிறது எனில், அசல் என்ன?\n[TNPSC CCSE - PYQ]",
+      q_en: "5. Find the principal if a sum amounts to ₹13,310 in 3 years at 10% compound interest per annum.\n[TNPSC CCSE - PYQ]",
+      o: ["a) ₹10,000", "b) ₹11,000", "c) ₹9,000", "d) ₹12,000"],
+      a: 0,
+      exp_ta: "விளக்கம்:\nP × (11/10)³ = 13310 ➔ P × (1331/1000) = 13310 ➔ P = ₹10,000.",
+      exp_en: "Explanation:\nP × (1.1)³ = 13310 ➔ P = ₹10,000."
+    },
+    {
+      q_ta: "6. ₹10,000 அசலுக்கு ஆண்டு வட்டி வீதம் 20% எனில், அரை ஆண்டுக்கு ஒருமுறை (Half-yearly) வட்டி கணக்கிடப்பட்டால் 1 ஆண்டில் கிடைக்கும் கூட்டுவட்டி என்ன?",
+      q_en: "6. Find the compound interest on ₹10,000 at 20% per annum compounded half-yearly for 1 year.",
+      o: ["a) ₹2100", "b) ₹2200", "c) ₹2050", "d) ₹2150"],
+      a: 0,
+      exp_ta: "விளக்கம்:\nஅரை ஆண்டு என்பதால் R = 20/2 = 10%, N = 1 × 2 = 2 அரை ஆண்டுகள்.\nA = 10000 × (110/100)² = 10000 × 1.21 = ₹12,100. CI = ₹2100.",
+      exp_en: "Explanation:\nRate = 10% half-yearly, Time = 2 periods. A = 10000 × (1.1)² = 12100. CI = ₹2100."
+    },
+    {
+      q_ta: "7. ஒரு குறிப்பிட்ட தொகೆಗೆ 2 ஆண்டுகளில் 5% கூட்டுவட்டி வீதத்தில் வட்டி ₹410 எனில், தனிவட்டி என்ன?",
+      q_en: "7. If the compound interest on a certain sum for 2 years at 5% per annum is ₹410, find the simple interest.",
+      o: ["a) ₹400", "b) ₹390", "c) ₹405", "d) ₹395"],
+      a: 0,
+      exp_ta: "விளக்கம்:\nCI - SI = P(R/100)² ➔ 2 ஆண்டுகளுக்கு SI மற்றும் CI உறவு மூலம் P = 4000. தனிவட்டி SI = (4000 × 2 × 5)/100 = ₹400.",
+      exp_en: "Explanation:\nP = 4000 derived from CI formula. Simple interest for 2 years = (4000 × 2 × 5)/100 = ₹400."
+    },
+    {
+      q_ta: "8. ₹15,000 தொகைக்கு 2 ஆண்டுகளில் ஆண்டுக்கு 8% கூட்டுவட்டி வீதம் கிடைக்கும் வட்டி என்ன?",
+      q_en: "8. Find the compound interest on ₹15,000 for 2 years at 8% per annum.",
+      o: ["a) ₹2496", "b) ₹2400", "c) ₹2500", "d) ₹2350"],
+      a: 0,
+      exp_ta: "விளக்கம்:\nA = 15000 × (108/100)² = 15000 × (27/25)² = 15000 × (729/625) = ₹17,496.\nCI = 17496 - 15000 = ₹2496.",
+      exp_en: "Explanation:\nA = 15000 × (1.08)² = 17496. CI = ₹2496."
+    },
+    {
+      q_ta: "9. எந்த அசலானது 4% ஆண்டு கூட்டுவட்டி வீதத்தில் 2 ஆண்டுகளில் ₹1352 ஆக மாறும்?",
+      q_en: "9. Find the principal which amounts to ₹1352 in 2 years at 4% compound interest per annum.",
+      o: ["a) ₹1200", "b) ₹1250", "c) ₹1300", "d) ₹1150"],
+      a: 1,
+      exp_ta: "விளக்கம்:\nP × (26/25)² = 1352 ➔ P × (676/625) = 1352 ➔ P = (1352 × 625) / 676 = ₹1250.",
+      exp_en: "Explanation:\nP × (26/25)² = 1352 ➔ P = ₹1250."
+    },
+    {
+      q_ta: "10. ஒரு தொகையானது கூட்டுவட்டி முறையில் 3 ஆண்டுகளில் 3 மடங்காகிறது எனில், அது எத்தனை ஆண்டுகளில் 27 மடங்காகும்?",
+      q_en: "10. A sum becomes 3 times in 3 years at compound interest. In how many years will it become 27 times?",
+      o: ["a) 6 ஆண்டுகள்", "b) 9 ஆண்டுகள்", "c) 12 ஆண்டுகள்", "d) 15 ஆண்டுகள்"],
+      a: 1,
+      exp_ta: "விளக்கம்:\n27 என்பது 3³ ஆகும். எனவே காலம் = 3 ஆண்டுகள் × 3 = 9 ஆண்டுகள்.",
+      exp_en: "Explanation:\n27 = 3³. Time = 3 × 3 = 9 years."
+    },
+    {
+      q_ta: "11. ₹8000 அசலுக்கு 1 1/2 ஆண்டுகளுக்கு ஆண்டுக்கு 10% வட்டி வீதம், அரை ஆண்டுக்கு ஒருமுறை வட்டி கணக்கிடப்பட்டால் கிடைக்கும் கூட்டுவட்டி என்ன?",
+      q_en: "11. Find the compound interest on ₹8000 for 1.5 years at 10% per annum compounded half-yearly.",
+      o: ["a) ₹1261", "b) ₹1200", "c) ₹1300", "d) ₹1250"],
+      a: 0,
+      exp_ta: "விளக்கம்:\nR = 5% அரை ஆண்டுக்கு, N = 3 அரை ஆண்டுகள்.\nA = 8000 × (21/20)³ = 8000 × (9261 / 8000) = ₹9,261.\nCI = 9261 - 8000 = ₹1261.",
+      exp_en: "Explanation:\nRate = 5%, Time = 3 half-years. A = 8000 × (1.05)³ = 9261. CI = ₹1261."
+    },
+    {
+      q_ta: "12. ₹20,000 தொகைக்கு ஆண்டுக்கு 10% கூட்டுவட்டி வீதம் 2 ஆண்டுகளில் கிடைக்கும் கூட்டுவட்டிக்கும் தனிவட்டிக்கும் உள்ள வித்தியாசம் என்ன?",
+      q_en: "12. Find the difference between compound interest and simple interest on ₹20,000 for 2 years at 10% per annum.",
+      o: ["a) ₹150", "b) ₹200", "c) ₹250", "d) ₹180"],
+      a: 1,
+      exp_ta: "விளக்கம்:\nDiff = P(R/100)² = 20000 × (10/100)² = 20000 × (1/100) = ₹200.",
+      exp_en: "Explanation:\nDifference = 20000 × (10/100)² = ₹200."
+    },
+    {
+      q_ta: "13. ஒரு தொகையானது 5 ஆண்டுகளில் கூட்டுவட்டி முறையில் இரு மடங்காகிறது எனில், எத்தனை ஆண்டுகளில் அது 4 மடங்காகும்?",
+      q_en: "13. A sum of money placed at compound interest doubles itself in 5 years. In how many years will it become 4 times?",
+      o: ["a) 8 ஆண்டுகள்", "b) 10 ஆண்டுகள்", "c) 12 ஆண்டுகள்", "d) 15 ஆண்டுகள்"],
+      a: 1,
+      exp_ta: "விளக்கம்:\n4 என்பது 2² ஆகும். எனவே காலம் = 5 × 2 = 10 ஆண்டுகள்.",
+      exp_en: "Explanation:\n4 = 2². Time = 5 × 2 = 10 years."
+    },
+    {
+      q_ta: "14. ஆண்டுக்கு 5% கூட்டுவட்டி வீதத்தில் எந்தத் தொகைக்கு 2 ஆண்டுகளில் கிடைக்கும் கூட்டுவட்டி ₹205 ஆகும்?",
+      q_en: "14. Find the sum which yields ₹205 as compound interest at 5% per annum in 2 years.",
+      o: ["a) ₹1800", "b) ₹2000", "c) ₹2200", "d) ₹1900"],
+      a: 1,
+      exp_ta: "விளக்கம்:\nA - P = CI ➔ P[(105/100)² - 1] = 205 ➔ P[(21/20)² - 1] = 205 ➔ P(41/400) = 205 ➔ P = ₹2000.",
+      exp_en: "Explanation:\nP[(21/20)² - 1] = 205 ➔ P = ₹2000."
+    },
+    {
+      q_ta: "15. ₹10,000 தொகைக்கு 3 ஆண்டுகளுக்கு முதல் ஆண்டுக்கு 4%, இரண்டாம் ஆண்டுக்கு 5% மற்றும் மூன்றாம் ஆண்டுக்கு 6% கூட்டுவட்டி வீதம் மொத்தத் தொகை என்ன?",
+      q_en: "15. Find the amount on ₹10,000 for 3 years if the rates of interest for successive years are 4%, 5% and 6% respectively.",
+      o: ["a) ₹11,575.20", "b) ₹11,400", "c) ₹11,600", "d) ₹11,500"],
+      a: 0,
+      exp_ta: "விளக்கம்:\nA = 10000 × (104/100) × (105/100) × (106/100) = 10000 × 1.04 × 1.05 × 1.06 = ₹11,575.20.",
+      exp_en: "Explanation:\nA = 10000 × (1.04) × (1.05) × (1.06) = ₹11,575.20."
+    },
+    {
+      q_ta: "16. ₹6400 தொகைக்கு 2 ஆண்டுகளில் 12.5% ஆண்டு கூட்டுவட்டி வீதம் கிடைக்கும் வட்டி என்ன?",
+      q_en: "16. Find the compound interest on ₹6400 for 2 years at 12.5% per annum.",
+      o: ["a) ₹1650", "b) ₹1700", "c) ₹1750", "d) ₹1600"],
+      a: 1,
+      exp_ta: "விளக்கம்:\n12.5% = 1/8. அசல் 6400. முதல் ஆண்டு வட்டி = 800, இரண்டாம் ஆண்டு வட்டி = 800 + (800 இன் 1/8 = 100) = 900. மொத்த வட்டி = 800 + 900 = ₹1700.",
+      exp_en: "Explanation:\nUsing fraction method: 12.5% = 1/8. Total CI = ₹1700."
+    },
+    {
+      q_ta: "17. ஒரு குறிப்பிட்ட தொகையானது 4 ஆண்டுகளில் கூட்டுவட்டி முறையில் 3 மடங்காகிறது எனில், அதே வட்டி முறையில் அது எத்தனை ஆண்டுகளில் 81 மடங்காகும்?",
+      q_en: "17. A sum becomes 3 times in 4 years at compound interest. In how many years will it become 81 times?",
+      o: ["a) 12 ஆண்டுகள்", "b) 16 ஆண்டுகள்", "c) 20 ஆண்டுகள்", "d) 18 ஆண்டுகள்"],
+      a: 1,
+      exp_ta: "விளக்கம்:\n81 என்பது 3⁴ ஆகும். எனவே காலம் = 4 ஆண்டுகள் × 4 = 16 ஆண்டுகள்.",
+      exp_en: "Explanation:\n81 = 3⁴. Time = 4 × 4 = 16 years."
+    },
+    {
+      q_ta: "18. ₹50,000 அசலுக்கு 2 ஆண்டுகளுக்கு தனிவட்டிக்கும் கூட்டுவட்டிக்கும் உள்ள வித்தியாசம் ₹200 எனில், வட்டி வீதம் என்ன?",
+      q_en: "18. If the difference between compound interest and simple interest on ₹50,000 for 2 years is ₹200, find the rate of interest.",
+      o: ["a) 5%", "b) 4%", "c) 6%", "d) 8%"],
+      a: 1,
+      exp_ta: "விளக்கம்:\n200 = 50000 × (R/100)² ➔ (R/100)² = 200 / 50000 = 1/250 = 4/1000 ➔ R² = 16 ➔ R = 4%.",
+      exp_en: "Explanation:\n200 = 50000 × (R/100)² ➔ R = 4%."
+    },
+    {
+      q_ta: "19. ₹12,000 தொகைக்கு ஆண்டுக்கு 5% கூட்டுவட்டி வீதம் 3 ஆண்டுகளில் கிடைக்கும் வட்டி என்ன?",
+      q_en: "19. Find the compound interest on ₹12,000 at 5% per annum for 3 years.",
+      o: ["a) ₹1891.50", "b) ₹1800", "c) ₹1900", "d) ₹1850"],
+      a: 0,
+      exp_ta: "விளக்கம்:\nA = 12000 × (21/20)³ = 12000 × 9261 / 8000 = ₹13,891.50. CI = ₹1,891.50.",
+      exp_en: "Explanation:\nA = 12000 × (1.05)³ = 13891.50. CI = ₹1891.50."
+    },
+    {
+      q_ta: "20. ஒரு தொகையானது கூட்டுவட்டி முறையில் 2 ஆண்டுகளில் ₹2420 ஆகவும், 3 ஆண்டுகளில் ₹2662 ஆகவும் மாறுகிறது எனில், வட்டி வீதம் என்ன?",
+      q_en: "20. A sum amounts to ₹2420 in 2 years and to ₹2662 in 3 years at compound interest. Find the rate of interest.",
+      o: ["a) 10%", "b) 12%", "c) 8%", "d) 5%"],
+      a: 0,
+      exp_ta: "விளக்கம்:\nஓராண்டுக்கான வட்டி = 2662 - 2420 = ₹242.\nவட்டி வீதம் R = (242 / 2420) × 100 = 10%.",
+      exp_en: "Explanation:\nInterest for 1 year = 2662 - 2420 = 242. Rate = (242 / 2420) × 100 = 10%."
+    },
+    {
+      q_ta: "21. ₹40,000 தொகைக்கு ஆண்டுக்கு 5% கூட்டுவட்டி வீதம் 2 ஆண்டுகளில் கிடைக்கும் கூட்டுவட்டி என்ன?",
+      q_en: "21. Find the compound interest on ₹40,000 at 5% per annum for 2 years.",
+      o: ["a) ₹4100", "b) ₹4000", "c) ₹4200", "d) ₹3900"],
+      a: 0,
+      exp_ta: "விளக்கம்:\nA = 40000 × (21/20)² = 40000 × (441/400) = ₹44,100. CI = ₹4100.",
+      exp_en: "Explanation:\nA = 40000 × (1.05)² = 44100. CI = ₹4100."
+    },
+    {
+      q_ta: "22. எந்தத் தொகைக்கு 10% ஆண்டு கூட்டுவட்டி வீதத்தில் 2 ஆண்டுகளில் ₹210 கூட்டுவட்டியாகக் கிடைக்கும்?",
+      q_en: "22. Find the sum which gives ₹210 as compound interest at 10% per annum in 2 years.",
+      o: ["a) ₹1000", "b) ₹1200", "c) ₹1500", "d) ₹2000"],
+      a: 0,
+      exp_ta: "விளக்கம்:\nP[(11/10)² - 1] = 210 ➔ P[(21/100)] = 210 ➔ P = ₹1000.",
+      exp_en: "Explanation:\nP × (21/100) = 210 ➔ P = ₹1000."
+    },
+    {
+      q_ta: "23. 3 ஆண்டுகளில் ஒரு குறிப்பிட்ட தொகை கூட்டுவட்டி முறையில் 8 மடங்காகிறது எனில், வட்டி வீதம் என்ன?",
+      q_en: "23. A sum of money becomes 8 times in 3 years at compound interest. Find the rate of interest per annum.",
+      o: ["a) 50%", "b) 100%", "c) 25%", "d) 75%"],
+      a: 1,
+      exp_ta: "விளக்கம்:\nP(1 + R/100)³ = 8P ➔ (1 + R/100) = ∛8 = 2 ➔ R/100 = 1 ➔ R = 100%.",
+      exp_en: "Explanation:\n(1 + R/100)³ = 8 ➔ 1 + R/100 = 2 ➔ R = 100%."
+    },
+    {
+      q_ta: "24. ₹8000 அசலுக்கு 3 ஆண்டுகளுக்கு 5% ஆண்டு கூட்டுவட்டி வீதம் மொத்தத் தொகை என்ன?",
+      q_en: "24. Find the amount on ₹8000 for 3 years at 5% compound interest per annum.",
+      o: ["a) ₹9261", "b) ₹9100", "c) ₹9300", "d) ₹9200"],
+      a: 0,
+      exp_ta: "விளக்கம்:\nA = 8000 × (21/20)³ = 8000 × (9261/8000) = ₹9,261.",
+      exp_en: "Explanation:\nA = 8000 × (1.05)³ = ₹9,261."
+    },
+    {
+      q_ta: "25. ₹16,000 தொகைக்கு ஆண்டுக்கு 20% வட்டி வீதம், கால் ஆண்டுக்கு (Quarterly) ஒருமுறை வட்டி கணக்கிடப்பட்டால் 9 மாதங்களில் கிடைக்கும் கூட்டுவட்டி என்ன?",
+      q_en: "25. Find the compound interest on ₹16,000 for 9 months at 20% per annum compounded quarterly.",
+      o: ["a) ₹2522", "b) ₹2500", "c) ₹2600", "d) ₹2450"],
+      a: 0,
+      exp_ta: "விளக்கம்:\nகாலையாண்டு/கால் ஆண்டு வீதம் R = 20/4 = 5% கால் ஆண்டுக்கு. காலம் N = (9 மாதங்கள்) / 3 = 3 கால் ஆண்டுகள்.\nA = 16000 × (21/20)³ = 16000 × (9261/8000) = ₹18,522. CI = ₹2522.",
+      exp_en: "Explanation:\nRate = 5% per quarter, Time = 3 quarters. A = 16000 × (1.05)³ = 18522. CI = ₹2522."
+    },
+    {
+      q_ta: "26. ஒரு தொகையானது கூட்டுவட்டி முறையில் 2 ஆண்டுகளில் ₹4500 ஆகவும், 4 ஆண்டுகளில் ₹6750 ஆகவும் மாறுகிறது எனில், அசல் என்ன?",
+      q_en: "26. A sum amounts to ₹4500 in 2 years and to ₹6750 in 4 years at compound interest. Find the principal.",
+      o: ["a) ₹3000", "b) ₹3200", "c) ₹2800", "d) ₹3500"],
+      a: 0,
+      exp_ta: "விளக்கம்:\nஅசல் P = (A1)² / A2 = (4500 × 4500) / 6750 = 20250000 / 6750 = ₹3000.",
+      exp_en: "Explanation:\nPrincipal P = (A1)² / A2 = (4500)² / 6750 = ₹3000."
+    },
+    {
+      q_ta: "27. ₹5000 தொகைக்கு 2 ஆண்டுகளுக்கு கூட்டுவட்டிக்கும் தனிவட்டிக்கும் உள்ள வித்தியாசம் ₹72 எனில், வட்டி வீதம் என்ன?",
+      q_en: "27. If the difference between CI and SI on ₹5000 for 2 years is ₹72, find the rate of interest.",
+      o: ["a) 12%", "b) 10%", "c) 15%", "d) 8%"],
+      a: 0,
+      exp_ta: "விளக்கம்:\n72 = 5000 × (R/100)² ➔ R² = (72 × 10000) / 5000 = 144 ➔ R = 12%.",
+      exp_en: "Explanation:\n72 = 5000 × (R/100)² ➔ R = 12%."
+    },
+    {
+      q_ta: "28. ₹10,000 அசலுக்கு 10% ஆண்டு கூட்டுவட்டி வீதம் 2 1/2 ஆண்டுகளுக்கு வட்டி என்ன?",
+      q_en: "28. Find the compound interest on ₹10,000 for 2.5 years at 10% per annum.",
+      o: ["a) ₹2705", "b) ₹2650", "c) ₹2750", "d) ₹2600"],
+      a: 0,
+      exp_ta: "விளக்கம்:\n2 ஆண்டுகளுக்கு A1 = 10000 × (11/10)² = ₹12,100.\nமீதமுள்ள அரை ஆண்டுக்கு வட்டி = 12100 இல் 5% = ₹605.\nமொத்தத் தொகை = 12100 + 605 = ₹12,705. CI = ₹2705.",
+      exp_en: "Explanation:\nA for 2 years = 12100. Interest for next half year at 10% (i.e. 5%) = 605. Total Amount = 12705. CI = ₹2705."
+    },
+    {
+      q_ta: "29. ஒரு குறிப்பிட்ட தொகையானது 3 ஆண்டுகளில் கூட்டுவட்டி முறையில் 27 மடங்காகிறது எனில், வட்டி வீதம் என்ன?",
+      q_en: "29. A sum becomes 27 times in 3 years at compound interest. Find the rate of interest.",
+      o: ["a) 150%", "b) 200%", "c) 100%", "d) 300%"],
+      a: 1,
+      exp_ta: "விளக்கம்:\n(1 + R/100)³ = 27 ➔ 1 + R/100 = 3 ➔ R/100 = 2 ➔ R = 200%.",
+      exp_en: "Explanation:\n(1 + R/100)³ = 27 ➔ 1 + R/100 = 3 ➔ R = 200%."
+    },
+    {
+      q_ta: "30. ஆண்டுக்கு 4% கூட்டுவட்டி வீதத்தில் 2 ஆண்டுகளுக்கு ₹6250 இன் கூட்டுவட்டி என்ன?",
+      q_en: "30. Find the compound interest on ₹6250 for 2 years at 4% per annum.",
+      o: ["a) ₹510", "b) ₹520", "c) ₹500", "d) ₹530"],
+      a: 0,
+      exp_ta: "விளக்கம்:\nA = 6250 × (26/25) × (26/25) = 6250 × (676 / 625) = 10 × 676 = ₹6,760.\nCI = 6760 - 6250 = ₹510.",
+      exp_en: "Explanation:\nA = 6250 × (26/25)² = 6760. CI = ₹510."
+    }
+  ];
+
+  let currentQuestion = 0;
+  let userAnswers = new Array(questionsData.length).fill(null);
+  let isReviewMode = false;
+  let timerInterval;
+  let timeLeft = 45 * 60;
+
+  function toggleLanguage() {
+    currentLang = currentLang === 'ta' ? 'en' : 'ta';
+    document.getElementById('langBtn').innerText = currentLang === 'ta' ? '🌐 English' : '🌐 தமிழ்';
+    updateLanguageTexts();
+    loadQuestion(currentQuestion);
+  }
+
+  function updateLanguageTexts() {
+    if(currentLang === 'en') {
+      document.getElementById('headerTitle').innerText = "🐅 TIGER WARRIORS - Compound Interest (30 Questions)";
+      document.getElementById('prevBtn').innerText = "⬅️ Previous";
+      document.getElementById('clearBtn').innerText = "🧹 Clear Choice";
+      document.getElementById('nextBtn').innerText = "Next ➡️";
+      document.getElementById('finalSubmitBtn').innerText = "✅ Submit Test";
+      document.getElementById('resHeader').innerText = "🏆 Test Results 🎯";
+      document.getElementById('lblCorrect').innerText = "Correct ✅";
+      document.getElementById('lblWrong').innerText = "Wrong ❌";
+      document.getElementById('lblUnans').innerText = "Unanswered ⚠️";
+      document.getElementById('btnKey').innerText = "🔍 Answer Key";
+      document.getElementById('btnDash').innerText = "🏠 Dashboard";
+      document.getElementById('btnRetake').innerText = "🔄 Retake Test";
+      document.getElementById('btnExit').innerText = "🚪 Exit";
+    } else {
+      document.getElementById('headerTitle').innerText = "🐅 TIGER WARRIORS - கூட்டுவட்டி (Compound Interest) 30 வினாக்கள்";
+      document.getElementById('prevBtn').innerText = "⬅️ முந்தையது";
+      document.getElementById('clearBtn').innerText = "🧹 விடையை நீக்கு";
+      document.getElementById('nextBtn').innerText = "அடுத்து ➡️";
+      document.getElementById('finalSubmitBtn').innerText = "✅ தேர்வைச் சமர்ப்பிக்க (Submit)";
+      document.getElementById('resHeader').innerText = "🏆 தேர்வு முடிவுகள் (Test Results) 🎯";
+      document.getElementById('lblCorrect').innerText = "சரியானது ✅";
+      document.getElementById('lblWrong').innerText = "தவறானது ❌";
+      document.getElementById('lblUnans').innerText = "விடையில்லை ⚠️";
+      document.getElementById('btnKey').innerText = "🔍 விடை குறிப்பு (Answer Key)";
+      document.getElementById('btnDash').innerText = "🏠 முகப்புப் பக்கம்";
+      document.getElementById('btnRetake').innerText = "🔄 மீண்டும் தேர்வு";
+      document.getElementById('btnExit').innerText = "🚪 வெளியேறு";
+    }
+  }
+
+  function initTest() {
+    buildGrid();
+    loadQuestion(0);
+    startTimer();
+  }
+
+  function buildGrid() {
+    const grid = document.getElementById('questionGrid');
+    grid.innerHTML = '';
+    questionsData.forEach((_, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'q-num-btn';
+      btn.innerText = idx + 1;
+      btn.id = `q_btn_${idx}`;
+      btn.onclick = () => jumpToQuestion(idx);
+      grid.appendChild(btn);
+    });
+    updateGridStatus();
+  }
+
+  function updateGridStatus() {
+    questionsData.forEach((_, idx) => {
+      const btn = document.getElementById(`q_btn_${idx}`);
+      if(!btn) return;
+      btn.className = 'q-num-btn';
+      if(idx === currentQuestion) {
+        btn.classList.add('active');
+      } else if(userAnswers[idx] !== null) {
+        btn.classList.add('answered');
+      }
+    });
+  }
+
+  function loadQuestion(idx) {
+    currentQuestion = idx;
+    const q = questionsData[idx];
+    document.getElementById('qTitle').innerText = currentLang === 'ta' ? q.q_ta : q.q_en;
+    
+    const optsBox = document.getElementById('optionsBox');
+    optsBox.innerHTML = '';
+
+    q.o.forEach((optText, oIdx) => {
+      const card = document.createElement('div');
+      card.className = 'option-card';
+      
+      if(userAnswers[idx] === oIdx) {
+        card.classList.add('selected');
+      }
+
+      if(isReviewMode) {
+        if(oIdx === q.a) {
+          card.classList.add('correct-ans');
+        } else if(userAnswers[idx] === oIdx && oIdx !== q.a) {
+          card.classList.add('wrong-ans');
+        }
+      }
+
+      card.innerHTML = `<span><b>${String.fromCharCode(65 + oIdx)}.</b> ${optText}</span>`;
+      card.onclick = () => selectOption(oIdx);
+      optsBox.appendChild(card);
+    });
+
+    const expBox = document.getElementById('expBox');
+    if(isReviewMode) {
+      expBox.style.display = 'block';
+      expBox.innerText = currentLang === 'ta' ? q.exp_ta : q.exp_en;
+    } else {
+      expBox.style.display = 'none';
+    }
+
+    document.getElementById('prevBtn').style.display = idx === 0 ? 'none' : 'block';
+    document.getElementById('nextBtn').style.display = idx === questionsData.length - 1 ? 'none' : 'block';
+    updateGridStatus();
+  }
+
+  function selectOption(oIdx) {
+    if(isReviewMode) return;
+    userAnswers[currentQuestion] = oIdx;
+    loadQuestion(currentQuestion);
+  }
+
+  function clearChoice() {
+    if(isReviewMode) return;
+    userAnswers[currentQuestion] = null;
+    loadQuestion(currentQuestion);
+  }
+
+  function navigateNumberQuery(dir) {
+    const next = currentQuestion + dir;
+    if(next >= 0 && next < questionsData.length) {
+      loadQuestion(next);
+    }
+  }
+
+  function jumpToQuestion(idx) {
+    loadQuestion(idx);
+  }
+
+  function startTimer() {
+    if (timerInterval) clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+      timeLeft--;
+      let m = Math.floor(timeLeft / 60);
+      let s = timeLeft % 60;
+      const timerElem = document.getElementById('timerBox');
+      if(timerElem) {
+        timerElem.innerText = `⏱️ ${m}:${s < 10 ? '0' : ''}${s}`;
+      }
+      if(timeLeft <= 0) {
+        clearInterval(timerInterval);
+        submitTest();
+      }
+    }, 1000);
+  }
+
+  function submitTest() {
+    if (timerInterval) clearInterval(timerInterval);
+    document.getElementById('testView').style.display = 'none';
+    document.getElementById('resultView').style.display = 'block';
+
+    let correct = 0, wrong = 0, unans = 0;
+    userAnswers.forEach((ans, idx) => {
+      if(ans === null) unans++;
+      else if(ans === questionsData[idx].a) correct++;
+      else wrong++;
+    });
+
+    document.getElementById('scoreDisplay').innerText = `${correct} / ${questionsData.length}`;
+    let pct = ((correct / questionsData.length) * 100).toFixed(1);
+    document.getElementById('percentageDisplay').innerText = `${currentLang === 'ta' ? 'சதவீதம்' : 'Percentage'}: ${pct}%`;
+    document.getElementById('correctCnt').innerText = correct;
+    document.getElementById('wrongCnt').innerText = wrong;
+    document.getElementById('unansCnt').innerText = unans;
+  }
+
+  function reviewAnswerKey() {
+    isReviewMode = true;
+    document.getElementById('resultView').style.display = 'none';
+    document.getElementById('testView').style.display = 'block';
+    document.getElementById('finalSubmitBtn').style.display = 'none';
+    document.getElementById('backToResultBtn').style.display = 'block';
+    document.getElementById('dashFromKeyBtn').style.display = 'block';
+    loadQuestion(0);
+  }
+
+  function returnToResult() {
+    document.getElementById('testView').style.display = 'none';
+    document.getElementById('resultView').style.display = 'block';
+  }
+
+  function returnToDashboard() {
+    window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html"); 
+  }
+
+  function exitPortal() {
+    window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html");
+  }
+
+  function retakeTest() {
+    userAnswers = new Array(questionsData.length).fill(null);
+    isReviewMode = false;
+    timeLeft = 45 * 60;
+    document.getElementById('resultView').style.display = 'none';
+    document.getElementById('testView').style.display = 'block';
+    document.getElementById('finalSubmitBtn').style.display = 'inline-block';
+    document.getElementById('backToResultBtn').style.display = 'none';
+    document.getElementById('dashFromKeyBtn').style.display = 'none';
+    initTest();
+  }
+
+  window.onload = function() {
+    initTest();
+  }
+</script>
+
+</body>
+</html>
