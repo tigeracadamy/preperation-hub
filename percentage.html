@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tiger Warriors - விழுக்காடு (Percentage) 25 வினாக்கள்</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; font-weight: bold; }
+    body { background: #080604; color: #f8fafc; padding: 12px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+    .card { width: 100%; max-width: 950px; background: #0f172a; border-radius: 14px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); border: 1px solid #334155; }
+    
+    .test-header { display: flex; justify-content: space-between; align-items: center; background: #1e293b; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; border: 1px solid #334155; }
+    .timer { font-size: 15px; font-weight: bold; color: #fbbf24; background: #091326; padding: 6px 12px; border-radius: 6px; border: 1px solid #fbbf24; box-shadow: inset 0 0 5px rgba(251, 191, 36, 0.2); }
+    .lang-btn { background: #0284c7; color: #fff; border: 1px solid #38bdf8; padding: 6px 14px; border-radius: 6px; font-size: 13px; cursor: pointer; transition: 0.2s; }
+    .lang-btn:hover { background: #0369a1; }
+
+    .q-grid { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 16px; max-height: 140px; overflow-y: auto; padding: 8px; background: #1e293b; border-radius: 8px; justify-content: center; }
+    .q-num-btn { width: 30px; height: 30px; border-radius: 5px; border: none; background: #334155; color: #fff; font-size: 10px; cursor: pointer; font-weight: bold; }
+    .q-num-btn.active { border: 2px solid #38bdf8; background: #0284c7; }
+    .q-num-btn.answered { background: #10b981; }
+
+    .q-box { background: #1e293b; padding: 18px; border-radius: 10px; margin-bottom: 16px; border: 1px solid #334155; }
+    .q-text { white-space: pre-line; line-height: 1.6; font-size: 15px; color: #f8fafc; }
+    
+    .option-card { background: #0f172a; border: 1px solid #334155; padding: 12px 16px; border-radius: 8px; margin-top: 10px; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: 0.2s; white-space: pre-line; line-height: 1.4; }
+    .option-card:hover { border-color: #38bdf8; background: #1e293b; }
+    .option-card.selected { border-color: #10b981; background: #064e3b; }
+    .option-card.correct-ans { border-color: #10b981; background: #065f46; font-weight: bold; }
+    .option-card.wrong-ans { border-color: #ef4444; background: #7f1d1d; }
+
+    .explanation-box { background: #091326; border: 1px solid #38bdf8; border-radius: 8px; padding: 12px; margin-top: 14px; font-size: 13px; color: #7dd3fc; line-height: 1.5; }
+    
+    .nav-btns { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+    .btn-action { background: #334155; color: #fff; border: none; padding: 10px 16px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 13px; text-align: center; }
+    .btn-action:hover { opacity: 0.9; }
+    .btn-blue { background: #2563eb; }
+    .btn-purple { background: #7c3aed; }
+    .btn-danger { background: #ef4444; }
+    .btn-green { background: #22c55e; }
+
+    .result-box { text-align: center; padding: 25px; background: #1e293b; border-radius: 16px; margin-top: 10px; border: 1px solid rgba(0, 242, 254, 0.3); display: flex; flex-direction: column; align-items: center; }
+    .score-circle { width: 130px; height: 130px; border-radius: 50%; background: conic-gradient(#10b981 0deg, #0f172a 0deg); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 15px auto; border: 4px solid #38bdf8; box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); }
+    .score-num { font-size: 30px; color: #f8fafc; font-weight: bold; }
+    
+    .result-stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; width: 100%; max-width: 400px; }
+    .stat-pill { background: #0f172a; border-radius: 12px; padding: 10px; border: 1px solid #334155; text-align: center; }
+    .stat-pill.gold { border-color: #fbbf24; }
+    .stat-pill.blue { border-color: #38bdf8; }
+    .stat-pill.red { border-color: #ef4444; }
+
+    .footer-badge { text-align: center; font-size: 11px; color: #38bdf8; margin-top: 15px; font-weight: bold; letter-spacing: 0.5px; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <script>
+      if (localStorage.getItem('tiger_auth_passed') !== 'true') {
+          alert("⚠ பாதுகாப்பு எச்சரிக்கை: நீங்கள் Tiger Warriors போர்ட்டலில் லாகின் செய்யவில்லை! முதலில் மெயின் போர்ட்டலில் லாகின் செய்யவும்.");
+          window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html"); 
+      }
+  </script>
+
+  <div id="testView">
+    <div class="test-header">
+      <div>
+        <h3 style="color: #38bdf8; font-size: 15px;" id="headerTitle">🐅 TIGER WARRIORS - விழுக்காடு (25 வினாக்கள்)</h3>
+        <span style="font-size: 11px; color: #94a3b8;">TNPSC / 2 / 2A / 4 • MATHS UNIT 2</span>
+      </div>
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <button class="lang-btn" onclick="toggleLanguage()" id="langBtn">🌐 English</button>
+        <div class="timer" id="timerBox">⏱️ 45:00</div>
+        <button class="btn-action btn-purple" id="backToResultBtn" onclick="returnToResult()" style="display: none; padding: 6px 12px; font-size: 12px;">📊 ரிசல்ட் செல்</button>
+        <button class="btn-action btn-danger" id="dashFromKeyBtn" onclick="returnToDashboard()" style="display: none; padding: 6px 12px; font-size: 12px;">🏠 முகப்பு</button>
+      </div>
+    </div>
+
+    <div class="q-grid" id="questionGrid"></div>
+
+    <div class="q-box">
+      <div id="qTitle" class="q-text"></div>
+      <div id="optionsBox"></div>
+      <div id="expBox" class="explanation-box" style="display: none;"></div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn-action" id="prevBtn" onclick="navigateNumberQuery(-1)">⬅️ முந்தையது</button>
+      <button class="btn-action" id="clearBtn" onclick="clearChoice()">🧹 விடையை நீக்கு</button>
+      <button class="btn-action btn-blue" id="nextBtn" onclick="navigateNumberQuery(1)">அடுத்து ➡️</button>
+      <button class="btn-action btn-danger" id="finalSubmitBtn" onclick="submitTest()">✅ தேர்வைச் சமர்ப்பிக்க (Submit)</button>
+    </div>
+  </div>
+
+  <div id="resultView" style="display: none;">
+    <h2 style="color: #38bdf8; text-align: center; margin-bottom: 10px;" id="resHeader">🏆 தேர்வு முடிவுகள் (Test Results) 🎯</h2>
+    <div class="result-box">
+      <div class="score-circle" id="scoreCircle">
+        <div class="score-num" id="scoreDisplay">0/25</div>
+        <span id="percentageDisplay" style="font-size: 11px; color: #fbbf24;">0%</span>
+      </div>
+
+      <div class="result-stats-grid">
+        <div class="stat-pill gold">
+          <h3 id="correctCnt" style="color: #10b981; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;" id="lblCorrect">சரியானது ✅</span>
+        </div>
+        <div class="stat-pill red">
+          <h3 id="wrongCnt" style="color: #ef4444; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;" id="lblWrong">தவறானது ❌</span>
+        </div>
+        <div class="stat-pill blue">
+          <h3 id="unansCnt" style="color: #f59e0b; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;" id="lblUnans">விடையில்லை ⚠️</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
+      <button class="btn-action btn-blue" onclick="reviewAnswerKey()" id="btnKey">🔍 விடை குறிப்பு (Answer Key)</button>
+      <button class="btn-action btn-purple" onclick="returnToDashboard()" id="btnDash">🏠 முகப்புப் பக்கம்</button>
+      <button class="btn-action btn-green" onclick="retakeTest()" id="btnRetake">🔄 மீண்டும் தேர்வு</button>
+      <button class="btn-action btn-danger" onclick="exitPortal()" id="btnExit">🚪 வெளியேறு</button>
+    </div>
+    <div class="footer-badge" style="margin-top: 20px;">🐅 டைகர் வாரியர் போர்டல் - இயக்குநர்: Dr. K. மணிகாசி 🐅</div>
+  </div>
+</div>
+
+<script>
+  let currentLang = 'ta';
+
+  const questionsData = [
+    {
+      q_ta: "1. 3/5 என்பதை சதவீதமாக மாற்றுக:",
+      q_en: "1. Convert 3/5 into percentage:",
+      o: ["a) 30%", "b) 50%", "c) 60%", "d) 75%"],
+      a: 2,
+      exp_ta: "விளக்கம்:\n(3/5) × 100 = 60%.",
+      exp_en: "Explanation:\n(3/5) × 100 = 60%."
+    },
+    {
+      q_ta: "2. ஒரு எண்ணின் 20% என்பது 80 எனில், அந்த எண் யாது?",
+      q_en: "2. If 20% of a number is 80, then what is the number?",
+      o: ["a) 300", "b) 400", "c) 500", "d) 200"],
+      a: 1,
+      exp_ta: "விளக்கம்:\nx × (20/100) = 80 ➔ x = (80 × 100) / 20 = 400.",
+      exp_en: "Explanation:\nx × (20/100) = 80 ➔ x = (80 × 100) / 20 = 400."
+    },
+    {
+      q_ta: "3. 600 இன் 15% காண்க:",
+      q_en: "3. Find 15% of 600:",
+      o: ["a) 90", "b) 80", "c) 75", "d) 100"],
+      a: 0,
+      exp_ta: "விளக்கம்:\n(15/100) × 600 = 90.",
+      exp_en: "Explanation:\n(15/100) × 600 = 90."
+    },
+    {
+      q_ta: "4. A-ன் வருமானம் B-ன் வருமானத்தை விட 25% அதிகம் எனில், B-ன் வருமானம் A-ன் வருமானத்தை விட எத்தனை சதவீதம் குறைவு?",
+      q_en: "4. If A's income is 25% more than B's income, by what percentage is B's income less than A's?",
+      o: ["a) 20%", "b) 25%", "c) 15%", "d) 30%"],
+      a: 0,
+      exp_ta: "விளக்கம்:\nசூத்திரம்: [R / (100 + R)] × 100\n= [25 / 125] × 100 = 20%.",
+      exp_en: "Explanation:\nFormula: [R / (100 + R)] × 100\n= [25 / 125] × 100 = 20%."
+    },
+    {
+      q_ta: "5. ஒரு பொருளின் விலை ₹100-லிருந்து ₹120 ஆக உயர்ந்தால், உயர்வு சதவீதம் என்ன?",
+      q_en: "5. If the price of an article increases from ₹100 to ₹120, find the percentage increase.",
+      o: ["a) 15%", "b) 20%", "c) 25%", "d) 10%"],
+      a: 1,
+      exp_ta: "விளக்கம்:\nஉயர்வு = 120 - 100 = 20\nசதவீதம் = (20 / 100) × 100 = 20%.",
+      exp_en: "Explanation:\nIncrease = 120 - 100 = 20\nPercentage = (20 / 100) × 100 = 20%."
+    },
+    {
+      q_ta: "6. ஒரு மாணவன் தேர்வில் தேர்ச்சி பெற 35% மதிப்பெண்கள் பெற வேண்டும். அவன் 160 மதிப்பெண்கள் பெற்று 15 மதிப்பெண்களில் தோல்வியடைந்தான் எனில், தேர்வின் மொத்த மதிப்பெண்கள் என்ன?",
+      q_en: "6. A student has to score 35% marks to pass. He gets 160 marks and fails by 15 marks. What is the maximum marks for the exam?",
+      o: ["a) 400", "b) 500", "c) 600", "d) 450"],
+      a: 1,
+      exp_ta: "விளக்கம்:\nதேர்ச்சி மதிப்பெண் = 160 + 15 = 175\n35% = 175 ➔ 100% = (175 / 35) × 100 = 500.",
+      exp_en: "Explanation:\nPass marks = 160 + 15 = 175\n35% = 175 ➔ 100% = (175 / 35) × 100 = 500."
+    },
+    {
+      q_ta: "7. ஒரு நகரத்தின் மக்கள் தொகை 50,000. அது ஆண்டுக்கு 10% வீதம் அதிகரித்தால், 2 ஆண்டுகளுக்குப் பின் மக்கள் தொகை என்னவாக இருக்கும்?",
+      q_en: "7. The population of a town is 50,000. If it increases by 10% annually, what will be the population after 2 years?",
+      o: ["a) 60,000", "b) 60,500", "c) 55,000", "d) 61,000"],
+      a: 1,
+      exp_ta: "விளக்கம்:\n1ஆம் ஆண்டு: 50000 + 5000 = 55000\n2ஆம் ஆண்டு: 55000 + 5500 = 60500.",
+      exp_en: "Explanation:\nYear 1: 50000 + 5000 = 55000\nYear 2: 55000 + 5500 = 60500."
+    },
+    {
+      q_ta: "8. 0.05 என்பதை சதவீதமாக மாற்றுக:",
+      q_en: "8. Convert 0.05 into percentage:",
+      o: ["a) 0.5%", "b) 5%", "c) 50%", "d) 0.05%"],
+      a: 1,
+      exp_ta: "விளக்கம்:\n0.05 × 100 = 5%.",
+      exp_en: "Explanation:\n0.05 × 100 = 5%."
+    },
+    {
+      q_ta: "9. 2 மணி நேரத்தில் 30 நிமிடங்கள் என்பது எத்தனை சதவீதம்?",
+      q_en: "9. What percentage is 30 minutes of 2 hours?",
+      o: ["a) 20%", "b) 25%", "c) 30%", "d) 15%"],
+      a: 1,
+      exp_ta: "விளக்கம்:\n2 மணி நேரம் = 120 நிமிடங்கள்.\n(30 / 120) × 100 = 25%.",
+      exp_en: "Explanation:\n2 hours = 120 minutes.\n(30 / 120) × 100 = 25%."
+    },
+    {
+      q_ta: "10. ஒரு எண்ணின் 40% இலிருந்து 40 ஐக் கழித்தால் 40 கிடைக்கும் எனில், அந்த எண் யாது?",
+      q_en: "10. If 40 is subtracted from 40% of a number, the result is 40. Find the number.",
+      o: ["a) 100", "b) 200", "c) 300", "d) 400"],
+      a: 1,
+      exp_ta: "விளக்கம்:\n40% of x - 40 = 40 ➔ 40% of x = 80 ➔ x = 200.",
+      exp_en: "Explanation:\n40% of x - 40 = 40 ➔ 40% of x = 80 ➔ x = 200."
+    },
+    {
+      q_ta: "11. சர்க்கரையின் விலை 20% குறைந்தால், செலவு மாறாமல் இருக்க நுகர்வை எத்தனை சதவீதம் அதிகரிக்க வேண்டும்?",
+      q_en: "11. If the price of sugar decreases by 20%, by what percentage should consumption be increased so as not to change expenditure?",
+      o: ["a) 20%", "b) 25%", "c) 30%", "d) 15%"],
+      a: 1,
+      exp_ta: "விளக்கம்:\nசூத்திரம்: [R / (100 - R)] × 100\n= [20 / 80] × 100 = 25%.",
+      exp_en: "Explanation:\nFormula: [R / (100 - R)] × 100\n= [20 / 80] × 100 = 25%."
+    },
+    {
+      q_ta: "12. ஒரு எண்ணின் 75% உடன் 75 ஐக் கூட்டினால் அதே எண் கிடைக்கும் எனில், அந்த எண் யாது?",
+      q_en: "12. If 75 is added to 75% of a number, then the result is the number itself. Find the number.",
+      o: ["a) 250", "b) 300", "c) 350", "d) 400"],
+      a: 1,
+      exp_ta: "விளக்கம்:\n75% x + 75 = x ➔ 25% x = 75 ➔ x = 300.",
+      exp_en: "Explanation:\n75% x + 75 = x ➔ 25% x = 75 ➔ x = 300."
+    },
+    {
+      q_ta: "13. ₹5000 இன் 12% சதவீதத்தின் 10% மதிப்பு என்ன?",
+      q_en: "13. What is 10% of 12% of ₹5000?",
+      o: ["a) ₹50", "b) ₹60", "c) ₹70", "d) ₹80"],
+      a: 1,
+      exp_ta: "விளக்கம்:\n5000 × (12/100) × (10/100) = 60.",
+      exp_en: "Explanation:\n5000 × (12/100) × (10/100) = 60."
+    },
+    {
+      q_ta: "14. ஒரு வகுப்பில் 40 மாணவர்கள் உள்ளனர். அதில் 60% பேர் மாணவிகள் எனில், மாணவர்களின் எண்ணிக்கை என்ன?",
+      q_en: "14. There are 40 students in a class. If 60% are girls, find the number of boys.",
+      o: ["a) 24", "b) 16", "c) 20", "d) 18"],
+      a: 1,
+      exp_ta: "விளக்கம்:\nமாணவர்கள் % = 100% - 60% = 40%\nஎண்ணிக்கை = 40 இன் 40% = 16.",
+      exp_en: "Explanation:\nBoys % = 100% - 60% = 40%\nNumber of boys = 40% of 40 = 16."
+    },
+    {
+      q_ta: "15. ஒரு செவ்வகத்தின் நீளம் 10% அதிகரிக்கப்பட்டு, அகலம் 10% குறைக்கப்பட்டால் அதன் பரப்பளவில் ஏற்படும் மாற்றம் என்ன?",
+      q_en: "15. If the length of a rectangle is increased by 10% and breadth is decreased by 10%, find the net change in area.",
+      o: ["a) மாற்றமில்லை", "b) 1% அதிகரிப்பு", "c) 1% குறைவு", "d) 2% குறைவு"],
+      a: 2,
+      exp_ta: "விளக்கம்:\nசூத்திரம்: (x² / 100)% குறைவு ➔ (10² / 100) = 1% குறைவு.",
+      exp_en: "Explanation:\nFormula: Net decrease = (x² / 100)% ➔ (10² / 100) = 1% decrease."
+    },
+    {
+      q_ta: "16. 250 கிராமில் 50 கிராம் என்பது எத்தனை சதவீதம்?",
+      q_en: "16. What percentage is 50 grams of 250 grams?",
+      o: ["a) 15%", "b) 20%", "c) 25%", "d) 10%"],
+      a: 1,
+      exp_ta: "விளக்கம்:\n(50 / 250) × 100 = 20%.",
+      exp_en: "Explanation:\n(50 / 250) × 100 = 20%."
+    },
+    {
+      q_ta: "17. ஒரு பழ வியாபாரி வைத்திருந்த ஆப்பிள்களில் 40% ஆப்பிள்களை விற்ற பிறகும் 420 ஆப்பிள்கள் மீதமிருந்தன எனில், அவரிடம் முதலில் இருந்த மொத்த ஆப்பிள்கள் எத்தனை?",
+      q_en: "17. A fruit seller had some apples. He sells 40% apples and still has 420 apples. How many apples did he have originally?",
+      o: ["a) 600", "b) 700", "c) 800", "d) 750"],
+      a: 1,
+      exp_ta: "விளக்கம்:\nமீதமுள்ள % = 60%\n60% = 420 ➔ 100% = (420 / 60) × 100 = 700.",
+      exp_en: "Explanation:\nRemaining % = 60%\n60% = 420 ➔ 100% = (420 / 60) × 100 = 700."
+    },
+    {
+      q_ta: "18. x-ன் 8% என்பது y-ன் 4% க்கு சமம் எனில், x-ன் 20% என்பது y-ன் எத்தனை சதவீதத்திற்கு சமம்?",
+      q_en: "18. If 8% of x is equal to 4% of y, then 20% of x is equal to what percent of y?",
+      o: ["a) 10%", "b) 16%", "c) 8%", "d) 12%"],
+      a: 0,
+      exp_ta: "விளக்கம்:\n8% x = 4% y ➔ x/y = 1/2 (x என்பது y-ல் பாதி)\nஎனவே x-ன் 20% = y-ன் 10%.",
+      exp_en: "Explanation:\n8% x = 4% y ➔ x/y = 1/2 (x is half of y)\nHence 20% of x = 10% of y."
+    },
+    {
+      q_ta: "19. ஒரு மிதிவண்டியின் விலை ₹1500-லிருந்து ₹1200 ஆகக் குறைந்தால், குறைவு சதவீதம் என்ன?",
+      q_en: "19. If the price of a bicycle decreases from ₹1500 to ₹1200, find the percentage decrease.",
+      o: ["a) 15%", "b) 20%", "c) 25%", "d) 18%"],
+      a: 1,
+      exp_ta: "விளக்கம்:\nகுறைவு = 300\nசதவீதம் = (300 / 1500) × 100 = 20%.",
+      exp_en: "Explanation:\nDecrease = 300\nPercentage = (300 / 1500) × 100 = 20%."
+    },
+    {
+      q_ta: "20. 16 2/3 % என்பதை பின்னமாக மாற்றுக:",
+      q_en: "20. Convert 16 2/3 % into fraction:",
+      o: ["a) 1/5", "b) 1/6", "c) 1/7", "d) 1/8"],
+      a: 1,
+      exp_ta: "விளக்கம்:\n16 2/3 = 50/3 %\n(50/3) / 100 = 50 / 300 = 1/6.",
+      exp_en: "Explanation:\n16 2/3 = 50/3 %\n(50/3) / 100 = 50 / 300 = 1/6."
+    },
+    {
+      q_ta: "21. ஒரு தேர்தலின் இரு வேட்பாளர்களில் வெற்றி பெற்றவர் 60% வாக்குகள் பெற்று 1200 வாக்குகள் வித்தியாசத்தில் வெற்றி பெற்றார் எனில், பதிவான மொத்த வாக்குகள் எத்தனை?",
+      q_en: "21. In an election between two candidates, the winner got 60% votes and won by 1200 votes. Find the total number of votes polled.",
+      o: ["a) 5000", "b) 6000", "c) 4000", "d) 7000"],
+      a: 1,
+      exp_ta: "விளக்கம்:\nவெற்றி பெற்றவர் = 60%, தோற்றவர் = 40%\nவித்தியாசம் = 20% = 1200\nமொத்த வாக்குகள் (100%) = (1200 / 20) × 100 = 6000.",
+      exp_en: "Explanation:\nWinner = 60%, Loser = 40%\nDifference = 20% = 1200\nTotal votes (100%) = (1200 / 20) × 100 = 6000."
+    },
+    {
+      q_ta: "22. A-ன் 30% = B-ன் 0.25 = C-ன் 1/5 எனில், A : B : C மதிப்பு யாது?",
+      q_en: "22. If 30% of A = 0.25 of B = 1/5 of C, then find A : B : C.",
+      o: ["a) 10 : 12 : 15", "b) 5 : 6 : 4", "c) 15 : 12 : 10", "d) 6 : 5 : 4"],
+      a: 0,
+      exp_ta: "விளக்கம்:\n3/10 A = 1/4 B = 1/5 C = k\nA : B : C = 10/3 : 4 : 5 = 10 : 12 : 15.",
+      exp_en: "Explanation:\n3/10 A = 1/4 B = 1/5 C = k\nA : B : C = 10/3 : 4 : 5 = 10 : 12 : 15."
+    },
+    {
+      q_ta: "23. ஒரு எண்ணை 20% அதிகரித்து பின்னர் 20% குறைத்தால் ஏற்படும் நிகர மாற்றம் என்ன?",
+      q_en: "23. A number is first increased by 20% and then decreased by 20%. What is the net change?",
+      o: ["a) மாற்றமில்லை", "b) 4% குறைவு", "c) 4% அதிகரிப்பு", "d) 2% குறைவு"],
+      a: 1,
+      exp_ta: "விளக்கம்:\nநிகர மாற்றம் = -(20² / 100)% = -4% (4% குறைவு).",
+      exp_en: "Explanation:\nNet change = -(20² / 100)% = -4% (4% decrease)."
+    },
+    {
+      q_ta: "24. 1 லிட்டரில் 250 மில்லி லிட்டர் என்பது எத்தனை சதவீதம்?",
+      q_en: "24. What percentage is 250 mL of 1 litre?",
+      o: ["a) 20%", "b) 25%", "c) 30%", "d) 50%"],
+      a: 1,
+      exp_ta: "விளக்கம்:\n1 லிட்டர் = 1000 mL\n(250 / 1000) × 100 = 25%.",
+      exp_en: "Explanation:\n1 Litre = 1000 mL\n(250 / 1000) × 100 = 25%."
+    },
+    {
+      q_ta: "25. ராமனின் ஊதியம் 10% குறைக்கப்பட்டு மீண்டும் 10% உயர்த்தப்பட்டால் அவருக்கு ஏற்படும் இழப்பு சதவீதம் என்ன?",
+      q_en: "25. If Raman's salary is decreased by 10% and then increased by 10%, what is his loss percentage?",
+      o: ["a) 0%", "b) 1%", "c) 2%", "d) 5%"],
+      a: 1,
+      exp_ta: "விளக்கம்:\nஇழப்பு சதவீதம் = (10² / 100)% = 1%.",
+      exp_en: "Explanation:\nLoss percentage = (10² / 100)% = 1%."
+    }
+  ];
+
+  let currentQuestion = 0;
+  let userAnswers = new Array(questionsData.length).fill(null);
+  let isReviewMode = false;
+  let timerInterval;
+  let timeLeft = 45 * 60;
+
+  function toggleLanguage() {
+    currentLang = currentLang === 'ta' ? 'en' : 'ta';
+    document.getElementById('langBtn').innerText = currentLang === 'ta' ? '🌐 English' : '🌐 தமிழ்';
+    updateLanguageTexts();
+    loadQuestion(currentQuestion);
+  }
+
+  function updateLanguageTexts() {
+    if(currentLang === 'en') {
+      document.getElementById('headerTitle').innerText = "🐅 TIGER WARRIORS - Percentage (25 Questions)";
+      document.getElementById('prevBtn').innerText = "⬅️ Previous";
+      document.getElementById('clearBtn').innerText = "🧹 Clear Choice";
+      document.getElementById('nextBtn').innerText = "Next ➡️";
+      document.getElementById('finalSubmitBtn').innerText = "✅ Submit Test";
+      document.getElementById('resHeader').innerText = "🏆 Test Results 🎯";
+      document.getElementById('lblCorrect').innerText = "Correct ✅";
+      document.getElementById('lblWrong').innerText = "Wrong ❌";
+      document.getElementById('lblUnans').innerText = "Unanswered ⚠️";
+      document.getElementById('btnKey').innerText = "🔍 Answer Key";
+      document.getElementById('btnDash').innerText = "🏠 Dashboard";
+      document.getElementById('btnRetake').innerText = "🔄 Retake Test";
+      document.getElementById('btnExit').innerText = "🚪 Exit";
+    } else {
+      document.getElementById('headerTitle').innerText = "🐅 TIGER WARRIORS - விழுக்காடு (25 வினாக்கள்)";
+      document.getElementById('prevBtn').innerText = "⬅️ முந்தையது";
+      document.getElementById('clearBtn').innerText = "🧹 விடையை நீக்கு";
+      document.getElementById('nextBtn').innerText = "அடுத்து ➡️";
+      document.getElementById('finalSubmitBtn').innerText = "✅ தேர்வைச் சமர்ப்பிக்க (Submit)";
+      document.getElementById('resHeader').innerText = "🏆 தேர்வு முடிவுகள் (Test Results) 🎯";
+      document.getElementById('lblCorrect').innerText = "சரியானது ✅";
+      document.getElementById('lblWrong').innerText = "தவறானது ❌";
+      document.getElementById('lblUnans').innerText = "விடையில்லை ⚠️";
+      document.getElementById('btnKey').innerText = "🔍 விடை குறிப்பு (Answer Key)";
+      document.getElementById('btnDash').innerText = "🏠 முகப்புப் பக்கம்";
+      document.getElementById('btnRetake').innerText = "🔄 மீண்டும் தேர்வு";
+      document.getElementById('btnExit').innerText = "🚪 வெளியேறு";
+    }
+  }
+
+  function initTest() {
+    buildGrid();
+    loadQuestion(0);
+    startTimer();
+  }
+
+  function buildGrid() {
+    const grid = document.getElementById('questionGrid');
+    grid.innerHTML = '';
+    questionsData.forEach((_, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'q-num-btn';
+      btn.innerText = idx + 1;
+      btn.id = `q_btn_${idx}`;
+      btn.onclick = () => jumpToQuestion(idx);
+      grid.appendChild(btn);
+    });
+    updateGridStatus();
+  }
+
+  function updateGridStatus() {
+    questionsData.forEach((_, idx) => {
+      const btn = document.getElementById(`q_btn_${idx}`);
+      if(!btn) return;
+      btn.className = 'q-num-btn';
+      if(idx === currentQuestion) {
+        btn.classList.add('active');
+      } else if(userAnswers[idx] !== null) {
+        btn.classList.add('answered');
+      }
+    });
+  }
+
+  function loadQuestion(idx) {
+    currentQuestion = idx;
+    const q = questionsData[idx];
+    document.getElementById('qTitle').innerText = currentLang === 'ta' ? q.q_ta : q.q_en;
+    
+    const optsBox = document.getElementById('optionsBox');
+    optsBox.innerHTML = '';
+
+    q.o.forEach((optText, oIdx) => {
+      const card = document.createElement('div');
+      card.className = 'option-card';
+      
+      if(userAnswers[idx] === oIdx) {
+        card.classList.add('selected');
+      }
+
+      if(isReviewMode) {
+        if(oIdx === q.a) {
+          card.classList.add('correct-ans');
+        } else if(userAnswers[idx] === oIdx && oIdx !== q.a) {
+          card.classList.add('wrong-ans');
+        }
+      }
+
+      card.innerHTML = `<span><b>${String.fromCharCode(65 + oIdx)}.</b> ${optText}</span>`;
+      card.onclick = () => selectOption(oIdx);
+      optsBox.appendChild(card);
+    });
+
+    const expBox = document.getElementById('expBox');
+    if(isReviewMode) {
+      expBox.style.display = 'block';
+      expBox.innerText = currentLang === 'ta' ? q.exp_ta : q.exp_en;
+    } else {
+      expBox.style.display = 'none';
+    }
+
+    document.getElementById('prevBtn').style.display = idx === 0 ? 'none' : 'block';
+    document.getElementById('nextBtn').style.display = idx === questionsData.length - 1 ? 'none' : 'block';
+    updateGridStatus();
+  }
+
+  function selectOption(oIdx) {
+    if(isReviewMode) return;
+    userAnswers[currentQuestion] = oIdx;
+    loadQuestion(currentQuestion);
+  }
+
+  function clearChoice() {
+    if(isReviewMode) return;
+    userAnswers[currentQuestion] = null;
+    loadQuestion(currentQuestion);
+  }
+
+  function navigateNumberQuery(dir) {
+    const next = currentQuestion + dir;
+    if(next >= 0 && next < questionsData.length) {
+      loadQuestion(next);
+    }
+  }
+
+  function jumpToQuestion(idx) {
+    loadQuestion(idx);
+  }
+
+  function startTimer() {
+    if (timerInterval) clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+      timeLeft--;
+      let m = Math.floor(timeLeft / 60);
+      let s = timeLeft % 60;
+      const timerElem = document.getElementById('timerBox');
+      if(timerElem) {
+        timerElem.innerText = `⏱️ ${m}:${s < 10 ? '0' : ''}${s}`;
+      }
+      if(timeLeft <= 0) {
+        clearInterval(timerInterval);
+        submitTest();
+      }
+    }, 1000);
+  }
+
+  function submitTest() {
+    if (timerInterval) clearInterval(timerInterval);
+    document.getElementById('testView').style.display = 'none';
+    document.getElementById('resultView').style.display = 'block';
+
+    let correct = 0, wrong = 0, unans = 0;
+    userAnswers.forEach((ans, idx) => {
+      if(ans === null) unans++;
+      else if(ans === questionsData[idx].a) correct++;
+      else wrong++;
+    });
+
+    document.getElementById('scoreDisplay').innerText = `${correct} / ${questionsData.length}`;
+    let pct = ((correct / questionsData.length) * 100).toFixed(1);
+    document.getElementById('percentageDisplay').innerText = `${currentLang === 'ta' ? 'சதவீதம்' : 'Percentage'}: ${pct}%`;
+    document.getElementById('correctCnt').innerText = correct;
+    document.getElementById('wrongCnt').innerText = wrong;
+    document.getElementById('unansCnt').innerText = unans;
+  }
+
+  function reviewAnswerKey() {
+    isReviewMode = true;
+    document.getElementById('resultView').style.display = 'none';
+    document.getElementById('testView').style.display = 'block';
+    document.getElementById('finalSubmitBtn').style.display = 'none';
+    document.getElementById('backToResultBtn').style.display = 'block';
+    document.getElementById('dashFromKeyBtn').style.display = 'block';
+    loadQuestion(0);
+  }
+
+  function returnToResult() {
+    document.getElementById('testView').style.display = 'none';
+    document.getElementById('resultView').style.display = 'block';
+  }
+
+  function returnToDashboard() {
+    window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html"); 
+  }
+
+  function exitPortal() {
+    window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html");
+  }
+
+  function retakeTest() {
+    userAnswers = new Array(questionsData.length).fill(null);
+    isReviewMode = false;
+    timeLeft = 45 * 60;
+    document.getElementById('resultView').style.display = 'none';
+    document.getElementById('testView').style.display = 'block';
+    document.getElementById('finalSubmitBtn').style.display = 'inline-block';
+    document.getElementById('backToResultBtn').style.display = 'none';
+    document.getElementById('dashFromKeyBtn').style.display = 'none';
+    initTest();
+  }
+
+  window.onload = function() {
+    initTest();
+  }
+</script>
+
+</body>
+</html>
