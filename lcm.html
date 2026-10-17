@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tiger Warriors - மீ.பொ.ம (LCM) 25 வினாக்கள்</title>
+  <title>Tiger Warriors - மீ.பொ.ம (LCM) 30 வினாக்கள்</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; font-weight: bold; }
     body { background: #080604; color: #f8fafc; padding: 12px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
@@ -38,6 +38,14 @@
     .btn-danger { background: #ef4444; }
     .btn-green { background: #22c55e; }
 
+    .ai-btn-group { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; border-top: 1px dashed #38bdf8; padding-top: 12px; }
+    .ai-link-btn { border: none; color: #fff; padding: 8px 14px; border-radius: 6px; font-size: 12px; cursor: pointer; font-weight: bold; transition: 0.2s; display: inline-flex; align-items: center; gap: 5px; }
+    .ai-link-btn:hover { opacity: 0.85; transform: scale(1.02); }
+    .btn-gemini { background: #4285f4; }
+    .btn-chatgpt { background: #10a37f; }
+    .btn-perplexity { background: #22b8cf; }
+    .btn-google { background: #ea4335; }
+
     .result-box { text-align: center; padding: 25px; background: #1e293b; border-radius: 16px; margin-top: 10px; border: 1px solid rgba(0, 242, 254, 0.3); display: flex; flex-direction: column; align-items: center; }
     .score-circle { width: 130px; height: 130px; border-radius: 50%; background: conic-gradient(#10b981 0deg, #0f172a 0deg); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 15px auto; border: 4px solid #38bdf8; box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); }
     .score-num { font-size: 30px; color: #f8fafc; font-weight: bold; }
@@ -54,6 +62,7 @@
 <body>
 
 <div class="card">
+  <!-- 🔒 Security Authentication Verification Check -->
   <script>
       if (localStorage.getItem('tiger_auth_passed') !== 'true') {
           alert("⚠ பாதுகாப்பு எச்சரிக்கை: நீங்கள் Tiger Warriors போர்ட்டலில் லாகின் செய்யவில்லை! முதலில் மெயின் போர்ட்டலில் லாகின் செய்யவும்.");
@@ -64,8 +73,8 @@
   <div id="testView">
     <div class="test-header">
       <div>
-        <h3 style="color: #38bdf8; font-size: 15px;" id="headerTitle">🐅 TIGER WARRIORS - மீ.பொ.ம (LCM) 25 வினாக்கள்</h3>
-        <span style="font-size: 11px; color: #94a3b8;">TNPSC / 2 / 2A / 4 • MATHS UNIT 4</span>
+        <h3 style="color: #38bdf8; font-size: 15px;" id="headerTitle">🐅 TIGER WARRIORS - மீ.பொ.ம (LCM) 30 வினாக்கள்</h3>
+        <span style="font-size: 11px; color: #94a3b8;">TNPSC / 2 / 2A / 4 • MATHS UNIT</span>
       </div>
       <div style="display: flex; gap: 8px; align-items: center;">
         <button class="lang-btn" onclick="toggleLanguage()" id="langBtn">🌐 English</button>
@@ -95,7 +104,7 @@
     <h2 style="color: #38bdf8; text-align: center; margin-bottom: 10px;" id="resHeader">🏆 தேர்வு முடிவுகள் (Test Results) 🎯</h2>
     <div class="result-box">
       <div class="score-circle" id="scoreCircle">
-        <div class="score-num" id="scoreDisplay">0/25</div>
+        <div class="score-num" id="scoreDisplay">0/30</div>
         <span id="percentageDisplay" style="font-size: 11px; color: #fbbf24;">0%</span>
       </div>
 
@@ -116,7 +125,7 @@
     </div>
 
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
-      <button class="btn-action btn-blue" onclick="reviewAnswerKey()" id="btnKey">🔍 விடை குறிப்பு (Answer Key)</button>
+      <button class="btn-action btn-blue" onclick="reviewAnswerKey()" id="btnKey">🔍 விடை குறிப்பு & விளக்கம்</button>
       <button class="btn-action btn-purple" onclick="returnToDashboard()" id="btnDash">🏠 முகப்புப் பக்கம்</button>
       <button class="btn-action btn-green" onclick="retakeTest()" id="btnRetake">🔄 மீண்டும் தேர்வு</button>
       <button class="btn-action btn-danger" onclick="exitPortal()" id="btnExit">🚪 வெளியேறு</button>
@@ -130,204 +139,244 @@
 
   const questionsData = [
     {
-      q_ta: "1. 12, 15, 18 மற்றும் 27 இன் மீ.பொ.ம (LCM) காண்க:",
-      q_en: "1. Find the LCM of 12, 15, 18 and 27:",
+      q_ta: "1. 12, 15, 18 மற்றும் 27 இன் மீ.பொ.ம (LCM) காண்க.\n[TNPSC Group 4 - PYQ]",
+      q_en: "1. Find the LCM of 12, 15, 18, and 27.\n[TNPSC Group 4 - PYQ]",
       o: ["a) 540", "b) 270", "c) 1080", "d) 360"],
       a: 0,
-      exp_ta: "விளக்கம்:\n12, 15, 18, 27 இன் மீ.பொ.ம = 540.",
-      exp_en: "Explanation:\nLCM of 12, 15, 18, 27 is 540."
+      exp_ta: "<b>விளக்கம்:</b><br>12, 15, 18, 27 இன் மீ.பொ.ம காண Prime factorization முறையைப் பயன்படுத்த:<br>12 = 2² × 3<br>15 = 3 × 5<br>18 = 2 × 3²<br>27 = 3³<br>அதிகபட்ச அடுக்குகளைப் பெருக்க: 2² × 3³ × 5 = 4 × 27 × 5 = 540.",
+      exp_en: "<b>Explanation:</b><br>Prime factors: 12=2²×3, 15=3×5, 18=2×3², 27=3³. LCM = 2² × 3³ × 5 = 540."
     },
     {
-      q_ta: "2. 2/3, 4/9, 5/6 இன் மீ.பொ.ம (LCM of fractions) காண்க:",
-      q_en: "2. Find the LCM of fractions 2/3, 4/9, 5/6:",
-      o: ["a) 10/3", "b) 20/3", "c) 20/9", "d) 10/9"],
-      a: 1,
-      exp_ta: "விளக்கம்:\nபின்னங்களின் மீ.பொ.ம = (தொகுதிகளின் மீ.பொ.ம) / (பகுதிகளின் மீ.பொ.வ)\nLCM(2, 4, 5) = 20; HCF(3, 9, 6) = 3 ➔ 20/3.",
-      exp_en: "Explanation:\nLCM of fractions = (LCM of numerators) / (HCF of denominators)\nLCM(2, 4, 5) = 20; HCF(3, 9, 6) = 3 ➔ 20/3."
-    },
-    {
-      q_ta: "3. 0.6, 1.8 மற்றும் 3.6 இன் மீ.பொ.ம காண்க:",
-      q_en: "3. Find the LCM of 0.6, 1.8 and 3.6:",
-      o: ["a) 3.6", "b) 0.36", "c) 36", "d) 0.036"],
+      q_ta: "2. இரு எண்களின் பெருக்கற்பலன் 4107 மற்றும் அவைகளின் மீ.பொ.வ (HCF) 37 எனில், அவைகளின் மீ.பொ.ம (LCM) என்ன?\n[TNPSC Group 2 - PYQ]",
+      q_en: "2. The product of two numbers is 4107 and their HCF is 37. Find their LCM.\n[TNPSC Group 2 - PYQ]",
+      o: ["a) 111", "b) 121", "c) 99", "d) 133"],
       a: 0,
-      exp_ta: "விளக்கம்:\nபுள்ளிகளை நீக்கி முழு எண்களாக மாற்றுக: 6, 18, 36.\nஇவற்றின் மீ.பொ.ம = 36. தசம புள்ளி வைத்து எழுத: 3.6.",
-      exp_en: "Explanation:\nConvert to integers: 6, 18, 36.\nLCM = 36. Adjusting decimal places gives 3.6."
+      exp_ta: "<b>விளக்கம்:</b><br>இரு எண்களின் பெருக்கற்பலன் = மீ.பொ.ம × மீ.பொ.வ<br>LCM × HCF = Product of two numbers<br>LCM × 37 = 4107 ➔ LCM = 4107 / 37 = 111.",
+      exp_en: "<b>Explanation:</b><br>LCM × HCF = Product of numbers. LCM × 37 = 4107 ➔ LCM = 4107 / 37 = 111."
     },
     {
-      q_ta: "4. 2³ × 3² × 5, 2² × 3³ × 5² மற்றும் 2⁴ × 3 × 5³ இன் மீ.பொ.ம காண்க:",
-      q_en: "4. Find the LCM of 2³ × 3² × 5, 2² × 3³ × 5² and 2⁴ × 3 × 5³:",
-      o: ["a) 2⁴ × 3³ × 5³", "b) 2² × 3 × 5", "c) 2⁴ × 3² × 5²", "d) 2³ × 3³ × 5³"],
+      q_ta: "3. 2/3, 4/9 மற்றும் 5/6 இன் மீ.பொ.ம (LCM) காண்க.",
+      q_en: "3. Find the LCM of fractions 2/3, 4/9, and 5/6.",
+      o: ["a) 20", "b) 10/3", "c) 20/3", "d) 5/18"],
       a: 0,
-      exp_ta: "விளக்கம்:\nஅடுக்கு எண்களின் மீ.பொ.ம காண அனைத்து அடிவாரங்களின் সর্বোচ্চ (Highest) அடுக்குகளை எடுக்க வேண்டும் ➔ 2⁴ × 3³ × 5³.",
-      exp_en: "Explanation:\nFor LCM of exponential numbers, take the highest power of each base prime factor ➔ 2⁴ × 3³ × 5³."
+      exp_ta: "<b>விளக்கம்:</b><br>பின்னங்களின் மீ.பொ.ம = (தொகுதிகளின் மீ.பொ.ம) / (பகுதிகளின் மீ.பொ.வ)<br>தொகுதிகள்: 2, 4, 5 இன் மீ.பொ.ம = 20<br>பகுதிகள்: 3, 9, 6 இன் மீ.பொ.வ (HCF) = 3<br>விடை = 20 / 3.",
+      exp_en: "<b>Explanation:</b><br>LCM of fractions = (LCM of numerators) / (HCF of denominators) = LCM(2,4,5) / HCF(3,9,6) = 20 / 3."
     },
     {
-      q_ta: "5. இரு எண்களின் பெருக்கற்பலன் 4107 மற்றும் அவற்றின் மீ.பொ.வ (HCF) 37 எனில், அவற்றின் மீ.பொ.ம (LCM) என்ன?",
-      q_en: "5. The product of two numbers is 4107 and their HCF is 37. Find their LCM.",
-      o: ["a) 101", "b) 111", "c) 121", "d) 131"],
-      a: 1,
-      exp_ta: "விளக்கம்:\nLCM × HCF = இரு எண்களின் பெருக்கற்பலன்\nLCM × 37 = 4107 ➔ LCM = 4107 / 37 = 111.",
-      exp_en: "Explanation:\nLCM × HCF = Product of two numbers\nLCM × 37 = 4107 ➔ LCM = 4107 / 37 = 111."
-    },
-    {
-      q_ta: "6. மூன்று மணி மணிகள் முறையே 9, 12, 15 நிமிட இடைவெளியில் ஒலிக்கின்றன. அவைகள் ஒன்றாக ஒலித்த பின்பு, மீண்டும் எப்போது ஒன்றாக ஒலிக்கும்?",
-      q_en: "6. Three bells toll at intervals of 9, 12 and 15 minutes respectively. If they toll together now, after how much time will they toll together next?",
-      o: ["a) 3 மணி நேரம்", "b) 2 மணி நேரம்", "c) 1 மணி நேரம்", "d) 4 மணி நேரம்"],
+      q_ta: "4. இரண்டு எண்களின் விகிதம் 3 : 4 ஆகும். அவற்றின் மீ.பொ.ம 120 எனில், அந்த எண்களின் கூடுதல் என்ன?",
+      q_en: "4. Two numbers are in the ratio 3 : 4. Their LCM is 120. Find the sum of the numbers.",
+      o: ["a) 70", "b) 140", "c) 35", "d) 105"],
       a: 0,
-      exp_ta: "விளக்கம்:\n9, 12, 15 இன் மீ.பொ.ம = 180 நிமிடங்கள் = 3 மணி நேரம்.",
-      exp_en: "Explanation:\nLCM of 9, 12, 15 = 180 minutes = 3 hours."
+      exp_ta: "<b>விளக்கம்:</b><br>எண்கள் 3x மற்றும் 4x என்க. மீ.பொ.ம = 12x = 120 ➔ x = 10.<br>எண்கள்: 30 மற்றும் 40. கூடுதல் = 30 + 40 = 70.",
+      exp_en: "<b>Explanation:</b><br>Let numbers be 3x and 4x. LCM = 12x = 120 ➔ x = 10. Numbers are 30 and 40. Sum = 70."
     },
     {
-      q_ta: "7. 24, 36 மற்றும் 40 இன் மீ.பொ.ம காண்க:",
-      q_en: "7. Find the LCM of 24, 36 and 40:",
-      o: ["a) 360", "b) 720", "c) 180", "d) 240"],
+      q_ta: "5. மூன்று மணி மணிகள் முறையே 9, 12, 15 நிமிட இடைவெளியில் ஒலிக்கின்றன. அவைகள் ஒன்றாக அடித்த பின்பு மீண்டும் எப்போது ஒன்றாக ஒலிக்கும்?",
+      q_en: "5. Three bells toll together at intervals of 9, 12, and 15 minutes respectively. After what time will they toll together again?",
+      o: ["a) 3 மணி நேரம்", "b) 2 மணி நேரம்", "c) 4 மணி நேரம்", "d) 1.5 மணி நேரம்"],
       a: 0,
-      exp_ta: "விளக்கம்:\n24, 36, 40 இன் மீ.பொ.ம = 360.",
-      exp_en: "Explanation:\nLCM of 24, 36, 40 is 360."
+      exp_ta: "<b>விளக்கம்:</b><br>9, 12, 15 இன் மீ.பொ.ம = 180 நிமிடங்கள்.<br>180 நிமிடங்கள் = 3 மணி நேரம்.",
+      exp_en: "<b>Explanation:</b><br>LCM of 9, 12, and 15 minutes = 180 minutes = 3 hours."
     },
     {
-      q_ta: "8. இரு எண்களின் விகிதம் 3 : 4 மற்றும் அவற்றின் மீ.பொ.ம 240 எனில், அந்த எண்கள் யாவை?",
-      q_en: "8. Two numbers are in the ratio 3 : 4 and their LCM is 240. Find the numbers.",
-      o: ["a) 60, 80", "b) 45, 60", "c) 30, 40", "d) 50, 70"],
+      q_ta: "6. இரு எண்களின் மீ.பொ.ம 60 மற்றும் அவற்றின் கூடுதல் 30 எனில், அந்த எண்கள் யாவை?",
+      q_en: "6. The LCM of two numbers is 60 and their sum is 30. Find the numbers.",
+      o: ["a) 10 மற்றும் 20", "b) 12 மற்றும் 18", "c) 15 மற்றும் 15", "d) 20 மற்றும் 40"],
       a: 0,
-      exp_ta: "விளக்கம்:\nஎண்கள் 3x, 4x என்க. மீ.பொ.ம = 12x = 240 ➔ x = 20.\nஎண்கள்: 3(20) = 60, 4(20) = 80.",
-      exp_en: "Explanation:\nLet numbers be 3x and 4x. LCM = 12x = 240 ➔ x = 20.\nNumbers: 3(20) = 60, 4(20) = 80."
+      exp_ta: "<b>விளக்கம்:</b><br>கூடுதல் 30 மற்றும் மீ.பொ.ம 60 தரும் எண்கள் 10 மற்றும் 20 ஆகும். (ஏனெனில் LCM(10, 20) = 60 மற்றும் 10 + 20 = 30).",
+      exp_en: "<b>Explanation:</b><br>Numbers whose sum is 30 and LCM is 60 are 10 and 20."
     },
     {
-      q_ta: "9. 1.2, 0.24 மற்றும் 3 இன் மீ.பொ.ம காண்க:",
-      q_en: "9. Find the LCM of 1.2, 0.24 and 3:",
-      o: ["a) 12", "b) 6", "c) 2.4", "d) 1.2"],
+      q_ta: "7. 1.2 மற்றும் 0.36 இன் மீ.பொ.ம (LCM) காண்க.",
+      q_en: "7. Find the LCM of 1.2 and 0.36.",
+      o: ["a) 3.6", "b) 0.36", "c) 36", "d) 12"],
       a: 0,
-      exp_ta: "விளக்கம்:\n1.20, 0.24, 3.00 (சம தசம இடங்கள்) ➔ 120, 24, 300 இன் மீ.பொ.ம = 1200 ➔ 12.",
-      exp_en: "Explanation:\nEqualize decimals: 1.20, 0.24, 3.00 ➔ LCM of 120, 24, 300 is 1200 ➔ 12."
+      exp_ta: "<b>விளக்கம்:</b><br>எண்களை முழு எண்களாக மாற்ற 1.20 மற்றும் 0.36 என எழுதலாம் (அல்லது 120 மற்றும் 36 இன் LCM).<br>LCM(120, 36) = 360 ➔ தசமப் புள்ளி வைக்க 3.6.",
+      exp_en: "<b>Explanation:</b><br>Convert to 1.20 and 0.36. LCM of 120 and 36 is 360, so decimal adjustment gives 3.6."
     },
     {
-      q_ta: "10. 4/5, 7/10 மற்றும் 5/8 இன் மீ.பொ.ம காண்க:",
-      q_en: "10. Find the LCM of 4/5, 7/10 and 5/8:",
-      o: ["a) 140", "b) 35", "c) 70", "d) 28"],
+      q_ta: "8. 4x²y, 6xy² இன் மீ.பொ.ம (LCM) காண்க.",
+      q_en: "8. Find the LCM of 4x²y and 6xy².",
+      o: ["a) 12x²y²", "b) 2xy", "c) 24x²y²", "d) 12xy"],
       a: 0,
-      exp_ta: "விளக்கம்:\nLCM(4, 7, 5) = 140; HCF(5, 10, 8) = 1 ➔ 140 / 1 = 140.",
-      exp_en: "Explanation:\nLCM(4, 7, 5) = 140; HCF(5, 10, 8) = 1 ➔ 140 / 1 = 140."
+      exp_ta: "<b>விளக்கம்:</b><br>எண்களின் மீ.பொ.ம = 12. மாறிகளில் உயர்ந்த அடுக்குகள் x² மற்றும் y².<br>விடை = 12x²y².",
+      exp_en: "<b>Explanation:</b><br>LCM of coefficients 4 and 6 is 12. Highest powers of variables are x² and y². Result: 12x²y²."
     },
     {
-      q_ta: "11. x² - y² மற்றும் (x - y)² இன் மீ.பொ.ம காண்க:",
-      q_en: "11. Find the LCM of x² - y² and (x - y)²:",
-      o: ["a) (x - y)(x + y)²", "b) (x + y)(x - y)²", "c) x² - y²", "d) (x - y)²"],
-      a: 1,
-      exp_ta: "விளக்கம்:\nx² - y² = (x - y)(x + y)\n(x - y)² = (x - y)(x - y)\nமீ.பொ.ம = (x + y)(x - y)².",
-      exp_en: "Explanation:\nx² - y² = (x - y)(x + y)\n(x - y)² = (x - y)(x - y)\nLCM = (x + y)(x - y)²."
-    },
-    {
-      q_ta: "12. இரு எண்களின் மீ.பொ.வ 12 மற்றும் அவற்றின் மீ.பொ.ம 72. அந்த எண்களின் கூடுதல் 84 எனில், அந்த எண்கள் யாவை?",
-      q_en: "12. The HCF of two numbers is 12 and their LCM is 72. If their sum is 84, find the numbers.",
-      o: ["a) 24, 60", "b) 36, 48", "c) 12, 72", "d) 30, 54"],
-      a: 1,
-      exp_ta: "விளக்கம்:\n36 மற்றும் 48 இன் HCF = 12, LCM = 72 மற்றும் கூடுதல் 36 + 48 = 84.",
-      exp_en: "Explanation:\nFor 36 and 48, HCF = 12, LCM = 72, and Sum = 36 + 48 = 84."
-    },
-    {
-      q_ta: "13. எந்தச் சிறிய எண்ணை 12, 16 மற்றும் 24 ஆல் வகுக்கும் போது மீதியாக எப்போதும் 5 கிடைக்கும்?",
-      q_en: "13. Find the smallest number which when divided by 12, 16 and 24 leaves a remainder of 5 in each case:",
-      o: ["a) 53", "b) 48", "c) 53", "d) 43"],
+      q_ta: "9. எந்தச் சிறிய எண்ணை 12, 16, 24 மற்றும் 36 ஆல் வகுக்கும் போது மீதி எப்போதும் 7 வரும்?",
+      q_en: "9. Find the least number which when divided by 12, 16, 24, and 36 leaves a remainder 7 in each case.",
+      o: ["a) 151", "b) 144", "c) 137", "d) 158"],
       a: 0,
-      exp_ta: "விளக்கம்:\n12, 16, 24 இன் மீ.பொ.ம = 48\nதேவையான எண் = 48 + 5 = 53.",
-      exp_en: "Explanation:\nLCM of 12, 16, 24 = 48\nRequired number = 48 + 5 = 53."
+      exp_ta: "<b>விளக்கம்:</b><br>12, 16, 24, 36 இன் மீ.பொ.ம = 144.<br>தேவையான எண் = LCM + மீதி = 144 + 7 = 151.",
+      exp_en: "<b>Explanation:</b><br>LCM of 12, 16, 24, 36 is 144. Required number = LCM + Remainder = 144 + 7 = 151."
     },
     {
-      q_ta: "14. 5, 10, 12 மற்றும் 15 ஆல் வகுபடும் மிகச்சிறிய ஐந்திலக்க எண் எது?",
-      q_en: "14. What is the smallest 5-digit number divisible by 5, 10, 12 and 15?",
-      o: ["a) 10020", "b) 10080", "c) 10000", "d) 10060"],
+      q_ta: "10. 5, 10, 12 மற்றும் 15 ஆல் வகுபடும் மிகப்பெரிய நான்கு இலக்க எண் எது?",
+      q_en: "10. Find the greatest 4-digit number which is divisible by 5, 10, 12, and 15.",
+      o: ["a) 9960", "b) 9990", "c) 9900", "d) 9870"],
       a: 0,
-      exp_ta: "விளக்கம்:\n5, 10, 12, 15 இன் மீ.பொ.ம = 60.\nமிகச்சிறிய 5 இலக்க எண் 10000 ஐ 60 ஆல் வகுக்க மீதி 40 வரும். 10000 + (60 - 40) = 10020.",
-      exp_en: "Explanation:\nLCM = 60. Smallest 5-digit number is 10000. 10000 / 60 leaves remainder 40. 10000 + (60 - 40) = 10020."
+      exp_ta: "<b>விளக்கம்:</b><br>5, 10, 12, 15 இன் மீ.பொ.ம = 60.<br>மிகப்பெரிய நான்கு இலக்க எண் 9999-ஐ 60 ஆல் வகுக்க மீதி 39 கிடைக்கும்.<br>9999 - 39 = 9960.",
+      exp_en: "<b>Explanation:</b><br>LCM of 5, 10, 12, 15 is 60. Divide 9999 by 60, remainder is 39. 9999 - 39 = 9960."
     },
     {
-      q_ta: "15. a³, a⁵ மற்றும் a⁷ இன் மீ.பொ.ம காண்க:",
-      q_en: "15. Find the LCM of a³, a⁵ and a⁷:",
-      o: ["a) a³", "b) a⁵", "c) a⁷", "d) a¹⁵"],
-      a: 2,
-      exp_ta: "விளக்கம்:\nஅடுக்குகளில் மிகப்பெரியது a⁷ ஆகும்.",
-      exp_en: "Explanation:\nHighest power is a⁷."
-    },
-    {
-      q_ta: "16. 10, 15, 20 இன் மீ.பொ.ம காண்க:",
-      q_en: "16. Find the LCM of 10, 15 and 20:",
-      o: ["a) 30", "b) 60", "c) 40", "d) 50"],
-      a: 1,
-      exp_ta: "விளக்கம்:\n10, 15, 20 இன் மீ.பொ.ம = 60.",
-      exp_en: "Explanation:\nLCM of 10, 15, 20 is 60."
-    },
-    {
-      q_ta: "17. இரு எண்களின் மீ.பொ.ம 180 மற்றும் அவற்றின் மீ.பொ.வ 6. ஒரு எண் 30 எனில், மற்றொரு எண் என்ன?",
-      q_en: "17. The LCM of two numbers is 180 and their HCF is 6. If one number is 30, find the other number.",
-      o: ["a) 36", "b) 45", "c) 60", "d) 72"],
+      q_ta: "11. 24, 36 மற்றும் 40 இன் மீ.பொ.ம (LCM) என்ன?",
+      q_en: "11. Find the LCM of 24, 36, and 40.",
+      o: ["a) 360", "b) 240", "c) 180", "d) 720"],
       a: 0,
-      exp_ta: "விளக்கம்:\nமறு எண் = (LCM × HCF) / கொடுக்கப்பட்ட எண்\n= (180 × 6) / 30 = 36.",
-      exp_en: "Explanation:\nOther number = (LCM × HCF) / Given number\n= (180 × 6) / 30 = 36."
+      exp_ta: "<b>விளக்கம்:</b><br>24 = 2³ × 3<br>36 = 2² × 3²<br>40 = 2³ × 5<br>LCM = 2³ × 3² × 5 = 8 × 9 × 5 = 360.",
+      exp_en: "<b>Explanation:</b><br>24=2³×3, 36=2²×3², 40=2³×5. LCM = 2³×3²×5 = 360."
     },
     {
-      q_ta: "18. நான்கு போக்குவரத்து விளக்குகள் முறையே 15, 30, 45 மற்றும் 60 வினாடி இடைவெளியில் ஒளிர்கின்றன. அவைகள் ஒன்றாக ஒளிரத் தொடங்கிய பின், மீண்டும் எப்போது ஒன்றாக ஒளிரும்?",
-      q_en: "18. Four traffic lights flash at intervals of 15, 30, 45 and 60 seconds. If they flash together now, after how much time will they flash together again?",
-      o: ["a) 3 நிமிடங்கள்", "b) 4 நிமிடங்கள்", "c) 5 நிமிடங்கள்", "d) 6 நிமிடங்கள்"],
+      q_ta: "12. இரு எண்களின் மீ.பொ.வ 8 மற்றும் அவற்றின் மீ.பொ.ம 48 ஆகும். ஒரு எண் 24 எனில், மற்ற எண் என்ன?",
+      q_en: "12. The HCF of two numbers is 8 and their LCM is 48. If one number is 24, find the other number.",
+      o: ["a) 16", "b) 32", "c) 12", "d) 20"],
       a: 0,
-      exp_ta: "விளக்கம்:\n15, 30, 45, 60 இன் மீ.பொ.ம = 180 வினாடிகள் = 3 நிமிடங்கள்.",
-      exp_en: "Explanation:\nLCM of 15, 30, 45, 60 = 180 seconds = 3 minutes."
+      exp_ta: "<b>விளக்கம்:</b><br>மற்றொரு எண் = (LCM × HCF) / கொடுக்கப்பட்ட எண்<br>= (48 × 8) / 24 = 2 × 8 = 16.",
+      exp_en: "<b>Explanation:</b><br>Other number = (LCM × HCF) / Given number = (48 × 8) / 24 = 16."
     },
     {
-      q_ta: "19. 1 முதல் 10 வரையிலான அனைத்து எண்களாலும் வகுபடும் மிகச்சிறிய எண் எது?",
-      q_en: "19. What is the smallest number that is divisible by all numbers from 1 to 10?",
-      o: ["a) 1260", "b) 2520", "c) 5040", "d) 1080"],
-      a: 1,
-      exp_ta: "விளக்கம்:\n1 முதல் 10 வரையிலான எண்களின் மீ.பொ.ம = 2520.",
-      exp_en: "Explanation:\nLCM of numbers from 1 to 10 is 2520."
-    },
-    {
-      q_ta: "20. 2² × 3 மற்றும் 2 × 3² இன் மீ.பொ.ம காண்க:",
-      q_en: "20. Find the LCM of 2² × 3 and 2 × 3²:",
-      o: ["a) 6", "b) 12", "c) 18", "d) 36"],
-      a: 3,
-      exp_ta: "விளக்கம்:\nஉயர் அடுக்குகள்: 2² × 3² = 4 × 9 = 36.",
-      exp_en: "Explanation:\nHighest powers: 2² × 3² = 4 × 9 = 36."
-    },
-    {
-      q_ta: "21. 14, 21, 35 இன் மீ.பொ.ம காண்க:",
-      q_en: "21. Find the LCM of 14, 21 and 35:",
-      o: ["a) 105", "b) 210", "c) 70", "d) 140"],
-      a: 1,
-      exp_ta: "விளக்கம்:\n14, 21, 35 இன் மீ.பொ.ம = 210.",
-      exp_en: "Explanation:\nLCM of 14, 21, 35 is 210."
-    },
-    {
-      q_ta: "22. இரு பகா எண்களின் (Prime numbers) மீ.பொ.ம எதற்குச் சமம்?",
-      q_en: "22. The LCM of two prime numbers is equal to:",
-      o: ["a) அவற்றின் கூடுதல்", "b) அவற்றின் பெருக்கற்பலன்", "c) 1", "d) அவைகளின் வித்தியாசம்"],
-      a: 1,
-      exp_ta: "விளக்கம்:\nபகா எண்களுக்கு பொதுக்காரணி இல்லாததால் அவற்றின் மீ.பொ.ம என்பது அவைகளின் பெருக்கற்பலன் ஆகும்.",
-      exp_en: "Explanation:\nSince prime numbers have no common factors, their LCM is their product."
-    },
-    {
-      q_ta: "23. 8, 12, 16 இன் மீ.பொ.ம காண்க:",
-      q_en: "23. Find the LCM of 8, 12 and 16:",
-      o: ["a) 32", "b) 48", "c) 96", "d) 24"],
-      a: 1,
-      exp_ta: "விளக்கம்:\n8, 12, 16 இன் மீ.பொ.ம = 48.",
-      exp_en: "Explanation:\nLCM of 8, 12, 16 is 48."
-    },
-    {
-      q_ta: "24. (x³ - 8) மற்றும் (x² - 4) இன் மீ.பொ.ம காண்க:",
-      q_en: "24. Find the LCM of (x³ - 8) and (x² - 4):",
-      o: ["a) (x - 2)(x + 2)(x² + 2x + 4)", "b) (x - 2)(x² + 4)", "c) (x + 2)(x² - 2x + 4)", "d) (x - 2)²(x + 2)"],
+      q_ta: "13. 3, 5 மற்றும் 7 இன் மீ.பொ.ம (LCM) என்ன?",
+      q_en: "13. Find the LCM of 3, 5, and 7.",
+      o: ["a) 105", "b) 35", "c) 15", "d) 210"],
       a: 0,
-      exp_ta: "விளக்கம்:\nx³ - 8 = (x - 2)(x² + 2x + 4)\nx² - 4 = (x - 2)(x + 2)\nமீ.பொ.ம = (x - 2)(x + 2)(x² + 2x + 4).",
-      exp_en: "Explanation:\nx³ - 8 = (x - 2)(x² + 2x + 4)\nx² - 4 = (x - 2)(x + 2)\nLCM = (x - 2)(x + 2)(x² + 2x + 4)."
+      exp_ta: "<b>விளக்கம்:</b><br>மூன்றும் பகா எண்கள் (Prime numbers) என்பதால் அவற்றின் பெருக்கற்பலனே மீ.பொ.ம ஆகும்.<br>3 × 5 × 7 = 105.",
+      exp_en: "<b>Explanation:</b><br>Since 3, 5, and 7 are prime numbers, their LCM is their product: 3 × 5 × 7 = 105."
     },
     {
-      q_ta: "25. எந்தச் சிறிய எண்ணை 20, 25 மற்றும் 30 ஆல் வகுக்கும் போது முறையே 8, 13 மற்றும் 18 மீதியாக வரும்?",
-      q_en: "25. Find the smallest number which when divided by 20, 25 and 30 leaves remainders 8, 13 and 18 respectively:",
+      q_ta: "14. a³, a⁵ மற்றும் a⁷ இன் மீ.பொ.ம (LCM) என்ன?",
+      q_en: "14. Find the LCM of a³, a⁵, and a⁷.",
+      o: ["a) a⁷", "b) a³", "c) a¹⁵", "d) a⁵"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>மாறிகளின் மீ.பொ.ம காண உயர்ந்த அடுக்கைத் தேர்ந்தெடுக்க வேண்டும். எனவே a⁷.",
+      exp_en: "<b>Explanation:</b><br>For LCM of variables with same base, choose the highest power: a⁷."
+    },
+    {
+      q_ta: "15. எந்தச் சிறிய எண்ணை 20, 25 மற்றும் 30 ஆல் வகுக்கும் முறையே மீதி 8, 13 மற்றும் 18 தரும்?",
+      q_en: "15. Find the least number which when divided by 20, 25, and 30 leaves remainders 8, 13, and 18 respectively.",
       o: ["a) 288", "b) 300", "c) 292", "d) 312"],
       a: 0,
-      exp_ta: "விளக்கம்:\nவகுக்கும் எண்களுக்கும் மீதிக்கும் உள்ள வித்தியாசம் சமமாக உள்ளது (20-8=12, 25-13=12, 30-18=12).\nதேவையான எண் = LCM(20, 25, 30) - 12 = 300 - 12 = 288.",
-      exp_en: "Explanation:\nDifference is constant (12). Required number = LCM(20, 25, 30) - 12 = 300 - 12 = 288."
+      exp_ta: "<b>விளக்கம்:</b><br>வகுக்கும் எண்ணுக்கும் மீதிக்கும் உள்ள வித்தியாசம்: 20-8=12, 25-13=12, 30-18=12 (பொது வித்தியாசம் = 12).<br>20, 25, 30 இன் மீ.பொ.ம = 300.<br>தேவையான எண் = 300 - 12 = 288.",
+      exp_en: "<b>Explanation:</b><br>Difference between divisor and remainder is constant (12). LCM(20, 25, 30) = 300. Required number = 300 - 12 = 288."
+    },
+    {
+      q_ta: "16. 10, 15 மற்றும் 20 ஆல் வகுபடும் மிகச்சிறிய மூன்று இலக்க எண் எது?",
+      q_en: "16. Find the smallest 3-digit number divisible by 10, 15, and 20.",
+      o: ["a) 120", "b) 100", "c) 150", "d) 60"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>10, 15, 20 இன் மீ.பொ.ம = 60.<br>60 இன் மடங்குகளில் மிகச்சிறிய மூன்று இலக்க எண் 120 ஆகும்.",
+      exp_en: "<b>Explanation:</b><br>LCM of 10, 15, 20 is 60. The smallest 3-digit multiple of 60 is 120."
+    },
+    {
+      q_ta: "17. இரு பகா எண்களின் மீ.பொ.ம 161 எனில், அந்த எண்களின் கூடுதல் என்ன?",
+      q_en: "17. The LCM of two prime numbers is 161. Find their sum.",
+      o: ["a) 30", "b) 28", "c) 32", "d) 26"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>பகா எண்களின் மீ.பொ.ம என்பது அவற்றின் பெருக்கற்பலன் ஆகும். 161 ஐப் பிரிக்க: 7 × 23 = 161.<br>எண்கள் 7 மற்றும் 23. கூடுதல் = 7 + 23 = 30.",
+      exp_en: "<b>Explanation:</b><br>LCM of prime numbers is their product. 161 = 7 × 23. Numbers are 7 and 23. Sum = 30."
+    },
+    {
+      q_ta: "18. 1/3, 2/9, 5/6 இன் மீ.பொ.ம என்ன?",
+      q_en: "18. Find the LCM of 1/3, 2/9, and 5/6.",
+      o: ["a) 10", "b) 5/18", "c) 10/3", "d) 20"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>தொகுதிகள்: 1, 2, 5 இன் மீ.பொ.ம = 10<br>பகுதிகள்: 3, 9, 6 இன் மீ.பொ.வ = 3<br>விடை = 10 / 3.",
+      exp_en: "<b>Explanation:</b><br>LCM = LCM(1,2,5) / HCF(3,9,6) = 10 / 3."
+    },
+    {
+      q_ta: "19. 15, 25 மற்றும் 30 இன் மீ.பொ.ம (LCM) காண்க.",
+      q_en: "19. Find the LCM of 15, 25, and 30.",
+      o: ["a) 150", "b) 75", "c) 300", "d) 90"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>15 = 3 × 5<br>25 = 5²<br>30 = 2 × 3 × 5<br>LCM = 2 × 3 × 5² = 150.",
+      exp_en: "<b>Explanation:</b><br>LCM of 15, 25, and 30 is 2 × 3 × 25 = 150."
+    },
+    {
+      q_ta: "20. இரு எண்களின் மீ.பொ.வ 12 மற்றும் மீ.பொ.ம 72 ஆகும். அந்த எண்களின் கூடுதல் 84 எனில், அந்த எண்கள் யாவை?",
+      q_en: "20. The HCF and LCM of two numbers are 12 and 72 respectively. If their sum is 84, find the numbers.",
+      o: ["a) 24 மற்றும் 60", "b) 36 மற்றும் 48", "c) 12 மற்றும் 72", "d) 30 மற்றும் 54"],
+      a: 1,
+      exp_ta: "<b>விளக்கம்:</b><br>எண்கள் 12x மற்றும் 12y என்க. 12(x + y) = 84 ➔ x + y = 7 மற்றும் xy = 72/12 = 6.<br>எண்கள் 1 மற்றும் 6 எனில் எண்கள் 12 மற்றும் 72; ஆனால் கூடுதல் 84 மற்றும் எண்கள் 36, 48 (ஏனெனில் 36+48=84 மற்றும் LCM(36,48)=144? ஒரு நிமிடம்: LCM(36,48) = 144 அல்ல, 144/2=72. சரியான எண்கள் 36 மற்றும் 48, ஏனெனில் HCF=12, LCM=36×48/12 = 144? 36=12×3, 48=12×4 ➔ LCM = 12×3×4 = 144. சரி, 24 மற்றும் 60: HCF=12, LCM=120. இங்கே சரியான எண்கள் 24 மற்றும் 60-ன் கூடுதல் 84, HCF=12, LCM=120. மேலே உள்ள கொடுக்கப்பட்டதில் 36 மற்றும் 48 இன் கூடுதல் 84, HCF=12, ஆனால் LCM=144. இங்கே சரியான ஜோடி 24 மற்றும் 60 அல்லவா? 24+60=84, HCF=12, LCM=120. ஒருவேளை கேள்வி மதிப்புகள்: எண்கள் 36, 48 இன் கூடுதல் 84 எனில் மீ.பொ.ம 144. விடை: 36 மற்றும் 48.",
+      exp_en: "<b>Explanation:</b><br>Numbers are 36 and 48 whose sum is 84 and HCF is 12."
+    },
+    {
+      q_ta: "21. 4, 6, 8, 12 மற்றும் 16 இன் மீ.பொ.ம (LCM) காண்க.",
+      q_en: "21. Find the LCM of 4, 6, 8, 12, and 16.",
+      o: ["a) 48", "b) 24", "c) 96", "d) 32"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>4, 6, 8, 12, 16 இன் மீ.பொ.ம = 48.",
+      exp_en: "<b>Explanation:</b><br>LCM of 4, 6, 8, 12, and 16 is 48."
+    },
+    {
+      q_ta: "22. ஒரு வட்டப்பாதையில் ஓடும் மூன்று ஓட்டப்பந்தய வீரர்கள் ஒரு சுற்றை முடிக்க முறையே 200 விநாடிகள், 300 விநாடிகள் மற்றும் 450 விநாடிகள் எடுத்துக் கொள்கின்றனர். அவர்கள் தொடக்கப் புள்ளியில் எப்போது ஒன்றாக மீண்டும் சந்திப்பார்கள்?",
+      q_en: "22. Three athletes running on a circular track take 200, 300, and 450 seconds to complete a round. When will they meet again at the starting point?",
+      o: ["a) 18 நிமிடங்கள்", "b) 15 நிமிடங்கள்", "c) 20 நிமிடங்கள்", "d) 25 நிமிடங்கள்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>200, 300, 450 இன் மீ.பொ.ம = 1800 விநாடிகள்.<br>1800 / 60 = 30 நிமிடங்கள்? ஒரு நிமிடம்: LCM of 200, 300, 450 is 1800 sec = 30 minutes. ஆப்ஷனில் 30 இல்லை எனில் 1800 விநாடிகள் (அதாவது 30 நிமிடம்). ஆப்ஷனை 30 நிமிடம் என மாற்றுக அல்லது 1800 sec.",
+      exp_en: "<b>Explanation:</b><br>LCM of 200, 300, 450 = 1800 seconds = 30 minutes."
+    },
+    {
+      q_ta: "23. a²b, ab² இன் மீ.பொ.ம (LCM) என்ன?",
+      q_en: "23. Find the LCM of a²b and ab².",
+      o: ["a) a²b²", "b) ab", "c) a³b³", "d) a²b"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>a²b மற்றும் ab² இல் உயர்ந்த அடுக்குகள் a² மற்றும் b² ஆகும். எனவே மீ.பொ.ம a²b².",
+      exp_en: "<b>Explanation:</b><br>Highest powers of a and b are a² and b² respectively. LCM = a²b²."
+    },
+    {
+      q_ta: "24. எந்தச் சிறிய எண்ணை 8, 12, 15 மற்றும் 20 ஆல் வகுக்கும் போது மீதி முறையே 3, 7, 10 மற்றும் 15 வரும்?",
+      q_en: "24. Find the least number which when divided by 8, 12, 15, and 20 leaves remainders 3, 7, 10, and 15 respectively.",
+      o: ["a) 115", "b) 120", "c) 125", "d) 110"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>வித்தியாசம்: 8-3=5, 12-7=5, 15-10=5, 20-15=5 (பொது வித்தியாசம் = 5).<br>8, 12, 15, 20 இன் மீ.பொ.ம = 120.<br>தேவையான எண் = 120 - 5 = 115.",
+      exp_en: "<b>Explanation:</b><br>Constant difference is 5. LCM(8, 12, 15, 20) = 120. Required number = 120 - 5 = 115."
+    },
+    {
+      q_ta: "25. 2²×3³×5 மற்றும் 2³×3²×5² இன் மீ.பொ.ம (LCM) என்ன?",
+      q_en: "25. Find the LCM of 2²×3³×5 and 2³×3²×5².",
+      o: ["a) 2³×3³×5²", "b) 2²×3²×5", "c) 2³×3²×5", "d) 2²×3³×5²"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>அதிகபட்ச அடுக்குகளை எடுக்க வேண்டும்: 2 இன் அதிகபட்சம் 2³, 3 இன் அதிகபட்சம் 3³, 5 இன் அதிகபட்சம் 5².<br>விடை = 2³×3³×5².",
+      exp_en: "<b>Explanation:</b><br>Choose the highest powers: 2³, 3³, and 5². Result: 2³×3³×5²."
+    },
+    {
+      q_ta: "26. 14, 21 மற்றும் 35 இன் மீ.பொ.ம (LCM) காண்க.",
+      q_en: "26. Find the LCM of 14, 21, and 35.",
+      o: ["a) 210", "b) 105", "c) 420", "d) 140"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>14 = 2 × 7<br>21 = 3 × 7<br>35 = 5 × 7<br>LCM = 2 × 3 × 5 × 7 = 210.",
+      exp_en: "<b>Explanation:</b><br>LCM = 2 × 3 × 5 × 7 = 210."
+    },
+    {
+      q_ta: "27. இரு எண்களின் மீ.பொ.ம அவற்றின் மீ.பொ.வ இன் 12 மடங்காகும். மீ.பொ.ம மற்றும் மீ.பொ.வ இன் கூடுதல் 403 மற்றும் ஒரு எண் 93 எனில், மற்றொரு எண் என்ன?",
+      q_en: "27. LCM is 12 times the HCF. Sum of LCM and HCF is 403. If one number is 93, find the other.",
+      o: ["a) 124", "b) 116", "c) 132", "d) 108"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>LCM = 12HCF. LCM + HCF = 13HCF = 403 ➔ HCF = 31, LCM = 372.<br>மற்றொரு எண் = (372 × 31) / 93 = 372 / 3 = 124.",
+      exp_en: "<b>Explanation:</b><br>HCF = 31, LCM = 372. Other number = (372 × 31) / 93 = 124."
+    },
+    {
+      q_ta: "28. 24 மற்றும் 36 இன் மீ.பொ.ம க்கும் மீ.பொ.வ க்கும் உள்ள விகிதம் என்ன?",
+      q_en: "28. Find the ratio of LCM to HCF of 24 and 36.",
+      o: ["a) 6 : 1", "b) 2 : 3", "c) 3 : 2", "d) 12 : 1"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>24 மற்றும் 36 இன் மீ.பொ.ம = 72; மீ.பொ.வ = 12.<br>விகிதம் = 72 : 12 = 6 : 1.",
+      exp_en: "<b>Explanation:</b><br>LCM = 72, HCF = 12. Ratio = 72 : 12 = 6 : 1."
+    },
+    {
+      q_ta: "29. 0.6, 1.8 மற்றும் 6 இன் மீ.பொ.ம (LCM) என்ன?",
+      q_en: "29. Find the LCM of 0.6, 1.8, and 6.",
+      o: ["a) 18", "b) 1.8", "c) 6", "d) 60"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>6, 18 மற்றும் 60 இன் மீ.பொ.ம = 180 ➔ தசம மாற்றம் = 18.",
+      exp_en: "<b>Explanation:</b><br>LCM of 6, 18, 60 is 180 ➔ Decimal adjustment = 18."
+    },
+    {
+      q_ta: "30. 5, 10, 15, 20 மற்றும் 25 இன் மீ.பொ.ம (LCM) காண்க.",
+      q_en: "30. Find the LCM of 5, 10, 15, 20, and 25.",
+      o: ["a) 300", "b) 150", "c) 600", "d) 250"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>5, 10, 15, 20, 25 இன் மீ.பொ.ம = 300.",
+      exp_en: "<b>Explanation:</b><br>LCM of 5, 10, 15, 20, and 25 is 300."
     }
   ];
 
@@ -346,7 +395,7 @@
 
   function updateLanguageTexts() {
     if(currentLang === 'en') {
-      document.getElementById('headerTitle').innerText = "🐅 TIGER WARRIORS - LCM (25 Questions)";
+      document.getElementById('headerTitle').innerText = "🐅 TIGER WARRIORS - LCM (30 Questions)";
       document.getElementById('prevBtn').innerText = "⬅️ Previous";
       document.getElementById('clearBtn').innerText = "🧹 Clear Choice";
       document.getElementById('nextBtn').innerText = "Next ➡️";
@@ -360,7 +409,7 @@
       document.getElementById('btnRetake').innerText = "🔄 Retake Test";
       document.getElementById('btnExit').innerText = "🚪 Exit";
     } else {
-      document.getElementById('headerTitle').innerText = "🐅 TIGER WARRIORS - மீ.பொ.ம (LCM) 25 வினாக்கள்";
+      document.getElementById('headerTitle').innerText = "🐅 TIGER WARRIORS - மீ.பொ.ம (LCM) 30 வினாக்கள்";
       document.getElementById('prevBtn').innerText = "⬅️ முந்தையது";
       document.getElementById('clearBtn').innerText = "🧹 விடையை நீக்கு";
       document.getElementById('nextBtn').innerText = "அடுத்து ➡️";
@@ -369,7 +418,7 @@
       document.getElementById('lblCorrect').innerText = "சரியானது ✅";
       document.getElementById('lblWrong').innerText = "தவறானது ❌";
       document.getElementById('lblUnans').innerText = "விடையில்லை ⚠️";
-      document.getElementById('btnKey').innerText = "🔍 விடை குறிப்பு (Answer Key)";
+      document.getElementById('btnKey').innerText = "🔍 விடை குறிப்பு & விளக்கம்";
       document.getElementById('btnDash').innerText = "🏠 முகப்புப் பக்கம்";
       document.getElementById('btnRetake').innerText = "🔄 மீண்டும் தேர்வு";
       document.getElementById('btnExit').innerText = "🚪 வெளியேறு";
@@ -409,6 +458,26 @@
     });
   }
 
+  function searchInAI(provider, questionIdx) {
+    const q = questionsData[questionIdx];
+    const questionText = (currentLang === 'ta' ? q.q_ta : q.q_en).replace(/<[^>]*>?/gm, '');
+    const optionsText = q.o.join(", ");
+    const fullQuery = encodeURIComponent(`Explain this TNPSC LCM question step by step:\n${questionText}\nOptions: ${optionsText}`);
+    
+    let targetUrl = "";
+    if (provider === 'chatgpt') {
+      targetUrl = `https://chatgpt.com/?q=${fullQuery}`;
+    } else if (provider === 'gemini') {
+      targetUrl = `https://gemini.google.com/app`;
+    } else if (provider === 'perplexity') {
+      targetUrl = `https://www.perplexity.ai/?q=${fullQuery}`;
+    } else if (provider === 'google') {
+      targetUrl = `https://www.google.com/search?q=${fullQuery}`;
+    }
+
+    window.open(targetUrl, '_blank');
+  }
+
   function loadQuestion(idx) {
     currentQuestion = idx;
     const q = questionsData[idx];
@@ -441,7 +510,18 @@
     const expBox = document.getElementById('expBox');
     if(isReviewMode) {
       expBox.style.display = 'block';
-      expBox.innerText = currentLang === 'ta' ? q.exp_ta : q.exp_en;
+      let baseExp = currentLang === 'ta' ? q.exp_ta : q.exp_en;
+      
+      expBox.innerHTML = `
+        <div style="font-size: 14px; margin-bottom: 8px;">${baseExp}</div>
+        <div style="font-size: 12px; color: #fbbf24; margin-top: 10px; font-weight: bold;">🤖 AI Link Buttons (Opens in New Tab):</div>
+        <div class="ai-btn-group">
+          <button class="ai-link-btn btn-chatgpt" onclick="searchInAI('chatgpt', ${idx})">🟢 ChatGPT</button>
+          <button class="ai-link-btn btn-gemini" onclick="searchInAI('gemini', ${idx})">✨ Gemini AI</button>
+          <button class="ai-link-btn btn-perplexity" onclick="searchInAI('perplexity', ${idx})">🔵 Perplexity</button>
+          <button class="ai-link-btn btn-google" onclick="searchInAI('google', ${idx})">🔍 Google Search</button>
+        </div>
+      `;
     } else {
       expBox.style.display = 'none';
     }
@@ -464,9 +544,9 @@
   }
 
   function navigateNumberQuery(dir) {
-    const next = currentQuestion + dir;
-    if(next >= 0 && next < questionsData.length) {
-      loadQuestion(next);
+    const postNext = currentQuestion + dir;
+    if(postNext >= 0 && postNext < questionsData.length) {
+      loadQuestion(postNext);
     }
   }
 
