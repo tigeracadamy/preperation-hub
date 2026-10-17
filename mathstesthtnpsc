@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Royal Gold Maths & Reasoning Test Hub</title>
+    <style>
+        body {
+            background-color: #060810;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #ffffff;
+            padding: 20px 10px;
+            margin: 0;
+        }
+        .main-panel {
+            max-width: 900px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #0d0f1a 0%, #05070d 100%);
+            border: 2px solid #d4af37;
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 10px 35px rgba(212, 175, 55, 0.2), inset 0 0 20px rgba(0, 0, 0, 0.9);
+        }
+        .panel-header {
+            font-size: 22px;
+            font-weight: 800;
+            color: #ffdf73;
+            text-align: center;
+            margin-bottom: 25px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            text-shadow: 0 2px 8px rgba(212, 175, 55, 0.5);
+        }
+
+        /* 2 Column Grid Layout */
+        .two-column-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .two-column-grid {
+                grid-template-columns: 1fr; /* மொபைலில் ஒற்றைப் பத்தியாக மாறும் */
+            }
+        }
+
+        .column-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #64b5f6;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(100, 181, 246, 0.3);
+            padding-bottom: 6px;
+        }
+
+        .btn-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        /* Classic 3D Dark & Gold Button */
+        .test-btn {
+            position: relative;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(145deg, #181c2b 0%, #0e111c 100%);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 14px 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            overflow: hidden;
+            z-index: 1;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6), 
+                        inset 0 1px 1px rgba(255, 255, 255, 0.1), 
+                        inset 0 -2px 4px rgba(0, 0, 0, 0.6);
+            transition: all 0.3s ease;
+        }
+
+        /* Animated Gold Border Glow */
+        .test-btn::before {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            background: linear-gradient(45deg, #d4af37, #ffe082, #8a6214, #d4af37);
+            background-size: 400%;
+            border-radius: 13px;
+            z-index: -1;
+            animation: goldGlow 4s linear infinite;
+        }
+
+        .test-btn::after {
+            content: '';
+            position: absolute;
+            top: 2px; left: 2px; right: 2px; bottom: 2px;
+            background: linear-gradient(145deg, #131724 0%, #0a0c14 100%);
+            border-radius: 10px;
+            z-index: -1;
+            transition: background 0.3s ease;
+        }
+
+        @keyframes goldGlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .watermark-tamil {
+            position: absolute;
+            right: 12px;
+            font-size: 24px;
+            font-weight: 900;
+            color: rgba(212, 175, 55, 0.05);
+            pointer-events: none;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        /* Hover Effect (Green Glow) */
+        .test-btn:hover, .test-btn:active {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(16, 185, 129, 0.35);
+        }
+
+        .test-btn:hover::before, .test-btn:active::before {
+            background: linear-gradient(45deg, #10b981, #34d399, #047857, #10b981);
+        }
+
+        .test-btn:hover::after, .test-btn:active::after {
+            background: linear-gradient(145deg, #064e3b 0%, #022c22 100%);
+        }
+
+        .test-btn:hover .watermark-tamil, .test-btn:active .watermark-tamil {
+            color: rgba(255, 255, 255, 0.12);
+        }
+
+        /* Special Overall Test Button Styling */
+        .overall-btn::before {
+            background: linear-gradient(45deg, #ff4500, #ffdf73, #d4af37, #ff4500) !important;
+        }
+
+        .icon {
+            margin-right: 10px;
+            font-size: 16px;
+            z-index: 2;
+        }
+        .btn-text {
+            z-index: 2;
+            letter-spacing: 0.3px;
+            line-height: 1.3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-panel">
+    <div class="panel-header">
+        👑 MATHS & REASONING TEST HUB 👑
+    </div>
+    
+    <div class="two-column-grid">
+        <!-- LEFT COLUMN: MATHS -->
+        <div class="btn-list">
+            <div class="column-title">📊 PART - A: MATHS</div>
+
+            <a href="இங்கே_URL_1" class="test-btn" target="_blank">
+                <span class="icon">🔢</span>
+                <span class="btn-text">1. சுருக்குதல்</span>
+                <span class="watermark-tamil">MATHS</span>
+            </a>
+
+            <a href="இங்கே_URL_2" class="test-btn" target="_blank">
+                <span class="icon">🎯</span>
+                <span class="btn-text">2. விழுக்காடு</span>
+                <span class="watermark-tamil">MATHS</span>
+            </a>
+
+            <a href="இங்கே_URL_3" class="test-btn" target="_blank">
+                <span class="icon">⚖️</span>
+                <span class="btn-text">3. விகிதம் & விகிதாச்சாரம்</span>
+                <span class="watermark-tamil">MATHS</span>
+            </a>
+
+            <a href="இங்கே_URL_4" class="test-btn" target="_blank">
+                <span class="icon">📉</span>
+                <span class="btn-text">4. மீ.பொ.ம (LCM)</span>
+                <span class="watermark-tamil">MATHS</span>
+            </a>
+
+            <a href="இங்கே_URL_5" class="test-btn" target="_blank">
+                <span class="icon">🔝</span>
+                <span class="btn-text">5. மீ.பொ.வ (HCF)</span>
+                <span class="watermark-tamil">MATHS</span>
+            </a>
+
+            <a href="இங்கே_URL_6" class="test-btn" target="_blank">
+                <span class="icon">💸</span>
+                <span class="btn-text">6. இலாபம் மற்றும் நட்டம்</span>
+                <span class="watermark-tamil">MATHS</span>
+            </a>
+
+            <a href="இங்கே_URL_7" class="test-btn" target="_blank">
+                <span class="icon">💰</span>
+                <span class="btn-text">7. தனிவட்டி</span>
+                <span class="watermark-tamil">MATHS</span>
+            </a>
+
+            <a href="இங்கே_URL_8" class="test-btn" target="_blank">
+                <span class="icon">📈</span>
+                <span class="btn-text">8. கூட்டுவட்டி</span>
+                <span class="watermark-tamil">MATHS</span>
+            </a>
+
+            <a href="இங்கே_URL_9" class="test-btn" target="_blank">
+                <span class="icon">⏳</span>
+                <span class="btn-text">9. காலம் மற்றும் வேலை</span>
+                <span class="watermark-tamil">MATHS</span>
+            </a>
+
+            <a href="இங்கே_URL_10" class="test-btn" target="_blank">
+                <span class="icon">📊</span>
+                <span class="btn-text">10. சராசரி</span>
+                <span class="watermark-tamil">MATHS</span>
+            </a>
+
+            <a href="இங்கே_URL_11" class="test-btn" target="_blank">
+                <span class="icon">🎂</span>
+                <span class="btn-text">11. வயது கணக்குகள்</span>
+                <span class="watermark-tamil">MATHS</span>
+            </a>
+
+            <a href="இங்கே_URL_12" class="test-btn" target="_blank">
+                <span class="icon">🔢</span>
+                <span class="btn-text">12. AP & GP (தொடர்வரிசைகள்)</span>
+                <span class="watermark-tamil">MATHS</span>
+            </a>
+
+            <a href="இங்கே_URL_13" class="test-btn" target="_blank">
+                <span class="icon">📐</span>
+                <span class="btn-text">13. அளவியல் 2D</span>
+                <span class="watermark-tamil">MATHS</span>
+            </a>
+
+            <a href="இங்கே_URL_14" class="test-btn" target="_blank">
+                <span class="icon">🧊</span>
+                <span class="btn-text">14. அளவியல் 3D</span>
+                <span class="watermark-tamil">MATHS</span>
+            </a>
+
+            <a href="இங்கே_URL_15" class="test-btn" target="_blank">
+                <span class="icon">🎲</span>
+                <span class="btn-text">15. புள்ளியியல் & நிகழ்தகவு</span>
+                <span class="watermark-tamil">MATHS</span>
+            </a>
+        </div>
+
+        <!-- RIGHT COLUMN: REASONING -->
+        <div class="btn-list">
+            <div class="column-title">🧠 PART - B: REASONING</div>
+
+            <a href="இங்கே_URL_16" class="test-btn" target="_blank">
+                <span class="icon">🔢</span>
+                <span class="btn-text">1. எண் வரிசைகள்</span>
+                <span class="watermark-tamil">REASONING</span>
+            </a>
+
+            <a href="இங்கே_URL_17" class="test-btn" target="_blank">
+                <span class="icon">🔤</span>
+                <span class="btn-text">2. எழுத்துக் காரணியியல்</span>
+                <span class="watermark-tamil">REASONING</span>
+            </a>
+
+            <a href="இங்கே_URL_18" class="test-btn" target="_blank">
+                <span class="icon">🔠</span>
+                <span class="btn-text">3. குறியீட்டு முறைகள்</span>
+                <span class="watermark-tamil">REASONING</span>
+            </a>
+
+            <a href="இங்கே_URL_19" class="test-btn" target="_blank">
+                <span class="icon">🗺️</span>
+                <span class="btn-text">4. திசைகள்</span>
+                <span class="watermark-tamil">REASONING</span>
+            </a>
+
+            <a href="இங்கே_URL_20" class="test-btn" target="_blank">
+                <span class="icon">🕰️</span>
+                <span class="btn-text">5. கடிகாரம் & நாட்காட்டி</span>
+                <span class="watermark-tamil">REASONING</span>
+            </a>
+
+            <a href="இங்கே_URL_21" class="test-btn" target="_blank">
+                <span class="icon">🎲</span>
+                <span class="btn-text">6. பகடை</span>
+                <span class="watermark-tamil">REASONING</span>
+            </a>
+
+            <a href="இங்கே_URL_22" class="test-btn" target="_blank">
+                <span class="icon">🧩</span>
+                <span class="btn-text">7. புதிர்கள் & இருக்கை அமைப்பு</span>
+                <span class="watermark-tamil">REASONING</span>
+            </a>
+
+            <a href="இங்கே_URL_23" class="test-btn" target="_blank">
+                <span class="icon">🖼️</span>
+                <span class="btn-text">8. காட்சிக் காரணியியல் & Syllogism</span>
+                <span class="watermark-tamil">REASONING</span>
+            </a>
+
+            <a href="இங்கே_URL_24" class="test-btn" target="_blank">
+                <span class="icon">📉</span>
+                <span class="btn-text">9. வரைபடத் தர்க்கம்</span>
+                <span class="watermark-tamil">REASONING</span>
+            </a>
+
+            <!-- Overall Test Button -->
+            <a href="இங்கே_OVERALL_MATHS_TEST_URL" class="test-btn overall-btn" target="_blank" style="margin-top: 20px;">
+                <span class="icon">🏆</span>
+                <span class="btn-text" style="color: #ffdf73; font-weight: bold;">OVERALL MATHS & REASONING TEST</span>
+                <span class="watermark-tamil">TEST</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
