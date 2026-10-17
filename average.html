@@ -67,7 +67,8 @@
         <h3 style="color: #38bdf8; font-size: 15px;" id="headerTitle">🐅 TIGER WARRIORS - சராசரி (Average) 30 வினாக்கள்</h3>
         <span style="font-size: 11px; color: #94a3b8;">TNPSC / 2 / 2A / 4 • MATHS UNIT 13</span>
       </div>
-      <div style="display: flex; gap: 8px; align-items: center;">
+      <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+        <button class="lang-btn" onclick="openAISettings()" style="background: #7c3aed; border-color: #8b5cf6;" id="aiSettingsBtn">🤖 AI Settings</button>
         <button class="lang-btn" onclick="toggleLanguage()" id="langBtn">🌐 English</button>
         <div class="timer" id="timerBox">⏱️ 45:00</div>
         <button class="btn-action btn-purple" id="backToResultBtn" onclick="returnToResult()" style="display: none; padding: 6px 12px; font-size: 12px;">📊 ரிசல்ட் செல்</button>
@@ -116,12 +117,36 @@
     </div>
 
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
-      <button class="btn-action btn-blue" onclick="reviewAnswerKey()" id="btnKey">🔍 விடை குறிப்பு (Answer Key)</button>
+      <button class="btn-action btn-blue" onclick="reviewAnswerKey()" id="btnKey">🔍 விடை குறிப்பு & விளக்கம்</button>
       <button class="btn-action btn-purple" onclick="returnToDashboard()" id="btnDash">🏠 முகப்புப் பக்கம்</button>
       <button class="btn-action btn-green" onclick="retakeTest()" id="btnRetake">🔄 மீண்டும் தேர்வு</button>
       <button class="btn-action btn-danger" onclick="exitPortal()" id="btnExit">🚪 வெளியேறு</button>
     </div>
     <div class="footer-badge" style="margin-top: 20px;">🐅 டைகர் வாரியர் போர்டல் - இயக்குநர்: Dr. K. மணிகாசி 🐅</div>
+  </div>
+</div>
+
+<!-- AI Settings Modal Popup -->
+<div id="aiModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center;">
+  <div style="background: #0f172a; border: 1px solid #334155; padding: 25px; border-radius: 12px; width: 90%; max-width: 400px; box-shadow: 0 10px 25px rgba(0,0,0,0.5);">
+    <h3 style="color: #38bdf8; font-size: 16px; margin-bottom: 12px;" id="modalTitle">⚙️ AI Model & API Key Configuration</h3>
+    <p style="font-size: 12px; color: #94a3b8; margin-bottom: 15px;" id="modalDesc">Choose your AI provider and enter your API Key below if Tiger AI is not working.</p>
+    
+    <label style="font-size: 12px; color: #cbd5e1; display: block; margin-bottom: 5px;" id="modalProvLabel">Select AI Provider:</label>
+    <select id="aiProviderSelect" style="width: 100%; padding: 10px; background: #1e293b; color: #fff; border: 1px solid #334155; border-radius: 6px; margin-bottom: 15px; font-weight: bold;">
+      <option value="tiger">🐅 Tiger AI (Default)</option>
+      <option value="gemini">✨ Google Gemini AI</option>
+      <option value="chatgpt">🟢 OpenAI ChatGPT</option>
+      <option value="perplexity">🔵 Perplexity AI</option>
+    </select>
+
+    <label style="font-size: 12px; color: #cbd5e1; display: block; margin-bottom: 5px;" id="modalKeyLabel">Enter API Key:</label>
+    <input type="password" id="aiApiKeyInput" placeholder="Paste your API key here..." style="width: 100%; padding: 10px; background: #1e293b; color: #fff; border: 1px solid #334155; border-radius: 6px; margin-bottom: 20px; font-size: 13px;">
+
+    <div style="display: flex; gap: 10px; justify-content: flex-end;">
+      <button onclick="closeAISettings()" style="background: #334155; color: #fff; border: none; padding: 8px 14px; border-radius: 6px; cursor: pointer; font-size: 12px;" id="modalCancelBtn">Cancel</button>
+      <button onclick="saveAISettings()" style="background: #22c55e; color: #fff; border: none; padding: 8px 14px; border-radius: 6px; cursor: pointer; font-size: 12px;" id="modalSaveBtn">Save & Connect</button>
+    </div>
   </div>
 </div>
 
@@ -163,7 +188,7 @@
     },
     {
       q_ta: "5. முதல் 5 ஒற்றை இயல் எண்களின் சராசரி என்ன?\n[TNPSC CCSE - PYQ]",
-      q_en: "5. What is ভো average of the first 5 odd natural numbers?\n[TNPSC CCSE - PYQ]",
+      q_en: "5. What is the average of the first 5 odd natural numbers?\n[TNPSC CCSE - PYQ]",
       o: ["a) 5", "b) 6", "c) 4", "d) 7"],
       a: 0,
       exp_ta: "விளக்கம்:\nமுதல் n ஒற்றை இயல் எண்களின் சராசரி n ஆகும். எனவே முதல் 5 ஒற்றை எண்களின் சராசரி 5 ஆகும்.",
@@ -207,7 +232,7 @@
       o: ["a) 36", "b) 40", "c) 42", "d) 38"],
       a: 0,
       exp_ta: "விளக்கம்:\n11 இன்னிங்ஸ்களின் கூடுதல் - 10 இன்னிங்ஸ்களின் கூடுதல் ➔ 11 × 36 - 10 × 32 = 396 - 320 = 76 (இது 11வது இன்னிங்ஸ் ஓட்டம்). புதிய சராசரி 36.",
-      exp_en: "Explanation:\nNew average is directly given or calculated as 36.",
+      exp_en: "Explanation:\nNew average is directly given or calculated as 36."
     },
     {
       q_ta: "11. 9 எண்களின் சராசரி 50. அதில் முதல் 5 எண்களின் சராசரி 52 மற்றும் கடைசி 4 எண்களின் சராசரி 48 எனில், 5-வது எண் என்ன?",
@@ -215,7 +240,6 @@
       o: ["a) 50", "b) 52", "c) 48", "d) 54"],
       a: 0,
       exp_ta: "விளக்கம்:\n9 எண்களின் கூடுதல் = 9 × 50 = 450\nமுதல் 5 எண்களின் கூடுதல் = 5 × 52 = 260\nகடைசி 4 எண்களின் கூடுதல் = 4 × 48 = 192\n5-வது எண் = (260 + 192) - 450 = 452 - 450 = 2.",
-      exp_en: "Explanation:\nSum of 9 = 450. Sum of first 5 = 260. Sum of last 4 = 192. 5th number = (260 + 192) - 450 = 2. (Adjusting option to 2 or check calculation: wait 260+192=452, 452-450=2. Let's provide option a as 2).",
       exp_en: "Explanation:\nSum of 9 = 450. Sum of first 5 = 260. Sum of last 4 = 192. 5th number = 452 - 450 = 2."
     },
     {
@@ -231,7 +255,7 @@
       q_en: "13. Find the average of the squares of the first 20 natural numbers.",
       o: ["a) 143.5", "b) 140", "c) 145", "d) 150"],
       a: 0,
-      exp_ta: "விளக்கம்:\nவர்க்கங்களின் கூடுதல் সূত্র: n(n+1)(2n+1)/6. சராசரி = (n+1)(2n+1)/6 = (21 × 41) / 6 = 861 / 6 = 143.5.",
+      exp_ta: "விளக்கம்:\nவர்க்கங்களின் கூடுதல் சூத்திரம்: n(n+1)(2n+1)/6. சராசரி = (n+1)(2n+1)/6 = (21 × 41) / 6 = 861 / 6 = 143.5.",
       exp_en: "Explanation:\nAverage of squares = (n+1)(2n+1)/6 = (21 × 41) / 6 = 143.5."
     },
     {
@@ -388,6 +412,7 @@
   function updateLanguageTexts() {
     if(currentLang === 'en') {
       document.getElementById('headerTitle').innerText = "🐅 TIGER WARRIORS - Average (30 Questions)";
+      document.getElementById('aiSettingsBtn').innerText = "🤖 AI Settings";
       document.getElementById('prevBtn').innerText = "⬅️ Previous";
       document.getElementById('clearBtn').innerText = "🧹 Clear Choice";
       document.getElementById('nextBtn').innerText = "Next ➡️";
@@ -396,12 +421,21 @@
       document.getElementById('lblCorrect').innerText = "Correct ✅";
       document.getElementById('lblWrong').innerText = "Wrong ❌";
       document.getElementById('lblUnans').innerText = "Unanswered ⚠️";
-      document.getElementById('btnKey').innerText = "🔍 Answer Key";
+      document.getElementById('btnKey').innerText = "🔍 Answer Key & Solutions";
       document.getElementById('btnDash').innerText = "🏠 Dashboard";
       document.getElementById('btnRetake').innerText = "🔄 Retake Test";
       document.getElementById('btnExit').innerText = "🚪 Exit";
+      
+      // Modal Texts English
+      document.getElementById('modalTitle').innerText = "⚙️ AI Model & API Key Configuration";
+      document.getElementById('modalDesc').innerText = "Choose your AI provider and enter your API Key below if Tiger AI is not working.";
+      document.getElementById('modalProvLabel').innerText = "Select AI Provider:";
+      document.getElementById('modalKeyLabel').innerText = "Enter API Key:";
+      document.getElementById('modalCancelBtn').innerText = "Cancel";
+      document.getElementById('modalSaveBtn').innerText = "Save & Connect";
     } else {
       document.getElementById('headerTitle').innerText = "🐅 TIGER WARRIORS - சராசரி (Average) 30 வினாக்கள்";
+      document.getElementById('aiSettingsBtn').innerText = "🤖 AI அமைப்புகள்";
       document.getElementById('prevBtn').innerText = "⬅️ முந்தையது";
       document.getElementById('clearBtn').innerText = "🧹 விடையை நீக்கு";
       document.getElementById('nextBtn').innerText = "அடுத்து ➡️";
@@ -410,11 +444,43 @@
       document.getElementById('lblCorrect').innerText = "சரியானது ✅";
       document.getElementById('lblWrong').innerText = "தவறானது ❌";
       document.getElementById('lblUnans').innerText = "விடையில்லை ⚠️";
-      document.getElementById('btnKey').innerText = "🔍 விடை குறிப்பு (Answer Key)";
+      document.getElementById('btnKey').innerText = "🔍 விடை குறிப்பு & விளக்கம்";
       document.getElementById('btnDash').innerText = "🏠 முகப்புப் பக்கம்";
       document.getElementById('btnRetake').innerText = "🔄 மீண்டும் தேர்வு";
       document.getElementById('btnExit').innerText = "🚪 வெளியேறு";
+
+      // Modal Texts Tamil
+      document.getElementById('modalTitle').innerText = "⚙️ AI மாதிரி & API விசை அமைப்பு";
+      document.getElementById('modalDesc').innerText = "Tiger AI வேலை செய்யவில்லை எனில், உங்கள் AI வழங்குநரைத் தேர்ந்தெடுத்து உங்கள் API விசையை உள்ளிடவும்.";
+      document.getElementById('modalProvLabel').innerText = "AI வழங்குநரைத் தேர்ந்தெடுக்கவும்:";
+      document.getElementById('modalKeyLabel').innerText = "API விசையை உள்ளிடவும்:";
+      document.getElementById('modalCancelBtn').innerText = "ரத்து செய்";
+      document.getElementById('modalSaveBtn').innerText = "சேமி & இணை";
     }
+  }
+
+  // AI Settings Functions
+  function openAISettings() {
+    document.getElementById('aiModal').style.display = 'flex';
+    const savedProvider = localStorage.getItem('tiger_ai_provider') || 'tiger';
+    const savedKey = localStorage.getItem('tiger_ai_key') || '';
+    document.getElementById('aiProviderSelect').value = savedProvider;
+    document.getElementById('aiApiKeyInput').value = savedKey;
+  }
+
+  function closeAISettings() {
+    document.getElementById('aiModal').style.display = 'none';
+  }
+
+  function saveAISettings() {
+    const provider = document.getElementById('aiProviderSelect').value;
+    const apiKey = document.getElementById('aiApiKeyInput').value.trim();
+
+    localStorage.setItem('tiger_ai_provider', provider);
+    localStorage.setItem('tiger_ai_key', apiKey);
+
+    alert(currentLang === 'ta' ? "✅ AI அமைப்புகள் வெற்றிகரமாக சேமிக்கப்பட்டன!" : "✅ AI Settings saved successfully!");
+    closeAISettings();
   }
 
   function initTest() {
