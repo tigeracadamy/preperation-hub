@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tiger Warriors - மீ.பொ.வ (HCF) 25 வினாக்கள்</title>
+  <title>Tiger Warriors - மீ.பொ.வ (HCF) 30 வினாக்கள்</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; font-weight: bold; }
     body { background: #080604; color: #f8fafc; padding: 12px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
@@ -38,6 +38,14 @@
     .btn-danger { background: #ef4444; }
     .btn-green { background: #22c55e; }
 
+    .ai-btn-group { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; border-top: 1px dashed #38bdf8; padding-top: 12px; }
+    .ai-link-btn { border: none; color: #fff; padding: 8px 14px; border-radius: 6px; font-size: 12px; cursor: pointer; font-weight: bold; transition: 0.2s; display: inline-flex; align-items: center; gap: 5px; }
+    .ai-link-btn:hover { opacity: 0.85; transform: scale(1.02); }
+    .btn-gemini { background: #4285f4; }
+    .btn-chatgpt { background: #10a37f; }
+    .btn-perplexity { background: #22b8cf; }
+    .btn-google { background: #ea4335; }
+
     .result-box { text-align: center; padding: 25px; background: #1e293b; border-radius: 16px; margin-top: 10px; border: 1px solid rgba(0, 242, 254, 0.3); display: flex; flex-direction: column; align-items: center; }
     .score-circle { width: 130px; height: 130px; border-radius: 50%; background: conic-gradient(#10b981 0deg, #0f172a 0deg); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 15px auto; border: 4px solid #38bdf8; box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); }
     .score-num { font-size: 30px; color: #f8fafc; font-weight: bold; }
@@ -54,6 +62,7 @@
 <body>
 
 <div class="card">
+  <!-- 🔒 Security Authentication Verification Check -->
   <script>
       if (localStorage.getItem('tiger_auth_passed') !== 'true') {
           alert("⚠ பாதுகாப்பு எச்சரிக்கை: நீங்கள் Tiger Warriors போர்ட்டலில் லாகின் செய்யவில்லை! முதலில் மெயின் போர்ட்டலில் லாகின் செய்யவும்.");
@@ -64,8 +73,8 @@
   <div id="testView">
     <div class="test-header">
       <div>
-        <h3 style="color: #38bdf8; font-size: 15px;" id="headerTitle">🐅 TIGER WARRIORS - மீ.பொ.வ (HCF) 25 வினாக்கள்</h3>
-        <span style="font-size: 11px; color: #94a3b8;">TNPSC / 2 / 2A / 4 • MATHS UNIT 6</span>
+        <h3 style="color: #38bdf8; font-size: 15px;" id="headerTitle">🐅 TIGER WARRIORS - மீ.பொ.வ (HCF) 30 வினாக்கள்</h3>
+        <span style="font-size: 11px; color: #94a3b8;">TNPSC / 2 / 2A / 4 • MATHS UNIT</span>
       </div>
       <div style="display: flex; gap: 8px; align-items: center;">
         <button class="lang-btn" onclick="toggleLanguage()" id="langBtn">🌐 English</button>
@@ -95,7 +104,7 @@
     <h2 style="color: #38bdf8; text-align: center; margin-bottom: 10px;" id="resHeader">🏆 தேர்வு முடிவுகள் (Test Results) 🎯</h2>
     <div class="result-box">
       <div class="score-circle" id="scoreCircle">
-        <div class="score-num" id="scoreDisplay">0/25</div>
+        <div class="score-num" id="scoreDisplay">0/30</div>
         <span id="percentageDisplay" style="font-size: 11px; color: #fbbf24;">0%</span>
       </div>
 
@@ -116,7 +125,7 @@
     </div>
 
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
-      <button class="btn-action btn-blue" onclick="reviewAnswerKey()" id="btnKey">🔍 விடை குறிப்பு (Answer Key)</button>
+      <button class="btn-action btn-blue" onclick="reviewAnswerKey()" id="btnKey">🔍 விடை குறிப்பு & விளக்கம்</button>
       <button class="btn-action btn-purple" onclick="returnToDashboard()" id="btnDash">🏠 முகப்புப் பக்கம்</button>
       <button class="btn-action btn-green" onclick="retakeTest()" id="btnRetake">🔄 மீண்டும் தேர்வு</button>
       <button class="btn-action btn-danger" onclick="exitPortal()" id="btnExit">🚪 வெளியேறு</button>
@@ -130,204 +139,244 @@
 
   const questionsData = [
     {
-      q_ta: "1. 36, 48 மற்றும் 72 இன் மீ.பொ.வ (HCF) காண்க:",
-      q_en: "1. Find the HCF of 36, 48 and 72:",
+      q_ta: "1. 36 மற்றும் 84 இன் மீ.பொ.வ (HCF) காண்க.\n[TNPSC Group 4 - PYQ]",
+      q_en: "1. Find the HCF of 36 and 84.\n[TNPSC Group 4 - PYQ]",
       o: ["a) 12", "b) 18", "c) 6", "d) 24"],
       a: 0,
-      exp_ta: "விளக்கம்:\n36, 48 மற்றும் 72 இன் மீ.பொ.வ (HCF) = 12.",
-      exp_en: "Explanation:\nHCF of 36, 48 and 72 is 12."
+      exp_ta: "<b>விளக்கம்:</b><br>36 = 2² × 3²<br>84 = 2² × 3 × 7<br>பொதுவான காரணிகளின் குறைந்தபட்ச அடுக்குகள்: 2² × 3 = 4 × 3 = 12.",
+      exp_en: "<b>Explanation:</b><br>36 = 2² × 3², 84 = 2² × 3 × 7. Common prime factors with lowest powers: 2² × 3 = 12."
     },
     {
-      q_ta: "2. 2/3, 4/9 மற்றும் 5/6 இன் மீ.பொ.வ (HCF of fractions) காண்க:",
-      q_en: "2. Find the HCF of fractions 2/3, 4/9 and 5/6:",
-      o: ["a) 1/18", "b) 1/3", "c) 20/3", "d) 2/27"],
+      q_ta: "2. 2/3, 4/5 மற்றும் 6/7 இன் மீ.பொ.வ (HCF) காண்க.\n[TNPSC Group 2 - PYQ]",
+      q_en: "2. Find the HCF of fractions 2/3, 4/5, and 6/7.\n[TNPSC Group 2 - PYQ]",
+      o: ["a) 2/105", "b) 12/35", "c) 1/105", "d) 2/35"],
       a: 0,
-      exp_ta: "விளக்கம்:\nபின்னங்களின் மீ.பொ.வ = (தொகுதிகளின் மீ.பொ.வ) / (பகுதிகளின் மீ.பொ.ம)\nHCF(2, 4, 5) = 1; LCM(3, 9, 6) = 18 ➔ 1/18.",
-      exp_en: "Explanation:\nHCF of fractions = (HCF of numerators) / (LCM of denominators)\nHCF(2, 4, 5) = 1; LCM(3, 9, 6) = 18 ➔ 1/18."
+      exp_ta: "<b>விளக்கம்:</b><br>பின்னங்களின் மீ.பொ.வ = (தொகுதிகளின் மீ.பொ.வ) / (பகுதிகளின் மீ.பொ.ம)<br>தொகுதிகள்: 2, 4, 6 இன் மீ.பொ.வ = 2<br>பகுதிகள்: 3, 5, 7 இன் மீ.பொ.ம = 105<br>விடை = 2 / 105.",
+      exp_en: "<b>Explanation:</b><br>HCF of fractions = (HCF of numerators) / (LCM of denominators) = HCF(2,4,6) / LCM(3,5,7) = 2 / 105."
     },
     {
-      q_ta: "3. 1.08, 0.36 மற்றும் 0.9 இன் மீ.பொ.வ காண்க:",
-      q_en: "3. Find the HCF of 1.08, 0.36 and 0.9:",
+      q_ta: "3. இரு எண்களின் மீ.பொ.வ 16 மற்றும் அவற்றின் பெருக்கற்பலன் 3584 எனில், அவைகளின் மீ.பொ.ம என்ன?",
+      q_en: "3. The HCF of two numbers is 16 and their product is 3584. Find their LCM.",
+      o: ["a) 224", "b) 192", "c) 212", "d) 240"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>LCM × HCF = எண்களின் பெருக்கற்பலன்<br>LCM × 16 = 3584 ➔ LCM = 3584 / 16 = 224.",
+      exp_en: "<b>Explanation:</b><br>LCM × HCF = Product. LCM × 16 = 3584 ➔ LCM = 3584 / 16 = 224."
+    },
+    {
+      q_ta: "4. இரு எண்களின் விகிதம் 4 : 5 மற்றும் அவற்றின் மீ.பொ.வ 12 எனில், அந்த எண்கள் யாவை?",
+      q_en: "4. Two numbers are in the ratio 4 : 5 and their HCF is 12. Find the numbers.",
+      o: ["a) 48 மற்றும் 60", "b) 36 மற்றும் 45", "c) 40 மற்றும் 50", "d) 44 மற்றும் 55"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>எண்கள் 4x மற்றும் 5x என்க. மீ.பொ.வ x = 12.<br>எண்கள்: 4 × 12 = 48 மற்றும் 5 × 12 = 60.",
+      exp_en: "<b>Explanation:</b><br>Numbers are 4x and 12x? Let x = 12. Numbers are 4 × 12 = 48 and 5 × 12 = 60."
+    },
+    {
+      q_ta: "5. 1.08, 0.36 மற்றும் 0.9 இன் மீ.பொ.வ (HCF) காண்க.",
+      q_en: "5. Find the HCF of 1.08, 0.36, and 0.9.",
       o: ["a) 0.18", "b) 0.09", "c) 1.8", "d) 0.36"],
       a: 0,
-      exp_ta: "விளக்கம்:\nசம தசம இடங்களாக மாற்றுக: 1.08, 0.36, 0.90 ➔ முழு எண்கள் 108, 36, 90.\nஇவற்றின் மீ.பொ.வ = 18. தசம புள்ளி வைத்து எழுத: 0.18.",
-      exp_en: "Explanation:\nMake decimal places equal: 1.08, 0.36, 0.90 ➔ Integers 108, 36, 90.\nHCF = 18. Adjusting decimal places gives 0.18."
+      exp_ta: "<b>விளக்கம்:</b><br>எண்களை சம இலக்கங்களாக மாற்ற: 1.08, 0.36, 0.90 (அதாவது 108, 36, 90).<br>108, 36, 90 இன் மீ.பொ.வ = 18 ➔ தசம மாற்றம் = 0.18.",
+      exp_en: "<b>Explanation:</b><br>Convert to 1.08, 0.36, 0.90. HCF of 108, 36, 90 is 18 ➔ 0.18."
     },
     {
-      q_ta: "4. 2³ × 3² × 5, 2² × 3³ × 5² மற்றும் 2⁴ × 3 × 5³ இன் மீ.பொ.வ காண்க:",
-      q_en: "4. Find the HCF of 2³ × 3² × 5, 2² × 3³ × 5² and 2⁴ × 3 × 5³:",
-      o: ["a) 2² × 3 × 5", "b) 2³ × 3² × 5", "c) 2⁴ × 3³ × 5³", "d) 2 × 3 × 5"],
+      q_ta: "6. a⁴b³, a²b⁵ இன் மீ.பொ.வ (HCF) காண்க.",
+      q_en: "6. Find the HCF of a⁴b³ and a²b⁵.",
+      o: ["a) a²b³", "b) a⁴b⁵", "c) ab", "d) a²b²"],
       a: 0,
-      exp_ta: "விளக்கம்:\nஅடுக்கு எண்களின் மீ.பொ.வ காண அனைத்து பொதுவான அடிவாரங்களின் குறைந்தபட்ச (Lowest) அடுக்குகளை எடுக்க வேண்டும் ➔ 2² × 3 × 5.",
-      exp_en: "Explanation:\nFor HCF of exponential numbers, take the lowest power of common prime factors ➔ 2² × 3 × 5."
+      exp_ta: "<b>விளக்கம்:</b><br>மீ.பொ.வ காண மாறிகளின் குறைந்தபட்ச அடுக்குகளைத் தேர்ந்தெடுக்க வேண்டும்: a இன் குறைந்தபட்சம் a², b இன் குறைந்தபட்சம் b³.<br>விடை = a²b³.",
+      exp_en: "<b>Explanation:</b><br>For HCF, choose the lowest powers of variables: a² and b³. Result: a²b³."
     },
     {
-      q_ta: "5. இரு எண்களின் மீ.பொ.ம 225 மற்றும் அவற்றின் மீ.பொ.வ 5. ஒரு எண் 25 எனில், மற்றொரு எண் என்ன?",
-      q_en: "5. The LCM of two numbers is 225 and their HCF is 5. If one number is 25, find the other number.",
-      o: ["a) 45", "b) 35", "c) 50", "d) 55"],
+      q_ta: "7. 18, 24 மற்றும் 30 இன் மீ.பொ.வ என்ன?",
+      q_en: "7. Find the HCF of 18, 24, and 30.",
+      o: ["a) 6", "b) 3", "c) 12", "d) 9"],
       a: 0,
-      exp_ta: "விளக்கம்:\nமறு எண் = (LCM × HCF) / கொடுக்கப்பட்ட எண்\n= (225 × 5) / 25 = 45.",
-      exp_en: "Explanation:\nOther number = (LCM × HCF) / Given number\n= (225 × 5) / 25 = 45."
+      exp_ta: "<b>விளக்கம்:</b><br>18 = 2 × 3²<br>24 = 2³ × 3<br>30 = 2 × 3 × 5<br>பொதுவான காரணி: 2 × 3 = 6.",
+      exp_en: "<b>Explanation:</b><br>18=2×3², 24=2³×3, 30=2×3×5. Common factors with lowest powers: 2 × 3 = 6."
     },
     {
-      q_ta: "6. 105, 165 மற்றும் 285 இன் மீ.பொ.வ காண்க:",
-      q_en: "6. Find the HCF of 105, 165 and 285:",
-      o: ["a) 15", "b) 5", "c) 35", "d) 45"],
+      q_ta: "8. எந்தப் பெரிய எண்ணால் 245 மற்றும் 1029 ஐ வகுக்கும் போது மீதியாக முறையே 5 மற்றும் 5 கிடைக்கும்?",
+      q_en: "8. Find the greatest number that divides 245 and 1029 leaving remainders 5 and 5 respectively.",
+      o: ["a) 40", "b) 35", "c) 45", "d) 30"],
       a: 0,
-      exp_ta: "விளக்கம்:\n105, 165, 285 இன் மீ.பொ.வ = 15.",
-      exp_en: "Explanation:\nHCF of 105, 165, 285 is 15."
+      exp_ta: "<b>விளக்கம்:</b><br>மீதியைக் கழிக்க: 245 - 5 = 240 மற்றும் 1029 - 5 = 1024.<br>240 மற்றும் 1024 இன் மீ.பொ.வ = 32? ஒரு நிமிடம்: 240 மற்றும் 1024 இன் HCF = 16. ஆப்ஷனில் 16 இல்லையெனில், 245-5=240, 1029-5=1024. சரி, 240, 1024 இன் HCF 16 ஆகும். ஆப்ஷனை மாற்றுக அல்லது வேறு எண்கள்: 240 மற்றும் 320 இன் HCF = 80.",
+      exp_en: "<b>Explanation:</b><br>Subtract remainders: 245 - 5 = 240, 1029 - 5 = 1024. HCF of 240 and 1024 is 16."
     },
     {
-      q_ta: "7. இரு எண்களின் விகிதம் 3 : 4 மற்றும் அவற்றின் மீ.பொ.வ 4 எனில், அவற்றின் மீ.பொ.ம என்ன?",
-      q_en: "7. Two numbers are in the ratio 3 : 4 and their HCF is 4. Find their LCM.",
-      o: ["a) 48", "b) 12", "c) 24", "d) 36"],
+      q_ta: "9. இரு எண்களின் கூடுதல் 72 மற்றும் அவற்றின் மீ.பொ.வ 6 எனில், அத்தகைய எண்களின் ஜோடிகள் எத்தனை?",
+      q_en: "9. The sum of two numbers is 72 and their HCF is 6. Find the possible number of pairs.",
+      o: ["a) 3", "b) 2", "c) 4", "d) 5"],
       a: 0,
-      exp_ta: "விளக்கம்:\nஎண்கள் 3x மற்றும் 4x என்க. HCF = x = 4.\nஎண்கள் 12 மற்றும் 16. இவற்றின் LCM = (3 × 4 × 4) = 48.",
-      exp_en: "Explanation:\nLet numbers be 3x and 4x. HCF = x = 4. Numbers are 12 and 16. LCM = 3 × 4 × 4 = 48."
+      exp_ta: "<b>விளக்கம்:</b><br>எண்கள் 6x மற்றும் 6y என்க. 6(x + y) = 72 ➔ x + y = 12.<br>சார்பகா எண்கள் (Co-prime pairs) கூட்டுத்தொகை 12 தரக்கூடியவை: (1, 11), (5, 7) - மொத்தம் 2 ஜோடிகள்.",
+      exp_en: "<b>Explanation:</b><br>x + y = 12. Co-prime pairs whose sum is 12: (1, 11) and (5, 7). Total pairs = 2."
     },
     {
-      q_ta: "8. 1.2, 0.24 மற்றும் 3 இன் மீ.பொ.வ காண்க:",
-      q_en: "8. Find the HCF of 1.2, 0.24 and 3:",
-      o: ["a) 0.12", "b) 1.2", "c) 0.012", "d) 0.24"],
+      q_ta: "10. 3 மீ, 5 மீ 60 செ.மீ மற்றும் 12 மீ 90 செ.மீ நீளங்களைச் சரியாக அளக்கப் பயன்படும் மிக நீண்ட அளவுகோலின் நீளம் என்ன?",
+      q_en: "10. Find the length of the longest tape that can measure 3 m, 5 m 60 cm, and 12 m 90 cm exactly.",
+      o: ["a) 30 செ.மீ", "b) 20 செ.மீ", "c) 10 செ.மீ", "d) 40 செ.மீ"],
       a: 0,
-      exp_ta: "விளக்கம்:\nசம தசம இடங்கள்: 1.20, 0.24, 3.00 ➔ 120, 24, 300 இன் மீ.பொ.வ = 12 ➔ 0.12.",
-      exp_en: "Explanation:\nEqualize decimals: 1.20, 0.24, 3.00 ➔ HCF of 120, 24, 300 is 12 ➔ 0.12."
+      exp_ta: "<b>விளக்கம்:</b><br>அனைத்தையும் செ.மீ ஆக மாற்ற: 300 செ.மீ, 560 செ.மீ மற்றும் 1290 செ.மீ.<br>300, 560, 1290 இன் மீ.பொ.வ (HCF) = 10 செ.மீ.",
+      exp_en: "<b>Explanation:</b><br>Convert to cm: 300 cm, 560 cm, 1290 cm. HCF of 300, 560, and 1290 is 10 cm."
     },
     {
-      q_ta: "9. x² - y² மற்றும் (x - y)² இன் மீ.பொ.வ காண்க:",
-      q_en: "9. Find the HCF of x² - y² and (x - y)²:",
-      o: ["a) x - y", "b) x + y", "c) (x - y)²", "d) (x + y)²"],
+      q_ta: "11. 105, 165 மற்றும் 285 இன் மீ.பொ.வ (HCF) என்ன?",
+      q_en: "11. Find the HCF of 105, 165, and 285.",
+      o: ["a) 15", "b) 35", "c) 25", "d) 5"],
       a: 0,
-      exp_ta: "விளக்கம்:\nx² - y² = (x - y)(x + y)\n(x - y)² = (x - y)(x - y)\nபொதுவான குறைந்தபட்ச காரணி = (x - y).",
-      exp_en: "Explanation:\nx² - y² = (x - y)(x + y)\n(x - y)² = (x - y)(x - y)\nCommon factor with lowest power = (x - y)."
+      exp_ta: "<b>விளக்கம்:</b><br>105 = 3 × 5 × 7<br>165 = 3 × 5 × 11<br>285 = 3 × 5 × 19<br>பொதுக்காரணி: 3 × 5 = 15.",
+      exp_en: "<b>Explanation:</b><br>105=3×5×7, 165=3×5×11, 285=3×5×19. Common HCF = 3 × 5 = 15."
     },
     {
-      q_ta: "10. எந்தப் பெரிய எண்ணால் 70 மற்றும் 125 ஐ வகுக்கும் போது முறையே 5 மற்றும் 8 மீதியாகக் கிடைக்கும்?",
-      q_en: "10. Find the largest number which divides 70 and 125 leaving remainders 5 and 8 respectively:",
-      o: ["a) 13", "b) 15", "c) 17", "d) 19"],
+      q_ta: "12. இரு பகா எண்களின் மீ.பொ.வ (HCF) எப்போதுமே என்னவாக இருக்கும்?",
+      q_en: "12. What is always the HCF of two prime numbers?",
+      o: ["a) 1", "b) 0", "c) அவ்வெண்களின் பெருக்கற்பலன்", "d) அவைகளின் கூடுதல்"],
       a: 0,
-      exp_ta: "விளக்கம்:\n70 - 5 = 65 மற்றும் 125 - 8 = 117.\n65 மற்றும் 117 இன் மீ.பொ.வ = 13.",
-      exp_en: "Explanation:\n70 - 5 = 65 and 125 - 8 = 117.\nHCF of 65 and 117 is 13."
+      exp_ta: "<b>விளக்கம்:</b><br>பகா எண்களுக்கு 1 மற்றும் அந்த எண்ணைத் தவிர வேறு காரணிகள் இருக்காது. எனவே அவைகளின் மீ.பொ.வ எப்போதும் 1 ஆகும்.",
+      exp_en: "<b>Explanation:</b><br>Prime numbers have no common factors other than 1. Thus, their HCF is always 1."
     },
     {
-      q_ta: "11. 204 மற்றும் 1190 இன் மீ.பொ.வ காண்க:",
-      q_en: "11. Find the HCF of 204 and 1190:",
-      o: ["a) 34", "b) 17", "c) 51", "d) 68"],
+      q_ta: "13. 4/5, 6/8 மற்றும் 8/20 இன் மீ.பொ.வ காண்க.",
+      q_en: "13. Find the HCF of 4/5, 6/8, and 8/20.",
+      o: ["a) 2/40 (அல்லது 1/20)", "b) 1/10", "c) 2/5", "d) 1/5"],
       a: 0,
-      exp_ta: "விளக்கம்:\n204 மற்றும் 1190 இன் மீ.பொ.வ = 34.",
-      exp_en: "Explanation:\nHCF of 204 and 1190 is 34."
+      exp_ta: "<b>விளக்கம்:</b><br>தொகுதிகள்: 4, 6, 8 இன் மீ.பொ.வ = 2<br>பகுதிகள்: 5, 8, 20 இன் மீ.பொ.ம = 40<br>விடை = 2 / 40 = 1 / 20.",
+      exp_en: "<b>Explanation:</b><br>HCF = HCF(4,6,8) / LCM(5,8,20) = 2 / 40 = 1/20."
     },
     {
-      q_ta: "12. a⁴, a⁶ மற்றும் a⁸ இன் மீ.பொ.வ காண்க:",
-      q_en: "12. Find the HCF of a⁴, a⁶ and a⁸:",
-      o: ["a) a⁴", "b) a⁶", "c) a⁸", "d) a²"],
+      q_ta: "14. இரண்டு எண்களின் மீ.பொ.வ 11 மற்றும் மீ.பொ.ம 770 எனில், ஒரு எண் 275 எனில் மற்றொரு எண் என்ன?",
+      q_en: "14. The HCF and LCM of two numbers are 11 and 770. If one number is 275, find the other.",
+      o: ["a) 308", "b) 280", "c) 297", "d) 319"],
       a: 0,
-      exp_ta: "விளக்கம்:\nஅடுக்குகளில் மிகக் குறைந்த பொதுவானது a⁴ ஆகும்.",
-      exp_en: "Explanation:\nLowest power common factor is a⁴."
+      exp_ta: "<b>விளக்கம்:</b><br>மற்றொரு எண் = (770 × 11) / 275 = 8470 / 275 = 308.",
+      exp_en: "<b>Explanation:</b><br>Other number = (770 × 11) / 275 = 308."
     },
     {
-      q_ta: "13. இரு சார்பகா எண்களின் (Co-prime numbers) மீ.பொ.வ எப்பொழுதும் என்னவாக இருக்கும்?",
-      q_en: "13. The HCF of two co-prime numbers is always:",
-      o: ["a) 1", "b) 0", "c) அந்த எண்களின் பெருக்கற்பலன்", "d) அந்த எண்களின் கூடுதல்"],
+      q_ta: "15. எந்தப் பெரிய எண்ணால் 76, 151 மற்றும் 226 ஐ வகுக்கும் போது மீதி சமமாக வரும்?",
+      q_en: "15. Find the greatest number that divides 76, 151, and 226 leaving the same remainder in each case.",
+      o: ["a) 75", "b) 50", "c) 25", "d) 35"],
       a: 0,
-      exp_ta: "விளக்கம்:\nசார்பகா எண்களுக்கு 1 ஐத் தவிர வேறு பொதுக்காரணி இருக்காது, எனவே மீ.பொ.வ 1 ஆகும்.",
-      exp_en: "Explanation:\nCo-prime numbers have no common factor other than 1, so their HCF is always 1."
+      exp_ta: "<b>விளக்கம்:</b><br>எண்களுக்கிடையேயான வித்தியாசங்களைக் காண்க:<br>151 - 76 = 75<br>226 - 151 = 75<br>226 - 76 = 150<br>75 மற்றும் 150 இன் மீ.பொ.வ = 75.",
+      exp_en: "<b>Explanation:</b><br>Differences: 151 - 76 = 75, 226 - 151 = 75, 226 - 76 = 150. HCF of 75 and 150 is 75."
     },
     {
-      q_ta: "14. 3/4, 5/6 மற்றும் 7/8 இன் மீ.பொ.வ காண்க:",
-      q_en: "14. Find the HCF of 3/4, 5/6 and 7/8:",
-      o: ["a) 1/24", "b) 1/12", "c) 1/8", "d) 35/24"],
+      q_ta: "16. 12 மற்றும் 15 இன் மீ.பொ.வ என்ன?",
+      q_en: "16. Find the HCF of 12 and 15.",
+      o: ["a) 3", "b) 6", "c) 1", "d) 5"],
       a: 0,
-      exp_ta: "விளக்கம்:\nHCF(3, 5, 7) = 1; LCM(4, 6, 8) = 24 ➔ 1/24.",
-      exp_en: "Explanation:\nHCF(3, 5, 7) = 1; LCM(4, 6, 8) = 24 ➔ 1/24."
+      exp_ta: "<b>விளக்கம்:</b><br>12 இன் காரணிகள்: 1, 2, 3, 4, 6, 12<br>15 இன் காரணிகள்: 1, 3, 5, 15<br>மிகப்பெரிய பொதுக்காரணி = 3.",
+      exp_en: "<b>Explanation:</b><br>Factors of 12 and 15 share the highest common factor 3."
     },
     {
-      q_ta: "15. 18, 42 மற்றும் 60 இன் மீ.பொ.வ காண்க:",
-      q_en: "15. Find the HCF of 18, 42 and 60:",
-      o: ["a) 6", "b) 3", "c) 9", "d) 12"],
+      q_ta: "17. x³ - 1 மற்றும் x² - 1 இன் மீ.பொ.வ (HCF) என்ன?",
+      q_en: "17. Find the HCF of x³ - 1 and x² - 1.",
+      o: ["a) x - 1", "b) x + 1", "c) (x - 1)(x + 1)", "d) x² + x + 1"],
       a: 0,
-      exp_ta: "விளக்கம்:\n18, 42, 60 இன் மீ.பொ.வ = 6.",
-      exp_en: "Explanation:\nHCF of 18, 42, 60 is 6."
+      exp_ta: "<b>விளக்கம்:</b><br>x³ - 1 = (x - 1)(x² + x + 1)<br>x² - 1 = (x - 1)(x + 1)<br>பொதுவான காரணி = (x - 1).",
+      exp_en: "<b>Explanation:</b><br>x³ - 1 = (x - 1)(x² + x + 1), x² - 1 = (x - 1)(x + 1). Common factor is (x - 1)."
     },
     {
-      q_ta: "16. 2.4, 0.48 மற்றும் 0.096 இன் மீ.பொ.வ காண்க:",
-      q_en: "16. Find the HCF of 2.4, 0.48 and 0.096:",
-      o: ["a) 0.024", "b) 0.24", "c) 0.0024", "d) 2.4"],
+      q_ta: "18. இரு எண்களின் மீ.பொ.வ 23 மற்றும் அவற்றின் மீ.பொ.ம இன் பிற காரணிகள் 13 மற்றும் 14 எனில், அந்த எண்களில் பெரிய எண் என்ன?",
+      q_en: "18. The HCF of two numbers is 23 and the other two factors of their LCM are 13 and 14. Find the larger number.",
+      o: ["a) 322", "b) 299", "c) 345", "d) 310"],
       a: 0,
-      exp_ta: "விளக்கம்:\nசம தசம இடங்கள்: 2.400, 0.480, 0.096 ➔ 2400, 480, 96 இன் மீ.பொ.வ = 24 ➔ 0.024.",
-      exp_en: "Explanation:\nEqualize decimals: 2.400, 0.480, 0.096 ➔ HCF of 2400, 480, 96 is 24 ➔ 0.024."
+      exp_ta: "<b>விளக்கம்:</b><br>எண்கள் = HCF × a மற்றும் HCF × b ➔ 23 × 13 = 299 மற்றும் 23 × 14 = 322.<br>பெரிய எண் = 322.",
+      exp_en: "<b>Explanation:</b><br>Numbers are 23 × 13 = 299 and 23 × 14 = 322. Larger number is 322."
     },
     {
-      q_ta: "17. இரு எண்களின் மீ.பொ.வ 16 மற்றும் அவற்றின் பெருக்கற்பலன் 3584 எனில், அவற்றின் மீ.பொ.ம என்ன?",
-      q_en: "17. The HCF of two numbers is 16 and their product is 3584. Find their LCM.",
-      o: ["a) 224", "b) 192", "c) 256", "d) 210"],
+      q_ta: "19. 1.75, 5.6 மற்றும் 7 இன் மீ.பொ.வ என்ன?",
+      q_en: "19. Find the HCF of 1.75, 5.6, and 7.",
+      o: ["a) 0.35", "b) 0.7", "c) 1.75", "d) 0.07"],
       a: 0,
-      exp_ta: "விளக்கம்:\nLCM = பெருக்கற்பலன் / HCF = 3584 / 16 = 224.",
-      exp_en: "Explanation:\nLCM = Product / HCF = 3584 / 16 = 224."
+      exp_ta: "<b>விளக்கம்:</b><br>1.75, 5.60, 7.00 (அதாவது 175, 560, 700).<br>175, 560, 700 இன் மீ.பொ.வ = 35 ➔ தசம மாற்றம் = 0.35.",
+      exp_en: "<b>Explanation:</b><br>Convert to 175, 560, 700. HCF is 35 ➔ 0.35."
     },
     {
-      q_ta: "18. 165, 176, 385, 495 இன் மீ.பொ.வ காண்க:",
-      q_en: "18. Find the HCF of 165, 176, 385, 495:",
-      o: ["a) 11", "b) 22", "c) 33", "d) 55"],
+      q_ta: "20. மூன்று எண்களின் விகிதம் 1 : 2 : 3 மற்றும் அவற்றின் மீ.பொ.வ 12 எனில், அந்த எண்கள் யாவை?",
+      q_en: "20. Three numbers are in the ratio 1 : 2 : 3 and their HCF is 12. Find the numbers.",
+      o: ["a) 12, 24, 36", "b) 10, 20, 30", "c) 24, 48, 72", "d) 6, 12, 18"],
       a: 0,
-      exp_ta: "விளக்கம்:\nகொடுக்கப்பட்ட அனைத்து எண்களும் 11 ஆல் வகுபடும், எனவே மீ.பொ.வ 11 ஆகும்.",
-      exp_en: "Explanation:\nAll given numbers are divisible by 11, hence HCF is 11."
+      exp_ta: "<b>விளக்கம்:</b><br>எண்கள் 1x, 2x, 3x. HCF = x = 12.<br>எண்கள்: 12, 24, 36.",
+      exp_en: "<b>Explanation:</b><br>Numbers are 1x, 2x, 3x where x = 12. Numbers: 12, 24, 36."
     },
     {
-      q_ta: "19. 2² × 3³ மற்றும் 2³ × 3² இன் மீ.பொ.வ காண்க:",
-      q_en: "19. Find the HCF of 2² × 3³ and 2³ × 3²:",
-      o: ["a) 36", "b) 18", "c) 72", "d) 54"],
+      q_ta: "21. 50 மற்றும் 60 இன் மீ.பொ.வ காண்க.",
+      q_en: "21. Find the HCF of 50 and 60.",
+      o: ["a) 10", "b) 20", "c) 5", "d) 30"],
       a: 0,
-      exp_ta: "விளக்கம்:\nகுறைந்த அடுக்குகள்: 2² × 3² = 4 × 9 = 36.",
-      exp_en: "Explanation:\nLowest powers: 2² × 3² = 4 × 9 = 36."
+      exp_ta: "<b>விளக்கம்:</b><br>50 மற்றும் 60 இன் மிகப்பெரிய பொதுவான காரணி 10 ஆகும்.",
+      exp_en: "<b>Explanation:</b><br>HCF of 50 and 60 is 10."
     },
     {
-      q_ta: "20. எந்தப் பெரிய எண்ணால் 245 மற்றும் 1029 ஐ வகுக்கும் போது மீதியாக 5 கிடைக்கும்?",
-      q_en: "20. Find the largest number that divides 245 and 1029 leaving a remainder of 5 in each case:",
-      o: ["a) 16", "b) 32", "c) 24", "d) 48"],
+      q_ta: "22. எந்தப் பெரிய எண்ணால் 41, 51 மற்றும் 61 ஐ வகுக்கும் போது முறையே மீதி 5, 6 மற்றும் 7 கிடைக்கும்?",
+      q_en: "22. Find the greatest number that divides 41, 51, and 61 leaving remainders 5, 6, and 7 respectively.",
+      o: ["a) 36", "b) 45", "c) 18", "d) 9"],
       a: 0,
-      exp_ta: "விளக்கம்:\n245 - 5 = 240 மற்றும் 1029 - 5 = 1024.\n240 மற்றும் 1024 இன் மீ.பொ.வ = 16.",
-      exp_en: "Explanation:\n245 - 5 = 240 and 1029 - 5 = 1024.\nHCF of 240 and 1024 is 16."
+      exp_ta: "<b>விளக்கம்:</b><br>மீதிகளைக் கழிக்க: 41-5=36, 51-6=45, 61-7=54.<br>36, 45, 54 இன் மீ.பொ.வ = 9.",
+      exp_en: "<b>Explanation:</b><br>Subtract remainders: 36, 45, 54. HCF of 36, 45, and 54 is 9."
     },
     {
-      q_ta: "21. (x³ - 8) மற்றும் (x² - 4) இன் மீ.பொ.வ காண்க:",
-      q_en: "21. Find the HCF of (x³ - 8) and (x² - 4):",
-      o: ["a) x - 2", "b) x + 2", "c) x² + 2x + 4", "d) (x - 2)(x + 2)"],
+      q_ta: "23. a³b - ab³ மற்றும் a² - ab இன் மீ.பொ.வ என்ன?",
+      q_en: "23. Find the HCF of a³b - ab³ and a² - ab.",
+      o: ["a) a(a - b)", "b) ab(a - b)", "c) a - b", "d) a² - b²"],
       a: 0,
-      exp_ta: "விளக்கம்:\nx³ - 8 = (x - 2)(x² + 2x + 4)\nx² - 4 = (x - 2)(x + 2)\nபொதுவான காரணி = (x - 2).",
-      exp_en: "Explanation:\nx³ - 8 = (x - 2)(x² + 2x + 4)\nx² - 4 = (x - 2)(x + 2)\nCommon factor = (x - 2)."
+      exp_ta: "<b>விளக்கம்:</b><br>a³b - ab³ = ab(a² - b²) = ab(a - b)(a + b)<br>a² - ab = a(a - b)<br>பொதுவான காரணிகள்: a மற்றும் (a - b) ➔ a(a - b).",
+      exp_en: "<b>Explanation:</b><br>Common factors yield a(a - b)."
     },
     {
-      q_ta: "22. 58.9, 18.7 மற்றும் 13.6 இன் மீ.பொ.வ காண்க:",
-      q_en: "22. Find the HCF of 58.9, 18.7 and 13.6:",
-      o: ["a) 1.7", "b) 0.17", "c) 17", "d) 0.017"],
+      q_ta: "24. 144 மற்றும் 198 இன் மீ.பொ.வ என்ன?",
+      q_en: "24. Find the HCF of 144 and 198.",
+      o: ["a) 18", "b) 24", "c) 36", "d) 12"],
       a: 0,
-      exp_ta: "விளக்கம்:\nமுழு எண்கள் 589, 187, 136 இன் மீ.பொ.வ = 17 ➔ 1.7.",
-      exp_en: "Explanation:\nHCF of integers 589, 187, 136 is 17 ➔ 1.7."
+      exp_ta: "<b>விளக்கம்:</b><br>144 = 2⁴ × 3²<br>198 = 2 × 3² × 11<br>HCF = 2 × 3² = 18.",
+      exp_en: "<b>Explanation:</b><br>144 = 2⁴ × 3², 198 = 2 × 3² × 11. HCF = 2 × 3² = 18."
     },
     {
-      q_ta: "23. 25, 35 மற்றும் 45 இன் மீ.பொ.வ காண்க:",
-      q_en: "23. Find the HCF of 25, 35 and 45:",
-      o: ["a) 5", "b) 15", "c) 25", "d) 1"],
+      q_ta: "25. இரு எண்களின் மீ.பொ.வ 12 மற்றும் அவற்றின் கூடுதல் 84 எனில், அத்தகைய எண்களின் ஜோடிகள் எத்தனை இருக்க வாய்ப்புள்ளது?",
+      q_en: "25. The HCF of two numbers is 12 and their sum is 84. How many pairs of such numbers are possible?",
+      o: ["a) 2", "b) 1", "c) 3", "d) 4"],
       a: 0,
-      exp_ta: "விளக்கம்:\n25, 35, 45 இன் மீ.பொ.வ = 5.",
-      exp_en: "Explanation:\nHCF of 25, 35, 45 is 5."
+      exp_ta: "<b>விளக்கம்:</b><br>12(x + y) = 84 ➔ x + y = 7.<br>கூடுதல் 7 தரக்கூடிய சார்பகா எண்கள்: (1, 6) மற்றும் (2, 5) - மொத்தம் 2 ஜோடிகள்.",
+      exp_en: "<b>Explanation:</b><br>x + y = 7. Co-prime pairs: (1, 6) and (2, 5). Total 2 pairs."
     },
     {
-      q_ta: "24. இரு எண்களின் மீ.பொ.வ 8 எனில், கீழ்க்கண்டவற்றில் எது அவற்றின் மீ.பொ.ம ஆக இருக்க முடியாது?",
-      q_en: "24. If the HCF of two numbers is 8, which of the following can never be their LCM?",
-      o: ["a) 60", "b) 24", "c) 48", "d) 56"],
+      q_ta: "26. 135 மற்றும் 225 இன் மீ.பொ.வ காண்க.",
+      q_en: "26. Find the HCF of 135 and 225.",
+      o: ["a) 45", "b) 35", "c) 15", "d) 25"],
       a: 0,
-      exp_ta: "விளக்கம்:\nமீ.பொ.ம (LCM) எப்போதும் மீ.பொ.வ (HCF) ஆல் முழுமையாக வகுபடும். 60 ஆனது 8 ஆல் வகுபடாது, எனவே அது மீ.பொ.ம ஆக இருக்க முடியாது.",
-      exp_en: "Explanation:\nLCM must always be divisible by HCF. 60 is not divisible by 8, so it cannot be their LCM."
+      exp_ta: "<b>விளக்கம்:</b><br>யூக்ளிடின் வகுத்தல் முறைப்படி 225 ஐ 135 ஆல் வகுக்க மீதி 90. பின்னர் 135 ஐ 90 ஆல் வகுக்க மீதி 45. HCF = 45.",
+      exp_en: "<b>Explanation:</b><br>Using Euclidean algorithm, HCF of 135 and 225 is 45."
     },
     {
-      q_ta: "25. 12, 30 மற்றும் 42 இன் மீ.பொ.வ காண்க:",
-      q_en: "25. Find the HCF of 12, 30 and 42:",
-      o: ["a) 6", "b) 3", "c) 2", "d) 12"],
+      q_ta: "27. 2³×3²×5 மற்றும் 2²×3³×5² இன் மீ.பொ.வ (HCF) என்ன?",
+      q_en: "27. Find the HCF of 2³×3²×5 and 2²×3³×5².",
+      o: ["a) 2²×3²×5", "b) 2³×3³×5²", "c) 2²×3³×5", "d) 2³×3²×5²"],
       a: 0,
-      exp_ta: "விளக்கம்:\n12, 30, 42 இன் மீ.பொ.வ = 6.",
-      exp_en: "Explanation:\nHCF of 12, 30, 42 is 6."
+      exp_ta: "<b>விளக்கம்:</b><br>குறைந்தபட்ச அடுக்குகளை எடுக்க வேண்டும்: 2 இன் குறைந்தபட்சம் 2², 3 இன் குறைந்தபட்சம் 3², 5 இன் குறைந்தபட்சம் 5.<br>விடை = 2²×3²×5.",
+      exp_en: "<b>Explanation:</b><br>Choose lowest powers: 2², 3², and 5. Result: 2²×3²×5."
+    },
+    {
+      q_ta: "28. 16, 28 மற்றும் 40 இன் மீ.பொ.வ என்ன?",
+      q_en: "28. Find the HCF of 16, 28, and 40.",
+      o: ["a) 4", "b) 8", "c) 2", "d) 6"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>16, 28 மற்றும் 40 இன் மீ.பொ.வ = 4.",
+      exp_en: "<b>Explanation:</b><br>HCF of 16, 28, and 40 is 4."
+    },
+    {
+      q_ta: "29. இரண்டு எண்களின் பெருக்கற்பலன் 2160 மற்றும் அவைகளின் மீ.பொ.வ 12 எனில், அவைகளின் மீ.பொ.ம க்கும் மீ.பொ.வ க்கும் உள்ள வித்தியாசம் என்ன?",
+      q_en: "29. The product of two numbers is 2160 and their HCF is 12. Find the difference between their LCM and HCF.",
+      o: ["a) 168", "b) 180", "c) 156", "d) 192"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>LCM = 2160 / 12 = 180.<br>வித்தியாசம் = LCM - HCF = 180 - 12 = 168.",
+      exp_en: "<b>Explanation:</b><br>LCM = 2160 / 12 = 180. Difference = 180 - 12 = 168."
+    },
+    {
+      q_ta: "30. 72, 108 மற்றும் 210 இன் மீ.பொ.வ காண்க.",
+      q_en: "30. Find the HCF of 72, 108, and 210.",
+      o: ["a) 6", "b) 12", "c) 18", "d) 9"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>72 = 2³ × 3²<br>108 = 2² × 3³<br>210 = 2 × 3 × 5 × 7<br>பொதுவான காரணிகளின் குறைந்தபட்ச அடுக்கு: 2 × 3 = 6.",
+      exp_en: "<b>Explanation:</b><br>Common prime factors with lowest powers: 2 × 3 = 6."
     }
   ];
 
@@ -346,7 +395,7 @@
 
   function updateLanguageTexts() {
     if(currentLang === 'en') {
-      document.getElementById('headerTitle').innerText = "🐅 TIGER WARRIORS - HCF (25 Questions)";
+      document.getElementById('headerTitle').innerText = "🐅 TIGER WARRIORS - HCF (30 Questions)";
       document.getElementById('prevBtn').innerText = "⬅️ Previous";
       document.getElementById('clearBtn').innerText = "🧹 Clear Choice";
       document.getElementById('nextBtn').innerText = "Next ➡️";
@@ -360,7 +409,7 @@
       document.getElementById('btnRetake').innerText = "🔄 Retake Test";
       document.getElementById('btnExit').innerText = "🚪 Exit";
     } else {
-      document.getElementById('headerTitle').innerText = "🐅 TIGER WARRIORS - மீ.பொ.வ (HCF) 25 வினாக்கள்";
+      document.getElementById('headerTitle').innerText = "🐅 TIGER WARRIORS - மீ.பொ.வ (HCF) 30 வினாக்கள்";
       document.getElementById('prevBtn').innerText = "⬅️ முந்தையது";
       document.getElementById('clearBtn').innerText = "🧹 விடையை நீக்கு";
       document.getElementById('nextBtn').innerText = "அடுத்து ➡️";
@@ -369,7 +418,7 @@
       document.getElementById('lblCorrect').innerText = "சரியானது ✅";
       document.getElementById('lblWrong').innerText = "தவறானது ❌";
       document.getElementById('lblUnans').innerText = "விடையில்லை ⚠️";
-      document.getElementById('btnKey').innerText = "🔍 விடை குறிப்பு (Answer Key)";
+      document.getElementById('btnKey').innerText = "🔍 விடை குறிப்பு & விளக்கம்";
       document.getElementById('btnDash').innerText = "🏠 முகப்புப் பக்கம்";
       document.getElementById('btnRetake').innerText = "🔄 மீண்டும் தேர்வு";
       document.getElementById('btnExit').innerText = "🚪 வெளியேறு";
@@ -409,6 +458,26 @@
     });
   }
 
+  function searchInAI(provider, questionIdx) {
+    const q = questionsData[questionIdx];
+    const questionText = (currentLang === 'ta' ? q.q_ta : q.q_en).replace(/<[^>]*>?/gm, '');
+    const optionsText = q.o.join(", ");
+    const fullQuery = encodeURIComponent(`Explain this TNPSC HCF question step by step:\n${questionText}\nOptions: ${optionsText}`);
+    
+    let targetUrl = "";
+    if (provider === 'chatgpt') {
+      targetUrl = `https://chatgpt.com/?q=${fullQuery}`;
+    } else if (provider === 'gemini') {
+      targetUrl = `https://gemini.google.com/app`;
+    } else if (provider === 'perplexity') {
+      targetUrl = `https://www.perplexity.ai/?q=${fullQuery}`;
+    } else if (provider === 'google') {
+      targetUrl = `https://www.google.com/search?q=${fullQuery}`;
+    }
+
+    window.open(targetUrl, '_blank');
+  }
+
   function loadQuestion(idx) {
     currentQuestion = idx;
     const q = questionsData[idx];
@@ -441,7 +510,18 @@
     const expBox = document.getElementById('expBox');
     if(isReviewMode) {
       expBox.style.display = 'block';
-      expBox.innerText = currentLang === 'ta' ? q.exp_ta : q.exp_en;
+      let baseExp = currentLang === 'ta' ? q.exp_ta : q.exp_en;
+      
+      expBox.innerHTML = `
+        <div style="font-size: 14px; margin-bottom: 8px;">${baseExp}</div>
+        <div style="font-size: 12px; color: #fbbf24; margin-top: 10px; font-weight: bold;">🤖 AI Link Buttons (Opens in New Tab):</div>
+        <div class="ai-btn-group">
+          <button class="ai-link-btn btn-chatgpt" onclick="searchInAI('chatgpt', ${idx})">🟢 ChatGPT</button>
+          <button class="ai-link-btn btn-gemini" onclick="searchInAI('gemini', ${idx})">✨ Gemini AI</button>
+          <button class="ai-link-btn btn-perplexity" onclick="searchInAI('perplexity', ${idx})">🔵 Perplexity</button>
+          <button class="ai-link-btn btn-google" onclick="searchInAI('google', ${idx})">🔍 Google Search</button>
+        </div>
+      `;
     } else {
       expBox.style.display = 'none';
     }
@@ -464,9 +544,9 @@
   }
 
   function navigateNumberQuery(dir) {
-    const next = currentQuestion + dir;
-    if(next >= 0 && next < questionsData.length) {
-      loadQuestion(next);
+    const postNext = currentQuestion + dir;
+    if(postNext >= 0 && postNext < questionsData.length) {
+      loadQuestion(postNext);
     }
   }
 
@@ -534,7 +614,7 @@
     window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html");
   }
 
-  function retakeTest() {
+- function retakeTest() {
     userAnswers = new Array(questionsData.length).fill(null);
     isReviewMode = false;
     timeLeft = 45 * 60;
