@@ -130,17 +130,16 @@
 <div id="aiModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center;">
   <div style="background: #0f172a; border: 1px solid #334155; padding: 25px; border-radius: 12px; width: 90%; max-width: 400px; box-shadow: 0 10px 25px rgba(0,0,0,0.5);">
     <h3 style="color: #38bdf8; font-size: 16px; margin-bottom: 12px;" id="modalTitle">⚙️ AI Model & API Key Configuration</h3>
-    <p style="font-size: 12px; color: #94a3b8; margin-bottom: 15px;" id="modalDesc">Choose your AI provider. Built-in API key is pre-configured.</p>
+    <p style="font-size: 12px; color: #94a3b8; margin-bottom: 15px;" id="modalDesc">Choose your AI provider. Key is pre-loaded.</p>
     
     <label style="font-size: 12px; color: #cbd5e1; display: block; margin-bottom: 5px;" id="modalProvLabel">Select AI Provider:</label>
     <select id="aiProviderSelect" style="width: 100%; padding: 10px; background: #1e293b; color: #fff; border: 1px solid #334155; border-radius: 6px; margin-bottom: 15px; font-weight: bold;">
-      <option value="tiger">🐅 Tiger AI (Default)</option>
       <option value="gemini">✨ Google Gemini AI</option>
       <option value="chatgpt">🟢 OpenAI ChatGPT</option>
       <option value="perplexity">🔵 Perplexity AI</option>
     </select>
 
-    <label style="font-size: 12px; color: #cbd5e1; display: block; margin-bottom: 5px;" id="modalKeyLabel">API Key (Pre-loaded):</label>
+    <label style="font-size: 12px; color: #cbd5e1; display: block; margin-bottom: 5px;" id="modalKeyLabel">API Key:</label>
     <input type="password" id="aiApiKeyInput" value="AQ.Ab8RN6IHlogSnx0E4sFeAmQGePRz0Nn1UcL3dI0aSdiYzs4jIg" style="width: 100%; padding: 10px; background: #1e293b; color: #fff; border: 1px solid #334155; border-radius: 6px; margin-bottom: 20px; font-size: 13px;">
 
     <div style="display: flex; gap: 10px; justify-content: flex-end;">
@@ -153,10 +152,9 @@
 <script>
   let currentLang = 'ta';
 
-  // Automatically set default API key on first load if not present
   if (!localStorage.getItem('tiger_ai_key')) {
     localStorage.setItem('tiger_ai_key', 'AQ.Ab8RN6IHlogSnx0E4sFeAmQGePRz0Nn1UcL3dI0aSdiYzs4jIg');
-    localStorage.setItem('tiger_ai_provider', 'tiger');
+    localStorage.setItem('tiger_ai_provider', 'gemini');
   }
 
   const questionsData = [
@@ -465,7 +463,7 @@
 
   function openAISettings() {
     document.getElementById('aiModal').style.display = 'flex';
-    const savedProvider = localStorage.getItem('tiger_ai_provider') || 'tiger';
+    const savedProvider = localStorage.getItem('tiger_ai_provider') || 'gemini';
     const savedKey = localStorage.getItem('tiger_ai_key') || 'AQ.Ab8RN6IHlogSnx0E4sFeAmQGePRz0Nn1UcL3dI0aSdiYzs4jIg';
     document.getElementById('aiProviderSelect').value = savedProvider;
     document.getElementById('aiApiKeyInput').value = savedKey;
@@ -519,6 +517,26 @@
     });
   }
 
+  function getDirectAILink(provider, questionText) {
+    const encodedQuery = encodeURIComponent("Explain this TNPSC question step by step: " + questionText);
+    if (provider === 'gemini') {
+      return `https://gemini.google.com/app`;
+    } else if (provider === 'chatgpt') {
+      return `https://chatgpt.com/?q=${encodedQuery}`;
+    } else if (provider === 'perplexity') {
+      return `https://www.perplexity.ai/?q=${encodedQuery}`;
+    } else {
+      return `https://gemini.google.com/app`;
+    }
+  }
+
+  function openSelectedAI(questionIdx) {
+    const provider = localStorage.getItem('tiger_ai_provider') || 'gemini';
+    const q = questionsData[questionIdx];
+    const targetUrl = getDirectAILink(provider, currentLang === 'ta' ? q.q_ta : q.q_en);
+    window.open(targetUrl, '_blank');
+  }
+
   async function loadQuestion(idx) {
     currentQuestion = idx;
     const q = questionsData[idx];
@@ -551,15 +569,17 @@
     const expBox = document.getElementById('expBox');
     if(isReviewMode) {
       expBox.style.display = 'block';
-      // Fetch explanation dynamically via selected AI provider
-      const provider = localStorage.getItem('tiger_ai_provider') || 'tiger';
+      const provider = localStorage.getItem('tiger_ai_provider') || 'gemini';
       let baseExp = currentLang === 'ta' ? q.exp_ta : q.exp_en;
       
-      if (provider !== 'tiger') {
-        expBox.innerText = `[Connected via ${provider.toUpperCase()} AI] \n` + baseExp;
-      } else {
-        expBox.innerText = baseExp;
-      }
+      expBox.innerHTML = `
+        <div>${baseExp}</div>
+        <div style="margin-top: 12px; border-top: 1px dashed #38bdf8; padding-top: 8px;">
+          <button onclick="openSelectedAI(${idx})" style="background: #2563eb; color: #fff; border: none; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: bold;">
+            🚀 Open Explanation in ${provider.toUpperCase()} AI
+          </button>
+        </div>
+      `;
     } else {
       expBox.style.display = 'none';
     }
