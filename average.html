@@ -28,7 +28,7 @@
     .option-card.correct-ans { border-color: #10b981; background: #065f46; font-weight: bold; }
     .option-card.wrong-ans { border-color: #ef4444; background: #7f1d1d; }
 
-    .explanation-box { background: #091326; border: 1px solid #38bdf8; border-radius: 8px; padding: 12px; margin-top: 14px; font-size: 13px; color: #7dd3fc; line-height: 1.5; }
+    .explanation-box { background: #091326; border: 1px solid #38bdf8; border-radius: 8px; padding: 14px; margin-top: 14px; font-size: 13px; color: #7dd3fc; line-height: 1.5; }
     
     .nav-btns { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
     .btn-action { background: #334155; color: #fff; border: none; padding: 10px 16px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 13px; text-align: center; }
@@ -38,9 +38,9 @@
     .btn-danger { background: #ef4444; }
     .btn-green { background: #22c55e; }
 
-    .ai-btn-group { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; border-top: 1px dashed #334155; padding-top: 10px; }
-    .ai-link-btn { border: none; color: #fff; padding: 6px 10px; border-radius: 5px; font-size: 11px; cursor: pointer; font-weight: bold; transition: 0.2s; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; }
-    .ai-link-btn:hover { opacity: 0.85; }
+    .ai-btn-group { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; border-top: 1px dashed #334155; padding-top: 10px; }
+    .ai-link-btn { border: none; color: #fff; padding: 8px 12px; border-radius: 6px; font-size: 12px; cursor: pointer; font-weight: bold; transition: 0.2s; text-decoration: none; display: inline-flex; align-items: center; gap: 5px; }
+    .ai-link-btn:hover { opacity: 0.85; transform: translateY(-1px); }
     .btn-gemini { background: #4285f4; }
     .btn-chatgpt { background: #10a37f; }
     .btn-perplexity { background: #22b8cf; }
@@ -86,7 +86,7 @@
     <div class="q-grid" id="questionGrid"></div>
 
     <div class="q-box">
-      <div id="qTitle" class="q-text">,</div>
+      <div id="qTitle" class="q-text"></div>
       <div id="optionsBox"></div>
       <div id="expBox" class="explanation-box" style="display: none;"></div>
     </div>
@@ -512,8 +512,8 @@
       let baseExp = currentLang === 'ta' ? q.exp_ta : q.exp_en;
       
       expBox.innerHTML = `
-        <div>${baseExp}</div>
-        <div style="font-size: 11px; color: #94a3b8; margin-top: 10px;">🤖 Search or Solve with AI (Opens in New Tab):</div>
+        <div style="white-space: pre-line;">${baseExp}</div>
+        <div style="font-size: 11px; color: #94a3b8; margin-top: 12px;">🤖 Search or Solve with AI (Opens in New Tab):</div>
         <div class="ai-btn-group">
           <button class="ai-link-btn btn-chatgpt" onclick="searchInAI('chatgpt', ${idx})">🟢 ChatGPT</button>
           <button class="ai-link-btn btn-gemini" onclick="searchInAI('gemini', ${idx})">✨ Gemini AI</button>
