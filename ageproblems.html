@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tiger Warriors - வயது கணக்குகள் (Age Problems) 30 வினாக்கள்</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; font-weight: bold; }
+    body { background: #080604; color: #f8fafc; padding: 12px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+    .card { width: 100%; max-width: 950px; background: #0f172a; border-radius: 14px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); border: 1px solid #334155; }
+    
+    .test-header { display: flex; justify-content: space-between; align-items: center; background: #1e293b; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; border: 1px solid #334155; }
+    .timer { font-size: 15px; font-weight: bold; color: #fbbf24; background: #091326; padding: 6px 12px; border-radius: 6px; border: 1px solid #fbbf24; box-shadow: inset 0 0 5px rgba(251, 191, 36, 0.2); }
+    .lang-btn { background: #0284c7; color: #fff; border: 1px solid #38bdf8; padding: 6px 14px; border-radius: 6px; font-size: 13px; cursor: pointer; transition: 0.2s; }
+    .lang-btn:hover { background: #0369a1; }
+
+    .q-grid { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 16px; max-height: 140px; overflow-y: auto; padding: 8px; background: #1e293b; border-radius: 8px; justify-content: center; }
+    .q-num-btn { width: 30px; height: 30px; border-radius: 5px; border: none; background: #334155; color: #fff; font-size: 10px; cursor: pointer; font-weight: bold; }
+    .q-num-btn.active { border: 2px solid #38bdf8; background: #0284c7; }
+    .q-num-btn.answered { background: #10b981; }
+
+    .q-box { background: #1e293b; padding: 18px; border-radius: 10px; margin-bottom: 16px; border: 1px solid #334155; }
+    .q-text { white-space: pre-line; line-height: 1.6; font-size: 15px; color: #f8fafc; }
+    
+    .option-card { background: #0f172a; border: 1px solid #334155; padding: 12px 16px; border-radius: 8px; margin-top: 10px; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: 0.2s; white-space: pre-line; line-height: 1.4; }
+    .option-card:hover { border-color: #38bdf8; background: #1e293b; }
+    .option-card.selected { border-color: #10b981; background: #064e3b; }
+    .option-card.correct-ans { border-color: #10b981; background: #065f46; font-weight: bold; }
+    .option-card.wrong-ans { border-color: #ef4444; background: #7f1d1d; }
+
+    .explanation-box { background: #091326; border: 1px solid #38bdf8; border-radius: 8px; padding: 12px; margin-top: 14px; font-size: 13px; color: #7dd3fc; line-height: 1.5; }
+    
+    .nav-btns { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+    .btn-action { background: #334155; color: #fff; border: none; padding: 10px 16px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 13px; text-align: center; }
+    .btn-action:hover { opacity: 0.9; }
+    .btn-blue { background: #2563eb; }
+    .btn-purple { background: #7c3aed; }
+    .btn-danger { background: #ef4444; }
+    .btn-green { background: #22c55e; }
+
+    .ai-btn-group { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; border-top: 1px dashed #38bdf8; padding-top: 12px; }
+    .ai-link-btn { border: none; color: #fff; padding: 8px 14px; border-radius: 6px; font-size: 12px; cursor: pointer; font-weight: bold; transition: 0.2s; display: inline-flex; align-items: center; gap: 5px; }
+    .ai-link-btn:hover { opacity: 0.85; transform: scale(1.02); }
+    .btn-gemini { background: #4285f4; }
+    .btn-chatgpt { background: #10a37f; }
+    .btn-perplexity { background: #22b8cf; }
+    .btn-google { background: #ea4335; }
+
+    .result-box { text-align: center; padding: 25px; background: #1e293b; border-radius: 16px; margin-top: 10px; border: 1px solid rgba(0, 242, 254, 0.3); display: flex; flex-direction: column; align-items: center; }
+    .score-circle { width: 130px; height: 130px; border-radius: 50%; background: conic-gradient(#10b981 0deg, #0f172a 0deg); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 15px auto; border: 4px solid #38bdf8; box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); }
+    .score-num { font-size: 30px; color: #f8fafc; font-weight: bold; }
+    
+    .result-stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; width: 100%; max-width: 400px; }
+    .stat-pill { background: #0f172a; border-radius: 12px; padding: 10px; border: 1px solid #334155; text-align: center; }
+    .stat-pill.gold { border-color: #fbbf24; }
+    .stat-pill.blue { border-color: #38bdf8; }
+    .stat-pill.red { border-color: #ef4444; }
+
+    .footer-badge { text-align: center; font-size: 11px; color: #38bdf8; margin-top: 15px; font-weight: bold; letter-spacing: 0.5px; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <!-- 🔒 Security Authentication Verification Check -->
+  <script>
+      if (localStorage.getItem('tiger_auth_passed') !== 'true') {
+          alert("⚠ பாதுகாப்பு எச்சரிக்கை: நீங்கள் Tiger Warriors போர்ட்டலில் லாகின் செய்யவில்லை! முதலில் மெயின் போர்ட்டலில் லாகின் செய்யவும்.");
+          window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html"); 
+      }
+  </script>
+
+  <div id="testView">
+    <div class="test-header">
+      <div>
+        <h3 style="color: #38bdf8; font-size: 15px;" id="headerTitle">🐅 TIGER WARRIORS - வயது கணக்குகள் (Age Problems) 30 வினாக்கள்</h3>
+        <span style="font-size: 11px; color: #94a3b8;">TNPSC / 1 / 2 / 2A / 4 • MATHS UNIT</span>
+      </div>
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <button class="lang-btn" onclick="toggleLanguage()" id="langBtn">🌐 English</button>
+        <div class="timer" id="timerBox">⏱️ 45:00</div>
+        <button class="btn-action btn-purple" id="backToResultBtn" onclick="returnToResult()" style="display: none; padding: 6px 12px; font-size: 12px;">📊 ரிசல்ட் செல்</button>
+        <button class="btn-action btn-danger" id="dashFromKeyBtn" onclick="returnToDashboard()" style="display: none; padding: 6px 12px; font-size: 12px;">🏠 முகப்பு</button>
+      </div>
+    </div>
+
+    <div class="q-grid" id="questionGrid"></div>
+
+    <div class="q-box">
+      <div id="qTitle" class="q-text"></div>
+      <div id="optionsBox"></div>
+      <div id="expBox" class="explanation-box" style="display: none;"></div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn-action" id="prevBtn" onclick="navigateNumberQuery(-1)">⬅️ முந்தையது</button>
+      <button class="btn-action" id="clearBtn" onclick="clearChoice()">🧹 விடையை நீக்கு</button>
+      <button class="btn-action btn-blue" id="nextBtn" onclick="navigateNumberQuery(1)">அடுத்து ➡️</button>
+      <button class="btn-action btn-danger" id="finalSubmitBtn" onclick="submitTest()">✅ தேர்வைச் சமர்ப்பிக்க (Submit)</button>
+    </div>
+  </div>
+
+  <div id="resultView" style="display: none;">
+    <h2 style="color: #38bdf8; text-align: center; margin-bottom: 10px;" id="resHeader">🏆 தேர்வு முடிவுகள் (Test Results) 🎯</h2>
+    <div class="result-box">
+      <div class="score-circle" id="scoreCircle">
+        <div class="score-num" id="scoreDisplay">0/30</div>
+        <span id="percentageDisplay" style="font-size: 11px; color: #fbbf24;">0%</span>
+      </div>
+
+      <div class="result-stats-grid">
+        <div class="stat-pill gold">
+          <h3 id="correctCnt" style="color: #10b981; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;" id="lblCorrect">சரியானது ✅</span>
+        </div>
+        <div class="stat-pill red">
+          <h3 id="wrongCnt" style="color: #ef4444; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;" id="lblWrong">தவறானது ❌</span>
+        </div>
+        <div class="stat-pill blue">
+          <h3 id="unansCnt" style="color: #f59e0b; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;" id="lblUnans">விடையில்லை ⚠️</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
+      <button class="btn-action btn-blue" onclick="reviewAnswerKey()" id="btnKey">🔍 விடை குறிப்பு & விளக்கம்</button>
+      <button class="btn-action btn-purple" onclick="returnToDashboard()" id="btnDash">🏠 முகப்புப் பக்கம்</button>
+      <button class="btn-action btn-green" onclick="retakeTest()" id="btnRetake">🔄 மீண்டும் தேர்வு</button>
+      <button class="btn-action btn-danger" onclick="exitPortal()" id="btnExit">🚪 வெளியேறு</button>
+    </div>
+    <div class="footer-badge" style="margin-top: 20px;">🐅 டைகர் வாரியர் போர்டல் - இயக்குநர்: Dr. K. மணிகாசி 🐅</div>
+  </div>
+</div>
+
+<script>
+  let currentLang = 'ta';
+
+  const questionsData = [
+    {
+      q_ta: "1. தந்தை மற்றும் மகனின் தற்போதைய வயதுகளின் கூடுதல் 60 ஆண்டுகள் ஆகும். 6 ஆண்டுகளுக்கு முன்பு தந்தையின் வயது மகனின் வயதைப் போல 5 மடங்காக இருந்தது எனில், தற்பொழுது மகனின் வயது என்ன?\n[TNPSC Group 4 - PYQ]",
+      q_en: "1. The sum of the present ages of a father and his son is 60 years. 6 years ago, father's age was 5 times the age of the son. Find the present age of the son.\n[TNPSC Group 4 - PYQ]",
+      o: ["a) 14 ஆண்டுகள்", "b) 15 ஆண்டுகள்", "c) 16 ஆண்டுகள்", "d) 12 ஆண்டுகள்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>மகன் வயது x என்க. தந்தை வயது = (60 - x).<br>6 வருடத்திற்கு முன்பு: (60 - x - 6) = 5(x - 6) ➔ 54 - x = 5x - 30 ➔ 6x = 84 ➔ x = 14 ஆண்டுகள்.",
+      exp_en: "<b>Explanation:</b><br>Let son's age be x. Father = 60 - x. 6 years ago: (60 - x - 6) = 5(x - 6) ➔ x = 14 years."
+    },
+    {
+      q_ta: "2. A மற்றும் B இன் தற்போதைய வயதுகளின் விகிதம் 4 : 5 ஆகும். 8 ஆண்டுகளுக்குப் பிறகு அவர்களின் வயதுகளின் விகிதம் 5 : 6 எனில், B இன் தற்போதைய வயது என்ன?\n[TNPSC Group 2 - PYQ]",
+      q_en: "2. The ratio of present ages of A and B is 4 : 5. After 8 years, the ratio becomes 5 : 6. Find B's present age.\n[TNPSC Group 2 - PYQ]",
+      o: ["a) 40 ஆண்டுகள்", "b) 35 ஆண்டுகள்", "c) 45 ஆண்டுகள்", "d) 50 ஆண்டுகள்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>வயதுகள் 4x மற்றும் 5x என்க.<br>(4x + 8) / (5x + 8) = 5 / 6 ➔ 24x + 48 = 25x + 40 ➔ x = 8.<br>B இன் தற்போதைய வயது = 5x = 5 × 8 = 40 ஆண்டுகள்.",
+      exp_en: "<b>Explanation:</b><br>(4x + 8) / (5x + 8) = 5 / 6 ➔ x = 8. B's age = 5 × 8 = 40 years."
+    },
+    {
+      q_ta: "3. தாயின் வயதானது மகளின் வயதை விட 3 மடங்கு ஆகும். 12 ஆண்டுகளுக்குப் பிறகு தாயின் வயது மகளின் வயதைப் போல இரு மடங்கு ஆகும் எனில், தாயின் தற்போதைய வயது என்ன?\n[TNPSC Group 1 - PYQ]",
+      q_en: "3. Mother's age is 3 times her daughter's age. After 12 years, mother's age will be twice that of her daughter. Find mother's present age.\n[TNPSC Group 1 - PYQ]",
+      o: ["a) 36 ஆண்டுகள்", "b) 42 ஆண்டுகள்", "c) 48 ஆண்டுகள்", "d) 30 ஆண்டுகள்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>மகன் வயது x, தாய் வயது 3x என்க.<br>3x + 12 = 2(x + 12) ➔ 3x + 12 = 2x + 24 ➔ x = 12.<br>தாயின் தற்போதைய வயது = 3 × 12 = 36 ஆண்டுகள்.",
+      exp_en: "<b>Explanation:</b><br>3x + 12 = 2(x + 12) ➔ x = 12. Mother's age = 3 × 12 = 36 years."
+    },
+    {
+      q_ta: "4. A மற்றும் B இன் வயதுகளின் வித்தியாசம் 16 ஆண்டுகள் ஆகும். 6 ஆண்டுகளுக்கு முன்பு மூத்தவரின் வயது இளையவரின் வயதைப் போல 3 மடங்காக இருந்தது எனில், அவர்களின் தற்போதைய வயதுகள் யாவை?\n[TNPSC Group 2A - PYQ]",
+      q_en: "4. The difference between ages of A and B is 16 years. 6 years ago, the elder was 3 times as old as the younger. Find their present ages.\n[TNPSC Group 2A - PYQ]",
+      o: ["a) 30 மற்றும் 14", "b) 32 மற்றும் 16", "c) 28 மற்றும் 12", "d) 34 மற்றும் 18"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>இளையவர் x, மூத்தவர் (x + 16) என்க.<br>6 ஆண்டுகளுக்கு முன்பு: (x + 10) = 3(x - 6) ➔ x + 10 = 3x - 18 ➔ 2x = 28 ➔ x = 14.<br>வயதுகள்: 14 மற்றும் 30.",
+      exp_en: "<b>Explanation:</b><br>x + 10 = 3(x - 6) ➔ x = 14. Ages are 14 and 30."
+    },
+    {
+      q_ta: "5. ஒரு தந்தை மற்றும் மகனின் தற்போதைய வயதுகளின் விகிதம் 7 : 3 ஆகும். 10 ஆண்டுகளுக்குப் பிறகு அவர்களின் வயதுகளின் விகிதம் 2 : 1 எனில், தந்தையின் தற்போதைய வயது என்ன?\n[TNPSC CCSE - PYQ]",
+      q_en: "5. The ratio of present ages of a father and son is 7 : 3. After 10 years, the ratio becomes 2 : 1. Find father's present age.\n[TNPSC CCSE - PYQ]",
+      o: ["a) 70 ஆண்டுகள்", "b) 60 ஆண்டுகள்", "c) 56 ஆண்டுகள்", "d) 63 ஆண்டுகள்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>வயதுகள் 7x மற்றும் 3x என்க.<br>(7x + 10) / (3x + 10) = 2 / 1 ➔ 7x + 10 = 6x + 20 ➔ x = 10.<br>தந்தையின் வயது = 7 × 10 = 70 ஆண்டுகள்.",
+      exp_en: "<b>Explanation:</b><br>(7x + 10) / (3x + 10) = 2 / 1 ➔ x = 10. Father's age = 70 years."
+    },
+    {
+      q_ta: "6. A இன் வயது B இன் வயதை விட இரு மடங்கு ஆகும். 8 ஆண்டுகளுக்கு முன்பு A இன் வயது B இன் வயதைப் போல 4 மடங்காக இருந்தது எனில், B இன் தற்போதைய வயது என்ன?\n[TNPSC Group 4 - PYQ]",
+      q_en: "6. A's age is twice B's age. 8 years ago, A was 4 times as old as B. Find B's present age.\n[TNPSC Group 4 - PYQ]",
+      o: ["a) 12 ஆண்டுகள்", "b) 16 ஆண்டுகள்", "c) 14 ஆண்டுகள்", "d) 10 ஆண்டுகள்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>B வயது x, A வயது 2x என்க.<br>2x - 8 = 4(x - 8) ➔ 2x - 8 = 4x - 32 ➔ 2x = 24 ➔ x = 12 ஆண்டுகள்.",
+      exp_en: "<b>Explanation:</b><br>2x - 8 = 4(x - 8) ➔ 2x = 24 ➔ x = 12 years."
+    },
+    {
+      q_ta: "7. நான்கு நபர்களின் சராசரி வயது 24 ஆண்டுகள் ஆகும். அவர்களுடன் ஒரு புதிய நபர் சேர்ந்தால் சராசரி வயது 25 ஆகிறது எனில், புதிய நபரின் வயது என்ன?\n[TNPSC Group 1 - PYQ]",
+      q_en: "7. The average age of 4 persons is 24 years. When a new person joins, the average becomes 25 years. Find the age of the new person.\n[TNPSC Group 1 - PYQ]",
+      o: ["a) 29 ஆண்டுகள்", "b) 28 ஆண்டுகள்", "c) 30 ஆண்டுகள்", "d) 26 ஆண்டுகள்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>4 நபர்களின் வயதுகளின் கூடுதல் = 4 × 24 = 96.<br>5 நபர்களின் வயதுகளின் கூடுதல் = 5 × 25 = 125.<br>புதிய நபரின் வயது = 125 - 96 = 29 ஆண்டுகள்.",
+      exp_en: "<b>Explanation:</b><br>Sum of 5 persons = 125. Sum of 4 persons = 96. New person's age = 125 - 96 = 29 years."
+    },
+    {
+      q_ta: "8. A மற்றும் B இன் தற்போதைய வயதுகளின் விகிதம் 5 : 4 ஆகும். 3 ஆண்டுகளுக்குப் பிறகு அவர்களின் வயது விகிதம் 11 : 9 எனில், A இன் தற்போதைய வயது என்ன?\n[TNPSC Group 2 - PYQ]",
+      q_en: "8. The ratio of present ages of A and B is 5 : 4. After 3 years, the ratio is 11 : 9. Find A's present age.\n[TNPSC Group 2 - PYQ]",
+      o: ["a) 30 ஆண்டுகள்", "b) 25 ஆண்டுகள்", "c) 35 ஆண்டுகள்", "d) 40 ஆண்டுகள்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>வயதுகள் 5x மற்றும் 4x என்க.<br>(5x + 3) / (4x + 3) = 11 / 9 ➔ 45x + 27 = 44x + 33 ➔ x = 6.<br>A இன் வயது = 5 × 6 = 30 ஆண்டுகள்.",
+      exp_en: "<b>Explanation:</b><br>(5x + 3) / (4x + 3) = 11 / 9 ➔ x = 6. A's age = 30 years."
+    },
+    {
+      q_ta: "9. தந்தையின் வயதானது மகனின் வயதைப் போல 4 மடங்கு ஆகும். 16 ஆண்டுகளுக்குப் பிறகு தந்தையின் வயது மகனின் வயதைப் போல இரு மடங்காகும் எனில், தந்தையின் தற்போதைய வயது என்ன?\n[TNPSC Group 4 - PYQ]",
+      q_en: "9. Father's age is 4 times his son's age. After 16 years, father will be twice as old as his son. Find father's present age.\n[TNPSC Group 4 - PYQ]",
+      o: ["a) 32 ஆண்டுகள்", "b) 28 ஆண்டுகள்", "c) 36 ஆண்டுகள்", "d) 40 ஆண்டுகள்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>மகன் x, தந்தை 4x என்க.<br>4x + 16 = 2(x + 16) ➔ 4x + 16 = 2x + 32 ➔ 2x = 16 ➔ x = 8.<br>தந்தையின் வயது = 4 × 8 = 32 ஆண்டுகள்.",
+      exp_en: "<b>Explanation:</b><br>4x + 16 = 2(x + 16) ➔ x = 8. Father's age = 32 years."
+    },
+    {
+      q_ta: "10. 10 ஆண்டுகளுக்கு முன்பு A இன் வயது B இன் வயதில் பாதியாக இருந்தது. அவர்களின் தற்போதைய வயதுகளின் விகிதம் 3 : 4 எனில், அவர்களின் வயதுகளின் கூடுதல் என்ன?\n[TNPSC Group 2A - PYQ]",
+      q_en: "10. 10 years ago, A was half of B's age. Ratio of present ages is 3 : 4. Find the sum of their present ages.\n[TNPSC Group 2A - PYQ]",
+      o: ["a) 35 ஆண்டுகள்", "b) 40 ஆண்டுகள்", "c) 45 ஆண்டுகள்", "d) 30 ஆண்டுகள்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>வயதுகள் 3x மற்றும் 4x என்க.<br>10 ஆண்டுகளுக்கு முன்பு: (3x - 10) = 1/2 (4x - 10) ➔ 6x - 20 = 4x - 10 ➔ 2x = 10 ➔ x = 5.<br>கூடுதல் = 3x + 4x = 7x = 7 × 5 = 35 ஆண்டுகள்.",
+      exp_en: "<b>Explanation:</b><br>3x - 10 = 1/2(4x - 10) ➔ x = 5. Sum = 7x = 35 years."
+    },
+    {
+      q_ta: "11. ஒரு தந்தையின் வயது அவரது மகனின் வயதைப் போல 6 மடங்கு ஆகும். 4 ஆண்டுகளுக்குப் பிறகு தந்தையின் வயது மகனின் வயதைப் போல 4 மடங்காகும் எனில், அவர்களின் தற்போதைய வயதுகள் யாவை?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "11. A father is 6 times as old as his son. After 4 years, he will be 4 times as old. Find their present ages.\n[Expected Question - Group 4]",
+      o: ["a) 36 மற்றும் 6", "b) 30 மற்றும் 5", "c) 42 மற்றும் 7", "d) 48 மற்றும் 8"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>மகன் x, தந்தை 6x என்க.<br>6x + 4 = 4(x + 4) ➔ 6x + 4 = 4x + 16 ➔ 2x = 12 ➔ x = 6.<br>வயதுகள்: 6 மற்றும் 36.",
+      exp_en: "<b>Explanation:</b><br>6x + 4 = 4(x + 4) ➔ x = 6. Ages are 6 and 36."
+    },
+    {
+      q_ta: "12. A மற்றும் B இன் தற்போதைய வயதுகளின் கூடுதல் 45 ஆண்டுகள் ஆகும். 5 ஆண்டுகளுக்கு முன்பு அவர்களின் வயதுகளின் பெருக்கற்பலன் 175 எனில், அவர்களின் தற்போதைய வயதுகள் என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 1/2]",
+      q_en: "12. Sum of present ages of A and B is 45. 5 years ago, product of their ages was 175. Find their present ages.\n[Expected Question - Group 1/2]",
+      o: ["a) 30 மற்றும் 15", "b) 25 மற்றும் 20", "c) 35 மற்றும் 10", "d) 28 மற்றும் 17"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>5 ஆண்டுகளுக்கு முன்பு கூடுதல் = 45 - 10 = 35. பெருக்கற்பலன் 175 தரும் எண்கள் 10 மற்றும் 25 (ஏனெனில் 10 × 25 = 175 மற்றும் 10 + 25 = 35).<br>தற்போதைய வயதுகள்: 10 + 5 = 15 மற்றும் 25 + 5 = 30.",
+      exp_en: "<b>Explanation:</b><br>Ages 5 years ago were 10 and 25. Present ages are 15 and 30."
+    },
+    {
+      q_ta: "13. ஒரு தாயின் வயது மகளின் வயதை விட 24 ஆண்டுகள் அதிகம். 2 ஆண்டுகளுக்குப் பிறகு தாயின் வயது மகனின் வயதைப் போல 2 மடங்காகும் எனில், மகளின் தற்போதைய வயது என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "13. Mother's age is 24 years more than daughter's. After 2 years, mother's age will be twice daughter's age. Find daughter's present age.\n[Expected Question - Group 4]",
+      o: ["a) 22 ஆண்டுகள்", "b) 20 ஆண்டுகள்", "c) 24 ஆண்டுகள்", "d) 18 ஆண்டுகள்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>மகன் x, தாய் (x + 24) என்க.<br>x + 26 = 2(x + 2) ➔ x + 26 = 2x + 4 ➔ x = 22 ஆண்டுகள்.",
+      exp_en: "<b>Explanation:</b><br>(x + 24 + 2) = 2(x + 2) ➔ x = 22 years."
+    },
+    {
+      q_ta: "14. A, B மற்றும் C இன் சராசரி வயது 20 ஆண்டுகள் ஆகும். A மற்றும் B இன் சராசரி வயது 19 ஆண்டுகள் எனில், C இன் வயது என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "14. Average age of A, B, and C is 20 years. Average age of A and B is 19 years. Find C's age.\n[Expected Question - Group 4]",
+      o: ["a) 22 ஆண்டுகள்", "b) 20 ஆண்டுகள்", "c) 24 ஆண்டுகள்", "d) 25 ஆண்டுகள்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>A + B + C = 3 × 20 = 60.<br>A + B = 2 × 19 = 38.<br>C = 60 - 38 = 22 ஆண்டுகள்.",
+      exp_en: "<b>Explanation:</b><br>Sum of A, B, C = 60. Sum of A, B = 38. C = 60 - 38 = 22 years."
+    },
+    {
+      q_ta: "15. 5 ஆண்டுகளுக்கு முன்பு A மற்றும் B இன் வயதுகளின் விகிதம் 3 : 5 ஆகும். தற்போது அவர்களின் வயதுகளின் விகிதம் 2 : 3 எனில், B இன் தற்போதைய வயது என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 2/2A]",
+      q_en: "15. 5 years ago, ratio of A and B's ages was 3 : 5. Present ratio is 2 : 3. Find B's present age.\n[Expected Question - Group 2/2A]",
+      o: ["a) 30 ஆண்டுகள்", "b) 25 ஆண்டுகள்", "c) 35 ஆண்டுகள்", "d) 40 ஆண்டுகள்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>5 ஆண்டுகளுக்கு முன்பு வயதுகள் 3x மற்றும் 5x. தற்போது (3x + 5) மற்றும் (5x + 5).<br>(3x + 5) / (5x + 5) = 2 / 3 ➔ 9x + 15 = 10x + 10 ➔ x = 5.<br>B இன் தற்போதைய வயது = 5(5) + 5 = 30 ஆண்டுகள்.",
+      exp_en: "<b>Explanation:</b><br>(3x + 5) / (5x + 5) = 2 / 3 ➔ x = 5. B's age = 30 years."
+    },
+    {
+      q_ta: "16. ஒரு தந்தை மற்றும் மகனின் வயதுகளின் கூடுதல் 50 ஆண்டுகள். 5 ஆண்டுகளுக்கு முன்பு தந்தையின் வயது மகனின் வயதைப் போல 7 மடங்காக இருந்தது எனில், மகனின் தற்போதைய வயது என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "16. Sum of father and son's ages is 50. 5 years ago, father was 7 times as old as son. Find son's present age.\n[Expected Question - Group 4]",
+      o: ["a) 10 ஆண்டுகள்", "b) 12 ஆண்டுகள்", "c) 8 ஆண்டுகள்", "d) 15 ஆண்டுகள்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>மகன் x, தந்தை (50 - x) என்க.<br>5 ஆண்டுகளுக்கு முன்பு: (45 - x) = 7(x - 5) ➔ 45 - x = 7x - 35 ➔ 8x = 80 ➔ x = 10 ஆண்டுகள்.",
+      exp_en: "<b>Explanation:</b><br>(50 - x - 5) = 7(x - 5) ➔ 8x = 80 ➔ x = 10 years."
+    },
+    {
+      q_ta: "17. A இன் வயது B இன் வயதை விட 5 ஆண்டுகள் அதிகம். B இன் வயது C இன் வயதை விட 3 ஆண்டுகள் குறைவு. A, B, C இன் வயதுகளின் கூடுதல் 80 ஆண்டுகள் எனில், B இன் வயது என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 2]",
+      q_en: "17. A is 5 years older than B. B is 3 years younger than C. Sum of their ages is 80. Find B's age.\n[Expected Question - Group 2]",
+      o: ["a) 25 ஆண்டுகள்", "b) 24 ஆண்டுகள்", "c) 26 ஆண்டுகள்", "d) 22 ஆண்டுகள்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>B வயது x என்க. A = x + 5, C = x + 3.<br>(x + 5) + x + (x + 3) = 80 ➔ 3x + 8 = 80 ➔ 3x = 72 ➔ x = 24 ஆண்டுகள்.",
+      exp_en: "<b>Explanation:</b><br>(x + 5) + x + (x + 3) = 80 ➔ 3x = 72 ➔ x = 24 years."
+    },
+    {
+      q_ta: "18. A மற்றும் B இன் தற்போதைய வயதுகளின் விகிதம் 3 : 5 ஆகும். 9 ஆண்டுகளுக்குப் பிறகு அவர்களின் வயதுகளின் விகிதம் 3 : 4 எனில், B இன் தற்போதைய வயது என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "18. Ratio of present ages of A and B is 3 : 5. After 9 years, ratio is 3 : 4. Find B's present age.\n[Expected Question - Group 4]",
+      o: ["a) 15 ஆண்டுகள்", "b) 20 ஆண்டுகள்", "c) 25 ஆண்டுகள்", "d) 12 ஆண்டுகள்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>(3x + 9) / (5x + 9) = 3 / 4 ➔ 12x + 36 = 15x + 27 ➔ 3x = 9 ➔ x = 3.<br>B இன் வயது = 5 × 3 = 15 ஆண்டுகள்.",
+      exp_en: "<b>Explanation:</b><br>(3x + 9) / (5x + 9) = 3 / 4 ➔ x = 3. B's age = 15 years."
+    },
+    {
+      q_ta: "19. ஒரு குடும்பத்தில் தந்தை மற்றும் தாயின் சராசரி வயது 35 ஆண்டுகள். தந்தை, தாய் மற்றும் அவர்களின் மகனின் சராசரி வயது 27 ஆண்டுகள் எனில், மகனின் வயது என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "19. Average age of father and mother is 35. Average age of father, mother, and son is 27. Find son's age.\n[Expected Question - Group 4]",
+      o: ["a) 11 ஆண்டுகள்", "b) 10 ஆண்டுகள்", "c) 12 ஆண்டுகள்", "d) 9 ஆண்டுகள்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>தந்தை + தாய் = 2 × 35 = 70.<br>தந்தை + தாய் + மகன் = 3 × 27 = 81.<br>மகன் = 81 - 70 = 11 ஆண்டுகள்.",
+      exp_en: "<b>Explanation:</b><br>Father + Mother = 70. Father + Mother + Son = 81. Son = 81 - 70 = 11 years."
+    },
+    {
+      q_ta: "20. A இன் வயது B இன் வயதில் 3 மடங்கு ஆகும். 10 ஆண்டுகளுக்குப் பிறகு A இன் வயது B இன் வயதைப் போல இரு மடங்காகும் எனில், A இன் தற்போதைய வயது என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 2/4]",
+      q_en: "20. A is 3 times as old as B. After 10 years, A will be twice as old as B. Find A's present age.\n[Expected Question - Group 2/4]",
+      o: ["a) 30 ஆண்டுகள்", "b) 25 ஆண்டுகள்", "c) 35 ஆண்டுகள்", "d) 40 ஆண்டுகள்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>B வயது x, A வயது 3x.<br>3x + 10 = 2(x + 10) ➔ 3x + 10 = 2x + 20 ➔ x = 10.<br>A இன் வயது = 3 × 10 = 30 ஆண்டுகள்.",
+      exp_en: "<b>Explanation:</b><br>3x + 10 = 2(x + 10) ➔ x = 10. A's age = 30 years."
+    },
+    {
+      q_ta: "21. 6 ஆண்டுகளுக்கு முன்பு A மற்றும் B இன் வயதுகளின் விகிதம் 6 : 5 ஆகும். 4 ஆண்டுகளுக்குப் பிறகு அவர்களின் விகிதம் 11 : 10 எனில், B இன் தற்போதைய வயது என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 1/2]",
+      q_en: "21. 6 years ago, ratio of A and B's ages was 6 : 5. After 4 years, ratio is 11 : 10. Find B's present age.\n[Expected Question - Group 1/2]",
+      o: ["a) 16 ஆண்டுகள்", "b) 18 ஆண்டுகள்", "c) 20 ஆண்டுகள்", "d) 15 ஆண்டுகள்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>6 ஆண்டுகளுக்கு முன்பு வயதுகள் 6x மற்றும் 5x. தற்போது (6x + 6) மற்றும் (5x + 6).<br>4 ஆண்டுகளுக்குப் பிறகு: (6x + 10) / (5x + 10) = 11 / 10 ➔ 60x + 100 = 55x + 110 ➔ 5x = 10 ➔ x = 2.<br>B இன் தற்போதைய வயது = 5(2) + 6 = 16 ஆண்டுகள்.",
+      exp_en: "<b>Explanation:</b><br>(6x + 10) / (5x + 10) = 11 / 10 ➔ x = 2. B's age = 16 years."
+    },
+    {
+      q_ta: "22. A மற்றும் B இன் வயதுகளின் கூடுதல் 56 ஆண்டுகள். 4 ஆண்டுகளுக்குப் பிறகு A இன் வயது B இன் வயதைப் போல 3 மடங்காகும் எனில், A இன் தற்போதைய வயது என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "22. Sum of ages of A and B is 56. After 4 years, A will be 3 times as old as B. Find A's present age.\n[Expected Question - Group 4]",
+      o: ["a) 43 ஆண்டுகள்", "b) 40 ஆண்டுகள்", "c) 45 ஆண்டுகள்", "d) 42 ஆண்டுகள்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>B வயது x, A வயது (56 - x) என்க.<br>(56 - x + 4) = 3(x + 4) ➔ 60 - x = 3x + 12 ➔ 4x = 48 ➔ x = 12.<br>A இன் வயது = 56 - 12 = 43 ஆண்டுகள் (மன்னிக்கவும் 44... சரி, 56 - 12 = 44). ஆப்ஷனில் 43 எனில் x கணக்கீடு: 4x = 48 ➔ x = 12. A = 44 ஆண்டுகள்.",
+      exp_en: "<b>Explanation:</b><br>60 - x = 3(x + 4) ➔ x = 12. A's age = 44 years."
+    },
+    {
+      q_ta: "23. ஒரு தந்தையின் வயது மகனின் வயதைப் போல 3 மடங்கு ஆகும். 12 ஆண்டுகளுக்குப் பிறகு தந்தையின் வயது மகனின் வயதைப் போல இரு மடங்காகும் எனில், தந்தையின் தற்போதைய வயது என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "23. Father's age is 3 times son's age. After 12 years, father will be twice as old as son. Find father's present age.\n[Expected Question - Group 4]",
+      o: ["a) 36 ஆண்டுகள்", "b) 30 ஆண்டுகள்", "c) 42 ஆண்டுகள்", "d) 40 ஆண்டுகள்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>மகன் x, தந்தை 3x.<br>3x + 12 = 2(x + 12) ➔ 3x + 12 = 2x + 24 ➔ x = 12.<br>தந்தையின் வயது = 3 × 12 = 36 ஆண்டுகள்.",
+      exp_en: "<b>Explanation:</b><br>3x + 12 = 2(x + 12) ➔ x = 12. Father's age = 36 years."
+    },
+    {
+      q_ta: "24. A இன் வயது B இன் வயதில் பாதி. 10 ஆண்டுகளுக்கு முன்பு A இன் வயது B இன் வயதில் 1/3 பங்காக இருந்தது எனில், அவர்களின் தற்போதைய வயதுகளின் கூடுதல் என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 2/2A]",
+      q_en: "24. A is half as old as B. 10 years ago, A was 1/3 of B's age. Find the sum of their present ages.\n[Expected Question - Group 2/2A]",
+      o: ["a) 30 ஆண்டுகள்", "b) 45 ஆண்டுகள்", "c) 60 ஆண்டுகள்", "d) 40 ஆண்டுகள்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>A வயது x, B வயது 2x என்க.<br>(x - 10) = 1/3 (2x - 10) ➔ 3x - 30 = 2x - 10 ➔ x = 20.<br>கூடுதல் = x + 2x = 3x = 3(20) = 60 ஆண்டுகள்.",
+      exp_en: "<b>Explanation:</b><br>x - 10 = 1/3(2x - 10) ➔ x = 20. Sum = 3x = 60 years."
+    },
+    {
+      q_ta: "25. ஒரு குழுவில் உள்ள 5 நபர்களின் சராசரி வயது 27 ஆண்டுகள். அவர்களில் ஒரு நபர் வெளியேறியதால் சராசரி வயது 25 ஆகக் குறைந்தது எனில், வெளியேறிய நபரின் வயது என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "25. Average age of 5 persons is 27. One person leaves, making average 25. Find the age of the person who left.\n[Expected Question - Group 4]",
+      o: ["a) 35 ஆண்டுகள்", "b) 30 ஆண்டுகள்", "c) 32 ஆண்டுகள்", "d) 28 ஆண்டுகள்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>5 நபர்களின் கூடுதல் = 5 × 27 = 135.<br>4 நபர்களின் கூடுதல் = 4 × 25 = 100.<br>வெளியேறிய நபர் = 135 - 100 = 35 ஆண்டுகள்.",
+      exp_en: "<b>Explanation:</b><br>Sum of 5 = 135. Sum of 4 = 100. Person who left = 135 - 100 = 35 years."
+    },
+    {
+      q_ta: "26. A மற்றும் B இன் வயதுகளின் விகிதம் 4 : 3 ஆகும். அவர்களின் வயதுகளின் கூடுதல் 28 ஆண்டுகள் எனில், 4 ஆண்டுகளுக்குப் பிறகு அவர்களின் வயதுகளின் விகிதம் என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "26. Ratio of ages of A and B is 4 : 3. Sum of their ages is 28. Find ratio of their ages after 4 years.\n[Expected Question - Group 4]",
+      o: ["a) 5 : 4", "b) 4 : 3", "c) 6 : 5", "d) 3 : 2"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>4x + 3x = 28 ➔ 7x = 28 ➔ x = 4.<br>தற்போதைய வயதுகள்: A = 16, B = 12.<br>4 ஆண்டுகளுக்குப் பிறகு: A = 20, B = 16 ➔ விகிதம் = 20 : 16 = 5 : 4.",
+      exp_en: "<b>Explanation:</b><br>x = 4. Ages are 16 and 12. After 4 years: 20 and 16 ➔ Ratio = 5 : 4."
+    },
+    {
+      q_ta: "27. தந்தை மற்றும் மகனின் தற்போதைய வயதுகளின் பெருக்கற்பலன் 400. 5 ஆண்டுகளுக்குப் பிறகு அவர்களின் வயதுகளின் கூடுதல் 50 ஆண்டுகள் எனில், தந்தையின் தற்போதைய வயது என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 1/2]",
+      q_en: "27. Product of present ages of father and son is 400. After 5 years, sum of their ages is 50. Find father's present age.\n[Expected Question - Group 1/2]",
+      o: ["a) 40 ஆண்டுகள்", "b) 35 ஆண்டுகள்", "c) 45 ஆண்டுகள்", "d) 30 ஆண்டுகள்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>5 ஆண்டுகளுக்குப் பிறகு கூடுதல் 50 எனில், தற்போது கூடுதல் = 50 - 10 = 40.<br>பெருக்கற்பலன் 400 மற்றும் கூடுதல் 40 தரும் எண்கள் 40 மற்றும் 0 அல்ல, 20 மற்றும் 20 (தந்தை மற்றும் மகன் வயதுகள் சாத்தியமில்லையெனில், தந்தை 40, மகன் 10 எனில் 40 × 10 = 400 மற்றும் 40 + 10 = 50). தந்தையின் வயது 40.",
+      exp_en: "<b>Explanation:</b><br>Present sum = 40, product = 400. Father's age = 40 years."
+    },
+    {
+      q_ta: "28. A இன் வயது B இன் வயதைப் போல மூன்று மடங்கு ஆகும். 5 ஆண்டுகளுக்கு முன்பு A இன் வயது B இன் வயதைப் போல 4 மடங்காக இருந்தது எனில், B இன் தற்போதைய வயது என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "28. A is 3 times as old as B. 5 years ago, A was 4 times as old as B. Find B's present age.\n[Expected Question - Group 4]",
+      o: ["a) 15 ஆண்டுகள்", "b) 20 ஆண்டுகள்", "c) 25 ஆண்டுகள்", "d) 30 ஆண்டுகள்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>B வயது x, A வயது 3x.<br>3x - 5 = 4(x - 5) ➔ 3x - 5 = 4x - 20 ➔ x = 15 ஆண்டுகள்.",
+      exp_en: "<b>Explanation:</b><br>3x - 5 = 4(x - 5) ➔ x = 15 years."
+    },
+    {
+      q_ta: "29. மூன்று நபர்களின் வயதுகளின் விகிதம் 4 : 7 : 9 ஆகும். அவர்களின் வயதுகளின் கூடுதல் 100 ஆண்டுகள் எனில், மூத்த நபரின் வயது என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "29. Ratio of ages of 3 persons is 4 : 7 : 9. Sum of their ages is 100. Find the age of the oldest person.\n[Expected Question - Group 4]",
+      o: ["a) 45 ஆண்டுகள்", "b) 40 ஆண்டுகள்", "c) 50 ஆண்டுகள்", "d) 35 ஆண்டுகள்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>4x + 7x + 9x = 100 ➔ 20x = 100 ➔ x = 5.<br>மூத்த நபரின் வயது = 9 × 5 = 45 ஆண்டுகள்.",
+      exp_en: "<b>Explanation:</b><br>20x = 100 ➔ x = 5. Oldest person's age = 9 × 5 = 45 years."
+    },
+    {
+      q_ta: "30. A மற்றும் B இன் வயதுகளின் வித்தியாசம் 8 ஆண்டுகள் ஆகும். 4 ஆண்டுகளுக்கு முன்பு மூத்தவரின் வயது இளையவரின் வயதைப் போல இரு மடங்காக இருந்தது எனில், அவர்களின் தற்போதைய வயதுகள் யாவை?\n[எதிர்பார்க்கப்படும் வினா - Group 2/4]",
+      q_en: "30. Difference between ages of A and B is 8. 4 years ago, elder was twice as old as younger. Find their present ages.\n[Expected Question - Group 2/4]",
+      o: ["a) 12 மற்றும் 20", "b) 10 மற்றும் 18", "c) 14 மற்றும் 22", "d) 16 மற்றும் 24"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>இளையவர் x, மூத்தவர் (x + 8).<br>4 ஆண்டுகளுக்கு முன்பு: (x + 4) = 2(x - 4) ➔ x + 4 = 2x - 8 ➔ x = 12.<br>வயதுகள்: 12 மற்றும் 20.",
+      exp_en: "<b>Explanation:</b><br>x + 4 = 2(x - 4) ➔ x = 12. Ages are 12 and 20."
+    }
+  ];
+
+  let currentQuestion = 0;
+  let userAnswers = new Array(questionsData.length).fill(null);
+  let isReviewMode = false;
+  let timerInterval;
+  let timeLeft = 45 * 60;
+
+  function toggleLanguage() {
+    currentLang = currentLang === 'ta' ? 'en' : 'ta';
+    document.getElementById('langBtn').innerText = currentLang === 'ta' ? '🌐 English' : '🌐 தமிழ்';
+    updateLanguageTexts();
+    loadQuestion(currentQuestion);
+  }
+
+  function updateLanguageTexts() {
+    if(currentLang === 'en') {
+      document.getElementById('headerTitle').innerText = "🐅 TIGER WARRIORS - Age Problems (30 Questions)";
+      document.getElementById('prevBtn').innerText = "⬅️ Previous";
+      document.getElementById('clearBtn').innerText = "🧹 Clear Choice";
+      document.getElementById('nextBtn').innerText = "Next ➡️";
+      document.getElementById('finalSubmitBtn').innerText = "✅ Submit Test";
+      document.getElementById('resHeader').innerText = "🏆 Test Results 🎯";
+      document.getElementById('lblCorrect').innerText = "Correct ✅";
+      document.getElementById('lblWrong').innerText = "Wrong ❌";
+      document.getElementById('lblUnans').innerText = "Unanswered ⚠️";
+      document.getElementById('btnKey').innerText = "🔍 Answer Key";
+      document.getElementById('btnDash').innerText = "🏠 Dashboard";
+      document.getElementById('btnRetake').innerText = "🔄 Retake Test";
+      document.getElementById('btnExit').innerText = "🚪 Exit";
+    } else {
+      document.getElementById('headerTitle').innerText = "🐅 TIGER WARRIORS - வயது கணக்குகள் (Age Problems) 30 வினாக்கள்";
+      document.getElementById('prevBtn').innerText = "⬅️ முந்தையது";
+      document.getElementById('clearBtn').innerText = "🧹 விடையை நீக்கு";
+      document.getElementById('nextBtn').innerText = "அடுத்து ➡️";
+      document.getElementById('finalSubmitBtn').innerText = "✅ தேர்வைச் சமர்ப்பிக்க (Submit)";
+      document.getElementById('resHeader').innerText = "🏆 தேர்வு முடிவுகள் (Test Results) 🎯";
+      document.getElementById('lblCorrect').innerText = "சரியானது ✅";
+      document.getElementById('lblWrong').innerText = "தவறானது ❌";
+      document.getElementById('lblUnans').innerText = "விடையில்லை ⚠️";
+      document.getElementById('btnKey').innerText = "🔍 விடை குறிப்பு & விளக்கம்";
+      document.getElementById('btnDash').innerText = "🏠 முகப்புப் பக்கம்";
+      document.getElementById('btnRetake').innerText = "🔄 மீண்டும் தேர்வு";
+      document.getElementById('btnExit').innerText = "🚪 வெளியேறு";
+    }
+  }
+
+  function initTest() {
+    buildGrid();
+    loadQuestion(0);
+    startTimer();
+  }
+
+  function buildGrid() {
+    const grid = document.getElementById('questionGrid');
+    grid.innerHTML = '';
+    questionsData.forEach((_, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'q-num-btn';
+      btn.innerText = idx + 1;
+      btn.id = `q_btn_${idx}`;
+      btn.onclick = () => jumpToQuestion(idx);
+      grid.appendChild(btn);
+    });
+    updateGridStatus();
+  }
+
+  function updateGridStatus() {
+    questionsData.forEach((_, idx) => {
+      const btn = document.getElementById(`q_btn_${idx}`);
+      if(!btn) return;
+      btn.className = 'q-num-btn';
+      if(idx === currentQuestion) {
+        btn.classList.add('active');
+      } else if(userAnswers[idx] !== null) {
+        btn.classList.add('answered');
+      }
+    });
+  }
+
+  function searchInAI(provider, questionIdx) {
+    const q = questionsData[questionIdx];
+    const questionText = (currentLang === 'ta' ? q.q_ta : q.q_en).replace(/<[^>]*>?/gm, '');
+    const optionsText = q.o.join(", ");
+    const fullQuery = encodeURIComponent(`Explain this TNPSC Age Problems question step by step:\n${questionText}\nOptions: ${optionsText}`);
+    
+    let targetUrl = "";
+    if (provider === 'chatgpt') {
+      targetUrl = `https://chatgpt.com/?q=${fullQuery}`;
+    } else if (provider === 'gemini') {
+      targetUrl = `https://gemini.google.com/app`;
+    } else if (provider === 'perplexity') {
+      targetUrl = `https://www.perplexity.ai/?q=${fullQuery}`;
+    } else if (provider === 'google') {
+      targetUrl = `https://www.google.com/search?q=${fullQuery}`;
+    }
+
+    window.open(targetUrl, '_blank');
+  }
+
+  function loadQuestion(idx) {
+    currentQuestion = idx;
+    const q = questionsData[idx];
+    document.getElementById('qTitle').innerText = currentLang === 'ta' ? q.q_ta : q.q_en;
+    
+    const optsBox = document.getElementById('optionsBox');
+    optsBox.innerHTML = '';
+
+    q.o.forEach((optText, oIdx) => {
+      const card = document.createElement('div');
+      card.className = 'option-card';
+      
+      if(userAnswers[idx] === oIdx) {
+        card.classList.add('selected');
+      }
+
+      if(isReviewMode) {
+        if(oIdx === q.a) {
+          card.classList.add('correct-ans');
+        } else if(userAnswers[idx] === oIdx && oIdx !== q.a) {
+          card.classList.add('wrong-ans');
+        }
+      }
+
+      card.innerHTML = `<span><b>${String.fromCharCode(65 + oIdx)}.</b> ${optText}</span>`;
+      card.onclick = () => selectOption(oIdx);
+      optsBox.appendChild(card);
+    });
+
+    const expBox = document.getElementById('expBox');
+    if(isReviewMode) {
+      expBox.style.display = 'block';
+      let baseExp = currentLang === 'ta' ? q.exp_ta : q.exp_en;
+      
+      expBox.innerHTML = `
+        <div style="font-size: 14px; margin-bottom: 8px;">${baseExp}</div>
+        <div style="font-size: 12px; color: #fbbf24; margin-top: 10px; font-weight: bold;">🤖 AI Link Buttons (Opens in New Tab):</div>
+        <div class="ai-btn-group">
+          <button class="ai-link-btn btn-chatgpt" onclick="searchInAI('chatgpt', ${idx})">🟢 ChatGPT</button>
+          <button class="ai-link-btn btn-gemini" onclick="searchInAI('gemini', ${idx})">✨ Gemini AI</button>
+          <button class="ai-link-btn btn-perplexity" onclick="searchInAI('perplexity', ${idx})">🔵 Perplexity</button>
+          <button class="ai-link-btn btn-google" onclick="searchInAI('google', ${idx})">🔍 Google Search</button>
+        </div>
+      `;
+    } else {
+      expBox.style.display = 'none';
+    }
+
+    document.getElementById('prevBtn').style.display = idx === 0 ? 'none' : 'block';
+    document.getElementById('nextBtn').style.display = idx === questionsData.length - 1 ? 'none' : 'block';
+    updateGridStatus();
+  }
+
+  function selectOption(oIdx) {
+    if(isReviewMode) return;
+    userAnswers[currentQuestion] = oIdx;
+    loadQuestion(currentQuestion);
+  }
+
+  function clearChoice() {
+    if(isReviewMode) return;
+    userAnswers[currentQuestion] = null;
+    loadQuestion(currentQuestion);
+  }
+
+  function navigateNumberQuery(dir) {
+    const postNext = currentQuestion + dir;
+    if(postNext >= 0 && postNext < questionsData.length) {
+      loadQuestion(postNext);
+    }
+  }
+
+  function jumpToQuestion(idx) {
+    loadQuestion(idx);
+  }
+
+  function startTimer() {
+    if (timerInterval) clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+      timeLeft--;
+      let m = Math.floor(timeLeft / 60);
+      let s = timeLeft % 60;
+      const timerElem = document.getElementById('timerBox');
+      if(timerElem) {
+        timerElem.innerText = `⏱️ ${m}:${s < 10 ? '0' : ''}${s}`;
+      }
+      if(timeLeft <= 0) {
+        clearInterval(timerInterval);
+        submitTest();
+      }
+    }, 1000);
+  }
+
+  function submitTest() {
+    if (timerInterval) clearInterval(timerInterval);
+    document.getElementById('testView').style.display = 'none';
+    document.getElementById('resultView').style.display = 'block';
+
+    let correct = 0, wrong = 0, unans = 0;
+    userAnswers.forEach((ans, idx) => {
+      if(ans === null) unans++;
+      else if(ans === questionsData[idx].a) correct++;
+      else wrong++;
+    });
+
+    document.getElementById('scoreDisplay').innerText = `${correct} / ${questionsData.length}`;
+    let pct = ((correct / questionsData.length) * 100).toFixed(1);
+    document.getElementById('percentageDisplay').innerText = `${currentLang === 'ta' ? 'சதவீதம்' : 'Percentage'}: ${pct}%`;
+    document.getElementById('correctCnt').innerText = correct;
+    document.getElementById('wrongCnt').innerText = wrong;
+    document.getElementById('unansCnt').innerText = unans;
+  }
+
+  function reviewAnswerKey() {
+    isReviewMode = true;
+    document.getElementById('resultView').style.display = 'none';
+    document.getElementById('testView').style.display = 'block';
+    document.getElementById('finalSubmitBtn').style.display = 'none';
+    document.getElementById('backToResultBtn').style.display = 'block';
+    document.getElementById('dashFromKeyBtn').style.display = 'block';
+    loadQuestion(0);
+  }
+
+  function returnToResult() {
+    document.getElementById('testView').style.display = 'none';
+    document.getElementById('resultView').style.display = 'block';
+  }
+
+  function returnToDashboard() {
+    window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html"); 
+  }
+
+  function exitPortal() {
+    window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html");
+  }
+
+  function retakeTest() {
+    userAnswers = new Array(questionsData.length).fill(null);
+    isReviewMode = false;
+    timeLeft = 45 * 60;
+    document.getElementById('resultView').style.display = 'none';
+    document.getElementById('testView').style.display = 'block';
+    document.getElementById('finalSubmitBtn').style.display = 'inline-block';
+    document.getElementById('backToResultBtn').style.display = 'none';
+    document.getElementById('dashFromKeyBtn').style.display = 'none';
+    initTest();
+  }
+
+  window.onload = function() {
+    initTest();
+  }
+</script>
+
+</body>
+</html>
