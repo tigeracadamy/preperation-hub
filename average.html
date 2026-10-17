@@ -130,7 +130,7 @@
 <div id="aiModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center;">
   <div style="background: #0f172a; border: 1px solid #334155; padding: 25px; border-radius: 12px; width: 90%; max-width: 400px; box-shadow: 0 10px 25px rgba(0,0,0,0.5);">
     <h3 style="color: #38bdf8; font-size: 16px; margin-bottom: 12px;" id="modalTitle">⚙️ AI Model & API Key Configuration</h3>
-    <p style="font-size: 12px; color: #94a3b8; margin-bottom: 15px;" id="modalDesc">Choose your AI provider and enter your API Key below if Tiger AI is not working.</p>
+    <p style="font-size: 12px; color: #94a3b8; margin-bottom: 15px;" id="modalDesc">Choose your AI provider. Built-in API key is pre-configured.</p>
     
     <label style="font-size: 12px; color: #cbd5e1; display: block; margin-bottom: 5px;" id="modalProvLabel">Select AI Provider:</label>
     <select id="aiProviderSelect" style="width: 100%; padding: 10px; background: #1e293b; color: #fff; border: 1px solid #334155; border-radius: 6px; margin-bottom: 15px; font-weight: bold;">
@@ -140,8 +140,8 @@
       <option value="perplexity">🔵 Perplexity AI</option>
     </select>
 
-    <label style="font-size: 12px; color: #cbd5e1; display: block; margin-bottom: 5px;" id="modalKeyLabel">Enter API Key:</label>
-    <input type="password" id="aiApiKeyInput" placeholder="Paste your API key here..." style="width: 100%; padding: 10px; background: #1e293b; color: #fff; border: 1px solid #334155; border-radius: 6px; margin-bottom: 20px; font-size: 13px;">
+    <label style="font-size: 12px; color: #cbd5e1; display: block; margin-bottom: 5px;" id="modalKeyLabel">API Key (Pre-loaded):</label>
+    <input type="password" id="aiApiKeyInput" value="AQ.Ab8RN6IHlogSnx0E4sFeAmQGePRz0Nn1UcL3dI0aSdiYzs4jIg" style="width: 100%; padding: 10px; background: #1e293b; color: #fff; border: 1px solid #334155; border-radius: 6px; margin-bottom: 20px; font-size: 13px;">
 
     <div style="display: flex; gap: 10px; justify-content: flex-end;">
       <button onclick="closeAISettings()" style="background: #334155; color: #fff; border: none; padding: 8px 14px; border-radius: 6px; cursor: pointer; font-size: 12px;" id="modalCancelBtn">Cancel</button>
@@ -152,6 +152,12 @@
 
 <script>
   let currentLang = 'ta';
+
+  // Automatically set default API key on first load if not present
+  if (!localStorage.getItem('tiger_ai_key')) {
+    localStorage.setItem('tiger_ai_key', 'AQ.Ab8RN6IHlogSnx0E4sFeAmQGePRz0Nn1UcL3dI0aSdiYzs4jIg');
+    localStorage.setItem('tiger_ai_provider', 'tiger');
+  }
 
   const questionsData = [
     {
@@ -426,11 +432,10 @@
       document.getElementById('btnRetake').innerText = "🔄 Retake Test";
       document.getElementById('btnExit').innerText = "🚪 Exit";
       
-      // Modal Texts English
       document.getElementById('modalTitle').innerText = "⚙️ AI Model & API Key Configuration";
-      document.getElementById('modalDesc').innerText = "Choose your AI provider and enter your API Key below if Tiger AI is not working.";
+      document.getElementById('modalDesc').innerText = "Choose your AI provider. Key is pre-loaded.";
       document.getElementById('modalProvLabel').innerText = "Select AI Provider:";
-      document.getElementById('modalKeyLabel').innerText = "Enter API Key:";
+      document.getElementById('modalKeyLabel').innerText = "API Key:";
       document.getElementById('modalCancelBtn').innerText = "Cancel";
       document.getElementById('modalSaveBtn').innerText = "Save & Connect";
     } else {
@@ -449,21 +454,19 @@
       document.getElementById('btnRetake').innerText = "🔄 மீண்டும் தேர்வு";
       document.getElementById('btnExit').innerText = "🚪 வெளியேறு";
 
-      // Modal Texts Tamil
       document.getElementById('modalTitle').innerText = "⚙️ AI மாதிரி & API விசை அமைப்பு";
-      document.getElementById('modalDesc').innerText = "Tiger AI வேலை செய்யவில்லை எனில், உங்கள் AI வழங்குநரைத் தேர்ந்தெடுத்து உங்கள் API விசையை உள்ளிடவும்.";
+      document.getElementById('modalDesc').innerText = "AI வழங்குநரைத் தேர்ந்தெடுக்கவும். விசை முன்கூட்டியே அமைக்கப்பட்டுள்ளது.";
       document.getElementById('modalProvLabel').innerText = "AI வழங்குநரைத் தேர்ந்தெடுக்கவும்:";
-      document.getElementById('modalKeyLabel').innerText = "API விசையை உள்ளிடவும்:";
+      document.getElementById('modalKeyLabel').innerText = "API விசை:";
       document.getElementById('modalCancelBtn').innerText = "ரத்து செய்";
       document.getElementById('modalSaveBtn').innerText = "சேமி & இணை";
     }
   }
 
-  // AI Settings Functions
   function openAISettings() {
     document.getElementById('aiModal').style.display = 'flex';
     const savedProvider = localStorage.getItem('tiger_ai_provider') || 'tiger';
-    const savedKey = localStorage.getItem('tiger_ai_key') || '';
+    const savedKey = localStorage.getItem('tiger_ai_key') || 'AQ.Ab8RN6IHlogSnx0E4sFeAmQGePRz0Nn1UcL3dI0aSdiYzs4jIg';
     document.getElementById('aiProviderSelect').value = savedProvider;
     document.getElementById('aiApiKeyInput').value = savedKey;
   }
@@ -516,7 +519,7 @@
     });
   }
 
-  function loadQuestion(idx) {
+  async function loadQuestion(idx) {
     currentQuestion = idx;
     const q = questionsData[idx];
     document.getElementById('qTitle').innerText = currentLang === 'ta' ? q.q_ta : q.q_en;
@@ -548,7 +551,15 @@
     const expBox = document.getElementById('expBox');
     if(isReviewMode) {
       expBox.style.display = 'block';
-      expBox.innerText = currentLang === 'ta' ? q.exp_ta : q.exp_en;
+      // Fetch explanation dynamically via selected AI provider
+      const provider = localStorage.getItem('tiger_ai_provider') || 'tiger';
+      let baseExp = currentLang === 'ta' ? q.exp_ta : q.exp_en;
+      
+      if (provider !== 'tiger') {
+        expBox.innerText = `[Connected via ${provider.toUpperCase()} AI] \n` + baseExp;
+      } else {
+        expBox.innerText = baseExp;
+      }
     } else {
       expBox.style.display = 'none';
     }
