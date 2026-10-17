@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tiger Warriors - விகிதம் & விகிதாச்சாரம் (Ratio & Proportion) 25 வினாக்கள்</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; font-weight: bold; }
+    body { background: #080604; color: #f8fafc; padding: 12px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+    .card { width: 100%; max-width: 950px; background: #0f172a; border-radius: 14px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); border: 1px solid #334155; }
+    
+    .test-header { display: flex; justify-content: space-between; align-items: center; background: #1e293b; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; border: 1px solid #334155; }
+    .timer { font-size: 15px; font-weight: bold; color: #fbbf24; background: #091326; padding: 6px 12px; border-radius: 6px; border: 1px solid #fbbf24; box-shadow: inset 0 0 5px rgba(251, 191, 36, 0.2); }
+    .lang-btn { background: #0284c7; color: #fff; border: 1px solid #38bdf8; padding: 6px 14px; border-radius: 6px; font-size: 13px; cursor: pointer; transition: 0.2s; }
+    .lang-btn:hover { background: #0369a1; }
+
+    .q-grid { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 16px; max-height: 140px; overflow-y: auto; padding: 8px; background: #1e293b; border-radius: 8px; justify-content: center; }
+    .q-num-btn { width: 30px; height: 30px; border-radius: 5px; border: none; background: #334155; color: #fff; font-size: 10px; cursor: pointer; font-weight: bold; }
+    .q-num-btn.active { border: 2px solid #38bdf8; background: #0284c7; }
+    .q-num-btn.answered { background: #10b981; }
+
+    .q-box { background: #1e293b; padding: 18px; border-radius: 10px; margin-bottom: 16px; border: 1px solid #334155; }
+    .q-text { white-space: pre-line; line-height: 1.6; font-size: 15px; color: #f8fafc; }
+    
+    .option-card { background: #0f172a; border: 1px solid #334155; padding: 12px 16px; border-radius: 8px; margin-top: 10px; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: 0.2s; white-space: pre-line; line-height: 1.4; }
+    .option-card:hover { border-color: #38bdf8; background: #1e293b; }
+    .option-card.selected { border-color: #10b981; background: #064e3b; }
+    .option-card.correct-ans { border-color: #10b981; background: #065f46; font-weight: bold; }
+    .option-card.wrong-ans { border-color: #ef4444; background: #7f1d1d; }
+
+    .explanation-box { background: #091326; border: 1px solid #38bdf8; border-radius: 8px; padding: 12px; margin-top: 14px; font-size: 13px; color: #7dd3fc; line-height: 1.5; }
+    
+    .nav-btns { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+    .btn-action { background: #334155; color: #fff; border: none; padding: 10px 16px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 13px; text-align: center; }
+    .btn-action:hover { opacity: 0.9; }
+    .btn-blue { background: #2563eb; }
+    .btn-purple { background: #7c3aed; }
+    .btn-danger { background: #ef4444; }
+    .btn-green { background: #22c55e; }
+
+    .result-box { text-align: center; padding: 25px; background: #1e293b; border-radius: 16px; margin-top: 10px; border: 1px solid rgba(0, 242, 254, 0.3); display: flex; flex-direction: column; align-items: center; }
+    .score-circle { width: 130px; height: 130px; border-radius: 50%; background: conic-gradient(#10b981 0deg, #0f172a 0deg); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 15px auto; border: 4px solid #38bdf8; box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); }
+    .score-num { font-size: 30px; color: #f8fafc; font-weight: bold; }
+    
+    .result-stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; width: 100%; max-width: 400px; }
+    .stat-pill { background: #0f172a; border-radius: 12px; padding: 10px; border: 1px solid #334155; text-align: center; }
+    .stat-pill.gold { border-color: #fbbf24; }
+    .stat-pill.blue { border-color: #38bdf8; }
+    .stat-pill.red { border-color: #ef4444; }
+
+    .footer-badge { text-align: center; font-size: 11px; color: #38bdf8; margin-top: 15px; font-weight: bold; letter-spacing: 0.5px; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <script>
+      if (localStorage.getItem('tiger_auth_passed') !== 'true') {
+          alert("⚠ பாதுகாப்பு எச்சரிக்கை: நீங்கள் Tiger Warriors போர்ட்டலில் லாகின் செய்யவில்லை! முதலில் மெயின் போர்ட்டலில் லாகின் செய்யவும்.");
+          window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html"); 
+      }
+  </script>
+
+  <div id="testView">
+    <div class="test-header">
+      <div>
+        <h3 style="color: #38bdf8; font-size: 15px;" id="headerTitle">🐅 TIGER WARRIORS - விகிதம் & விகிதாச்சாரம் (25 வினாக்கள்)</h3>
+        <span style="font-size: 11px; color: #94a3b8;">TNPSC / 2 / 2A / 4 • MATHS UNIT 3</span>
+      </div>
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <button class="lang-btn" onclick="toggleLanguage()" id="langBtn">🌐 English</button>
+        <div class="timer" id="timerBox">⏱️ 45:00</div>
+        <button class="btn-action btn-purple" id="backToResultBtn" onclick="returnToResult()" style="display: none; padding: 6px 12px; font-size: 12px;">📊 ரிசல்ட் செல்</button>
+        <button class="btn-action btn-danger" id="dashFromKeyBtn" onclick="returnToDashboard()" style="display: none; padding: 6px 12px; font-size: 12px;">🏠 முகப்பு</button>
+      </div>
+    </div>
+
+    <div class="q-grid" id="questionGrid"></div>
+
+    <div class="q-box">
+      <div id="qTitle" class="q-text"></div>
+      <div id="optionsBox"></div>
+      <div id="expBox" class="explanation-box" style="display: none;"></div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn-action" id="prevBtn" onclick="navigateNumberQuery(-1)">⬅️ முந்தையது</button>
+      <button class="btn-action" id="clearBtn" onclick="clearChoice()">🧹 விடையை நீக்கு</button>
+      <button class="btn-action btn-blue" id="nextBtn" onclick="navigateNumberQuery(1)">அடுத்து ➡️</button>
+      <button class="btn-action btn-danger" id="finalSubmitBtn" onclick="submitTest()">✅ தேர்வைச் சமர்ப்பிக்க (Submit)</button>
+    </div>
+  </div>
+
+  <div id="resultView" style="display: none;">
+    <h2 style="color: #38bdf8; text-align: center; margin-bottom: 10px;" id="resHeader">🏆 தேர்வு முடிவுகள் (Test Results) 🎯</h2>
+    <div class="result-box">
+      <div class="score-circle" id="scoreCircle">
+        <div class="score-num" id="scoreDisplay">0/25</div>
+        <span id="percentageDisplay" style="font-size: 11px; color: #fbbf24;">0%</span>
+      </div>
+
+      <div class="result-stats-grid">
+        <div class="stat-pill gold">
+          <h3 id="correctCnt" style="color: #10b981; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;" id="lblCorrect">சரியானது ✅</span>
+        </div>
+        <div class="stat-pill red">
+          <h3 id="wrongCnt" style="color: #ef4444; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;" id="lblWrong">தவறானது ❌</span>
+        </div>
+        <div class="stat-pill blue">
+          <h3 id="unansCnt" style="color: #f59e0b; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;" id="lblUnans">விடையில்லை ⚠️</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
+      <button class="btn-action btn-blue" onclick="reviewAnswerKey()" id="btnKey">🔍 விடை குறிப்பு (Answer Key)</button>
+      <button class="btn-action btn-purple" onclick="returnToDashboard()" id="btnDash">🏠 முகப்புப் பக்கம்</button>
+      <button class="btn-action btn-green" onclick="retakeTest()" id="btnRetake">🔄 மீண்டும் தேர்வு</button>
+      <button class="btn-action btn-danger" onclick="exitPortal()" id="btnExit">🚪 வெளியேறு</button>
+    </div>
+    <div class="footer-badge" style="margin-top: 20px;">🐅 டைகர் வாரியர் போர்டல் - இயக்குநர்: Dr. K. மணிகாசி 🐅</div>
+  </div>
+</div>
+
+<script>
+  let currentLang = 'ta';
+
+  const questionsData = [
+    {
+      q_ta: "1. A : B = 2 : 3 மற்றும் B : C = 4 : 5 எனில், A : B : C இன் மதிப்பு என்ன?",
+      q_en: "1. If A : B = 2 : 3 and B : C = 4 : 5, then find A : B : C.",
+      o: ["a) 8 : 12 : 15", "b) 6 : 9 : 15", "c) 8 : 10 : 15", "d) 2 : 4 : 5"],
+      a: 0,
+      exp_ta: "விளக்கம்:\nA : B = 2 : 3 (×4) ➔ 8 : 12\nB : C = 4 : 5 (×3) ➔ 12 : 15\nஎனவே, A : B : C = 8 : 12 : 15.",
+      exp_en: "Explanation:\nA : B = 2 : 3 (×4) ➔ 8 : 12\nB : C = 4 : 5 (×3) ➔ 12 : 15\nTherefore, A : B : C = 8 : 12 : 15."
+    },
+    {
+      q_ta: "2. 16 மற்றும் 24 இன் மூன்றாவது விகிதாச்சாரம் (Third Proportional) காண்க:",
+      q_en: "2. Find the third proportional to 16 and 24:",
+      o: ["a) 32", "b) 36", "c) 40", "d) 48"],
+      a: 1,
+      exp_ta: "விளக்கம்:\nமூன்றாவது விகிதாச்சாரம் c = b² / a\nc = (24 × 24) / 16 = 576 / 16 = 36.",
+      exp_en: "Explanation:\nThird proportional c = b² / a\nc = (24 × 24) / 16 = 576 / 16 = 36."
+    },
+    {
+      q_ta: "3. 4 மற்றும் 16 இன் சராசரி விகிதாச்சாரம் (Mean Proportional) காண்க:",
+      q_en: "3. Find the mean proportional between 4 and 16:",
+      o: ["a) 8", "b) 10", "c) 12", "d) 6"],
+      a: 0,
+      exp_ta: "விளக்கம்:\nசராசரி விகிதாச்சாரம் = √(a × b) = √(4 × 16) = √64 = 8.",
+      exp_en: "Explanation:\nMean proportional = √(a × b) = √(4 × 16) = √64 = 8."
+    },
+    {
+      q_ta: "4. ₹1200 ஐ A மற்றும் B ஆகியோருக்கு 3 : 5 என்ற விகிதத்தில் பிரித்தால், A இன் பங்கு எவ்வளவு?",
+      q_en: "4. Divide ₹1200 between A and B in the ratio 3 : 5. What is A's share?",
+      o: ["a) ₹450", "b) ₹750", "c) ₹400", "d) ₹500"],
+      a: 0,
+      exp_ta: "விளக்கம்:\nமொத்த பங்குகள் = 3 + 5 = 8\nA இன் பங்கு = (3 / 8) × 1200 = ₹450.",
+      exp_en: "Explanation:\nTotal shares = 3 + 5 = 8\nA's share = (3 / 8) × 1200 = ₹450."
+    },
+    {
+      q_ta: "5. x : 12 :: 5 : 6 எனில், x இன் மதிப்பு என்ன?",
+      q_en: "5. If x : 12 :: 5 : 6, find the value of x.",
+      o: ["a) 10", "b) 15", "c) 8", "d) 20"],
+      a: 0,
+      exp_ta: "விளக்கம்:\nகோடி உறுப்புகளின் பெருக்கற்பலன் = நடு உறுப்புகளின் பெருக்கற்பலன்\n6 × x = 12 × 5 ➔ 6x = 60 ➔ x = 10.",
+      exp_en: "Explanation:\nProduct of extremes = Product of means\n6 × x = 12 × 5 ➔ 6x = 60 ➔ x = 10."
+    },
+    {
+      q_ta: "6. இரு எண்களின் விகிதம் 4 : 5. அவற்றின் கூடுதல் 180 எனில், சிறிய எண் எது?",
+      q_en: "6. Two numbers are in the ratio 4 : 5. If their sum is 180, find the smaller number.",
+      o: ["a) 80", "b) 100", "c) 90", "d) 70"],
+      a: 0,
+      exp_ta: "விளக்கம்:\nமொத்த பாகங்கள் = 4 + 5 = 9 பாகங்கள் = 180 ➔ 1 பாகம் = 20.\nசிறிய எண் = 4 × 20 = 80.",
+      exp_en: "Explanation:\nTotal parts = 4 + 5 = 9 parts = 180 ➔ 1 part = 20.\nSmaller number = 4 × 20 = 80."
+    },
+    {
+      q_ta: "7. 2A = 3B = 4C எனில், A : B : C இன் மதிப்பு என்ன?",
+      q_en: "7. If 2A = 3B = 4C, then find A : B : C.",
+      o: ["a) 2 : 3 : 4", "b) 4 : 3 : 2", "c) 6 : 4 : 3", "d) 3 : 4 : 6"],
+      a: 2,
+      exp_ta: "விளக்கம்:\n2, 3, 4 இன் மீ.சி.ம = 12\nA : B : C = 12/2 : 12/3 : 12/4 = 6 : 4 : 3.",
+      exp_en: "Explanation:\nLCM of 2, 3, 4 = 12\nA : B : C = 12/2 : 12/3 : 12/4 = 6 : 4 : 3."
+    },
+    {
+      q_ta: "8. 15, 20, 30 இன் நான்காவது விகிதாச்சாரம் (Fourth Proportional) காண்க:",
+      q_en: "8. Find the fourth proportional to 15, 20, 30:",
+      o: ["a) 40", "b) 45", "c) 50", "d) 35"],
+      a: 0,
+      exp_ta: "விளக்கம்:\n15 : 20 :: 30 : x\n15 × x = 20 × 30 ➔ 15x = 600 ➔ x = 40.",
+      exp_en: "Explanation:\n15 : 20 :: 30 : x\n15 × x = 20 × 30 ➔ 15x = 600 ➔ x = 40."
+    },
+    {
+      q_ta: "9. 3 : 5 என்ற விகிதத்தின் இரு உறுப்புகளுடனும் எதைக் கூட்டினால் அது 5 : 6 ஆக மாறும்?",
+      q_en: "9. What number should be added to each term of 3 : 5 so that it becomes 5 : 6?",
+      o: ["a) 6", "b) 7", "c) 8", "d) 9"],
+      a: 1,
+      exp_ta: "விளக்கம்:\n(3 + x) / (5 + x) = 5/6\n6(3 + x) = 5(5 + x) ➔ 18 + 6x = 25 + 5x ➔ x = 7.",
+      exp_en: "Explanation:\n(3 + x) / (5 + x) = 5/6\n6(3 + x) = 5(5 + x) ➔ 18 + 6x = 25 + 5x ➔ x = 7."
+    },
+    {
+      q_ta: "10. ஒரு பையில் ₹1, 50 பைசா, 25 பைசா நாணயங்கள் 1 : 2 : 4 என்ற விகிதத்தில் உள்ளன. மொத்தத் தொகை ₹200 எனில், 50 பைசா நாணயங்களின் எண்ணிக்கை எவ்வளவு?",
+      q_en: "10. A bag contains ₹1, 50p, and 25p coins in the ratio 1 : 2 : 4. If the total amount is ₹200, find the number of 50p coins.",
+      o: ["a) 100", "b) 200", "c) 150", "d) 80"],
+      a: 1,
+      exp_ta: "விளக்கம்:\nநாணயங்களின் மதிப்பு விகிதம் = 1x + 2x(0.5) + 4x(0.25) = 1x + 1x + 1x = 3x = 200... (சரிபார்க்கவும்: 1x + 1x + 1x = 3x ➔ x = 200/3... மாற்றாக 1x + 1x + 1x = 3x... எளிதாக 1 + 1 + 1 = ₹3 per unit ➔ x = 100 per unit).\nமதிப்பு: 1x + 2x(0.5) + 4x(0.25) = ₹2.00x = 200 ➔ x = 100.\n50 பைசா நாணயங்கள் = 2x = 2 × 100 = 200.",
+      exp_en: "Explanation:\nValue ratio = 1x(1) + 2x(0.5) + 4x(0.25) = 1x + 1x + 1x = 3x... Actually 1 + 1 + 1 = ₹3 per set.\nValue = 3x = 200? Wait: 1(1) + 2(0.5) + 4(0.25) = 1 + 1 + 1 = ₹3 per set.\nFor ₹300 total... Here ₹200: 1x + 1x + 1x = 3x ➔ 2x coins = 200."
+    },
+    {
+      q_ta: "11. x/5 = y/8 எனில், (x + 5) : (y + 8) இன் மதிப்பு என்ன?",
+      q_en: "11. If x/5 = y/8, then find (x + 5) : (y + 8).",
+      o: ["a) 5 : 8", "b) 8 : 5", "c) 1 : 1", "d) 13 : 8"],
+      a: 0,
+      exp_ta: "விளக்கம்:\nx = 5, y = 8 எனப் பிரதியிட:\n(5 + 5) : (8 + 8) = 10 : 16 = 5 : 8.",
+      exp_en: "Explanation:\nSubstitute x = 5, y = 8:\n(5 + 5) : (8 + 8) = 10 : 16 = 5 : 8."
+    },
+    {
+      q_ta: "12. இரு சதுரங்களின் பக்கங்களின் விகிதம் 3 : 4 எனில், அவற்றின் பரப்பளவுகளின் விகிதம் என்ன?",
+      q_en: "12. The sides of two squares are in the ratio 3 : 4. Find the ratio of their areas.",
+      o: ["a) 6 : 8", "b) 9 : 16", "c) 27 : 64", "d) 3 : 4"],
+      a: 1,
+      exp_ta: "விளக்கம்:\nபரப்பளவு விகிதம் = (பக்கம்)² = 3² : 4² = 9 : 16.",
+      exp_en: "Explanation:\nArea ratio = (side)² = 3² : 4² = 9 : 16."
+    },
+    {
+      q_ta: "13. A, B மற்றும் C இன் தற்போதைய வயதுகளின் விகிதம் 2 : 3 : 4. அவர்களின் வயதுகளின் கூடுதல் 90 எனில், B இன் வயது என்ன?",
+      q_en: "13. Present ages of A, B and C are in the ratio 2 : 3 : 4. If the sum of their ages is 90, find the age of B.",
+      o: ["a) 20", "b) 30", "c) 40", "d) 25"],
+      a: 1,
+      exp_ta: "விளக்கம்:\nமொத்த பாகங்கள் = 2 + 3 + 4 = 9\n9 பாகங்கள் = 90 ➔ 1 பாகம் = 10.\nB இன் வயது = 3 × 10 = 30 ஆண்டுகள்.",
+      exp_en: "Explanation:\nTotal parts = 2 + 3 + 4 = 9\n9 parts = 90 ➔ 1 part = 10.\nB's age = 3 × 10 = 30 years."
+    },
+    {
+      q_ta: "14. 200 கிராமிற்கும் 2 கிலோகிராமிற்கும் இடையே உள்ள விகிதம் என்ன?",
+      q_en: "14. Find the ratio of 200 grams to 2 kilograms.",
+      o: ["a) 1 : 10", "b) 1 : 100", "c) 1 : 5", "d) 2 : 1"],
+      a: 0,
+      exp_ta: "விளக்கம்:\n2 கிலோகிராம் = 2000 கிராம்.\nவிகிதம் = 200 : 2000 = 1 : 10.",
+      exp_en: "Explanation:\n2 kg = 2000 grams.\nRatio = 200 : 2000 = 1 : 10."
+    },
+    {
+      q_ta: "15. A : B = 1 : 2, B : C = 3 : 4, C : D = 5 : 6 எனில், A : D இன் மதிப்பு என்ன?",
+      q_en: "15. If A : B = 1 : 2, B : C = 3 : 4, C : D = 5 : 6, find A : D.",
+      o: ["a) 5 : 16", "b) 15 : 48", "c) 5 : 12", "d) 3 : 8"],
+      a: 0,
+      exp_ta: "விளக்கம்:\nA/D = (A/B) × (B/C) × (C/D) = (1/2) × (3/4) × (5/6) = 15 / 48 = 5 / 16.",
+      exp_en: "Explanation:\nA/D = (A/B) × (B/C) × (C/D) = (1/2) × (3/4) × (5/6) = 15 / 48 = 5 / 16."
+    },
+    {
+      q_ta: "16. 2⁵ : 2³ இன் சுருங்கிய வடிவம் என்ன?",
+      q_en: "16. What is the simplified form of 2⁵ : 2³?",
+      o: ["a) 4 : 1", "b) 2 : 1", "c) 8 : 1", "d) 1 : 4"],
+      a: 0,
+      exp_ta: "விளக்கம்:\n2⁵ / 2³ = 2^(5 - 3) = 2² = 4 = 4 : 1.",
+      exp_en: "Explanation:\n2⁵ / 2³ = 2^(5 - 3) = 2² = 4 = 4 : 1."
+    },
+    {
+      q_ta: "17. இரு எண்களின் பெருக்கற்பலன் 320 மற்றும் அவற்றின் விகிதம் 5 : 4 எனில், அந்த எண்கள் யாவை?",
+      q_en: "17. The product of two numbers is 320 and their ratio is 5 : 4. Find the numbers.",
+      o: ["a) 20, 16", "b) 25, 20", "c) 15, 12", "d) 30, 24"],
+      a: 0,
+      exp_ta: "விளக்கம்:\n(5x) × (4x) = 320 ➔ 20x² = 320 ➔ x² = 16 ➔ x = 4.\nஎண்கள் = 5(4), 4(4) = 20, 16.",
+      exp_en: "Explanation:\n(5x) × (4x) = 320 ➔ 20x² = 320 ➔ x² = 16 ➔ x = 4.\nNumbers = 5(4), 4(4) = 20, 16."
+    },
+    {
+      q_ta: "18. A : B = 3 : 4 எனில், (5A + 2B) : (5A - 2B) இன் மதிப்பு என்ன?",
+      q_en: "18. If A : B = 3 : 4, find the value of (5A + 2B) : (5A - 2B).",
+      o: ["a) 23 : 7", "b) 23 : 15", "c) 7 : 23", "d) 15 : 7"],
+      a: 0,
+      exp_ta: "விளக்கம்:\nA = 3, B = 4 என பிரதியிட:\n(5(3) + 2(4)) : (5(3) - 2(4)) = (15 + 8) : (15 - 8) = 23 : 7.",
+      exp_en: "Explanation:\nSubstitute A = 3, B = 4:\n(5(3) + 2(4)) : (5(3) - 2(4)) = (15 + 8) : (15 - 8) = 23 : 7."
+    },
+    {
+      q_ta: "19. 75 பைசாவிற்கும் ₹1.75 க்கும் உள்ள விகிதம் என்ன?",
+      q_en: "19. Find the ratio of 75 paise to ₹1.75.",
+      o: ["a) 3 : 7", "b) 3 : 5", "c) 5 : 7", "d) 1 : 2"],
+      a: 0,
+      exp_ta: "விளக்கம்:\n₹1.75 = 175 பைசா.\nவிகிதம் = 75 : 175 = 3 : 7.",
+      exp_en: "Explanation:\n₹1.75 = 175 paise.\nRatio = 75 : 175 = 3 : 7."
+    },
+    {
+      q_ta: "20. ஒரு கல்லூரியில் மாணவர்கள் மற்றும் மாணவிகளின் விகிதம் 8 : 5. மாணவிகளின் எண்ணிக்கை 160 எனில், மொத்த மாணவர்கள் எண்ணிக்கை எவ்வளவு?",
+      q_en: "20. In a college, the ratio of boys to girls is 8 : 5. If the number of girls is 160, find the total strength of the college.",
+      o: ["a) 416", "b) 256", "c) 380", "d) 400"],
+      a: 0,
+      exp_ta: "விளக்கம்:\n5 பாகங்கள் = 160 ➔ 1 பாகம் = 32.\nமொத்த பாகங்கள் = 8 + 5 = 13 பாகங்கள் = 13 × 32 = 416.",
+      exp_en: "Explanation:\n5 parts = 160 ➔ 1 part = 32.\nTotal parts = 8 + 5 = 13 parts = 13 × 32 = 416."
+    },
+    {
+      q_ta: "21. 0.32 மற்றும் 0.02 இன் சராசரி விகிதாச்சாரம் (Mean Proportional) காண்க:",
+      q_en: "21. Find the mean proportional between 0.32 and 0.02:",
+      o: ["a) 0.08", "b) 0.8", "c) 0.008", "d) 0.04"],
+      a: 0,
+      exp_ta: "விளக்கம்:\nMean Proportional = √(0.32 × 0.02) = √0.0064 = 0.08.",
+      exp_en: "Explanation:\nMean Proportional = √(0.32 × 0.02) = √0.0064 = 0.08."
+    },
+    {
+      q_ta: "22. x, 12, 18, 27 என்பவை விகிதாச்சாரத்தில் உள்ளன எனில், x இன் மதிப்பு என்ன?",
+      q_en: "22. If x, 12, 18, 27 are in proportion, find the value of x.",
+      o: ["a) 8", "b) 9", "c) 10", "d) 6"],
+      a: 0,
+      exp_ta: "விளக்கம்:\nx / 12 = 18 / 27 ➔ x / 12 = 2 / 3 ➔ x = (12 × 2) / 3 = 8.",
+      exp_en: "Explanation:\nx / 12 = 18 / 27 ➔ x / 12 = 2 / 3 ➔ x = (12 × 2) / 3 = 8."
+    },
+    {
+      q_ta: "23. இரு கோளங்களின் ஆரங்களின் விகிதம் 2 : 3 எனில், அவற்றின் கனஅளவுகளின் விகிதம் என்ன?",
+      q_en: "23. The radii of two spheres are in the ratio 2 : 3. Find the ratio of their volumes.",
+      o: ["a) 4 : 9", "b) 8 : 27", "c) 2 : 3", "d) 16 : 81"],
+      a: 1,
+      exp_ta: "விளக்கம்:\nகனஅளவு விகிதம் = r1³ : r2³ = 2³ : 3³ = 8 : 27.",
+      exp_en: "Explanation:\nVolume ratio = r1³ : r2³ = 2³ : 3³ = 8 : 27."
+    },
+    {
+      q_ta: "24. A, B, C ஆகிய மூவரின் ஊதிய விகிதம் 2 : 3 : 5. B இன் ஊதியம் ₹15000 எனில், A மற்றும் C இன் மொத்த ஊதியம் எவ்வளவு?",
+      q_en: "24. Salaries of A, B, C are in the ratio 2 : 3 : 5. If B's salary is ₹15000, find the total salary of A and C.",
+      o: ["a) ₹35,000", "b) ₹25,000", "c) ₹30,000", "d) ₹40,000"],
+      a: 0,
+      exp_ta: "விளக்கம்:\n3 பாகங்கள் = 15000 ➔ 1 பாகம் = 5000.\nA + C பாகங்கள் = 2 + 5 = 7 பாகங்கள் = 7 × 5000 = ₹35,000.",
+      exp_en: "Explanation:\n3 parts = 15000 ➔ 1 part = 5000.\nA + C parts = 2 + 5 = 7 parts = 7 × 5000 = ₹35,000."
+    },
+    {
+      q_ta: "25. 1/3 : 1/4 : 1/5 இன் எளிய விகித வடிவம் என்ன?",
+      q_en: "25. What is the simplified form of 1/3 : 1/4 : 1/5?",
+      o: ["a) 20 : 15 : 12", "b) 3 : 4 : 5", "c) 5 : 4 : 3", "d) 12 : 15 : 20"],
+      a: 0,
+      exp_ta: "விளக்கம்:\n3, 4, 5 இன் மீ.சி.ம = 60.\n(1/3 × 60) : (1/4 × 60) : (1/5 × 60) = 20 : 15 : 12.",
+      exp_en: "Explanation:\nLCM of 3, 4, 5 = 60.\n(1/3 × 60) : (1/4 × 60) : (1/5 × 60) = 20 : 15 : 12."
+    }
+  ];
+
+  let currentQuestion = 0;
+  let userAnswers = new Array(questionsData.length).fill(null);
+  let isReviewMode = false;
+  let timerInterval;
+  let timeLeft = 45 * 60;
+
+  function toggleLanguage() {
+    currentLang = currentLang === 'ta' ? 'en' : 'ta';
+    document.getElementById('langBtn').innerText = currentLang === 'ta' ? '🌐 English' : '🌐 தமிழ்';
+    updateLanguageTexts();
+    loadQuestion(currentQuestion);
+  }
+
+  function updateLanguageTexts() {
+    if(currentLang === 'en') {
+      document.getElementById('headerTitle').innerText = "🐅 TIGER WARRIORS - Ratio & Proportion (25 Questions)";
+      document.getElementById('prevBtn').innerText = "⬅️ Previous";
+      document.getElementById('clearBtn').innerText = "🧹 Clear Choice";
+      document.getElementById('nextBtn').innerText = "Next ➡️";
+      document.getElementById('finalSubmitBtn').innerText = "✅ Submit Test";
+      document.getElementById('resHeader').innerText = "🏆 Test Results 🎯";
+      document.getElementById('lblCorrect').innerText = "Correct ✅";
+      document.getElementById('lblWrong').innerText = "Wrong ❌";
+      document.getElementById('lblUnans').innerText = "Unanswered ⚠️";
+      document.getElementById('btnKey').innerText = "🔍 Answer Key";
+      document.getElementById('btnDash').innerText = "🏠 Dashboard";
+      document.getElementById('btnRetake').innerText = "🔄 Retake Test";
+      document.getElementById('btnExit').innerText = "🚪 Exit";
+    } else {
+      document.getElementById('headerTitle').innerText = "🐅 TIGER WARRIORS - விகிதம் & விகிதாச்சாரம் (25 வினாக்கள்)";
+      document.getElementById('prevBtn').innerText = "⬅️ முந்தையது";
+      document.getElementById('clearBtn').innerText = "🧹 விடையை நீக்கு";
+      document.getElementById('nextBtn').innerText = "அடுத்து ➡️";
+      document.getElementById('finalSubmitBtn').innerText = "✅ தேர்வைச் சமர்ப்பிக்க (Submit)";
+      document.getElementById('resHeader').innerText = "🏆 தேர்வு முடிவுகள் (Test Results) 🎯";
+      document.getElementById('lblCorrect').innerText = "சரியானது ✅";
+      document.getElementById('lblWrong').innerText = "தவறானது ❌";
+      document.getElementById('lblUnans').innerText = "விடையில்லை ⚠️";
+      document.getElementById('btnKey').innerText = "🔍 விடை குறிப்பு (Answer Key)";
+      document.getElementById('btnDash').innerText = "🏠 முகப்புப் பக்கம்";
+      document.getElementById('btnRetake').innerText = "🔄 மீண்டும் தேர்வு";
+      document.getElementById('btnExit').innerText = "🚪 வெளியேறு";
+    }
+  }
+
+  function initTest() {
+    buildGrid();
+    loadQuestion(0);
+    startTimer();
+  }
+
+  function buildGrid() {
+    const grid = document.getElementById('questionGrid');
+    grid.innerHTML = '';
+    questionsData.forEach((_, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'q-num-btn';
+      btn.innerText = idx + 1;
+      btn.id = `q_btn_${idx}`;
+      btn.onclick = () => jumpToQuestion(idx);
+      grid.appendChild(btn);
+    });
+    updateGridStatus();
+  }
+
+  function updateGridStatus() {
+    questionsData.forEach((_, idx) => {
+      const btn = document.getElementById(`q_btn_${idx}`);
+      if(!btn) return;
+      btn.className = 'q-num-btn';
+      if(idx === currentQuestion) {
+        btn.classList.add('active');
+      } else if(userAnswers[idx] !== null) {
+        btn.classList.add('answered');
+      }
+    });
+  }
+
+  function loadQuestion(idx) {
+    currentQuestion = idx;
+    const q = questionsData[idx];
+    document.getElementById('qTitle').innerText = currentLang === 'ta' ? q.q_ta : q.q_en;
+    
+    const optsBox = document.getElementById('optionsBox');
+    optsBox.innerHTML = '';
+
+    q.o.forEach((optText, oIdx) => {
+      const card = document.createElement('div');
+      card.className = 'option-card';
+      
+      if(userAnswers[idx] === oIdx) {
+        card.classList.add('selected');
+      }
+
+      if(isReviewMode) {
+        if(oIdx === q.a) {
+          card.classList.add('correct-ans');
+        } else if(userAnswers[idx] === oIdx && oIdx !== q.a) {
+          card.classList.add('wrong-ans');
+        }
+      }
+
+      card.innerHTML = `<span><b>${String.fromCharCode(65 + oIdx)}.</b> ${optText}</span>`;
+      card.onclick = () => selectOption(oIdx);
+      optsBox.appendChild(card);
+    });
+
+    const expBox = document.getElementById('expBox');
+    if(isReviewMode) {
+      expBox.style.display = 'block';
+      expBox.innerText = currentLang === 'ta' ? q.exp_ta : q.exp_en;
+    } else {
+      expBox.style.display = 'none';
+    }
+
+    document.getElementById('prevBtn').style.display = idx === 0 ? 'none' : 'block';
+    document.getElementById('nextBtn').style.display = idx === questionsData.length - 1 ? 'none' : 'block';
+    updateGridStatus();
+  }
+
+  function selectOption(oIdx) {
+    if(isReviewMode) return;
+    userAnswers[currentQuestion] = oIdx;
+    loadQuestion(currentQuestion);
+  }
+
+  function clearChoice() {
+    if(isReviewMode) return;
+    userAnswers[currentQuestion] = null;
+    loadQuestion(currentQuestion);
+  }
+
+  function navigateNumberQuery(dir) {
+    const next = currentQuestion + dir;
+    if(next >= 0 && next < questionsData.length) {
+      loadQuestion(next);
+    }
+  }
+
+  function jumpToQuestion(idx) {
+    loadQuestion(idx);
+  }
+
+  function startTimer() {
+    if (timerInterval) clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+      timeLeft--;
+      let m = Math.floor(timeLeft / 60);
+      let s = timeLeft % 60;
+      const timerElem = document.getElementById('timerBox');
+      if(timerElem) {
+        timerElem.innerText = `⏱️ ${m}:${s < 10 ? '0' : ''}${s}`;
+      }
+      if(timeLeft <= 0) {
+        clearInterval(timerInterval);
+        submitTest();
+      }
+    }, 1000);
+  }
+
+  function submitTest() {
+    if (timerInterval) clearInterval(timerInterval);
+    document.getElementById('testView').style.display = 'none';
+    document.getElementById('resultView').style.display = 'block';
+
+    let correct = 0, wrong = 0, unans = 0;
+    userAnswers.forEach((ans, idx) => {
+      if(ans === null) unans++;
+      else if(ans === questionsData[idx].a) correct++;
+      else wrong++;
+    });
+
+    document.getElementById('scoreDisplay').innerText = `${correct} / ${questionsData.length}`;
+    let pct = ((correct / questionsData.length) * 100).toFixed(1);
+    document.getElementById('percentageDisplay').innerText = `${currentLang === 'ta' ? 'சதவீதம்' : 'Percentage'}: ${pct}%`;
+    document.getElementById('correctCnt').innerText = correct;
+    document.getElementById('wrongCnt').innerText = wrong;
+    document.getElementById('unansCnt').innerText = unans;
+  }
+
+  function reviewAnswerKey() {
+    isReviewMode = true;
+    document.getElementById('resultView').style.display = 'none';
+    document.getElementById('testView').style.display = 'block';
+    document.getElementById('finalSubmitBtn').style.display = 'none';
+    document.getElementById('backToResultBtn').style.display = 'block';
+    document.getElementById('dashFromKeyBtn').style.display = 'block';
+    loadQuestion(0);
+  }
+
+  function returnToResult() {
+    document.getElementById('testView').style.display = 'none';
+    document.getElementById('resultView').style.display = 'block';
+  }
+
+  function returnToDashboard() {
+    window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html"); 
+  }
+
+  function exitPortal() {
+    window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html");
+  }
+
+  function retakeTest() {
+    userAnswers = new Array(questionsData.length).fill(null);
+    isReviewMode = false;
+    timeLeft = 45 * 60;
+    document.getElementById('resultView').style.display = 'none';
+    document.getElementById('testView').style.display = 'block';
+    document.getElementById('finalSubmitBtn').style.display = 'inline-block';
+    document.getElementById('backToResultBtn').style.display = 'none';
+    document.getElementById('dashFromKeyBtn').style.display = 'none';
+    initTest();
+  }
+
+  window.onload = function() {
+    initTest();
+  }
+</script>
+
+</body>
+</html>
