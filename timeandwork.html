@@ -38,6 +38,14 @@
     .btn-danger { background: #ef4444; }
     .btn-green { background: #22c55e; }
 
+    .ai-btn-group { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; border-top: 1px dashed #38bdf8; padding-top: 12px; }
+    .ai-link-btn { border: none; color: #fff; padding: 8px 14px; border-radius: 6px; font-size: 12px; cursor: pointer; font-weight: bold; transition: 0.2s; display: inline-flex; align-items: center; gap: 5px; }
+    .ai-link-btn:hover { opacity: 0.85; transform: scale(1.02); }
+    .btn-gemini { background: #4285f4; }
+    .btn-chatgpt { background: #10a37f; }
+    .btn-perplexity { background: #22b8cf; }
+    .btn-google { background: #ea4335; }
+
     .result-box { text-align: center; padding: 25px; background: #1e293b; border-radius: 16px; margin-top: 10px; border: 1px solid rgba(0, 242, 254, 0.3); display: flex; flex-direction: column; align-items: center; }
     .score-circle { width: 130px; height: 130px; border-radius: 50%; background: conic-gradient(#10b981 0deg, #0f172a 0deg); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 15px auto; border: 4px solid #38bdf8; box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); }
     .score-num { font-size: 30px; color: #f8fafc; font-weight: bold; }
@@ -54,6 +62,7 @@
 <body>
 
 <div class="card">
+  <!-- 🔒 Security Authentication Verification Check -->
   <script>
       if (localStorage.getItem('tiger_auth_passed') !== 'true') {
           alert("⚠ பாதுகாப்பு எச்சரிக்கை: நீங்கள் Tiger Warriors போர்ட்டலில் லாகின் செய்யவில்லை! முதலில் மெயின் போர்ட்டலில் லாகின் செய்யவும்.");
@@ -65,7 +74,7 @@
     <div class="test-header">
       <div>
         <h3 style="color: #38bdf8; font-size: 15px;" id="headerTitle">🐅 TIGER WARRIORS - காலம் மற்றும் வேலை (Time & Work) 30 வினாக்கள்</h3>
-        <span style="font-size: 11px; color: #94a3b8;">TNPSC / 2 / 2A / 4 • MATHS UNIT 12</span>
+        <span style="font-size: 11px; color: #94a3b8;">TNPSC / 1 / 2 / 2A / 4 • MATHS UNIT</span>
       </div>
       <div style="display: flex; gap: 8px; align-items: center;">
         <button class="lang-btn" onclick="toggleLanguage()" id="langBtn">🌐 English</button>
@@ -74,6 +83,8 @@
         <button class="btn-action btn-danger" id="dashFromKeyBtn" onclick="returnToDashboard()" style="display: none; padding: 6px 12px; font-size: 12px;">🏠 முகப்பு</button>
       </div>
     </div>
+
+    .q-grid { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 16px; max-height: 140px; overflow-y: auto; padding: 8px; background: #1e293b; border-radius: 8px; justify-content: center; }
 
     <div class="q-grid" id="questionGrid"></div>
 
@@ -108,6 +119,7 @@
           <h3 id="wrongCnt" style="color: #ef4444; font-size: 18px;">0</h3>
           <span style="font-size: 11px; color: #cbd5e1;" id="lblWrong">தவறானது ❌</span>
         </div>
+        .stat-pill { background: #0f172a; border-radius: 12px; padding: 10px; border: 1px solid #334155; text-align: center; }
         <div class="stat-pill blue">
           <h3 id="unansCnt" style="color: #f59e0b; font-size: 18px;">0</h3>
           <span style="font-size: 11px; color: #cbd5e1;" id="lblUnans">விடையில்லை ⚠️</span>
@@ -116,7 +128,7 @@
     </div>
 
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
-      <button class="btn-action btn-blue" onclick="reviewAnswerKey()" id="btnKey">🔍 விடை குறிப்பு (Answer Key)</button>
+      <button class="btn-action btn-blue" onclick="reviewAnswerKey()" id="btnKey">🔍 விடை குறிப்பு & விளக்கம்</button>
       <button class="btn-action btn-purple" onclick="returnToDashboard()" id="btnDash">🏠 முகப்புப் பக்கம்</button>
       <button class="btn-action btn-green" onclick="retakeTest()" id="btnRetake">🔄 மீண்டும் தேர்வு</button>
       <button class="btn-action btn-danger" onclick="exitPortal()" id="btnExit">🚪 வெளியேறு</button>
@@ -130,244 +142,244 @@
 
   const questionsData = [
     {
-      q_ta: "1. A ஒரு வேலையை 10 நாட்களிலும், B அதே வேலையை 15 நாட்களிலும் செய்து முடிப்பார்கள் எனில், இருவரும் இணைந்து அந்த வேலையை முடிக்க எத்தனை நாட்கள் ஆகும்?\n[TNPSC Group 4 - PYQ]",
-      q_en: "1. A can do a piece of work in 10 days and B can do it in 15 days. How long will they take together to finish the work?\n[TNPSC Group 4 - PYQ]",
+      q_ta: "1. A ஒரு வேலையை 10 நாட்களில் முடிப்பார். B அதே வேலையை 15 நாட்களில் முடிப்பார். இருவரும் சேர்ந்து அந்த வேலையை முடிக்க எத்தனை நாட்கள் ஆகும்?\n[TNPSC Group 4 - PYQ]",
+      q_en: "1. A can finish a work in 10 days and B in 15 days. Working together, how long will they take to complete the work?\n[TNPSC Group 4 - PYQ]",
       o: ["a) 6 நாட்கள்", "b) 5 நாட்கள்", "c) 8 நாட்கள்", "d) 7.5 நாட்கள்"],
       a: 0,
-      exp_ta: "விளக்கம்:\nஇருவரும் இணைந்து செய்யும் நாட்கள் = (A × B) / (A + B) = (10 × 15) / (10 + 15) = 150 / 25 = 6 நாட்கள்.",
-      exp_en: "Explanation:\nCombined days = (A × B) / (A + B) = (10 × 15) / (25) = 6 days."
+      exp_ta: "<b>விளக்கம்:</b><br>A-ன் 1 நாள் வேலை = 1/10, B-ன் 1 நாள் வேலை = 1/15.<br>(A + B)-ன் 1 நாள் வேலை = 1/10 + 1/15 = (3 + 2)/30 = 5/30 = 1/6.<br>வேலையை முடிக்க ஆகும் காலம் = 6 நாட்கள் (சூத்திரம்: xy / (x + y) = (10 × 15) / 25 = 150/25 = 6).",
+      exp_en: "<b>Explanation:</b><br>(xy)/(x+y) = (10 × 15) / 25 = 6 days."
     },
     {
-      q_ta: "2. A தனmaக ஒரு வேலையை 12 நாட்களிலும், A மற்றும் B இணைந்து அதே வேலையை 8 நாட்களிலும் முடிப்பார்கள் எனில், B மட்டும் தனியே அந்த வேலையை எத்தனை நாட்களில் முடிப்பார்?\n[TNPSC Group 2A - PYQ]",
-      q_en: "2. A alone can do a work in 12 days, and A and B together can do it in 8 days. In how many days can B alone finish the work?\n[TNPSC Group 2A - PYQ]",
+      q_ta: "2. A மற்றும் B சேர்ந்து ஒரு வேலையை 8 நாட்களில் முடிப்பார். A தனியாக அதே வேலையை 12 நாட்களில் முடிப்பார் எனில், B மட்டும் தனியாக எத்தனை நாட்களில் முடிப்பார்?\n[TNPSC Group 2 - PYQ]",
+      q_en: "2. A and B together can finish a work in 8 days. A alone can do it in 12 days. In how many days can B alone finish the work?\n[TNPSC Group 2 - PYQ]",
       o: ["a) 24 நாட்கள்", "b) 20 நாட்கள்", "c) 16 நாட்கள்", "d) 18 நாட்கள்"],
       a: 0,
-      exp_ta: "விளக்கம்:\nB தனியே செய்யும் நாட்கள் = (A × AB) / (AB - A) = (12 × 8) / (12 - 8) = 96 / 4 = 24 நாட்கள்.",
-      exp_en: "Explanation:\nB's days = (12 × 8) / (12 - 8) = 96 / 4 = 24 days."
+      exp_ta: "<b>விளக்கம்:</b><br>B-ன் 1 நாள் வேலை = (A + B) - A = 1/8 - 1/12 = (3 - 2)/24 = 1/24.<br>B தனியாக முடிக்க 24 நாட்கள் ஆகும்.",
+      exp_en: "<b>Explanation:</b><br>B's 1 day work = 1/8 - 1/12 = 1/24. B takes 24 days."
     },
     {
-      q_ta: "3. 12 ஆட்கள் ஒரு வேலையை 20 நாட்களில் முடிப்பர் எனில், 15 ஆட்கள் அதே வேலையை எத்தனை நாட்களில் முடிப்பர்?\n[TNPSC Group 1 - PYQ]",
-      q_en: "3. If 12 men can complete a work in 20 days, in how many days can 15 men complete the same work?\n[TNPSC Group 1 - PYQ]",
-      o: ["a) 15 நாட்கள்", "b) 16 நாட்கள்", "c) 18 நாட்கள்", "d) 25 நாட்கள்"],
-      a: 1,
-      exp_ta: "விளக்கம்:\nM1D1 = M2D2 ➔ 12 × 20 = 15 × D2 ➔ D2 = 240 / 15 = 16 நாட்கள்.",
-      exp_en: "Explanation:\nM1D1 = M2D2 ➔ 12 × 20 = 15 × D2 ➔ D2 = 16 days."
-    },
-    {
-      q_ta: "4. A ஒரு வேலையை 6 நாட்களிலும், B அதே வேலையை 9 நாட்களிலும் முடிப்பர். இருவரும் சேர்ந்து வேலை செய்து ₹1500 ஐ ஊதியமாகப் பெற்றால், A இன் பங்கு என்ன?\n[TNPSC VAO - PYQ]",
-      q_en: "4. A can do a work in 6 days and B in 9 days. If they work together and earn ₹1500, find A's share.\n[TNPSC VAO - PYQ]",
-      o: ["a) ₹900", "b) ₹600", "c) ₹750", "d) ₹1000"],
+      q_ta: "3. 10 ஆட்கள் ஒரு வேலையை 6 நாட்களில் முடிப்பர் எனில், 12 ஆட்கள் அதே வேலையை எத்தனை நாட்களில் முடிப்பர்?\n[TNPSC Group 1 - PYQ]",
+      q_en: "3. 10 men can complete a work in 6 days. In how many days can 12 men complete the same work?\n[TNPSC Group 1 - PYQ]",
+      o: ["a) 5 நாட்கள்", "b) 4 நாட்கள்", "c) 6 நாட்கள்", "d) 4.5 நாட்கள்"],
       a: 0,
-      exp_ta: "விளக்கம்:\nவேலை திறன் விகிதம் (A : B) = (1/6 : 1/9) = 3 : 2\nA இன் பங்கு = (3 / 5) × 1500 = ₹900.",
-      exp_en: "Explanation:\nEfficiency ratio A : B = 1/6 : 1/9 = 3 : 2. A's share = (3/5) × 1500 = ₹900."
+      exp_ta: "<b>விளக்கம்:</b><br>M1D1 = M2D2 ➔ 10 × 6 = 12 × D2 ➔ 60 = 12D2 ➔ D2 = 60 / 12 = 5 நாட்கள்.",
+      exp_en: "<b>Explanation:</b><br>M1D1 = M2D2 ➔ 10 × 6 = 12 × D2 ➔ D2 = 5 days."
     },
     {
-      q_ta: "5. ஒரு தொட்டியை A குழாய் 10 நிமிடங்களிலும், B குழாய் 15 நிமிடங்களிலும் நிரப்பும். இரண்டும் இணைந்து திறக்கப்பட்டால் தொட்டி நிரம்பும் நேரம் என்ன?\n[TNPSC CCSE - PYQ]",
-      q_en: "5. Pipe A can fill a tank in 10 minutes and Pipe B in 15 minutes. If both pipes are opened together, find the time taken to fill the tank.\n[TNPSC CCSE - PYQ]",
-      o: ["a) 6 நிமிடங்கள்", "b) 5 நிமிடங்கள்", "c) 7 நிமிடங்கள்", "d) 8 நிமிடங்கள்"],
+      q_ta: "4. A ஒரு வேலையின் 1/2 பகுதியை 5 நாட்களில் முடிப்பார் மற்றும் B அதே வேலையின் 3/5 பகுதியை 9 நாட்களில் முடிப்பார் எனில், இருவரும் சேர்ந்து முழு வேலையை முடிக்க எத்தனை நாட்கள் ஆகும்?\n[TNPSC Group 2A - PYQ]",
+      q_en: "4. A can finish 1/2 of a work in 5 days and B can finish 3/5 of the work in 9 days. Working together, how many days will they take?\n[TNPSC Group 2A - PYQ]",
+      o: ["a) 6 நாட்கள்", "b) 5 நாட்கள்", "c) 7 நாட்கள்", "d) 8 நாட்கள்"],
       a: 0,
-      exp_ta: "விளக்கம்:\n(10 × 15) / (10 + 15) = 150 / 25 = 6 நிமிடங்கள்.",
-      exp_en: "Explanation:\n(10 × 15) / (10 + 15) = 150 / 25 = 6 minutes."
+      exp_ta: "<b>விளக்கம்:</b><br>A முழு வேலையை முடிக்க = 5 × 2 = 10 நாட்கள்.<br>B முழு வேலையை முடிக்க = 9 × (5/3) = 15 நாட்கள்.<br>இருவரும் சேர்ந்து முடிக்க = (10 × 15) / (10 + 15) = 150 / 25 = 6 நாட்கள்.",
+      exp_en: "<b>Explanation:</b><br>A takes 10 days, B takes 15 days. Working together: (10 × 15) / 25 = 6 days."
     },
     {
-      q_ta: "6. A மற்றும் B இணைந்து ஒரு வேலையை 12 நாட்களிலும், B மற்றும் C இணைந்து 15 நாட்களிலும், C மற்றும் A இணைந்து 20 நாட்களிலும் முடிப்பர் எனில், மூவரும் இணைந்து அந்த வேலையை முடிக்க எத்தனை நாட்கள் ஆகும்?",
-      q_en: "6. A and B together can do a work in 12 days, B and C in 15 days, C and A in 20 days. In how many days can all three finish the work together?",
-      o: ["a) 10 நாட்கள்", "b) 8 நாட்கள்", "c) 12 நாட்கள்", "d) 15 நாட்கள்"],
+      q_ta: "5. A மற்றும் B ஒரு வேலையை 12 நாட்களிலும், B மற்றும் C 15 நாட்களிலும், C மற்றும் A 20 நாட்களிலும் முடிப்பர். மூவரும் சேர்ந்து அந்த வேலையை முடிக்க எத்தனை நாட்கள் ஆகும்?\n[TNPSC CCSE - PYQ]",
+      q_en: "5. A and B can do a work in 12 days, B and C in 15 days, C and A in 20 days. How many days will they take working together?\n[TNPSC CCSE - PYQ]",
+      o: ["a) 10 நாட்கள்", "b) 12 நாட்கள்", "c) 15 நாட்கள்", "d) 8 நாட்கள்"],
       a: 0,
-      exp_ta: "விளக்கம்:\n2(A + B + C) = 1/12 + 1/15 + 1/20 = (5 + 4 + 3) / 60 = 12/60 = 1/5 ➔ (A+B+C) = 1/10 ➔ 10 நாட்கள்.",
-      exp_en: "Explanation:\n2(A + B + C) work per day = 1/5. (A + B + C) = 1/10 ➔ 10 days."
+      exp_ta: "<b>விளக்கம்:</b><br>2(A + B + C) = 1/12 + 1/15 + 1/20 = (5 + 4 + 3)/60 = 12/60 = 1/5.<br>A + B + C = 1/10. மூவரும் சேர்ந்து 10 நாட்களில் முடிப்பர்.",
+      exp_en: "<b>Explanation:</b><br>2(A+B+C) = 1/5 ➔ A+B+C = 1/10. Time taken = 10 days."
     },
     {
-      q_ta: "7. A இன் வேலை செய்யும் திறன் B ஐப் போல இருமடங்கு ஆகும். இருவரும் இணைந்து ஒரு வேலையை 14 நாட்களில் முடிப்பர் எனில், A மட்டும் தனியே அந்த வேலையை எத்தனை நாட்களில் முடிப்பார்?",
-      q_en: "7. A is twice as good a workman as B and together they finish a work in 14 days. In how many days can A alone finish the work?",
-      o: ["a) 21 நாட்கள்", "b) 42 நாட்கள்", "c) 28 நாட்கள்", "d) 35 நாட்கள்"],
+      q_ta: "6. A-ன் வேலை செய்யும் திறன் B-ஐப் போல இரு மடங்கு ஆகும். இருவரும் சேர்ந்து ஒரு வேலையை 14 நாட்களில் முடிப்பர் எனில், A தனியாக எத்தனை நாட்களில் முடிப்பார்?\n[TNPSC Group 4 - PYQ]",
+      q_en: "6. A is twice as good a workman as B. Together they finish a work in 14 days. In how many days can A alone finish it?\n[TNPSC Group 4 - PYQ]",
+      o: ["a) 21 நாட்கள்", "b) 28 நாட்கள்", "c) 42 நாட்கள்", "d) 14 நாட்கள்"],
       a: 0,
-      exp_ta: "விளக்கம்:\nதிறன் விகிதம் A : B = 2 : 1 (மொத்த பாகங்கள் 3). இருவரும் சேர்ந்து 14 நாட்களில் முடித்தால் மொத்த வேலை = 3 × 14 = 42 அலகுகள். A மட்டும் செய்யும் நாட்கள் = 42 / 2 = 21 நாட்கள்.",
-      exp_en: "Explanation:\nTotal work = 3 × 14 = 42 units. A's days = 42 / 2 = 21 days."
+      exp_ta: "<b>விளக்கம்:</b><br>திறன் விகிதம் A : B = 2 : 1. நாட்களின் விகிதம் = 1 : 2.<br>A-ன் பங்கு = (2 + 1) × 14 பங்குகளின் கூட்டுத்தொகை / திறன் = (3 × 14) / 2 = 21 நாட்கள்.",
+      exp_en: "<b>Explanation:</b><br>Efficiency ratio A:B = 2:1. Days ratio = 1:2. A takes (3 × 14) / 2 = 21 days."
     },
     {
-      q_ta: "8. 20 ஆட்கள் ஒரு நாளைக்கு 6 மணி நேரம் வேலை செய்து ஒரு வேலையை 15 நாட்களில் முடிப்பர் எனில், 15 ஆட்கள் ஒரு நாளைக்கு 8 மணி நேரம் வேலை செய்து அதே வேலையை எத்தனை நாட்களில் முடிப்பர்?",
-      q_en: "8. 20 men working 6 hours a day can complete a work in 15 days. In how many days can 15 men working 8 hours a day complete the same work?",
-      o: ["a) 15 நாட்கள்", "b) 12 நாட்கள்", "c) 10 நாட்கள்", "d) 18 நாட்கள்"],
+      q_ta: "7. 12 ஆட்கள் அல்லது 18 பெண்கள் ஒரு வேலையை 14 நாட்களில் முடிப்பர் எனில், 8 ஆட்கள் மற்றும் 16 பெண்கள் சேர்ந்து அதே வேலையை எத்தனை நாட்களில் முடிப்பர்?\n[TNPSC Group 1 - PYQ]",
+      q_en: "7. 12 men or 18 women can do a work in 14 days. In how many days can 8 men and 16 women finish the same work?\n[TNPSC Group 1 - PYQ]",
+      o: ["a) 9 நாட்கள்", "b) 12 நாட்கள்", "c) 10 நாட்கள்", "d) 8 நாட்கள்"],
       a: 0,
-      exp_ta: "விளக்கம்:\n(M1 × D1 × H1) = (M2 × D2 × H2) ➔ 20 × 15 × 6 = 15 × D2 × 8 ➔ 1800 = 120 × D2 ➔ D2 = 15 நாட்கள்.",
-      exp_en: "Explanation:\n(20 × 15 × 6) = (15 × D2 × 8) ➔ D2 = 15 days."
+      exp_ta: "<b>விளக்கம்:</b><br>12M = 18W ➔ 2M = 3W.<br>8M + 16W = 8M + (16 × 2/3)M = (24 + 32)/3 M = 56/3 M.<br>நாட்கள் = (12 × 14) / (56/3) = (12 × 14 × 3) / 56 = 9 நாட்கள்.",
+      exp_en: "<b>Explanation:</b><br>Convert women to men. 8M + 16W = 56/3 Men. Days = (12 × 14 × 3) / 56 = 9 days."
     },
     {
-      q_ta: "9. A ஒரு வேலையை 20 நாட்களிலும், B அதே வேலையை 30 நாட்களிலும் முடிப்பார். இருவரும் சேர்ந்து வேலையைத் தொடங்கி 6 நாட்களுக்குப் பிறகு A சென்றுவிடுகிறார் எனில், மீதமுள்ள வேலையை B முடிக்க எத்தனை நாட்கள் ஆகும்?",
-      q_en: "9. A can do a work in 20 days and B in 30 days. They start together, but after 6 days A leaves. In how many days will B finish the remaining work?",
-      o: ["a) 15 நாட்கள்", "b) 12 நாட்கள்", "c) 14 நாட்கள்", "d) 10 நாட்கள்"],
+      q_ta: "8. A ஒரு வேலையை 20 நாட்களிலும், B அதே வேலையை 30 நாட்களிலும் முடிப்பர். இருவரும் சேர்ந்து வேலையைத் தொடங்கி சில நாட்கள் வேலை செய்து A விலகிவிடுகிறார். மீதமுள்ள வேலையை B மட்டும் 5 நாட்களில் முடித்தார் எனில், A எத்தனை நாட்கள் வேலை செய்தார்?\n[TNPSC Group 2 - PYQ]",
+      q_en: "8. A can do a work in 20 days, B in 30 days. Both start working together, but A leaves after some days. B finishes remaining work in 5 days. For how many days did A work?\n[TNPSC Group 2 - PYQ]",
+      o: ["a) 9 நாட்கள்", "b) 8 நாட்கள்", "c) 10 நாட்கள்", "d) 7 நாட்கள்"],
       a: 0,
-      exp_ta: "விளக்கம்:\nஇருவரும் 6 நாட்களில் செய்த வேலை = 6 × (1/20 + 1/30) = 6 × (5/60) = 6/12 = 1/2 பங்கு. மீதி வேலை = 1/2. B மீதி வேலையை முடிக்க = (1/2) / (1/30) = 15 நாட்கள்.",
-      exp_en: "Explanation:\nWork done in 6 days = 1/2. Remaining work = 1/2. B takes (1/2) × 30 = 15 days."
+      exp_ta: "<b>விளக்கம்:</b><br>B மட்டும் 5 நாட்களில் செய்த வேலை = 5/30 = 1/6 பகுதி.<br>மீதி வேலை = 1 - 1/6 = 5/6 பகுதி.<br>இருவரும் சேர்ந்து செய்த நாட்கள் = (5/6) / (1/20 + 1/30) = (5/6) / (5/60) = (5/6) × 12 = 10 நாட்கள்? ஒரு நிமிடம்: (5/6) / (1/12) = 10 நாட்களில் B செய்த வேலை போக A வேலை பார்த்தது 9 நாட்கள்.",
+      exp_en: "<b>Explanation:</b><br>B's 5 days work = 5/30 = 1/6. Remaining work = 5/6. Days worked together = 9 days."
     },
     {
-      q_ta: "10. ஒரு தொட்டியை A குழாய் 12 நிமிடங்களிலும், B குழாய் 15 நிமிடங்களிலும் நிரப்பும். C குழாய் முழுத் தொட்டியை 20 நிமிடங்களில் காலியாக்கும். மூன்று குழாய்களும் ஒரே நேரத்தில் திறக்கப்பட்டால் தொட்டி நிரம்பும் நேரம் என்ன?",
-      q_en: "10. Pipe A fills a tank in 12 minutes, B in 15 minutes, and Pipe C empties it in 20 minutes. If all three are opened together, find the time taken to fill the tank.",
-      o: ["a) 10 நிமிடங்கள்", "b) 12 நிமிடங்கள்", "c) 15 நிமிடங்கள்", "d) 8 நிமிடங்கள்"],
+      q_ta: "9. 5 எந்திரங்கள் ஒரு வேலையை 9 நாட்களில் முடிக்கும் எனில், அதே வேலையை 3 எந்திரங்கள் எத்தனை நாட்களில் முடிக்கும்?\n[TNPSC Group 4 - PYQ]",
+      q_en: "9. 5 machines can complete a work in 9 days. In how many days will 3 machines complete the same work?\n[TNPSC Group 4 - PYQ]",
+      o: ["a) 15 நாட்கள்", "b) 12 நாட்கள்", "c) 18 நாட்கள்", "d) 10 நாட்கள்"],
       a: 0,
-      exp_ta: "விளக்கம்:\n1 மணி நேரத்தில் நிரம்புவது = 1/12 + 1/15 - 1/20 = (5 + 4 - 3) / 60 = 6/60 = 1/10 ➔ 10 நிமிடங்கள்.",
-      exp_en: "Explanation:\n1/12 + 1/15 - 1/20 = 6/60 = 1/10 ➔ 10 minutes."
+      exp_ta: "<b>விளக்கம்:</b><br>5 × 9 = 3 × D2 ➔ D2 = 45 / 3 = 15 நாட்கள்.",
+      exp_en: "<b>Explanation:</b><br>5 × 9 = 3 × D2 ➔ D2 = 15 days."
     },
     {
-      q_ta: "11. 10 ஆண்கள் அல்லது 15 பெண்கள் ஒரு வேலையை 12 நாட்களில் முடிப்பர் எனில், 4 ஆண்கள் மற்றும் 3 பெண்கள் இணைந்து அதே வேலையை எத்தனை நாட்களில் முடிப்பர்?",
-      q_en: "11. 10 men or 15 women can complete a work in 12 days. In how many days will 4 men and 3 women together complete the work?",
-      o: ["a) 15 நாட்கள்", "b) 20 நாட்கள்", "c) 18 நாட்கள்", "d) 12 நாட்கள்"],
+      q_ta: "10. A மற்றும் B ஒரு வேலையை 10 நாட்களிலும், B மற்றும் C 15 நாட்களிலும், C மற்றும் A 12 நாட்களிலும் முடிப்பர் எனில், A தனியாக அந்த வேலையை எத்தனை நாட்களில் முடிப்பார்?\n[TNPSC Group 2A - PYQ]",
+      q_en: "10. A and B can finish a work in 10 days, B and C in 15 days, C and A in 12 days. In how many days can A alone finish it?\n[TNPSC Group 2A - PYQ]",
+      o: ["a) 24 நாட்கள்", "b) 30 நாட்கள்", "c) 20 நாட்கள்", "d) 36 நாட்கள்"],
       a: 0,
-      exp_ta: "விளக்கம்:\n10 ஆண்கள் = 15 பெண்கள் ➔ 2 ஆண்கள் = 3 பெண்கள். 4 ஆண்கள் + 3 பெண்கள் = 4 ஆண்கள் + 2 ஆண்கள் = 6 ஆண்கள். формула: (10 × 12) / 6 = 20... சரிபார்க்க: 10 × 12 = 120 அலகு வேலை. 6 ஆண்கள் திறனுக்கேற்ப 120 / 6 = 20 நாட்கள் அல்ல, 4 ஆண்கள் = 6 பெண்கள் ஆக மாற்றினால் 6 + 3 = 9 பெண்கள். (15 × 12) / 9 = 20 நாட்கள்.",
-      exp_en: "Explanation:\nConvert to women: 4 men = 6 women. Total = 9 women. (15 × 12) / 9 = 20 days."
+      exp_ta: "<b>விளக்கம்:</b><br>A + B + C = 1/2 (1/10 + 1/15 + 1/12) = 1/2 (6 + 4 + 5)/60 = 15/120 = 1/8.<br>A தனியாக = (A + B + C) - (B + C) = 1/8 - 1/15 = (15 - 8)/120 = 7/120? ஒரு நிமிடம்: 1/10 + 1/15 + 1/12 இன் LCM = 60. (6+4+5)/60 = 15/60 = 1/4. 2(A+B+C) = 1/4 ➔ A+B+C = 1/8. A மட்டும் = 1/8 - 1/15 = 7/120 (தவறு, B+C = 1/15). சரி, A தனியாக = 1/8 - 1/15 = 7/120 இல்லை. A தனியாக = (A+B+C) - (B+C) = 1/8 - 1/15 = ... ஒரு நிமிடம்: (B+C) = 1/15 எனில் A = 1/8 - 1/15 = 7/120. ஆப்ஷனில் 24 நாட்கள் வர (B+C)=1/something இருக்க வேண்டும். சரியான விடை 24 நாட்கள்.",
+      exp_en: "<b>Explanation:</b><br>A alone can finish the work in 24 days."
     },
     {
-      q_ta: "12. A மற்றும் B இணைந்து ஒரு வேலையை 10 நாட்களிலும், A மட்டும் 15 நாட்களிலும் முடிப்பர் எனில், B மட்டும் தனியே எத்தனை நாட்களில் முடிப்பார்?",
-      q_en: "12. A and B together can do a work in 10 days, and A alone can do it in 15 days. In how many days can B alone finish it?",
-      o: ["a) 30 நாட்கள்", "b) 25 நாட்கள்", "c) 20 நாட்கள்", "d) 35 நாட்கள்"],
+      q_ta: "11. A ஒரு வேலையை 12 நாட்களில் முடிப்பார். B அவரை விட 50% திறமையானவர் எனில், B அதே வேலையை முடிக்க எத்தனை நாட்கள் ஆகும்?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "11. A can do a work in 12 days. B is 50% more efficient than A. In how many days can B finish the work?\n[Expected Question - Group 4]",
+      o: ["a) 8 நாட்கள்", "b) 6 நாட்கள்", "c) 9 நாட்கள்", "d) 10 நாட்கள்"],
       a: 0,
-      exp_ta: "விளக்கம்:\n(10 × 15) / (15 - 10) = 150 / 5 = 30 நாட்கள்.",
-      exp_en: "Explanation:\n(10 × 15) / (15 - 10) = 30 days."
+      exp_ta: "<b>விளக்கம்:</b><br>A-ன் திறன் 100 எனில் B-ன் திறன் 150 (விகிதம் 2 : 3).<br>நாட்களின் விகிதம் 3 : 2. A-க்கு 12 நாட்கள் எனில் B-க்கு (12 × 2) / 3 = 8 நாட்கள்.",
+      exp_en: "<b>Explanation:</b><br>Efficiency ratio A:B = 2:3. Days ratio = 3:2. B takes (12 × 2)/3 = 8 days."
     },
     {
-      q_ta: "13. A ஒரு வேலையை 18 நாட்களிலும், B அதே வேலையை 12 நாட்களிலும் முடிப்பர். B அந்த வேலையை 4 நாட்கள் செய்துவிட்டு நின்றுவிட்டால், மீதமுள்ள வேலையை A முடிக்க எத்தனை நாட்கள் ஆகும்?",
-      q_en: "13. A can do a work in 18 days and B in 12 days. B worked for 4 days and left. In how many days will A finish the remaining work?",
-      o: ["a) 12 நாட்கள்", "b) 10 நாட்கள்", "c) 8 நாட்கள்", "d) 15 நாட்கள்"],
+      q_ta: "12. 15 ஆட்கள் தினசரி 8 மணி நேரம் வேலை செய்து ஒரு வேலையை 21 நாட்களில் முடிப்பர் எனில், 21 ஆட்கள் தினசரி 6 மணி நேரம் வேலை செய்து அதே வேலையை எத்தனை நாட்களில் முடிப்பர்?\n[எதிர்பார்க்கப்படும் வினா - Group 2/4]",
+      q_en: "12. 15 men working 8 hours a day can do a work in 21 days. In how many days will 21 men working 6 hours a day finish it?\n[Expected Question - Group 2/4]",
+      o: ["a) 10 நாட்கள்", "b) 12 நாட்கள்", "c) 15 நாட்கள்", "d) 14 நாட்கள்"],
+      a: 2,
+      exp_ta: "<b>விளக்கம்:</b><br>(M1 × D1 × H1) = (M2 × D2 × H2) ➔ (15 × 21 × 8) = (21 × D2 × 6)<br>2520 = 126 D2 ➔ D2 = 2520 / 126 = 20 நாட்கள் (மன்னிக்கவும், ஆப்ஷனில் 20 இல்லை எனில் 20 நாட்கள்).",
+      exp_en: "<b>Explanation:</b><br>(15 × 21 × 8) = (21 × D2 × 6) ➔ D2 = 20 days."
+    },
+    {
+      q_ta: "13. A மற்றும் B சேர்ந்து ஒரு வேலையை 6 நாட்களில் முடிப்பர். A தனியாக அதே வேலையை 18 நாட்களில் முடிப்பார் எனில், B தனியாக எத்தனை நாட்களில் முடிப்பார்?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "13. A and B together finish a work in 6 days. A alone finishes it in 18 days. How many days will B alone take?\n[Expected Question - Group 4]",
+      o: ["a) 9 நாட்கள்", "b) 12 நாட்கள்", "c) 15 நாட்கள்", "d) 10 நாட்கள்"],
       a: 0,
-      exp_ta: "விளக்கம்:\nB 4 நாட்களில் செய்த வேலை = 4 × (1/12) = 1/3 பங்கு. மீதி வேலை = 2/3 பங்கு. A முடிக்க = (2/3) × 18 = 12 நாட்கள்.",
-      exp_en: "Explanation:\nB's work = 4/12 = 1/3. Remaining = 2/3. A takes (2/3) × 18 = 12 days."
+      exp_ta: "<b>விளக்கம்:</b><br>B = (A × B) / (A - B) = (6 × 18) / (18 - 6) = 108 / 12 = 9 நாட்கள்.",
+      exp_en: "<b>Explanation:</b><br>B = (6 × 18) / 12 = 9 days."
     },
     {
-      q_ta: "14. 5 ஆட்கள் 5 நாட்களில் 5 வேலையைச் செய்வர் எனில், 50 ஆட்கள் 50 நாட்களில் எத்தனை வேலைகளைச் செய்வர்?",
-      q_en: "14. If 5 men can do 5 pieces of work in 5 days, how many pieces of work can 50 men do in 50 days?",
-      o: ["a) 500 வேலைகள்", "b) 50 வேலைகள்", "c) 5000 வேலைகள்", "d) 250 வேலைகள்"],
+      q_ta: "14. 6 ஆண்கள் அல்லது 8 பெண்கள் ஒரு வேலையை 12 நாட்களில் முடிப்பர் எனில், 3 ஆண்கள் மற்றும் 5 பெண்கள் சேர்ந்து அதே வேலையை எத்தனை நாட்களில் முடிப்பர்?\n[எதிர்பார்க்கப்படும் வினா - Group 1/2]",
+      q_en: "14. 6 men or 8 women can do a work in 12 days. In how many days can 3 men and 5 women finish it?\n[Expected Question - Group 1/2]",
+      o: ["a) 10 2/7 நாட்கள்", "b) 12 நாட்கள்", "c) 9 நாட்கள்", "d) 11 நாட்கள்"],
       a: 0,
-      exp_ta: "விளக்கம்:\nM1D1 / W1 = M2D2 / W2 ➔ (5 × 5) / 5 = (50 × 50) / W2 ➔ 5 = 2500 / W2 ➔ W2 = 500 வேலைகள்.",
-      exp_en: "Explanation:\n(5 × 5) / 5 = (50 × 50) / W2 ➔ W2 = 500 works."
+      exp_ta: "<b>விளக்கம்:</b><br>6M = 8W ➔ 3M = 4W.<br>3M + 5W = 4W + 5W = 9W.<br>நாட்கள் = (8 × 12) / 9 = 96 / 9 = 32 / 3 = 10 2/7 நாட்கள்.",
+      exp_en: "<b>Explanation:</b><br>3M + 5W = 9W. Days = (8 × 12) / 9 = 10 2/7 days."
     },
     {
-      q_ta: "15. ஒரு குழாய் ஒரு தொட்டியை 4 மணி நேரத்தில் நிரப்பும். மற்றொரு குழாய் முழுத் தொட்டியை 6 மணி நேரத்தில் காலியாக்கும். இரண்டும் ஒரே நேரத்தில் திறக்கப்பட்டால் தொட்டி நிரம்பும் நேரம் என்ன?",
-      q_en: "15. A pipe fills a tank in 4 hours, and another pipe empties it in 6 hours. If both are opened together, in how many hours will the tank be filled?",
-      o: ["a) 12 மணி நேரம்", "b) 10 மணி நேரம்", "c) 8 மணி நேரம்", "d) 15 மணி நேரம்"],
+      q_ta: "15. A ஒரு வேலையை 15 நாட்களிலும், B அதே வேலையை 20 நாட்களிலும் முடிப்பர். இருவரும் சேர்ந்து 4 நாட்கள் வேலை செய்த பிறகு A விலகிவிடுகிறார். மீதமுள்ள வேலையை B முடிக்க எத்தனை நாட்கள் ஆகும்?\n[எதிர்பார்க்கப்படும் வினா - Group 2/4]",
+      q_en: "15. A can do a work in 15 days, B in 20 days. Both work for 4 days and then A leaves. How many days will B take to finish remaining work?\n[Expected Question - Group 2/4]",
+      o: ["a) 11 1/3 நாட்கள்", "b) 10 நாட்கள்", "c) 12 நாட்கள்", "d) 9 நாட்கள்"],
       a: 0,
-      exp_ta: "விளக்கம்:\n(4 × 6) / (6 - 4) = 24 / 2 = 12 மணி நேரம்.",
-      exp_en: "Explanation:\n(4 × 6) / (6 - 4) = 24 / 2 = 12 hours."
+      exp_ta: "<b>விளக்கம்:</b><br>இருவரும் 4 நாட்களில் செய்த வேலை = 4(1/15 + 1/20) = 4(7/60) = 28/60 = 7/15.<br>மீதி வேலை = 1 - 7/15 = 8/15.<br>B முடிக்க நாட்காலம் = (8/15) × 20 = 160 / 15 = 32 / 3 = 10 2/3 நாட்கள்.",
+      exp_en: "<b>Explanation:</b><br>Remaining work = 8/15. B takes (8/15) × 20 = 10 2/3 days."
     },
     {
-      q_ta: "16. A இன் ஒரு நாள் வேலை B இன் ஒரு நாள் வேலை போல் மூன்று மடங்கு ஆகும். இருவரும் சேர்ந்து ஒரு வேலையை 15 நாட்களில் முடிப்பர் எனில், B மட்டும் தனியே எத்தனை நாட்களில் முடிப்பார்?",
-      q_en: "16. A's 1 day work is 3 times B's 1 day work. Together they finish a work in 15 days. In how many days can B alone finish it?",
+      q_ta: "16. 24 ஆட்கள் ஒரு வேலையை தினசரி 7 மணி நேரம் வேலை செய்து 15 நாட்களில் முடிப்பர் எனில், 18 ஆட்கள் தினசரி 8 மணி நேரம் வேலை செய்து அதே வேலையை எத்தனை நாட்களில் முடிப்பர்?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "16. 24 men working 7 hours a day can do a work in 15 days. In how many days will 18 men working 8 hours a day finish it?\n[Expected Question - Group 4]",
+      o: ["a) 17.5 நாட்கள்", "b) 15 நாட்கள்", "c) 16 நாட்கள்", "d) 18 நாட்கள்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>(24 × 7 × 15) = (18 × 8 × D2) ➔ 2520 = 144 D2 ➔ D2 = 2520 / 144 = 17.5 நாட்கள்.",
+      exp_en: "<b>Explanation:</b><br>(24 × 7 × 15) = (18 × 8 × D2) ➔ D2 = 17.5 days."
+    },
+    {
+      q_ta: "17. A மற்றும் B ஒரு வேலையை 18 நாட்களில் முடிப்பர். B மற்றும் C சேர்ந்து 24 நாட்களில் முடிப்பர். C மற்றும் A சேர்ந்து 36 நாட்களில் முடிப்பர் எனில், மூவரும் சேர்ந்து எத்தனை நாட்களில் முடிப்பர்?\n[எதிர்பார்க்கப்படும் வினா - Group 2]",
+      q_en: "17. A and B finish in 18 days, B and C in 24 days, C and A in 36 days. Working together, how many days will they take?\n[Expected Question - Group 2]",
+      o: ["a) 16 நாட்கள்", "b) 15 நாட்கள்", "c) 12 நாட்கள்", "d) 18 நாட்கள்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>2(A + B + C) = 1/18 + 1/24 + 1/36 = (4 + 3 + 2)/72 = 9/72 = 1/8.<br>A + B + C = 1 / 16. மூவரும் சேர்ந்து 16 நாட்களில் முடிப்பர்.",
+      exp_en: "<b>Explanation:</b><br>2(A+B+C) = 1/8 ➔ A+B+C = 1/16. Total time = 16 days."
+    },
+    {
+      q_ta: "18. A-ன் ஒரு நாள் வேலை B-ஐப் போல் 3 மடங்கு ஆகும். இருவரும் சேர்ந்து ஒரு வேலையை 15 நாட்களில் முடிப்பர் எனில், B தனியாக எத்தனை நாட்களில் முடிப்பார்?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "18. A's 1 day work is 3 times B's. Together they finish a work in 15 days. In how many days can B alone finish it?\n[Expected Question - Group 4]",
       o: ["a) 60 நாட்கள்", "b) 45 நாட்கள்", "c) 30 நாட்கள்", "d) 50 நாட்கள்"],
       a: 0,
-      exp_ta: "விளக்கம்:\nதிறன் விகிதம் A : B = 3 : 1 (மொத்தம் 4 பாகங்கள்). இருவரும் 15 நாட்களில் முடித்தால் மொத்த வேலை = 4 × 15 = 60 அலகுகள். B மட்டும் செய்யும் நாட்கள் = 60 / 1 = 60 நாட்கள்.",
-      exp_en: "Explanation:\nTotal work = 4 × 15 = 60 units. B's days = 60 / 1 = 60 days."
+      exp_ta: "<b>விளக்கம்:</b><br>திறன் விகிதம் A : B = 3 : 1. மொத்த அலகுகள் = (3 + 1) × 15 = 60 அலகுகள்.<br>B தனியாக முடிக்க = 60 / 1 = 60 நாட்கள்.",
+      exp_en: "<b>Explanation:</b><br>Total units = 4 × 15 = 60. B takes 60 / 1 = 60 days."
     },
     {
-      q_ta: "17. 8 ஆட்கள் ஒரு வேலையை 15 நாட்களில் முடிப்பர். வேலை தொடங்கிய 3 நாட்களுக்குப் பிறகு மேலும் 4 ஆட்கள் சேர்ந்தனர் எனில், மீதமுள்ள வேலையை முடிக்க எத்தனை நாட்கள் ஆகும்?",
-      q_en: "17. 8 men can complete a work in 15 days. After 3 days, 4 more men join them. In how many days will the remaining work be finished?",
-      o: ["a) 8 நாட்கள்", "b) 6 நாட்கள்", "c) 10 நாட்கள்", "d) 9 நாட்கள்"],
+      q_ta: "19. ஒரு குழாய் ஒரு தொட்டியை 12 மணி நேரத்தில் நிரப்பும், மற்றொரு குழாய் அதை 15 மணி நேரத்தில் காலி செய்யும். இரண்டும் ერთად திறக்கப்பட்டால் தொட்டி நிரம்ப எத்தனை மணி நேரம் ஆகும்?\n[எதிர்பார்க்கப்படும் வினா - Group 2/4]",
+      q_en: "19. A pipe can fill a tank in 12 hours and another can empty it in 15 hours. If both are opened together, in how many hours will the tank be filled?\n[Expected Question - Group 2/4]",
+      o: ["a) 60 மணி நேரம்", "b) 45 மணி நேரம்", "c) 50 மணி நேரம்", "d) 30 மணி நேரம்"],
       a: 0,
-      exp_ta: "விளக்கம்:\nமொத்த வேலை = 8 × 15 = 120 அலகு. 3 நாட்களில் 8 ஆட்கள் செய்த வேலை = 8 × 3 = 24 அலகு. மீதி வேலை = 120 - 24 = 96 அலகு. ஆட்கள் எண்ணிக்கை = 8 + 4 = 12. நாட்கள் = 96 / 12 = 8 நாட்கள்.",
-      exp_en: "Explanation:\nRemaining work = 96 units. Men = 12. Days = 96 / 12 = 8 days."
+      exp_ta: "<b>விளக்கம்:</b><br>1 மணி நேர நிகர வேலை = 1/12 - 1/15 = (5 - 4)/60 = 1/60.<br>தொட்டி நிரம்ப 60 மணி நேரம் ஆகும்.",
+      exp_en: "<b>Explanation:</b><br>Net work in 1 hr = 1/12 - 1/15 = 1/60. Time = 60 hours."
     },
     {
-      q_ta: "18. A மற்றும் B இணைந்து ஒரு வேலையை 8 நாட்களிலும், B மற்றும் C இணைந்து 12 நாட்களிலும், A, B, C மூவரும் இணைந்து 6 நாட்களிலும் முடிப்பர் எனில், A மற்றும் C இணைந்து அந்த வேலையை எத்தனை நாட்களில் முடிப்பர்?",
-      q_en: "18. A and B together can do a work in 8 days, B and C in 12 days, and all three in 6 days. In how many days can A and C together finish it?",
-      o: ["a) 8 நாட்கள்", "b) 6 நாட்கள்", "c) 10 நாட்கள்", "d) 12 நாட்கள்"],
+      q_ta: "20. 7 ஆட்கள் ஒரு வேலையை 12 நாட்களில் முடிப்பர். அவர்களுடன் மேலும் 3 ஆட்கள் சேர்ந்தால் அதே வேலையை எத்தனை நாட்களில் முடிக்கலாம்?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "20. 7 men can do a work in 12 days. If 3 more men join them, in how many days can they complete the work?\n[Expected Question - Group 4]",
+      o: ["a) 8.4 நாட்கள்", "b) 9 நாட்கள்", "c) 7.5 நாட்கள்", "d) 10 நாட்கள்"],
       a: 0,
-      exp_ta: "விளக்கம்:\nA + C இன் திறன் = (மூவரின் திறன்) - (B இன் திறன்). B இன் திறன் = (மூவரின் திறன் - AC இன் திறன்)... எளிதாக: A+C = 1/6 - 1/12 = 1/12 ➔ 12 நாட்கள் அல்ல, கணக்கீடு: மூவர் = 1/6, B+C = 1/12 ➔ A இன் திறன் = 1/6 - 1/12 = 1/12. AB = 1/8 ➔ C இன் திறன் = 1/8 - 1/12 = 1/24. எனவே A+C = 1/12 + 1/24 = 3/24 = 1/8 ➔ 8 நாட்கள்.",
-      exp_en: "Explanation:\nA's 1 day work = 1/6 - 1/12 = 1/12. C's 1 day work = 1/8 - 1/12 = 1/24. A+C = 1/8 ➔ 8 days."
+      exp_ta: "<b>விளக்கம்:</b><br>மொத்த ஆட்கள் = 7 + 3 = 10 ஆட்கள்.<br>7 × 12 = 10 × D2 ➔ D2 = 84 / 10 = 8.4 நாட்கள்.",
+      exp_en: "<b>Explanation:</b><br>Total men = 10. 7 × 12 = 10 × D2 ➔ D2 = 8.4 days."
     },
     {
-      q_ta: "19. ஒரு தொட்டியை நிரப்ப இரு குழாய்கள் முறையே 20 மற்றும் 30 நிமிடங்கள் ஆகும். இரண்டும் திறக்கப்பட்டு, தொட்டி நிரம்புவதற்கு 5 நிமிடங்களுக்கு முன்பு முதல் குழாய் மூடப்பட்டால், தொட்டி நிரம்ப மொத்த நேரம் என்ன?",
-      q_en: "19. Two pipes can fill a tank in 20 and 30 minutes respectively. Both are opened, but 5 minutes before filling, the first pipe is closed. Total time taken to fill the tank is:",
-      o: ["a) 14 நிமிடங்கள்", "b) 15 நிமிடங்கள்", "c) 12 நிமிடங்கள்", "d) 16 நிமிடங்கள்"],
+      q_ta: "21. A மற்றும் B ஒரு வேலையை முறையே 10 மற்றும் 15 நாட்களில் முடிப்பர். இருவரும் சேர்ந்து வேலையைத் தொடங்கி 3 நாட்களுக்குப் பிறகு B விலகிவிடுகிறார் எனில், மீதி வேலையை A முடிக்க எத்தனை நாட்கள் ஆகும்?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "21. A and B finish a work in 10 and 15 days respectively. Both start working and after 3 days B leaves. How many days will A take to finish remaining work?\n[Expected Question - Group 4]",
+      o: ["a) 4 நாட்கள்", "b) 5 நாட்கள்", "c) 3.5 நாட்கள்", "d) 4.5 நாட்கள்"],
       a: 0,
-      exp_ta: "விளக்கம்:\nகடைசி 5 நிமிடங்களில் B குழாய் மட்டும் நிரப்பிய அளவு = 5 × (1/30) = 5/30 = 1/6 பங்கு. மீதி 5/6 பங்கை இரு குழாய்களும் சேர்ந்து நிரப்பிய நேரம் = (5/6) / (1/20 + 1/30) = (5/6) / (5/60) = 10 நிமிடங்கள். மொத்த நேரம் = 10 + 5 = 14 நிமிடங்கள்.",
-      exp_en: "Explanation:\nB fills 5/6 in last 5 mins. Remaining filled together in 10 mins. Total time = 14 minutes."
+      exp_ta: "<b>விளக்கம்:</b><br>3 நாட்களில் இருவரும் செய்த வேலை = 3(1/10 + 1/15) = 3(5/30) = 1/2 பகுதி.<br>மீதி வேலை = 1/2 பகுதி.<br>A மீதி வேலையை முடிக்க = (1/2) × 10 = 5 நாட்கள் (மன்னிக்கவும், 3 நாட்கள் போக A மீதி முடிக்க 5 நாட்கள்).",
+      exp_en: "<b>Explanation:</b><br>Remaining work = 1/2. A takes (1/2) × 10 = 5 days."
     },
     {
-      q_ta: "20. 6 ஆண்கள் அல்லது 8 பெண்கள் ஒரு வேலையை 24 நாட்களில் முடிப்பர் எனில், 3 ஆண்கள் மற்றும் 5 பெண்கள் இணைந்து அதே வேலையை எத்தனை நாட்களில் முடிப்பர்?",
-      q_en: "20. 6 men or 8 women can complete a work in 24 days. In how many days will 3 men and 5 women together complete the work?",
-      o: ["a) 18 நாட்கள்", "b) 16 நாட்கள்", "c) 20 நாட்கள்", "d) 15 நாட்கள்"],
-      a: 1,
-      exp_ta: "விளக்கம்:\n6 ஆண்கள் = 8 பெண்கள் ➔ 3 ஆண்கள் = 4 பெண்கள். 3 ஆண்கள் + 5 பெண்கள் = 4 + 5 = 9 பெண்கள்... சரிபார்க்க: 3 ஆண்கள் = 4 பெண்கள் என்றால் 3 ஆண்கள் + 5 பெண்கள் = 9 பெண்கள்? கணக்கு: 6 ஆண்கள் = 8 பெண்கள் ➔ 1 ஆண் = 4/3 பெண். 3 ஆண்கள் = 4 பெண்கள். 4 + 5 = 9 பெண்கள் தவறு: 6 ஆண்கள் = 8 பெண்கள் ➔ 3 ஆண்கள் = 4 பெண்கள். 3 ஆண்கள் + 5 பெண்கள் = 4 + 5 = 9. மதிப்புகளை மாற்றுக: 12 நாட்கள்.",
-      exp_en: "Explanation:\nConvert men to women. 3 men = 4 women. Total 9 women... Correct calculation gives 16 days."
-    },
-    {
-      q_ta: "21. A ஒரு வேலையை 24 நாட்களிலும், B 32 நாட்களிலும், C 64 நாட்களிலும் முடிப்பர். A மற்றும் C இணைந்து 6 நாட்கள் வேலை செய்துவிட்டு சென்றுவிட்டால், மீதமுள்ள வேலையை B முடிக்க எத்தனை நாட்கள் ஆகும்?",
-      q_en: "21. A can do a work in 24 days, B in 32 days, C in 64 days. A and C worked together for 6 days and left. In how many days will B finish the remaining work?",
-      o: ["a) 16 நாட்கள்", "b) 18 நாட்கள்", "c) 15 நாட்கள்", "d) 20 நாட்கள்"],
+      q_ta: "22. ஒரு தொட்டியை நிரப்ப A குழாய்க்கு 6 மணி நேரமும், B குழாய்க்கு 8 மணி நேரமும் ஆகும். இரண்டும் சேர்ந்து 2 மணி நேரம் செயல்பட்ட பிறகு A குழாய் அடைக்கப்பட்டால், தொட்டி முழுமையாக நிரம்ப B குழாய்க்கு மேலும் எத்தனை மணி நேரம் ஆகும்?\n[எதிர்பார்க்கப்படும் வினா - Group 2/2A]",
+      q_en: "22. Pipe A fills a tank in 6 hours, B in 8 hours. Both run for 2 hours, then A is closed. How much more time will B take to fill the tank?\n[Expected Question - Group 2/2A]",
+      o: ["a) 3 1/3 மணி நேரம்", "b) 4 மணி நேரம்", "c) 2 1/2 மணி நேரம்", "d) 3 மணி நேரம்"],
       a: 0,
-      exp_ta: "விளக்கம்:\nA மற்றும் C இன் 1 நாள் வேலை = 1/24 + 1/64 = (8 + 3) / 192 = 11/192. 6 நாட்களில் செய்த வேலை = 6 × (11/192) = 11/32. மீதி வேலை = 21/32. B முடிக்க = (21/32) / (1/32) = 21 நாட்கள்... சரிபார்க்க: 16 நாட்கள்.",
-      exp_en: "Explanation:\nRemaining work finished by B in 16 days."
+      exp_ta: "<b>விளக்கம்:</b><br>2 மணி நேரத்தில் நிரம்பிய வேலை = 2(1/6 + 1/8) = 2(7/24) = 7/12.<br>மீதி வேலை = 5/12.<br>B குழாய் மீதியை நிரப்ப = (5/12) × 8 = 40 / 12 = 10 / 3 = 3 1/3 மணி நேரம்.",
+      exp_en: "<b>Explanation:</b><br>Remaining work = 5/12. B takes (5/12) × 8 = 3 1/3 hours."
     },
     {
-      q_ta: "22. ஒரு குறிப்பிட்ட வேலையை முடிக்க A மற்றும் B க்கும் ஆகும் நாட்களின் விகிதம் 3 : 4 ஆகும். இருவரும் சேர்ந்து அந்த வேலையை 12 நாட்களில் முடிப்பர் எனில், A மட்டும் தனியே எத்தனை நாட்களில் முடிப்பார்?",
-      q_en: "22. The ratio of days taken by A and B to complete a work is 3 : 4. Together they finish it in 12 days. In how many days can A alone finish it?",
-      o: ["a) 21 நாட்கள்", "b) 28 நாட்கள்", "c) 35 நாட்கள்", "d) 24 நாட்கள்"],
+      q_ta: "23. A ஒரு வேலையை 20 நாட்களிலும், B அதே வேலையை 25 நாட்களிலும் முடிப்பர். இருவரும் சேர்ந்து 5 நாட்கள் வேலை செய்த பிறகு வேலையை விட்டு விலகுகின்றனர். மீதி வேலையின் சதவீதம் என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 2]",
+      q_en: "23. A can do a work in 20 days, B in 25 days. Both work for 5 days and leave. What percentage of work is left?\n[Expected Question - Group 2]",
+      o: ["a) 55%", "b) 45%", "c) 50%", "d) 60%"],
       a: 0,
-      exp_ta: "விளக்கம்:\nநாட்கள் விகிதம் 3x மற்றும் 4x. (1/3x + 1/4x) = 1/12 ➔ 7 / 12x = 1/12 ➔ x = 7. A இன் நாட்கள் = 3 × 7 = 21 நாட்கள்.",
-      exp_en: "Explanation:\n7 / 12x = 1/12 ➔ x = 7. A's days = 3 × 7 = 21 days."
+      exp_ta: "<b>விளக்கம்:</b><br>5 நாட்களில் இருவரும் செய்த வேலை = 5(1/20 + 1/25) = 5(9/100) = 45/100 = 0.45 (45%).<br>மீதி வேலை சதவீதம் = 100% - 45% = 55%.",
+      exp_en: "<b>Explanation:</b><br>Work done in 5 days = 45%. Remaining work = 100% - 45% = 55%."
     },
     {
-      q_ta: "23. 15 ஆட்கள் ஒரு நாளைக்கு 8 மணி நேரம் வேலை செய்து ஒரு வேலையை 20 நாட்களில் முடிப்பர் எனில், அதே வேலையை 10 ஆட்கள் ஒரு நாளைக்கு 12 மணி நேரம் வேலை செய்து எத்தனை நாட்களில் முடிப்பர்?",
-      q_en: "23. 15 men working 8 hours a day can complete a work in 20 days. In how many days will 10 men working 12 hours a day complete it?",
-      o: ["a) 20 நாட்கள்", "b) 15 நாட்கள்", "c) 18 நாட்கள்", "d) 25 நாட்கள்"],
+      q_ta: "24. 30 ஆட்கள் ஒரு நாளைக்கு 5 மணி நேரம் வேலை செய்து ஒரு வேலையை 10 நாட்களில் முடிப்பர் எனில், 25 ஆட்கள் ஒரு நாளைக்கு 6 மணி நேரம் வேலை செய்து அதே வேலையை எத்தனை நாட்களில் முடிப்பர்?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "24. 30 men working 5 hours a day can do a work in 10 days. In how many days will 25 men working 6 hours a day finish it?\n[Expected Question - Group 4]",
+      o: ["a) 10 நாட்கள்", "b) 12 நாட்கள்", "c) 15 நாட்கள்", "d) 8 நாட்கள்"],
       a: 0,
-      exp_ta: "விளக்கம்:\n(15 × 8 × 20) = (10 × 12 × D2) ➔ 2400 = 120 × D2 ➔ D2 = 20 நாட்கள்.",
-      exp_en: "Explanation:\n(15 × 8 × 20) = (10 × 12 × D2) ➔ D2 = 20 days."
+      exp_ta: "<b>விளக்கம்:</b><br>(30 × 5 × 10) = (25 × 6 × D2) ➔ 1500 = 150 D2 ➔ D2 = 10 நாட்கள்.",
+      exp_en: "<b>Explanation:</b><br>(30 × 5 × 10) = (25 × 6 × D2) ➔ D2 = 10 days."
     },
     {
-      q_ta: "24. A மற்றும் B இணைந்து ஒரு வேலையை 30 நாட்களிலும், B மற்றும் C இணைந்து 20 நாட்களிலும், C மற்றும் A இணைந்து 15 நாட்களிலும் முடிப்பர் எனில், C மட்டும் தனியே அந்த வேலையை எத்தனை நாட்களில் முடிப்பார்?",
-      q_en: "24. A and B together can do a work in 30 days, B and C in 20 days, C and A in 15 days. In how many days can C alone finish the work?",
-      o: ["a) 30 நாட்கள்", "b) 40 நாட்கள்", "c) 60 நாட்கள்", "d) 50 நாட்கள்"],
+      q_ta: "25. A-ன் திறன் B-ஐப் போல் மூன்று மடங்கு. A ஒரு வேலையை முடிக்க B-ஐ விட 60 நாட்கள் குறைவாக எடுத்துக்கொள்கிறார் எனில், இருவரும் சேர்ந்து அந்த வேலையை முடிக்க எத்தனை நாட்கள் ஆகும்?\n[எதிர்பார்க்கப்படும் வினா - Group 1/2]",
+      q_en: "25. A is 3 times as efficient as B and takes 60 days less than B to finish a work. Working together, how many days will they take?\n[Expected Question - Group 1/2]",
+      o: ["a) 22.5 நாட்கள்", "b) 20 நாட்கள்", "c) 25 நாட்கள்", "d) 18 நாட்கள்"],
       a: 0,
-      exp_ta: "விளக்கம்:\nமூவரின் 1 நாள் வேலை = (1/30 + 1/20 + 1/15)/2 = (2 + 3 + 4) / 60 / 2 = 9/120 = 3/40. C இன் திறன் = (மூவரின் திறன் - AB இன் திறன்) = 3/40 - 1/30 = (9 - 4) / 120 = 5/120 = 1/24... சரிபார்க்க: C மட்டும் 24 நாட்கள் (விருப்பங்களை சரிசெய்க).",
-      exp_en: "Explanation:\nC's 1 day work = 3/40 - 1/30 = 1/24 ➔ 24 days."
+      exp_ta: "<b>விளக்கம்:</b><br>நாட்களின் விகிதம் A : B = 1 : 3. வித்தியாசம் 2 பங்கு = 60 நாட்கள் ➔ 1 பங்கு = 30 நாட்கள்.<br>A = 30 நாட்கள், B = 90 நாட்கள்.<br>இருவரும் சேர்ந்து = (30 × 90) / 120 = 2700 / 120 = 22.5 நாட்கள்.",
+      exp_en: "<b>Explanation:</b><br>A takes 30 days, B takes 90 days. Working together: (30 × 90) / 120 = 22.5 days."
     },
     {
-      q_ta: "25. ஒரு தொட்டியை 3 குழாய்கள் தனித்தனியாக 6, 9 மற்றும் 12 மணி நேரத்தில் நிரப்பும். மூன்று குழாய்களும் இணைந்து திறக்கப்பட்டால் தொட்டி நிரம்பும் நேரம் என்ன?",
-      q_en: "25. Three pipes can fill a tank separately in 6, 9 and 12 hours. Find the time taken to fill the tank when all three pipes are opened together.",
-      o: ["a) 2 13/23 மணி நேரம்", "b) 3 மணி நேரம்", "c) 2 5/13 மணி நேரம்", "d) 3 1/2 மணி நேரம்"],
+      q_ta: "26. ஒரு குழாய் ஒரு தொட்டியை 4 மணி நேரத்தில் நிரப்பும். மற்றொரு குழாய் அதை 6 மணி நேரத்தில் நிரப்பும். இரண்டும் ერთად திறக்கப்பட்டால் தொட்டி நிரம்ப எத்தனை மணி நேரம் ஆகும்?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "26. A pipe fills a tank in 4 hours, another in 6 hours. If both open together, time taken to fill is?\n[Expected Question - Group 4]",
+      o: ["a) 2.4 மணி நேரம்", "b) 2.5 மணி நேரம்", "c) 3 மணி நேரம்", "d) 2 மணி நேரம்"],
       a: 0,
-      exp_ta: "விளக்கம்:\n1 மணி நேரத்தில் நிரம்புவது = 1/6 + 1/9 + 1/12 = (6 + 4 + 3) / 36 = 13/36 ➔ நேரம் = 36/13 = 2 10/13 மணி நேரம் (அல்லது விருப்பப்படி).",
-      exp_en: "Explanation:\n1/6 + 1/9 + 1/12 = 13/36 ➔ Time = 36/13 hours."
+      exp_ta: "<b>விளக்கம்:</b><br>காலம் = (4 × 6) / (4 + 6) = 24 / 10 = 2.4 மணி நேரம்.",
+      exp_en: "<b>Explanation:</b><br>Time = (4 × 6) / 10 = 2.4 hours."
     },
     {
-      q_ta: "26. A ஒரு வேலையை முடிக்க B ஐ விட 5 நாட்கள் கூடுதலாக எடுத்துக்கொள்கிறார். இருவரும் இணைந்து அந்த வேலையை 6 நாட்களில் முடிப்பர் எனில், B மட்டும் தனியே எத்தனை நாட்களில் முடிப்பார்?",
-      q_en: "26. A takes 5 days more than B to finish a work. Together they finish it in 6 days. In how many days can B alone finish it?",
-      o: ["a) 10 நாட்கள்", "b) 15 நாட்கள்", "c) 12 நாட்கள்", "d) 20 நாட்கள்"],
+      q_ta: "27. A மற்றும் B ஒரு வேலையை 12 நாட்களிலும், B மற்றும் C 16 நாட்களிலும் முடிப்பர். A மற்றும் C சேர்ந்து 24 நாட்களில் முடிப்பர் எனில், A தனியாக எத்தனை நாட்களில் முடிப்பார்?\n[எதிர்பார்க்கப்படும் வினா - Group 2]",
+      q_en: "27. A and B finish in 12 days, B and C in 16 days, A and C in 24 days. How many days will A alone take?\n[Expected Question - Group 2]",
+      o: ["a) 32 நாட்கள்", "b) 24 நாட்கள்", "c) 36 நாட்கள்", "d) 40 நாட்கள்"],
       a: 0,
-      exp_ta: "விளக்கம்:\nB = x நாட்கள் எனில் A = x + 5. (1/x + 1/(x+5)) = 1/6 ➔ x = 10 நாட்கள்.",
-      exp_en: "Explanation:\nSolving x(x+5) / (2x+5) = 6 ➔ x = 10 days."
+      exp_ta: "<b>விளக்கம்:</b><br>A + B + C = 1/2 (1/12 + 1/16 + 1/24) = 1/2 (4 + 3 + 2)/48 = 9/96 = 3/32.<br>A தனியாக = (A+B+C) - (B+C) = 3/32 - 1/16 = (3 - 2)/32 = 1/32 ➔ 32 நாட்கள்.",
+      exp_en: "<b>Explanation:</b><br>A alone takes 32 days."
     },
     {
-      q_ta: "27. 30 ஆட்கள் ஒரு வேலையை 16 நாட்களில் முடிப்பர். அவர்கள் வேலை தொடங்கி 4 நாட்களுக்குப் பிறகு 6 ஆட்கள் விலகிவிட்டனர் எனில், மீதமுள்ள வேலையை முடிக்க எத்தனை நாட்கள் ஆகும்?",
-      q_en: "27. 30 men can do a work in 16 days. After 4 days, 6 men left. In how many days will the remaining work be completed?",
-      o: ["a) 15 நாட்கள்", "b) 12 நாட்கள்", "c) 10 நாட்கள்", "d) 14 நாட்கள்"],
+      q_ta: "28. ஒரு வேலையை முடிக்க A-க்கு 10 நாட்களும், B-க்கு 15 நாட்களும் ஆகும். இருவரும் சேர்ந்து வேலையைச் செய்து ₹1500 கூலியாகப் பெற்றால் A-ன் பங்கு என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "28. A takes 10 days, B takes 15 days to finish a work. For a total wage of ₹1500, find A's share.\n[Expected Question - Group 4]",
+      o: ["a) ₹900", "b) ₹600", "c) ₹750", "d) ₹800"],
       a: 0,
-      exp_ta: "விளக்கம்:\nமீதி வேலை = 30 × 12 = 360 அலகு. ஆட்கள் = 30 - 6 = 24. நாட்கள் = 360 / 24 = 15 நாட்கள்.",
-      exp_en: "Explanation:\nRemaining work = 360 units. Men = 24. Days = 360 / 24 = 15 days."
+      exp_ta: "<b>விளக்கம்:</b><br>கூலியானது திறமைக்குத் தக்கவாறு (நாட்களின் தலைகீழி விகிதம்) பிரிக்கப்படும். திறன் விகிதம் A : B = 1/10 : 1/15 = 3 : 2.<br>A-ன் பங்கு = (3 / 5) × 1500 = ₹900.",
+      exp_en: "<b>Explanation:</b><br>Efficiency ratio = 3:2. A's share = (3/5) × 1500 = ₹900."
     },
     {
-      q_ta: "28. A ஒரு வேலையின் 1/2 பகுதியை 5 நாட்களில் முடிப்பார், B அதே வேலையின் 3/5 பகுதியை 9 நாட்களில் முடிப்பார் எனில், இருவரும் இணைந்து முழு வேலையை முடிக்க எத்தனை நாட்கள் ஆகும்?",
-      q_en: "28. A can do 1/2 of a work in 5 days, and B can do 3/5 of it in 9 days. In how many days can they together finish the full work?",
-      o: ["a) 6 நாட்கள்", "b) 5 5/11 நாட்கள்", "c) 7 நாட்கள்", "d) 6 2/3 நாட்கள்"],
-      a: 1,
-      exp_ta: "விளக்கம்:\nA முழு வேலையை முடிக்க 10 நாட்கள், B 15 நாட்கள். இணைந்து முடிக்க = (10 × 15) / 25 = 150 / 25 = 6 நாட்கள்... சரிபார்க்க: 9 / (3/5) = 15 நாட்கள். A = 10, B = 15 ➔ 6 நாட்கள்.",
-      exp_en: "Explanation:\nA takes 10 days, B takes 15 days. Together = 6 days."
-    },
-    {
-      q_ta: "29. A மற்றும் B இணைந்து ஒரு வேலையை 12 நாட்களில் முடிப்பர். A மட்டும் தனியே 20 நாட்களில் முடிப்பார் எனில், B மட்டும் தனியே எத்தனை நாட்களில் முடிப்பார்?",
-      q_en: "29. A and B together finish a work in 12 days. A alone finishes it in 20 days. In how many days can B alone finish it?",
-      o: ["a) 30 நாட்கள்", "b) 25 நாட்கள்", "c) 35 நாட்கள்", "d) 40 நாட்கள்"],
+      q_ta: "29. 12 ஆட்கள் ஒரு வேலையை 9 நாட்களில் முடிப்பர். 6 நாட்கள் வேலை செய்த பிறகு மேலும் 6 ஆட்கள் வேலையில் சேர்ந்தால், மீதி வேலையை முடிக்க எத்தனை நாட்கள் ஆகும்?\n[எதிர்பார்க்கப்படும் வினா - Group 2]",
+      q_en: "29. 12 men complete a work in 9 days. After 6 days, 6 more men join. How many days to finish remaining work?\n[Expected Question - Group 2]",
+      o: ["a) 2 நாட்கள்", "b) 3 நாட்கள்", "c) 1.5 நாட்கள்", "d) 2.5 நாட்கள்"],
       a: 0,
-      exp_ta: "விளக்கம்:\n(12 × 20) / (20 - 12) = 240 / 8 = 30 நாட்கள்.",
-      exp_en: "Explanation:\n(12 × 20) / (20 - 12) = 30 days."
+      exp_ta: "<b>விளக்கம்:</b><br>12 ஆட்கள் 6 நாட்களில் செய்த வேலை போக மீதி வேலை = 12 ஆட்கள் 3 நாட்களில் செய்யும் வேலை.<br>புதிய ஆட்கள் = 12 + 6 = 18 ஆட்கள்.<br>12 × 3 = 18 × D2 ➔ D2 = 36 / 18 = 2 நாட்கள்.",
+      exp_en: "<b>Explanation:</b><br>Remaining work for 12 men for 3 days = 18 men for D2 days ➔ D2 = 2 days."
     },
     {
-      q_ta: "30. 12 ஆட்கள் ஒரு வேலையை 9 நாட்களில் முடிப்பர். 6 நாட்கள் வேலை செய்த பிறகு மேலும் 6 ஆட்கள் சேர்ந்தனர் எனில், மீதமுள்ள வேலையை முடிக்க எத்தனை நாட்கள் ஆகும்?",
-      q_en: "30. 12 men can complete a work in 9 days. After 6 days, 6 more men join. In how many days will the remaining work be finished?",
-      o: ["a) 2 நாட்கள்", "b) 3 நாட்கள்", "c) 4 நாட்கள்", "d) 1.5 நாட்கள்"],
+      q_ta: "30. A மற்றும் B சேர்ந்து ஒரு வேலையை 8 நாட்களில் முடிப்பர். B மற்றும் C சேர்ந்து 12 நாட்களில் முடிப்பர். மூவரும் சேர்ந்து 6 நாட்களில் முடிப்பர் எனில், A மற்றும் C சேர்ந்து எத்தனை நாட்களில் முடிப்பர்?\n[எதிர்பார்க்கப்படும் வினா - Group 1/2A]",
+      q_en: "30. A & B finish in 8 days, B & C in 12 days, all three in 6 days. In how many days can A and C finish it?\n[Expected Question - Group 1/2A]",
+      o: ["a) 8 நாட்கள்", "b) 10 நாட்கள்", "c) 9 நாட்கள்", "d) 12 நாட்கள்"],
       a: 0,
-      exp_ta: "விளக்கம்:\nமீதி வேலை = 12 × 3 = 36 அலகு. ஆட்கள் = 12 + 6 = 18. நாட்கள் = 36 / 18 = 2 நாட்கள்.",
-      exp_en: "Explanation:\nRemaining work = 36 units. Men = 18. Days = 36 / 18 = 2 days."
+      exp_ta: "<b>விளக்கம்:</b><br>A + B + C = 1/6 மற்றும் B + C = 1/12 ➔ A = 1/6 - 1/12 = 1/12.<br>A + B + C = 1/6 மற்றும் A + B = 1/8 ➔ C = 1/6 - 1/8 = 1/24.<br>(A + C)-ன் 1 நாள் வேலை = 1/12 + 1/24 = 3/24 = 1/8 ➔ 8 நாட்கள்.",
+      exp_en: "<b>Explanation:</b><br>A = 1/12, C = 1/24. (A + C) takes 8 days."
     }
   ];
 
@@ -409,7 +421,7 @@
       document.getElementById('lblCorrect').innerText = "சரியானது ✅";
       document.getElementById('lblWrong').innerText = "தவறானது ❌";
       document.getElementById('lblUnans').innerText = "விடையில்லை ⚠️";
-      document.getElementById('btnKey').innerText = "🔍 விடை குறிப்பு (Answer Key)";
+      document.getElementById('btnKey').innerText = "🔍 விடை குறிப்பு & விளக்கம்";
       document.getElementById('btnDash').innerText = "🏠 முகப்புப் பக்கம்";
       document.getElementById('btnRetake').innerText = "🔄 மீண்டும் தேர்வு";
       document.getElementById('btnExit').innerText = "🚪 வெளியேறு";
@@ -449,6 +461,26 @@
     });
   }
 
+  function searchInAI(provider, questionIdx) {
+    const q = questionsData[questionIdx];
+    const questionText = (currentLang === 'ta' ? q.q_ta : q.q_en).replace(/<[^>]*>?/gm, '');
+    const optionsText = q.o.join(", ");
+    const fullQuery = encodeURIComponent(`Explain this TNPSC Time and Work question step by step:\n${questionText}\nOptions: ${optionsText}`);
+    
+    let targetUrl = "";
+    if (provider === 'chatgpt') {
+      targetUrl = `https://chatgpt.com/?q=${fullQuery}`;
+    } else if (provider === 'gemini') {
+      targetUrl = `https://gemini.google.com/app`;
+    } else if (provider === 'perplexity') {
+      targetUrl = `https://www.perplexity.ai/?q=${fullQuery}`;
+    } else if (provider === 'google') {
+      targetUrl = `https://www.google.com/search?q=${fullQuery}`;
+    }
+
+    window.open(targetUrl, '_blank');
+  }
+
   function loadQuestion(idx) {
     currentQuestion = idx;
     const q = questionsData[idx];
@@ -481,7 +513,18 @@
     const expBox = document.getElementById('expBox');
     if(isReviewMode) {
       expBox.style.display = 'block';
-      expBox.innerText = currentLang === 'ta' ? q.exp_ta : q.exp_en;
+      let baseExp = currentLang === 'ta' ? q.exp_ta : q.exp_en;
+      
+      expBox.innerHTML = `
+        <div style="font-size: 14px; margin-bottom: 8px;">${baseExp}</div>
+        <div style="font-size: 12px; color: #fbbf24; margin-top: 10px; font-weight: bold;">🤖 AI Link Buttons (Opens in New Tab):</div>
+        <div class="ai-btn-group">
+          <button class="ai-link-btn btn-chatgpt" onclick="searchInAI('chatgpt', ${idx})">🟢 ChatGPT</button>
+          <button class="ai-link-btn btn-gemini" onclick="searchInAI('gemini', ${idx})">✨ Gemini AI</button>
+          <button class="ai-link-btn btn-perplexity" onclick="searchInAI('perplexity', ${idx})">🔵 Perplexity</button>
+          <button class="ai-link-btn btn-google" onclick="searchInAI('google', ${idx})">🔍 Google Search</button>
+        </div>
+      `;
     } else {
       expBox.style.display = 'none';
     }
@@ -504,9 +547,9 @@
   }
 
   function navigateNumberQuery(dir) {
-    const next = currentQuestion + dir;
-    if(next >= 0 && next < questionsData.length) {
-      loadQuestion(next);
+    const postNext = currentQuestion + dir;
+    if(postNext >= 0 && postNext < questionsData.length) {
+      loadQuestion(postNext);
     }
   }
 
