@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tiger Warriors - சுருக்குதல் (Simplification) 25 வினாக்கள்</title>
+  <title>Tiger Warriors - சுருக்குதல் (Simplification) 30 வினாக்கள்</title>
+
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; font-weight: bold; }
     body { background: #080604; color: #f8fafc; padding: 12px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
@@ -20,15 +21,15 @@
     .q-num-btn.answered { background: #10b981; }
 
     .q-box { background: #1e293b; padding: 18px; border-radius: 10px; margin-bottom: 16px; border: 1px solid #334155; }
-    .q-text { white-space: pre-line; line-height: 1.6; font-size: 15px; color: #f8fafc; }
+    .q-text { line-height: 1.6; font-size: 16px; color: #f8fafc; }
     
-    .option-card { background: #0f172a; border: 1px solid #334155; padding: 12px 16px; border-radius: 8px; margin-top: 10px; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: 0.2s; white-space: pre-line; line-height: 1.4; }
+    .option-card { background: #0f172a; border: 1px solid #334155; padding: 12px 16px; border-radius: 8px; margin-top: 10px; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: 0.2s; line-height: 1.4; font-size: 15px; }
     .option-card:hover { border-color: #38bdf8; background: #1e293b; }
     .option-card.selected { border-color: #10b981; background: #064e3b; }
     .option-card.correct-ans { border-color: #10b981; background: #065f46; font-weight: bold; }
     .option-card.wrong-ans { border-color: #ef4444; background: #7f1d1d; }
 
-    .explanation-box { background: #091326; border: 1px solid #38bdf8; border-radius: 8px; padding: 12px; margin-top: 14px; font-size: 13px; color: #7dd3fc; line-height: 1.5; }
+    .explanation-box { background: #091326; border: 2px solid #38bdf8; border-radius: 8px; padding: 14px; margin-top: 14px; font-size: 14px; color: #7dd3fc; line-height: 1.6; }
     
     .nav-btns { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
     .btn-action { background: #334155; color: #fff; border: none; padding: 10px 16px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 13px; text-align: center; }
@@ -37,6 +38,14 @@
     .btn-purple { background: #7c3aed; }
     .btn-danger { background: #ef4444; }
     .btn-green { background: #22c55e; }
+
+    .ai-btn-group { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; border-top: 1px dashed #38bdf8; padding-top: 12px; }
+    .ai-link-btn { border: none; color: #fff; padding: 8px 14px; border-radius: 6px; font-size: 12px; cursor: pointer; font-weight: bold; transition: 0.2s; display: inline-flex; align-items: center; gap: 5px; }
+    .ai-link-btn:hover { opacity: 0.85; transform: scale(1.02); }
+    .btn-gemini { background: #4285f4; }
+    .btn-chatgpt { background: #10a37f; }
+    .btn-perplexity { background: #22b8cf; }
+    .btn-google { background: #ea4335; }
 
     .result-box { text-align: center; padding: 25px; background: #1e293b; border-radius: 16px; margin-top: 10px; border: 1px solid rgba(0, 242, 254, 0.3); display: flex; flex-direction: column; align-items: center; }
     .score-circle { width: 130px; height: 130px; border-radius: 50%; background: conic-gradient(#10b981 0deg, #0f172a 0deg); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 15px auto; border: 4px solid #38bdf8; box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); }
@@ -54,22 +63,15 @@
 <body>
 
 <div class="card">
-  <script>
-      if (localStorage.getItem('tiger_auth_passed') !== 'true') {
-          alert("⚠ பாதுகாப்பு எச்சரிக்கை: நீங்கள் Tiger Warriors போர்ட்டலில் லாகின் செய்யவில்லை! முதலில் மெயின் போர்ட்டலில் லாகின் செய்யவும்.");
-          window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html"); 
-      }
-  </script>
-
   <div id="testView">
     <div class="test-header">
       <div>
-        <h3 style="color: #38bdf8; font-size: 15px;" id="headerTitle">🐅 TIGER WARRIORS - சுருக்குதல் (25 வினாக்கள்)</h3>
-        <span style="font-size: 11px; color: #94a3b8;">TNPSC / 2 / 2A / 4 • MATHS UNIT 1</span>
+        <h3 style="color: #38bdf8; font-size: 15px;" id="headerTitle">🐅 TIGER WARRIORS - சுருக்குதல் (Simplification) 30 வினாக்கள்</h3>
+        <span style="font-size: 11px; color: #94a3b8;">TNPSC / 2 / 2A / 4 • MATHS UNIT</span>
       </div>
-      <div style="display: flex; gap: 8px; align-items: center;">
+      <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
         <button class="lang-btn" onclick="toggleLanguage()" id="langBtn">🌐 English</button>
-        <div class="timer" id="timerBox">⏱️ 30:00</div>
+        <div class="timer" id="timerBox">⏱️ 45:00</div>
         <button class="btn-action btn-purple" id="backToResultBtn" onclick="returnToResult()" style="display: none; padding: 6px 12px; font-size: 12px;">📊 ரிசல்ட் செல்</button>
         <button class="btn-action btn-danger" id="dashFromKeyBtn" onclick="returnToDashboard()" style="display: none; padding: 6px 12px; font-size: 12px;">🏠 முகப்பு</button>
       </div>
@@ -95,7 +97,7 @@
     <h2 style="color: #38bdf8; text-align: center; margin-bottom: 10px;" id="resHeader">🏆 தேர்வு முடிவுகள் (Test Results) 🎯</h2>
     <div class="result-box">
       <div class="score-circle" id="scoreCircle">
-        <div class="score-num" id="scoreDisplay">0/25</div>
+        <div class="score-num" id="scoreDisplay">0/30</div>
         <span id="percentageDisplay" style="font-size: 11px; color: #fbbf24;">0%</span>
       </div>
 
@@ -116,7 +118,7 @@
     </div>
 
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
-      <button class="btn-action btn-blue" onclick="reviewAnswerKey()" id="btnKey">🔍 விடை குறிப்பு (Answer Key)</button>
+      <button class="btn-action btn-blue" onclick="reviewAnswerKey()" id="btnKey">🔍 விடை குறிப்பு & விளக்கம்</button>
       <button class="btn-action btn-purple" onclick="returnToDashboard()" id="btnDash">🏠 முகப்புப் பக்கம்</button>
       <button class="btn-action btn-green" onclick="retakeTest()" id="btnRetake">🔄 மீண்டும் தேர்வு</button>
       <button class="btn-action btn-danger" onclick="exitPortal()" id="btnExit">🚪 வெளியேறு</button>
@@ -126,208 +128,248 @@
 </div>
 
 <script>
-  let currentLang = 'ta'; // 'ta' or 'en'
+  let currentLang = 'ta';
 
   const questionsData = [
     {
-      q_ta: "1. சுருக்குக: 100 + 8 × 2 - 6 ÷ 2",
-      q_en: "1. Simplify: 100 + 8 × 2 - 6 ÷ 2",
-      o: ["a) 113", "b) 105", "c) 112", "d) 118"],
+      q_ta: "1. மதிப்பு காண்க: 15 × 16 - 12 ÷ 4 + 3<br><span style='color:#94a3b8;'>[TNPSC Group 4 - PYQ]</span>",
+      q_en: "1. Find the value: 15 × 16 - 12 ÷ 4 + 3<br><span style='color:#94a3b8;'>[TNPSC Group 4 - PYQ]</span>",
+      o: ["a) 240", "b) 242", "c) 238", "d) 245"],
       a: 0,
-      exp_ta: "விளக்கம் (BODMAS Rule):\nவகுத்தல்: 6 ÷ 2 = 3\nபெருக்கல்: 8 × 2 = 16\nகூட்டல் & கழித்தல்: 100 + 16 - 3 = 113.",
-      exp_en: "Explanation (BODMAS Rule):\nDivision: 6 ÷ 2 = 3\nMultiplication: 8 × 2 = 16\nAddition & Subtraction: 100 + 16 - 3 = 113."
+      exp_ta: "<b>விளக்கம்:</b><br>BODMAS விதியின்படி:<br>12 ÷ 4 = 3<br>15 × 16 = 240<br>240 - 3 + 3 = 240.",
+      exp_en: "<b>Explanation:</b><br>By BODMAS rule:<br>12 ÷ 4 = 3, 15 × 16 = 240.<br>240 - 3 + 3 = 240."
     },
     {
-      q_ta: "2. சுருக்குக: (1/2 + 1/4) ÷ (1/2 - 1/4)",
-      q_en: "2. Simplify: (1/2 + 1/4) ÷ (1/2 - 1/4)",
-      o: ["a) 1", "b) 2", "c) 3", "d) 4"],
-      a: 2,
-      exp_ta: "விளக்கம்:\n1/2 + 1/4 = 3/4\n1/2 - 1/4 = 1/4\n(3/4) ÷ (1/4) = (3/4) × (4/1) = 3.",
-      exp_en: "Explanation:\n1/2 + 1/4 = 3/4\n1/2 - 1/4 = 1/4\n(3/4) ÷ (1/4) = (3/4) × (4/1) = 3."
-    },
-    {
-      q_ta: "3. 256 இன் வர்க்கமூலம் (Square Root) காண்க: √256 + √81",
-      q_en: "3. Find the value of: √256 + √81",
-      o: ["a) 25", "b) 23", "c) 21", "d) 19"],
-      a: 0,
-      exp_ta: "விளக்கம்:\n√256 = 16\n√81 = 9\n16 + 9 = 25.",
-      exp_en: "Explanation:\n√256 = 16\n√81 = 9\n16 + 9 = 25."
-    },
-    {
-      q_ta: "4. சுருக்குக: (a + b)² - (a - b)²",
-      q_en: "4. Simplify: (a + b)² - (a - b)²",
-      o: ["a) 2(a² + b²)", "b) 4ab", "c) 2ab", "d) a² - b²"],
+      q_ta: "2. √(248 + √(52 + √(144))) இன் மதிப்பு என்ன?<br><span style='color:#94a3b8;'>[TNPSC Group 2 - PYQ]</span>",
+      q_en: "2. Find the value of √(248 + √(52 + √(144)))<br><span style='color:#94a3b8;'>[TNPSC Group 2 - PYQ]</span>",
+      o: ["a) 14", "b) 16", "c) 18", "d) 12"],
       a: 1,
-      exp_ta: "விளக்கம்:\n(a² + 2ab + b²) - (a² - 2ab + b²) = 4ab.",
-      exp_en: "Explanation:\n(a² + 2ab + b²) - (a² - 2ab + b²) = 4ab."
+      exp_ta: "<b>விளக்கம்:</b><br>√(144) = 12<br>√(52 + 12) = √(64) = 8<br>√(248 + 8) = √(256) = 16.",
+      exp_en: "<b>Explanation:</b><br>√(144) = 12, √(52 + 12) = 8, √(248 + 8) = 16."
     },
     {
-      q_ta: "5. மதிப்பு காண்க: 0.2 × 0.2 + 0.2 × 0.02",
-      q_en: "5. Find the value of: 0.2 × 0.2 + 0.2 × 0.02",
-      o: ["a) 0.044", "b) 0.44", "c) 0.0044", "d) 0.404"],
-      a: 0,
-      exp_ta: "விளக்கம்:\n0.2 × 0.2 = 0.04\n0.2 × 0.02 = 0.004\n0.04 + 0.004 = 0.044.",
-      exp_en: "Explanation:\n0.2 × 0.2 = 0.04\n0.2 × 0.02 = 0.004\n0.04 + 0.004 = 0.044."
-    },
-    {
-      q_ta: "6. சுருக்குக: √(16 + √(9 + √49))",
-      q_en: "6. Simplify: √(16 + √(9 + √49))",
-      o: ["a) 4", "b) 5", "c) 6", "d) 7"],
+      q_ta: "3. (3.6 × 3.6 - 1.4 × 1.4) ÷ 2.2 இன் மதிப்பு காண்க.<br><span style='color:#94a3b8;'>[TNPSC Group 1 - PYQ]</span>",
+      q_en: "3. Evaluate: (3.6 × 3.6 - 1.4 × 1.4) ÷ 2.2<br><span style='color:#94a3b8;'>[TNPSC Group 1 - PYQ]</span>",
+      o: ["a) 2.2", "b) 5.0", "c) 4.8", "d) 2.5"],
       a: 1,
-      exp_ta: "விளக்கம்:\n√49 = 7\n√(9 + 7) = √16 = 4\n√(16 + 4) = √20 (அல்லது √25 = 5 - சரியான வடிவம்: √(16 + √(9 + 16)) ➔ √25 = 5).",
-      exp_en: "Explanation:\n√49 = 7 ➔ √(9+7) = √16 = 4 ➔ √(16+9) = √25 = 5."
+      exp_ta: "<b>விளக்கம்:</b><br>a² - b² = (a+b)(a-b)<br>(3.6 + 1.4)(3.6 - 1.4) ÷ 2.2 = (5.0 × 2.2) ÷ 2.2 = 5.0.",
+      exp_en: "<b>Explanation:</b><br>Using a² - b² = (a+b)(a-b):<br>(5.0 × 2.2) ÷ 2.2 = 5.0."
     },
     {
-      q_ta: "7. மதிப்பு காண்க: (999 998/999) × 999",
-      q_en: "7. Find the value of: (999 998/999) × 999",
-      o: ["a) 998999", "b) 999998", "c) 998998", "d) 999999"],
+      q_ta: "4. 2(1/2) + 3(1/4) - 1(1/8) இன் மதிப்பு என்ன?",
+      q_en: "4. What is the value of 2(1/2) + 3(1/4) - 1(1/8)?",
+      o: ["a) 4(5/8)", "b) 5(1/8)", "c) 4(3/8)", "d) 3(5/8)"],
       a: 0,
-      exp_ta: "விளக்கம்:\n(1000 - 1/999) × 999 = 999000 - 1 = 998999.",
-      exp_en: "Explanation:\n(1000 - 1/999) × 999 = 999000 - 1 = 998999."
+      exp_ta: "<b>விளக்கம்:</b><br>முழு எண்கள்: 2 + 3 - 1 = 4<br>பின்னங்கள்: 1/2 + 1/4 - 1/8 = (4+2-1)/8 = 5/8<br>விடை: 4(5/8).",
+      exp_en: "<b>Explanation:</b><br>Whole numbers: 2 + 3 - 1 = 4.<br>Fractions: 1/2 + 1/4 - 1/8 = 5/8.<br>Result: 4(5/8)."
     },
     {
-      q_ta: "8. x/y = 3/4 எனில், (7x + 3y) / (7x - 3y) இன் மதிப்பு என்ன?",
-      q_en: "8. If x/y = 3/4, then find the value of (7x + 3y) / (7x - 3y).",
-      o: ["a) 11/3", "b) 33/9", "c) 11", "d) 33/3"],
+      q_ta: "5. (2³)³ ÷ 2⁴ × 2³ இன் மதிப்பு காண்க.",
+      q_en: "5. Find the value of (2³)³ ÷ 2⁴ × 2³.",
+      o: ["a) 32", "b) 16", "c) 64", "d) 8"],
       a: 0,
-      exp_ta: "விளக்கம்:\nx = 3, y = 4 என பிரதியிடுக.\n(7(3) + 3(4)) / (7(3) - 3(4)) = (21 + 12) / (21 - 12) = 33 / 9 = 11 / 3.",
-      exp_en: "Explanation:\nSubstitute x = 3, y = 4.\n(7(3) + 3(4)) / (7(3) - 3(4)) = (21 + 12) / (21 - 12) = 33 / 9 = 11 / 3."
+      exp_ta: "<b>விளக்கம்:</b><br>(2³)² = 2⁶<br>2⁶ ÷ 2⁴ = 2² = 4<br>4 × 2³ = 4 × 8 = 32.",
+      exp_en: "<b>Explanation:</b><br>2⁶ ÷ 2⁴ = 2² = 4. Then 4 × 8 = 32."
     },
     {
-      q_ta: "9. சுருக்குக: 1 + 1 / (1 + 1/5)",
-      q_en: "9. Simplify: 1 + 1 / (1 + 1/5)",
-      o: ["a) 11/6", "b) 6/5", "c) 5/6", "d) 1/6"],
-      a: 0,
-      exp_ta: "விளக்கம்:\n1 + 1/5 = 6/5\n1 ÷ (6/5) = 5/6\n1 + 5/6 = 11/6.",
-      exp_en: "Explanation:\n1 + 1/5 = 6/5\n1 ÷ (6/5) = 5/6\n1 + 5/6 = 11/6."
-    },
-    {
-      q_ta: "10. மதிப்பு காண்க: (0.75 × 0.75 - 0.25 × 0.25) / (0.75 - 0.25)",
-      q_en: "10. Find the value of: (0.75 × 0.75 - 0.25 × 0.25) / (0.75 - 0.25)",
-      o: ["a) 0.5", "b) 1.0", "c) 1.25", "d) 0.25"],
+      q_ta: "6. ஒரு எண்ணின் 3/4-ல் 2/3 பங்கு 24 எனில், அந்த எண் என்ன?<br><span style='color:#94a3b8;'>[TNPSC VAO - PYQ]</span>",
+      q_en: "6. If 2/3 of 3/4 of a number is 24, find the number.<br><span style='color:#94a3b8;'>[TNPSC VAO - PYQ]</span>",
+      o: ["a) 36", "b) 48", "c) 24", "d) 32"],
       a: 1,
-      exp_ta: "விளக்கம்:\nவடிவம்: (a² - b²) / (a - b) = a + b\n0.75 + 0.25 = 1.0.",
-      exp_en: "Explanation:\nFormula: (a² - b²) / (a - b) = a + b\n0.75 + 0.25 = 1.0."
+      exp_ta: "<b>விளக்கம்:</b><br>(2/3) × (3/4) × x = 24<br>(1/2) x = 24 ➔ x = 48.",
+      exp_en: "<b>Explanation:</b><br>(2/3) × (3/4) x = 24 ➔ (1/2) x = 24 ➔ x = 48."
     },
     {
-      q_ta: "11. x + 1/x = 5 எனில், x² + 1/x² இன் மதிப்பு என்ன?",
-      q_en: "11. If x + 1/x = 5, then what is the value of x² + 1/x²?",
-      o: ["a) 25", "b) 23", "c) 27", "d) 21"],
+      q_ta: "7. 0.04 × 0.003 × 40 இன் மதிப்பு என்ன?",
+      q_en: "7. Find the value of 0.04 × 0.003 × 40.",
+      o: ["a) 0.0048", "b) 0.048", "c) 0.48", "d) 0.00048"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>4 × 3 × 40 = 480<br>புள்ளி நகர்த்துவது: 2 + 3 = 5 இலக்கங்கள் ➔ 0.0048.",
+      exp_en: "<b>Explanation:</b><br>4 × 3 × 40 = 480. 5 decimal places ➔ 0.0048."
+    },
+    {
+      q_ta: "8. (0.5 × 0.5 + 0.5 × 0.4 + 0.4 × 0.4) ÷ (0.5³ - 0.4³) இன் மதிப்பு காண்க.",
+      q_en: "8. Evaluate: (0.5 × 0.5 + 0.5 × 0.4 + 0.4 × 0.4) ÷ (0.5³ - 0.4³)",
+      o: ["a) 10", "b) 1", "c) 0.1", "d) 9"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>சூத்திரம்: a³ - b³ = (a-b)(a² + ab + b²)<br>எனவே 1 ÷ (a-b) = 1 ÷ (0.5 - 0.4) = 1 ÷ 0.1 = 10.",
+      exp_en: "<b>Explanation:</b><br>Formula: a³ - b³ = (a-b)(a²+ab+b²). Thus 1 ÷ (0.5 - 0.4) = 10."
+    },
+    {
+      q_ta: "9. 50 இல் 2/5 பகுதியானது எந்த எண்ணை விட 10 அதிகம்?",
+      q_en: "9. 2/5 of 50 is greater than which number by 10?",
+      o: ["a) 10", "b) 15", "c) 20", "d) 25"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>50 × (2/5) = 20<br>தேவையான எண்: 20 - 10 = 10.",
+      exp_en: "<b>Explanation:</b><br>2/5 of 50 is 20. Required number: 20 - 10 = 10."
+    },
+    {
+      q_ta: "10. √(0.01 + √(0.0064)) இன் மதிப்பு என்ன?",
+      q_en: "10. What is the value of √(0.01 + √(0.0064))?",
+      o: ["a) 0.3", "b) 0.03", "c) 0.1", "d) 0.4"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>√(0.0064) = 0.08<br>√(0.01 + 0.08) = √(0.09) = 0.3.",
+      exp_en: "<b>Explanation:</b><br>√(0.0064) = 0.08. √(0.01 + 0.08) = √(0.09) = 0.3."
+    },
+    {
+      q_ta: "11. மதிப்பு காண்க: 78.54 - 32.12 + 14.05 - 6.23",
+      q_en: "11. Evaluate: 78.54 - 32.12 + 14.05 - 6.23",
+      o: ["a) 54.24", "b) 53.42", "c) 54.42", "d) 52.24"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>கூட்டல்: 78.54 + 14.05 = 92.59<br>கழித்தல்: 32.12 + 6.23 = 38.35<br>92.59 - 38.35 = 54.24.",
+      exp_en: "<b>Explanation:</b><br>Positives = 92.59. Negatives = 38.35. Difference = 54.24."
+    },
+    {
+      q_ta: "12. ஒரு எண்ணின் 4/5 பகுதியானது அதே எண்ணின் 3/4 பங்கை விட 4 அதிகம் எனில், அந்த எண் என்ன?",
+      q_en: "12. If 4/5 of a number exceeds its 3/4 by 4, find the number.",
+      o: ["a) 80", "b) 60", "c) 100", "d) 75"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>(4/5)x - (3/4)x = 4 ➔ (16x - 15x)/20 = 4 ➔ x = 80.",
+      exp_en: "<b>Explanation:</b><br>(4/5)x - (3/4)x = 4 ➔ x/20 = 4 ➔ x = 80."
+    },
+    {
+      q_ta: "13. (27)^(2/3) × (8)^(-1/3) இன் மதிப்பு காண்க.",
+      q_en: "13. Find the value of (27)^(2/3) × (8)^(-1/3).",
+      o: ["a) 4.5", "b) 2.25", "c) 1.5", "d) 0.3"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>(27)^(2/3) = (3³)^(2/3) = 9<br>(8)^(-1/3) = (2³)^(-1/3) = 1/2 = 0.5<br>9 × 0.5 = 4.5.",
+      exp_en: "<b>Explanation:</b><br>(27)^(2/3) = 9, (8)^(-1/3) = 1/2 = 0.5. Product = 4.5."
+    },
+    {
+      q_ta: "14. மதிப்பு காண்க: 3/4 + 5/12 - 7/6",
+      q_en: "14. Evaluate: 3/4 + 5/12 - 7/6",
+      o: ["a) 0", "b) 1/12", "c) -1/12", "d) 1"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>LCM = 12<br>(9 + 5 - 14)/12 = 0/12 = 0.",
+      exp_en: "<b>Explanation:</b><br>LCM = 12. (9 + 5 - 14)/12 = 0."
+    },
+    {
+      q_ta: "15. (1 - 1/2)(1 - 1/3)(1 - 1/4) ... (1 - 1/n) இன் மதிப்பு என்ன?",
+      q_en: "15. Find the value of (1 - 1/2)(1 - 1/3)(1 - 1/4) ... (1 - 1/n)",
+      o: ["a) 1/n", "b) n", "c) 2/n", "d) 1"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>(1/2) × (2/3) × (3/4) × ... × (n-1)/n = 1/n.",
+      exp_en: "<b>Explanation:</b><br>Sequential cancellations leave 1/n."
+    },
+    {
+      q_ta: "16. 12.5 × 1.25 × 32 இன் மதிப்பு என்ன?",
+      q_en: "16. Find the value of 12.5 × 1.25 × 32.",
+      o: ["a) 500", "b) 250", "c) 625", "d) 125"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>(12.5 × 8) × (1.25 × 4) = 100 × 5 = 500.",
+      exp_en: "<b>Explanation:</b><br>(12.5 × 8) × (1.25 × 4) = 100 × 5 = 500."
+    },
+    {
+      q_ta: "17. √(x) ÷ 0.01 = 100 எனில், x-ன் மதிப்பு என்ன?",
+      q_en: "17. If √(x) ÷ 0.01 = 100, find x.",
+      o: ["a) 1", "b) 0.01", "c) 10", "d) 100"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>√(x) = 100 × 0.01 = 1 ➔ x = 1² = 1.",
+      exp_en: "<b>Explanation:</b><br>√(x) = 1 ➔ x = 1."
+    },
+    {
+      q_ta: "18. (0.2 × 0.2 + 0.3 × 0.3 - 0.2 × 0.3) ÷ (0.2³ + 0.3³) இன் மதிப்பு காண்க.",
+      q_en: "18. Evaluate: (0.2 × 0.2 + 0.3 × 0.3 - 0.2 × 0.3) ÷ (0.2³ + 0.3³)",
+      o: ["a) 2", "b) 0.5", "c) 5", "d) 0.2"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>a³ + b³ = (a+b)(a² - ab + b²)<br>1 ÷ (0.2 + 0.3) = 1 ÷ 0.5 = 2.",
+      exp_en: "<b>Explanation:</b><br>1 ÷ (a+b) = 1 ÷ 0.5 = 2."
+    },
+    {
+      q_ta: "19. 999(1/7) + 999(2/7) + 999(3/7) + 999(4/7) + 999(5/7) + 999(6/7) இன் மதிப்பு என்ன?",
+      q_en: "19. Find the value of 999(1/7) + 999(2/7) + 999(3/7) + 999(4/7) + 999(5/7) + 999(6/7)",
+      o: ["a) 5997", "b) 5994", "c) 6000", "d) 5991"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>(999 × 6) + (1+2+3+4+5+6)/7 = 5994 + 3 = 5997.",
+      exp_en: "<b>Explanation:</b><br>(999 × 6) + 21/7 = 5994 + 3 = 5997."
+    },
+    {
+      q_ta: "20. ஒரு எண்ணின் 1/3 பங்கின் 3/4 பங்கு 15 எனில், அந்த எண் என்ன?",
+      q_en: "20. Three-fourths of one-third of a number is 15. Find the number.",
+      o: ["a) 60", "b) 45", "c) 80", "d) 90"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>(3/4) × (1/3) × x = 15 ➔ (1/4) x = 15 ➔ x = 60.",
+      exp_en: "<b>Explanation:</b><br>(3/4) × (1/3) x = 15 ➔ x = 60."
+    },
+    {
+      q_ta: "21. மதிப்பு காண்க: √(20 + √(20 + √(20 + ... ∞)))",
+      q_en: "21. Find the value of √(20 + √(20 + √(20 + ... ∞)))",
+      o: ["a) 4", "b) 5", "c) 6", "d) 3"],
       a: 1,
-      exp_ta: "விளக்கம்:\nx² + 1/x² = k² - 2\n5² - 2 = 25 - 2 = 23.",
-      exp_en: "Explanation:\nx² + 1/x² = k² - 2\n5² - 2 = 25 - 2 = 23."
+      exp_ta: "<b>விளக்கம்:</b><br>20 = 4 × 5. '+' குறி என்பதால் பெரிய எண் 5 விடையாகும்.",
+      exp_en: "<b>Explanation:</b><br>20 = 4 × 5. With '+', larger factor 5 is the answer."
     },
     {
-      q_ta: "12. சுருக்குக: 2⁵ × 2⁻³ × 2⁴",
-      q_en: "12. Simplify: 2⁵ × 2⁻³ × 2⁴",
-      o: ["a) 16", "b) 32", "c) 64", "d) 128"],
-      a: 2,
-      exp_ta: "விளக்கம்:\n2^(5 - 3 + 4) = 2⁶ = 64.",
-      exp_en: "Explanation:\n2^(5 - 3 + 4) = 2⁶ = 64."
-    },
-    {
-      q_ta: "13. மதிப்பு காண்க: ∛64 + √144",
-      q_en: "13. Find the value of: ∛64 + √144",
-      o: ["a) 16", "b) 18", "c) 20", "d) 14"],
+      q_ta: "22. மதிப்பு காண்க: √(56 - √(56 - √(56 - ... ∞)))",
+      q_en: "22. Find the value of √(56 - √(56 - √(56 - ... ∞)))",
+      o: ["a) 7", "b) 8", "c) 6", "d) 9"],
       a: 0,
-      exp_ta: "விளக்கம்:\n∛64 = 4\n√144 = 12\n4 + 12 = 16.",
-      exp_en: "Explanation:\n∛64 = 4\n√144 = 12\n4 + 12 = 16."
+      exp_ta: "<b>விளக்கம்:</b><br>56 = 7 × 8. '-' குறி என்பதால் சிறிய எண் 7 விடையாகும்.",
+      exp_en: "<b>Explanation:</b><br>56 = 7 × 8. With '-', smaller factor 7 is the answer."
     },
     {
-      q_ta: "14. சுருக்குக: 15% of 200 + 20% of 150",
-      q_en: "14. Simplify: 15% of 200 + 20% of 150",
-      o: ["a) 60", "b) 50", "c) 40", "d) 70"],
+      q_ta: "23. 2/3 இன் 3/4 பங்கு மற்றும் 1/2 இன் 2/5 பங்கு இவற்றின் வித்தியாசம் என்ன?",
+      q_en: "23. Find the difference between 3/4 of 2/3 and 2/5 of 1/2.",
+      o: ["a) 3/10", "b) 1/10", "c) 1/5", "d) 2/5"],
       a: 0,
-      exp_ta: "விளக்கம்:\n(15/100) × 200 = 30\n(20/100) × 150 = 30\n30 + 30 = 60.",
-      exp_en: "Explanation:\n(15/100) × 200 = 30\n(20/100) × 150 = 30\n30 + 30 = 60."
+      exp_ta: "<b>விளக்கம்:</b><br>1/2 - 1/5 = (5 - 2)/10 = 3/10.",
+      exp_en: "<b>Explanation:</b><br>1/2 - 1/5 = 3/10."
     },
     {
-      q_ta: "15. (a³ - b³) / (a² + ab + b²) இன் சுருக்கிய வடிவம் என்ன?",
-      q_en: "15. What is the simplified form of (a³ - b³) / (a² + ab + b²)?",
-      o: ["a) a + b", "b) a - b", "c) a² - b²", "d) ab"],
-      a: 1,
-      exp_ta: "விளக்கம்:\na³ - b³ = (a - b)(a² + ab + b²)\nஎனவே சுருக்கும்போது (a - b) கிடைக்கும்.",
-      exp_en: "Explanation:\na³ - b³ = (a - b)(a² + ab + b²)\nHence simplifying gives (a - b)."
-    },
-    {
-      q_ta: "16. மதிப்பு காண்க: (0.1 × 0.1 × 0.1 + 0.02 × 0.02 × 0.02) / (0.2 × 0.2 × 0.2 + 0.04 × 0.04 × 0.04)",
-      q_en: "16. Find the value of: (0.1 × 0.1 × 0.1 + 0.02 × 0.02 × 0.02) / (0.2 × 0.2 × 0.2 + 0.04 × 0.04 × 0.04)",
-      o: ["a) 1/2", "b) 1/4", "c) 1/8", "d) 1/16"],
-      a: 2,
-      exp_ta: "விளக்கம்:\nபகுதி (Denominator) தொகுதியை (Numerator) விட 2³ = 8 மடங்கு அதிகம். எனவே விடை 1/8.",
-      exp_en: "Explanation:\nDenominator is 2³ = 8 times larger than Numerator. Hence answer is 1/8."
-    },
-    {
-      q_ta: "17. சுருக்குக: [12 - {6 - (3 - (2 - 1))}]",
-      q_en: "17. Simplify: [12 - {6 - (3 - (2 - 1))}]",
-      o: ["a) 8", "b) 10", "c) 6", "d) 4"],
+      q_ta: "24. 4^x = 32 எனில், x-ன் மதிப்பு என்ன?",
+      q_en: "24. If 4^x = 32, find the value of x.",
+      o: ["a) 2.5", "b) 2", "c) 3", "d) 1.5"],
       a: 0,
-      exp_ta: "விளக்கம்:\n2 - 1 = 1\n3 - 1 = 2\n6 - 2 = 4\n12 - 4 = 8.",
-      exp_en: "Explanation:\n2 - 1 = 1\n3 - 1 = 2\n6 - 2 = 4\n12 - 4 = 8."
+      exp_ta: "<b>விளக்கம்:</b><br>2^(2x) = 2⁵ ➔ 2x = 5 ➔ x = 2.5.",
+      exp_en: "<b>Explanation:</b><br>2^(2x) = 2⁵ ➔ 2x = 5 ➔ x = 2.5."
     },
     {
-      q_ta: "18. x - 1/x = 4 எனில், x² + 1/x² இன் மதிப்பு என்ன?",
-      q_en: "18. If x - 1/x = 4, then what is the value of x² + 1/x²?",
-      o: ["a) 14", "b) 18", "c) 16", "d) 20"],
-      a: 1,
-      exp_ta: "விளக்கம்:\nx² + 1/x² = k² + 2\n4² + 2 = 16 + 2 = 18.",
-      exp_en: "Explanation:\nx² + 1/x² = k² + 2\n4² + 2 = 16 + 2 = 18."
-    },
-    {
-      q_ta: "19. மதிப்பு காண்க: √(0.0009)",
-      q_en: "19. Find the value of: √(0.0009)",
-      o: ["a) 0.3", "b) 0.03", "c) 0.003", "d) 0.0003"],
-      a: 1,
-      exp_ta: "விளக்கம்:\n0.0009 = 9 / 10000\n√(9 / 10000) = 3 / 100 = 0.03.",
-      exp_en: "Explanation:\n0.0009 = 9 / 10000\n√(9 / 10000) = 3 / 100 = 0.03."
-    },
-    {
-      q_ta: "20. சுருக்குக: (2.3)³ + (0.3)³ / (2.3)² - 2.3 × 0.3 + (0.3)²",
-      q_en: "20. Simplify: [(2.3)³ + (0.3)³] / [(2.3)² - 2.3 × 0.3 + (0.3)²]",
-      o: ["a) 2.0", "b) 2.6", "c) 2.3", "d) 0.3"],
-      a: 1,
-      exp_ta: "விளக்கம்:\nவடிவம்: (a³ + b³) / (a² - ab + b²) = a + b\n2.3 + 0.3 = 2.6.",
-      exp_en: "Explanation:\nFormula: (a³ + b³) / (a² - ab + b²) = a + b\n2.3 + 0.3 = 2.6."
-    },
-    {
-      q_ta: "21. 3/4, 4/5, 5/6 ஆகியவற்றில் மிகப்பெரிய பின்னம் எது?",
-      q_en: "21. Which is the largest fraction among 3/4, 4/5, and 5/6?",
-      o: ["a) 3/4", "b) 4/5", "c) 5/6", "d) அனைத்தும் சமம்"],
-      a: 2,
-      exp_ta: "விளக்கம்:\n3/4 = 0.75, 4/5 = 0.8, 5/6 = 0.833...\nஎனவே 5/6 பெரியது.",
-      exp_en: "Explanation:\n3/4 = 0.75, 4/5 = 0.8, 5/6 = 0.833...\nHence 5/6 is the largest."
-    },
-    {
-      q_ta: "22. மதிப்பு காண்க: (1 - 1/2)(1 - 1/3)(1 - 1/4)...(1 - 1/10)",
-      q_en: "22. Find the value of: (1 - 1/2)(1 - 1/3)(1 - 1/4)...(1 - 1/10)",
-      o: ["a) 1/10", "b) 1/2", "c) 9/10", "d) 1/5"],
+      q_ta: "25. (3.5 × 3.5 + 2 × 3.5 × 1.5 + 1.5 × 1.5) ÷ (4.5 × 4.5 - 0.5 × 0.5) இன் மதிப்பு காண்க.",
+      q_en: "25. Evaluate: (3.5 × 3.5 + 2 × 3.5 × 1.5 + 1.5 × 1.5) ÷ (4.5 × 4.5 - 0.5 × 0.5)",
+      o: ["a) 1.25", "b) 2.5", "c) 2", "d) 1.5"],
       a: 0,
-      exp_ta: "விளக்கம்:\n(1/2) × (2/3) × (3/4) × ... × (9/10) = 1/10.",
-      exp_en: "Explanation:\n(1/2) × (2/3) × (3/4) × ... × (9/10) = 1/10."
+      exp_ta: "<b>விளக்கம்:</b><br>தொகுதி: (3.5 + 1.5)² = 25<br>பகுதி: (4.5+0.5)(4.5-0.5) = 20<br>25 ÷ 20 = 1.25.",
+      exp_en: "<b>Explanation:</b><br>Numerator = 25. Denominator = 20. 25 ÷ 20 = 1.25."
     },
     {
-      q_ta: "23. சுருக்குக: 2⁴ ÷ 2⁻²",
-      q_en: "23. Simplify: 2⁴ ÷ 2⁻²",
-      o: ["a) 4", "b) 16", "c) 64", "d) 256"],
-      a: 2,
-      exp_ta: "விளக்கம்:\n2^(4 - (-2)) = 2⁶ = 64.",
-      exp_en: "Explanation:\n2^(4 - (-2)) = 2⁶ = 64."
-    },
-    {
-      q_ta: "24. x = 2, y = 3 எனில் x³ + y³ - 3xy இன் மதிப்பு என்ன?",
-      q_en: "24. If x = 2, y = 3, then what is the value of x³ + y³ - 3xy?",
-      o: ["a) 17", "b) 23", "c) 35", "d) 19"],
+      q_ta: "26. 5 + 5 + 5 + 5 ÷ 5 இன் மதிப்பு என்ன?",
+      q_en: "26. Find the value of 5 + 5 + 5 + 5 ÷ 5.",
+      o: ["a) 16", "b) 20", "c) 5", "d) 15"],
       a: 0,
-      exp_ta: "விளக்கம்:\n2³ + 3³ - 3(2)(3) = 8 + 27 - 18 = 17.",
-      exp_en: "Explanation:\n2³ + 3³ - 3(2)(3) = 8 + 27 - 18 = 17."
+      exp_ta: "<b>விளக்கம்:</b><br>5 ÷ 5 = 1<br>5 + 5 + 5 + 1 = 16.",
+      exp_en: "<b>Explanation:</b><br>5 ÷ 5 = 1. Then 5 + 5 + 5 + 1 = 16."
     },
     {
-      q_ta: "25. சுருக்குக: √81 + √64 - √36",
-      q_en: "25. Simplify: √81 + √64 - √36",
-      o: ["a) 11", "b) 13", "c) 15", "d) 9"],
+      q_ta: "27. ஒரு எண்ணின் 1/5 பகுதியுடன் 20 கூட்டினால் அதே எண் கிடைக்கிறது எனில், அந்த எண் என்ன?",
+      q_en: "27. If 20 is added to 1/5 of a number, the result is the number itself. Find the number.",
+      o: ["a) 25", "b) 20", "c) 30", "d) 15"],
       a: 0,
-      exp_ta: "விளக்கம்:\n9 + 8 - 6 = 11.",
-      exp_en: "Explanation:\n9 + 8 - 6 = 11."
+      exp_ta: "<b>விளக்கம்:</b><br>(1/5)x + 20 = x ➔ (4/5)x = 20 ➔ x = 25.",
+      exp_en: "<b>Explanation:</b><br>(4/5)x = 20 ➔ x = 25."
+    },
+    {
+      q_ta: "28. (0.1³ + 0.02³) ÷ (0.2³ + 0.04³) இன் மதிப்பு காண்க.",
+      q_en: "28. Find the value: (0.1³ + 0.02³) ÷ (0.2³ + 0.04³)",
+      o: ["a) 1/8", "b) 1/2", "c) 1/4", "d) 1/16"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>விகிதம்: 1 ÷ 2³ = 1/8.",
+      exp_en: "<b>Explanation:</b><br>Ratio is 1 ÷ 2³ = 1/8."
+    },
+    {
+      q_ta: "29. 3^(x-1) + 3^(x+1) = 90 எனில், x-ன் மதிப்பு என்ன?",
+      q_en: "29. If 3^(x-1) + 3^(x+1) = 90, find x.",
+      o: ["a) 3", "b) 4", "c) 2", "d) 5"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>3^x (10/3) = 90 ➔ 3^x = 27 ➔ x = 3.",
+      exp_en: "<b>Explanation:</b><br>3^x (10/3) = 90 ➔ 3^x = 27 ➔ x = 3."
+    },
+    {
+      q_ta: "30. √(30 + √(30 + √(30 + ... ∞))) இன் மதிப்பு என்ன?",
+      q_en: "30. Find the value of √(30 + √(30 + √(30 + ... ∞)))",
+      o: ["a) 6", "b) 5", "c) 7", "d) 4"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>30 = 5 × 6. பெரிய எண் 6 விடையாகும்.",
+      exp_en: "<b>Explanation:</b><br>30 = 5 × 6. Larger factor 6 is the answer."
     }
   ];
 
@@ -335,7 +377,7 @@
   let userAnswers = new Array(questionsData.length).fill(null);
   let isReviewMode = false;
   let timerInterval;
-  let timeLeft = 30 * 60;
+  let timeLeft = 45 * 60;
 
   function toggleLanguage() {
     currentLang = currentLang === 'ta' ? 'en' : 'ta';
@@ -346,7 +388,7 @@
 
   function updateLanguageTexts() {
     if(currentLang === 'en') {
-      document.getElementById('headerTitle').innerText = "🐅 TIGER WARRIORS - Simplification (25 Questions)";
+      document.getElementById('headerTitle').innerText = "🐅 TIGER WARRIORS - Simplification (30 Questions)";
       document.getElementById('prevBtn').innerText = "⬅️ Previous";
       document.getElementById('clearBtn').innerText = "🧹 Clear Choice";
       document.getElementById('nextBtn').innerText = "Next ➡️";
@@ -355,12 +397,12 @@
       document.getElementById('lblCorrect').innerText = "Correct ✅";
       document.getElementById('lblWrong').innerText = "Wrong ❌";
       document.getElementById('lblUnans').innerText = "Unanswered ⚠️";
-      document.getElementById('btnKey').innerText = "🔍 Answer Key";
+      document.getElementById('btnKey').innerText = "🔍 Answer Key & Solutions";
       document.getElementById('btnDash').innerText = "🏠 Dashboard";
       document.getElementById('btnRetake').innerText = "🔄 Retake Test";
       document.getElementById('btnExit').innerText = "🚪 Exit";
     } else {
-      document.getElementById('headerTitle').innerText = "🐅 TIGER WARRIORS - சுருக்குதல் (25 வினாக்கள்)";
+      document.getElementById('headerTitle').innerText = "🐅 TIGER WARRIORS - சுருக்குதல் (Simplification) 30 வினாக்கள்";
       document.getElementById('prevBtn').innerText = "⬅️ முந்தையது";
       document.getElementById('clearBtn').innerText = "🧹 விடையை நீக்கு";
       document.getElementById('nextBtn').innerText = "அடுத்து ➡️";
@@ -369,7 +411,7 @@
       document.getElementById('lblCorrect').innerText = "சரியானது ✅";
       document.getElementById('lblWrong').innerText = "தவறானது ❌";
       document.getElementById('lblUnans').innerText = "விடையில்லை ⚠️";
-      document.getElementById('btnKey').innerText = "🔍 விடை குறிப்பு (Answer Key)";
+      document.getElementById('btnKey').innerText = "🔍 விடை குறிப்பு & விளக்கம்";
       document.getElementById('btnDash').innerText = "🏠 முகப்புப் பக்கம்";
       document.getElementById('btnRetake').innerText = "🔄 மீண்டும் தேர்வு";
       document.getElementById('btnExit').innerText = "🚪 வெளியேறு";
@@ -409,10 +451,30 @@
     });
   }
 
+  function searchInAI(provider, questionIdx) {
+    const q = questionsData[questionIdx];
+    const questionText = (currentLang === 'ta' ? q.q_ta : q.q_en).replace(/<[^>]*>?/gm, '');
+    const optionsText = q.o.join(", ");
+    const fullQuery = encodeURIComponent(`Explain this TNPSC simplification question step by step:\n${questionText}\nOptions: ${optionsText}`);
+    
+    let targetUrl = "";
+    if (provider === 'chatgpt') {
+      targetUrl = `https://chatgpt.com/?q=${fullQuery}`;
+    } else if (provider === 'gemini') {
+      targetUrl = `https://gemini.google.com/app`;
+    } else if (provider === 'perplexity') {
+      targetUrl = `https://www.perplexity.ai/?q=${fullQuery}`;
+    } else if (provider === 'google') {
+      targetUrl = `https://www.google.com/search?q=${fullQuery}`;
+    }
+
+    window.open(targetUrl, '_blank');
+  }
+
   function loadQuestion(idx) {
     currentQuestion = idx;
     const q = questionsData[idx];
-    document.getElementById('qTitle').innerText = currentLang === 'ta' ? q.q_ta : q.q_en;
+    document.getElementById('qTitle').innerHTML = currentLang === 'ta' ? q.q_ta : q.q_en;
     
     const optsBox = document.getElementById('optionsBox');
     optsBox.innerHTML = '';
@@ -441,7 +503,18 @@
     const expBox = document.getElementById('expBox');
     if(isReviewMode) {
       expBox.style.display = 'block';
-      expBox.innerText = currentLang === 'ta' ? q.exp_ta : q.exp_en;
+      let baseExp = currentLang === 'ta' ? q.exp_ta : q.exp_en;
+      
+      expBox.innerHTML = `
+        <div style="font-size: 14px; margin-bottom: 8px;">${baseExp}</div>
+        <div style="font-size: 12px; color: #fbbf24; margin-top: 10px; font-weight: bold;">🤖 AI Link Buttons (Opens in New Tab):</div>
+        <div class="ai-btn-group">
+          <button class="ai-link-btn btn-chatgpt" onclick="searchInAI('chatgpt', ${idx})">🟢 ChatGPT</button>
+          <button class="ai-link-btn btn-gemini" onclick="searchInAI('gemini', ${idx})">✨ Gemini AI</button>
+          <button class="ai-link-btn btn-perplexity" onclick="searchInAI('perplexity', ${idx})">🔵 Perplexity</button>
+          <button class="ai-link-btn btn-google" onclick="searchInAI('google', ${idx})">🔍 Google Search</button>
+        </div>
+      `;
     } else {
       expBox.style.display = 'none';
     }
@@ -537,7 +610,7 @@
   function retakeTest() {
     userAnswers = new Array(questionsData.length).fill(null);
     isReviewMode = false;
-    timeLeft = 30 * 60;
+    timeLeft = 45 * 60;
     document.getElementById('resultView').style.display = 'none';
     document.getElementById('testView').style.display = 'block';
     document.getElementById('finalSubmitBtn').style.display = 'inline-block';
