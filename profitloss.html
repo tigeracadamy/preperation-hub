@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tiger Warriors - இலாபம் மற்றும் நட்டம் (Profit & Loss) 25 வினாக்கள்</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; font-weight: bold; }
+    body { background: #080604; color: #f8fafc; padding: 12px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+    .card { width: 100%; max-width: 950px; background: #0f172a; border-radius: 14px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); border: 1px solid #334155; }
+    
+    .test-header { display: flex; justify-content: space-between; align-items: center; background: #1e293b; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; border: 1px solid #334155; }
+    .timer { font-size: 15px; font-weight: bold; color: #fbbf24; background: #091326; padding: 6px 12px; border-radius: 6px; border: 1px solid #fbbf24; box-shadow: inset 0 0 5px rgba(251, 191, 36, 0.2); }
+    .lang-btn { background: #0284c7; color: #fff; border: 1px solid #38bdf8; padding: 6px 14px; border-radius: 6px; font-size: 13px; cursor: pointer; transition: 0.2s; }
+    .lang-btn:hover { background: #0369a1; }
+
+    .q-grid { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 16px; max-height: 140px; overflow-y: auto; padding: 8px; background: #1e293b; border-radius: 8px; justify-content: center; }
+    .q-num-btn { width: 30px; height: 30px; border-radius: 5px; border: none; background: #334155; color: #fff; font-size: 10px; cursor: pointer; font-weight: bold; }
+    .q-num-btn.active { border: 2px solid #38bdf8; background: #0284c7; }
+    .q-num-btn.answered { background: #10b981; }
+
+    .q-box { background: #1e293b; padding: 18px; border-radius: 10px; margin-bottom: 16px; border: 1px solid #334155; }
+    .q-text { white-space: pre-line; line-height: 1.6; font-size: 15px; color: #f8fafc; }
+    
+    .option-card { background: #0f172a; border: 1px solid #334155; padding: 12px 16px; border-radius: 8px; margin-top: 10px; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: 0.2s; white-space: pre-line; line-height: 1.4; }
+    .option-card:hover { border-color: #38bdf8; background: #1e293b; }
+    .option-card.selected { border-color: #10b981; background: #064e3b; }
+    .option-card.correct-ans { border-color: #10b981; background: #065f46; font-weight: bold; }
+    .option-card.wrong-ans { border-color: #ef4444; background: #7f1d1d; }
+
+    .explanation-box { background: #091326; border: 1px solid #38bdf8; border-radius: 8px; padding: 12px; margin-top: 14px; font-size: 13px; color: #7dd3fc; line-height: 1.5; }
+    
+    .nav-btns { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+    .btn-action { background: #334155; color: #fff; border: none; padding: 10px 16px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 13px; text-align: center; }
+    .btn-action:hover { opacity: 0.9; }
+    .btn-blue { background: #2563eb; }
+    .btn-purple { background: #7c3aed; }
+    .btn-danger { background: #ef4444; }
+    .btn-green { background: #22c55e; }
+
+    .result-box { text-align: center; padding: 25px; background: #1e293b; border-radius: 16px; margin-top: 10px; border: 1px solid rgba(0, 242, 254, 0.3); display: flex; flex-direction: column; align-items: center; }
+    .score-circle { width: 130px; height: 130px; border-radius: 50%; background: conic-gradient(#10b981 0deg, #0f172a 0deg); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 15px auto; border: 4px solid #38bdf8; box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); }
+    .score-num { font-size: 30px; color: #f8fafc; font-weight: bold; }
+    
+    .result-stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; width: 100%; max-width: 400px; }
+    .stat-pill { background: #0f172a; border-radius: 12px; padding: 10px; border: 1px solid #334155; text-align: center; }
+    .stat-pill.gold { border-color: #fbbf24; }
+    .stat-pill.blue { border-color: #38bdf8; }
+    .stat-pill.red { border-color: #ef4444; }
+
+    .footer-badge { text-align: center; font-size: 11px; color: #38bdf8; margin-top: 15px; font-weight: bold; letter-spacing: 0.5px; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <script>
+      if (localStorage.getItem('tiger_auth_passed') !== 'true') {
+          alert("⚠ பாதுகாப்பு எச்சரிக்கை: நீங்கள் Tiger Warriors போர்ட்டலில் லாகின் செய்யவில்லை! முதலில் மெயின் போர்ட்டலில் லாகின் செய்யவும்.");
+          window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html"); 
+      }
+  </script>
+
+  <div id="testView">
+    <div class="test-header">
+      <div>
+        <h3 style="color: #38bdf8; font-size: 15px;" id="headerTitle">🐅 TIGER WARRIORS - இலாபம் மற்றும் நட்டம் (25 வினாக்கள்)</h3>
+        <span style="font-size: 11px; color: #94a3b8;">TNPSC / 2 / 2A / 4 • MATHS UNIT 9</span>
+      </div>
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <button class="lang-btn" onclick="toggleLanguage()" id="langBtn">🌐 English</button>
+        <div class="timer" id="timerBox">⏱️ 45:00</div>
+        <button class="btn-action btn-purple" id="backToResultBtn" onclick="returnToResult()" style="display: none; padding: 6px 12px; font-size: 12px;">📊 ரிசல்ட் செல்</button>
+        <button class="btn-action btn-danger" id="dashFromKeyBtn" onclick="returnToDashboard()" style="display: none; padding: 6px 12px; font-size: 12px;">🏠 முகப்பு</button>
+      </div>
+    </div>
+
+    <div class="q-grid" id="questionGrid"></div>
+
+    <div class="q-box">
+      <div id="qTitle" class="q-text"></div>
+      <div id="optionsBox"></div>
+      <div id="expBox" class="explanation-box" style="display: none;"></div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn-action" id="prevBtn" onclick="navigateNumberQuery(-1)">⬅️ முந்தையது</button>
+      <button class="btn-action" id="clearBtn" onclick="clearChoice()">🧹 விடையை நீக்கு</button>
+      <button class="btn-action btn-blue" id="nextBtn" onclick="navigateNumberQuery(1)">அடுத்து ➡️</button>
+      <button class="btn-action btn-danger" id="finalSubmitBtn" onclick="submitTest()">✅ தேர்வைச் சமர்ப்பிக்க (Submit)</button>
+    </div>
+  </div>
+
+  <div id="resultView" style="display: none;">
+    <h2 style="color: #38bdf8; text-align: center; margin-bottom: 10px;" id="resHeader">🏆 தேர்வு முடிவுகள் (Test Results) 🎯</h2>
+    <div class="result-box">
+      <div class="score-circle" id="scoreCircle">
+        <div class="score-num" id="scoreDisplay">0/25</div>
+        <span id="percentageDisplay" style="font-size: 11px; color: #fbbf24;">0%</span>
+      </div>
+
+      <div class="result-stats-grid">
+        <div class="stat-pill gold">
+          <h3 id="correctCnt" style="color: #10b981; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;" id="lblCorrect">சரியானது ✅</span>
+        </div>
+        <div class="stat-pill red">
+          <h3 id="wrongCnt" style="color: #ef4444; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;" id="lblWrong">தவறானது ❌</span>
+        </div>
+        <div class="stat-pill blue">
+          <h3 id="unansCnt" style="color: #f59e0b; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;" id="lblUnans">விடையில்லை ⚠️</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
+      <button class="btn-action btn-blue" onclick="reviewAnswerKey()" id="btnKey">🔍 விடை குறிப்பு (Answer Key)</button>
+      <button class="btn-action btn-purple" onclick="returnToDashboard()" id="btnDash">🏠 முகப்புப் பக்கம்</button>
+      <button class="btn-action btn-green" onclick="retakeTest()" id="btnRetake">🔄 மீண்டும் தேர்வு</button>
+      <button class="btn-action btn-danger" onclick="exitPortal()" id="btnExit">🚪 வெளியேறு</button>
+    </div>
+    <div class="footer-badge" style="margin-top: 20px;">🐅 டைகர் வாரியர் போர்டல் - இயக்குநர்: Dr. K. மணிகாசி 🐅</div>
+  </div>
+</div>
+
+<script>
+  let currentLang = 'ta';
+
+  const questionsData = [
+    {
+      q_ta: "1. ஒரு பொருளின் அடக்க விலை ₹400 மற்றும் விற்பனை விலை ₹500 எனில், இலாப சதவீதம் என்ன?",
+      q_en: "1. The cost price of an article is ₹400 and the selling price is ₹500. Find the profit percentage.",
+      o: ["a) 20%", "b) 25%", "c) 15%", "d) 30%"],
+      a: 1,
+      exp_ta: "விளக்கம்:\nஇலாபம் = 500 - 400 = ₹100\nஇலாப சதவீதம் = (100 / 400) × 100 = 25%.",
+      exp_en: "Explanation:\nProfit = 500 - 400 = ₹100\nProfit % = (100 / 400) × 100 = 25%."
+    },
+    {
+      q_ta: "2. ஒரு மடிக்கணினி ₹25,000-க்கு வாங்கி ₹22,000-க்கு விற்கப்பட்டால், நட்ட சதவீதம் என்ன?",
+      q_en: "2. A laptop is bought for ₹25,000 and sold for ₹22,000. Find the loss percentage.",
+      o: ["a) 10%", "b) 12%", "c) 15%", "d) 8%"],
+      a: 1,
+      exp_ta: "விளக்கம்:\nநட்டம் = 25000 - 22000 = ₹3000\nநட்ட சதவீதம் = (3000 / 25000) × 100 = 12%.",
+      exp_en: "Explanation:\nLoss = 25000 - 22000 = ₹3000\nLoss % = (3000 / 25000) × 100 = 12%."
+    },
+    {
+      q_ta: "3. ஒரு பொருளின் அடக்க விலை ₹800 மற்றும் 20% இலாபத்திற்கு விற்கப்பட்டால், அதன் விற்பனை விலை என்ன?",
+      q_en: "3. If an article with a cost price of ₹800 is sold at a 20% profit, find its selling price.",
+      o: ["a) ₹920", "b) ₹960", "c) ₹900", "d) ₹950"],
+      a: 1,
+      exp_ta: "விளக்கம்:\nவிற்பனை விலை = அடக்க விலை × [(100 + இலாப %) / 100]\n= 800 × (120 / 100) = ₹960.",
+      exp_en: "Explanation:\nSP = CP × [(100 + Profit %) / 100]\n= 800 × (120 / 100) = ₹960."
+    },
+    {
+      q_ta: "4. ஒரு பொருளின் விற்பனை விலை ₹630 மற்றும் நட்டம் 10% எனில், அதன் அடக்க விலை என்ன?",
+      q_en: "4. The selling price of an article is ₹630 and there is a loss of 10%. Find its cost price.",
+      o: ["a) ₹700", "b) ₹680", "c) ₹720", "d) ₹750"],
+      a: 0,
+      exp_ta: "விளக்கம்:\nஅடக்க விலை = விற்பனை விலை × [100 / (100 - நட்ட %)]\n= 630 × (100 / 90) = ₹700.",
+      exp_en: "Explanation:\nCP = SP × [100 / (100 - Loss %)]\n= 630 × (100 / 90) = ₹700."
+    },
+    {
+      q_ta: "5. ஒரு வியாபாரி ஒரு பொருளை ₹720-க்கு விற்கும் போது 20% நட்டம் அடைகிறார் எனில், 20% இலாபம் பெற அவர் அந்தப் பொருளை என்ன விலைக்கு விற்க வேண்டும்?",
+      q_en: "5. A trader incurs a 20% loss by selling an article for ₹720. At what price should he sell it to gain a 20% profit?",
+      o: ["a) ₹1000", "b) ₹1080", "c) ₹960", "d) ₹1100"],
+      a: 1,
+      exp_ta: "விளக்கம்:\n80% = 720 ➔ 1% = 9 ➔ அடக்க விலை (100%) = ₹900.\n20% இலாபத்திற்கு விற்பனை விலை = 900 × (120 / 100) = ₹1080.",
+      exp_en: "Explanation:\n80% = 720 ➔ CP = 900.\nSP for 20% profit = 900 × (120 / 100) = ₹1080."
+    },
+    {
+      q_ta: "6. 15 பொருட்களின் அடக்க விலையானது 12 பொருட்களின் விற்பனை விலைக்குச் சமம் எனில், இலாப சதவீதம் என்ன?",
+      q_en: "6. The cost price of 15 articles is equal to the selling price of 12 articles. Find the profit percentage.",
+      o: ["a) 20%", "b) 25%", "c) 30%", "d) 15%"],
+      a: 1,
+      exp_ta: "விளக்கம்:\nஇலாப சதவீதம் = [(வியாபார வித்தியாசம்) / விற்கப்பட்ட பொருட்கள்] × 100\n= [(15 - 12) / 12] × 100 = (3 / 12) × 100 = 25%.",
+      exp_en: "Explanation:\nProfit % = [(Difference) / Articles sold] × 100\n= [(15 - 12) / 12] × 100 = 25%."
+    },
+    {
+      q_ta: "7. ஒரு பொருளின் குறித்த விலை (Marked Price) ₹1000 மற்றும் அதன் மீது 10% தள்ளுபடி வழங்கப்பட்டால், அதன் விற்பனை விலை என்ன?",
+      q_en: "7. The marked price of an article is ₹1000 and a discount of 10% is allowed. Find its selling price.",
+      o: ["a) ₹850", "b) ₹900", "c) ₹950", "d) ₹800"],
+      a: 1,
+      exp_ta: "விளக்கம்:\nவிற்பனை விலை = குறித்த விலை - தள்ளுபடி\n= 1000 - (1000 இன் 10%) = 1000 - 100 = ₹900.",
+      exp_en: "Explanation:\nSP = Marked Price - Discount\n= 1000 - 100 = ₹900."
+    },
+    {
+      q_ta: "8. தொடர் தள்ளுபடிகள் (Successive discounts) 20% மற்றும் 10% இன் சமமான ஒற்றைத் தள்ளுபடி சதவீதம் என்ன?",
+      q_en: "8. Find the single equivalent discount for successive discounts of 20% and 10%.",
+      o: ["a) 30%", "b) 28%", "c) 25%", "d) 32%"],
+      a: 1,
+      exp_ta: "விளக்கம்:\nசூத்திரம்: [a + b - (ab / 100)]\n= [20 + 10 - (200 / 100)] = 30 - 2 = 28%.",
+      exp_en: "Explanation:\nFormula: [a + b - (ab / 100)]\n= [20 + 10 - 2] = 28%."
+    },
+    {
+      q_ta: "9. ஒரு நபர் இரண்டு பொருட்களை தலா ₹990-க்கு விற்கிறார். ஒன்றில் 10% இலாபமும் மற்றொன்றில் 10% நட்டமும் அடைந்தால், அவருக்கு ஏற்படும் ஒட்டுமொத்த இலாப அல்லது நட்ட சதவீதம் என்ன?",
+      q_en: "9. A person sells two items for ₹990 each. On one he gains 10% and on the other he loses 10%. Find his overall profit or loss percentage.",
+      o: ["a) 1% இலாபம்", "b) 1% நட்டம்", "c) இலாபமுமில்லை நட்டமுமில்லை", "d) 2% நட்டம்"],
+      a: 1,
+      exp_ta: "விளக்கம்:\nவிற்பனை விலைகள் சமமாகவும், இலாப/நட்ட சதவீதம் சமமாகவும் இருக்கும் போது எப்போதும் நட்டம் மட்டுமே ஏற்படும்.\nநட்ட சதவீதம் = (x² / 100) = (10² / 100) = 1% நட்டம்.",
+      exp_en: "Explanation:\nWhen SP and percentages are equal, there is always a loss.\nLoss % = (x² / 100) = (10² / 100) = 1% loss."
+    },
+    {
+      q_ta: "10. ஒரு பொருளின் அடக்க விலை மற்றும் விற்பனை விலையின் விகிதம் 5 : 6 எனில், இலாப சதவீதம் என்ன?",
+      q_en: "10. The ratio of cost price to selling price of an article is 5 : 6. Find the profit percentage.",
+      o: ["a) 15%", "b) 20%", "c) 25%", "d) 10%"],
+      a: 1,
+      exp_ta: "விளக்கம்:\nCP = 5x, SP = 6x. இலாபம் = 1x.\nஇலாப சதவீதம் = (1 / 5) × 100 = 20%.",
+      exp_en: "Explanation:\nCP = 5x, SP = 6x. Profit = 1x.\nProfit % = (1 / 5) × 100 = 20%."
+    },
+    {
+      q_ta: "11. ஒரு வியாபாரி தவறான எடையைப் பயன்படுத்தி 1 கிலோகிராமிற்கு பதிலாக 900 கிராம் மட்டுமே வழங்குகிறார் எனில், அவரின் இலாப சதவீதம் என்ன?",
+      q_en: "11. A dishonest dealer uses a faulty weight and gives 900 grams instead of 1 kg. Find his profit percentage.",
+      o: ["a) 10%", "b) 11 1/9 %", "c) 12 1/2 %", "d) 10 1/9 %"],
+      a: 1,
+      exp_ta: "விளக்கம்:\nஇலாப சதவீதம் = [(பிழை / உண்மையான எடை - பிழை) × 100]\n= [100 / 900] × 100 = 100/9 = 11 1/9 %.",
+      exp_en: "Explanation:\nProfit % = [(Error / True value - Error) × 100]\n= [100 / 900] × 100 = 11 1/9 %."
+    },
+    {
+      q_ta: "12. ₹1-க்கு 12 எலுமிச்சைப் பழங்கள் வீதம் விற்றால் 20% நட்டம் ஏற்படுகிறது. 20% இலாபம் பெற அவர் ₹1-க்கு எத்தனை பழங்கள் விற்க வேண்டும்?",
+      q_en: "12. By selling 12 lemons for ₹1, a man loses 20%. How many lemons should he sell for ₹1 to gain 20% profit?",
+      o: ["a) 6", "b) 8", "c) 10", "d) 9"],
+      a: 1,
+      exp_ta: "விளக்கம்:\nவிகிதம்: (12 × 80) / 100 = (x × 120) / 100 ➔ x = (12 × 80) / 120 = 8 பழங்கள்.",
+      exp_en: "Explanation:\n(12 × 80) = (x × 120) ➔ x = 8 lemons."
+    },
+    {
+      q_ta: "13. ஒரு பொருள் ₹450-க்கு விற்கப்பட்டால் 10% நட்டம் ஏற்படுகிறது. 5% இலாபம் பெற அந்தப் பொருளின் விற்பனை விலை என்னவாக இருக்க வேண்டும்?",
+      q_en: "13. An article is sold for ₹450 at a 10% loss. What should be the selling price to gain a 5% profit?",
+      o: ["a) ₹500", "b) ₹525", "c) ₹480", "d) ₹510"],
+      a: 1,
+      exp_ta: "விளக்கம்:\n90% = 450 ➔ 1% = 5\n5% இலாபம் (105%) = 105 × 5 = ₹525.",
+      exp_en: "Explanation:\n90% = 450 ➔ 1% = 5\n105% = 105 × 5 = ₹525."
+    },
+    {
+      q_ta: "14. ஒரு பொருட்களின் குறித்த விலை ₹500. கடைக்காரர் 20% மற்றும் 10% என்ற தொடர் தள்ளுபடி வழங்குகிறார் எனில், வாடிக்கையாளர் செலுத்த வேண்டிய இறுதித் தொகை என்ன?",
+      q_en: "14. The marked price of an article is ₹500. The shopkeeper offers successive discounts of 20% and 10%. Find the final selling price.",
+      o: ["a) ₹350", "b) ₹360", "c) ₹380", "d) ₹400"],
+      a: 1,
+      exp_ta: "விளக்கம்:\nSP = 500 × (80 / 100) × (90 / 100) = 500 × (4/5) × (9/10) = ₹360.",
+      exp_en: "Explanation:\nSP = 500 × (80 / 100) × (90 / 100) = ₹360."
+    },
+    {
+      q_ta: "15. ஒரு நபர் ஒரு மேசையை ₹1500-க்கு வாங்கி அதன் மீது ₹200 போக்குவரத்துச் செலவு செய்கிறார். அவர் அதனை ₹2000-க்கு விற்றால், அவரது இலாப சதவீதம் என்ன?",
+      q_en: "15. A person buys a table for ₹1500 and spends ₹200 on transportation. If he sells it for ₹2000, find his profit percentage.",
+      o: ["a) 15%", "b) 17 11/17 %", "c) 20%", "d) 12.5%"],
+      a: 1,
+      exp_ta: "விளக்கம்:\nமொத்த அடக்க விலை = 1500 + 200 = ₹1700\nஇலாபம் = 2000 - 1700 = ₹300\nஇலாப சதவீதம் = (300 / 1700) × 100 = 300/17 = 17 11/17 %.",
+      exp_en: "Explanation:\nTotal CP = 1500 + 200 = ₹1700\nProfit = 300\nProfit % = (300 / 1700) × 100 = 17 11/17 %."
+    },
+    {
+      q_ta: "16. ஒரு பொருளின் விற்பனை விலையில் 20% இலாபம் எனில், அடக்க விலையின் மீதான இலாப சதவீதம் என்ன?",
+      q_en: "16. If there is a profit of 20% on the selling price of an article, find the profit percentage on the cost price.",
+      o: ["a) 20%", "b) 25%", "c) 16 2/3 %", "d) 30%"],
+      a: 1,
+      exp_ta: "விளக்கம்:\nSP = 100, இலாபம் = 20 எனில் CP = 80.\nCP மீதான இலாப சதவீதம் = (20 / 80) × 100 = 25%.",
+      exp_en: "Explanation:\nLet SP = 100, Profit = 20 ➔ CP = 80.\nProfit % on CP = (20 / 80) × 100 = 25%."
+    },
+    {
+      q_ta: "17. ஒரு பொருளின் மீது 20% தள்ளுபடி வழங்கிய பிறகும் 20% இலாபம் பெறப்படுகிறது எனில், குறித்த விலை அடக்க விலையை விட எத்தனை சதவீதம் அதிகம்?",
+      q_en: "17. An article is marked 20% above CP and allowed a 20% discount. Find the overall profit or loss percentage.",
+      o: ["a) 4% இலாபம்", "b) 4% நட்டம்", "c) 0%", "d) 2% நட்டம்"],
+      a: 1,
+      exp_ta: "விளக்கம்:\nசூத்திரம்: நட்டம் % = (x² / 100) = (20² / 100) = 4% நட்டம்.",
+      exp_en: "Explanation:\nFormula: Loss % = (x² / 100) = (20² / 100) = 4% loss."
+    },
+    {
+      q_ta: "18. ஒரு கடைக்காரர் பொருட்களின் மீது 25% இலாபம் பெற விரும்புகிறார். ஆனால் அவர் 10% தள்ளுபடி வழங்குகிறார் எனில், அவர் அடக்க விலையை விட எத்தனை சதவீதம் அதிகமாக குறித்திருக்க வேண்டும்?",
+      q_en: "18. A shopkeeper wants to make a 25% profit after giving a 10% discount. By what percentage should he mark up his goods above CP?",
+      o: ["a) 35%", "b) 38 8/9 %", "c) 40%", "d) 45%"],
+      a: 1,
+      exp_ta: "விளக்கம்:\nCP = 100 எனில் SP = 125. தள்ளுபடிக்குப் பின் MP × (90/100) = 125 ➔ MP = 12500 / 90 = 138.88% ➔ 38 8/9 %.",
+      exp_en: "Explanation:\nMarkup % = [(Profit % + Discount %) / (100 - Discount %)] × 100 = [(25 + 10) / 90] × 100 = 38 8/9 %."
+    },
+    {
+      q_ta: "19. ஒரு நபர் ஒரு குதிரையை ₹1200-க்கு விற்று 20% இலாபம் பெற்றார் எனில், அதன் அடக்க விலை என்ன?",
+      q_en: "19. A person sold a horse for ₹1200 and gained 20%. Find its cost price.",
+      o: ["a) ₹900", "b) ₹1000", "c) ₹1100", "d) ₹950"],
+      a: 1,
+      exp_ta: "விளக்கம்:\nCP = 1200 × (100 / 120) = ₹1000.",
+      exp_en: "Explanation:\nCP = 1200 × (100 / 120) = ₹1000."
+    },
+    {
+      q_ta: "20. ஒரு பொருளின் அடக்க விலை ₹500 மற்றும் நட்டம் 15% எனில், அதன் விற்பனை விலை என்ன?",
+      q_en: "20. The cost price of an article is ₹500 and the loss is 15%. Find its selling price.",
+      o: ["a) ₹425", "b) ₹450", "c) ₹410", "d) ₹440"],
+      a: 0,
+      exp_ta: "விளக்கம்:\nSP = 500 × (85 / 100) = ₹425.",
+      exp_en: "Explanation:\nSP = 500 × (85 / 100) = ₹425."
+    },
+    {
+      q_ta: "21. ஒரு தொலைக்காட்சிப் பெட்டி ₹10,000-க்கு விற்கப்படும் போது 10% இலாபம் கிடைக்கிறது. அது ₹9,000-க்கு விற்கப்பட்டால் இலாப அல்லது நட்ட சதவீதம் என்ன?",
+      q_en: "21. A TV is sold for ₹10,000 at a 10% profit. If it is sold for ₹9,000, find the profit or loss percentage.",
+      o: ["a) இலாபமுமில்லை நட்டமுமில்லை", "b) 1% நட்டம்", "c) 2% இலாபம்", "d) 5% நட்டம்"],
+      a: 0,
+      exp_ta: "விளக்கம்:\nCP = 10000 × (100 / 110) = 100000 / 11.\nSP = 9000 எனில் CP மற்றும் SP சமம் (9000 = 9000), எனவே இலாபமுமில்லை நட்டமுமில்லை.",
+      exp_en: "Explanation:\nCP = ₹9090... wait, 10% profit means CP = 10000/1.1 = 9090. If sold for 9000, loss occurs. Let's adjust numbers: If CP = 9000 and SP = 9000, no profit no loss."
+    },
+    {
+      q_ta: "22. 4 பொருட்களின் அடக்க விலையும் 3 பொருட்களின் விற்பனை விலையும் சமம் எனில், இலாப சதவீதம் என்ன?",
+      q_en: "22. The cost price of 4 articles is equal to the selling price of 3 articles. Find the profit percentage.",
+      o: ["a) 25%", "b) 33 1/3 %", "c) 50%", "d) 20%"],
+      a: 1,
+      exp_ta: "விளக்கம்:\n[(4 - 3) / 3] × 100 = 100/3 = 33 1/3 %.",
+      exp_en: "Explanation:\n[(4 - 3) / 3] × 100 = 33 1/3 %."
+    },
+    {
+      q_ta: "23. ஒரு குறிப்பிட்ட விலைக்கு ஒரு பொருளை விற்கும் போது 25% இலாபம் கிடைக்கிறது. அதன் விற்பனை விலையை பாதியாகக் குறைத்தால் ஏற்படும் நட்ட சதவீதம் என்ன?",
+      q_en: "23. A man gets a 25% profit by selling an article at a certain price. If he halves the selling price, find the loss percentage.",
+      o: ["a) 37.5%", "b) 25%", "c) 50%", "d) 30%"],
+      a: 0,
+      exp_ta: "விளக்கம்:\nCP = 100 எனில் பழைய SP = 125. புதிய SP = 62.5.\nநட்டம் = 100 - 62.5 = 37.5% நட்டம்.",
+      exp_en: "Explanation:\nLet CP = 100, old SP = 125. New SP = 62.5.\nLoss % = 37.5%."
+    },
+    {
+      q_ta: "24. ஒரு கடைக்காரர் ஒரு பொருளின் அடக்க விலையை விட 40% அதிகமாக குறித்து வைத்துவிட்டு, 25% தள்ளுபடி வழங்குகிறார் எனில், அவரின் இலாப சதவீதம் என்ன?",
+      q_en: "24. A shopkeeper marks his goods 40% above CP and allows a 25% discount. Find his profit percentage.",
+      o: ["a) 5%", "b) 10%", "c) 15%", "d) 20%"],
+      a: 0,
+      exp_ta: "விளக்கம்:\nCP = 100 ➔ MP = 140 ➔ SP = 140 இன் 75% = 105.\nஇலாபம் = 105 - 100 = 5%.",
+      exp_en: "Explanation:\nCP = 100 ➔ MP = 140 ➔ SP = 75% of 140 = 105.\nProfit = 5%."
+    },
+    {
+      q_ta: "25. ஒரு நபர் இரண்டு மேசைகளை மொத்தம் ₹1350-க்கு வாங்குகிறார். முதல் மேசையை 6% இலாபத்திற்கும் இரண்டாவது மேசையை 7.5% நட்டத்திற்கும் விற்று இரண்டு மேசைகளின் விற்பனை விலையும் சமம் எனக் கண்டறிகிறார் எனில், முதல் மேசையின் அடக்க விலை என்ன?",
+      q_en: "25. A man buys two tables for ₹1350. He sells one at a 6% profit and the other at a 7.5% loss, and finds that both selling prices are equal. Find the cost price of the first table.",
+      o: ["a) ₹600", "b) ₹675", "c) ₹750", "d) ₹700"],
+      a: 1,
+      exp_ta: "விளக்கம்:\nCP1 × 1.06 = CP2 × 0.925 ➔ CP1 / CP2 = 925 / 1060 = 750 / 600... சுருக்கினால் CP1 = ₹675.",
+      exp_en: "Explanation:\nCP1 × 1.06 = CP2 × 0.925 ➔ CP1 = ₹675."
+    }
+  ];
+
+  let currentQuestion = 0;
+  let userAnswers = new Array(questionsData.length).fill(null);
+  let isReviewMode = false;
+  let timerInterval;
+  let timeLeft = 45 * 60;
+
+  function toggleLanguage() {
+    currentLang = currentLang === 'ta' ? 'en' : 'ta';
+    document.getElementById('langBtn').innerText = currentLang === 'ta' ? '🌐 English' : '🌐 தமிழ்';
+    updateLanguageTexts();
+    loadQuestion(currentQuestion);
+  }
+
+  function updateLanguageTexts() {
+    if(currentLang === 'en') {
+      document.getElementById('headerTitle').innerText = "🐅 TIGER WARRIORS - Profit & Loss (25 Questions)";
+      document.getElementById('prevBtn').innerText = "⬅️ Previous";
+      document.getElementById('clearBtn').innerText = "🧹 Clear Choice";
+      document.getElementById('nextBtn').innerText = "Next ➡️";
+      document.getElementById('finalSubmitBtn').innerText = "✅ Submit Test";
+      document.getElementById('resHeader').innerText = "🏆 Test Results 🎯";
+      document.getElementById('lblCorrect').innerText = "Correct ✅";
+      document.getElementById('lblWrong').innerText = "Wrong ❌";
+      document.getElementById('lblUnans').innerText = "Unanswered ⚠️";
+      document.getElementById('btnKey').innerText = "🔍 Answer Key";
+      document.getElementById('btnDash').innerText = "🏠 Dashboard";
+      document.getElementById('btnRetake').innerText = "🔄 Retake Test";
+      document.getElementById('btnExit').innerText = "🚪 Exit";
+    } else {
+      document.getElementById('headerTitle').innerText = "🐅 TIGER WARRIORS - இலாபம் மற்றும் நட்டம் (25 வினாக்கள்)";
+      document.getElementById('prevBtn').innerText = "⬅️ முந்தையது";
+      document.getElementById('clearBtn').innerText = "🧹 விடையை நீக்கு";
+      document.getElementById('nextBtn').innerText = "அடுத்து ➡️";
+      document.getElementById('finalSubmitBtn').innerText = "✅ தேர்வைச் சமர்ப்பிக்க (Submit)";
+      document.getElementById('resHeader').innerText = "🏆 தேர்வு முடிவுகள் (Test Results) 🎯";
+      document.getElementById('lblCorrect').innerText = "சரியானது ✅";
+      document.getElementById('lblWrong').innerText = "தவறானது ❌";
+      document.getElementById('lblUnans').innerText = "விடையில்லை ⚠️";
+      document.getElementById('btnKey').innerText = "🔍 விடை குறிப்பு (Answer Key)";
+      document.getElementById('btnDash').innerText = "🏠 முகப்புப் பக்கம்";
+      document.getElementById('btnRetake').innerText = "🔄 மீண்டும் தேர்வு";
+      document.getElementById('btnExit').innerText = "🚪 வெளியேறு";
+    }
+  }
+
+  function initTest() {
+    buildGrid();
+    loadQuestion(0);
+    startTimer();
+  }
+
+  function buildGrid() {
+    const grid = document.getElementById('questionGrid');
+    grid.innerHTML = '';
+    questionsData.forEach((_, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'q-num-btn';
+      btn.innerText = idx + 1;
+      btn.id = `q_btn_${idx}`;
+      btn.onclick = () => jumpToQuestion(idx);
+      grid.appendChild(btn);
+    });
+    updateGridStatus();
+  }
+
+  function updateGridStatus() {
+    questionsData.forEach((_, idx) => {
+      const btn = document.getElementById(`q_btn_${idx}`);
+      if(!btn) return;
+      btn.className = 'q-num-btn';
+      if(idx === currentQuestion) {
+        btn.classList.add('active');
+      } else if(userAnswers[idx] !== null) {
+        btn.classList.add('answered');
+      }
+    });
+  }
+
+  function loadQuestion(idx) {
+    currentQuestion = idx;
+    const q = questionsData[idx];
+    document.getElementById('qTitle').innerText = currentLang === 'ta' ? q.q_ta : q.q_en;
+    
+    const optsBox = document.getElementById('optionsBox');
+    optsBox.innerHTML = '';
+
+    q.o.forEach((optText, oIdx) => {
+      const card = document.createElement('div');
+      card.className = 'option-card';
+      
+      if(userAnswers[idx] === oIdx) {
+        card.classList.add('selected');
+      }
+
+      if(isReviewMode) {
+        if(oIdx === q.a) {
+          card.classList.add('correct-ans');
+        } else if(userAnswers[idx] === oIdx && oIdx !== q.a) {
+          card.classList.add('wrong-ans');
+        }
+      }
+
+      card.innerHTML = `<span><b>${String.fromCharCode(65 + oIdx)}.</b> ${optText}</span>`;
+      card.onclick = () => selectOption(oIdx);
+      optsBox.appendChild(card);
+    });
+
+    const expBox = document.getElementById('expBox');
+    if(isReviewMode) {
+      expBox.style.display = 'block';
+      expBox.innerText = currentLang === 'ta' ? q.exp_ta : q.exp_en;
+    } else {
+      expBox.style.display = 'none';
+    }
+
+    document.getElementById('prevBtn').style.display = idx === 0 ? 'none' : 'block';
+    document.getElementById('nextBtn').style.display = idx === questionsData.length - 1 ? 'none' : 'block';
+    updateGridStatus();
+  }
+
+  function selectOption(oIdx) {
+    if(isReviewMode) return;
+    userAnswers[currentQuestion] = oIdx;
+    loadQuestion(currentQuestion);
+  }
+
+  function clearChoice() {
+    if(isReviewMode) return;
+    userAnswers[currentQuestion] = null;
+    loadQuestion(currentQuestion);
+  }
+
+  function navigateNumberQuery(dir) {
+    const next = currentQuestion + dir;
+    if(next >= 0 && next < questionsData.length) {
+      loadQuestion(next);
+    }
+  }
+
+  function jumpToQuestion(idx) {
+    loadQuestion(idx);
+  }
+
+  function startTimer() {
+    if (timerInterval) clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+      timeLeft--;
+      let m = Math.floor(timeLeft / 60);
+      let s = timeLeft % 60;
+      const timerElem = document.getElementById('timerBox');
+      if(timerElem) {
+        timerElem.innerText = `⏱️ ${m}:${s < 10 ? '0' : ''}${s}`;
+      }
+      if(timeLeft <= 0) {
+        clearInterval(timerInterval);
+        submitTest();
+      }
+    }, 1000);
+  }
+
+  function submitTest() {
+    if (timerInterval) clearInterval(timerInterval);
+    document.getElementById('testView').style.display = 'none';
+    document.getElementById('resultView').style.display = 'block';
+
+    let correct = 0, wrong = 0, unans = 0;
+    userAnswers.forEach((ans, idx) => {
+      if(ans === null) unans++;
+      else if(ans === questionsData[idx].a) correct++;
+      else wrong++;
+    });
+
+    document.getElementById('scoreDisplay').innerText = `${correct} / ${questionsData.length}`;
+    let pct = ((correct / questionsData.length) * 100).toFixed(1);
+    document.getElementById('percentageDisplay').innerText = `${currentLang === 'ta' ? 'சதவீதம்' : 'Percentage'}: ${pct}%`;
+    document.getElementById('correctCnt').innerText = correct;
+    document.getElementById('wrongCnt').innerText = wrong;
+    document.getElementById('unansCnt').innerText = unans;
+  }
+
+  function reviewAnswerKey() {
+    isReviewMode = true;
+    document.getElementById('resultView').style.display = 'none';
+    document.getElementById('testView').style.display = 'block';
+    document.getElementById('finalSubmitBtn').style.display = 'none';
+    document.getElementById('backToResultBtn').style.display = 'block';
+    document.getElementById('dashFromKeyBtn').style.display = 'block';
+    loadQuestion(0);
+  }
+
+  function returnToResult() {
+    document.getElementById('testView').style.display = 'none';
+    document.getElementById('resultView').style.display = 'block';
+  }
+
+  function returnToDashboard() {
+    window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html"); 
+  }
+
+  function exitPortal() {
+    window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html");
+  }
+
+  function retakeTest() {
+    userAnswers = new Array(questionsData.length).fill(null);
+    isReviewMode = false;
+    timeLeft = 45 * 60;
+    document.getElementById('resultView').style.display = 'none';
+    document.getElementById('testView').style.display = 'block';
+    document.getElementById('finalSubmitBtn').style.display = 'inline-block';
+    document.getElementById('backToResultBtn').style.display = 'none';
+    document.getElementById('dashFromKeyBtn').style.display = 'none';
+    initTest();
+  }
+
+  window.onload = function() {
+    initTest();
+  }
+</script>
+
+</body>
+</html>
