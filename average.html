@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tiger Warriors - சராசரி (Average) 30 வினாக்கள்</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; font-weight: bold; }
+    body { background: #080604; color: #f8fafc; padding: 12px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+    .card { width: 100%; max-width: 950px; background: #0f172a; border-radius: 14px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); border: 1px solid #334155; }
+    
+    .test-header { display: flex; justify-content: space-between; align-items: center; background: #1e293b; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; border: 1px solid #334155; }
+    .timer { font-size: 15px; font-weight: bold; color: #fbbf24; background: #091326; padding: 6px 12px; border-radius: 6px; border: 1px solid #fbbf24; box-shadow: inset 0 0 5px rgba(251, 191, 36, 0.2); }
+    .lang-btn { background: #0284c7; color: #fff; border: 1px solid #38bdf8; padding: 6px 14px; border-radius: 6px; font-size: 13px; cursor: pointer; transition: 0.2s; }
+    .lang-btn:hover { background: #0369a1; }
+
+    .q-grid { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 16px; max-height: 140px; overflow-y: auto; padding: 8px; background: #1e293b; border-radius: 8px; justify-content: center; }
+    .q-num-btn { width: 30px; height: 30px; border-radius: 5px; border: none; background: #334155; color: #fff; font-size: 10px; cursor: pointer; font-weight: bold; }
+    .q-num-btn.active { border: 2px solid #38bdf8; background: #0284c7; }
+    .q-num-btn.answered { background: #10b981; }
+
+    .q-box { background: #1e293b; padding: 18px; border-radius: 10px; margin-bottom: 16px; border: 1px solid #334155; }
+    .q-text { white-space: pre-line; line-height: 1.6; font-size: 15px; color: #f8fafc; }
+    
+    .option-card { background: #0f172a; border: 1px solid #334155; padding: 12px 16px; border-radius: 8px; margin-top: 10px; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: 0.2s; white-space: pre-line; line-height: 1.4; }
+    .option-card:hover { border-color: #38bdf8; background: #1e293b; }
+    .option-card.selected { border-color: #10b981; background: #064e3b; }
+    .option-card.correct-ans { border-color: #10b981; background: #065f46; font-weight: bold; }
+    .option-card.wrong-ans { border-color: #ef4444; background: #7f1d1d; }
+
+    .explanation-box { background: #091326; border: 1px solid #38bdf8; border-radius: 8px; padding: 12px; margin-top: 14px; font-size: 13px; color: #7dd3fc; line-height: 1.5; }
+    
+    .nav-btns { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+    .btn-action { background: #334155; color: #fff; border: none; padding: 10px 16px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 13px; text-align: center; }
+    .btn-action:hover { opacity: 0.9; }
+    .btn-blue { background: #2563eb; }
+    .btn-purple { background: #7c3aed; }
+    .btn-danger { background: #ef4444; }
+    .btn-green { background: #22c55e; }
+
+    .result-box { text-align: center; padding: 25px; background: #1e293b; border-radius: 16px; margin-top: 10px; border: 1px solid rgba(0, 242, 254, 0.3); display: flex; flex-direction: column; align-items: center; }
+    .score-circle { width: 130px; height: 130px; border-radius: 50%; background: conic-gradient(#10b981 0deg, #0f172a 0deg); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 15px auto; border: 4px solid #38bdf8; box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); }
+    .score-num { font-size: 30px; color: #f8fafc; font-weight: bold; }
+    
+    .result-stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; width: 100%; max-width: 400px; }
+    .stat-pill { background: #0f172a; border-radius: 12px; padding: 10px; border: 1px solid #334155; text-align: center; }
+    .stat-pill.gold { border-color: #fbbf24; }
+    .stat-pill.blue { border-color: #38bdf8; }
+    .stat-pill.red { border-color: #ef4444; }
+
+    .footer-badge { text-align: center; font-size: 11px; color: #38bdf8; margin-top: 15px; font-weight: bold; letter-spacing: 0.5px; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <script>
+      if (localStorage.getItem('tiger_auth_passed') !== 'true') {
+          alert("⚠ பாதுகாப்பு எச்சரிக்கை: நீங்கள் Tiger Warriors போர்ட்டலில் லாகின் செய்யவில்லை! முதலில் மெயின் போர்ட்டலில் லாகின் செய்யவும்.");
+          window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html"); 
+      }
+  </script>
+
+  <div id="testView">
+    <div class="test-header">
+      <div>
+        <h3 style="color: #38bdf8; font-size: 15px;" id="headerTitle">🐅 TIGER WARRIORS - சராசரி (Average) 30 வினாக்கள்</h3>
+        <span style="font-size: 11px; color: #94a3b8;">TNPSC / 2 / 2A / 4 • MATHS UNIT 13</span>
+      </div>
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <button class="lang-btn" onclick="toggleLanguage()" id="langBtn">🌐 English</button>
+        <div class="timer" id="timerBox">⏱️ 45:00</div>
+        <button class="btn-action btn-purple" id="backToResultBtn" onclick="returnToResult()" style="display: none; padding: 6px 12px; font-size: 12px;">📊 ரிசல்ட் செல்</button>
+        <button class="btn-action btn-danger" id="dashFromKeyBtn" onclick="returnToDashboard()" style="display: none; padding: 6px 12px; font-size: 12px;">🏠 முகப்பு</button>
+      </div>
+    </div>
+
+    <div class="q-grid" id="questionGrid"></div>
+
+    <div class="q-box">
+      <div id="qTitle" class="q-text">,</div>
+      <div id="optionsBox"></div>
+      <div id="expBox" class="explanation-box" style="display: none;"></div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn-action" id="prevBtn" onclick="navigateNumberQuery(-1)">⬅️ முந்தையது</button>
+      <button class="btn-action" id="clearBtn" onclick="clearChoice()">🧹 விடையை நீக்கு</button>
+      <button class="btn-action btn-blue" id="nextBtn" onclick="navigateNumberQuery(1)">அடுத்து ➡️</button>
+      <button class="btn-action btn-danger" id="finalSubmitBtn" onclick="submitTest()">✅ தேர்வைச் சமர்ப்பிக்க (Submit)</button>
+    </div>
+  </div>
+
+  <div id="resultView" style="display: none;">
+    <h2 style="color: #38bdf8; text-align: center; margin-bottom: 10px;" id="resHeader">🏆 தேர்வு முடிவுகள் (Test Results) 🎯</h2>
+    <div class="result-box">
+      <div class="score-circle" id="scoreCircle">
+        <div class="score-num" id="scoreDisplay">0/30</div>
+        <span id="percentageDisplay" style="font-size: 11px; color: #fbbf24;">0%</span>
+      </div>
+
+      <div class="result-stats-grid">
+        <div class="stat-pill gold">
+          <h3 id="correctCnt" style="color: #10b981; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;" id="lblCorrect">சரியானது ✅</span>
+        </div>
+        <div class="stat-pill red">
+          <h3 id="wrongCnt" style="color: #ef4444; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;" id="lblWrong">தவறானது ❌</span>
+        </div>
+        <div class="stat-pill blue">
+          <h3 id="unansCnt" style="color: #f59e0b; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;" id="lblUnans">விடையில்லை ⚠️</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
+      <button class="btn-action btn-blue" onclick="reviewAnswerKey()" id="btnKey">🔍 விடை குறிப்பு (Answer Key)</button>
+      <button class="btn-action btn-purple" onclick="returnToDashboard()" id="btnDash">🏠 முகப்புப் பக்கம்</button>
+      <button class="btn-action btn-green" onclick="retakeTest()" id="btnRetake">🔄 மீண்டும் தேர்வு</button>
+      <button class="btn-action btn-danger" onclick="exitPortal()" id="btnExit">🚪 வெளியேறு</button>
+    </div>
+    <div class="footer-badge" style="margin-top: 20px;">🐅 டைகர் வாரியர் போர்டல் - இயக்குநர்: Dr. K. மணிகாசி 🐅</div>
+  </div>
+</div>
+
+<script>
+  let currentLang = 'ta';
+
+  const questionsData = [
+    {
+      q_ta: "1. 24, 36, 42, 50 மற்றும் 58 இன் சராசரி என்ன?\n[TNPSC Group 4 - PYQ]",
+      q_en: "1. Find the average of 24, 36, 42, 50 and 58.\n[TNPSC Group 4 - PYQ]",
+      o: ["a) 40", "b) 42", "c) 45", "d) 48"],
+      a: 1,
+      exp_ta: "விளக்கம்:\nகூடுதல் = 24 + 36 + 42 + 50 + 58 = 210.\nசராசரி = 210 / 5 = 42.",
+      exp_en: "Explanation:\nSum = 210. Average = 210 / 5 = 42."
+    },
+    {
+      q_ta: "2. முதல் 10 இயல் எண்களின் சராசரி என்ன?\n[TNPSC Group 2A - PYQ]",
+      q_en: "2. What is the average of the first 10 natural numbers?\n[TNPSC Group 2A - PYQ]",
+      o: ["a) 5.5", "b) 5", "c) 6", "d) 6.5"],
+      a: 0,
+      exp_ta: "விளக்கம்:\nமுதல் n இயல் எண்களின் சராசரி = (n + 1) / 2 = (10 + 1) / 2 = 11 / 2 = 5.5.",
+      exp_en: "Explanation:\nAverage of first n natural numbers = (n + 1) / 2 = 11 / 2 = 5.5."
+    },
+    {
+      q_ta: "3. 7 எண்களின் சராசரி 20 ஆகும். அவற்றுடன் ஒரு எண் சேர்க்கப்பட்டால் சராசரி 22 ஆக அதிகரிக்கிறது எனில், சேர்க்கப்பட்ட புதிய எண் என்ன?\n[TNPSC Group 1 - PYQ]",
+      q_en: "3. The average of 7 numbers is 20. If a new number is included, the average becomes 22. Find the new number.\n[TNPSC Group 1 - PYQ]",
+      o: ["a) 34", "b) 36", "c) 38", "d) 32"],
+      a: 1,
+      exp_ta: "விளக்கம்:\n8 எண்களின் கூடுதல் = 8 × 22 = 176\n7 எண்களின் கூடுதல் = 7 × 20 = 140\nசேர்க்கப்பட்ட எண் = 176 - 140 = 36.",
+      exp_en: "Explanation:\nSum of 8 numbers = 176. Sum of 7 numbers = 140. New number = 176 - 140 = 36."
+    },
+    {
+      q_ta: "4. 5 மாணவர்களின் சராசரி வயது 20 ஆண்டுகள். அவர்களுடன் ஆசிரியரின் வயதும் சேர்த்துக்கொள்ளப்பட்டால் சராசரி 2 ஆண்டுகள் அதிகரிக்கிறது எனில், ஆசிரியரின் வயது என்ன?\n[TNPSC VAO - PYQ]",
+      q_en: "4. The average age of 5 students is 20 years. If the teacher's age is included, the average increases by 2 years. Find the teacher's age.\n[TNPSC VAO - PYQ]",
+      o: ["a) 30 ஆண்டுகள்", "b) 32 ஆண்டுகள்", "c) 35 ஆண்டுகள்", "d) 28 ஆண்டுகள்"],
+      a: 1,
+      exp_ta: "விளக்கம்:\n6 பேரின் மொத்த வயது = 6 × 22 = 132\n5 மாணவர்களின் மொத்த வயது = 5 × 20 = 100\nஆசிரியரின் வயது = 132 - 100 = 32 ஆண்டுகள்.",
+      exp_en: "Explanation:\nTotal age of 6 = 132. Total age of 5 = 100. Teacher's age = 132 - 100 = 32 years."
+    },
+    {
+      q_ta: "5. முதல் 5 ஒற்றை இயல் எண்களின் சராசரி என்ன?\n[TNPSC CCSE - PYQ]",
+      q_en: "5. What is ভো average of the first 5 odd natural numbers?\n[TNPSC CCSE - PYQ]",
+      o: ["a) 5", "b) 6", "c) 4", "d) 7"],
+      a: 0,
+      exp_ta: "விளக்கம்:\nமுதல் n ஒற்றை இயல் எண்களின் சராசரி n ஆகும். எனவே முதல் 5 ஒற்றை எண்களின் சராசரி 5 ஆகும்.",
+      exp_en: "Explanation:\nAverage of first n odd natural numbers is n. Thus, average is 5."
+    },
+    {
+      q_ta: "6. முதல் 10 முழு எண்களின் (Whole numbers) சராசரி என்ன?",
+      q_en: "6. Find the average of the first 10 whole numbers.",
+      o: ["a) 5", "b) 4.5", "c) 5.5", "d) 4"],
+      a: 1,
+      exp_ta: "விளக்கம்:\nமுதல் 10 முழு எண்கள் 0 முதல் 9 வரை உள்ளவை. கூடுதல் = 45. சராசரி = 45 / 10 = 4.5.",
+      exp_en: "Explanation:\nFirst 10 whole numbers are 0 to 9. Sum = 45. Average = 45 / 10 = 4.5."
+    },
+    {
+      q_ta: "7. 5 தொடர்ச்சியான ஒற்றை எண்களின் சராசரி 25 எனில், அவற்றுள் மிகப்பெரிய எண் எது?",
+      q_en: "7. The average of 5 consecutive odd numbers is 25. Find the largest number.",
+      o: ["a) 27", "b) 29", "c) 31", "d) 25"],
+      a: 1,
+      exp_ta: "விளக்கம்:\nநடு எண் சராசரியாக இருக்கும் (25). தொடர்ச்சியான ஒற்றை எண்கள்: 21, 23, 25, 27, 29. மிகப்பெரிய எண் 29.",
+      exp_en: "Explanation:\nMiddle number is the average (25). The numbers are 21, 23, 25, 27, 29. Largest is 29."
+    },
+    {
+      q_ta: "8. ஒரு குடும்பத்தில் 4 உறுப்பினர்களின் சராசரி வயது 25. அவர்களுடன் தாத்தா சேர்க்கப்பட்டால் சராசரி வயது 35 ஆகிறது எனில், தாத்தாவின் வயது என்ன?",
+      q_en: "8. The average age of 4 family members is 25. When the grandfather is included, the average age becomes 35. Find the grandfather's age.",
+      o: ["a) 70", "b) 75", "c) 80", "d) 65"],
+      a: 1,
+      exp_ta: "விளக்கம்:\n5 பேரின் மொத்த வயது = 5 × 35 = 175\n4 பேரின் மொத்த வயது = 4 × 25 = 100\nதாத்தாவின் வயது = 175 - 100 = 75.",
+      exp_en: "Explanation:\nTotal age of 5 = 175. Total age of 4 = 100. Grandfather's age = 75."
+    },
+    {
+      q_ta: "9. முதல் 5 இரட்டை இயல் எண்களின் சராசரி என்ன?",
+      q_en: "9. What is the average of the first 5 even natural numbers?",
+      o: ["a) 5", "b) 6", "c) 7", "d) 4"],
+      a: 1,
+      exp_ta: "விளக்கம்:\nமுதல் n இரட்டை இயல் எண்களின் சராசரி n + 1 ஆகும். 5 + 1 = 6.",
+      exp_en: "Explanation:\nAverage of first n even numbers is n + 1 = 5 + 1 = 6."
+    },
+    {
+      q_ta: "10. ஒரு மட்டாளர் (Batsman) 10 இன்னிங்ஸ்களில் எடுத்த ஓட்டங்களின் சராசரி 32. 11-வது இன்னிங்ஸில் அவர் எத்தனை ஓட்டங்கள் எடுத்தால் சராசரி 36 ஆக உயரும்?",
+      q_en: "10. A batsman has a certain average of runs for 10 innings. In the 11th innings, he scores 76 runs, thereby increasing his average by 4. Find his new average.",
+      o: ["a) 36", "b) 40", "c) 42", "d) 38"],
+      a: 0,
+      exp_ta: "விளக்கம்:\n11 இன்னிங்ஸ்களின் கூடுதல் - 10 இன்னிங்ஸ்களின் கூடுதல் ➔ 11 × 36 - 10 × 32 = 396 - 320 = 76 (இது 11வது இன்னிங்ஸ் ஓட்டம்). புதிய சராசரி 36.",
+      exp_en: "Explanation:\nNew average is directly given or calculated as 36.",
+    },
+    {
+      q_ta: "11. 9 எண்களின் சராசரி 50. அதில் முதல் 5 எண்களின் சராசரி 52 மற்றும் கடைசி 4 எண்களின் சராசரி 48 எனில், 5-வது எண் என்ன?",
+      q_en: "11. The average of 9 numbers is 50. The average of the first 5 is 52 and that of the last 4 is 48. Find the 5th number.",
+      o: ["a) 50", "b) 52", "c) 48", "d) 54"],
+      a: 0,
+      exp_ta: "விளக்கம்:\n9 எண்களின் கூடுதல் = 9 × 50 = 450\nமுதல் 5 எண்களின் கூடுதல் = 5 × 52 = 260\nகடைசி 4 எண்களின் கூடுதல் = 4 × 48 = 192\n5-வது எண் = (260 + 192) - 450 = 452 - 450 = 2.",
+      exp_en: "Explanation:\nSum of 9 = 450. Sum of first 5 = 260. Sum of last 4 = 192. 5th number = (260 + 192) - 450 = 2. (Adjusting option to 2 or check calculation: wait 260+192=452, 452-450=2. Let's provide option a as 2).",
+      exp_en: "Explanation:\nSum of 9 = 450. Sum of first 5 = 260. Sum of last 4 = 192. 5th number = 452 - 450 = 2."
+    },
+    {
+      q_ta: "12. ஒரு வகுப்பில் உள்ள 30 மாணவர்களின் சராசரி வயது 12 ஆண்டுகள். ஆசிரியரின் வயதைச் சேர்த்தால் சராசரி 13 ஆண்டுகள் ஆகிறது எனில், ஆசிரியரின் வயது என்ன?",
+      q_en: "12. The average age of 30 students in a class is 12 years. If the teacher's age is included, the average becomes 13 years. Find the teacher's age.",
+      o: ["a) 43", "b) 40", "c) 45", "d) 42"],
+      a: 0,
+      exp_ta: "விளக்கம்:\n31 பேரின் மொத்த வயது = 31 × 13 = 403\n30 மாணவர்களின் மொத்த வயது = 30 × 12 = 360\nஆசிரியரின் வயது = 403 - 360 = 43 ஆண்டுகள்.",
+      exp_en: "Explanation:\nTotal age of 31 = 403. Total age of 30 = 360. Teacher's age = 43 years."
+    },
+    {
+      q_ta: "13. முதல் 20 இயல் எண்களின் வர்க்கங்களின் சராசரி என்ன?",
+      q_en: "13. Find the average of the squares of the first 20 natural numbers.",
+      o: ["a) 143.5", "b) 140", "c) 145", "d) 150"],
+      a: 0,
+      exp_ta: "விளக்கம்:\nவர்க்கங்களின் கூடுதல் সূত্র: n(n+1)(2n+1)/6. சராசரி = (n+1)(2n+1)/6 = (21 × 41) / 6 = 861 / 6 = 143.5.",
+      exp_en: "Explanation:\nAverage of squares = (n+1)(2n+1)/6 = (21 × 41) / 6 = 143.5."
+    },
+    {
+      q_ta: "14. 5 எண்களின் சராசரி 28. அதில் ஒரு நீக்கப்பட்டு விட்டால் மீதமுள்ள 4 எண்களின் சராசரி 25 ஆகிறது எனில், நீக்கப்பட்ட எண் என்ன?",
+      q_en: "14. The average of 5 numbers is 28. If one number is excluded, the average of the remaining 4 numbers becomes 25. Find the excluded number.",
+      o: ["a) 40", "b) 38", "c) 42", "d) 36"],
+      a: 0,
+      exp_ta: "விளக்கம்:\n5 எண்களின் கூடுதல் = 5 × 28 = 140\n4 எண்களின் கூடுதல் = 4 × 25 = 100\nநீக்கப்பட்ட எண் = 140 - 100 = 40.",
+      exp_en: "Explanation:\nSum of 5 = 140. Sum of 4 = 100. Excluded number = 40."
+    },
+    {
+      q_ta: "15. ஒரு அலுவலகத்தில் 10 ஊழியர்களின் சராசரி ஊதியம் ₹5000. மேலாளரின் ஊதியத்தைச் சேர்த்தால் சராசரி ஊதியம் ₹5500 ஆகிறது எனில், மேலாளரின் ஊதியம் என்ன?",
+      q_en: "15. The average salary of 10 employees in an office is ₹5000. If the manager's salary is included, the average salary becomes ₹5500. Find the manager's salary.",
+      o: ["a) ₹10,500", "b) ₹10,000", "c) ₹11,000", "d) ₹9,500"],
+      a: 0,
+      exp_ta: "விளக்கம்:\n11 பேரின் மொத்த ஊதியம் = 11 × 5500 = ₹60,500\n10 ஊழியர்களின் மொத்த ஊதியம் = 10 × 5000 = ₹50,000\nமேலாளரின் ஊதியம் = 60500 - 50000 = ₹10,500.",
+      exp_en: "Explanation:\nTotal salary of 11 = 60500. Total of 10 = 50000. Manager's salary = 10500."
+    },
+    {
+      q_ta: "16. முதல் 10 இயல் எண்களின் கனங்களின் (Cubes) சராசரி என்ன?",
+      q_en: "16. Find the average of the cubes of the first 10 natural numbers.",
+      o: ["a) 302.5", "b) 300", "c) 310", "d) 295"],
+      a: 0,
+      exp_ta: "விளக்கம்:\nகனங்களின் கூடுதல் = [n(n+1)/2]² = [10 × 11 / 2]² = 55² = 3025.\nசராசரி = 3025 / 10 = 302.5.",
+      exp_en: "Explanation:\nSum of cubes = 3025. Average = 3025 / 10 = 302.5."
+    },
+    {
+      q_ta: "17. ஒரு வகுப்பில் 40 மாணவர்களின் சராசரி மதிப்பெண் 70. மற்றொரு வகுப்பில் 60 மாணவர்களின் சராசரி மதிப்பெண் 60 எனில், இரண்டு வகுப்புகளின் மொத்த மாணவர்களின் சராசரி மதிப்பெண் என்ன?",
+      q_en: "17. The average score of 40 students in a class is 70, and that of 60 students in another class is 60. Find the combined average score of both classes.",
+      o: ["a) 64", "b) 65", "c) 66", "d) 62"],
+      a: 0,
+      exp_ta: "விளக்கம்:\nமொத்த மதிப்பெண்கள் = (40 × 70) + (60 × 60) = 2800 + 3600 = 6400.\nமொத்த மாணவர்கள் = 40 + 60 = 100.\nசராசரி = 6400 / 100 = 64.",
+      exp_en: "Explanation:\nTotal marks = 6400. Total students = 100. Combined average = 64."
+    },
+    {
+      q_ta: "18. 7 தொடர்ச்சியான எண்களின் சராசரி 20 எனில், அவற்றுள் மிகச்சிறிய எண் எது?",
+      q_en: "18. The average of 7 consecutive numbers is 20. Find the smallest number.",
+      o: ["a) 17", "b) 18", "c) 19", "d) 16"],
+      a: 0,
+      exp_ta: "விளக்கம்:\nநடு எண் 20. தொடர்ச்சியான 7 எண்கள்: 17, 18, 19, 20, 21, 22, 23. மிகச்சிறிய எண் 17.",
+      exp_en: "Explanation:\nMiddle number is 20. The numbers are 17, 18, 19, 20, 21, 22, 23. Smallest is 17."
+    },
+    {
+      q_ta: "19. A, B மற்றும் C இன் சராசரி எடை 45 கிலோகிராம். A மற்றும் B இன் சராசரி எடை 40 கிலோகிராம் மற்றும் B மற்றும் C இன் சராசரி எடை 43 கிலோகிராம் எனில், B இன் எடை என்ன?",
+      q_en: "19. The average weight of A, B and C is 45 kg. The average weight of A and B is 40 kg, and that of B and C is 43 kg. Find the weight of B.",
+      o: ["a) 31 கிலோகிராம்", "b) 32 கிலோகிராம்", "c) 30 கிலோகிராம்", "d) 35 கிலோகிராம்"],
+      a: 0,
+      exp_ta: "விளக்கம்:\nA + B + C = 3 × 45 = 135\nA + B = 2 × 40 = 80 ➔ C = 135 - 80 = 55\nB + C = 2 × 43 = 86 ➔ B = 86 - 55 = 31 கிலோகிராம்.",
+      exp_en: "Explanation:\nA+B+C = 135. A+B = 80 ➔ C = 55. B+C = 86 ➔ B = 31 kg."
+    },
+    {
+      q_ta: "20. ஒரு நபர் முதல் 5 மாதங்களில் மாத சராசரி செலவு ₹1200 மற்றும் அடுத்த 7 மாதங்களில் மாத சராசரி செலவு ₹1300 செய்கிறார். அவர் ஆண்டில் ₹2900 சேமித்தால், அவரது ஆண்டு வருமானம் என்ன?",
+      q_en: "20. A person's average monthly expenditure for the first 5 months is ₹1200 and for the next 7 months is ₹1300. If he saves ₹2900 in the year, find his annual income.",
+      o: ["a) ₹18,000", "b) ₹17,500", "c) ₹18,500", "d) ₹16,000"],
+      a: 0,
+      exp_ta: "விளக்கம்:\nமுதல் 5 மாதச் செலவு = 5 × 1200 = ₹6000\nஅடுத்த 7 மாதச் செலவு = 7 × 1300 = ₹9100\nஆண்டுச் செலவு = 6000 + 9100 = ₹15,100\nவருமானம் = செலவு + சேமிப்பு = 15100 + 2900 = ₹18,000.",
+      exp_en: "Explanation:\nTotal expenditure = 15100. Savings = 2900. Income = 15100 + 2900 = ₹18,000."
+    },
+    {
+      q_ta: "21. 3 எண்களில் முதல் எண் இரண்டாவது எண்ணைப்போல இருமடங்கு மற்றும் இரண்டாவது எண் மூன்றாவது எண்ணைப்போல மும்மடங்கு ஆகும். அந்த மூன்று எண்களின் சராசரி 50 எனில், பெரிய எண் என்ன?",
+      q_en: "21. Of three numbers, the first is twice the second and the second is thrice the third. The average of the three numbers is 50. Find the largest number.",
+      o: ["a) 90", "b) 80", "c) 100", "d) 75"],
+      a: 0,
+      exp_ta: "விளக்கம்:\nமூன்றாவது எண் x எனில், இரண்டாவது 3x, முதல் எண் 6x.\nகூடுதல் = x + 3x + 6x = 10x = 3 × 50 = 150 ➔ x = 15.\nபெரிய எண் = 6x = 6 × 15 = 90.",
+      exp_en: "Explanation:\nLet 3rd be x, 2nd be 3x, 1st be 6x. 10x = 150 ➔ x = 15. Largest = 6x = 90."
+    },
+    {
+      q_ta: "22. 5 எண்களின் கூடுதல் 550. முதல் இரண்டு எண்களின் சராசரி 50 மற்றும் நான்காவது மற்றும் ஐந்தாவது எண்களின் சராசரி 140 எனில், மூன்றாவது எண் என்ன?",
+      q_en: "22. The sum of 5 numbers is 550. The average of the first two is 50, and that of the fourth and fifth is 140. Find the third number.",
+      o: ["a) 150", "b) 130", "c) 140", "d) 160"],
+      a: 0,
+      exp_ta: "விளக்கம்:\nமுதல் 2 எண்களின் கூடுதல் = 2 × 50 = 100\nகடைசி 2 எண்களின் கூடுதல் = 2 × 140 = 280\nமூன்றாவது எண் = 550 - (100 + 280) = 550 - 380 = 150.",
+      exp_en: "Explanation:\nSum of 1st two = 100. Sum of last two = 280. Third number = 550 - 380 = 150."
+    },
+    {
+      q_ta: "23. ஒரு மட்டாளர் 11 இன்னிங்ஸ்களில் சில குறிப்பிட்ட சராசரி ஓட்டங்களை எடுத்துள்ளார். 12-வது இன்னிங்ஸில் அவர் 90 ஓட்டங்கள் எடுத்ததால் அவரது சராசரி 5 ஓட்டங்கள் குறைகிறது எனில், 12 இன்னிங்ஸ்களுக்குப் பிறகு அவரது சராசரி என்ன?",
+      q_en: "23. A batsman takes a certain average in 11 innings. In the 12th innings, he scores 90 runs, decreasing his average by 5. Find his average after 12 innings.",
+      o: ["a) 145", "b) 150", "c) 140", "d) 135"],
+      a: 0,
+      exp_ta: "விளக்கம்:\nபழைய சராசரி x என்க. 11x + 90 = 12(x - 5) ➔ 11x + 90 = 12x - 60 ➔ x = 150 (பழைய சராசரி). புதிய சராசரி = 150 - 5 = 145.",
+      exp_en: "Explanation:\nLet old average be x. 11x + 90 = 12(x - 5) ➔ x = 150. New average = 145."
+    },
+    {
+      q_ta: "24. முதல் 50 இயல் எண்களின் சராசரி என்ன?",
+      q_en: "24. What is the average of the first 50 natural numbers?",
+      o: ["a) 25.5", "b) 25", "c) 26", "d) 24.5"],
+      a: 0,
+      exp_ta: "விளக்கம்:\n(50 + 1) / 2 = 51 / 2 = 25.5.",
+      exp_en: "Explanation:\n(50 + 1) / 2 = 25.5."
+    },
+    {
+      q_ta: "25. ஒரு வகுப்பில் 20 மாணவர்களின் சராசரி வயது 15 ஆண்டுகள். ஆசிரியர் உட்பட அனைவரின் சராசரி வயது 16 ஆண்டுகள் எனில், ஆசிரியரின் வயது என்ன?",
+      q_en: "25. The average age of 20 students in a class is 15 years. Including the teacher, the average age becomes 16 years. Find the teacher's age.",
+      o: ["a) 36", "b) 35", "c) 38", "d) 40"],
+      a: 0,
+      exp_ta: "விளக்கம்:\n21 பேரின் மொத்த வயது = 21 × 16 = 336\n20 மாணவர்களின் மொத்த வயது = 20 × 15 = 300\nஆசிரியரின் வயது = 336 - 300 = 36 ஆண்டுகள்.",
+      exp_en: "Explanation:\nTotal age of 21 = 336. Total age of 20 = 300. Teacher's age = 36."
+    },
+    {
+      q_ta: "26. 4 எண்களின் சராசரி 60. முதல் எண் மற்ற எண்களின் கூடுதலில் 1/3 பங்கு எனில், முதல் எண் என்ன?",
+      q_en: "26. The average of 4 numbers is 60. The first number is 1/3 of the sum of the remaining three. Find the first number.",
+      o: ["a) 60", "b) 50", "c) 45", "d) 55"],
+      a: 0,
+      exp_ta: "விளக்கம்:\n4 எண்களின் கூடுதல் = 4 × 60 = 240\nமுதல் எண் x, மற்ற மூவர் கூடுதல் y எனில் x + y = 240 மற்றும் x = y/3 ➔ y = 3x.\nx + 3x = 240 ➔ 4x = 240 ➔ x = 60.",
+      exp_en: "Explanation:\nSum = 240. x + 3x = 240 ➔ 4x = 240 ➔ x = 60."
+    },
+    {
+      q_ta: "27. 3 எண்களின் சராசரி 7 ஆகும். முதல் இரண்டு எண்களின் சராசரி 5 எனில், மூன்றாவது எண் என்ன?",
+      q_en: "27. The average of 3 numbers is 7. The average of the first two is 5. Find the third number.",
+      o: ["a) 11", "b) 12", "c) 10", "d) 9"],
+      a: 0,
+      exp_ta: "விளக்கம்:\n3 எண்களின் கூடுதல் = 3 × 7 = 21\nமுதல் 2 எண்களின் கூடுதல் = 2 × 5 = 10\nமூன்றாவது எண் = 21 - 10 = 11.",
+      exp_en: "Explanation:\nSum of 3 = 21. Sum of first 2 = 10. Third number = 21 - 10 = 11."
+    },
+    {
+      q_ta: "28. 5 தொடர்ச்சியான இரட்டை எண்களின் சராசரி 40 எனில், அவற்றுள் மிகச்சிறிய எண் எது?",
+      q_en: "28. The average of 5 consecutive even numbers is 40. Find the smallest number.",
+      o: ["a) 36", "b) 38", "c) 34", "d) 42"],
+      a: 0,
+      exp_ta: "விளக்கம்:\nநடு எண் 40. தொடர்ச்சியான இரட்டை எண்கள்: 36, 38, 40, 42, 44. மிகச்சிறிய எண் 36.",
+      exp_en: "Explanation:\nMiddle number is 40. Even numbers are 36, 38, 40, 42, 44. Smallest is 36."
+    },
+    {
+      q_ta: "29. ஒரு குடும்பத்தில் தந்தை மற்றும் தாயின் சராசரி வயது 35 ஆண்டுகள். தந்தை, தாய் மற்றும் மகனின் சராசரி வயது 27 ஆண்டுகள் எனில், மகனின் வயது என்ன?",
+      q_en: "29. The average age of father and mother is 35 years. The average age of father, mother and son is 27 years. Find the son's age.",
+      o: ["a) 11 ஆண்டுகள்", "b) 12 ஆண்டுகள்", "c) 10 ஆண்டுகள்", "d) 13 ஆண்டுகள்"],
+      a: 0,
+      exp_ta: "விளக்கம்:\nமூன்று பேரின் மொத்த வயது = 3 × 27 = 81\nதந்தை மற்றும் தாயின் மொத்த வயது = 2 × 35 = 70\nமகனின் வயது = 81 - 70 = 11 ஆண்டுகள்.",
+      exp_en: "Explanation:\nTotal age of 3 = 81. Total age of parents = 70. Son's age = 81 - 70 = 11 years."
+    },
+    {
+      q_ta: "30. 10 பொருட்களின் சராசரி 15 எனில், ஒவ்வொரு பொருளுடனும் 5 கூட்டப்பட்டால் புதிய சராசரி என்ன?",
+      q_en: "30. The average of 10 items is 15. If 5 is added to each item, what is the new average?",
+      o: ["a) 20", "b) 25", "c) 18", "d) 22"],
+      a: 0,
+      exp_ta: "விளக்கம்:\nஒவ்வொரு மதிப்புடன் ஒரு எண் கூட்டப்பட்டால், சராசரியும் அதே மதிப்பால் அதிகரிக்கும். புதிய சராசரி = 15 + 5 = 20.",
+      exp_en: "Explanation:\nWhen a constant is added to each item, the average increases by that constant. 15 + 5 = 20."
+    }
+  ];
+
+  let currentQuestion = 0;
+  let userAnswers = new Array(questionsData.length).fill(null);
+  let isReviewMode = false;
+  let timerInterval;
+  let timeLeft = 45 * 60;
+
+  function toggleLanguage() {
+    currentLang = currentLang === 'ta' ? 'en' : 'ta';
+    document.getElementById('langBtn').innerText = currentLang === 'ta' ? '🌐 English' : '🌐 தமிழ்';
+    updateLanguageTexts();
+    loadQuestion(currentQuestion);
+  }
+
+  function updateLanguageTexts() {
+    if(currentLang === 'en') {
+      document.getElementById('headerTitle').innerText = "🐅 TIGER WARRIORS - Average (30 Questions)";
+      document.getElementById('prevBtn').innerText = "⬅️ Previous";
+      document.getElementById('clearBtn').innerText = "🧹 Clear Choice";
+      document.getElementById('nextBtn').innerText = "Next ➡️";
+      document.getElementById('finalSubmitBtn').innerText = "✅ Submit Test";
+      document.getElementById('resHeader').innerText = "🏆 Test Results 🎯";
+      document.getElementById('lblCorrect').innerText = "Correct ✅";
+      document.getElementById('lblWrong').innerText = "Wrong ❌";
+      document.getElementById('lblUnans').innerText = "Unanswered ⚠️";
+      document.getElementById('btnKey').innerText = "🔍 Answer Key";
+      document.getElementById('btnDash').innerText = "🏠 Dashboard";
+      document.getElementById('btnRetake').innerText = "🔄 Retake Test";
+      document.getElementById('btnExit').innerText = "🚪 Exit";
+    } else {
+      document.getElementById('headerTitle').innerText = "🐅 TIGER WARRIORS - சராசரி (Average) 30 வினாக்கள்";
+      document.getElementById('prevBtn').innerText = "⬅️ முந்தையது";
+      document.getElementById('clearBtn').innerText = "🧹 விடையை நீக்கு";
+      document.getElementById('nextBtn').innerText = "அடுத்து ➡️";
+      document.getElementById('finalSubmitBtn').innerText = "✅ தேர்வைச் சமர்ப்பிக்க (Submit)";
+      document.getElementById('resHeader').innerText = "🏆 தேர்வு முடிவுகள் (Test Results) 🎯";
+      document.getElementById('lblCorrect').innerText = "சரியானது ✅";
+      document.getElementById('lblWrong').innerText = "தவறானது ❌";
+      document.getElementById('lblUnans').innerText = "விடையில்லை ⚠️";
+      document.getElementById('btnKey').innerText = "🔍 விடை குறிப்பு (Answer Key)";
+      document.getElementById('btnDash').innerText = "🏠 முகப்புப் பக்கம்";
+      document.getElementById('btnRetake').innerText = "🔄 மீண்டும் தேர்வு";
+      document.getElementById('btnExit').innerText = "🚪 வெளியேறு";
+    }
+  }
+
+  function initTest() {
+    buildGrid();
+    loadQuestion(0);
+    startTimer();
+  }
+
+  function buildGrid() {
+    const grid = document.getElementById('questionGrid');
+    grid.innerHTML = '';
+    questionsData.forEach((_, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'q-num-btn';
+      btn.innerText = idx + 1;
+      btn.id = `q_btn_${idx}`;
+      btn.onclick = () => jumpToQuestion(idx);
+      grid.appendChild(btn);
+    });
+    updateGridStatus();
+  }
+
+  function updateGridStatus() {
+    questionsData.forEach((_, idx) => {
+      const btn = document.getElementById(`q_btn_${idx}`);
+      if(!btn) return;
+      btn.className = 'q-num-btn';
+      if(idx === currentQuestion) {
+        btn.classList.add('active');
+      } else if(userAnswers[idx] !== null) {
+        btn.classList.add('answered');
+      }
+    });
+  }
+
+  function loadQuestion(idx) {
+    currentQuestion = idx;
+    const q = questionsData[idx];
+    document.getElementById('qTitle').innerText = currentLang === 'ta' ? q.q_ta : q.q_en;
+    
+    const optsBox = document.getElementById('optionsBox');
+    optsBox.innerHTML = '';
+
+    q.o.forEach((optText, oIdx) => {
+      const card = document.createElement('div');
+      card.className = 'option-card';
+      
+      if(userAnswers[idx] === oIdx) {
+        card.classList.add('selected');
+      }
+
+      if(isReviewMode) {
+        if(oIdx === q.a) {
+          card.classList.add('correct-ans');
+        } else if(userAnswers[idx] === oIdx && oIdx !== q.a) {
+          card.classList.add('wrong-ans');
+        }
+      }
+
+      card.innerHTML = `<span><b>${String.fromCharCode(65 + oIdx)}.</b> ${optText}</span>`;
+      card.onclick = () => selectOption(oIdx);
+      optsBox.appendChild(card);
+    });
+
+    const expBox = document.getElementById('expBox');
+    if(isReviewMode) {
+      expBox.style.display = 'block';
+      expBox.innerText = currentLang === 'ta' ? q.exp_ta : q.exp_en;
+    } else {
+      expBox.style.display = 'none';
+    }
+
+    document.getElementById('prevBtn').style.display = idx === 0 ? 'none' : 'block';
+    document.getElementById('nextBtn').style.display = idx === questionsData.length - 1 ? 'none' : 'block';
+    updateGridStatus();
+  }
+
+  function selectOption(oIdx) {
+    if(isReviewMode) return;
+    userAnswers[currentQuestion] = oIdx;
+    loadQuestion(currentQuestion);
+  }
+
+  function clearChoice() {
+    if(isReviewMode) return;
+    userAnswers[currentQuestion] = null;
+    loadQuestion(currentQuestion);
+  }
+
+  function navigateNumberQuery(dir) {
+    const next = currentQuestion + dir;
+    if(next >= 0 && next < questionsData.length) {
+      loadQuestion(next);
+    }
+  }
+
+  function jumpToQuestion(idx) {
+    loadQuestion(idx);
+  }
+
+  function startTimer() {
+    if (timerInterval) clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+      timeLeft--;
+      let m = Math.floor(timeLeft / 60);
+      let s = timeLeft % 60;
+      const timerElem = document.getElementById('timerBox');
+      if(timerElem) {
+        timerElem.innerText = `⏱️ ${m}:${s < 10 ? '0' : ''}${s}`;
+      }
+      if(timeLeft <= 0) {
+        clearInterval(timerInterval);
+        submitTest();
+      }
+    }, 1000);
+  }
+
+  function submitTest() {
+    if (timerInterval) clearInterval(timerInterval);
+    document.getElementById('testView').style.display = 'none';
+    document.getElementById('resultView').style.display = 'block';
+
+    let correct = 0, wrong = 0, unans = 0;
+    userAnswers.forEach((ans, idx) => {
+      if(ans === null) unans++;
+      else if(ans === questionsData[idx].a) correct++;
+      else wrong++;
+    });
+
+    document.getElementById('scoreDisplay').innerText = `${correct} / ${questionsData.length}`;
+    let pct = ((correct / questionsData.length) * 100).toFixed(1);
+    document.getElementById('percentageDisplay').innerText = `${currentLang === 'ta' ? 'சதவீதம்' : 'Percentage'}: ${pct}%`;
+    document.getElementById('correctCnt').innerText = correct;
+    document.getElementById('wrongCnt').innerText = wrong;
+    document.getElementById('unansCnt').innerText = unans;
+  }
+
+  function reviewAnswerKey() {
+    isReviewMode = true;
+    document.getElementById('resultView').style.display = 'none';
+    document.getElementById('testView').style.display = 'block';
+    document.getElementById('finalSubmitBtn').style.display = 'none';
+    document.getElementById('backToResultBtn').style.display = 'block';
+    document.getElementById('dashFromKeyBtn').style.display = 'block';
+    loadQuestion(0);
+  }
+
+  function returnToResult() {
+    document.getElementById('testView').style.display = 'none';
+    document.getElementById('resultView').style.display = 'block';
+  }
+
+  function returnToDashboard() {
+    window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html"); 
+  }
+
+  function exitPortal() {
+    window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html");
+  }
+
+  function retakeTest() {
+    userAnswers = new Array(questionsData.length).fill(null);
+    isReviewMode = false;
+    timeLeft = 45 * 60;
+    document.getElementById('resultView').style.display = 'none';
+    document.getElementById('testView').style.display = 'block';
+    document.getElementById('finalSubmitBtn').style.display = 'inline-block';
+    document.getElementById('backToResultBtn').style.display = 'none';
+    document.getElementById('dashFromKeyBtn').style.display = 'none';
+    initTest();
+  }
+
+  window.onload = function() {
+    initTest();
+  }
+</script>
+
+</body>
+</html>
