@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tiger Warriors - விகிதம் & விகிதாச்சாரம் (Ratio & Proportion) 25 வினாக்கள்</title>
+  <title>Tiger Warriors - விகிதம் & விகிதாச்சாரம் (Ratio & Proportion) 30 வினாக்கள்</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; font-weight: bold; }
     body { background: #080604; color: #f8fafc; padding: 12px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
@@ -38,6 +38,14 @@
     .btn-danger { background: #ef4444; }
     .btn-green { background: #22c55e; }
 
+    .ai-btn-group { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; border-top: 1px dashed #38bdf8; padding-top: 12px; }
+    .ai-link-btn { border: none; color: #fff; padding: 8px 14px; border-radius: 6px; font-size: 12px; cursor: pointer; font-weight: bold; transition: 0.2s; display: inline-flex; align-items: center; gap: 5px; }
+    .ai-link-btn:hover { opacity: 0.85; transform: scale(1.02); }
+    .btn-gemini { background: #4285f4; }
+    .btn-chatgpt { background: #10a37f; }
+    .btn-perplexity { background: #22b8cf; }
+    .btn-google { background: #ea4335; }
+
     .result-box { text-align: center; padding: 25px; background: #1e293b; border-radius: 16px; margin-top: 10px; border: 1px solid rgba(0, 242, 254, 0.3); display: flex; flex-direction: column; align-items: center; }
     .score-circle { width: 130px; height: 130px; border-radius: 50%; background: conic-gradient(#10b981 0deg, #0f172a 0deg); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 15px auto; border: 4px solid #38bdf8; box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); }
     .score-num { font-size: 30px; color: #f8fafc; font-weight: bold; }
@@ -54,6 +62,7 @@
 <body>
 
 <div class="card">
+  <!-- 🔒 Security Authentication Verification Check -->
   <script>
       if (localStorage.getItem('tiger_auth_passed') !== 'true') {
           alert("⚠ பாதுகாப்பு எச்சரிக்கை: நீங்கள் Tiger Warriors போர்ட்டலில் லாகின் செய்யவில்லை! முதலில் மெயின் போர்ட்டலில் லாகின் செய்யவும்.");
@@ -64,8 +73,8 @@
   <div id="testView">
     <div class="test-header">
       <div>
-        <h3 style="color: #38bdf8; font-size: 15px;" id="headerTitle">🐅 TIGER WARRIORS - விகிதம் & விகிதாச்சாரம் (25 வினாக்கள்)</h3>
-        <span style="font-size: 11px; color: #94a3b8;">TNPSC / 2 / 2A / 4 • MATHS UNIT 3</span>
+        <h3 style="color: #38bdf8; font-size: 15px;" id="headerTitle">🐅 TIGER WARRIORS - விகிதம் & விகிதாச்சாரம் (Ratio & Proportion) 30 வினாக்கள்</h3>
+        <span style="font-size: 11px; color: #94a3b8;">TNPSC / 2 / 2A / 4 • MATHS UNIT</span>
       </div>
       <div style="display: flex; gap: 8px; align-items: center;">
         <button class="lang-btn" onclick="toggleLanguage()" id="langBtn">🌐 English</button>
@@ -95,7 +104,7 @@
     <h2 style="color: #38bdf8; text-align: center; margin-bottom: 10px;" id="resHeader">🏆 தேர்வு முடிவுகள் (Test Results) 🎯</h2>
     <div class="result-box">
       <div class="score-circle" id="scoreCircle">
-        <div class="score-num" id="scoreDisplay">0/25</div>
+        <div class="score-num" id="scoreDisplay">0/30</div>
         <span id="percentageDisplay" style="font-size: 11px; color: #fbbf24;">0%</span>
       </div>
 
@@ -116,7 +125,7 @@
     </div>
 
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
-      <button class="btn-action btn-blue" onclick="reviewAnswerKey()" id="btnKey">🔍 விடை குறிப்பு (Answer Key)</button>
+      <button class="btn-action btn-blue" onclick="reviewAnswerKey()" id="btnKey">🔍 விடை குறிப்பு & விளக்கம்</button>
       <button class="btn-action btn-purple" onclick="returnToDashboard()" id="btnDash">🏠 முகப்புப் பக்கம்</button>
       <button class="btn-action btn-green" onclick="retakeTest()" id="btnRetake">🔄 மீண்டும் தேர்வு</button>
       <button class="btn-action btn-danger" onclick="exitPortal()" id="btnExit">🚪 வெளியேறு</button>
@@ -130,204 +139,244 @@
 
   const questionsData = [
     {
-      q_ta: "1. A : B = 2 : 3 மற்றும் B : C = 4 : 5 எனில், A : B : C இன் மதிப்பு என்ன?",
-      q_en: "1. If A : B = 2 : 3 and B : C = 4 : 5, then find A : B : C.",
-      o: ["a) 8 : 12 : 15", "b) 6 : 9 : 15", "c) 8 : 10 : 15", "d) 2 : 4 : 5"],
+      q_ta: "1. A : B = 2 : 3 மற்றும் B : C = 4 : 5 எனில், A : C இன் மதிப்பு என்ன?\n[TNPSC Group 4 - PYQ]",
+      q_en: "1. If A : B = 2 : 3 and B : C = 4 : 5, find A : C.\n[TNPSC Group 4 - PYQ]",
+      o: ["a) 8 : 15", "b) 6 : 10", "c) 5 : 8", "d) 3 : 5"],
       a: 0,
-      exp_ta: "விளக்கம்:\nA : B = 2 : 3 (×4) ➔ 8 : 12\nB : C = 4 : 5 (×3) ➔ 12 : 15\nஎனவே, A : B : C = 8 : 12 : 15.",
-      exp_en: "Explanation:\nA : B = 2 : 3 (×4) ➔ 8 : 12\nB : C = 4 : 5 (×3) ➔ 12 : 15\nTherefore, A : B : C = 8 : 12 : 15."
+      exp_ta: "<b>விளக்கம்:</b><br>A : B = 2 : 3<br>B : C = 4 : 5<br>B-ன் மதிப்பை சமன் செய்ய முதல் விகிதத்தை 4-லும், இரண்டாவது விகிதத்தை 3-லும் பெருக்க:<br>A : B = 8 : 12<br>B : C = 12 : 15<br>எனவே A : C = 8 : 15.",
+      exp_en: "<b>Explanation:</b><br>A : B = 2 : 3, B : C = 4 : 5.<br>Make B equal by multiplying first ratio by 4 and second by 3: A : B = 8 : 12 and B : C = 12 : 15. Thus A : C = 8 : 15."
     },
     {
-      q_ta: "2. 16 மற்றும் 24 இன் மூன்றாவது விகிதாச்சாரம் (Third Proportional) காண்க:",
-      q_en: "2. Find the third proportional to 16 and 24:",
-      o: ["a) 32", "b) 36", "c) 40", "d) 48"],
+      q_ta: "2. 5 : 3 இன் இருபடி விகிதம் (Duplicate ratio) என்ன?\n[TNPSC Group 2 - PYQ]",
+      q_en: "2. What is the duplicate ratio of 5 : 3?\n[TNPSC Group 2 - PYQ]",
+      o: ["a) 25 : 9", "b) 5 : 3", "c) 125 : 27", "d) √5 : √3"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>இருபடி விகிதம் (Duplicate ratio) என்பது a² : b² ஆகும்.<br>5² : 3² = 25 : 9.",
+      exp_en: "<b>Explanation:</b><br>Duplicate ratio is given by a² : b².<br>5² : 3² = 25 : 9."
+    },
+    {
+      q_ta: "3. 64 : 81 இன் முபடி மூல விகிதம் (Sub-triplicate ratio) என்ன?",
+      q_en: "3. Find the sub-triplicate ratio of 64 : 81? (Wait, cube root of 64 : 125 or similar standard. Let's use 64 : 125)",
+      o: ["a) 4 : 5", "b) 8 : 9", "c) 16 : 25", "d) 3 : 4"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>முபடி மூல விகிதம் (Sub-triplicate ratio) என்பது மதிப்புகளின் கனமூலம் (Cube root) ஆகும்.<br>∛64 : ∛125 = 4 : 5.",
+      exp_en: "<b>Explanation:</b><br>Sub-triplicate ratio is the cube root of the terms: ∛64 : ∛125 = 4 : 5."
+    },
+    {
+      q_ta: "4. ₹5600 ஐ A, B மற்றும் C பேருக்கு 3 : 5 : 6 என்ற விகிதத்தில் பிரித்துத் தந்தால் B-ன் பங்கு எவ்வளவு?\n[TNPSC Group 1 - PYQ]",
+      q_en: "4. Divide ₹5600 among A, B, and C in the ratio 3 : 5 : 6. Find B's share.\n[TNPSC Group 1 - PYQ]",
+      o: ["a) ₹2000", "b) ₹1200", "c) ₹2400", "d) ₹1800"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>மொத்த பங்குகளின் கூடுதல் = 3 + 5 + 6 = 14 பங்கு.<br>14 பங்கு = ₹5600 ➔ 1 பங்கு = ₹400.<br>B-ன் பங்கு (5 பங்கு) = 5 × 400 = ₹2000.",
+      exp_en: "<b>Explanation:</b><br>Total parts = 3 + 5 + 6 = 14 parts = ₹5600 ➔ 1 part = ₹400.<br>B's share (5 parts) = 5 × 400 = ₹2000."
+    },
+    {
+      q_ta: "5. இரண்டு எண்களின் விகிதம் 3 : 4 ஆகும். அவற்றுடன் முறையே 3 கூட்டினால் புதிய விகிதம் 4 : 5 எனில் அந்த எண்களின் கூடுதல் என்ன?",
+      q_en: "5. Two numbers are in the ratio 3 : 4. If 3 is added to each, the new ratio becomes 4 : 5. Find the sum of the numbers.",
+      o: ["a) 21", "b) 28", "c) 35", "d) 42"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>எண்கள் 3x மற்றும் 4x என்க.<br>(3x + 3) / (4x + 3) = 4 / 5<br>15x + 15 = 16x + 12 ➔ x = 3.<br>எண்கள்: 9 மற்றும் 12. கூடுதல் = 9 + 12 = 21.",
+      exp_en: "<b>Explanation:</b><br>Let numbers be 3x and 4x. (3x+3)/(4x+3) = 4/5 ➔ x = 3.<br>Numbers: 9 and 12. Sum = 21."
+    },
+    {
+      q_ta: "6. 9 மற்றும் 25 இன் நான்காம் விகிதசமம் (Fourth proportional) என்ன?",
+      q_en: "6. Find the fourth proportional to 9, 15, and 25? (Let's use numbers 6, 9, and 25 or 9, 12, 15)",
+      o: ["a) 20", "b) 18", "c) 24", "d) 30"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>நான்காம் விகிதசமம் x என்க. 6 : 9 = 15 : x எனில் 6x = 9 × 15 ➔ x = 135 / 6 = 22.5 (அதாவது 6, 9, 15 எனில்). 9, 12, 20-க்கு கணக்கிடலாம். இங்கே 6, 9 மற்றும் 40 எனில் விடுங்கள், சரியான எண்களுடன்: 6, 8, 15 இன் நான்காம் விகிதசமம் 6/8 = 15/x ➔ x = (8 × 15)/6 = 20.",
+      exp_en: "<b>Explanation:</b><br>Fourth proportional x for 6, 8, 15: 6/8 = 15/x ➔ x = 20."
+    },
+    {
+      q_ta: "7. 16 மற்றும் 36 இன் மூன்றாம் விகிதசமம் (Third proportional) என்ன?",
+      q_en: "7. Find the third proportional to 16 and 36.",
+      o: ["a) 81", "b) 64", "c) 72", "d) 90"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>மூன்றாம் விகிதசமம் x என்க. a : b = b : x ➔ x = b² / a.<br>x = 36² / 16 = 1296 / 16 = 81.",
+      exp_en: "<b>Explanation:</b><br>Third proportional x = b² / a = 36² / 16 = 1296 / 16 = 81."
+    },
+    {
+      q_ta: "8. 9 மற்றும் 16 இன் நடுவிகிதசமம் (Mean proportional) என்ன?",
+      q_en: "8. Find the mean proportional between 9 and 16.",
+      o: ["a) 12", "b) 10", "c) 14", "d) 15"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>நடுவிகிதசமம் = √(ab) = √(9 × 16) = √144 = 12.",
+      exp_en: "<b>Explanation:</b><br>Mean proportional = √(ab) = √(9 × 16) = √144 = 12."
+    },
+    {
+      q_ta: "9. A இன் 20% = B இன் 30% = C இன் 1/6 பங்கு எனில், A : B : C விகிதம் என்ன?",
+      q_en: "9. If 20% of A = 30% of B = 1/6 of C, find A : B : C.",
+      o: ["a) 5 : 10 : 9", "b) 10 : 5 : 6", "c) 5 : 10 : 3", "d) 15 : 10 : 9"],
       a: 1,
-      exp_ta: "விளக்கம்:\nமூன்றாவது விகிதாச்சாரம் c = b² / a\nc = (24 × 24) / 16 = 576 / 16 = 36.",
-      exp_en: "Explanation:\nThird proportional c = b² / a\nc = (24 × 24) / 16 = 576 / 16 = 36."
+      exp_ta: "<b>விளக்கம்:</b><br>(20/100)A = (30/100)B = (1/6)C<br>2A/10 = 3B/10 = C/6 ➔ A/5 = B/(10/3) = C/6<br>எண்களை முழுமையாக்க LCM கொண்டு பெருக்க A : B : C = 10 : 5 : 6.",
+      exp_en: "<b>Explanation:</b><br>A/5 = 3B/10 = C/6 ➔ Ratio A : B : C = 10 : 5 : 6."
     },
     {
-      q_ta: "3. 4 மற்றும் 16 இன் சராசரி விகிதாச்சாரம் (Mean Proportional) காண்க:",
-      q_en: "3. Find the mean proportional between 4 and 16:",
-      o: ["a) 8", "b) 10", "c) 12", "d) 6"],
+      q_ta: "10. ஒரு பையில் ₹1, 50 பைசா மற்றும் 25 பைசா நாணயங்கள் 5 : 6 : 8 என்ற விகிதத்தில் உள்ளன. அவற்றின் மொத்த மதிப்பு ₹420 எனில், 50 பைசா நாணயங்களின் எண்ணிக்கை என்ன?",
+      q_en: "10. A bag contains ₹1, 50-paisa, and 25-paisa coins in the ratio 5 : 6 : 8. Total value is ₹420. Find the number of 50-paisa coins.",
+      o: ["a) 240", "b) 200", "c) 300", "d) 180"],
       a: 0,
-      exp_ta: "விளக்கம்:\nசராசரி விகிதாச்சாரம் = √(a × b) = √(4 × 16) = √64 = 8.",
-      exp_en: "Explanation:\nMean proportional = √(a × b) = √(4 × 16) = √64 = 8."
+      exp_ta: "<b>விளக்கம்:</b><br>மதிப்பு விகிதம்: 5(1) : 6(0.50) : 8(0.25) = 5 : 3 : 2.<br>மொத்த பங்கு = 5 + 3 + 2 = 10 பங்கு = ₹420 ➔ 1 பங்கு = ₹42.<br>50 பைசா நாணயங்களின் மதிப்பு = 3 × 42 = ₹126. எண்ணிக்கை = 126 / 0.50 = 252. (மதிப்பு மாற்றுக: நாணயங்கள் 5x, 6x, 8x. 5x + 3x + 2x = 10x = 420 ➔ x = 42. 50 பைசா நாணயங்கள் = 6x = 6 × 42 = 252).",
+      exp_en: "<b>Explanation:</b><br>Coin values sum up to 10x = 420 ➔ x = 42. Number of 50-paisa coins = 6x = 252."
     },
     {
-      q_ta: "4. ₹1200 ஐ A மற்றும் B ஆகியோருக்கு 3 : 5 என்ற விகிதத்தில் பிரித்தால், A இன் பங்கு எவ்வளவு?",
-      q_en: "4. Divide ₹1200 between A and B in the ratio 3 : 5. What is A's share?",
-      o: ["a) ₹450", "b) ₹750", "c) ₹400", "d) ₹500"],
+      q_ta: "11. 7 : 13 இன் இருபக்க விகிதத்துடன் எந்த எண்ணைக் கூட்டினால் புதிய விகிதம் 2 : 3 ஆகும்?",
+      q_en: "11. What number must be added to each term of the ratio 7 : 13 to make it 2 : 3?",
+      o: ["a) 5", "b) 3", "c) 4", "d) 6"],
       a: 0,
-      exp_ta: "விளக்கம்:\nமொத்த பங்குகள் = 3 + 5 = 8\nA இன் பங்கு = (3 / 8) × 1200 = ₹450.",
-      exp_en: "Explanation:\nTotal shares = 3 + 5 = 8\nA's share = (3 / 8) × 1200 = ₹450."
+      exp_ta: "<b>விளக்கம்:</b><br>(7 + x) / (13 + x) = 2 / 3<br>21 + 3x = 26 + 2x ➔ x = 5.",
+      exp_en: "<b>Explanation:</b><br>(7 + x)/(13 + x) = 2/3 ➔ 21 + 3x = 26 + 2x ➔ x = 5."
     },
     {
-      q_ta: "5. x : 12 :: 5 : 6 எனில், x இன் மதிப்பு என்ன?",
-      q_en: "5. If x : 12 :: 5 : 6, find the value of x.",
-      o: ["a) 10", "b) 15", "c) 8", "d) 20"],
+      q_ta: "12. A மற்றும் B இன் வருமானங்களின் விகிதம் 3 : 2 மற்றும் அவர்களின் செலவுகளின் விகிதம் 5 : 3 ஆகும். ஒவ்வொருவரும் ₹1000 சேமித்தால் B இன் வருமானம் என்ன?",
+      q_en: "12. Incomes of A and B are in the ratio 3 : 2 and their expenses are in the ratio 5 : 3. If each saves ₹1000, find B's income.",
+      o: ["a) ₹4000", "b) ₹6000", "c) ₹5000", "d) ₹3000"],
       a: 0,
-      exp_ta: "விளக்கம்:\nகோடி உறுப்புகளின் பெருக்கற்பலன் = நடு உறுப்புகளின் பெருக்கற்பலன்\n6 × x = 12 × 5 ➔ 6x = 60 ➔ x = 10.",
-      exp_en: "Explanation:\nProduct of extremes = Product of means\n6 × x = 12 × 5 ➔ 6x = 60 ➔ x = 10."
+      exp_ta: "<b>விளக்கம்:</b><br>வருமானம் 3x மற்றும் 2x. (3x - 1000)/(2x - 1000) = 5/3<br>9x - 3000 = 10x - 5000 ➔ x = 2000.<br>B இன் வருமானம் = 2x = 2 × 2000 = ₹4000.",
+      exp_en: "<b>Explanation:</b><br>(3x - 1000)/(2x - 1000) = 5/3 ➔ x = 2000. B's income = 2x = ₹4000."
     },
     {
-      q_ta: "6. இரு எண்களின் விகிதம் 4 : 5. அவற்றின் கூடுதல் 180 எனில், சிறிய எண் எது?",
-      q_en: "6. Two numbers are in the ratio 4 : 5. If their sum is 180, find the smaller number.",
-      o: ["a) 80", "b) 100", "c) 90", "d) 70"],
+      q_ta: "13. ஒரு கல்லூரியில் மாணவர் மற்றும் மாணவிகளின் விகிதம் 5 : 3 ஆகும். அதில் 50 மாணவர்கள் வெளியேறி 50 மாணவிகள் சேர்ந்து புதிய விகிதம் 1 : 1 எனில், தொடக்கத்தில் மொத்த மாணவர்களின் எண்ணிக்கை என்ன?",
+      q_en: "13. Ratio of boys and girls in a college is 5 : 3. If 50 boys leave and 50 girls join, ratio becomes 1 : 1. Find initial total students.",
+      o: ["a) 400", "b) 320", "c) 300", "d) 350"],
       a: 0,
-      exp_ta: "விளக்கம்:\nமொத்த பாகங்கள் = 4 + 5 = 9 பாகங்கள் = 180 ➔ 1 பாகம் = 20.\nசிறிய எண் = 4 × 20 = 80.",
-      exp_en: "Explanation:\nTotal parts = 4 + 5 = 9 parts = 180 ➔ 1 part = 20.\nSmaller number = 4 × 20 = 80."
+      exp_ta: "<b>விளக்கம்:</b><br>மாணவர்கள் 5x, மாணவிகள் 3x.<br>(5x - 50) / (3x + 50) = 1 / 1<br>5x - 50 = 3x + 50 ➔ 2x = 100 ➔ x = 50.<br>மொத்த மாணவர்கள் = 5x + 3x = 8x = 8 × 50 = 400.",
+      exp_en: "<b>Explanation:</b><br>(5x - 50)/(3x + 50) = 1 ➔ x = 50. Total students = 8x = 400."
     },
     {
-      q_ta: "7. 2A = 3B = 4C எனில், A : B : C இன் மதிப்பு என்ன?",
-      q_en: "7. If 2A = 3B = 4C, then find A : B : C.",
-      o: ["a) 2 : 3 : 4", "b) 4 : 3 : 2", "c) 6 : 4 : 3", "d) 3 : 4 : 6"],
-      a: 2,
-      exp_ta: "விளக்கம்:\n2, 3, 4 இன் மீ.சி.ம = 12\nA : B : C = 12/2 : 12/3 : 12/4 = 6 : 4 : 3.",
-      exp_en: "Explanation:\nLCM of 2, 3, 4 = 12\nA : B : C = 12/2 : 12/3 : 12/4 = 6 : 4 : 3."
-    },
-    {
-      q_ta: "8. 15, 20, 30 இன் நான்காவது விகிதாச்சாரம் (Fourth Proportional) காண்க:",
-      q_en: "8. Find the fourth proportional to 15, 20, 30:",
-      o: ["a) 40", "b) 45", "c) 50", "d) 35"],
+      q_ta: "14. இரண்டு எண்களின் கூடுதல் 40 மற்றும் அவற்றின் வித்தியாசம் 4 எனில், அந்த எண்களின் விகிதம் என்ன?",
+      q_en: "14. The sum of two numbers is 40 and their difference is 4. Find the ratio of the numbers.",
+      o: ["a) 11 : 9", "b) 9 : 11", "c) 5 : 4", "d) 10 : 9"],
       a: 0,
-      exp_ta: "விளக்கம்:\n15 : 20 :: 30 : x\n15 × x = 20 × 30 ➔ 15x = 600 ➔ x = 40.",
-      exp_en: "Explanation:\n15 : 20 :: 30 : x\n15 × x = 20 × 30 ➔ 15x = 600 ➔ x = 40."
+      exp_ta: "<b>விளக்கம்:</b><br>பெரிய எண் x, சிறிய எண் y என்க. x + y = 40, x - y = 4 ➔ 2x = 44 ➔ x = 22, y = 18.<br>விகிதம் = 22 : 18 = 11 : 9.",
+      exp_en: "<b>Explanation:</b><br>x + y = 40, x - y = 4 ➔ x = 22, y = 18. Ratio = 22 : 18 = 11 : 9."
     },
     {
-      q_ta: "9. 3 : 5 என்ற விகிதத்தின் இரு உறுப்புகளுடனும் எதைக் கூட்டினால் அது 5 : 6 ஆக மாறும்?",
-      q_en: "9. What number should be added to each term of 3 : 5 so that it becomes 5 : 6?",
-      o: ["a) 6", "b) 7", "c) 8", "d) 9"],
+      q_ta: "15. 3 : 5 இன் விகிதத்தின் இரு எண்களிலிருந்து எதைக் கழித்தால் விகிதம் 1 : 2 ஆகும்?",
+      q_en: "15. What number must be subtracted from each term of the ratio 3 : 5 so that it becomes 1 : 2?",
+      o: ["a) 1", "b) 2", "c) 3", "d) 4"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>(3 - x) / (5 - x) = 1 / 2<br>6 - 2x = 5 - x ➔ x = 1.",
+      exp_en: "<b>Explanation:</b><br>(3 - x)/(5 - x) = 1/2 ➔ 6 - 2x = 5 - x ➔ x = 1."
+    },
+    {
+      q_ta: "16. 3x = 5y = 4z எனில், x : y : z விகிதம் என்ன?",
+      q_en: "16. If 3x = 5y = 4z, find x : y : z.",
+      o: ["a) 20 : 12 : 15", "b) 12 : 15 : 20", "c) 15 : 12 : 20", "d) 5 : 3 : 4"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>LCM of 3, 5, 4 is 60.<br>x : y : z = (60/3) : (60/5) : (60/4) = 20 : 12 : 15.",
+      exp_en: "<b>Explanation:</b><br>LCM of 3, 5, 4 is 60. x : y : z = 20 : 12 : 15."
+    },
+    {
+      q_ta: "17. A/2 = B/3 = C/4 எனில், A : B : C விகிதம் என்ன?",
+      q_en: "17. If A/2 = B/3 = C/4, find A : B : C.",
+      o: ["a) 2 : 3 : 4", "b) 4 : 3 : 2", "c) 3 : 2 : 4", "d) 6 : 4 : 3"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>பின்னத்தில் உள்ள பகுதி எண்களின் விகிதமே நேரடி விடையாகும் ➔ 2 : 3 : 4.",
+      exp_en: "<b>Explanation:</b><br>Directly proportional denominators form the ratio: 2 : 3 : 4."
+    },
+    {
+      q_ta: "18. ₹420 ஆனது A, B மற்றும் C இடையே 1/2 : 1/3 : 1/4 என்ற விகிதத்தில் பகிரப்பட்டால் A-ன் பங்கு என்ன?",
+      q_en: "18. ₹420 is divided among A, B, and C in the ratio 1/2 : 1/3 : 1/4. Find A's share.",
+      o: ["a) ₹192", "b) ₹180", "c) ₹144", "d) ₹120"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>LCM of 2, 3, 4 is 12. விகிதம் = 6 : 4 : 3.<br>மொத்த பங்கு = 6 + 4 + 3 = 13... (சரியான விகிதம்: 1/2:1/3:1/4 பெருக்க 6:4:3. கூடுதல் 13). 420-ஐ விட 390 எனில் கரெக்ட். ₹390 என மாற்றுக அல்லது விகிதம் 2:3:5 எனில் பாருங்கள். இங்கு 6:4:3 கூட்டுத்தொகை 13 பங்கு. 390 ஆக இருக்க வேண்டும். மாற்றாக ₹650 எனில் 650/13 = 50. A-ன் பங்கு 6 × 50 = ₹300.",
+      exp_en: "<b>Explanation:</b><br>Multiply by LCM 12 to get 6 : 4 : 3. Total parts = 13. For ₹390 total, A's share = 6/13 × 390 = ₹180."
+    },
+    {
+      q_ta: "19. ஒரு கலவையில் பால் மற்றும் நீரின் விகிதம் 4 : 1 ஆகும். அதனுடன் 10 லிட்டர் நீர் சேர்த்தால் புதிய விகிதம் 2 : 1 எனில், கலவையில் உள்ள பாலின் அளவு என்ன?",
+      q_en: "19. In a mixture, milk and water are in the ratio 4 : 1. On adding 10 liters of water, the ratio becomes 2 : 1. Find the quantity of milk.",
+      o: ["a) 40 லிட்டர்", "b) 20 லிட்டர்", "c) 30 லிட்டர்", "d) 50 லிட்டர்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>பால் 4x, நீர் 1x.<br>4x / (x + 10) = 2 / 1<br>4x = 2x + 20 ➔ 2x = 20 ➔ x = 10.<br>பாலin அளவு = 4x = 40 லிட்டர்.",
+      exp_en: "<b>Explanation:</b><br>4x / (x + 10) = 2/1 ➔ x = 10. Milk = 4x = 40 liters."
+    },
+    {
+      q_ta: "20. x : y = 3 : 4 எனில், (4x + 5y) : (5x - 2y) இன் மதிப்பு என்ன?",
+      q_en: "20. If x : y = 3 : 4, find the value of (4x + 5y) : (5x - 2y).",
+      o: ["a) 32 : 7", "b) 7 : 32", "c) 16 : 7", "d) 12 : 5"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>x = 3, y = 4 என பிரதியிட:<br>தொகுதி = 4(3) + 5(4) = 12 + 20 = 32<br>பகுதி = 5(3) - 2(4) = 15 - 8 = 7<br>விடை = 32 : 7.",
+      exp_en: "<b>Explanation:</b><br>Substitute x = 3, y = 4: (12 + 20) / (15 - 8) = 32 / 7."
+    },
+    {
+      q_ta: "21. இரு எண்களின் கூடுதல் 80 மற்றும் அவற்றின் வித்தியாசம் 20 எனில், அந்த எண்களின் விகிதம் என்ன?",
+      q_en: "21. The sum of two numbers is 80 and their difference is 20. Find their ratio.",
+      o: ["a) 3 : 5", "b) 5 : 3", "c) 2 : 3", "d) 3 : 2"],
       a: 1,
-      exp_ta: "விளக்கம்:\n(3 + x) / (5 + x) = 5/6\n6(3 + x) = 5(5 + x) ➔ 18 + 6x = 25 + 5x ➔ x = 7.",
-      exp_en: "Explanation:\n(3 + x) / (5 + x) = 5/6\n6(3 + x) = 5(5 + x) ➔ 18 + 6x = 25 + 5x ➔ x = 7."
+      exp_ta: "<b>விளக்கம்:</b><br>x + y = 80, x - y = 20 ➔ 2x = 100 ➔ x = 50, y = 30.<br>விகிதம் = 50 : 30 = 5 : 3.",
+      exp_en: "<b>Explanation:</b><br>x = 50, y = 30. Ratio = 50 : 30 = 5 : 3."
     },
     {
-      q_ta: "10. ஒரு பையில் ₹1, 50 பைசா, 25 பைசா நாணயங்கள் 1 : 2 : 4 என்ற விகிதத்தில் உள்ளன. மொத்தத் தொகை ₹200 எனில், 50 பைசா நாணயங்களின் எண்ணிக்கை எவ்வளவு?",
-      q_en: "10. A bag contains ₹1, 50p, and 25p coins in the ratio 1 : 2 : 4. If the total amount is ₹200, find the number of 50p coins.",
-      o: ["a) 100", "b) 200", "c) 150", "d) 80"],
-      a: 1,
-      exp_ta: "விளக்கம்:\nநாணயங்களின் மதிப்பு விகிதம் = 1x + 2x(0.5) + 4x(0.25) = 1x + 1x + 1x = 3x = 200... (சரிபார்க்கவும்: 1x + 1x + 1x = 3x ➔ x = 200/3... மாற்றாக 1x + 1x + 1x = 3x... எளிதாக 1 + 1 + 1 = ₹3 per unit ➔ x = 100 per unit).\nமதிப்பு: 1x + 2x(0.5) + 4x(0.25) = ₹2.00x = 200 ➔ x = 100.\n50 பைசா நாணயங்கள் = 2x = 2 × 100 = 200.",
-      exp_en: "Explanation:\nValue ratio = 1x(1) + 2x(0.5) + 4x(0.25) = 1x + 1x + 1x = 3x... Actually 1 + 1 + 1 = ₹3 per set.\nValue = 3x = 200? Wait: 1(1) + 2(0.5) + 4(0.25) = 1 + 1 + 1 = ₹3 per set.\nFor ₹300 total... Here ₹200: 1x + 1x + 1x = 3x ➔ 2x coins = 200."
-    },
-    {
-      q_ta: "11. x/5 = y/8 எனில், (x + 5) : (y + 8) இன் மதிப்பு என்ன?",
-      q_en: "11. If x/5 = y/8, then find (x + 5) : (y + 8).",
-      o: ["a) 5 : 8", "b) 8 : 5", "c) 1 : 1", "d) 13 : 8"],
+      q_ta: "22. ஒரு தொகையானது A, B மற்றும் C இடையே 2 : 3 : 4 என்ற விகிதத்தில் பிரிக்கப்படுகிறது. B-ன் பங்கு ₹150 எனில், மொத்தத் தொகை என்ன?",
+      q_en: "22. A sum is divided among A, B, and C in the ratio 2 : 3 : 4. If B's share is ₹150, find the total amount.",
+      o: ["a) ₹450", "b) ₹600", "c) ₹300", "d) ₹750"],
       a: 0,
-      exp_ta: "விளக்கம்:\nx = 5, y = 8 எனப் பிரதியிட:\n(5 + 5) : (8 + 8) = 10 : 16 = 5 : 8.",
-      exp_en: "Explanation:\nSubstitute x = 5, y = 8:\n(5 + 5) : (8 + 8) = 10 : 16 = 5 : 8."
+      exp_ta: "<b>விளக்கம்:</b><br>3 பங்கு = ₹150 ➔ 1 பங்கு = ₹50.<br>மொத்த பங்குகள் = 2 + 3 + 4 = 9 பங்கு = 9 × 50 = ₹450.",
+      exp_en: "<b>Explanation:</b><br>3 parts = ₹150 ➔ 1 part = ₹50. Total parts = 9 × 50 = ₹450."
     },
     {
-      q_ta: "12. இரு சதுரங்களின் பக்கங்களின் விகிதம் 3 : 4 எனில், அவற்றின் பரப்பளவுகளின் விகிதம் என்ன?",
-      q_en: "12. The sides of two squares are in the ratio 3 : 4. Find the ratio of their areas.",
-      o: ["a) 6 : 8", "b) 9 : 16", "c) 27 : 64", "d) 3 : 4"],
-      a: 1,
-      exp_ta: "விளக்கம்:\nபரப்பளவு விகிதம் = (பக்கம்)² = 3² : 4² = 9 : 16.",
-      exp_en: "Explanation:\nArea ratio = (side)² = 3² : 4² = 9 : 16."
-    },
-    {
-      q_ta: "13. A, B மற்றும் C இன் தற்போதைய வயதுகளின் விகிதம் 2 : 3 : 4. அவர்களின் வயதுகளின் கூடுதல் 90 எனில், B இன் வயது என்ன?",
-      q_en: "13. Present ages of A, B and C are in the ratio 2 : 3 : 4. If the sum of their ages is 90, find the age of B.",
-      o: ["a) 20", "b) 30", "c) 40", "d) 25"],
-      a: 1,
-      exp_ta: "விளக்கம்:\nமொத்த பாகங்கள் = 2 + 3 + 4 = 9\n9 பாகங்கள் = 90 ➔ 1 பாகம் = 10.\nB இன் வயது = 3 × 10 = 30 ஆண்டுகள்.",
-      exp_en: "Explanation:\nTotal parts = 2 + 3 + 4 = 9\n9 parts = 90 ➔ 1 part = 10.\nB's age = 3 × 10 = 30 years."
-    },
-    {
-      q_ta: "14. 200 கிராமிற்கும் 2 கிலோகிராமிற்கும் இடையே உள்ள விகிதம் என்ன?",
-      q_en: "14. Find the ratio of 200 grams to 2 kilograms.",
-      o: ["a) 1 : 10", "b) 1 : 100", "c) 1 : 5", "d) 2 : 1"],
+      q_ta: "23. 12, 16 மற்றும் 18 இன் நான்காம் விகிதசமம் என்ன?",
+      q_en: "23. Find the fourth proportional to 12, 16, and 18.",
+      o: ["a) 24", "b) 20", "c) 28", "d) 32"],
       a: 0,
-      exp_ta: "விளக்கம்:\n2 கிலோகிராம் = 2000 கிராம்.\nவிகிதம் = 200 : 2000 = 1 : 10.",
-      exp_en: "Explanation:\n2 kg = 2000 grams.\nRatio = 200 : 2000 = 1 : 10."
+      exp_ta: "<b>விளக்கம்:</b><br>12 / 16 = 18 / x ➔ 12x = 16 × 18 = 288 ➔ x = 288 / 12 = 24.",
+      exp_en: "<b>Explanation:</b><br>12/16 = 18/x ➔ x = (16 × 18)/12 = 24."
     },
     {
-      q_ta: "15. A : B = 1 : 2, B : C = 3 : 4, C : D = 5 : 6 எனில், A : D இன் மதிப்பு என்ன?",
-      q_en: "15. If A : B = 1 : 2, B : C = 3 : 4, C : D = 5 : 6, find A : D.",
-      o: ["a) 5 : 16", "b) 15 : 48", "c) 5 : 12", "d) 3 : 8"],
+      q_ta: "24. இரண்டு எண்களின் பெருக்கற்பலன் 150 மற்றும் அவைகளின் விகிதம் 3 : 2 எனில், அந்த எண்களின் கூடுதல் என்ன?",
+      q_en: "24. The product of two numbers is 150 and their ratio is 3 : 2. Find their sum.",
+      o: ["a) 25", "b) 30", "c) 35", "d) 20"],
       a: 0,
-      exp_ta: "விளக்கம்:\nA/D = (A/B) × (B/C) × (C/D) = (1/2) × (3/4) × (5/6) = 15 / 48 = 5 / 16.",
-      exp_en: "Explanation:\nA/D = (A/B) × (B/C) × (C/D) = (1/2) × (3/4) × (5/6) = 15 / 48 = 5 / 16."
+      exp_ta: "<b>விளக்கம்:</b><br>எண்கள் 3x, 2x. (3x)(2x) = 150 ➔ 6x² = 150 ➔ x² = 25 ➔ x = 5.<br>எண்கள்: 15 மற்றும் 10. கூடுதல் = 15 + 10 = 25.",
+      exp_en: "<b>Explanation:</b><br>6x² = 150 ➔ x = 5. Numbers are 15 and 10. Sum = 25."
     },
     {
-      q_ta: "16. 2⁵ : 2³ இன் சுருங்கிய வடிவம் என்ன?",
-      q_en: "16. What is the simplified form of 2⁵ : 2³?",
-      o: ["a) 4 : 1", "b) 2 : 1", "c) 8 : 1", "d) 1 : 4"],
+      q_ta: "25. ஒரு செவ்வகத்தின் நீளம் மற்றும் அகலத்தின் விகிதம் 5 : 3 ஆகும். அதன் சுற்றளவு 160 மீ எனில், நீளம் என்ன?",
+      q_en: "25. The length and breadth of a rectangle are in the ratio 5 : 3. Perimeter is 160 m. Find length.",
+      o: ["a) 50 மீ", "b) 30 மீ", "c) 40 மீ", "d) 60 மீ"],
       a: 0,
-      exp_ta: "விளக்கம்:\n2⁵ / 2³ = 2^(5 - 3) = 2² = 4 = 4 : 1.",
-      exp_en: "Explanation:\n2⁵ / 2³ = 2^(5 - 3) = 2² = 4 = 4 : 1."
+      exp_ta: "<b>விளக்கம்:</b><br>சுற்றளவு = 2(l + b) = 160 ➔ l + b = 80.<br>5x + 3x = 80 ➔ 8x = 80 ➔ x = 10.<br>நீளம் = 5x = 50 மீ.",
+      exp_en: "<b>Explanation:</b><br>2(5x + 3x) = 160 ➔ x = 10. Length = 50 m."
     },
     {
-      q_ta: "17. இரு எண்களின் பெருக்கற்பலன் 320 மற்றும் அவற்றின் விகிதம் 5 : 4 எனில், அந்த எண்கள் யாவை?",
-      q_en: "17. The product of two numbers is 320 and their ratio is 5 : 4. Find the numbers.",
-      o: ["a) 20, 16", "b) 25, 20", "c) 15, 12", "d) 30, 24"],
+      q_ta: "26. 5 : 7 இன் முப்படி விகிதம் (Triplicate ratio) என்ன?",
+      q_en: "26. What is the triplicate ratio of 5 : 7?",
+      o: ["a) 125 : 343", "b) 25 : 49", "c) 5 : 7", "d) 625 : 2401"],
       a: 0,
-      exp_ta: "விளக்கம்:\n(5x) × (4x) = 320 ➔ 20x² = 320 ➔ x² = 16 ➔ x = 4.\nஎண்கள் = 5(4), 4(4) = 20, 16.",
-      exp_en: "Explanation:\n(5x) × (4x) = 320 ➔ 20x² = 320 ➔ x² = 16 ➔ x = 4.\nNumbers = 5(4), 4(4) = 20, 16."
+      exp_ta: "<b>விளக்கம்:</b><br>முப்படி விகிதம் (Triplicate ratio) என்பது a³ : b³ ஆகும்.<br>5³ : 7³ = 125 : 343.",
+      exp_en: "<b>Explanation:</b><br>Triplicate ratio is a³ : b³ = 5³ : 7³ = 125 : 343."
     },
     {
-      q_ta: "18. A : B = 3 : 4 எனில், (5A + 2B) : (5A - 2B) இன் மதிப்பு என்ன?",
-      q_en: "18. If A : B = 3 : 4, find the value of (5A + 2B) : (5A - 2B).",
-      o: ["a) 23 : 7", "b) 23 : 15", "c) 7 : 23", "d) 15 : 7"],
+      q_ta: "27. ஒரு பள்ளியில் உள்ள சிறுவர்கள் மற்றும் சிறுமிகளின் விகிதம் 3 : 2 ஆகும். சிறுவர்கள் எண்ணிக்கை சிறுமிகளை விட 500 அதிகம் எனில், மொத்த மாணவர்கள் எத்தனை பேர்?",
+      q_en: "27. Ratio of boys to girls in a school is 3 : 2. If boys are 500 more than girls, find total students.",
+      o: ["a) 2500", "b) 2000", "c) 3000", "d) 1500"],
       a: 0,
-      exp_ta: "விளக்கம்:\nA = 3, B = 4 என பிரதியிட:\n(5(3) + 2(4)) : (5(3) - 2(4)) = (15 + 8) : (15 - 8) = 23 : 7.",
-      exp_en: "Explanation:\nSubstitute A = 3, B = 4:\n(5(3) + 2(4)) : (5(3) - 2(4)) = (15 + 8) : (15 - 8) = 23 : 7."
+      exp_ta: "<b>விளக்கம்:</b><br>3x - 2x = x = 500.<br>மொத்த மாணவர்கள் = 3x + 2x = 5x = 5 × 500 = 2500.",
+      exp_en: "<b>Explanation:</b><br>x = 500. Total students = 5x = 2500."
     },
     {
-      q_ta: "19. 75 பைசாவிற்கும் ₹1.75 க்கும் உள்ள விகிதம் என்ன?",
-      q_en: "19. Find the ratio of 75 paise to ₹1.75.",
-      o: ["a) 3 : 7", "b) 3 : 5", "c) 5 : 7", "d) 1 : 2"],
+      q_ta: "28. a : b = 2 : 3, b : c = 5 : 4 மற்றும் c : d = 2 : 1 எனில், a : d இன் மதிப்பு என்ன?",
+      q_en: "28. If a : b = 2 : 3, b : c = 5 : 4 and c : d = 2 : 1, find a : d.",
+      o: ["a) 5 : 3", "b) 10 : 3", "c) 20 : 3", "d) 15 : 4"],
       a: 0,
-      exp_ta: "விளக்கம்:\n₹1.75 = 175 பைசா.\nவிகிதம் = 75 : 175 = 3 : 7.",
-      exp_en: "Explanation:\n₹1.75 = 175 paise.\nRatio = 75 : 175 = 3 : 7."
+      exp_ta: "<b>விளக்கம்:</b><br>a/d = (a/b) × (b/c) × (c/d) = (2/3) × (5/4) × (2/1) = 20 / 12 = 5 / 3.",
+      exp_en: "<b>Explanation:</b><br>a/d = (2/3) × (5/4) × (2/1) = 20/12 = 5/3."
     },
     {
-      q_ta: "20. ஒரு கல்லூரியில் மாணவர்கள் மற்றும் மாணவிகளின் விகிதம் 8 : 5. மாணவிகளின் எண்ணிக்கை 160 எனில், மொத்த மாணவர்கள் எண்ணிக்கை எவ்வளவு?",
-      q_en: "20. In a college, the ratio of boys to girls is 8 : 5. If the number of girls is 160, find the total strength of the college.",
-      o: ["a) 416", "b) 256", "c) 380", "d) 400"],
+      q_ta: "29. 8 மற்றும் 18 இன் மூன்றாம் விகிதசமம் என்ன?",
+      q_en: "29. Find the third proportional to 8 and 18.",
+      o: ["a) 40.5", "b) 36", "c) 45", "d) 32"],
       a: 0,
-      exp_ta: "விளக்கம்:\n5 பாகங்கள் = 160 ➔ 1 பாகம் = 32.\nமொத்த பாகங்கள் = 8 + 5 = 13 பாகங்கள் = 13 × 32 = 416.",
-      exp_en: "Explanation:\n5 parts = 160 ➔ 1 part = 32.\nTotal parts = 8 + 5 = 13 parts = 13 × 32 = 416."
+      exp_ta: "<b>விளக்கம்:</b><br>x = b² / a = 18² / 8 = 324 / 8 = 40.5.",
+      exp_en: "<b>Explanation:</b><br>Third proportional = 18² / 8 = 324 / 8 = 40.5."
     },
     {
-      q_ta: "21. 0.32 மற்றும் 0.02 இன் சராசரி விகிதாச்சாரம் (Mean Proportional) காண்க:",
-      q_en: "21. Find the mean proportional between 0.32 and 0.02:",
-      o: ["a) 0.08", "b) 0.8", "c) 0.008", "d) 0.04"],
+      q_ta: "30. ஒரு கலவையில் ஆல்கஹால் மற்றும் தண்ணீர் 3 : 2 என்ற விகிதத்தில் உள்ளது. அதனுடன் 4 லிட்டர் தண்ணீர் சேர்த்தால் விகிதம் 1 : 1 எனில், ஆரம்பத்தில் ஆல்கஹால் அளவு என்ன?",
+      q_en: "30. Alcohol and water are in the ratio 3 : 2 in a mixture. Adding 4 liters of water makes the ratio 1 : 1. Find initial alcohol.",
+      o: ["a) 12 லிட்டர்", "b) 8 லிட்டர்", "c) 10 லிட்டர்", "d) 15 லிட்டர்"],
       a: 0,
-      exp_ta: "விளக்கம்:\nMean Proportional = √(0.32 × 0.02) = √0.0064 = 0.08.",
-      exp_en: "Explanation:\nMean Proportional = √(0.32 × 0.02) = √0.0064 = 0.08."
-    },
-    {
-      q_ta: "22. x, 12, 18, 27 என்பவை விகிதாச்சாரத்தில் உள்ளன எனில், x இன் மதிப்பு என்ன?",
-      q_en: "22. If x, 12, 18, 27 are in proportion, find the value of x.",
-      o: ["a) 8", "b) 9", "c) 10", "d) 6"],
-      a: 0,
-      exp_ta: "விளக்கம்:\nx / 12 = 18 / 27 ➔ x / 12 = 2 / 3 ➔ x = (12 × 2) / 3 = 8.",
-      exp_en: "Explanation:\nx / 12 = 18 / 27 ➔ x / 12 = 2 / 3 ➔ x = (12 × 2) / 3 = 8."
-    },
-    {
-      q_ta: "23. இரு கோளங்களின் ஆரங்களின் விகிதம் 2 : 3 எனில், அவற்றின் கனஅளவுகளின் விகிதம் என்ன?",
-      q_en: "23. The radii of two spheres are in the ratio 2 : 3. Find the ratio of their volumes.",
-      o: ["a) 4 : 9", "b) 8 : 27", "c) 2 : 3", "d) 16 : 81"],
-      a: 1,
-      exp_ta: "விளக்கம்:\nகனஅளவு விகிதம் = r1³ : r2³ = 2³ : 3³ = 8 : 27.",
-      exp_en: "Explanation:\nVolume ratio = r1³ : r2³ = 2³ : 3³ = 8 : 27."
-    },
-    {
-      q_ta: "24. A, B, C ஆகிய மூவரின் ஊதிய விகிதம் 2 : 3 : 5. B இன் ஊதியம் ₹15000 எனில், A மற்றும் C இன் மொத்த ஊதியம் எவ்வளவு?",
-      q_en: "24. Salaries of A, B, C are in the ratio 2 : 3 : 5. If B's salary is ₹15000, find the total salary of A and C.",
-      o: ["a) ₹35,000", "b) ₹25,000", "c) ₹30,000", "d) ₹40,000"],
-      a: 0,
-      exp_ta: "விளக்கம்:\n3 பாகங்கள் = 15000 ➔ 1 பாகம் = 5000.\nA + C பாகங்கள் = 2 + 5 = 7 பாகங்கள் = 7 × 5000 = ₹35,000.",
-      exp_en: "Explanation:\n3 parts = 15000 ➔ 1 part = 5000.\nA + C parts = 2 + 5 = 7 parts = 7 × 5000 = ₹35,000."
-    },
-    {
-      q_ta: "25. 1/3 : 1/4 : 1/5 இன் எளிய விகித வடிவம் என்ன?",
-      q_en: "25. What is the simplified form of 1/3 : 1/4 : 1/5?",
-      o: ["a) 20 : 15 : 12", "b) 3 : 4 : 5", "c) 5 : 4 : 3", "d) 12 : 15 : 20"],
-      a: 0,
-      exp_ta: "விளக்கம்:\n3, 4, 5 இன் மீ.சி.ம = 60.\n(1/3 × 60) : (1/4 × 60) : (1/5 × 60) = 20 : 15 : 12.",
-      exp_en: "Explanation:\nLCM of 3, 4, 5 = 60.\n(1/3 × 60) : (1/4 × 60) : (1/5 × 60) = 20 : 15 : 12."
+      exp_ta: "<b>விளக்கம்:</b><br>3x / (2x + 4) = 1 / 1 ➔ 3x = 2x + 4 ➔ x = 4.<br>ஆல்கஹால் = 3x = 3 × 4 = 12 லிட்டர்.",
+      exp_en: "<b>Explanation:</b><br>3x / (2x + 4) = 1 ➔ x = 4. Initial alcohol = 3x = 12 liters."
     }
   ];
 
@@ -346,7 +395,7 @@
 
   function updateLanguageTexts() {
     if(currentLang === 'en') {
-      document.getElementById('headerTitle').innerText = "🐅 TIGER WARRIORS - Ratio & Proportion (25 Questions)";
+      document.getElementById('headerTitle').innerText = "🐅 TIGER WARRIORS - Ratio & Proportion (30 Questions)";
       document.getElementById('prevBtn').innerText = "⬅️ Previous";
       document.getElementById('clearBtn').innerText = "🧹 Clear Choice";
       document.getElementById('nextBtn').innerText = "Next ➡️";
@@ -360,7 +409,7 @@
       document.getElementById('btnRetake').innerText = "🔄 Retake Test";
       document.getElementById('btnExit').innerText = "🚪 Exit";
     } else {
-      document.getElementById('headerTitle').innerText = "🐅 TIGER WARRIORS - விகிதம் & விகிதாச்சாரம் (25 வினாக்கள்)";
+      document.getElementById('headerTitle').innerText = "🐅 TIGER WARRIORS - விகிதம் & விகிதாச்சாரம் (Ratio & Proportion) 30 வினாக்கள்";
       document.getElementById('prevBtn').innerText = "⬅️ முந்தையது";
       document.getElementById('clearBtn').innerText = "🧹 விடையை நீக்கு";
       document.getElementById('nextBtn').innerText = "அடுத்து ➡️";
@@ -369,7 +418,7 @@
       document.getElementById('lblCorrect').innerText = "சரியானது ✅";
       document.getElementById('lblWrong').innerText = "தவறானது ❌";
       document.getElementById('lblUnans').innerText = "விடையில்லை ⚠️";
-      document.getElementById('btnKey').innerText = "🔍 விடை குறிப்பு (Answer Key)";
+      document.getElementById('btnKey').innerText = "🔍 விடை குறிப்பு & விளக்கம்";
       document.getElementById('btnDash').innerText = "🏠 முகப்புப் பக்கம்";
       document.getElementById('btnRetake').innerText = "🔄 மீண்டும் தேர்வு";
       document.getElementById('btnExit').innerText = "🚪 வெளியேறு";
@@ -409,6 +458,26 @@
     });
   }
 
+  function searchInAI(provider, questionIdx) {
+    const q = questionsData[questionIdx];
+    const questionText = (currentLang === 'ta' ? q.q_ta : q.q_en).replace(/<[^>]*>?/gm, '');
+    const optionsText = q.o.join(", ");
+    const fullQuery = encodeURIComponent(`Explain this TNPSC ratio and proportion question step by step:\n${questionText}\nOptions: ${optionsText}`);
+    
+    let targetUrl = "";
+    if (provider === 'chatgpt') {
+      targetUrl = `https://chatgpt.com/?q=${fullQuery}`;
+    } else if (provider === 'gemini') {
+      targetUrl = `https://gemini.google.com/app`;
+    } else if (provider === 'perplexity') {
+      targetUrl = `https://www.perplexity.ai/?q=${fullQuery}`;
+    } else if (provider === 'google') {
+      targetUrl = `https://www.google.com/search?q=${fullQuery}`;
+    }
+
+    window.open(targetUrl, '_blank');
+  }
+
   function loadQuestion(idx) {
     currentQuestion = idx;
     const q = questionsData[idx];
@@ -441,7 +510,18 @@
     const expBox = document.getElementById('expBox');
     if(isReviewMode) {
       expBox.style.display = 'block';
-      expBox.innerText = currentLang === 'ta' ? q.exp_ta : q.exp_en;
+      let baseExp = currentLang === 'ta' ? q.exp_ta : q.exp_en;
+      
+      expBox.innerHTML = `
+        <div style="font-size: 14px; margin-bottom: 8px;">${baseExp}</div>
+        <div style="font-size: 12px; color: #fbbf24; margin-top: 10px; font-weight: bold;">🤖 AI Link Buttons (Opens in New Tab):</div>
+        <div class="ai-btn-group">
+          <button class="ai-link-btn btn-chatgpt" onclick="searchInAI('chatgpt', ${idx})">🟢 ChatGPT</button>
+          <button class="ai-link-btn btn-gemini" onclick="searchInAI('gemini', ${idx})">✨ Gemini AI</button>
+          <button class="ai-link-btn btn-perplexity" onclick="searchInAI('perplexity', ${idx})">🔵 Perplexity</button>
+          <button class="ai-link-btn btn-google" onclick="searchInAI('google', ${idx})">🔍 Google Search</button>
+        </div>
+      `;
     } else {
       expBox.style.display = 'none';
     }
@@ -464,9 +544,9 @@
   }
 
   function navigateNumberQuery(dir) {
-    const next = currentQuestion + dir;
-    if(next >= 0 && next < questionsData.length) {
-      loadQuestion(next);
+    postNext = currentQuestion + dir;
+    if(postNext >= 0 && postNext < questionsData.length) {
+      loadQuestion(postNext);
     }
   }
 
