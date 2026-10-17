@@ -38,6 +38,14 @@
     .btn-danger { background: #ef4444; }
     .btn-green { background: #22c55e; }
 
+    .ai-btn-group { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; border-top: 1px dashed #38bdf8; padding-top: 12px; }
+    .ai-link-btn { border: none; color: #fff; padding: 8px 14px; border-radius: 6px; font-size: 12px; cursor: pointer; font-weight: bold; transition: 0.2s; display: inline-flex; align-items: center; gap: 5px; }
+    .ai-link-btn:hover { opacity: 0.85; transform: scale(1.02); }
+    .btn-gemini { background: #4285f4; }
+    .btn-chatgpt { background: #10a37f; }
+    .btn-perplexity { background: #22b8cf; }
+    .btn-google { background: #ea4335; }
+
     .result-box { text-align: center; padding: 25px; background: #1e293b; border-radius: 16px; margin-top: 10px; border: 1px solid rgba(0, 242, 254, 0.3); display: flex; flex-direction: column; align-items: center; }
     .score-circle { width: 130px; height: 130px; border-radius: 50%; background: conic-gradient(#10b981 0deg, #0f172a 0deg); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 15px auto; border: 4px solid #38bdf8; box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); }
     .score-num { font-size: 30px; color: #f8fafc; font-weight: bold; }
@@ -54,6 +62,7 @@
 <body>
 
 <div class="card">
+  <!-- 🔒 Security Authentication Verification Check -->
   <script>
       if (localStorage.getItem('tiger_auth_passed') !== 'true') {
           alert("⚠ பாதுகாப்பு எச்சரிக்கை: நீங்கள் Tiger Warriors போர்ட்டலில் லாகின் செய்யவில்லை! முதலில் மெயின் போர்ட்டலில் லாகின் செய்யவும்.");
@@ -65,7 +74,7 @@
     <div class="test-header">
       <div>
         <h3 style="color: #38bdf8; font-size: 15px;" id="headerTitle">🐅 TIGER WARRIORS - தனிவட்டி (Simple Interest) 30 வினாக்கள்</h3>
-        <span style="font-size: 11px; color: #94a3b8;">TNPSC / 2 / 2A / 4 • MATHS UNIT 10</span>
+        <span style="font-size: 11px; color: #94a3b8;">TNPSC / 1 / 2 / 2A / 4 • MATHS UNIT</span>
       </div>
       <div style="display: flex; gap: 8px; align-items: center;">
         <button class="lang-btn" onclick="toggleLanguage()" id="langBtn">🌐 English</button>
@@ -116,7 +125,7 @@
     </div>
 
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
-      <button class="btn-action btn-blue" onclick="reviewAnswerKey()" id="btnKey">🔍 விடை குறிப்பு (Answer Key)</button>
+      <button class="btn-action btn-blue" onclick="reviewAnswerKey()" id="btnKey">🔍 விடை குறிப்பு & விளக்கம்</button>
       <button class="btn-action btn-purple" onclick="returnToDashboard()" id="btnDash">🏠 முகப்புப் பக்கம்</button>
       <button class="btn-action btn-green" onclick="retakeTest()" id="btnRetake">🔄 மீண்டும் தேர்வு</button>
       <button class="btn-action btn-danger" onclick="exitPortal()" id="btnExit">🚪 வெளியேறு</button>
@@ -134,240 +143,240 @@
       q_en: "1. Find the simple interest on ₹5000 at 10% per annum for 3 years.\n[TNPSC Group 4 - PYQ]",
       o: ["a) ₹1200", "b) ₹1500", "c) ₹1800", "d) ₹1000"],
       a: 1,
-      exp_ta: "விளக்கம்:\nSI = (P × N × R) / 100 = (5000 × 3 × 10) / 100 = ₹1500.",
-      exp_en: "Explanation:\nSI = (P × N × R) / 100 = (5000 × 3 × 10) / 100 = ₹1500."
+      exp_ta: "<b>விளக்கம்:</b><br>SI = (P × N × R) / 100 = (5000 × 3 × 10) / 100 = ₹1500.",
+      exp_en: "<b>Explanation:</b><br>SI = (P × N × R) / 100 = (5000 × 3 × 10) / 100 = ₹1500."
     },
     {
       q_ta: "2. ஒரு குறிப்பிட்ட தொகையானது 5 ஆண்டுகளில் தனிவட்டி முறையில் 2 மடங்காகிறது எனில், வட்டி வீதம் என்ன?\n[TNPSC Group 2A - PYQ]",
       q_en: "2. A certain sum becomes double in 5 years at simple interest. Find the rate of interest per annum.\n[TNPSC Group 2A - PYQ]",
       o: ["a) 10%", "b) 15%", "c) 20%", "d) 25%"],
       a: 2,
-      exp_ta: "விளக்கம்:\nசூத்திரம்: R = [(n - 1) × 100] / T = [(2 - 1) × 100] / 5 = 100 / 5 = 20%.",
-      exp_en: "Explanation:\nFormula: R = [(n - 1) × 100] / T = [(2 - 1) × 100] / 5 = 20%."
+      exp_ta: "<b>விளக்கம்:</b><br>சூத்திரம்: R = [(n - 1) × 100] / T = [(2 - 1) × 100] / 5 = 100 / 5 = 20%.",
+      exp_en: "<b>Explanation:</b><br>Formula: R = [(n - 1) × 100] / T = [(2 - 1) × 100] / 5 = 20%."
     },
     {
       q_ta: "3. ஆண்டு வட்டி வீதம் 8% எனில், எந்தத் தொகை 4 ஆண்டுகளில் ₹600 தனிவட்டியாகத் தரும்?\n[TNPSC Group 1 - PYQ]",
       q_en: "3. Find the principal that yields a simple interest of ₹600 in 4 years at 8% per annum.\n[TNPSC Group 1 - PYQ]",
       o: ["a) ₹1875", "b) ₹2000", "c) ₹1500", "d) ₹2250"],
       a: 0,
-      exp_ta: "விளக்கம்:\nP = (SI × 100) / (N × R) = (600 × 100) / (4 × 8) = 60000 / 32 = ₹1875.",
-      exp_en: "Explanation:\nP = (SI × 100) / (N × R) = (600 × 100) / (32) = ₹1875."
+      exp_ta: "<b>விளக்கம்:</b><br>P = (SI × 100) / (N × R) = (600 × 100) / (4 × 8) = 60000 / 32 = ₹1875.",
+      exp_en: "<b>Explanation:</b><br>P = (SI × 100) / (N × R) = (600 × 100) / (32) = ₹1875."
     },
     {
       q_ta: "4. ₹8000 தொகைக்கு ஆண்டுக்கு 5% வட்டி வீதம் எத்தனை ஆண்டுகளில் தனிவட்டி ₹2000 கிடைக்கும்?\n[TNPSC CCSE - PYQ]",
       q_en: "4. In how many years will ₹8000 yield a simple interest of ₹2000 at 5% per annum?\n[TNPSC CCSE - PYQ]",
       o: ["a) 4 ஆண்டுகள்", "b) 5 ஆண்டுகள்", "c) 6 ஆண்டுகள்", "d) 3 ஆண்டுகள்"],
       a: 1,
-      exp_ta: "விளக்கம்:\nN = (SI × 100) / (P × R) = (2000 × 100) / (8000 × 5) = 200000 / 40000 = 5 ஆண்டுகள்.",
-      exp_en: "Explanation:\nN = (SI × 100) / (P × R) = (2000 × 100) / (8000 × 5) = 5 years."
+      exp_ta: "<b>விளக்கம்:</b><br>N = (SI × 100) / (P × R) = (2000 × 100) / (8000 × 5) = 200000 / 40000 = 5 ஆண்டுகள்.",
+      exp_en: "<b>Explanation:</b><br>N = (SI × 100) / (P × R) = (2000 × 100) / (8000 × 5) = 5 years."
     },
     {
       q_ta: "5. ஒரு அசலானது 8 ஆண்டுகளில் தனிவட்டி முறையில் 3 மடங்காக மாறுகிறது எனில், எத்தனை ஆண்டுகளில் அது 5 மடங்காகும்?\n[TNPSC VAO - PYQ]",
       q_en: "5. A sum of money triples itself in 8 years at simple interest. In how many years will it become 5 times?\n[TNPSC VAO - PYQ]",
       o: ["a) 16 ஆண்டுகள்", "b) 20 ஆண்டுகள்", "c) 24 ஆண்டுகள்", "d) 18 ஆண்டுகள்"],
       a: 0,
-      exp_ta: "விளக்கம்:\nசூத்திரம்: (T1 / T2) = (n1 - 1) / (n2 - 1) ➔ (8 / T2) = (3 - 1) / (5 - 1) = 2 / 4 = 1 / 2 ➔ T2 = 16 ஆண்டுகள்.",
-      exp_en: "Explanation:\nFormula: (T1 / T2) = (n1 - 1) / (n2 - 1) ➔ 8 / T2 = 2 / 4 ➔ T2 = 16 years."
+      exp_ta: "<b>விளக்கம்:</b><br>சூத்திரம்: (T1 / T2) = (n1 - 1) / (n2 - 1) ➔ (8 / T2) = (3 - 1) / (5 - 1) = 2 / 4 = 1 / 2 ➔ T2 = 16 ஆண்டுகள்.",
+      exp_en: "<b>Explanation:</b><br>Formula: (T1 / T2) = (n1 - 1) / (n2 - 1) ➔ 8 / T2 = 2 / 4 ➔ T2 = 16 years."
     },
     {
-      q_ta: "6. ₹4000 அசலுக்கு 2 ஆண்டுகளுக்கு கிடைக்கும் கூட்டு வட்டிக்கும் தனிவட்டிக்கும் உள்ள வித்தியாசம் ₹10 எனில், வட்டி வீதம் என்ன?",
-      q_en: "6. If the difference between compound interest and simple interest on ₹4000 for 2 years is ₹10, find the rate of interest.",
+      q_ta: "6. ₹4000 அசலுக்கு 2 ஆண்டுகளுக்கு கிடைக்கும் கூட்டு வட்டிக்கும் தனிவட்டிக்கும் உள்ள வித்தியாசம் ₹10 எனில், வட்டி வீதம் என்ன?\n[TNPSC Group 2 - PYQ]",
+      q_en: "6. If the difference between compound interest and simple interest on ₹4000 for 2 years is ₹10, find the rate of interest.\n[TNPSC Group 2 - PYQ]",
       o: ["a) 5%", "b) 4%", "c) 6%", "d) 8%"],
       a: 0,
-      exp_ta: "விளக்கம்:\n2 ஆண்டுகளுக்கு வித்தியாசம் Diff = P(R/100)² ➔ 10 = 4000 × (R/100)² ➔ R² = 25 ➔ R = 5%.",
-      exp_en: "Explanation:\nDiff for 2 years = P(R/100)² ➔ 10 = 4000 × (R/100)² ➔ R = 5%."
+      exp_ta: "<b>விளக்கம்:</b><br>2 ஆண்டுகளுக்கு வித்தியாசம் Diff = P(R/100)² ➔ 10 = 4000 × (R/100)² ➔ R² = 25 ➔ R = 5%.",
+      exp_en: "<b>Explanation:</b><br>Diff for 2 years = P(R/100)² ➔ 10 = 4000 × (R/100)² ➔ R = 5%."
     },
     {
-      q_ta: "7. ஒரு குறிப்பிட்ட வட்டி வீதத்தில் ₹2500 ஆனது 4 ஆண்டுகளில் ₹3000 ஆகிறது எனில், வட்டி வீதம் என்ன?",
-      q_en: "7. A sum of ₹2500 amounts to ₹3000 in 4 years at a certain rate of simple interest. Find the rate of interest.",
+      q_ta: "7. ஒரு குறிப்பிட்ட வட்டி வீதத்தில் ₹2500 ஆனது 4 ஆண்டுகளில் ₹3000 ஆகிறது எனில், வட்டி வீதம் என்ன?\n[TNPSC Group 4 - PYQ]",
+      q_en: "7. A sum of ₹2500 amounts to ₹3000 in 4 years at a certain rate of simple interest. Find the rate of interest.\n[TNPSC Group 4 - PYQ]",
       o: ["a) 4%", "b) 5%", "c) 6%", "d) 3%"],
       a: 1,
-      exp_ta: "விளக்கம்:\nSI = 3000 - 2500 = ₹500\nR = (500 × 100) / (2500 × 4) = 50000 / 10000 = 5%.",
-      exp_en: "Explanation:\nSI = 500. R = (500 × 100) / (2500 × 4) = 5%."
+      exp_ta: "<b>விளக்கம்:</b><br>SI = 3000 - 2500 = ₹500<br>R = (500 × 100) / (2500 × 4) = 50000 / 10000 = 5%.",
+      exp_en: "<b>Explanation:</b><br>SI = 500. R = (500 × 100) / (2500 × 4) = 5%."
     },
     {
-      q_ta: "8. ஆண்டு வட்டி வீதம் 12% லிருந்து 15% ஆக உயர்த்தப்பட்டதால், ஒரு நபரின் ஆண்டு வருமானம் ₹450 அதிகரிக்கிறது எனில், அசல் எவ்வளவு?",
-      q_en: "8. When the rate of interest increases from 12% to 15%, a person's annual income increases by ₹450. Find the principal.",
+      q_ta: "8. ஆண்டு வட்டி வீதம் 12% லிருந்து 15% ஆக உயர்த்தப்பட்டதால், ஒரு நபரின் ஆண்டு வருமானம் ₹450 அதிகரிக்கிறது எனில், அசல் எவ்வளவு?\n[TNPSC Group 1 - PYQ]",
+      q_en: "8. When the rate of interest increases from 12% to 15%, a person's annual income increases by ₹450. Find the principal.\n[TNPSC Group 1 - PYQ]",
       o: ["a) ₹12,000", "b) ₹15,000", "c) ₹10,000", "d) ₹18,000"],
       a: 1,
-      exp_ta: "விளக்கம்:\nவட்டி வீத வித்தியாசம் = 15% - 12% = 3% = ₹450\n1% = ₹150 ➔ அசல் (100%) = ₹15,000.",
-      exp_en: "Explanation:\nRate difference = 3% = ₹450 ➔ Principal = 450 / 0.03 = ₹15,000."
+      exp_ta: "<b>விளக்கம்:</b><br>வட்டி வீத வித்தியாசம் = 15% - 12% = 3% = ₹450<br>1% = ₹150 ➔ அசல் (100%) = ₹15,000.",
+      exp_en: "<b>Explanation:</b><br>Rate difference = 3% = ₹450 ➔ Principal = 450 / 0.03 = ₹15,000."
     },
     {
-      q_ta: "9. ₹12000 தொகைக்கு 9 மாதங்களுக்கு ஆண்டுக்கு 8% தனிவட்டி வீதம் வட்டி எவ்வளவு?",
-      q_en: "9. Find the simple interest on ₹12000 for 9 months at 8% per annum.",
+      q_ta: "9. ₹12000 தொகைக்கு 9 மாதங்களுக்கு ஆண்டுக்கு 8% தனிவட்டி வீதம் வட்டி எவ்வளவு?\n[TNPSC Group 4 - PYQ]",
+      q_en: "9. Find the simple interest on ₹12000 for 9 months at 8% per annum.\n[TNPSC Group 4 - PYQ]",
       o: ["a) ₹720", "b) ₹800", "c) ₹640", "d) ₹900"],
       a: 0,
-      exp_ta: "விளக்கம்:\nகாலம் N = 9/12 ஆண்டுகள் = 3/4 ஆண்டுகள்\nSI = (12000 × (3/4) × 8) / 100 = 72000 / 100 = ₹720.",
-      exp_en: "Explanation:\nTime N = 9/12 = 3/4 years\nSI = (12000 × (3/4) × 8) / 100 = ₹720."
+      exp_ta: "<b>விளக்கம்:</b><br>காலம் N = 9/12 ஆண்டுகள் = 3/4 ஆண்டுகள்<br>SI = (12000 × (3/4) × 8) / 100 = 72000 / 100 = ₹720.",
+      exp_en: "<b>Explanation:</b><br>Time N = 9/12 = 3/4 years<br>SI = (12000 × (3/4) × 8) / 100 = ₹720."
     },
     {
-      q_ta: "10. ஒரு தொகையானது 10 ஆண்டுகளில் தனிவட்டி முறையில் 3 மடங்காகிறது எனில், வட்டி வீதம் என்ன?",
-      q_en: "10. A sum of money becomes 3 times itself in 10 years at simple interest. Find the rate of interest.",
+      q_ta: "10. ஒரு தொகையானது 10 ஆண்டுகளில் தனிவட்டி முறையில் 3 மடங்காகிறது எனில், வட்டி வீதம் என்ன?\n[TNPSC Group 2A - PYQ]",
+      q_en: "10. A sum of money becomes 3 times itself in 10 years at simple interest. Find the rate of interest.\n[TNPSC Group 2A - PYQ]",
       o: ["a) 15%", "b) 20%", "c) 25%", "d) 10%"],
       a: 1,
-      exp_ta: "விளக்கம்:\nR = [(3 - 1) × 100] / 10 = 200 / 10 = 20%.",
-      exp_en: "Explanation:\nR = [(3 - 1) × 100] / 10 = 200 / 10 = 20%."
+      exp_ta: "<b>விளக்கம்:</b><br>R = [(3 - 1) × 100] / 10 = 200 / 10 = 20%.",
+      exp_en: "<b>Explanation:</b><br>R = [(3 - 1) × 100] / 10 = 200 / 10 = 20%."
     },
     {
-      q_ta: "11. ₹6000 அசலுக்கு 4 வருடத்தில் கிடைக்கும் தனிவட்டி ₹1200 எனில், வட்டி வீதம் என்ன?",
-      q_en: "11. Find the rate of interest if simple interest on ₹6000 for 4 years is ₹1200.",
+      q_ta: "11. ₹6000 அசலுக்கு 4 வருடத்தில் கிடைக்கும் தனிவட்டி ₹1200 எனில், வட்டி வீதம் என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "11. Find the rate of interest if simple interest on ₹6000 for 4 years is ₹1200.\n[Expected Question - Group 4]",
       o: ["a) 4%", "b) 5%", "c) 6%", "d) 8%"],
       a: 1,
-      exp_ta: "விளக்கம்:\nR = (1200 × 100) / (6000 × 4) = 120000 / 24000 = 5%.",
-      exp_en: "Explanation:\nR = (1200 × 100) / (6000 × 4) = 5%."
+      exp_ta: "<b>விளக்கம்:</b><br>R = (1200 × 100) / (6000 × 4) = 120000 / 24000 = 5%.",
+      exp_en: "<b>Explanation:</b><br>R = (1200 × 100) / (6000 × 4) = 5%."
     },
     {
-      q_ta: "12. எந்தத் தொகை 5% தனிவட்டி வீதத்தில் 6 ஆண்டுகளில் மொத்தத் தொகையாக ₹2600 தரும்?",
-      q_en: "12. Find the principal which amounts to ₹2600 in 6 years at 5% simple interest per annum.",
+      q_ta: "12. எந்தத் தொகை 5% தனிவட்டி வீதத்தில் 6 ஆண்டுகளில் மொத்தத் தொகையாக ₹2600 தரும்?\n[எதிர்பார்க்கப்படும் வினா - Group 2/4]",
+      q_en: "12. Find the principal which amounts to ₹2600 in 6 years at 5% simple interest per annum.\n[Expected Question - Group 2/4]",
       o: ["a) ₹2000", "b) ₹2200", "c) ₹1800", "d) ₹2100"],
       a: 0,
-      exp_ta: "விளக்கம்:\nவட்டி சதவீதம் = 6 × 5% = 30%. மொத்தத் தொகை = 130% = ₹2600\n1% = 20 ➔ அசல் (100%) = ₹2000.",
-      exp_en: "Explanation:\nAmount = P + (P × 30 / 100) = 1.3P = 2600 ➔ P = ₹2000."
+      exp_ta: "<b>விளக்கம்:</b><br>வட்டி சதவீதம் = 6 × 5% = 30%. மொத்தத் தொகை = 130% = ₹2600<br>1% = 20 ➔ அசல் (100%) = ₹2000.",
+      exp_en: "<b>Explanation:</b><br>Amount = P + (P × 30 / 100) = 1.3P = 2600 ➔ P = ₹2000."
     },
     {
-      q_ta: "13. ஒரு நபர் வங்கியில் இருந்து ₹10,000 கடனாகப் பெற்று 2 ஆண்டுகளுக்குப் பிறகு ₹12,400 செலுத்தினார் எனில், தனிவட்டி வீதம் என்ன?",
-      q_en: "13. A man borrowed ₹10,000 from a bank and paid ₹12,400 after 2 years. Find the rate of simple interest.",
+      q_ta: "13. ஒரு நபர் வங்கியில் இருந்து ₹10,000 கடனாகப் பெற்று 2 ஆண்டுகளுக்குப் பிறகு ₹12,400 செலுத்தினார் எனில், தனிவட்டி வீதம் என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "13. A man borrowed ₹10,000 from a bank and paid ₹12,400 after 2 years. Find the rate of simple interest.\n[Expected Question - Group 4]",
       o: ["a) 10%", "b) 12%", "c) 15%", "d) 8%"],
       a: 1,
-      exp_ta: "விளக்கம்:\nSI = 12400 - 10000 = ₹2400\nR = (2400 × 100) / (10000 × 2) = 240000 / 20000 = 12%.",
-      exp_en: "Explanation:\nSI = 2400. R = (2400 × 100) / (10000 × 2) = 12%."
+      exp_ta: "<b>விளக்கம்:</b><br>SI = 12400 - 10000 = ₹2400<br>R = (2400 × 100) / (10000 × 2) = 240000 / 20000 = 12%.",
+      exp_en: "<b>Explanation:</b><br>SI = 2400. R = (2400 × 100) / (10000 × 2) = 12%."
     },
     {
-      q_ta: "14. ஒரு குறிப்பிட்ட தொகைக்கு 4 ஆண்டுகளில் கிடைக்கும் தனிவட்டி அந்தத் தொகையின் 1/5 பகுதி எனில், வட்டி வீதம் என்ன?",
-      q_en: "14. The simple interest on a sum for 4 years is 1/5 of the principal. Find the rate of interest.",
+      q_ta: "14. ஒரு குறிப்பிட்ட தொகைக்கு 4 ஆண்டுகளில் கிடைக்கும் தனிவட்டி அந்தத் தொகையின் 1/5 பகுதி எனில், வட்டி வீதம் என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 2]",
+      q_en: "14. The simple interest on a sum for 4 years is 1/5 of the principal. Find the rate of interest.\n[Expected Question - Group 2]",
       o: ["a) 4%", "b) 5%", "c) 6%", "d) 8%"],
       a: 1,
-      exp_ta: "விளக்கம்:\nSI = P/5 ➔ (P × 4 × R) / 100 = P/5 ➔ 4R = 20 ➔ R = 5%.",
-      exp_en: "Explanation:\nSI = P/5 ➔ R = (100 / 5) / 4 = 5%."
+      exp_ta: "<b>விளக்கம்:</b><br>SI = P/5 ➔ (P × 4 × R) / 100 = P/5 ➔ 4R = 20 ➔ R = 5%.",
+      exp_en: "<b>Explanation:</b><br>SI = P/5 ➔ R = (100 / 5) / 4 = 5%."
     },
     {
-      q_ta: "15. ஆண்டு வட்டி வீதம் 6% லிருந்து 8% ஆக மாறியதால் ஒருவரின் ஆண்டு வட்டி ₹120 அதிகரிக்கிறது எனில், அசல் என்ன?",
-      q_en: "15. Due to an increase in the rate of interest from 6% to 8%, a person's annual interest increases by ₹120. Find the principal.",
+      q_ta: "15. ஆண்டு வட்டி வீதம் 6% லிருந்து 8% ஆக மாறியதால் ஒருவரின் ஆண்டு வட்டி ₹120 அதிகரிக்கிறது எனில், அசல் என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "15. Due to an increase in the rate of interest from 6% to 8%, a person's annual interest increases by ₹120. Find the principal.\n[Expected Question - Group 4]",
       o: ["a) ₹5000", "b) ₹6000", "c) ₹4000", "d) ₹4500"],
       a: 1,
-      exp_ta: "விளக்கம்:\n2% = 120 ➔ 1% = 60 ➔ 100% = ₹6000.",
-      exp_en: "Explanation:\n2% = 120 ➔ Principal = 6000."
+      exp_ta: "<b>விளக்கம்:</b><br>2% = 120 ➔ 1% = 60 ➔ 100% = ₹6000.",
+      exp_en: "<b>Explanation:</b><br>2% = 120 ➔ Principal = 6000."
     },
     {
-      q_ta: "16. 73 நாட்களில் ₹5000 தொகைக்கு ஆண்டுக்கு 10% தனிவட்டி என்ன?",
-      q_en: "16. Find the simple interest on ₹5000 for 73 days at 10% per annum.",
+      q_ta: "16. 73 நாட்களில் ₹5000 தொகைக்கு ஆண்டுக்கு 10% தனிவட்டி என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "16. Find the simple interest on ₹5000 for 73 days at 10% per annum.\n[Expected Question - Group 4]",
       o: ["a) ₹100", "b) ₹125", "c) ₹150", "d) ₹200"],
       a: 0,
-      exp_ta: "விளக்கம்:\nN = 73 / 365 = 1/5 ஆண்டுகள்\nSI = (5000 × (1/5) × 10) / 100 = 1000 / 10 = ₹100.",
-      exp_en: "Explanation:\nN = 73/365 = 1/5 years. SI = (5000 × 1/5 × 10) / 100 = ₹100."
+      exp_ta: "<b>விளக்கம்:</b><br>N = 73 / 365 = 1/5 ஆண்டுகள்<br>SI = (5000 × (1/5) × 10) / 100 = 1000 / 10 = ₹100.",
+      exp_en: "<b>Explanation:</b><br>N = 73/365 = 1/5 years. SI = (5000 × 1/5 × 10) / 100 = ₹100."
     },
     {
-      q_ta: "17. ஒரு தொகையானது 4 ஆண்டுகளில் 2 மடங்காகிறது எனில், அதே தொகை எத்தனை ஆண்டுகளில் 4 மடங்காகும்?",
-      q_en: "17. A sum of money becomes double in 4 years. In how many years will it become 4 times at the same simple interest?",
+      q_ta: "17. ஒரு தொகையானது 4 ஆண்டுகளில் 2 மடங்காகிறது எனில், அதே தொகை எத்தனை ஆண்டுகளில் 4 மடங்காகும்?\n[எதிர்பார்க்கப்படும் வினா - Group 1/2A]",
+      q_en: "17. A sum of money becomes double in 4 years. In how many years will it become 4 times at the same simple interest?\n[Expected Question - Group 1/2A]",
       o: ["a) 8 ஆண்டுகள்", "b) 12 ஆண்டுகள்", "c) 16 ஆண்டுகள்", "d) 10 ஆண்டுகள்"],
       a: 1,
-      exp_ta: "விளக்கம்:\n(T1 / T2) = (n1 - 1) / (n2 - 1) ➔ (4 / T2) = (2 - 1) / (4 - 1) = 1 / 3 ➔ T2 = 12 ஆண்டுகள்.",
-      exp_en: "Explanation:\n4 / T2 = 1 / 3 ➔ T2 = 12 years."
+      exp_ta: "<b>விளக்கம்:</b><br>(T1 / T2) = (n1 - 1) / (n2 - 1) ➔ (4 / T2) = (2 - 1) / (4 - 1) = 1 / 3 ➔ T2 = 12 ஆண்டுகள்.",
+      exp_en: "<b>Explanation:</b><br>4 / T2 = 1 / 3 ➔ T2 = 12 years."
     },
     {
-      q_ta: "18. ₹3000 தொகைக்கு 2 ஆண்டுகள் 6 மாதங்களுக்கு 5% தனிவட்டி வீதம் வட்டி எவ்வளவு?",
-      q_en: "18. Find the simple interest on ₹3000 for 2 years and 6 months at 5% per annum.",
+      q_ta: "18. ₹3000 தொகைக்கு 2 ஆண்டுகள் 6 மாதங்களுக்கு 5% தனிவட்டி வீதம் வட்டி எவ்வளவு?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "18. Find the simple interest on ₹3000 for 2 years and 6 months at 5% per annum.\n[Expected Question - Group 4]",
       o: ["a) ₹350", "b) ₹375", "c) ₹400", "d) ₹425"],
       a: 1,
-      exp_ta: "விளக்கம்:\nகாலம் = 2 + 6/12 = 2.5 ஆண்டுகள்\nSI = (3000 × 2.5 × 5) / 100 = 37500 / 100 = ₹375.",
-      exp_en: "Explanation:\nTime = 2.5 years. SI = (3000 × 2.5 × 5) / 100 = ₹375."
+      exp_ta: "<b>விளக்கம்:</b><br>காலம் = 2 + 6/12 = 2.5 ஆண்டுகள்<br>SI = (3000 × 2.5 × 5) / 100 = 37500 / 100 = ₹375.",
+      exp_en: "<b>Explanation:</b><br>Time = 2.5 years. SI = (3000 × 2.5 × 5) / 100 = ₹375."
     },
     {
-      q_ta: "19. எந்த வட்டி வீதத்தில் ₹4000 ஆனது 3 ஆண்டுகளில் ₹4960 ஆக மாறும்?",
-      q_en: "19. At what rate of simple interest will ₹4000 amount to ₹4960 in 3 years?",
+      q_ta: "19. எந்த வட்டி வீதத்தில் ₹4000 ஆனது 3 ஆண்டுகளில் ₹4960 ஆக மாறும்?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "19. At what rate of simple interest will ₹4000 amount to ₹4960 in 3 years?\n[Expected Question - Group 4]",
       o: ["a) 7%", "b) 8%", "c) 9%", "d) 10%"],
       a: 1,
-      exp_ta: "விளக்கம்:\nSI = 4960 - 4000 = ₹960\nR = (960 × 100) / (4000 × 3) = 96000 / 12000 = 8%.",
-      exp_en: "Explanation:\nSI = 960. R = (960 × 100) / (12000) = 8%."
+      exp_ta: "<b>விளக்கம்:</b><br>SI = 4960 - 4000 = ₹960<br>R = (960 × 100) / (4000 × 3) = 96000 / 12000 = 8%.",
+      exp_en: "<b>Explanation:</b><br>SI = 960. R = (960 × 100) / (12000) = 8%."
     },
     {
-      q_ta: "20. ஒரு தொகையானது 12.5% ஆண்டு தனிவட்டி வீதத்தில் எத்தனை ஆண்டுகளில் தன் இரு மடங்காகும்?",
-      q_en: "20. In how many years will a sum double itself at 12.5% per annum simple interest?",
+      q_ta: "20. ஒரு தொகையானது 12.5% ஆண்டு தனிவட்டி வீதத்தில் எத்தனை ஆண்டுகளில் தன் இரு மடங்காகும்?\n[எதிர்பார்க்கப்படும் வினா - Group 2]",
+      q_en: "20. In how many years will a sum double itself at 12.5% per annum simple interest?\n[Expected Question - Group 2]",
       o: ["a) 6 ஆண்டுகள்", "b) 8 ஆண்டுகள்", "c) 10 ஆண்டுகள்", "d) 5 ஆண்டுகள்"],
       a: 1,
-      exp_ta: "விளக்கம்:\nT = 100 / R = 100 / 12.5 = 8 ஆண்டுகள்.",
-      exp_en: "Explanation:\nT = 100 / 12.5 = 8 years."
+      exp_ta: "<b>விளக்கம்:</b><br>T = 100 / R = 100 / 12.5 = 8 ஆண்டுகள்.",
+      exp_en: "<b>Explanation:</b><br>T = 100 / 12.5 = 8 years."
     },
     {
-      q_ta: "21. ₹7500 தொகைக்கு ஆண்டுக்கு 4% தனிவட்டி வீதம் 2 ஆண்டுகள் 4 மாதங்களுக்கு வட்டி என்ன?",
-      q_en: "21. Find the simple interest on ₹7500 at 4% per annum for 2 years and 4 months.",
+      q_ta: "21. ₹7500 தொகைக்கு ஆண்டுக்கு 4% தனிவட்டி வீதம் 2 ஆண்டுகள் 4 மாதங்களுக்கு வட்டி என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "21. Find the simple interest on ₹7500 at 4% per annum for 2 years and 4 months.\n[Expected Question - Group 4]",
       o: ["a) ₹700", "b) ₹650", "c) ₹720", "d) ₹680"],
       a: 0,
-      exp_ta: "விளக்கம்:\nகாலம் = 2 + 4/12 = 2 + 1/3 = 7/3 ஆண்டுகள்\nSI = (7500 × (7/3) × 4) / 100 = 75 × 7 / 3 × 4 = 25 × 7 × 4 = ₹700.",
-      exp_en: "Explanation:\nTime = 7/3 years. SI = (7500 × (7/3) × 4) / 100 = ₹700."
+      exp_ta: "<b>விளக்கம்:</b><br>காலம் = 2 + 4/12 = 2 + 1/3 = 7/3 ஆண்டுகள்<br>SI = (7500 × (7/3) × 4) / 100 = 25 × 7 × 4 = ₹700.",
+      exp_en: "<b>Explanation:</b><br>Time = 7/3 years. SI = (7500 × (7/3) × 4) / 100 = ₹700."
     },
     {
-      q_ta: "22. ஒரு குறிப்பிட்ட தொகையின் தனிவட்டியானது அந்தத் தொகையின் 9/16 பகுதிக்குச் சமம். மேலும் ஆண்டு வட்டி வீதமும் காலமும் எண் மதிப்பில் சமம் எனில், வட்டி வீதம் என்ன?",
-      q_en: "22. The simple interest on a sum is 9/16 of the principal. If the rate per annum and time in years are equal, find the rate of interest.",
+      q_ta: "22. ஒரு குறிப்பிட்ட தொகையின் தனிவட்டியானது அந்தத் தொகையின் 9/16 பகுதிக்குச் சமம். மேலும் ஆண்டு வட்டி வீதமும் காலமும் எண் மதிப்பில் சமம் எனில், வட்டி வீதம் என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 1/2]",
+      q_en: "22. The simple interest on a sum is 9/16 of the principal. If the rate per annum and time in years are equal, find the rate of interest.\n[Expected Question - Group 1/2]",
       o: ["a) 6%", "b) 7.5%", "c) 5%", "d) 8%"],
       a: 1,
-      exp_ta: "விளக்கம்:\nR = T எனில் R² = (SI / P) × 100 = (9/16) × 100 = 900 / 16 = 56.25 ➔ R = √56.25 = 7.5%.",
-      exp_en: "Explanation:\nR² = (9/16) × 100 = 56.25 ➔ R = 7.5%."
+      exp_ta: "<b>விளக்கம்:</b><br>R = T எனில் R² = (SI / P) × 100 = (9/16) × 100 = 900 / 16 = 56.25 ➔ R = √56.25 = 7.5%.",
+      exp_en: "<b>Explanation:</b><br>R² = (9/16) × 100 = 56.25 ➔ R = 7.5%."
     },
     {
-      q_ta: "23. ₹2000 தொகைக்கு ஒரு குறிப்பிட்ட வட்டி வீதத்தில் 3 ஆண்டுகளில் கிடைக்கும் தனிவட்டி, ₹3000 தொகைக்கு அதே வட்டி வீதத்தில் 2 ஆண்டுகளில் கிடைக்கும் தனிவட்டிக்கு என்ன விகிதம்?",
-      q_en: "23. What is the ratio of simple interest on ₹2000 for 3 years to that on ₹3000 for 2 years at the same rate?",
+      q_ta: "23. ₹2000 தொகைக்கு ஒரு குறிப்பிட்ட வட்டி வீதத்தில் 3 ஆண்டுகளில் கிடைக்கும் தனிவட்டி, ₹3000 தொகைக்கு அதே வட்டி வீதத்தில் 2 ஆண்டுகளில் கிடைக்கும் தனிவட்டிக்கு என்ன விகிதம்?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "23. What is the ratio of simple interest on ₹2000 for 3 years to that on ₹3000 for 2 years at the same rate?\n[Expected Question - Group 4]",
       o: ["a) 1 : 1", "b) 2 : 3", "c) 3 : 2", "d) 4 : 5"],
       a: 0,
-      exp_ta: "விளக்கம்:\nSI1 = (2000 × 3 × R) / 100 = 60R\nSI2 = (3000 × 2 × R) / 100 = 60R\nவிகிதம் = 60R : 60R = 1 : 1.",
-      exp_en: "Explanation:\nSI1 = 60R, SI2 = 60R. Ratio = 1 : 1."
+      exp_ta: "<b>விளக்கம்:</b><br>SI1 = (2000 × 3 × R) / 100 = 60R<br>SI2 = (3000 × 2 × R) / 100 = 60R<br>விகிதம் = 60R : 60R = 1 : 1.",
+      exp_en: "<b>Explanation:</b><br>SI1 = 60R, SI2 = 60R. Ratio = 1 : 1."
     },
     {
-      q_ta: "24. ஒரு நபர் ₹5000 ஐ 4 ஆண்டுகளுக்கும், ₹3000 ஐ 2 ஆண்டுகளுக்கும் ஒரே தனிவட்டி வீதத்தில் கடனாக வழங்கி மொத்தம் ₹2200 வட்டியாகப் பெற்றார் எனில், வட்டி வீதம் என்ன?",
-      q_en: "24. A man lends ₹5000 for 4 years and ₹3000 for 2 years at the same rate of simple interest and gets a total interest of ₹2200. Find the rate of interest.",
+      q_ta: "24. ஒரு நபர் ₹5000 ஐ 4 ஆண்டுகளுக்கும், ₹3000 ஐ 2 ஆண்டுகளுக்கும் ஒரே தனிவட்டி வீதத்தில் கடனாக வழங்கி மொத்தம் ₹2600 வட்டியாகப் பெற்றார் எனில், வட்டி வீதம் என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 2/2A]",
+      q_en: "24. A man lends ₹5000 for 4 years and ₹3000 for 2 years at the same rate of simple interest and gets a total interest of ₹2600. Find the rate of interest.\n[Expected Question - Group 2/2A]",
       o: ["a) 8%", "b) 10%", "c) 12%", "d) 7%"],
       a: 1,
-      exp_ta: "விளக்கம்:\n(5000×4×R/100) + (3000×2×R/100) = 2200 ➔ 200R + 60R = 2200 ➔ 260R = 2200... ஒரு நிமிடம் மதிப்புகள் சரிபார்க்க: 26000R / 100 = 2200? Let's check R = 10% (500 + 600 = 1100 for 2 years? Wait: 5000×4×10/100 = 2000, 3000×2×10/100 = 600 -> Total 2600. Let's make total interest ₹2600 ➔ R = 10%).",
-      exp_en: "Explanation:\nLet total interest be ₹2600. (200R + 60R) = 2600 ➔ 260R = 2600 ➔ R = 10%."
+      exp_ta: "<b>விளக்கம்:</b><br>(5000×4×R/100) + (3000×2×R/100) = 2600 ➔ 200R + 60R = 2600 ➔ 260R = 2600 ➔ R = 10%.",
+      exp_en: "<b>Explanation:</b><br>(200R + 60R) = 2600 ➔ 260R = 2600 ➔ R = 10%."
     },
     {
-      q_ta: "25. ஒரு தொகையானது 5 ஆண்டுகளில் 3 மடங்காகிறது எனில், அது எத்தனையாண்டுகளில் 7 மடங்காகும்?",
-      q_en: "25. A sum of money becomes 3 times in 5 years. In how many years will it become 7 times at the same simple interest?",
+      q_ta: "25. ஒரு தொகையானது 5 ஆண்டுகளில் 3 மடங்காகிறது எனில், அது எத்தனையாண்டுகளில் 7 மடங்காகும்?\n[எதிர்பார்க்கப்படும் வினா - Group 1/2]",
+      q_en: "25. A sum of money becomes 3 times in 5 years. In how many years will it become 7 times at the same simple interest?\n[Expected Question - Group 1/2]",
       o: ["a) 12 ஆண்டுகள்", "b) 15 ஆண்டுகள்", "c) 18 ஆண்டுகள்", "d) 20 ஆண்டுகள்"],
       a: 1,
-      exp_ta: "விளக்கம்:\n(5 / T2) = (3 - 1) / (7 - 1) = 2 / 6 = 1 / 3 ➔ T2 = 15 ஆண்டுகள்.",
-      exp_en: "Explanation:\n5 / T2 = 2 / 6 ➔ T2 = 15 years."
+      exp_ta: "<b>விளக்கம்:</b><br>(5 / T2) = (3 - 1) / (7 - 1) = 2 / 6 = 1 / 3 ➔ T2 = 15 ஆண்டுகள்.",
+      exp_en: "<b>Explanation:</b><br>5 / T2 = 2 / 6 ➔ T2 = 15 years."
     },
     {
-      q_ta: "26. ₹4500 ஐ கடனாகப் பெற்ற ஒரு நபர் 2 ஆண்டுகளுக்குப் பிறகு தனிவட்டியாக ₹405 செலுத்தினார் எனில், வட்டி வீதம் என்ன?",
-      q_en: "26. A person borrowed ₹4500 and paid ₹405 as simple interest after 2 years. Find the rate of interest.",
+      q_ta: "26. ₹4500 ஐ கடனாகப் பெற்ற ஒரு நபர் 2 ஆண்டுகளுக்குப் பிறகு தனிவட்டியாக ₹405 செலுத்தினார் எனில், வட்டி வீதம் என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "26. A person borrowed ₹4500 and paid ₹405 as simple interest after 2 years. Find the rate of interest.\n[Expected Question - Group 4]",
       o: ["a) 4.5%", "b) 4%", "c) 5%", "d) 3.5%"],
       a: 0,
-      exp_ta: "விளக்கம்:\nR = (405 × 100) / (4500 × 2) = 40500 / 9000 = 4.5%.",
-      exp_en: "Explanation:\nR = (405 × 100) / (9000) = 4.5%."
+      exp_ta: "<b>விளக்கம்:</b><br>R = (405 × 100) / (4500 × 2) = 40500 / 9000 = 4.5%.",
+      exp_en: "<b>Explanation:</b><br>R = (405 × 100) / (9000) = 4.5%."
     },
     {
-      q_ta: "27. ஒரு குறிப்பிட்ட தொகையானது 6 ஆண்டுகளில் தனிவட்டி முறையில் 2 மடங்காகிறது எனில், வட்டி வீதம் என்ன?",
-      q_en: "27. A certain sum becomes double in 6 years at simple interest. Find the rate of interest.",
+      q_ta: "27. ஒரு குறிப்பிட்ட தொகையானது 6 ஆண்டுகளில் தனிவட்டி முறையில் 2 மடங்காகிறது எனில், வட்டி வீதம் என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "27. A certain sum becomes double in 6 years at simple interest. Find the rate of interest.\n[Expected Question - Group 4]",
       o: ["a) 16 2/3 %", "b) 12.5%", "c) 15%", "d) 20%"],
       a: 0,
-      exp_ta: "விளக்கம்:\nR = [(2 - 1) × 100] / 6 = 100 / 6 = 16 2/3 %.",
-      exp_en: "Explanation:\nR = 100 / 6 = 16 2/3 %."
+      exp_ta: "<b>விளக்கம்:</b><br>R = [(2 - 1) × 100] / 6 = 100 / 6 = 16 2/3 %.",
+      exp_en: "<b>Explanation:</b><br>R = 100 / 6 = 16 2/3 %."
     },
     {
-      q_ta: "28. எந்தத் தொகைக்கு 4% ஆண்டு தனிவட்டி வீதத்தில் 2 ஆண்டுகளில் கிடைக்கும் தனிவட்டி ₹160 ஆகும்?",
-      q_en: "28. Find the principal which yields a simple interest of ₹160 in 2 years at 4% per annum.",
+      q_ta: "28. எந்தத் தொகைக்கு 4% ஆண்டு தனிவட்டி வீதத்தில் 2 ஆண்டுகளில் கிடைக்கும் தனிவட்டி ₹160 ஆகும்?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "28. Find the principal which yields a simple interest of ₹160 in 2 years at 4% per annum.\n[Expected Question - Group 4]",
       o: ["a) ₹1500", "b) ₹2000", "c) ₹2500", "d) ₹1800"],
       a: 1,
-      exp_ta: "விளக்கம்:\nP = (160 × 100) / (2 × 4) = 16000 / 8 = ₹2000.",
-      exp_en: "Explanation:\nP = (160 × 100) / 8 = ₹2000."
+      exp_ta: "<b>விளக்கம்:</b><br>P = (160 × 100) / (2 × 4) = 16000 / 8 = ₹2000.",
+      exp_en: "<b>Explanation:</b><br>P = (160 × 100) / 8 = ₹2000."
     },
     {
-      q_ta: "29. ஆண்டு வட்டி வீதம் 5% லிருந்து 4% ஆகக் குறைக்கப்பட்டதால் ஒருவருக்கு ₹80 இழப்பு ஏற்படுகிறது எனில், அசல் என்ன?",
-      q_en: "29. When the rate of interest falls from 5% to 4%, a person's income decreases by ₹80. Find the principal.",
+      q_ta: "29. ஆண்டு வட்டி வீதம் 5% லிருந்து 4% ஆகக் குறைக்கப்பட்டதால் ஒருவருக்கு ₹80 இழப்பு ஏற்படுகிறது எனில், அசல் என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "29. When the rate of interest falls from 5% to 4%, a person's income decreases by ₹80. Find the principal.\n[Expected Question - Group 4]",
       o: ["a) ₹6000", "b) ₹8000", "c) ₹10000", "d) ₹7500"],
       a: 1,
-      exp_ta: "விளக்கம்:\n1% = ₹80 ➔ அசல் (100%) = ₹8000.",
-      exp_en: "Explanation:\n1% = ₹80 ➔ Principal = ₹8000."
+      exp_ta: "<b>விளக்கம்:</b><br>1% = ₹80 ➔ அசல் (100%) = ₹8000.",
+      exp_en: "<b>Explanation:</b><br>1% = ₹80 ➔ Principal = ₹8000."
     },
     {
-      q_ta: "30. ஒரு தொகையானது 8 ஆண்டுகளில் தனிவட்டி முறையில் 4 மடங்காக மாறுகிறது எனில், எத்தனை ஆண்டுகளில் அது 7 மடங்காகும்?",
-      q_en: "30. A sum of money becomes 4 times in 8 years at simple interest. In how many years will it become 7 times?",
+      q_ta: "30. ஒரு தொகையானது 8 ஆண்டுகளில் தனிவட்டி முறையில் 4 மடங்காக மாறுகிறது எனில், எத்தனை ஆண்டுகளில் அது 7 மடங்காகும்?\n[எதிர்பார்க்கப்படும் வினா - Group 2/2A]",
+      q_en: "30. A sum of money becomes 4 times in 8 years at simple interest. In how many years will it become 7 times?\n[Expected Question - Group 2/2A]",
       o: ["a) 16 ஆண்டுகள்", "b) 18 ஆண்டுகள்", "c) 20 ஆண்டுகள்", "d) 24 ஆண்டுகள்"],
       a: 0,
-      exp_ta: "விளக்கம்:\n(8 / T2) = (4 - 1) / (7 - 1) = 3 / 6 = 1 / 2 ➔ T2 = 16 ஆண்டுகள்.",
-      exp_en: "Explanation:\n8 / T2 = 3 / 6 ➔ T2 = 16 years."
+      exp_ta: "<b>விளக்கம்:</b><br>(8 / T2) = (4 - 1) / (7 - 1) = 3 / 6 = 1 / 2 ➔ T2 = 16 ஆண்டுகள்.",
+      exp_en: "<b>Explanation:</b><br>8 / T2 = 3 / 6 ➔ T2 = 16 years."
     }
   ];
 
@@ -409,7 +418,7 @@
       document.getElementById('lblCorrect').innerText = "சரியானது ✅";
       document.getElementById('lblWrong').innerText = "தவறானது ❌";
       document.getElementById('lblUnans').innerText = "விடையில்லை ⚠️";
-      document.getElementById('btnKey').innerText = "🔍 விடை குறிப்பு (Answer Key)";
+      document.getElementById('btnKey').innerText = "🔍 விடை குறிப்பு & விளக்கம்";
       document.getElementById('btnDash').innerText = "🏠 முகப்புப் பக்கம்";
       document.getElementById('btnRetake').innerText = "🔄 மீண்டும் தேர்வு";
       document.getElementById('btnExit').innerText = "🚪 வெளியேறு";
@@ -449,6 +458,26 @@
     });
   }
 
+  function searchInAI(provider, questionIdx) {
+    const q = questionsData[questionIdx];
+    const questionText = (currentLang === 'ta' ? q.q_ta : q.q_en).replace(/<[^>]*>?/gm, '');
+    const optionsText = q.o.join(", ");
+    const fullQuery = encodeURIComponent(`Explain this TNPSC Simple Interest question step by step:\n${questionText}\nOptions: ${optionsText}`);
+    
+    let targetUrl = "";
+    if (provider === 'chatgpt') {
+      targetUrl = `https://chatgpt.com/?q=${fullQuery}`;
+    } else if (provider === 'gemini') {
+      targetUrl = `https://gemini.google.com/app`;
+    } else if (provider === 'perplexity') {
+      targetUrl = `https://www.perplexity.ai/?q=${fullQuery}`;
+    } else if (provider === 'google') {
+      targetUrl = `https://www.google.com/search?q=${fullQuery}`;
+    }
+
+    window.open(targetUrl, '_blank');
+  }
+
   function loadQuestion(idx) {
     currentQuestion = idx;
     const q = questionsData[idx];
@@ -481,7 +510,18 @@
     const expBox = document.getElementById('expBox');
     if(isReviewMode) {
       expBox.style.display = 'block';
-      expBox.innerText = currentLang === 'ta' ? q.exp_ta : q.exp_en;
+      let baseExp = currentLang === 'ta' ? q.exp_ta : q.exp_en;
+      
+      expBox.innerHTML = `
+        <div style="font-size: 14px; margin-bottom: 8px;">${baseExp}</div>
+        <div style="font-size: 12px; color: #fbbf24; margin-top: 10px; font-weight: bold;">🤖 AI Link Buttons (Opens in New Tab):</div>
+        <div class="ai-btn-group">
+          <button class="ai-link-btn btn-chatgpt" onclick="searchInAI('chatgpt', ${idx})">🟢 ChatGPT</button>
+          <button class="ai-link-btn btn-gemini" onclick="searchInAI('gemini', ${idx})">✨ Gemini AI</button>
+          <button class="ai-link-btn btn-perplexity" onclick="searchInAI('perplexity', ${idx})">🔵 Perplexity</button>
+          <button class="ai-link-btn btn-google" onclick="searchInAI('google', ${idx})">🔍 Google Search</button>
+        </div>
+      `;
     } else {
       expBox.style.display = 'none';
     }
@@ -504,9 +544,9 @@
   }
 
   function navigateNumberQuery(dir) {
-    const next = currentQuestion + dir;
-    if(next >= 0 && next < questionsData.length) {
-      loadQuestion(next);
+    const postNext = currentQuestion + dir;
+    if(postNext >= 0 && postNext < questionsData.length) {
+      loadQuestion(postNext);
     }
   }
 
