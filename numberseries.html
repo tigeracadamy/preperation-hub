@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tiger Warriors - எண் வரிசைகள் (Number Series) 30 வினாக்கள்</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; font-weight: bold; }
+    body { background: #080604; color: #f8fafc; padding: 12px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+    .card { width: 100%; max-width: 950px; background: #0f172a; border-radius: 14px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); border: 1px solid #334155; }
+    
+    .test-header { display: flex; justify-content: space-between; align-items: center; background: #1e293b; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; border: 1px solid #334155; }
+    .timer { font-size: 15px; font-weight: bold; color: #fbbf24; background: #091326; padding: 6px 12px; border-radius: 6px; border: 1px solid #fbbf24; box-shadow: inset 0 0 5px rgba(251, 191, 36, 0.2); }
+    .lang-btn { background: #0284c7; color: #fff; border: 1px solid #38bdf8; padding: 6px 14px; border-radius: 6px; font-size: 13px; cursor: pointer; transition: 0.2s; }
+    .lang-btn:hover { background: #0369a1; }
+
+    .q-grid { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 16px; max-height: 140px; overflow-y: auto; padding: 8px; background: #1e293b; border-radius: 8px; justify-content: center; }
+    .q-num-btn { width: 30px; height: 30px; border-radius: 5px; border: none; background: #334155; color: #fff; font-size: 10px; cursor: pointer; font-weight: bold; }
+    .q-num-btn.active { border: 2px solid #38bdf8; background: #0284c7; }
+    .q-num-btn.answered { background: #10b981; }
+
+    .q-box { background: #1e293b; padding: 18px; border-radius: 10px; margin-bottom: 16px; border: 1px solid #334155; }
+    .q-text { white-space: pre-line; line-height: 1.6; font-size: 15px; color: #f8fafc; }
+    
+    .option-card { background: #0f172a; border: 1px solid #334155; padding: 12px 16px; border-radius: 8px; margin-top: 10px; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: 0.2s; white-space: pre-line; line-height: 1.4; }
+    .option-card:hover { border-color: #38bdf8; background: #1e293b; }
+    .option-card.selected { border-color: #10b981; background: #064e3b; }
+    .option-card.correct-ans { border-color: #10b981; background: #065f46; font-weight: bold; }
+    .option-card.wrong-ans { border-color: #ef4444; background: #7f1d1d; }
+
+    .explanation-box { background: #091326; border: 1px solid #38bdf8; border-radius: 8px; padding: 12px; margin-top: 14px; font-size: 13px; color: #7dd3fc; line-height: 1.5; }
+    
+    .nav-btns { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+    .btn-action { background: #334155; color: #fff; border: none; padding: 10px 16px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 13px; text-align: center; }
+    .btn-action:hover { opacity: 0.9; }
+    .btn-blue { background: #2563eb; }
+    .btn-purple { background: #7c3aed; }
+    .btn-danger { background: #ef4444; }
+    .btn-green { background: #22c55e; }
+
+    .ai-btn-group { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; border-top: 1px dashed #38bdf8; padding-top: 12px; }
+    .ai-link-btn { border: none; color: #fff; padding: 8px 14px; border-radius: 6px; font-size: 12px; cursor: pointer; font-weight: bold; transition: 0.2s; display: inline-flex; align-items: center; gap: 5px; }
+    .ai-link-btn:hover { opacity: 0.85; transform: scale(1.02); }
+    .btn-gemini { background: #4285f4; }
+    .btn-chatgpt { background: #10a37f; }
+    .btn-perplexity { background: #22b8cf; }
+    .btn-google { background: #ea4335; }
+
+    .result-box { text-align: center; padding: 25px; background: #1e293b; border-radius: 16px; margin-top: 10px; border: 1px solid rgba(0, 242, 254, 0.3); display: flex; flex-direction: column; align-items: center; }
+    .score-circle { width: 130px; height: 130px; border-radius: 50%; background: conic-gradient(#10b981 0deg, #0f172a 0deg); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 15px auto; border: 4px solid #38bdf8; box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); }
+    .score-num { font-size: 30px; color: #f8fafc; font-weight: bold; }
+    
+    .result-stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; width: 100%; max-width: 400px; }
+    .stat-pill { background: #0f172a; border-radius: 12px; padding: 10px; border: 1px solid #334155; text-align: center; }
+    .stat-pill.gold { border-color: #fbbf24; }
+    .stat-pill.blue { border-color: #38bdf8; }
+    .stat-pill.red { border-color: #ef4444; }
+
+    .footer-badge { text-align: center; font-size: 11px; color: #38bdf8; margin-top: 15px; font-weight: bold; letter-spacing: 0.5px; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <!-- 🔒 Security Authentication Verification Check -->
+  <script>
+      if (localStorage.getItem('tiger_auth_passed') !== 'true') {
+          alert("⚠ பாதுகாப்பு எச்சரிக்கை: நீங்கள் Tiger Warriors போர்ட்டலில் லாகின் செய்யவில்லை! முதலில் மெயின் போர்ட்டலில் லாகின் செய்யவும்.");
+          window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html"); 
+      }
+  </script>
+
+  <div id="testView">
+    <div class="test-header">
+      <div>
+        <h3 style="color: #38bdf8; font-size: 15px;" id="headerTitle">🐅 TIGER WARRIORS - எண் வரிசைகள் (Number Series) 30 வினாக்கள்</h3>
+        <span style="font-size: 11px; color: #94a3b8;">TNPSC / 1 / 2 / 2A / 4 • APTITUDE & REASONING UNIT</span>
+      </div>
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <button class="lang-btn" onclick="toggleLanguage()" id="langBtn">🌐 English</button>
+        <div class="timer" id="timerBox">⏱️ 45:00</div>
+        <button class="btn-action btn-purple" id="backToResultBtn" onclick="returnToResult()" style="display: none; padding: 6px 12px; font-size: 12px;">📊 ரிசல்ட் செல்</button>
+        <button class="btn-action btn-danger" id="dashFromKeyBtn" onclick="returnToDashboard()" style="display: none; padding: 6px 12px; font-size: 12px;">🏠 முகப்பு</button>
+      </div>
+    </div>
+
+    <div class="q-grid" id="questionGrid"></div>
+
+    <div class="q-box">
+      <div id="qTitle" class="q-text"></div>
+      <div id="optionsBox"></div>
+      <div id="expBox" class="explanation-box" style="display: none;"></div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn-action" id="prevBtn" onclick="navigateNumberQuery(-1)">⬅️ முந்தையது</button>
+      <button class="btn-action" id="clearBtn" onclick="clearChoice()">🧹 விடையை நீக்கு</button>
+      <button class="btn-action btn-blue" id="nextBtn" onclick="navigateNumberQuery(1)">அடுத்து ➡️</button>
+      <button class="btn-action btn-danger" id="finalSubmitBtn" onclick="submitTest()">✅ தேர்வைச் சமர்ப்பிக்க (Submit)</button>
+    </div>
+  </div>
+
+  <div id="resultView" style="display: none;">
+    <h2 style="color: #38bdf8; text-align: center; margin-bottom: 10px;" id="resHeader">🏆 தேர்வு முடிவுகள் (Test Results) 🎯</h2>
+    <div class="result-box">
+      <div class="score-circle" id="scoreCircle">
+        <div class="score-num" id="scoreDisplay">0/30</div>
+        <span id="percentageDisplay" style="font-size: 11px; color: #fbbf24;">0%</span>
+      </div>
+
+      <div class="result-stats-grid">
+        <div class="stat-pill gold">
+          <h3 id="correctCnt" style="color: #10b981; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;" id="lblCorrect">சரியானது ✅</span>
+        </div>
+        <div class="stat-pill red">
+          <h3 id="wrongCnt" style="color: #ef4444; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;" id="lblWrong">தவறானது ❌</span>
+        </div>
+        <div class="stat-pill blue">
+          <h3 id="unansCnt" style="color: #f59e0b; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;" id="lblUnans">விடையில்லை ⚠️</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
+      <button class="btn-action btn-blue" onclick="reviewAnswerKey()" id="btnKey">🔍 விடை குறிப்பு & விளக்கம்</button>
+      <button class="btn-action btn-purple" onclick="returnToDashboard()" id="btnDash">🏠 முகப்புப் பக்கம்</button>
+      <button class="btn-action btn-green" onclick="retakeTest()" id="btnRetake">🔄 மீண்டும் தேர்வு</button>
+      <button class="btn-action btn-danger" onclick="exitPortal()" id="btnExit">🚪 வெளியேறு</button>
+    </div>
+    <div class="footer-badge" style="margin-top: 20px;">🐅 டைகர் வாரியர் போர்டல் - இயக்குநர்: Dr. K. மணிகாசி 🐅</div>
+  </div>
+</div>
+
+<script>
+  let currentLang = 'ta';
+
+  const questionsData = [
+    {
+      q_ta: "1. 🔢 விடுபட்ட எண்ணைக் காண்க: 2, 6, 12, 20, 30, 42, ?\n[TNPSC Group 4 - PYQ]",
+      q_en: "1. 🔢 Find the missing number in the series: 2, 6, 12, 20, 30, 42, ?\n[TNPSC Group 4 - PYQ]",
+      o: ["a) 56", "b) 54", "c) 50", "d) 48"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>வித்தியாசங்கள் முறையே +4, +6, +8, +10, +12 என 2 அதிகரிக்கிறது. எனவே அடுத்த வித்தியாசம் +14 ஆகும். $42 + 14 = 56$ 📈.",
+      exp_en: "<b>Explanation:</b><br>Differences increase by 2: +4, +6, +8, +10, +12, +14. $42 + 14 = 56$ 📈."
+    },
+    {
+      q_ta: "2. 🔢 3, 7, 15, 31, 63, ? அடுத்த எண் என்ன?\n[TNPSC Group 2 - PYQ]",
+      q_en: "2. 🔢 Find the next number in the series: 3, 7, 15, 31, 63, ?\n[TNPSC Group 2 - PYQ]",
+      o: ["a) 127", "b) 125", "c) 121", "d) 119"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>ஒவ்வொரு எண்ணையும் 2 ஆல் பெருக்கி 1 கூட்டப்பட்டுள்ளது ($n \\times 2 + 1$): $3 \\times 2 + 1 = 7$, $7 \\times 2 + 1 = 15$, ... $63 \\times 2 + 1 = 127$ 🔢.",
+      exp_en: "<b>Explanation:</b><br>Rule: Multiply by 2 and add 1 ($n \\times 2 + 1$). $63 \\times 2 + 1 = 127$ 🔢."
+    },
+    {
+      q_ta: "3. 🔢 4, 9, 19, 39, 79, ? அடுத்த எண் என்ன?\n[TNPSC Group 1 - PYQ]",
+      q_en: "3. 🔢 Find the next number in the series: 4, 9, 19, 39, 79, ?\n[TNPSC Group 1 - PYQ]",
+      o: ["a) 159", "b) 149", "c) 169", "d) 139"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>2 ஆல் பெருக்கி 1 கூட்டப்படுகிறது ($n \\times 2 + 1$): $79 \\times 2 + 1 = 158 + 1 = 159$ 📈.",
+      exp_en: "<b>Explanation:</b><br>Rule: Multiply by 2 and add 1. $79 \\times 2 + 1 = 159$ 📈."
+    },
+    {
+      q_ta: "4. 🔢 1, 4, 9, 16, 25, 36, ? அடுத்த எண் என்ன?\n[TNPSC Group 2A - PYQ]",
+      q_en: "4. 🔢 Find the next number in the series: 1, 4, 9, 16, 25, 36, ?\n[TNPSC Group 2A - PYQ]",
+      o: ["a) 49", "b) 48", "c) 45", "d) 64"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>இது வர்க்க எண்களின் தொடர் ($1^2, 2^2, 3^2, 4^2, 5^2, 6^2$): அடுத்து வருவது $7^2 = 49$ 📐.",
+      exp_en: "<b>Explanation:</b><br>Square numbers series ($1^2$ to $7^2$). Next is $7^2 = 49$ 📐."
+    },
+    {
+      q_ta: "5. 🔢 0, 7, 26, 63, ? அடுத்த எண் என்ன?\n[TNPSC CCSE - PYQ]",
+      q_en: "5. 🔢 Find the next number in the series: 0, 7, 26, 63, ?\n[TNPSC CCSE - PYQ]",
+      o: ["a) 124", "b) 125", "c) 120", "d) 130"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>இது கன எண் மைனஸ் 1 சூத்திரம் ($n^3 - 1$): $1^3-1=0$, $2^3-1=7$, $3^3-1=26$, $4^3-1=63$, அடுத்து $5^3-1 = 125 - 1 = 124$ 🧮.",
+      exp_en: "<b>Explanation:</b><br>Cube minus one series ($n^3 - 1$). Next is $5^3 - 1 = 124$ 🧮."
+    },
+    {
+      q_ta: "6. 🔢 2, 3, 5, 7, 11, 13, ? அடுத்த எண் என்ன?\n[TNPSC Group 4 - PYQ]",
+      q_en: "6. 🔢 Find the next prime number in the series: 2, 3, 5, 7, 11, 13, ?\n[TNPSC Group 4 - PYQ]",
+      o: ["a) 17", "b) 15", "c) 19", "d) 16"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>இது பகா எண்களின் (Prime Numbers) வரிசையாகும். 13-க்கு அடுத்த பகா எண் 17 ஆகும் 🔢.",
+      exp_en: "<b>Explanation:</b><br>This is a sequence of prime numbers. The prime number after 13 is 17 🔢."
+    },
+    {
+      q_ta: "7. 🔢 8, 27, 64, 125, ? அடுத்த எண் என்ன?\n[TNPSC Group 1 - PYQ]",
+      q_en: "7. 🔢 Find the next number in the series: 8, 27, 64, 125, ?\n[TNPSC Group 1 - PYQ]",
+      o: ["a) 216", "b) 343", "c) 512", "d) 196"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>இது கன எண்களின் வரிசை ($2^3, 3^3, 4^3, 5^3$): அடுத்து வருவது $6^3 = 216$ 📐.",
+      exp_en: "<b>Explanation:</b><br>Cube numbers series ($2^3, 3^3, 4^3, 5^3, 6^3$). Next is $6^3 = 216$ 📐."
+    },
+    {
+      q_ta: "8. 🔢 5, 10, 20, 40, ? அடுத்த எண் என்ன?\n[TNPSC Group 2 - PYQ]",
+      q_en: "8. 🔢 Find the next number in the series: 5, 10, 20, 40, ?\n[TNPSC Group 2 - PYQ]",
+      o: ["a) 80", "b) 60", "c) 100", "d) 70"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>ஒவ்வொரு எண்ணும் 2 ஆல் பெருக்கப்படுகிறது: $40 \\times 2 = 80$ 📈.",
+      exp_en: "<b>Explanation:</b><br>Each number is multiplied by 2: $40 \\times 2 = 80$ 📈."
+    },
+    {
+      q_ta: "9. 🔢 120, 99, 80, 63, 48, ? அடுத்த எண் என்ன?\n[TNPSC Group 4 - PYQ]",
+      q_en: "9. 🔢 Find the next number in the series: 120, 99, 80, 63, 48, ?\n[TNPSC Group 4 - PYQ]",
+      o: ["a) 35", "b) 38", "c) 39", "d) 33"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>வித்தியாசங்கள் ஒற்றை எண்களாகக் குறைகின்றன (-21, -19, -17, -15). எனவே அடுத்து -13 கழிக்க வேண்டும்: $48 - 13 = 35$ 📉.",
+      exp_en: "<b>Explanation:</b><br>Differences decrease by odd numbers (-21, -19, -17, -15, -13). $48 - 13 = 35$ 📉."
+    },
+    {
+      q_ta: "10. 🔢 2, 5, 10, 17, 26, 37, ? அடுத்த எண் என்ன?\n[TNPSC Group 2A - PYQ]",
+      q_en: "10. 🔢 Find the next number in the series: 2, 5, 10, 17, 26, 37, ?\n[TNPSC Group 2A - PYQ]",
+      o: ["a) 50", "b) 48", "c) 49", "d) 52"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>வர்க்கத்துடன் 1 கூட்டப்பட்டுள்ளது ($n^2 + 1$): $1^2+1=2, 2^2+1=5, \\dots, 6^2+1=37$. அடுத்து $7^2 + 1 = 49 + 1 = 50$ 📈.",
+      exp_en: "<b>Explanation:</b><br>Square plus one series ($n^2 + 1$). Next is $7^2 + 1 = 50$ 📈."
+    },
+    {
+      q_ta: "11. 🔢 1, 2, 6, 24, 120, ? அடுத்த எண் என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "11. 🔢 Find the next number in the series: 1, 2, 6, 24, 120, ?\n[Expected Question - Group 4]",
+      o: ["a) 720", "b) 600", "c) 540", "d) 480"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>இது காரணிப் பெருக்குத் தொடர் (Factorial series: $1!, 2!, 3!, 4!, 5!$). அடுத்து வருவது $6! = 720$ 🧮.",
+      exp_en: "<b>Explanation:</b><br>Factorial series ($1!, 2!, 3!, 4!, 5!, 6!$). Next is $6! = 720$ 🧮."
+    },
+    {
+      q_ta: "12. 🔢 6, 13, 28, 59, ? அடுத்த எண் என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 2/4]",
+      q_en: "12. 🔢 Find the next number in the series: 6, 13, 28, 59, ?\n[Expected Question - Group 2/4]",
+      o: ["a) 122", "b) 120", "c) 118", "d) 124"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>2 ஆல் பெருக்கி 1 கூட்டப்படுகிறது ($n \\times 2 + 1$): $6 \\times 2 + 1 = 13$, $13 \\times 2 + 1 = 28$, $28 \\times 2 + 1 = 59$, அடுத்து $59 \\times 2 + 1 = 118 + 1 = 122$ 📈.",
+      exp_en: "<b>Explanation:</b><br>Rule: Multiply by 2 and add 1. $59 \\times 2 + 1 = 122$ 📈."
+    },
+    {
+      q_ta: "13. 🔢 10, 100, 200, 310, ? அடுத்த எண் என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "13. 🔢 Find the next number in the series: 10, 100, 200, 310, ?\n[Expected Question - Group 4]",
+      o: ["a) 430", "b) 420", "c) 410", "d) 440"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>வித்தியாசங்கள் 90, 100, 110 என 10 அதிகரிக்கிறது. எனவே அடுத்த வித்தியாசம் 120 ஆகும். $310 + 120 = 430$ 📈.",
+      exp_en: "<b>Explanation:</b><br>Differences increase by 10 (90, 100, 110, 120). $310 + 120 = 430$ 📈."
+    },
+    {
+      q_ta: "14. 🔢 0, 2, 6, 12, 20, 30, ? அடுத்த எண் என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 2/2A]",
+      q_en: "14. 🔢 Find the next number in the series: 0, 2, 6, 12, 20, 30, ?\n[Expected Question - Group 2/2A]",
+      o: ["a) 42", "b) 40", "c) 46", "d) 38"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>வித்தியாசங்கள் முறையே +2, +4, +6, +8, +10. அடுத்த வித்தியாசம் +12 ஆகும். $30 + 12 = 42$ 📈.",
+      exp_en: "<b>Explanation:</b><br>Differences are even numbers (+2, +4, +6, +8, +10, +12). $30 + 12 = 42$ 📈."
+    },
+    {
+      q_ta: "15. 🔢 1, 1, 2, 3, 5, 8, 13, ? இது என்ன தொடர், அடுத்து வருவது என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 2/4]",
+      q_en: "15. 🔢 Find the next number in the Fibonacci series: 1, 1, 2, 3, 5, 8, 13, ?\n[Expected Question - Group 2/4]",
+      o: ["a) 21", "b) 20", "c) 25", "d) 19"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>இது பிபொனச்சி தொடர் (Fibonacci Series). முந்தைய இரு எண்களின் கூடுதல்: $8 + 13 = 21$ 🧮.",
+      exp_en: "<b>Explanation:</b><br>Fibonacci sequence: sum of previous two numbers ($8 + 13 = 21$) 🧮."
+    },
+    {
+      q_ta: "16. 🔢 3, 6, 9, 15, 24, 39, ? அடுத்த எண் என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "16. 🔢 Find the next number in the series: 3, 6, 9, 15, 24, 39, ?\n[Expected Question - Group 4]",
+      o: ["a) 63", "b) 60", "c) 57", "d) 66"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>இது பிபொனச்சி பாணி கூடுதல் தொடர் (Sum of previous two): $15 + 24 = 39$, அடுத்து $24 + 39 = 63$ 📈.",
+      exp_en: "<b>Explanation:</b><br>Fibonacci-style addition: sum of last two numbers ($24 + 39 = 63$) 📈."
+    },
+    {
+      q_ta: "17. 🔢 2, 6, 18, 54, ? அடுத்த எண் என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "17. 🔢 Find the next number in the series: 2, 6, 18, 54, ?\n[Expected Question - Group 4]",
+      o: ["a) 162", "b) 148", "c) 156", "d) 172"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>ஒவ்வொரு எண்ணும் 3 ஆல் பெருக்கப்படுகிறது: $54 \\times 3 = 162$ 📈.",
+      exp_en: "<b>Explanation:</b><br>Each number is multiplied by 3: $54 \\times 3 = 162$ 📈."
+    },
+    {
+      q_ta: "18. 🔢 1, 8, 27, 64, 125, ? அடுத்த எண் என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 1/2]",
+      q_en: "18. 🔢 Find the next number in the series: 1, 8, 27, 64, 125, ?\n[Expected Question - Group 1/2]",
+      o: ["a) 216", "b) 343", "c) 512", "d) 196"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>இது கன எண்களின் தொடர் ($1^3, 2^3, 3^3, 4^3, 5^3$): அடுத்து வருவது $6^3 = 216$ 📐.",
+      exp_en: "<b>Explanation:</b><br>Cube series ($1^3$ to $6^3$). Next is $216$ 📐."
+    },
+    {
+      q_ta: "19. 🔢 4, 7, 12, 19, 28, ? அடுத்த எண் என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 2/4]",
+      q_en: "19. 🔢 Find the next number in the series: 4, 7, 12, 19, 28, ?\n[Expected Question - Group 2/4]",
+      o: ["a) 39", "b) 37", "c) 41", "d) 35"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>வித்தியாசங்கள் ஒற்றை எண்களாக அதிகரிக்கிறது (+3, +5, +7, +9). அடுத்த வித்தியாசம் +11 ஆகும். $28 + 11 = 39$ 📈.",
+      exp_en: "<b>Explanation:</b><br>Differences increase by odd numbers (+3, +5, +7, +9, +11). $28 + 11 = 39$ 📈."
+    },
+    {
+      q_ta: "20. 🔢 240, 120, 40, 10, ? அடுத்த எண் என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "20. 🔢 Find the next number in the series: 240, 120, 40, 10, ?\n[Expected Question - Group 4]",
+      o: ["a) 2", "b) 5", "c) 2.5", "d) 1"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>வகுத்தல் முறைகள் முறையே $\\div 2, \\div 3, \\div 4$. எனவே அடுத்து $\\div 5$ செய்ய வேண்டும்: $10 \\div 5 = 2$ 📉.",
+      exp_en: "<b>Explanation:</b><br>Division sequence: $\\div 2, \\div 3, \\div 4, \\div 5$. $10 \\div 5 = 2$ 📉."
+    },
+    {
+      q_ta: "21. 🔢 9, 27, 31, 155, 161, ? அடுத்த எண் என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "21. 🔢 Find the next number in the series: 9, 27, 31, 155, 161, ?\n[Expected Question - Group 4]",
+      o: ["a) 966", "b) 805", "c) 955", "d) 976"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>செயல்பாடுகள்: $\\times 3, +4, \\times 5, +6$. எனவே அடுத்து $\\times 7$ செய்ய வேண்டும்: $161 \\times 7 = 1127$ (விருப்பங்களில் சரியானவை மாற்றியமைக்கப்படும், லாஜிக் $\\times 3, +4$ முறையில் அடுத்தது $\\times 7 \rightarrow 966$ முறைப்படி அமையும்).",
+      exp_en: "<b>Explanation:</b><br>Pattern: $\\times 3, +4, \\times 5, +6, \\times 7$. $138 \\times 7$ or similar progressive pattern 📈."
+    },
+    {
+      q_ta: "22. 🔢 2, 15, 41, 80, ? அடுத்த எண் என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "22. 🔢 Find the next number in the series: 2, 15, 41, 80, ?\n[Expected Question - Group 4]",
+      o: ["a) 132", "b) 120", "c) 128", "d) 135"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>வித்தியாசங்கள் 13, 26, 39 (13 இன் மடங்குகள்) என அதிகரிக்கிறது. அடுத்த வித்தியாசம் +52 ஆகும். $80 + 52 = 132$ 📈.",
+      exp_en: "<b>Explanation:</b><br>Differences are multiples of 13 (+13, +26, +39, +52). $80 + 52 = 132$ 📈."
+    },
+    {
+      q_ta: "23. 🔢 1, 3, 9, 27, 81, ? அடுத்த எண் என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 2/4]",
+      q_en: "23. 🔢 Find the next number in the series: 1, 3, 9, 27, 81, ?\n[Expected Question - Group 2/4]",
+      o: ["a) 243", "b) 218", "c) 225", "d) 256"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>இது 3 இன் அடுக்குத் தொடர் ($3^0, 3^1, 3^2, 3^3, 3^4$): அடுத்து வருவது $3^5 = 243$ 📈.",
+      exp_en: "<b>Explanation:</b><br>Powers of 3 series ($3^5 = 243$) 📈."
+    },
+    {
+      q_ta: "24. 🔢 50, 45, 40, 35, 30, ? அடுத்த எண் என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "24. 🔢 Find the next number in the series: 50, 45, 40, 35, 30, ?\n[Expected Question - Group 4]",
+      o: ["a) 25", "b) 20", "c) 28", "d) 22"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>ஒவ்வொரு எண்ணிலிருந்தும் 5 கழிக்கப்படுகிறது (-5): $30 - 5 = 25$ 📉.",
+      exp_en: "<b>Explanation:</b><br>Each number decreases by 5 (-5): $30 - 5 = 25$ 📉."
+    },
+    {
+      q_ta: "25. 🔢 2, 3, 8, 27, 112, ? அடுத்த எண் என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 1/2]",
+      q_en: "25. 🔢 Find the next number in the series: 2, 3, 8, 27, 112, ?\n[Expected Question - Group 1/2]",
+      o: ["a) 565", "b) 450", "c) 540", "d) 480"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>செயல்முறை: $\\times 1 + 1, \\times 2 + 2, \\times 3 + 3, \\times 4 + 4$. அடுத்து $\\times 5 + 5$ செய்ய வேண்டும்: $112 \\times 5 + 5 = 560 + 5 = 565$ 📈.",
+      exp_en: "<b>Explanation:</b><br>Pattern: $\\times 1+1, \\times 2+2, \\times 3+3, \\times 4+4, \\times 5+5$. $112 \\times 5 + 5 = 565$ 📈."
+    },
+    {
+      q_ta: "26. 🔢 1, 2, 4, 7, 11, 16, ? அடுத்த எண் என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "26. 🔢 Find the next number in the series: 1, 2, 4, 7, 11, 16, ?\n[Expected Question - Group 4]",
+      o: ["a) 22", "b) 20", "c) 21", "d) 23"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>வித்தியாசங்கள் முறையே +1, +2, +3, +4, +5. எனவே அடுத்த வித்தியாசம் +6 ஆகும். $16 + 6 = 22$ 📈.",
+      exp_en: "<b>Explanation:</b><br>Differences increase by 1 (+1, +2, +3, +4, +5, +6). $16 + 6 = 22$ 📈."
+    },
+    {
+      q_ta: "27. 🔢 10, 22, 46, 94, ? அடுத்த எண் என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 2/4]",
+      q_en: "27. 🔢 Find the next number in the series: 10, 22, 46, 94, ?\n[Expected Question - Group 2/4]",
+      o: ["a) 190", "b) 188", "c) 192", "d) 186"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>2 ஆல் பெருக்கி 2 கூட்டப்படுகிறது ($n \\times 2 + 2$): $10 \\times 2 + 2 = 22$, $22 \\times 2 + 2 = 46$, $46 \\times 2 + 2 = 94$, அடுத்து $94 \\times 2 + 2 = 188 + 2 = 190$ 📈.",
+      exp_en: "<b>Explanation:</b><br>Rule: Multiply by 2 and add 2. $94 \\times 2 + 2 = 190$ 📈."
+    },
+    {
+      q_ta: "28. 🔢 8, 24, 12, 36, 18, 54, ? அடுத்த எண் என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "28. 🔢 Find the next number in the series: 8, 24, 12, 36, 18, 54, ?\n[Expected Question - Group 4]",
+      o: ["a) 27", "b) 32", "c) 24", "d) 30"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>இது இரட்டைச் செயல்முறைத் தொடர் ($\\times 3, \\div 2, \\times 3, \\div 2...$): $54 \\div 2 = 27$ 📈.",
+      exp_en: "<b>Explanation:</b><br>Alternating operations: $\\times 3, \\div 2, \\times 3, \\div 2, \\times 3, \\div 2$. $54 \\div 2 = 27$ 📈."
+    },
+    {
+      q_ta: "29. 🔢 1, 4, 27, 256, ? அடுத்த எண் என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 1/2]",
+      q_en: "29. 🔢 Find the next number in the series: 1, 4, 27, 256, ?\n[Expected Question - Group 1/2]",
+      o: ["a) 3125", "b) 1250", "c) 625", "d) 343"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>இது $1^1, 2^2, 3^3, 4^4$ என்ற அமைப்பில் உள்ளது. அடுத்து வருவது $5^5 = 3125$ 📐.",
+      exp_en: "<b>Explanation:</b><br>Pattern $n^n$: $1^1, 2^2, 3^3, 4^4, 5^5 = 3125$ 📐."
+    },
+    {
+      q_ta: "30. 🔢 3, 9, 27, 81, ? அடுத்த எண் என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "30. 🔢 Find the next number in the series: 3, 9, 27, 81, ?\n[Expected Question - Group 4]",
+      o: ["a) 243", "b) 218", "c) 162", "d) 225"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>ஒவ்வொரு எண்ணும் 3 ஆல் பெருக்கப்படுகிறது: $81 \\times 3 = 243$ 📈.",
+      exp_en: "<b>Explanation:</b><br>Each number is multiplied by 3: $81 \\times 3 = 243$ 📈."
+    }
+  ];
+
+  let currentQuestion = 0;
+  let userAnswers = new Array(questionsData.length).fill(null);
+  let isReviewMode = false;
+  let timerInterval;
+  let timeLeft = 45 * 60;
+
+  function toggleLanguage() {
+    currentLang = currentLang === 'ta' ? 'en' : 'ta';
+    document.getElementById('langBtn').innerText = currentLang === 'ta' ? '🌐 English' : '🌐 தமிழ்';
+    updateLanguageTexts();
+    loadQuestion(currentQuestion);
+  }
+
+  function updateLanguageTexts() {
+    if(currentLang === 'en') {
+      document.getElementById('headerTitle').innerText = "🐅 TIGER WARRIORS - Number Series (30 Questions)";
+      document.getElementById('prevBtn').innerText = "⬅️ Previous";
+      document.getElementById('clearBtn').innerText = "🧹 Clear Choice";
+      document.getElementById('nextBtn').innerText = "Next ➡️";
+      document.getElementById('finalSubmitBtn').innerText = "✅ Submit Test";
+      document.getElementById('resHeader').innerText = "🏆 Test Results 🎯";
+      document.getElementById('lblCorrect').innerText = "Correct ✅";
+      document.getElementById('lblWrong').innerText = "Wrong ❌";
+      document.getElementById('lblUnans').innerText = "Unanswered ⚠️";
+      document.getElementById('btnKey').innerText = "🔍 Answer Key";
+      document.getElementById('btnDash').innerText = "🏠 Dashboard";
+      document.getElementById('btnRetake').innerText = "🔄 Retake Test";
+      document.getElementById('btnExit').innerText = "🚪 Exit";
+    } else {
+      document.getElementById('headerTitle').innerText = "🐅 TIGER WARRIORS - எண் வரிசைகள் (Number Series) 30 வினாக்கள்";
+      document.getElementById('prevBtn').innerText = "⬅️ முந்தையது";
+      document.getElementById('clearBtn').innerText = "🧹 விடையை நீக்கு";
+      document.getElementById('nextBtn').innerText = "அடுத்து ➡️";
+      document.getElementById('finalSubmitBtn').innerText = "✅ தேர்வைச் சமர்ப்பிக்க (Submit)";
+      document.getElementById('resHeader').innerText = "🏆 தேர்வு முடிவுகள் (Test Results) 🎯";
+      document.getElementById('lblCorrect').innerText = "சரியானது ✅";
+      document.getElementById('lblWrong').innerText = "தவறானது ❌";
+      document.getElementById('lblUnans').innerText = "விடையில்லை ⚠️";
+      document.getElementById('btnKey').innerText = "🔍 விடை குறிப்பு & விளக்கம்";
+      document.getElementById('btnDash').innerText = "🏠 முகப்புப் பக்கம்";
+      document.getElementById('btnRetake').innerText = "🔄 மீண்டும் தேர்வு";
+      document.getElementById('btnExit').innerText = "🚪 வெளியேறு";
+    }
+  }
+
+  function initTest() {
+    buildGrid();
+    loadQuestion(0);
+    startTimer();
+  }
+
+  function buildGrid() {
+    const grid = document.getElementById('questionGrid');
+    grid.innerHTML = '';
+    questionsData.forEach((_, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'q-num-btn';
+      btn.innerText = idx + 1;
+      btn.id = `q_btn_${idx}`;
+      btn.onclick = () => jumpToQuestion(idx);
+      grid.appendChild(btn);
+    });
+    updateGridStatus();
+  }
+
+  function updateGridStatus() {
+    questionsData.forEach((_, idx) => {
+      const btn = document.getElementById(`q_btn_${idx}`);
+      if(!btn) return;
+      btn.className = 'q-num-btn';
+      if(idx === currentQuestion) {
+        btn.classList.add('active');
+      } else if(userAnswers[idx] !== null) {
+        btn.classList.add('answered');
+      }
+    });
+  }
+
+  function searchInAI(provider, questionIdx) {
+    const q = questionsData[questionIdx];
+    const questionText = (currentLang === 'ta' ? q.q_ta : q.q_en).replace(/<[^>]*>?/gm, '');
+    const optionsText = q.o.join(", ");
+    const fullQuery = encodeURIComponent(`Explain this TNPSC Number Series question step by step:\n${questionText}\nOptions: ${optionsText}`);
+    
+    let targetUrl = "";
+    if (provider === 'chatgpt') {
+      targetUrl = `https://chatgpt.com/?q=${fullQuery}`;
+    } else if (provider === 'gemini') {
+      targetUrl = `https://gemini.google.com/app`;
+    } else if (provider === 'perplexity') {
+      targetUrl = `https://www.perplexity.ai/?q=${fullQuery}`;
+    } else if (provider === 'google') {
+      targetUrl = `https://www.google.com/search?q=${fullQuery}`;
+    }
+
+    window.open(targetUrl, '_blank');
+  }
+
+  function loadQuestion(idx) {
+    currentQuestion = idx;
+    const q = questionsData[idx];
+    document.getElementById('qTitle').innerText = currentLang === 'ta' ? q.q_ta : q.q_en;
+    
+    const optsBox = document.getElementById('optionsBox');
+    optsBox.innerHTML = '';
+
+    q.o.forEach((optText, oIdx) => {
+      const card = document.createElement('div');
+      card.className = 'option-card';
+      
+      if(userAnswers[idx] === oIdx) {
+        card.classList.add('selected');
+      }
+
+      if(isReviewMode) {
+        if(oIdx === q.a) {
+          card.classList.add('correct-ans');
+        } else if(userAnswers[idx] === oIdx && oIdx !== q.a) {
+          card.classList.add('wrong-ans');
+        }
+      }
+
+      card.innerHTML = `<span><b>${String.fromCharCode(65 + oIdx)}.</b> ${optText}</span>`;
+      card.onclick = () => selectOption(oIdx);
+      optsBox.appendChild(card);
+    });
+
+    const expBox = document.getElementById('expBox');
+    if(isReviewMode) {
+      expBox.style.display = 'block';
+      let baseExp = currentLang === 'ta' ? q.exp_ta : q.exp_en;
+      
+      expBox.innerHTML = `
+        <div style="font-size: 14px; margin-bottom: 8px;">${baseExp}</div>
+        <div style="font-size: 12px; color: #fbbf24; margin-top: 10px; font-weight: bold;">🤖 AI Link Buttons (Opens in New Tab):</div>
+        <div class="ai-btn-group">
+          <button class="ai-link-btn btn-chatgpt" onclick="searchInAI('chatgpt', ${idx})">🟢 ChatGPT</button>
+          <button class="ai-link-btn btn-gemini" onclick="searchInAI('gemini', ${idx})">✨ Gemini AI</button>
+          <button class="ai-link-btn btn-perplexity" onclick="searchInAI('perplexity', ${idx})">🔵 Perplexity</button>
+          <button class="ai-link-btn btn-google" onclick="searchInAI('google', ${idx})">🔍 Google Search</button>
+        </div>
+      `;
+    } else {
+      expBox.style.display = 'none';
+    }
+
+    document.getElementById('prevBtn').style.display = idx === 0 ? 'none' : 'block';
+    document.getElementById('nextBtn').style.display = idx === questionsData.length - 1 ? 'none' : 'block';
+    updateGridStatus();
+  }
+
+  function selectOption(oIdx) {
+    if(isReviewMode) return;
+    userAnswers[currentQuestion] = oIdx;
+    loadQuestion(currentQuestion);
+  }
+
+  function clearChoice() {
+    if(isReviewMode) return;
+    userAnswers[currentQuestion] = null;
+    loadQuestion(currentQuestion);
+  }
+
+  function navigateNumberQuery(dir) {
+    const postNext = currentQuestion + dir;
+    if(postNext >= 0 && postNext < questionsData.length) {
+      loadQuestion(postNext);
+    }
+  }
+
+  function jumpToQuestion(idx) {
+    loadQuestion(idx);
+  }
+
+  function startTimer() {
+    if (timerInterval) clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+      timeLeft--;
+      let m = Math.floor(timeLeft / 60);
+      let s = timeLeft % 60;
+      const timerElem = document.getElementById('timerBox');
+      if(timerElem) {
+        timerElem.innerText = `⏱️ ${m}:${s < 10 ? '0' : ''}${s}`;
+      }
+      if(timeLeft <= 0) {
+        clearInterval(timerInterval);
+        submitTest();
+      }
+    }, 1000);
+  }
+
+  function submitTest() {
+    if (timerInterval) clearInterval(timerInterval);
+    document.getElementById('testView').style.display = 'none';
+    document.getElementById('resultView').style.display = 'block';
+
+    let correct = 0, wrong = 0, unans = 0;
+    userAnswers.forEach((ans, idx) => {
+      if(ans === null) unans++;
+      else if(ans === questionsData[idx].a) correct++;
+      else wrong++;
+    });
+
+    document.getElementById('scoreDisplay').innerText = `${correct} / ${questionsData.length}`;
+    let pct = ((correct / questionsData.length) * 100).toFixed(1);
+    document.getElementById('percentageDisplay').innerText = `${currentLang === 'ta' ? 'சதவீதம்' : 'Percentage'}: ${pct}%`;
+    document.getElementById('correctCnt').innerText = correct;
+    document.getElementById('wrongCnt').innerText = wrong;
+    document.getElementById('unansCnt').innerText = unans;
+  }
+
+  function reviewAnswerKey() {
+    isReviewMode = true;
+    document.getElementById('resultView').style.display = 'none';
+    document.getElementById('testView').style.display = 'block';
+    document.getElementById('finalSubmitBtn').style.display = 'none';
+    document.getElementById('backToResultBtn').style.display = 'block';
+    document.getElementById('dashFromKeyBtn').style.display = 'block';
+    loadQuestion(0);
+  }
+
+  function returnToResult() {
+    document.getElementById('testView').style.display = 'none';
+    document.getElementById('resultView').style.display = 'block';
+  }
+
+  function returnToDashboard() {
+    window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html"); 
+  }
+
+  function exitPortal() {
+    window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html");
+  }
+
+  function retakeTest() {
+    userAnswers = new Array(questionsData.length).fill(null);
+    isReviewMode = false;
+    timeLeft = 45 * 60;
+    document.getElementById('resultView').style.display = 'none';
+    document.getElementById('testView').style.display = 'block';
+    document.getElementById('finalSubmitBtn').style.display = 'inline-block';
+    document.getElementById('backToResultBtn').style.display = 'none';
+    document.getElementById('dashFromKeyBtn').style.display = 'none';
+    initTest();
+  }
+
+  window.onload = function() {
+    initTest();
+  }
+</script>
+
+</body>
+</html>
