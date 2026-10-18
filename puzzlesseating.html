@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tiger Warriors - புதிர்கள் & இருக்கை அமைப்பு (Puzzles & Seating Arrangement) 30 வினாக்கள்</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; font-weight: bold; }
+    body { background: #080604; color: #f8fafc; padding: 12px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+    .card { width: 100%; max-width: 950px; background: #0f172a; border-radius: 14px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); border: 1px solid #334155; }
+    
+    .test-header { display: flex; justify-content: space-between; align-items: center; background: #1e293b; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; border: 1px solid #334155; }
+    .timer { font-size: 15px; font-weight: bold; color: #fbbf24; background: #091326; padding: 6px 12px; border-radius: 6px; border: 1px solid #fbbf24; box-shadow: inset 0 0 5px rgba(251, 191, 36, 0.2); }
+    .lang-btn { background: #0284c7; color: #fff; border: 1px solid #38bdf8; padding: 6px 14px; border-radius: 6px; font-size: 13px; cursor: pointer; transition: 0.2s; }
+    .lang-btn:hover { background: #0369a1; }
+
+    .q-grid { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 16px; max-height: 140px; overflow-y: auto; padding: 8px; background: #1e293b; border-radius: 8px; justify-content: center; }
+    .q-num-btn { width: 30px; height: 30px; border-radius: 5px; border: none; background: #334155; color: #fff; font-size: 10px; cursor: pointer; font-weight: bold; }
+    .q-num-btn.active { border: 2px solid #38bdf8; background: #0284c7; }
+    .q-num-btn.answered { background: #10b981; }
+
+    .q-box { background: #1e293b; padding: 18px; border-radius: 10px; margin-bottom: 16px; border: 1px solid #334155; }
+    .q-text { white-space: pre-line; line-height: 1.6; font-size: 15px; color: #f8fafc; }
+    
+    .option-card { background: #0f172a; border: 1px solid #334155; padding: 12px 16px; border-radius: 8px; margin-top: 10px; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: 0.2s; white-space: pre-line; line-height: 1.4; }
+    .option-card:hover { border-color: #38bdf8; background: #1e293b; }
+    .option-card.selected { border-color: #10b981; background: #064e3b; }
+    .option-card.correct-ans { border-color: #10b981; background: #065f46; font-weight: bold; }
+    .option-card.wrong-ans { border-color: #ef4444; background: #7f1d1d; }
+
+    .explanation-box { background: #091326; border: 1px solid #38bdf8; border-radius: 8px; padding: 12px; margin-top: 14px; font-size: 13px; color: #7dd3fc; line-height: 1.5; }
+    
+    .nav-btns { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+    .btn-action { background: #334155; color: #fff; border: none; padding: 10px 16px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 13px; text-align: center; }
+    .btn-action:hover { opacity: 0.9; }
+    .btn-blue { background: #2563eb; }
+    .btn-purple { background: #7c3aed; }
+    .btn-danger { background: #ef4444; }
+    .btn-green { background: #22c55e; }
+
+    .ai-btn-group { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; border-top: 1px dashed #38bdf8; padding-top: 12px; }
+    .ai-link-btn { border: none; color: #fff; padding: 8px 14px; border-radius: 6px; font-size: 12px; cursor: pointer; font-weight: bold; transition: 0.2s; display: inline-flex; align-items: center; gap: 5px; }
+    .ai-link-btn:hover { opacity: 0.85; transform: scale(1.02); }
+    .btn-gemini { background: #4285f4; }
+    .btn-chatgpt { background: #10a37f; }
+    .btn-perplexity { background: #22b8cf; }
+    .btn-google { background: #ea4335; }
+
+    .result-box { text-align: center; padding: 25px; background: #1e293b; border-radius: 16px; margin-top: 10px; border: 1px solid rgba(0, 242, 254, 0.3); display: flex; flex-direction: column; align-items: center; }
+    .score-circle { width: 130px; height: 130px; border-radius: 50%; background: conic-gradient(#10b981 0deg, #0f172a 0deg); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 15px auto; border: 4px solid #38bdf8; box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); }
+    .score-num { font-size: 30px; color: #f8fafc; font-weight: bold; }
+    
+    .result-stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; width: 100%; max-width: 400px; }
+    .stat-pill { background: #0f172a; border-radius: 12px; padding: 10px; border: 1px solid #334155; text-align: center; }
+    .stat-pill.gold { border-color: #fbbf24; }
+    .stat-pill.blue { border-color: #38bdf8; }
+    .stat-pill.red { border-color: #ef4444; }
+
+    .footer-badge { text-align: center; font-size: 11px; color: #38bdf8; margin-top: 15px; font-weight: bold; letter-spacing: 0.5px; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <!-- 🔒 Security Authentication Verification Check -->
+  <script>
+      if (localStorage.getItem('tiger_auth_passed') !== 'true') {
+          alert("⚠ பாதுகாப்பு எச்சரிக்கை: நீங்கள் Tiger Warriors போர்ட்டலில் லாகின் செய்யவில்லை! முதலில் மெயின் போர்ட்டலில் லாகின் செய்யவும்.");
+          window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html"); 
+      }
+  </script>
+
+  <div id="testView">
+    <div class="test-header">
+      <div>
+        <h3 style="color: #38bdf8; font-size: 15px;" id="headerTitle">🐅 TIGER WARRIORS - புதிர்கள் & இருக்கை அமைப்பு (Puzzles & Seating) 30 வினாக்கள்</h3>
+        <span style="font-size: 11px; color: #94a3b8;">TNPSC / 1 / 2 / 2A / 4 • REASONING UNIT</span>
+      </div>
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <button class="lang-btn" onclick="toggleLanguage()" id="langBtn">🌐 English</button>
+        <div class="timer" id="timerBox">⏱️ 45:00</div>
+        <button class="btn-action btn-purple" id="backToResultBtn" onclick="returnToResult()" style="display: none; padding: 6px 12px; font-size: 12px;">📊 ரிசல்ட் செல்</button>
+        <button class="btn-action btn-danger" id="dashFromKeyBtn" onclick="returnToDashboard()" style="display: none; padding: 6px 12px; font-size: 12px;">🏠 முகப்பு</button>
+      </div>
+    </div>
+
+    <div class="q-grid" id="questionGrid"></div>
+
+    <div class="q-box">
+      <div id="qTitle" class="q-text"></div>
+      <div id="optionsBox"></div>
+      <div id="expBox" class="explanation-box" style="display: none;"></div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn-action" id="prevBtn" onclick="navigateNumberQuery(-1)">⬅️ முந்தையது</button>
+      <button class="btn-action" id="clearBtn" onclick="clearChoice()">🧹 விடையை நீக்கு</button>
+      <button class="btn-action btn-blue" id="nextBtn" onclick="navigateNumberQuery(1)">அடுத்து ➡️</button>
+      <button class="btn-action btn-danger" id="finalSubmitBtn" onclick="submitTest()">✅ தேர்வைச் சமர்ப்பிக்க (Submit)</button>
+    </div>
+  </div>
+
+  <div id="resultView" style="display: none;">
+    <h2 style="color: #38bdf8; text-align: center; margin-bottom: 10px;" id="resHeader">🏆 தேர்வு முடிவுகள் (Test Results) 🎯</h2>
+    <div class="result-box">
+      <div class="score-circle" id="scoreCircle">
+        <div class="score-num" id="scoreDisplay">0/30</div>
+        <span id="percentageDisplay" style="font-size: 11px; color: #fbbf24;">0%</span>
+      </div>
+
+      <div class="result-stats-grid">
+        <div class="stat-pill gold">
+          <h3 id="correctCnt" style="color: #10b981; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;" id="lblCorrect">சரியானது ✅</span>
+        </div>
+        <div class="stat-pill red">
+          <h3 id="wrongCnt" style="color: #ef4444; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;" id="lblWrong">தவறானது ❌</span>
+        </div>
+        <div class="stat-pill blue">
+          <h3 id="unansCnt" style="color: #f59e0b; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;" id="lblUnans">விடையில்லை ⚠️</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
+      <button class="btn-action btn-blue" onclick="reviewAnswerKey()" id="btnKey">🔍 விடை குறிப்பு & விளக்கம்</button>
+      <button class="btn-action btn-purple" onclick="returnToDashboard()" id="btnDash">🏠 முகப்புப் பக்கம்</button>
+      <button class="btn-action btn-green" onclick="retakeTest()" id="btnRetake">🔄 மீண்டும் தேர்வு</button>
+      <button class="btn-action btn-danger" onclick="exitPortal()" id="btnExit">🚪 வெளியேறு</button>
+    </div>
+    <div class="footer-badge" style="margin-top: 20px;">🐅 டைகர் வாரியர் போர்டல் - இயக்குநர்: Dr. K. மணிகாசி 🐅</div>
+  </div>
+</div>
+
+<script>
+  let currentLang = 'ta';
+
+  const questionsData = [
+    {
+      q_ta: "1. 🪑 ஐந்து நபர்கள் A, B, C, D மற்றும் E ஒரு வரிசையில் வடக்கை நோக்கி அமர்ந்துள்ளனர். C என்பவர் நடுவில் உள்ளார். B என்பவர் வலது கோடியில் உள்ளார். E என்பவர் D-க்கு இடதுபுறமும், C-க்கு வலதுபுறமும் உள்ளார். எனில் இடது கோடியில் உள்ளவர் யார்?\n[TNPSC Group 4 - PYQ]",
+      q_en: "1. 🪑 Five persons A, B, C, D and E are sitting in a row facing North. C is in the middle. B is at the right end. E is to the left of D and right of C. Who is at the left end?\n[TNPSC Group 4 - PYQ]",
+      o: ["a) A", "b) B", "c) D", "d) E"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>வரிசை அமைப்பு வடக்கே நோக்கி:\n• நடுவில் C\n• வலது கோடியில் B\n• E என்பது C-க்கு வலது மற்றும் D-க்கு இடது (அதாவது C, E, D வரிசை)\n• மீதமுள்ள A இடது கோடியில் அமர்வார். எனவே A 🪑.",
+      exp_en: "<b>Explanation:</b><br>Arranging from left to right: A, C, E, D, B. A is at the left end 🪑."
+    },
+    {
+      q_ta: "2. 🔄 வட்ட மேசையில் 4 நண்பர்கள் P, Q, R மற்றும் S மையத்தை நோக்கி அமர்ந்துள்ளனர். P என்பவருக்கு எதிரே R உள்ளார். Q என்பவர் P-க்கு வலதுபுறம் எனில், S-க்கு வலதுபுறம் உள்ளவர் யார்?\n[TNPSC Group 2 - PYQ]",
+      q_en: "2. 🔄 Four friends P, Q, R and S sit around a circular table facing center. P is opposite to R. Q is to the right of P. Who is to the right of S?\n[TNPSC Group 2 - PYQ]",
+      o: ["a) P", "b) Q", "c) R", "d) தரவு போதாது"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>வட்ட மேசையில் P எதிரே R, P-க்கு வலது Q எனில் S இடதுபுறம் அமர்வார். S-க்கு வலதுபுறம் P வருவார் 🔄.",
+      exp_en: "<b>Explanation:</b><br>P is opposite R, Q is right of P, S is opposite Q. Right of S is P 🔄."
+    },
+    {
+      q_ta: "3. 🧩 A, B, C மற்றும் D என்பவர்களில் A என்பவர் B-ஐ விட வயதில் பெரியவர் ஆனால் C-ஐ விட சிறியவர். D என்பவர் B-ஐ விட சிறியவர் எனில், இவர்களில் மிகவும் இளையவர் யார்?\n[TNPSC Group 1 - PYQ]",
+      q_en: "3. 🧩 Among A, B, C and D, A is older than B but younger than C. D is younger than B. Who is the youngest?\n[TNPSC Group 1 - PYQ]",
+      o: ["a) D", "b) B", "c) A", "d) C"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>வயது ஒப்பீடு: C > A > B > D. மிகவும் இளையவர் D ஆவார் 🧩.",
+      exp_en: "<b>Explanation:</b><br>Age order: C > A > B > D. Youngest is D 🧩."
+    },
+    {
+      q_ta: "4. 🪑 ஆறு நபர்கள் L, M, N, O, P மற்றும் Q ஒரு வரிசையில் வடக்கை நோக்கி அமர்ந்துள்ளனர். M என்பவர் O-க்கு அருகில் இல்லை. N என்பவர் P-க்கு இடதுபுறம் உள்ளார். எனில் வரிசையைக் கண்டறிக.\n[TNPSC Group 2A - PYQ]",
+      q_en: "4. 🪑 Six persons L, M, N, O, P and Q sit in a row facing North. M is not near O. N is left of P.\n[TNPSC Group 2A - PYQ]",
+      o: ["a) நிபந்தனைகளின்படி சரியான வரிசை அமைப்பு", "b) மாறி அமர்ந்துள்ளனர்", "c) மாற்று முறை", "d) தரவு போதாது"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>கொடுக்கப்பட்ட நிபந்தனைகளைச் சரிபார்த்து அமையும் சரியான வரிசை அமைப்பு பொருந்தும் 🪑.",
+      exp_en: "<b>Explanation:</b><br>Valid seating configuration satisfying all constraints 🪑."
+    },
+    {
+      q_ta: "5. 🎯 ஒரு போட்டியில் ராம் ஷ்யாமை விட அதிக மதிப்பெண் பெற்றுள்ளார், ஆனால் மோகனை விட குறைவு. கீதா ஷ்யாமை விட அதிகம் எனில், அதிக மதிப்பெண் பெற்றவர் யார்?\n[TNPSC CCSE - PYQ]",
+      q_en: "5. 🎯 In a contest, Ram scored more than Shyam but less than Mohan. Geetha scored more than Shyam. Who scored highest?\n[TNPSC CCSE - PYQ]",
+      o: ["a) மோகன் அல்லது கீதா (Mohan or Geetha)", "b) மோகன் மட்டும்", "c) ராம்", "d) ஷ்யாம்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>மோகன் > ராம் > ஷ்யாம் மற்றும் கீதா > ஷ்யாம். மோகன் மற்றும் கீதாவின் ஒப்பீடு கொடுக்கப்படாததால் மோகன் அல்லது கீதா எனலாம் 🎯.",
+      exp_en: "<b>Explanation:</b><br>Mohan > Ram > Shyam and Geetha > Shyam. Highest can be Mohan or Geetha since their direct score is unstated 🎯."
+    },
+    {
+      q_ta: "6. 🪑 ஐந்து புத்தகங்கள் P, Q, R, S மற்றும் T மேசையில் வைக்கப்பட்டுள்ளன. T என்பது R-க்கு மேல், Q என்பது P-க்கு கீழே, S என்பது P-க்கு மேல் ஆனால் T-க்கு கீழே எனில், நடுவில் உள்ள புத்தகம் எது?\n[TNPSC Group 4 - PYQ]",
+      q_en: "6. 🪑 Five books P, Q, R, S, T on a table. T above R, Q below P, S above P but below T. Which book is in the middle?\n[TNPSC Group 4 - PYQ]",
+      o: ["a) P", "b) S", "c) T", "d) R"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>மேலிருந்து கீழ் அடுக்கு: T > S > P > Q > R (அல்லது R கீழே). வரிசைப்படி நடுவில் உள்ள புத்தகம் P ஆகும் 📚.",
+      exp_en: "<b>Explanation:</b><br>Stack order from top: T, S, P, Q, R. Middle book is P 📚."
+    },
+    {
+      q_ta: "7. 🔄 வட்ட மேசையில் 6 நபர்கள் அமர்ந்துள்ளனர். A என்பவர் B-க்கு எதிரேயும், C என்பவர் D-க்கு எதிரேயும், E என்பவர் A-க்கு இடதுபுறமும் அமர்ந்தால், F-ன் இருப்பிடம் என்ன?\n[TNPSC Group 1 - PYQ]",
+      q_en: "7. 🔄 6 persons in a circle. A opposite B, C opposite D, E left of A. Where is F?\n[TNPSC Group 1 - PYQ]",
+      o: ["a) D-க்கு அருகில் (Near D)", "b) A-க்கு அருகில்", "c) B-க்கு எதிரே", "d) C-க்கு அருகில்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>மீதமுள்ள இடம் F-க்கு ஒதுக்கப்படுகிறது, அது D-க்கு அருகில் அமையும் 🔄.",
+      exp_en: "<b>Explanation:</b><br>F takes the remaining empty position near D 🔄."
+    },
+    {
+      q_ta: "8. 🧩 X, Y, Z மற்றும் W என்பவர்களில் X என்பவர் W-ஐ விட பலசாலி. Y என்பவர் Z-ஐ விட பலசாலி ஆனால் W-ஐ விட பலவீனமானவர் எனில், மிகப் பலசாலி யார்?\n[TNPSC Group 2 - PYQ]",
+      q_en: "8. 🧩 X is stronger than W. Y is stronger than Z but weaker than W. Who is the strongest?\n[TNPSC Group 2 - PYQ]",
+      o: ["a) X", "b) W", "c) Y", "d) Z"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>வலிமை வரிசை: X > W > Y > Z. மிகப் பலசாலி X ஆவார் 🧩.",
+      exp_en: "<b>Explanation:</b><br>Strength order: X > W > Y > Z. Strongest is X 🧩."
+    },
+    {
+      q_ta: "9. 🪑 ஒரு வரிசையில் சோனு முன்னிருந்து 7 வது இடத்திலும், பின்னின்று 28 வது இடத்திலும் இருந்தால், வரிசையில் உள்ள மொத்த நபர்கள் எத்தனை பேர்?\n[TNPSC Group 4 - PYQ]",
+      q_en: "9. 🪑 Sonu is 7th from front and 28th from rear in a row. Total persons in the row?\n[TNPSC Group 4 - PYQ]",
+      o: ["a) 34", "b) 35", "c) 36", "d) 33"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>சூத்திரம் 📐: $\\text{Total} = \\text{Left} + \\text{Right} - 1 \\rightarrow 7 + 28 - 1 = 34$ நபர்கள் 🪑.",
+      exp_en: "<b>Explanation:</b><br>Formula: $7 + 28 - 1 = 34$ persons 🪑."
+    },
+    {
+      q_ta: "10. 🎯 ஐந்து நண்பர்கள் M, N, O, P மற்றும் Q ஒரு ஓடுகளப் போட்டியில் பங்கேற்கிறார்கள். M என்பவர் P-க்கு முன்னதாகவும், Q என்பவர் N-க்கு பின்னதாகவும் ஓடுகிறார். O என்பவர் N-க்கு முன்னதாகவும் M-க்கு பின்னதாகவும் ஓடினால், முதலாவதாக வருபவர் யார்?\n[TNPSC Group 2A - PYQ]",
+      q_en: "10. 🎯 Five friends in a race. M before P, Q after N. O between N and M. Who comes first?\n[TNPSC Group 2A - PYQ]",
+      o: ["a) N", "b) O", "c) M", "d) P"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>வரிசை: N -> O -> M -> P மற்றும் Nக்குப் பின் Q. முதலாவதாக வருபவர் N ஆவார் 🎯.",
+      exp_en: "<b>Explanation:</b><br>Race order from 1st to last: N, O, M, P, Q. First is N 🎯."
+    },
+    {
+      q_ta: "11. 🪑 நான்கு பெண்கள் A, B, C மற்றும் D ஒரு சதுர மேசையின் நான்கு மூலைகளில் மையத்தை நோக்கி அமர்ந்துள்ளனர். A-க்கு எதிரே C அமர்ந்தால், B-ன் வலதுபுறம் யார்?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "11. 🪑 Four women sit at four corners of a square table facing center. A is opposite C. Who is to the right of B?\n[Expected Question - Group 4]",
+      o: ["a) A", "b) C", "c) D", "d) தரவு போதாது"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>சதுர மேசை மூலைகளில் A, B, C, D அமரும்போது B-ன் வலதுபுறம் A அமர்வார் 🪑.",
+      exp_en: "<b>Explanation:</b><br>Seating layout places A to the right of B 🪑."
+    },
+    {
+      q_ta: "12. 🧩 P, Q, R, S என்பவர்களில் P என்பவர் Q-ஐ விட உயரமானவர் ஆனால் R-ஐ விட குள்ளமானவர். S என்பவர் Q-ஐ விட உயரமானவர் எனில், இவர்களில் மிக உயரமானவர் யார்?\n[எதிர்பார்க்கப்படும் வினா - Group 2/4]",
+      q_en: "12. 🧩 P is taller than Q but shorter than R. S is taller than Q. Who is tallest?\n[Expected Question - Group 2/4]",
+      o: ["a) R அல்லது S (R or S)", "b) R", "c) S", "d) P"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>R > P > Q மற்றும் S > Q. R மற்றும் S-ன் நேரடி உயரம் ஒப்பீடு இல்லாததால் R அல்லது S எனலாம் 🧩.",
+      exp_en: "<b>Explanation:</b><br>Tallest can be R or S due to lack of direct comparison between them 🧩."
+    },
+    {
+      q_ta: "13. 🪑 ஒரு வரிசையில் ரவி இடதுபுறத்திலிருந்து 15 வது இடத்திலும், வலதுபுறத்திலிருந்து 20 வது இடத்திலும் உள்ளார். வரிசையில் உள்ள மொத்த நபர்கள் எத்தனை பேர்?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "13. 🪑 Ravi is 15th from left and 20th from right in a row. Total persons?\n[Expected Question - Group 4]",
+      o: ["a) 34", "b) 35", "c) 36", "d) 33"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>$15 + 20 - 1 = 34$ நபர்கள் 🪑.",
+      exp_en: "<b>Explanation:</b><br>$15 + 20 - 1 = 34$ persons 🪑."
+    },
+    {
+      q_ta: "14. 🔄 வட்ட மேசையில் 5 நபர்கள் அமர்ந்துள்ளனர். A என்பவர் B-க்கு வலதுபுறமும், C-க்கு இடதுபுறமும் உள்ளார். D என்பவர் C-க்கு அருகில் எனில், E-ன் இருப்பிடம் என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 2/2A]",
+      q_en: "14. 🔄 5 persons in a circle. A right of B, left of C. Where is E?\n[Expected Question - Group 2/2A]",
+      o: ["a) B மற்றும் D-க்கு இடையில் (Between B and D)", "b) A-க்கு எதிரே", "c) C-க்கு அருகில்", "d) தனியாக"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>வட்ட வடிவ அமர்வில் மீதமுள்ள இடம் E-க்கு ஒதுக்கப்படும் 🔄.",
+      exp_en: "<b>Explanation:</b><br>E occupies the remaining seat between B and D 🔄."
+    },
+    {
+      q_ta: "15. 🎯 ஒரு வகுப்பில் தேர்ச்சி பெற்ற மாணவர்களில் குமார் மேலிருந்து 15 வது இடத்திலும், கீழிருந்து 25 வது இடத்திலும் உள்ளார். 5 மாணவர்கள் தேர்ச்சி பெறவில்லை எனில், வகுப்பின் மொத்த மாணვர்கள் எத்தனை பேர்?\n[எதிர்பார்க்கப்படும் வினா - Group 2/4]",
+      q_en: "15. 🎯 Kumar is 15th from top and 25th from bottom among passed students. 5 failed. Total students?\n[Expected Question - Group 2/4]",
+      o: ["a) 44", "b) 45", "c) 43", "d) 46"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>தேர்ச்சி பெற்றவர்கள் = $15 + 25 - 1 = 39$. தோல்வி அடைந்தவர்கள் 5. மொத்த மாணவர்கள் = $39 + 5 = 44$ 🎯.",
+      exp_en: "<b>Explanation:</b><br>Passed = $15 + 25 - 1 = 39$. Total = $39 + 5 = 44$ 🎯."
+    },
+    {
+      q_ta: "16. 🪑 ஆறு மேசைகள் A, B, C, D, E மற்றும் F வரிசையாக வைக்கப்பட்டுள்ளன. C என்பது B-க்கு அருகில் ஆனால் D-க்கு அருகில் இல்லை. F என்பது A-க்கு அருகில் எனில், நடுவில் உள்ளவை எவை?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "16. 🪑 Six desks in a row. C near B, F near A. Which desks are in the middle?\n[Expected Question - Group 4]",
+      o: ["a) C மற்றும் D (C and D)", "b) B மற்றும் E", "c) A மற்றும் C", "d) E மற்றும் F"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>வரிசை அமைப்பின்படி நடுப்பகுதியில் C மற்றும் D மேசைகள் அமைகின்றன 🪑.",
+      exp_en: "<b>Explanation:</b><br>Desks C and D occupy the central positions 🪑."
+    },
+    {
+      q_ta: "17. 🧩 A, B, C, D என்பவர்களில் C என்பவர் D-ஐ விட பணக்காரர் ஆனால் B-ஐ விட ஏழை. A என்பவர் C-ஐ விட பணக்காரர் எனில், மிகப் பணக்காரர் யார்?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "17. 🧩 C is richer than D but poorer than B. A is richer than C. Who is the richest?\n[Expected Question - Group 4]",
+      o: ["a) A அல்லது B (A or B)", "b) A", "c) B", "d) C"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>B > C > D மற்றும் A > C. A மற்றும் B-க்கு நேரடி ஒப்பீடு இல்லாததால் A அல்லது B எனலாம் 🧩.",
+      exp_en: "<b>Explanation:</b><br>Richest can be A or B as their relative wealth is unstated 🧩."
+    },
+    {
+      q_ta: "18. 🪑 ஒரு வரிசையில் 40 நபர்கள் உள்ளனர். ராம் இடதுபுறத்திலிருந்து 13 வது இடத்தில் உள்ளார் எனில், வலதுபுறத்திலிருந்து அவரது நிலை என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 1/2]",
+      q_en: "18. 🪑 In a row of 40 persons, Ram is 13th from left. What is his position from right?\n[Expected Question - Group 1/2]",
+      o: ["a) 28", "b) 27", "c) 29", "d) 26"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>$\\text{Right} = \\text{Total} - \\text{Left} + 1 \\rightarrow 40 - 13 + 1 = 28$ வது இடம் 🪑.",
+      exp_en: "<b>Explanation:</b><br>Formula: $40 - 13 + 1 = 28$th from right 🪑."
+    },
+    {
+      q_ta: "19. 🎯 ஒரு கட்டிடத்தில் 5 தளங்கள் உள்ளன. A என்பவர் B-க்கு மேல் தளத்தில் உள்ளார். C என்பவர் B-க்கு கீழே உள்ளார். D என்பவர் A-க்கு மேல் எனில், கீழிருந்து இரண்டாவது தளத்தில் யார் உள்ளார்?\n[எதிர்பார்க்கப்படும் வினா - Group 2/4]",
+      q_en: "19. 🎯 5 floors in a building. A above B, C below B, D above A. Who is on the 2nd floor from bottom?\n[Expected Question - Group 2/4]",
+      o: ["a) B", "b) C", "c) A", "d) D"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>தளங்கள் மேலிருந்து கீழ்: D, A, B, C மற்றும் E. கீழிருந்து 2 வது தளம் B ஆகும் 🏢.",
+      exp_en: "<b>Explanation:</b><br>Floor order from bottom: C, B, A, D. 2nd from bottom is B 🏢."
+    },
+    {
+      q_ta: "20. 🔄 வட்ட மேஜைச் சுற்றிலும் 8 நபர்கள் அமர்ந்துள்ளனர். ஒவ்வொருவரும் எதிரே உள்ள நபருடன் இடங்களை மாற்றிக் கொண்டால், புதிய அமைப்பு என்னவாக இருக்கும்?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "20. 🔄 8 persons sit around a circle. If each interchanges place with the opposite person, what happens?\n[Expected Question - Group 4]",
+      o: ["a) எதிர் நிலைகள் பரிமாறப்படும் (Opposite positions swapped)", "b) வரிசை மாறும்", "c) சுழற்சி நின்றுவிடும்", "d) மாற்றம் இருக்காது"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>எதிரெதிர் நபர்கள் இடங்களை மாற்றுவதால் அவர்களின் எதிரெதிர் இருப்பிடங்கள் பரிமாறப்படும் 🔄.",
+      exp_en: "<b>Explanation:</b><br>Opposite positions get swapped symmetrically 🔄."
+    },
+    {
+      q_ta: "21. 🪑 50 மாணவர்கள் கொண்ட வரிசையில் பிரியா முன்னிருந்து 14 வது இடத்தில் உள்ளார் எனில், பின்னின்று அவரது நிலை என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "21. 🪑 In a row of 50 students, Priya is 14th from front. What is her position from the rear?\n[Expected Question - Group 4]",
+      o: ["a) 37", "b) 36", "c) 38", "d) 35"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>$\\text{Rear} = 50 - 14 + 1 = 37$ வது இடம் 🪑.",
+      exp_en: "<b>Explanation:</b><br>$50 - 14 + 1 = 37$th from the rear 🪑."
+    },
+    {
+      q_ta: "22. 🧩 A, B, C, D மற்றும் E என்பவர்களில் A என்பவர் B-ஐ விட நீளமாக உள்ளார் ஆனால் C-ஐ விட குட்டையானவர். D என்பவர் E-ஐ விட நீளமாக உள்ளார் ஆனால் B-ஐ விட குட்டையானவர் எனில், மிக நீளமானது எது?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "22. 🧩 A longer than B but shorter than C. D longer than E but shorter than B. Which is longest?\n[Expected Question - Group 4]",
+      o: ["a) C", "b) A", "c) B", "d) D"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>நீள வரிசை: C > A > B > D > E. மிக நீளமானது C ஆகும் 📏.",
+      exp_en: "<b>Explanation:</b><br>Length order: C > A > B > D > E. Longest is C 📏."
+    },
+    {
+      q_ta: "23. 🪑 ஒரு வரிசையில் ஆண்கள் வடக்கை நோக்கி அமர்ந்துள்ளனர். ராம் இடது கோடியிலிருந்து 10 வது இடத்திலும், ஷ்யாம் வலது கோடியிலிருந்து 15 வது இடத்திலும் உள்ளனர். இருவரும் இடங்களை மாற்றிக் கொண்டால் ராம் இடது கோடியிலிருந்து 22 வது இடத்திற்கு வருகிறார். எனில் வரிசையில் உள்ள மொத்த ஆண்கள் எத்தனை பேர்?\n[எதிர்பார்க்கப்படும் வினா - Group 2/4]",
+      q_en: "23. 🪑 Ram is 10th from left, Shyam is 15th from right. After swapping, Ram becomes 22nd from left. Total men?\n[Expected Question - Group 2/4]",
+      o: ["a) 36", "b) 35", "c) 37", "d) 34"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>மொத்த நபர்கள் = ஷ்யாமின் பழைய வலது நிலை + ராமின் புதிய இடது நிலை - 1 = $15 + 22 - 1 = 36$ 🪑.",
+      exp_en: "<b>Explanation:</b><br>Total = Shyam's old right pos + Ram's new left pos - 1 = $15 + 22 - 1 = 36$ 🪑."
+    },
+    {
+      q_ta: "24. 🎯 ஐந்து நண்பர்கள் எடையில் வெவ்வேறு அளவுகளில் உள்ளனர். K என்பவர் L-க்கு பாரமானவர் ஆனால் M-க்கு இலேசானவர். N என்பவர் L-ஐ விட இலேசானவர் எனில், மிக இலேசானவர் யார்?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "24. 🎯 K heavier than L, lighter than M. N lighter than L. Who is the lightest?\n[Expected Question - Group 4]",
+      o: ["a) N", "b) L", "c) K", "d) M"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>எடை வரிசை: M > K > L > N. மிக இலேசானவர் N ஆவார் ⚖️.",
+      exp_en: "<b>Explanation:</b><br>Weight order: M > K > L > N. Lightest is N ⚖️."
+    },
+    {
+      q_ta: "25. 🔄 வட்ட மேசையில் அமரும் போது ஒரு நபரின் இடதுபுறம் என்பது எந்தத் திசையைக் குறிக்கும் (மையத்தை நோக்கி அமரும்போது)?\n[எதிர்பார்க்கப்படும் வினா - Group 1/2]",
+      q_en: "25. 🔄 When sitting around a circular table facing center, left hand side moves in which direction?\n[Expected Question - Group 1/2]",
+      o: ["a) கடிகார திசைக்கு மாறான திசை (Anti-clockwise)", "b) கடிகார திசை (Clockwise)", "c) நேர் எதிரே", "d) வெளிப்பக்கமாக"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>மையத்தை நோக்கி அமரும்போது இடதுபுறம் என்பது 🔄 கடிகார திசைக்கு மாறான திசையாகும் (Anti-clockwise).",
+      exp_en: "<b>Explanation:</b><br>Facing center, left hand corresponds to anti-clockwise direction 🔄."
+    },
+    {
+      q_ta: "26. 🪑 ஒரு வரிசையில் ரமேஷ் இடதுபுறமிருந்து 11 வது இடத்திலும், சுரேஷ் வலதுபுறமிருந்து 17 வது இடத்திலும் உள்ளனர். இருவரும் தங்கள் இடங்களை மாற்றிக் கொண்டால் சுரேஷ் வலதுபுறமிருந்து 25 வது இடத்திற்கு வருகிறார். வரிசையில் உள்ள மொத்த நபர்கள் எத்தனை பேர்?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "26. 🪑 Ramesh 11th from left, Suresh 17th from right. After swapping Suresh is 25th from right. Total persons?\n[Expected Question - Group 4]",
+      o: ["a) 35", "b) 36", "c) 34", "d) 37"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>மொத்த நபர்கள் = சுரேஷின் புதிய வலது நிலை + ரமேஷின் பழைய இடது நிலை - 1 = $25 + 11 - 1 = 35$ 🪑.",
+      exp_en: "<b>Explanation:</b><br>Total = $25 + 11 - 1 = 35$ persons 🪑."
+    },
+    {
+      q_ta: "27. 🧩 A, B, C என்பவர்களில் A என்பவர் B-ஐ விட வேகமாக ஓடுகிறார். B என்பவர் C-ஐ விட வேகமாக ஓடினால், மிக மெதுவாக ஓடுபவர் யார்?\n[எதிர்பார்க்கப்படும் வினா - Group 2/4]",
+      q_en: "27. 🧩 A runs faster than B. B runs faster than C. Who runs the slowest?\n[Expected Question - Group 2/4]",
+      o: ["a) C", "b) B", "c) A", "d) கணக்கிட முடியாது"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>வேக வரிசை: A > B > C. மிக மெதுவாக ஓடுபவர் C ஆவார் 🏃‍♂️.",
+      exp_en: "<b>Explanation:</b><br>Speed order: A > B > C. Slowest is C 🏃‍♂️."
+    },
+    {
+      q_ta: "28. 🪑 ஒரு வரிசையில் 60 மாணவர்கள் உள்ளனர். அமித் முன்னிருந்து 22 வது இடத்தில் உள்ளார் எனில், பின்னின்று அவரது நிலை என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "28. 🪑 In a row of 60 students, Amit is 22nd from front. What is his position from the rear?\n[Expected Question - Group 4]",
+      o: ["a) 39", "b) 38", "c) 40", "d) 37"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>$\\text{Rear} = 60 - 22 + 1 = 39$ வது இடம் 🪑.",
+      exp_en: "<b>Explanation:</b><br>$60 - 22 + 1 = 39$th from the rear 🪑."
+    },
+    {
+      q_ta: "29. 🎯 ஒரு தேர்வுப் பட்டியலில் மனோஜ் மேலிருந்து 9 வது இடத்திலும், கீழ் இருந்து 38 வது இடத்திலும் உள்ளார். பட்டியலில் இடம்பெற்ற மொத்த மாணவர்கள் எத்தனை பேர்?\n[எதிர்பார்க்கப்படும் வினா - Group 1/2]",
+      q_en: "29. 🎯 Manoj is 9th from top and 38th from bottom in a merit list. Total students in the list?\n[Expected Question - Group 1/2]",
+      o: ["a) 46", "b) 47", "c) 45", "d) 48"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>$9 + 38 - 1 = 46$ மாணவர்கள் 🎯.",
+      exp_en: "<b>Explanation:</b><br>$9 + 38 - 1 = 46$ students 🎯."
+    },
+    {
+      q_ta: "30. 🪑 ஐந்து நபர்கள் வரிசையாக அமர்ந்துள்ளனர். நடுவில் உள்ள நபரின் இடதுபுறம் இருவர் மற்றும் வலதுபுறம் இருவர் இருந்தால், வரிசையில் உள்ள மொத்த நபர்கள் எத்தனை பேர்?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "30. 🪑 Five persons sit in a row. If there are two to the left and two to the right of the middle person, total persons?\n[Expected Question - Group 4]",
+      o: ["a) 5", "b) 4", "c) 6", "d) 3"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>நடுவில் 1 நபர் + இடதுபுறம் 2 பேர் + வலதுபுறம் 2 பேர் = 5 நபர்கள் 🪑.",
+      exp_en: "<b>Explanation:</b><br>2 (left) + 1 (middle) + 2 (right) = 5 persons 🪑."
+    }
+  ];
+
+  let currentQuestion = 0;
+  let userAnswers = new Array(questionsData.length).fill(null);
+  let isReviewMode = false;
+  let timerInterval;
+  let timeLeft = 45 * 60;
+
+  function toggleLanguage() {
+    currentLang = currentLang === 'ta' ? 'en' : 'ta';
+    document.getElementById('langBtn').innerText = currentLang === 'ta' ? '🌐 English' : '🌐 தமிழ்';
+    updateLanguageTexts();
+    loadQuestion(currentQuestion);
+  }
+
+  function updateLanguageTexts() {
+    if(currentLang === 'en') {
+      document.getElementById('headerTitle').innerText = "🐅 TIGER WARRIORS - Puzzles & Seating (30 Questions)";
+      document.getElementById('prevBtn').innerText = "⬅️ Previous";
+      document.getElementById('clearBtn').innerText = "🧹 Clear Choice";
+      document.getElementById('nextBtn').innerText = "Next ➡️";
+      document.getElementById('finalSubmitBtn').innerText = "✅ Submit Test";
+      document.getElementById('resHeader').innerText = "🏆 Test Results 🎯";
+      document.getElementById('lblCorrect').innerText = "Correct ✅";
+      document.getElementById('lblWrong').innerText = "Wrong ❌";
+      document.getElementById('lblUnans').innerText = "Unanswered ⚠️";
+      document.getElementById('btnKey').innerText = "🔍 Answer Key";
+      document.getElementById('btnDash').innerText = "🏠 Dashboard";
+      document.getElementById('btnRetake').innerText = "🔄 Retake Test";
+      document.getElementById('btnExit').innerText = "🚪 Exit";
+    } else {
+      document.getElementById('headerTitle').innerText = "🐅 TIGER WARRIORS - புதிர்கள் & இருக்கை அமைப்பு (Puzzles & Seating) 30 வினாக்கள்";
+      document.getElementById('prevBtn').innerText = "⬅️ முந்தையது";
+      document.getElementById('clearBtn').innerText = "🧹 விடையை நீக்கு";
+      document.getElementById('nextBtn').innerText = "அடுத்து ➡️";
+      document.getElementById('finalSubmitBtn').innerText = "✅ தேர்வைச் சமர்ப்பிக்க (Submit)";
+      document.getElementById('resHeader').innerText = "🏆 தேர்வு முடிவுகள் (Test Results) 🎯";
+      document.getElementById('lblCorrect').innerText = "சரியானது ✅";
+      document.getElementById('lblWrong').innerText = "தவறானது ❌";
+      document.getElementById('lblUnans').innerText = "விடையில்லை ⚠️";
+      document.getElementById('btnKey').innerText = "🔍 விடை குறிப்பு & விளக்கம்";
+      document.getElementById('btnDash').innerText = "🏠 முகப்புப் பக்கம்";
+      document.getElementById('btnRetake').innerText = "🔄 மீண்டும் தேர்வு";
+      document.getElementById('btnExit').innerText = "🚪 வெளியேறு";
+    }
+  }
+
+  function initTest() {
+    buildGrid();
+    loadQuestion(0);
+    startTimer();
+  }
+
+  function buildGrid() {
+    const grid = document.getElementById('questionGrid');
+    grid.innerHTML = '';
+    questionsData.forEach((_, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'q-num-btn';
+      btn.innerText = idx + 1;
+      btn.id = `q_btn_${idx}`;
+      btn.onclick = () => jumpToQuestion(idx);
+      grid.appendChild(btn);
+    });
+    updateGridStatus();
+  }
+
+  function updateGridStatus() {
+    questionsData.forEach((_, idx) => {
+      const btn = document.getElementById(`q_btn_${idx}`);
+      if(!btn) return;
+      btn.className = 'q-num-btn';
+      if(idx === currentQuestion) {
+        btn.classList.add('active');
+      } else if(userAnswers[idx] !== null) {
+        btn.classList.add('answered');
+      }
+    });
+  }
+
+  function searchInAI(provider, questionIdx) {
+    const q = questionsData[questionIdx];
+    const questionText = (currentLang === 'ta' ? q.q_ta : q.q_en).replace(/<[^>]*>?/gm, '');
+    const optionsText = q.o.join(", ");
+    const fullQuery = encodeURIComponent(`Explain this TNPSC Puzzles & Seating Arrangement reasoning question step by step:\n${questionText}\nOptions: ${optionsText}`);
+    
+    let targetUrl = "";
+    if (provider === 'chatgpt') {
+      targetUrl = `https://chatgpt.com/?q=${fullQuery}`;
+    } else if (provider === 'gemini') {
+      targetUrl = `https://gemini.google.com/app`;
+    } else if (provider === 'perplexity') {
+      targetUrl = `https://www.perplexity.ai/?q=${fullQuery}`;
+    } else if (provider === 'google') {
+      targetUrl = `https://www.google.com/search?q=${fullQuery}`;
+    }
+
+    window.open(targetUrl, '_blank');
+  }
+
+  function loadQuestion(idx) {
+    currentQuestion = idx;
+    const q = questionsData[idx];
+    document.getElementById('qTitle').innerText = currentLang === 'ta' ? q.q_ta : q.q_en;
+    
+    const optsBox = document.getElementById('optionsBox');
+    optsBox.innerHTML = '';
+
+    q.o.forEach((optText, oIdx) => {
+      const card = document.createElement('div');
+      card.className = 'option-card';
+      
+      if(userAnswers[idx] === oIdx) {
+        card.classList.add('selected');
+      }
+
+      if(isReviewMode) {
+        if(oIdx === q.a) {
+          card.classList.add('correct-ans');
+        } else if(userAnswers[idx] === oIdx && oIdx !== q.a) {
+          card.classList.add('wrong-ans');
+        }
+      }
+
+      card.innerHTML = `<span><b>${String.fromCharCode(65 + oIdx)}.</b> ${optText}</span>`;
+      card.onclick = () => selectOption(oIdx);
+      optsBox.appendChild(card);
+    });
+
+    const expBox = document.getElementById('expBox');
+    if(isReviewMode) {
+      expBox.style.display = 'block';
+      let baseExp = currentLang === 'ta' ? q.exp_ta : q.exp_en;
+      
+      expBox.innerHTML = `
+        <div style="font-size: 14px; margin-bottom: 8px;">${baseExp}</div>
+        <div style="font-size: 12px; color: #fbbf24; margin-top: 10px; font-weight: bold;">🤖 AI Link Buttons (Opens in New Tab):</div>
+        <div class="ai-btn-group">
+          <button class="ai-link-btn btn-chatgpt" onclick="searchInAI('chatgpt', ${idx})">🟢 ChatGPT</button>
+          <button class="ai-link-btn btn-gemini" onclick="searchInAI('gemini', ${idx})">✨ Gemini AI</button>
+          <button class="ai-link-btn btn-perplexity" onclick="searchInAI('perplexity', ${idx})">🔵 Perplexity</button>
+          <button class="ai-link-btn btn-google" onclick="searchInAI('google', ${idx})">🔍 Google Search</button>
+        </div>
+      `;
+    } else {
+      expBox.style.display = 'none';
+    }
+
+    document.getElementById('prevBtn').style.display = idx === 0 ? 'none' : 'block';
+    document.getElementById('nextBtn').style.display = idx === questionsData.length - 1 ? 'none' : 'block';
+    updateGridStatus();
+  }
+
+  function selectOption(oIdx) {
+    if(isReviewMode) return;
+    userAnswers[currentQuestion] = oIdx;
+    loadQuestion(currentQuestion);
+  }
+
+  function clearChoice() {
+    if(isReviewMode) return;
+    userAnswers[currentQuestion] = null;
+    loadQuestion(currentQuestion);
+  }
+
+  function navigateNumberQuery(dir) {
+    const postNext = currentQuestion + dir;
+    if(postNext >= 0 && postNext < questionsData.length) {
+      loadQuestion(postNext);
+    }
+  }
+
+  function jumpToQuestion(idx) {
+    loadQuestion(idx);
+  }
+
+  function startTimer() {
+    if (timerInterval) clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+      timeLeft--;
+      let m = Math.floor(timeLeft / 60);
+      let s = timeLeft % 60;
+      const timerElem = document.getElementById('timerBox');
+      if(timerElem) {
+        timerElem.innerText = `⏱️ ${m}:${s < 10 ? '0' : ''}${s}`;
+      }
+      if(timeLeft <= 0) {
+        clearInterval(timerInterval);
+        submitTest();
+      }
+    }, 1000);
+  }
+
+  function submitTest() {
+    if (timerInterval) clearInterval(timerInterval);
+    document.getElementById('testView').style.display = 'none';
+    document.getElementById('resultView').style.display = 'block';
+
+    let correct = 0, wrong = 0, unans = 0;
+    userAnswers.forEach((ans, idx) => {
+      if(ans === null) unans++;
+      else if(ans === questionsData[idx].a) correct++;
+      else wrong++;
+    });
+
+    document.getElementById('scoreDisplay').innerText = `${correct} / ${questionsData.length}`;
+    let pct = ((correct / questionsData.length) * 100).toFixed(1);
+    document.getElementById('percentageDisplay').innerText = `${currentLang === 'ta' ? 'சதவீதம்' : 'Percentage'}: ${pct}%`;
+    document.getElementById('correctCnt').innerText = correct;
+    document.getElementById('wrongCnt').innerText = wrong;
+    document.getElementById('unansCnt').innerText = unans;
+  }
+
+  function reviewAnswerKey() {
+    isReviewMode = true;
+    document.getElementById('resultView').style.display = 'none';
+    document.getElementById('testView').style.display = 'block';
+    document.getElementById('finalSubmitBtn').style.display = 'none';
+    document.getElementById('backToResultBtn').style.display = 'block';
+    document.getElementById('dashFromKeyBtn').style.display = 'block';
+    loadQuestion(0);
+  }
+
+  function returnToResult() {
+    document.getElementById('testView').style.display = 'none';
+    document.getElementById('resultView').style.display = 'block';
+  }
+
+  function returnToDashboard() {
+    window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html"); 
+  }
+
+  function exitPortal() {
+    window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html");
+  }
+
+  function retakeTest() {
+    userAnswers = new Array(questionsData.length).fill(null);
+    isReviewMode = false;
+    timeLeft = 45 * 60;
+    document.getElementById('resultView').style.display = 'none';
+    document.getElementById('testView').style.display = 'block';
+    document.getElementById('finalSubmitBtn').style.display = 'inline-block';
+    document.getElementById('backToResultBtn').style.display = 'none';
+    document.getElementById('dashFromKeyBtn').style.display = 'none';
+    initTest();
+  }
+
+  window.onload = function() {
+    initTest();
+  }
+</script>
+
+</body>
+</html>
