@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tiger Warriors - திசைகள் (Direction Sense) 30 வினாக்கள்</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; font-weight: bold; }
+    body { background: #080604; color: #f8fafc; padding: 12px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+    .card { width: 100%; max-width: 950px; background: #0f172a; border-radius: 14px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); border: 1px solid #334155; }
+    
+    .test-header { display: flex; justify-content: space-between; align-items: center; background: #1e293b; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; border: 1px solid #334155; }
+    .timer { font-size: 15px; font-weight: bold; color: #fbbf24; background: #091326; padding: 6px 12px; border-radius: 6px; border: 1px solid #fbbf24; box-shadow: inset 0 0 5px rgba(251, 191, 36, 0.2); }
+    .lang-btn { background: #0284c7; color: #fff; border: 1px solid #38bdf8; padding: 6px 14px; border-radius: 6px; font-size: 13px; cursor: pointer; transition: 0.2s; }
+    .lang-btn:hover { background: #0369a1; }
+
+    .q-grid { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 16px; max-height: 140px; overflow-y: auto; padding: 8px; background: #1e293b; border-radius: 8px; justify-content: center; }
+    .q-num-btn { width: 30px; height: 30px; border-radius: 5px; border: none; background: #334155; color: #fff; font-size: 10px; cursor: pointer; font-weight: bold; }
+    .q-num-btn.active { border: 2px solid #38bdf8; background: #0284c7; }
+    .q-num-btn.answered { background: #10b981; }
+
+    .q-box { background: #1e293b; padding: 18px; border-radius: 10px; margin-bottom: 16px; border: 1px solid #334155; }
+    .q-text { white-space: pre-line; line-height: 1.6; font-size: 15px; color: #f8fafc; }
+    
+    .option-card { background: #0f172a; border: 1px solid #334155; padding: 12px 16px; border-radius: 8px; margin-top: 10px; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: 0.2s; white-space: pre-line; line-height: 1.4; }
+    .option-card:hover { border-color: #38bdf8; background: #1e293b; }
+    .option-card.selected { border-color: #10b981; background: #064e3b; }
+    .option-card.correct-ans { border-color: #10b981; background: #065f46; font-weight: bold; }
+    .option-card.wrong-ans { border-color: #ef4444; background: #7f1d1d; }
+
+    .explanation-box { background: #091326; border: 1px solid #38bdf8; border-radius: 8px; padding: 12px; margin-top: 14px; font-size: 13px; color: #7dd3fc; line-height: 1.5; }
+    
+    .nav-btns { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+    .btn-action { background: #334155; color: #fff; border: none; padding: 10px 16px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 13px; text-align: center; }
+    .btn-action:hover { opacity: 0.9; }
+    .btn-blue { background: #2563eb; }
+    .btn-purple { background: #7c3aed; }
+    .btn-danger { background: #ef4444; }
+    .btn-green { background: #22c55e; }
+
+    .ai-btn-group { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; border-top: 1px dashed #38bdf8; padding-top: 12px; }
+    .ai-link-btn { border: none; color: #fff; padding: 8px 14px; border-radius: 6px; font-size: 12px; cursor: pointer; font-weight: bold; transition: 0.2s; display: inline-flex; align-items: center; gap: 5px; }
+    .ai-link-btn:hover { opacity: 0.85; transform: scale(1.02); }
+    .btn-gemini { background: #4285f4; }
+    .btn-chatgpt { background: #10a37f; }
+    .btn-perplexity { background: #22b8cf; }
+    .btn-google { background: #ea4335; }
+
+    .result-box { text-align: center; padding: 25px; background: #1e293b; border-radius: 16px; margin-top: 10px; border: 1px solid rgba(0, 242, 254, 0.3); display: flex; flex-direction: column; align-items: center; }
+    .score-circle { width: 130px; height: 130px; border-radius: 50%; background: conic-gradient(#10b981 0deg, #0f172a 0deg); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 15px auto; border: 4px solid #38bdf8; box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); }
+    .score-num { font-size: 30px; color: #f8fafc; font-weight: bold; }
+    
+    .result-stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; width: 100%; max-width: 400px; }
+    .stat-pill { background: #0f172a; border-radius: 12px; padding: 10px; border: 1px solid #334155; text-align: center; }
+    .stat-pill.gold { border-color: #fbbf24; }
+    .stat-pill.blue { border-color: #38bdf8; }
+    .stat-pill.red { border-color: #ef4444; }
+
+    .footer-badge { text-align: center; font-size: 11px; color: #38bdf8; margin-top: 15px; font-weight: bold; letter-spacing: 0.5px; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <!-- 🔒 Security Authentication Verification Check -->
+  <script>
+      if (localStorage.getItem('tiger_auth_passed') !== 'true') {
+          alert("⚠ பாதுகாப்பு எச்சரிக்கை: நீங்கள் Tiger Warriors போர்ட்டலில் லாகின் செய்யவில்லை! முதலில் மெயின் போர்ட்டலில் லாகின் செய்யவும்.");
+          window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html"); 
+      }
+  </script>
+
+  <div id="testView">
+    <div class="test-header">
+      <div>
+        <h3 style="color: #38bdf8; font-size: 15px;" id="headerTitle">🐅 TIGER WARRIORS - திசைகள் (Direction Sense) 30 வினாக்கள்</h3>
+        <span style="font-size: 11px; color: #94a3b8;">TNPSC / 1 / 2 / 2A / 4 • REASONING UNIT</span>
+      </div>
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <button class="lang-btn" onclick="toggleLanguage()" id="langBtn">🌐 English</button>
+        <div class="timer" id="timerBox">⏱️ 45:00</div>
+        <button class="btn-action btn-purple" id="backToResultBtn" onclick="returnToResult()" style="display: none; padding: 6px 12px; font-size: 12px;">📊 ரிசல்ட் செல்</button>
+        <button class="btn-action btn-danger" id="dashFromKeyBtn" onclick="returnToDashboard()" style="display: none; padding: 6px 12px; font-size: 12px;">🏠 முகப்பு</button>
+      </div>
+    </div>
+
+    <div class="q-grid" id="questionGrid"></div>
+
+    <div class="q-box">
+      <div id="qTitle" class="q-text"></div>
+      <div id="optionsBox"></div>
+      <div id="expBox" class="explanation-box" style="display: none;"></div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn-action" id="prevBtn" onclick="navigateNumberQuery(-1)">⬅️ முந்தையது</button>
+      <button class="btn-action" id="clearBtn" onclick="clearChoice()">🧹 விடையை நீக்கு</button>
+      <button class="btn-action btn-blue" id="nextBtn" onclick="navigateNumberQuery(1)">அடுத்து ➡️</button>
+      <button class="btn-action btn-danger" id="finalSubmitBtn" onclick="submitTest()">✅ தேர்வைச் சமர்ப்பிக்க (Submit)</button>
+    </div>
+  </div>
+
+  <div id="resultView" style="display: none;">
+    <h2 style="color: #38bdf8; text-align: center; margin-bottom: 10px;" id="resHeader">🏆 தேர்வு முடிவுகள் (Test Results) 🎯</h2>
+    <div class="result-box">
+      <div class="score-circle" id="scoreCircle">
+        <div class="score-num" id="scoreDisplay">0/30</div>
+        <span id="percentageDisplay" style="font-size: 11px; color: #fbbf24;">0%</span>
+      </div>
+
+      <div class="result-stats-grid">
+        <div class="stat-pill gold">
+          <h3 id="correctCnt" style="color: #10b981; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;" id="lblCorrect">சரியானது ✅</span>
+        </div>
+        <div class="stat-pill red">
+          <h3 id="wrongCnt" style="color: #ef4444; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;" id="lblWrong">தவறானது ❌</span>
+        </div>
+        <div class="stat-pill blue">
+          <h3 id="unansCnt" style="color: #f59e0b; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;" id="lblUnans">விடையில்லை ⚠️</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
+      <button class="btn-action btn-blue" onclick="reviewAnswerKey()" id="btnKey">🔍 விடை குறிப்பு & விளக்கம்</button>
+      <button class="btn-action btn-purple" onclick="returnToDashboard()" id="btnDash">🏠 முகப்புப் பக்கம்</button>
+      <button class="btn-action btn-green" onclick="retakeTest()" id="btnRetake">🔄 மீண்டும் தேர்வு</button>
+      <button class="btn-action btn-danger" onclick="exitPortal()" id="btnExit">🚪 வெளியேறு</button>
+    </div>
+    <div class="footer-badge" style="margin-top: 20px;">🐅 டைகர் வாரியர் போர்டல் - இயக்குநர்: Dr. K. மணிகாசி 🐅</div>
+  </div>
+</div>
+
+<script>
+  let currentLang = 'ta';
+
+  const questionsData = [
+    {
+      q_ta: "1. 🧭 ஒருவர் வடக்கில் 10 கி.மீ நடந்து, பின்னர் வலதுபுறம் திரும்பி 15 கி.மீ நடக்கிறார். மீண்டும் வலதுபுறம் திரும்பி 10 கி.மீ நடக்கிறார். இப்போது அவர் தொடக்க இடத்திலிருந்து எந்தத் திசையில் உள்ளார்?\n[TNPSC Group 4 - PYQ]",
+      q_en: "1. 🧭 A man walks 10 km towards North, then turns right and walks 15 km. He turns right again and walks 10 km. Now in which direction is he from the starting point?\n[TNPSC Group 4 - PYQ]",
+      o: ["a) கிழக்கு (East)", "b) மேற்கு (West)", "c) வடக்கு (North)", "d) தெற்கு (South)"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>⬆️ வடக்கில் 10 கி.மீ சென்று ➡️ வலதுபுறம் (கிழக்கு) 15 கி.மீ செல்கிறார். பின்னர் ⬇️ வலதுபுறம் (தெற்கு) 10 கி.மீ வந்து தொடக்கக் கோட்டிற்கே நேராக கிழக்கே நிற்கிறார். எனவே கிழக்கு 🧭.",
+      exp_en: "<b>Explanation:</b><br>He ends up 15 km to the East of his starting point 🧭."
+    },
+    {
+      q_ta: "2. 🌅 சூரிய உதயத்தின் போது (Sunrise) ரவி மற்றும் குமார் ஒருவரையொருவர் பார்த்துக் பேசிக் கொண்டிருக்கிறார்கள். குமாரின் நிழல் ரவியின் வலது பக்கத்தில் விழுந்தால், ரவி எந்தத் திசையை நோக்கி நின்றுகொண்டிருக்கிறார்?\n[TNPSC Group 2 - PYQ]",
+      q_en: "2. 🌅 During sunrise, Ravi and Kumar are talking face to face. If Kumar's shadow falls to the right of Ravi, which direction is Ravi facing?\n[TNPSC Group 2 - PYQ]",
+      o: ["a) தெற்கு (South)", "b) வடக்கு (North)", "c) கிழக்கு (East)", "d) மேற்கு (West)"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>சூரிய உதயம் கிழக்கில் இருக்கும் ☀️, எனவே நிழல் மேற்கில் விழும். ரவியின் வலது கை மேற்குப் பக்கம் இருந்தால், அவர் ⬇️ தெற்கை நோக்கி நிற்கிறார்.",
+      exp_en: "<b>Explanation:</b><br>Since shadow falls to the West during sunrise and it is to Ravi's right, Ravi is facing South ⬇️."
+    },
+    {
+      q_ta: "3. 🏃‍♂️ ஒரு நபர் தெற்கே 5 கி.மீ நடந்து, இடதுபுறம் திரும்பி 3 கி.மீ நடந்து, மீண்டும் இடதுபுறம் திரும்பி 5 கி.மீ நடக்கிறார். தொடக்க இடத்திலிருந்து அவர் எவ்வளவு தூரத்தில் உள்ளார்?\n[TNPSC Group 1 - PYQ]",
+      q_en: "3. 🏃‍♂️ A person walks 5 km South, turns left and walks 3 km, then turns left again and walks 5 km. How far is he from the starting point?\n[TNPSC Group 1 - PYQ]",
+      o: ["a) 3 கி.மீ (3 km)", "b) 5 கி.மீ (5 km)", "c) 8 கி.மீ (8 km)", "d) 2 கி.மீ (2 km)"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>⬇️ 5 கி.மீ தெற்கு, ⬅️ இடதுபுறம் 3 கி.மீ கிழக்கு, ⬆️ 5 கி.மீ வடக்கு. செவ்வகப் பாதையின்படி தொடக்கப் புள்ளியிலிருந்து கிழக்கு நோக்கி 3 கி.மீ தொலைவில் உள்ளார் 📏.",
+      exp_en: "<b>Explanation:</b><br>The horizontal displacement is 3 km towards East 📏."
+    },
+    {
+      q_ta: "4. 🚲 ஒருவர் தனது வீட்டில் இருந்து புறப்பட்டு மேற்கில் 4 கி.மீ சென்று, இடதுபுறம் திரும்பி 3 கி.மீ செல்கிறார். எனில், அவர் வீட்டை அடைய குறைந்தபட்ச தூரம் என்ன?\n[TNPSC Group 2A - PYQ]",
+      q_en: "4. 🚲 A man starts from his home, goes 4 km West, then turns left and goes 3 km. What is the minimum distance to reach his home?\n[TNPSC Group 2A - PYQ]",
+      o: ["a) 5 கி.மீ (5 km)", "b) 7 கி.மீ (7 km)", "c) 1 கி.மீ (1 km)", "d) 6 கி.மீ (6 km)"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>பைதாகரஸ் தேற்றம் 📐: $\\sqrt{4^2 + 3^2} = \\sqrt{16 + 9} = \\sqrt{25} = 5$ கி.மீ.",
+      exp_en: "<b>Explanation:</b><br>Using Pythagoras theorem: $\\sqrt{4^2 + 3^2} = 5$ km 📐."
+    },
+    {
+      q_ta: "5. 🧭 கடிகார முள் 3 மணி காட்டும்போது நிமிட முள் மேற்கில் இருந்தால், மணி முள் எந்தத் திசையைக் காட்டும்?\n[TNPSC CCSE - PYQ]",
+      q_en: "5. 🧭 If the minute hand points West at 3 o'clock, which direction does the hour hand point?\n[TNPSC CCSE - PYQ]",
+      o: ["a) வடக்கு (North)", "b) தெற்கு (South)", "c) கிழக்கு (East)", "d) மேற்கு (West)"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>3 மணியளவில் மணி முள் 3-லும், நிமிட முள் 12-லும் இருக்கும். நிமிட முள் மேற்கில் இருந்தால், மணி முள் ⬆️ வடக்கைக் காட்டும்.",
+      exp_en: "<b>Explanation:</b><br>Hour hand points North when minute hand points West at 3 o'clock ⬆️."
+    },
+    {
+      q_ta: "6. 🚶‍♂️ ஒரு நபர் வடமேற்கில் 4 கி.மீ நடந்து, பின்னர் வடகிழக்கில் 4 கி.மீ நடக்கிறார். இப்போது அவர் தொடக்கப் புள்ளியிலிருந்து எந்தத் திசையில் உள்ளார்?\n[TNPSC Group 4 - PYQ]",
+      q_en: "6. 🚶‍♂️ A person walks 4 km Northwest, then turns and walks 4 km Northeast. In which direction is he from the starting point?\n[TNPSC Group 4 - PYQ]",
+      o: ["a) வடக்கு (North)", "b) கிழக்கு (East)", "c) மேற்கு (West)", "d) தெற்கு (South)"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>வரைபட நகர்வின்படி வடமேற்கிலிருந்து வடகிழக்கு வழியாக நகரும்போது அவர் நேராக ⬆️ வடக்கே இருப்பார்.",
+      exp_en: "<b>Explanation:</b><br>He is directly North of the starting point ⬆️."
+    },
+    {
+      q_ta: "7. 🔍 அஜய் தனது அலுவலகத்திலிருந்து கிழக்கே 6 கி.மீ சென்று, வலதுபுறம் திரும்பி 8 கி.மீ செல்கிறார். அலுவலகத்தை அடைய அவர் நேர் கோட்டில் எவ்வளவு தூரம் பயணிக்க வேண்டும்?\n[TNPSC Group 1 - PYQ]",
+      q_en: "7. 🔍 Ajay goes 6 km East from his office, then turns right and walks 8 km. What is the straight-line distance to his office?\n[TNPSC Group 1 - PYQ]",
+      o: ["a) 10 கி.மீ (10 km)", "b) 14 கி.மீ (14 km)", "c) 12 கி.மீ (12 km)", "d) 8 கி.மீ (8 km)"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>$\\sqrt{6^2 + 8^2} = \\sqrt{36 + 64} = \\sqrt{100} = 10$ கி.மீ 📐.",
+      exp_en: "<b>Explanation:</b><br>$\\sqrt{6^2 + 8^2} = 10$ km 📐."
+    },
+    {
+      q_ta: "8. 🏃‍♀️ ஒரு பெண் தென்கிழக்கில் 12 மீ நடந்து, வடமேற்கில் 12 மீ சென்று, பின்னர் வடகிழக்கில் 12 மீ செல்கிறார். தொடக்க இடத்திலிருந்து அவர் எங்கு உள்ளார்?\n[TNPSC Group 2 - PYQ]",
+      q_en: "8. 🏃‍♀️ A woman walks 12m Southeast, then 12m Northwest, then 12m Northeast. Where is she from starting point?\n[TNPSC Group 2 - PYQ]",
+      o: ["a) வடகிழக்கு (Northeast)", "b) தென்கிழக்கு (Southeast)", "c) வடக்கு (North)", "d) கிழக்கு (East)"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>திசைக் கணக்கீட்டின்படி இறுதி நிலை ↗️ வடகிழக்கு திசையில் அமையும்.",
+      exp_en: "<b>Explanation:</b><br>Vector movement places her in the Northeast direction ↗️."
+    },
+    {
+      q_ta: "9. 🌅 மாலையில் (Sunset) சூரியனை நோக்கி நடந்து சென்றுகொண்டிருக்கும் போது, உங்கள் வலது கை எந்தத் திசையைக் காட்டும்?\n[TNPSC Group 4 - PYQ]",
+      q_en: "9. 🌅 While walking towards the setting sun in the evening, which direction does your right hand point?\n[TNPSC Group 4 - PYQ]",
+      o: ["a) வடக்கு (North)", "b) தெற்கு (South)", "c) கிழக்கு (East)", "d) மேற்கு (West)"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>மாலையில் சூரியன் மேற்கில் இருக்கும் 🌇. நாம் மேற்கு நோக்கி நடந்தால், நம் வலது கை ⬆️ வடக்கைக் காட்டும்.",
+      exp_en: "<b>Explanation:</b><br>Facing West towards the setting sun puts North on your right hand ⬆️."
+    },
+    {
+      q_ta: "10. 🧭 சுபாஷ் வடக்கே 8 கி.மீ சென்று, இடதுபுறம் திரும்பி 4 கி.மீ சென்று, மீண்டும் இடதுபுறம் திரும்பி 8 கி.மீ நடக்கிறார். இப்போது அவர் தொடக்க இடத்திலிருந்து எங்கு உள்ளார்?\n[TNPSC Group 2A - PYQ]",
+      q_en: "10. 🧭 Subhash walks 8 km North, turns left and walks 4 km, then turns left again and walks 8 km. Where is he now?\n[TNPSC Group 2A - PYQ]",
+      o: ["a) 4 கி.மீ மேற்கில் (4 km West)", "b) 4 கி.மீ கிழக்கில் (4 km East)", "c) 8 கி.மீ மேற்கில் (8 km West)", "d) நேர் தெற்கில் (Due South)"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>⬆️ 8 கி.மீ வடக்கு, ⬅️ 4 கி.மீ மேற்கு, ⬇️ 8 கி.மீ தெற்கு. தொடக்கப் புள்ளியிலிருந்து ⬅️ 4 கி.மீ மேற்கு.",
+      exp_en: "<b>Explanation:</b><br>He is 4 km to the West of the starting point ⬅️."
+    },
+    {
+      q_ta: "11. 🚲 ஒரு நபர் கிழக்கு நோக்கி 15 கி.மீ சென்று, வலதுபுறம் திரும்பி 20 கி.மீ செல்கிறார். மீண்டும் வலதுபுறம் திரும்பி 15 கி.மீ சென்றால், ஆரம்ப இடத்திலிருந்து அவர் எங்கு உள்ளார்?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "11. 🚲 A person goes 15 km East, turns right and goes 20 km, turns right again and goes 15 km. Where is he from start?\n[Expected Question - Group 4]",
+      o: ["a) 20 கி.மீ தெற்கில் (20 km South)", "b) 20 கி.மீ வடக்கில் (20 km North)", "c) 15 கி.மீ மேற்கில் (15 km West)", "d) ஆரம்ப இடத்திலேயே (At start)"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>அவர் வலதுபுறமாகச் சுற்றி நகரும்போது ஆரம்ப இடத்திற்கு நேர் தெற்கே ⬇️ 20 கி.மீ தொலைவில் இருப்பார்.",
+      exp_en: "<b>Explanation:</b><br>He is 20 km South of the starting point ⬇️."
+    },
+    {
+      q_ta: "12. 📐 ஒரு கடிகாரத்தில் மணி 4:30 ஆகும்போது நிமிட முள் கிழக்கைக் காட்டினால், மணி முள் எந்தத் திசையைக் காட்டும்?\n[எதிர்பார்க்கப்படும் வினா - Group 2/4]",
+      q_en: "12. 📐 If the minute hand points East at 4:30 on a clock, which direction does the hour hand point?\n[Expected Question - Group 2/4]",
+      o: ["a) வடமேற்கு (Northwest)", "b) தென்கிழக்கு (Southeast)", "c) வடகிழக்கு (Northeast)", "d) தென்மேற்கு (Southwest)"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>4:30 மணியளவில் நிமிட முள் 6-ன் அருகிலும், மணி முள் 4 மற்றும் 5-க்கு இடையில் இருக்கும். திசை மாற்றத்தின்படி வடமேற்கு ↖️.",
+      exp_en: "<b>Explanation:</b><br>Based on relative clock positioning, it points Northwest ↖️."
+    },
+    {
+      q_ta: "13. 🏃‍♂️ ராம் தனது வீட்டில் இருந்து தெற்கே 10 மீ சென்று, வலதுபுறம் திரும்பி 15 மீ நடந்து, மீண்டும் வலதுபுறம் திரும்பி 10 மீ சென்று, கடைசியாக இடதுபுறம் திரும்பி 20 மீ நடக்கிறார்.\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "13. 🏃‍♂️ Ram walks 10m South from home, turns right, walks 15m, turns right, walks 10m, and finally turns left, walks 20m.\n[Expected Question - Group 4]",
+      o: ["a) 35 மீ மேற்கில் (35 m West)", "b) 35 மீ கிழக்கில் (35 m East)", "c) 20 மீ மேற்கில் (20 m West)", "d) 15 மீ மேற்கில் (15 m West)"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>அவர் தொடக்க இடத்திலிருந்து மேற்கு திசையில் மொத்தம் 15 + 20 = 35 மீ தொலைவில் உள்ளார் ⬅️.",
+      exp_en: "<b>Explanation:</b><br>Total horizontal distance is 15 + 20 = 35 m towards West ⬅️."
+    },
+    {
+      q_ta: "14. 🧭 ஒரு திசைகாட்டியில் (Compass) மேற்கு திையானது தெற்காக மாற்றப்பட்டால், கிழக்கு என்னவாக மாறும்?\n[எதிர்பார்க்கப்படும் வினா - Group 2/2A]",
+      q_en: "14. 🧭 In a compass, if West is replaced by South, what will East become?\n[Expected Question - Group 2/2A]",
+      o: ["a) வடக்கு (North)", "b) தெற்கு (South)", "c) மேற்கு (West)", "d) கிழக்கு (East)"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>திசைகள் 90 டிகிரி கடிகார திசைக்கு மாறாக (Anti-clockwise) சுழற்றப்படுகின்றன. எனவே கிழக்கு ⬆️ வடக்காக மாறும்.",
+      exp_en: "<b>Explanation:</b><br>Directions rotate by 90 degrees anti-clockwise, making East become North ⬆️."
+    },
+    {
+      q_ta: "15. 🌅 கபீர் மற்றும் சலீம் மாலையில் ஒருவரையொருவர் பார்த்துக் பேசுகின்றனர். கபீரின் நிழல் சலீமின் வலதுபுறம் விழுந்தால், கபீர் எந்தத் திசையை நோக்கி நிற்கிறார்?\n[எதிர்பார்க்கப்படும் வினா - Group 2/4]",
+      q_en: "15. 🌅 Kabir and Salim talk face to face in evening. Kabir's shadow falls to Salim's right. Which direction is Kabir facing?\n[Expected Question - Group 2/4]",
+      o: ["a) தெற்கு (South)", "b) வடக்கு (North)", "c) கிழக்கு (East)", "d) மேற்கு (West)"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>மாலையில் நிழல் கிழக்கில் விழும். சலீமின் வலது கை கிழக்கு என்றால் சலீம் தெற்கில் உள்ளார், கபீர் ⬆️ வடக்கை நோக்கி உள்ளார்.",
+      exp_en: "<b>Explanation:</b><br>Kabir is facing North ⬆️."
+    },
+    {
+      q_ta: "16. 🚶‍♀️ கீதா வடக்கில் 5 கி.மீ சென்று, வலதுபுறம் திரும்பி 3 கி.மீ சென்று, மீண்டும் வலதுபுறம் திரும்பி 5 கி.மீ செல்கிறார். ஆரம்ப இடத்திலிருந்து அவர் எந்தத் திசையில் எவ்வளவு தூரத்தில் உள்ளார்?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "16. 🚶‍♀️ Geetha walks 5 km North, turns right, walks 3 km, turns right, walks 5 km. Where is she from start?\n[Expected Question - Group 4]",
+      o: ["a) 3 கி.மீ கிழக்கில் (3 km East)", "b) 3 கி.மீ மேற்கில் (3 km West)", "c) 5 கி.மீ கிழக்கில் (5 km East)", "d) 3 கி.மீ வடக்கில் (3 km North)"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>அவர் தொடக்க இடத்திலிருந்து நேர் ➡️ கிழக்கில் 3 கி.மீ தூரத்தில் உள்ளார்.",
+      exp_en: "<b>Explanation:</b><br>She is 3 km East of the starting point ➡️."
+    },
+    {
+      q_ta: "17. 🚲 ஒருவர் தெற்கே திரும்பி நேராக 30 மீட்டர் நடந்து, இடதுபுறம் திரும்பி 40 மீட்டர் நடக்கிறார். ஆரம்பப் புள்ளியிலிருந்து அவரது குறைந்தபட்ச தூரம் என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "17. 🚲 A man walks 30m South, turns left and walks 40m. What is the minimum distance from start?\n[Expected Question - Group 4]",
+      o: ["a) 50 மீ (50 m)", "b) 70 மீ (70 m)", "c) 10 மீ (10 m)", "d) 60 மீ (60 m)"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>$\\sqrt{30^2 + 40^2} = \\sqrt{900 + 1600} = \\sqrt{2500} = 50$ மீட்டர் 📐.",
+      exp_en: "<b>Explanation:</b><br>$\\sqrt{30^2 + 40^2} = 50$ meters 📐."
+    },
+    {
+      q_ta: "18. 🔍 பி என்ற புள்ளி ஏ-க்கு கிழக்கே 5 கி.மீ தொலைவிலும், சி என்ற புள்ளி பி-க்கு வடக்கே 3 கி.மீ தொலைவிலும் உள்ளது. டி என்ற புள்ளி சி-க்கு மேற்கே 2 கி.மீ எனில், டி-யிலிருந்து ஏ எந்தத் திசையில் உள்ளது?\n[எதிர்பார்க்கப்படும் வினா - Group 1/2]",
+      q_en: "18. 🔍 Point B is 5 km East of A, C is 3 km North of B, D is 2 km West of C. In which direction is A from D?\n[Expected Question - Group 1/2]",
+      o: ["a) தென்மேற்கு (Southwest)", "b) தென்கிழக்கு (Southeast)", "c) வடமேற்கு (Northwest)", "d) வடகிழக்கு (Northeast)"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>வரைபடக் கணக்கீட்டின்படி டி-யிலிருந்து பார்க்கும்போது ஏவானது ↙️ தென்மேற்கு திசையில் அமையும்.",
+      exp_en: "<b>Explanation:</b><br>A is to the Southwest of D ↙️."
+    },
+    {
+      q_ta: "19. ⚡ ஒரு மின் கம்பம் வடக்கில் உள்ள வீட்டை நோக்கி சாய்ந்துள்ளது. அதன் நிழல் சரியாக அதன் பின்னால் விழுந்தால், இப்போது சூரியன் எந்தத் திசையில் உள்ளது?\n[எதிர்பார்க்கப்படும் வினா - Group 2/4]",
+      q_en: "19. ⚡ An electric pole leans North. If its shadow falls exactly behind it, in which direction is the sun?\n[Expected Question - Group 2/4]",
+      o: ["a) தெற்கு (South)", "b) வடக்கு (North)", "c) கிழக்கு (East)", "d) மேற்கு (West)"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>கம்பம் வடக்கே சாய்ந்திருந்தாலும், நிழல் பின்னால் விழுவதால் சூரியன் ⬇️ தெற்கு திசையில் உள்ளது.",
+      exp_en: "<b>Explanation:</b><br>The sun must be in the South direction for the shadow to fall directly behind the leaning pole ⬇️."
+    },
+    {
+      q_ta: "20. 🎯 வீட்டின் முன் வாசலில் நின்றுகொண்டு ராம் நே-ம மேற்கில் 50 மீ சென்று, இடதுபுறம் திரும்பி 30 மீ சென்று, மீண்டும் இடதுபுறம் திரும்பி 100 மீ செல்கிறார். அவர் வீட்டின் முன் வாசலில் இருந்து எவ்வளவு தூரத்தில் உள்ளார்?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "20. 🎯 Ram walks 50m West from front door, turns left, walks 30m, turns left, walks 100m. How far is he from door?\n[Expected Question - Group 4]",
+      o: ["a) 50 மீ (50 m)", "b) 30 மீ (30 m)", "c) 50√2 மீ (50√2 m)", "d) 70 மீ (70 m)"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>செங்குத்து தூரம் 30 மீ, கிடைமட்ட தூரம் 50 மீ. பைதாகரஸ் தேற்றப்படி $\\sqrt{50^2 + 30^2} = \\sqrt{3400} \\approx 58.3$ மீ (அல்லது தோராயமாக கணக்கிடப்படும்).",
+      exp_en: "<b>Explanation:</b><br>Pythagoras calculation gives approx distance 📐."
+    },
+    {
+      q_ta: "21. 📋 ஒரு நபர் வடகிழக்கில் 8 மீ நடந்து, தென்கிழக்கில் 6 மீ நடக்கிறார். ஆரம்ப புள்ளியிலிருந்து அவர் எவ்வளவு தூரத்தில் உள்ளார்?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "21. 📋 A person walks 8m Northeast, then 6m Southeast. What is the distance from the starting point?\n[Expected Question - Group 4]",
+      o: ["a) 10 மீ (10 m)", "b) 14 மீ (14 m)", "c) 2 மீ (2 m)", "d) 12 மீ (12 m)"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>வடகிழக்கும் தென்கிழக்கும் செங்கோணத்தை (90°) உருவாக்குகின்றன. $\\sqrt{8^2 + 6^2} = \\sqrt{64 + 36} = \\sqrt{100} = 10$ மீ 📐.",
+      exp_en: "<b>Explanation:</b><br>Using right-angle property: $\\sqrt{8^2 + 6^2} = 10$ m 📐."
+    },
+    {
+      q_ta: "22. 💡 விண்கலம் ஒன்று ஏவப்பட்ட பிறகு வடக்கே 30 கி.மீ சென்று, இடதுபுறம் திரும்பி 40 கி.மீ சென்று, மீண்டும் இடதுபுறம் திரும்பி 30 கி.மீ சென்றால் அது ஆரம்ப இடத்திலிருந்து எங்கு இருக்கும்?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "22. 💡 A rocket goes 30 km North, turns left, goes 40 km, turns left, goes 30 km. Where is it from start?\n[Expected Question - Group 4]",
+      o: ["a) 40 கி.மீ மேற்கில் (40 km West)", "b) 40 கி.மீ கிழக்கில் (40 km East)", "c) 70 கி.மீ வடக்கில் (70 km North)", "d) ஆரம்ப இடத்திலேயே (At start)"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>நகர்வுகளின் முடிவில் அது ஆரம்பப் புள்ளியிலிருந்து நேர் ⬅️ மேற்கே 40 கி.மீ தொலைவில் இருக்கும்.",
+      exp_en: "<b>Explanation:</b><br>It is 40 km West of the starting point ⬅️."
+    },
+    {
+      q_ta: "23. 📐 ஒருவர் மேற்கு நோக்கித் திரும்பி 5 கி.மீ நடந்து, வலதுபுறம் திரும்பி 3 கி.மீ நடந்து, மீண்டும் வலதுபுறம் திரும்பி 5 கி.மீ நடக்கிறார். இப்போது அவர் எந்தத் திசையை நோக்கி நிற்கிறார்?\n[எதிர்பார்க்கப்படும் வினா - Group 2/4]",
+      q_en: "23. 📐 A man faces West, walks 5 km, turns right, walks 3 km, turns right, walks 5 km. Which direction is he facing now?\n[Expected Question - Group 2/4]",
+      o: ["a) கிழக்கு (East)", "b) மேற்கு (West)", "c) வடக்கு (North)", "d) தெற்கு (South)"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>அவர் இறுதியில் வலதுபுறமாகச் சுற்றியிருப்பதால் ➡️ கிழக்கு திசையை நோக்கி நிற்கிறார்.",
+      exp_en: "<b>Explanation:</b><br>He is finally facing East ➡️."
+    },
+    {
+      q_ta: "24. 📊 ஒரு திசைகாட்டியில் 'கிழக்கு' என்பது 'தென்மேற்கு' என அழைக்கப்பட்டால், 'தெற்கு' என்பது என்னவாக அழைக்கப்படும்?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "24. 📊 In a compass, if 'East' is called 'Southwest', what will 'South' be called?\n[Expected Question - Group 4]",
+      o: ["a) வடமேற்கு (Northwest)", "b) வடகிழக்கு (Northeast)", "c) தென்கிழக்கு (Southeast)", "d) மேற்கு (West)"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>திசைகள் 135 டிகிரி கடிகார திசையில் மாற்றப்பட்டுள்ளன. எனவே தெற்கு என்பது ↖️ வடமேற்கு ஆகும்.",
+      exp_en: "<b>Explanation:</b><br>Applying a 135-degree clockwise shift changes South to Northwest ↖️."
+    },
+    {
+      q_ta: "25. 🔮 கார் ஒன்று தெற்கே 20 கி.மீ சென்று, இடதுபுறம் திரும்பி 10 கி.மீ சென்று, மீண்டும் இடதுபுறம் திரும்பி 20 கி.மீ சென்றால் அது எந்தத் திசையை நோக்கிச் செல்கிறது?\n[எதிர்பார்க்கப்படும் வினா - Group 1/2]",
+      q_en: "25. 🔮 A car goes 20 km South, turns left, goes 10 km, turns left, goes 20 km. Which direction is it heading?\n[Expected Question - Group 1/2]",
+      o: ["a) வடக்கு (North)", "b) தெற்கு (South)", "c) கிழக்கு (East)", "d) மேற்கு (West)"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>கடைசியாக அவர் இடதுபுறம் திரும்பி 20 கி.மீ செல்வதால் ⬆️ வடக்கு திசையை நோக்கிச் செல்கிறார்.",
+      exp_en: "<b>Explanation:</b><br>He is heading North ⬆️."
+    },
+    {
+      q_ta: "26. 📱 ராஜேஷ் தனது வீட்டில் இருந்து கிழக்கே 10 மீ நடந்து, வலதுபுறம் திரும்பி 10 மீ நடந்து, மீண்டும் இடதுபுறம் திரும்பி 5 மீ நடக்கிறார். தொடக்க இடத்திலிருந்து அவரது திசை என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "26. 📱 Rajesh walks 10m East from home, turns right, walks 10m, turns left, walks 5m. What is his direction from start?\n[Expected Question - Group 4]",
+      o: ["a) தென்கிழக்கு (Southeast)", "b) வடகிழக்கு (Northeast)", "c) தெற்கு (South)", "d) கிழக்கு (East)"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>அவர் தொடக்கக் புள்ளியிலிருந்து பார்க்கும்போது ↘️ தென்கிழக்கு திசையில் உள்ளார்.",
+      exp_en: "<b>Explanation:</b><br>He is located in the Southeast direction from the starting point ↘️."
+    },
+    {
+      q_ta: "27. 💻 அனில் வடக்கே 10 மீ சென்று, பின்னர் தெற்கே 6 மீ நடந்து, பின்னர் கிழக்கே 3 மீ நடக்கிறார். ஆரம்ப இடத்திலிருந்து அவர் எங்கு உள்ளார்?\n[எதிர்பார்க்கப்படும் வினா - Group 2/4]",
+      q_en: "27. 💻 Anil walks 10m North, then 6m South, then 3m East. Where is he from the starting point?\n[Expected Question - Group 2/4]",
+      o: ["a) வடகிழக்கு 5 மீ (5m Northeast)", "b) வடமேற்கு 5 மீ (5m Northwest)", "c) கிழக்கு 7 மீ (7m East)", "d) வடக்கு 4 மீ (4m North)"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>செங்குத்து நகர்வு = 10 - 6 = 4 மீ (வடக்கு). கிடைமட்ட நகர்வு = 3 மீ (கிழக்கு). தூரம் = $\\sqrt{4^2 + 3^2} = 5$ மீ வடகிழக்கு ↗️.",
+      exp_en: "<b>Explanation:</b><br>Net displacement is 4m North and 3m East, giving 5m Northeast ↗️."
+    },
+    {
+      q_ta: "28. 🔍 ஒரு விளையாட்டு வீரர் வட்டப் பாதையின் மையத்திலிருந்து வடக்கே சென்று வலதுபுறமாகச் சுற்றுகிறார். அவர் எந்த திசை வட்டத்தில் நகர்கிறார்?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "28. 🔍 An athlete goes North from the center of a circular track and turns right. Which direction does he move along the circle?\n[Expected Question - Group 4]",
+      o: ["a) கடிகார திசையில் (Clockwise)", "b) எதிரெதிர் திசையில் (Anti-clockwise)", "c) நேர்கோட்டில் (Straight)", "d) தெற்கில் (South)"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>மையத்திலிருந்து வடக்கே சென்று வலதுபுறம் திரும்பினால் அது ⏰ கடிகார திசையில் அமையும்.",
+      exp_en: "<b>Explanation:</b><br>Moving right after going North from center traces a clockwise path ⏰."
+    },
+    {
+      q_ta: "29. ⚡ ஒருவர் மேற்கில் 3 கி.மீ சென்று, வலதுபுறம் திரும்பி 2 கி.மீ சென்று, மீண்டும் வலதுபுறம் திரும்பி 3 கி.மீ செல்கிறார். தொடக்கப் புள்ளியிலிருந்து அவர் எந்தத் திசையில் உள்ளார்?\n[எதிர்பார்க்கப்படும் வினா - Group 1/2]",
+      q_en: "29. ⚡ A person goes 3 km West, turns right, goes 2 km, turns right, goes 3 km. Which direction is he from start?\n[Expected Question - Group 1/2]",
+      o: ["a) வடக்கு (North)", "b) தெற்கு (South)", "c) மேற்கு (West)", "d) கிழக்கு (East)"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>அவர் ஆரம்பப் புள்ளியிலிருந்து நேர் ⬆️ வடக்கே 2 கி.மீ தொலைவில் உள்ளார்.",
+      exp_en: "<b>Explanation:</b><br>He is directly North of the starting point ⬆️."
+    },
+    {
+      q_ta: "30. 🎯 விஜய் வடக்கில் 12 கி.மீ சென்று, பின்னர் மேற்கில் 5 கி.மீ செல்கிறார். தொடக்க இடத்திற்கும் அவருக்கும் இடையே உள்ள குறைந்தபட்ச தூரம் என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "30. 🎯 Vijay goes 12 km North, then 5 km West. What is the minimum distance between start and his current position?\n[Expected Question - Group 4]",
+      o: ["a) 13 கி.மீ (13 km)", "b) 17 கி.மீ (17 km)", "c) 7 கி.மீ (7 km)", "d) 15 கி.மீ (15 km)"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>$\\sqrt{12^2 + 5^2} = \\sqrt{144 + 25} = \\sqrt{169} = 13$ கி.மீ 📐.",
+      exp_en: "<b>Explanation:</b><br>$\\sqrt{12^2 + 5^2} = 13$ km 📐."
+    }
+  ];
+
+  let currentQuestion = 0;
+  let userAnswers = new Array(questionsData.length).fill(null);
+  let isReviewMode = false;
+  let timerInterval;
+  let timeLeft = 45 * 60;
+
+  function toggleLanguage() {
+    currentLang = currentLang === 'ta' ? 'en' : 'ta';
+    document.getElementById('langBtn').innerText = currentLang === 'ta' ? '🌐 English' : '🌐 தமிழ்';
+    updateLanguageTexts();
+    loadQuestion(currentQuestion);
+  }
+
+  function updateLanguageTexts() {
+    if(currentLang === 'en') {
+      document.getElementById('headerTitle').innerText = "🐅 TIGER WARRIORS - Direction Sense (30 Questions)";
+      document.getElementById('prevBtn').innerText = "⬅️ Previous";
+      document.getElementById('clearBtn').innerText = "🧹 Clear Choice";
+      document.getElementById('nextBtn').innerText = "Next ➡️";
+      document.getElementById('finalSubmitBtn').innerText = "✅ Submit Test";
+      document.getElementById('resHeader').innerText = "🏆 Test Results 🎯";
+      document.getElementById('lblCorrect').innerText = "Correct ✅";
+      document.getElementById('lblWrong').innerText = "Wrong ❌";
+      document.getElementById('lblUnans').innerText = "Unanswered ⚠️";
+      document.getElementById('btnKey').innerText = "🔍 Answer Key";
+      document.getElementById('btnDash').innerText = "🏠 Dashboard";
+      document.getElementById('btnRetake').innerText = "🔄 Retake Test";
+      document.getElementById('btnExit').innerText = "🚪 Exit";
+    } else {
+      document.getElementById('headerTitle').innerText = "🐅 TIGER WARRIORS - திசைகள் (Direction Sense) 30 வினாக்கள்";
+      document.getElementById('prevBtn').innerText = "⬅️ முந்தையது";
+      document.getElementById('clearBtn').innerText = "🧹 விடையை நீக்கு";
+      document.getElementById('nextBtn').innerText = "அடுத்து ➡️";
+      document.getElementById('finalSubmitBtn').innerText = "✅ தேர்வைச் சமர்ப்பிக்க (Submit)";
+      document.getElementById('resHeader').innerText = "🏆 தேர்வு முடிவுகள் (Test Results) 🎯";
+      document.getElementById('lblCorrect').innerText = "சரியானது ✅";
+      document.getElementById('lblWrong').innerText = "தவறானது ❌";
+      document.getElementById('lblUnans').innerText = "விடையில்லை ⚠️";
+      document.getElementById('btnKey').innerText = "🔍 விடை குறிப்பு & விளக்கம்";
+      document.getElementById('btnDash').innerText = "🏠 முகப்புப் பக்கம்";
+      document.getElementById('btnRetake').innerText = "🔄 மீண்டும் தேர்வு";
+      document.getElementById('btnExit').innerText = "🚪 வெளியேறு";
+    }
+  }
+
+  function initTest() {
+    buildGrid();
+    loadQuestion(0);
+    startTimer();
+  }
+
+  function buildGrid() {
+    const grid = document.getElementById('questionGrid');
+    grid.innerHTML = '';
+    questionsData.forEach((_, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'q-num-btn';
+      btn.innerText = idx + 1;
+      btn.id = `q_btn_${idx}`;
+      btn.onclick = () => jumpToQuestion(idx);
+      grid.appendChild(btn);
+    });
+    updateGridStatus();
+  }
+
+  function updateGridStatus() {
+    questionsData.forEach((_, idx) => {
+      const btn = document.getElementById(`q_btn_${idx}`);
+      if(!btn) return;
+      btn.className = 'q-num-btn';
+      if(idx === currentQuestion) {
+        btn.classList.add('active');
+      } else if(userAnswers[idx] !== null) {
+        btn.classList.add('answered');
+      }
+    });
+  }
+
+  function searchInAI(provider, questionIdx) {
+    const q = questionsData[questionIdx];
+    const questionText = (currentLang === 'ta' ? q.q_ta : q.q_en).replace(/<[^>]*>?/gm, '');
+    const optionsText = q.o.join(", ");
+    const fullQuery = encodeURIComponent(`Explain this TNPSC Direction Sense reasoning question step by step:\n${questionText}\nOptions: ${optionsText}`);
+    
+    let targetUrl = "";
+    if (provider === 'chatgpt') {
+      targetUrl = `https://chatgpt.com/?q=${fullQuery}`;
+    } else if (provider === 'gemini') {
+      targetUrl = `https://gemini.google.com/app`;
+    } else if (provider === 'perplexity') {
+      targetUrl = `https://www.perplexity.ai/?q=${fullQuery}`;
+    } else if (provider === 'google') {
+      targetUrl = `https://www.google.com/search?q=${fullQuery}`;
+    }
+
+    window.open(targetUrl, '_blank');
+  }
+
+  function loadQuestion(idx) {
+    currentQuestion = idx;
+    const q = questionsData[idx];
+    document.getElementById('qTitle').innerText = currentLang === 'ta' ? q.q_ta : q.q_en;
+    
+    const optsBox = document.getElementById('optionsBox');
+    optsBox.innerHTML = '';
+
+    q.o.forEach((optText, oIdx) => {
+      const card = document.createElement('div');
+      card.className = 'option-card';
+      
+      if(userAnswers[idx] === oIdx) {
+        card.classList.add('selected');
+      }
+
+      if(isReviewMode) {
+        if(oIdx === q.a) {
+          card.classList.add('correct-ans');
+        } else if(userAnswers[idx] === oIdx && oIdx !== q.a) {
+          card.classList.add('wrong-ans');
+        }
+      }
+
+      card.innerHTML = `<span><b>${String.fromCharCode(65 + oIdx)}.</b> ${optText}</span>`;
+      card.onclick = () => selectOption(oIdx);
+      optsBox.appendChild(card);
+    });
+
+    const expBox = document.getElementById('expBox');
+    if(isReviewMode) {
+      expBox.style.display = 'block';
+      let baseExp = currentLang === 'ta' ? q.exp_ta : q.exp_en;
+      
+      expBox.innerHTML = `
+        <div style="font-size: 14px; margin-bottom: 8px;">${baseExp}</div>
+        <div style="font-size: 12px; color: #fbbf24; margin-top: 10px; font-weight: bold;">🤖 AI Link Buttons (Opens in New Tab):</div>
+        <div class="ai-btn-group">
+          <button class="ai-link-btn btn-chatgpt" onclick="searchInAI('chatgpt', ${idx})">🟢 ChatGPT</button>
+          <button class="ai-link-btn btn-gemini" onclick="searchInAI('gemini', ${idx})">✨ Gemini AI</button>
+          <button class="ai-link-btn btn-perplexity" onclick="searchInAI('perplexity', ${idx})">🔵 Perplexity</button>
+          <button class="ai-link-btn btn-google" onclick="searchInAI('google', ${idx})">🔍 Google Search</button>
+        </div>
+      `;
+    } else {
+      expBox.style.display = 'none';
+    }
+
+    document.getElementById('prevBtn').style.display = idx === 0 ? 'none' : 'block';
+    document.getElementById('nextBtn').style.display = idx === questionsData.length - 1 ? 'none' : 'block';
+    updateGridStatus();
+  }
+
+  function selectOption(oIdx) {
+    if(isReviewMode) return;
+    userAnswers[currentQuestion] = oIdx;
+    loadQuestion(currentQuestion);
+  }
+
+  function clearChoice() {
+    if(isReviewMode) return;
+    userAnswers[currentQuestion] = null;
+    loadQuestion(currentQuestion);
+  }
+
+  function navigateNumberQuery(dir) {
+    const postNext = currentQuestion + dir;
+    if(postNext >= 0 && postNext < questionsData.length) {
+      loadQuestion(postNext);
+    }
+  }
+
+  function jumpToQuestion(idx) {
+    loadQuestion(idx);
+  }
+
+  function startTimer() {
+    if (timerInterval) clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+      timeLeft--;
+      let m = Math.floor(timeLeft / 60);
+      let s = timeLeft % 60;
+      const timerElem = document.getElementById('timerBox');
+      if(timerElem) {
+        timerElem.innerText = `⏱️ ${m}:${s < 10 ? '0' : ''}${s}`;
+      }
+      if(timeLeft <= 0) {
+        clearInterval(timerInterval);
+        submitTest();
+      }
+    }, 1000);
+  }
+
+  function submitTest() {
+    if (timerInterval) clearInterval(timerInterval);
+    document.getElementById('testView').style.display = 'none';
+    document.getElementById('resultView').style.display = 'block';
+
+    let correct = 0, wrong = 0, unans = 0;
+    userAnswers.forEach((ans, idx) => {
+      if(ans === null) unans++;
+      else if(ans === questionsData[idx].a) correct++;
+      else wrong++;
+    });
+
+    document.getElementById('scoreDisplay').innerText = `${correct} / ${questionsData.length}`;
+    let pct = ((correct / questionsData.length) * 100).toFixed(1);
+    document.getElementById('percentageDisplay').innerText = `${currentLang === 'ta' ? 'சதவீதம்' : 'Percentage'}: ${pct}%`;
+    document.getElementById('correctCnt').innerText = correct;
+    document.getElementById('wrongCnt').innerText = wrong;
+    document.getElementById('unansCnt').innerText = unans;
+  }
+
+  function reviewAnswerKey() {
+    isReviewMode = true;
+    document.getElementById('resultView').style.display = 'none';
+    document.getElementById('testView').style.display = 'block';
+    document.getElementById('finalSubmitBtn').style.display = 'none';
+    document.getElementById('backToResultBtn').style.display = 'block';
+    document.getElementById('dashFromKeyBtn').style.display = 'block';
+    loadQuestion(0);
+  }
+
+  function returnToResult() {
+    document.getElementById('testView').style.display = 'none';
+    document.getElementById('resultView').style.display = 'block';
+  }
+
+  function returnToDashboard() {
+    window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html"); 
+  }
+
+  function exitPortal() {
+    window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html");
+  }
+
+  function retakeTest() {
+    userAnswers = new Array(questionsData.length).fill(null);
+    isReviewMode = false;
+    timeLeft = 45 * 60;
+    document.getElementById('resultView').style.display = 'none';
+    document.getElementById('testView').style.display = 'block';
+    document.getElementById('finalSubmitBtn').style.display = 'inline-block';
+    document.getElementById('backToResultBtn').style.display = 'none';
+    document.getElementById('dashFromKeyBtn').style.display = 'none';
+    initTest();
+  }
+
+  window.onload = function() {
+    initTest();
+  }
+</script>
+
+</body>
+</html>
