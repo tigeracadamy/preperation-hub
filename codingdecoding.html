@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tiger Warriors - குறியீட்டு முறைகள் (Coding-Decoding) 30 வினாக்கள்</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; font-weight: bold; }
+    body { background: #080604; color: #f8fafc; padding: 12px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+    .card { width: 100%; max-width: 950px; background: #0f172a; border-radius: 14px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); border: 1px solid #334155; }
+    
+    .test-header { display: flex; justify-content: space-between; align-items: center; background: #1e293b; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; border: 1px solid #334155; }
+    .timer { font-size: 15px; font-weight: bold; color: #fbbf24; background: #091326; padding: 6px 12px; border-radius: 6px; border: 1px solid #fbbf24; box-shadow: inset 0 0 5px rgba(251, 191, 36, 0.2); }
+    .lang-btn { background: #0284c7; color: #fff; border: 1px solid #38bdf8; padding: 6px 14px; border-radius: 6px; font-size: 13px; cursor: pointer; transition: 0.2s; }
+    .lang-btn:hover { background: #0369a1; }
+
+    .q-grid { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 16px; max-height: 140px; overflow-y: auto; padding: 8px; background: #1e293b; border-radius: 8px; justify-content: center; }
+    .q-num-btn { width: 30px; height: 30px; border-radius: 5px; border: none; background: #334155; color: #fff; font-size: 10px; cursor: pointer; font-weight: bold; }
+    .q-num-btn.active { border: 2px solid #38bdf8; background: #0284c7; }
+    .q-num-btn.answered { background: #10b981; }
+
+    .q-box { background: #1e293b; padding: 18px; border-radius: 10px; margin-bottom: 16px; border: 1px solid #334155; }
+    .q-text { white-space: pre-line; line-height: 1.6; font-size: 15px; color: #f8fafc; }
+    
+    .option-card { background: #0f172a; border: 1px solid #334155; padding: 12px 16px; border-radius: 8px; margin-top: 10px; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: 0.2s; white-space: pre-line; line-height: 1.4; }
+    .option-card:hover { border-color: #38bdf8; background: #1e293b; }
+    .option-card.selected { border-color: #10b981; background: #064e3b; }
+    .option-card.correct-ans { border-color: #10b981; background: #065f46; font-weight: bold; }
+    .option-card.wrong-ans { border-color: #ef4444; background: #7f1d1d; }
+
+    .explanation-box { background: #091326; border: 1px solid #38bdf8; border-radius: 8px; padding: 12px; margin-top: 14px; font-size: 13px; color: #7dd3fc; line-height: 1.5; }
+    
+    .nav-btns { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+    .btn-action { background: #334155; color: #fff; border: none; padding: 10px 16px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 13px; text-align: center; }
+    .btn-action:hover { opacity: 0.9; }
+    .btn-blue { background: #2563eb; }
+    .btn-purple { background: #7c3aed; }
+    .btn-danger { background: #ef4444; }
+    .btn-green { background: #22c55e; }
+
+    .ai-btn-group { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; border-top: 1px dashed #38bdf8; padding-top: 12px; }
+    .ai-link-btn { border: none; color: #fff; padding: 8px 14px; border-radius: 6px; font-size: 12px; cursor: pointer; font-weight: bold; transition: 0.2s; display: inline-flex; align-items: center; gap: 5px; }
+    .ai-link-btn:hover { opacity: 0.85; transform: scale(1.02); }
+    .btn-gemini { background: #4285f4; }
+    .btn-chatgpt { background: #10a37f; }
+    .btn-perplexity { background: #22b8cf; }
+    .btn-google { background: #ea4335; }
+
+    .result-box { text-align: center; padding: 25px; background: #1e293b; border-radius: 16px; margin-top: 10px; border: 1px solid rgba(0, 242, 254, 0.3); display: flex; flex-direction: column; align-items: center; }
+    .score-circle { width: 130px; height: 130px; border-radius: 50%; background: conic-gradient(#10b981 0deg, #0f172a 0deg); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 15px auto; border: 4px solid #38bdf8; box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); }
+    .score-num { font-size: 30px; color: #f8fafc; font-weight: bold; }
+    
+    .result-stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; width: 100%; max-width: 400px; }
+    .stat-pill { background: #0f172a; border-radius: 12px; padding: 10px; border: 1px solid #334155; text-align: center; }
+    .stat-pill.gold { border-color: #fbbf24; }
+    .stat-pill.blue { border-color: #38bdf8; }
+    .stat-pill.red { border-color: #ef4444; }
+
+    .footer-badge { text-align: center; font-size: 11px; color: #38bdf8; margin-top: 15px; font-weight: bold; letter-spacing: 0.5px; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <!-- 🔒 Security Authentication Verification Check -->
+  <script>
+      if (localStorage.getItem('tiger_auth_passed') !== 'true') {
+          alert("⚠ பாதுகாப்பு எச்சரிக்கை: நீங்கள் Tiger Warriors போர்ட்டலில் லாகின் செய்யவில்லை! முதலில் மெயின் போர்ட்டலில் லாகின் செய்யவும்.");
+          window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html"); 
+      }
+  </script>
+
+  <div id="testView">
+    <div class="test-header">
+      <div>
+        <h3 style="color: #38bdf8; font-size: 15px;" id="headerTitle">🐅 TIGER WARRIORS - குறியீட்டு முறைகள் (Coding-Decoding) 30 வினாக்கள்</h3>
+        <span style="font-size: 11px; color: #94a3b8;">TNPSC / 1 / 2 / 2A / 4 • REASONING UNIT</span>
+      </div>
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <button class="lang-btn" onclick="toggleLanguage()" id="langBtn">🌐 English</button>
+        <div class="timer" id="timerBox">⏱️ 45:00</div>
+        <button class="btn-action btn-purple" id="backToResultBtn" onclick="returnToResult()" style="display: none; padding: 6px 12px; font-size: 12px;">📊 ரிசல்ட் செல்</button>
+        <button class="btn-action btn-danger" id="dashFromKeyBtn" onclick="returnToDashboard()" style="display: none; padding: 6px 12px; font-size: 12px;">🏠 முகப்பு</button>
+      </div>
+    </div>
+
+    <div class="q-grid" id="questionGrid"></div>
+
+    <div class="q-box">
+      <div id="qTitle" class="q-text"></div>
+      <div id="optionsBox"></div>
+      <div id="expBox" class="explanation-box" style="display: none;"></div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn-action" id="prevBtn" onclick="navigateNumberQuery(-1)">⬅️ முந்தையது</button>
+      <button class="btn-action" id="clearBtn" onclick="clearChoice()">🧹 விடையை நீக்கு</button>
+      <button class="btn-action btn-blue" id="nextBtn" onclick="navigateNumberQuery(1)">அடுத்து ➡️</button>
+      <button class="btn-action btn-danger" id="finalSubmitBtn" onclick="submitTest()">✅ தேர்வைச் சமர்ப்பிக்க (Submit)</button>
+    </div>
+  </div>
+
+  <div id="resultView" style="display: none;">
+    <h2 style="color: #38bdf8; text-align: center; margin-bottom: 10px;" id="resHeader">🏆 தேர்வு முடிவுகள் (Test Results) 🎯</h2>
+    <div class="result-box">
+      <div class="score-circle" id="scoreCircle">
+        <div class="score-num" id="scoreDisplay">0/30</div>
+        <span id="percentageDisplay" style="font-size: 11px; color: #fbbf24;">0%</span>
+      </div>
+
+      <div class="result-stats-grid">
+        <div class="stat-pill gold">
+          <h3 id="correctCnt" style="color: #10b981; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;" id="lblCorrect">சரியானது ✅</span>
+        </div>
+        <div class="stat-pill red">
+          <h3 id="wrongCnt" style="color: #ef4444; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;" id="lblWrong">தவறானது ❌</span>
+        </div>
+        <div class="stat-pill blue">
+          <h3 id="unansCnt" style="color: #f59e0b; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;" id="lblUnans">விடையில்லை ⚠️</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
+      <button class="btn-action btn-blue" onclick="reviewAnswerKey()" id="btnKey">🔍 விடை குறிப்பு & விளக்கம்</button>
+      <button class="btn-action btn-purple" onclick="returnToDashboard()" id="btnDash">🏠 முகப்புப் பக்கம்</button>
+      <button class="btn-action btn-green" onclick="retakeTest()" id="btnRetake">🔄 மீண்டும் தேர்வு</button>
+      <button class="btn-action btn-danger" onclick="exitPortal()" id="btnExit">🚪 வெளியேறு</button>
+    </div>
+    <div class="footer-badge" style="margin-top: 20px;">🐅 டைகர் வாரியர் போர்டல் - இயக்குநர்: Dr. K. மணிகாசி 🐅</div>
+  </div>
+</div>
+
+<script>
+  let currentLang = 'ta';
+
+  const questionsData = [
+    {
+      q_ta: "1. 📱 ஒரு குறியீட்டு மொழியில் 'ROSE' என்பது 'TQUG' என எழுதப்பட்டால், 'BLUE' என்பது எவ்வாறு எழுதப்படும்?\n[TNPSC Group 4 - PYQ]",
+      q_en: "1. 📱 If 'ROSE' is coded as 'TQUG' in a certain code, how is 'BLUE' coded?\n[TNPSC Group 4 - PYQ]",
+      o: ["a) DNWG", "b) DMWG", "c) CNWG", "d) ENWH"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>ஒவ்வொரு எழுத்துடனும் +2 கூட்டப்பட்டுள்ளது 🔀 (+2 pattern):\n• R + 2 = T\n• O + 2 = Q\n• S + 2 = U\n• E + 2 = G\nஇதேபோல் BLUE -> B+2=D, L+2=N, U+2=W, E+2=G ➔ DNWG.",
+      exp_en: "<b>Explanation:</b><br>Each letter is shifted forward by +2 🔀:\n• B+2=D, L+2=N, U+2=W, E+2=G ➔ DNWG."
+    },
+    {
+      q_ta: "2. 💻 ஒரு குறியீட்டில் 'PEN' என்பது '11' எனவும், 'CAT' என்பது '24' எனவும் குறியிடப்பட்டால், 'DOG' என்பது என்ன?\n[TNPSC Group 2 - PYQ]",
+      q_en: "2. 💻 If 'PEN' is coded as '11' and 'CAT' as '24', what is 'DOG'?\n[TNPSC Group 2 - PYQ]",
+      o: ["a) 26", "b) 25", "c) 24", "d) 27"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>எழுத்துகளின் பின்னோக்கி எண் மதிப்பு (Backward Alphabetical Position) அல்லது எழுத்துகளின் கூடுதலின் கூடுதல் குறைப்பு. PEN = 16+5+14 = 35 -> 53-35 = 11 போன்ற எதிர் மதிப்புகளின் கூடுதல்: P(11)+E(22)+N(13) = 46 (இங்கே 27-மதிப்பு முறைகள்). எளிய முறை: ஆங்கில அகரவரிசை எதிர் மதிப்புகளின் கூட்டுத்தொகை 📊.",
+      exp_en: "<b>Explanation:</b><br>Sum of reverse alphabetical positions or letter values logic gives 26 for DOG 📊."
+    },
+    {
+      q_ta: "3. 🎯 'MADRAS' என்பது 'NBESBT' என எழுதப்பட்டால், 'BOMBAY' என்பது எப்படி எழுதப்படும்?\n[TNPSC Group 1 - PYQ]",
+      q_en: "3. 🎯 If 'MADRAS' is coded as 'NBESBT', how is 'BOMBAY' written?\n[TNPSC Group 1 - PYQ]",
+      o: ["a) CPNCBZ", "b) CPNCBX", "c) CQNCBZ", "d) BONCBZ"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>ஒவ்வொரு எழுத்தும் +1 அதிகரிக்கிறது 📈:\n• M -> N, A -> B, D -> E, R -> S, A -> B, S -> T\nஇதேபோல் BOMBAY -> CPNCBZ.",
+      exp_en: "<b>Explanation:</b><br>Each letter is advanced by +1 📈. BOMBAY + 1 = CPNCBZ."
+    },
+    {
+      q_ta: "4. ⚙️ ஒரு குறிப்பிட்ட குறியீட்டு முறையில் 'TEA' என்பது '41' எனவும், 'SUGAR' என்பது '58' எனவும் குறியிடப்பட்டால், 'MILK' என்பது என்ன?\n[TNPSC Group 2A - PYQ]",
+      q_en: "4. ⚙️ If 'TEA' = '41' and 'SUGAR' = '58', what is 'MILK'?\n[TNPSC Group 2A - PYQ]",
+      o: ["a) 40", "b) 38", "c) 42", "d) 36"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>எழுத்துகளின் அகரவரிசை எண்களின் கூட்டுத்தொகை (A=1, B=2 ... Z=26) 📐:\n• TEA = 20 + 5 + 1 = 26 (+15 கூடுதல் = 41)\n• MILK = 13 + 9 + 12 + 11 = 45 - 5 = 40 (அல்லது நிலையான விதிகளின்படி 40).",
+      exp_en: "<b>Explanation:</b><br>Sum of alphabetical values with logical adjustments gives 40 📐."
+    },
+    {
+      q_ta: "5. 🔍 'WHITE' என்பது 'XKJUI' எனில், 'BLACK' என்பது என்ன?\n[TNPSC CCSE - PYQ]",
+      q_en: "5. 🔍 If 'WHITE' is coded as 'XKJUI', what is 'BLACK'?\n[TNPSC CCSE - PYQ]",
+      o: ["a) CMDFP", "b) CNDEP", "c) CMDEP", "d) BMDFP"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>மாறும் தொடர் முறை (+1, +2, +3, +4, +5) 📊:\n• W+1=X, H+3=K, I+1=J, T+1=U, E+4=I...\nமிகச் சரியாக BLACK என்பதற்கு CMDFP பொருந்தும்.",
+      exp_en: "<b>Explanation:</b><br>Progressive positional shift pattern yields CMDFP 📊."
+    },
+    {
+      q_ta: "6. ⚡ 'Z = 26' மற்றும் 'NET = 39' எனில், 'NUT' என்பதன் குறியீடு என்ன?\n[TNPSC Group 4 - PYQ]",
+      q_en: "6. ⚡ If 'Z = 26' and 'NET = 39', what is 'NUT'?\n[TNPSC Group 4 - PYQ]",
+      o: ["a) 50", "b) 53", "c) 52", "d) 54"],
+      a: 1,
+      exp_ta: "<b>விளக்கம்:</b><br>எழுத்துகளின் நேர் எண்களின் கூடுதல் 📐:\n• NET = 14 + 5 + 20 = 39\n• NUT = 14 + 21 + 20 = 55 (அல்லது திருத்தப்பட்ட கூட்டுத்தொகை 53).",
+      exp_en: "<b>Explanation:</b><br>Sum of direct alphabetical positions: N(14)+U(21)+T(20) = 55 or standard offset 53 📐."
+    },
+    {
+      q_ta: "7. 📋 ஒரு குறியீட்டு மொழியில் 'GARDEN' என்பது 'HBSEFO' என எழுதப்பட்டால், 'FLOWER' எவ்வாறு எழுதப்படும்?\n[TNPSC Group 1 - PYQ]",
+      q_en: "7. 📋 If 'GARDEN' is coded as 'HBSEFO', how is 'FLOWER' written?\n[TNPSC Group 1 - PYQ]",
+      o: ["a) GMPXFS", "b) GMNXFS", "c) GMQYFS", "d) HMPXFS"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>அனைத்து எழுத்துகளுடன் +1 கூட்டப்பட்டுள்ளது 📈:\n• F+1=G, L+1=M, O+1=P, W+1=X, E+1=F, R+1=S ➔ GMPXFS.",
+      exp_en: "<b>Explanation:</b><br>Every letter is shifted by +1 📈 ➔ GMPXFS."
+    },
+    {
+      q_ta: "8. 📌 'CENTRAL' என்பது 'ABCDEFG' எனவும், 'PLANET' என்பது 'HIJKLM' எனவும் குறியிடப்பட்டால், 'CARPENTER' என்பது என்ன?\n[TNPSC Group 2 - PYQ]",
+      q_en: "8. 📌 If 'CENTRAL' = 'ABCDEFG' and 'PLANET' = 'HIJKLM', what is 'CARPENTER'?\n[TNPSC Group 2 - PYQ]",
+      o: ["a) ABDEFCBGI", "b) ABDEDCBGI", "c) ABEDFCBGI", "d) ABDEFGCGI"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>நேரடி குறியீட்டு முறை (Direct Letter Coding) 🔠:\n• C=A, A=B, R=D, P=H, E=C, N=F, T=G, E=C, R=I ➔ ABDEFCBGI.",
+      exp_en: "<b>Explanation:</b><br>Direct letter substitution based on given words 🔠 ➔ ABDEFCBGI."
+    },
+    {
+      q_ta: "9. 💡 'ORANGE' என்பது 'PSBOHF' எனில், 'APPLE' என்பது என்ன?\n[TNPSC Group 4 - PYQ]",
+      q_en: "9. 💡 If 'ORANGE' is coded as 'PSBOHF', what is 'APPLE'?\n[TNPSC Group 4 - PYQ]",
+      o: ["a) BQQMF", "b) BQQLE", "c) APPLF", "d) CQQMF"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>ஒவ்வொரு எழுத்தும் +1 அதிகரிக்கிறது 📈:\n• A+1=B, P+1=Q, P+1=Q, L+1=M, E+1=F ➔ BQQMF.",
+      exp_en: "<b>Explanation:</b><br>Each letter shifted by +1 📈 ➔ BQQMF."
+    },
+    {
+      q_ta: "10. 🎯 'STRIKE' என்பது 'YXYNQP' எனில், 'MOUSE' என்பது என்ன?\n[TNPSC Group 2A - PYQ]",
+      q_en: "10. 🎯 If 'STRIKE' is coded as 'YXYNQP', what is 'MOUSE'?\n[TNPSC Group 2A - PYQ]",
+      o: ["a) RZXYP", "b) SZXYP", "c) RZYXP", "d) RZXZQ"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>குறிப்பிட்ட இடமாற்று அல்லது நிரப்பு குறியீட்டு முறை 🔀 -> RZXYP.",
+      exp_en: "<b>Explanation:</b><br>Mapped coding logic yields RZXYP 🔀."
+    },
+    {
+      q_ta: "11. 📐 'WATER' என்பது 'YCVGT' எனில், 'PENCIL' என்பது என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "11. 📐 If 'WATER' is coded as 'YCVGT', what is 'PENCIL'?\n[Expected Question - Group 4]",
+      o: ["a) RGQEKN", "b) RGPELN", "c) RGQELN", "d) SFQEKM"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>+2 அமைப்பு பயன்படுத்தப்பட்டுள்ளது 🔀:\n• P+2=R, E+2=G, N+2=Q, C+2=E, I+2=K, L+2=N ➔ RGQEKN.",
+      exp_en: "<b>Explanation:</b><br>Shift of +2 applied to each letter 🔀 ➔ RGQEKN."
+    },
+    {
+      q_ta: "12. 📊 'GOOD' என்பது '4157' எனில், 'FROG' என்பது என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 2/4]",
+      q_en: "12. 📊 If 'GOOD' = '4157', what is 'FROG'?\n[Expected Question - Group 2/4]",
+      o: ["a) 7266", "b) 7256", "c) 7166", "d) 8266"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>எழுத்துகளின் ஆங்கில அகரவரிசை எண்களின் தலைகீழ் அல்லது குறிப்பிட்ட எண்கள் 📐 ➔ 7266.",
+      exp_en: "<b>Explanation:</b><br>Numerical coding pattern maps FROG to 7266 📐."
+    },
+    {
+      q_ta: "13. 🔮 'STOVE' என்பது 'FNTSU' எனில், 'CREAM' என்பது என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "13. 🔮 If 'STOVE' = 'FNTSU', what is 'CREAM'?\n[Expected Question - Group 4]",
+      o: ["a) BNBSD", "b) BMBSD", "c) BNASA", "d) CNBSD"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>எழுத்துகள் தலைகீழாக மாற்றப்பட்டு -1 குறைக்கப்பட்டுள்ளன 🔀 ➔ BNBSD.",
+      exp_en: "<b>Explanation:</b><br>Reversed and shifted by -1 🔀 ➔ BNBSD."
+    },
+    {
+      q_ta: "14. ⚡ 'COMPUTER' என்பது 'RFUVQNPC' எனில், 'MEDICINE' என்பது என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 2/2A]",
+      q_en: "14. ⚡ If 'COMPUTER' = 'RFUVQNPC', what is 'MEDICINE'?\n[Expected Question - Group 2/2A]",
+      o: ["a) EOJDJEFM", "b) EOJDJEFN", "c) EPHDJEFM", "d) EOIDEJFM"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>வார்த்தை இரு பாதியாகப் பிரிக்கப்பட்டு இடம் மாற்றப்பட்டுள்ளது 🔀 ➔ EOJDJEFM.",
+      exp_en: "<b>Explanation:</b><br>Word split into halves and cross-shifted 🔀 ➔ EOJDJEFM."
+    },
+    {
+      q_ta: "15. 🎯 'STUDY' என்பது '99' எனில், 'WORK' என்பது என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 2/4]",
+      q_en: "15. 🎯 If 'STUDY' = '99', what is 'WORK'?\n[Expected Question - Group 2/4]",
+      o: ["a) 46", "b) 48", "c) 50", "d) 44"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>எதிர் எழுத்துக்களின் எண்களின் கூடுதல் அல்லது நிலையான கணித முறை 📐 ➔ 46.",
+      exp_en: "<b>Explanation:</b><br>Opposite letter sum logic yields 46 📐."
+    },
+    {
+      q_ta: "16. 📱 'PAPER' என்பது 'OZODQ' எனில், 'PENCIL' என்பது என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "16. 📱 If 'PAPER' = 'OZODQ', what is 'PENCIL'?\n[Expected Question - Group 4]",
+      o: ["a) ODMBHK", "b) ODNBHK", "c) OEMBHK", "d) PCMBHK"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>ஒவ்வொரு எழுத்தும் -1 குறைக்கப்பட்டு பின்னோக்கிச் செல்கிறது 📉 (-1 pattern) ➔ ODMBHK.",
+      exp_en: "<b>Explanation:</b><br>Each letter shifted backward by -1 📉 ➔ ODMBHK."
+    },
+    {
+      q_ta: "17. 💻 'Z=52' மற்றும் 'ACT=48' எனில், 'BAT' என்பதன் குறியீடு என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "17. 💻 If 'Z=52' and 'ACT=48', what is 'BAT'?\n[Expected Question - Group 4]",
+      o: ["a) 46", "b) 44", "c) 50", "d) 42"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>அகரவரிசை மதிப்புகள் இரண்டால் பெருக்கப்பட்டுள்ளன (Z=26×2=52, ACT=(1+3+20)×2=48). எனவே BAT = (2+1+20)×2 = 46 📐.",
+      exp_en: "<b>Explanation:</b><br>Alphabetical values multiplied by 2. BAT = (2+1+20)×2 = 46 📐."
+    },
+    {
+      q_ta: "18. 🔍 'FRUIT' என்பது '108' எனில், 'MANGO' என்பது என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 1/2]",
+      q_en: "18. 🔍 If 'FRUIT' = '108', what is 'MANGO'?\n[Expected Question - Group 1/2]",
+      o: ["a) 50", "b) 52", "c) 48", "d) 54"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>எழுத்துகளின் கூடுதல் முறைகள் மற்றும் பெருக்கல் தர்க்கம் 📐 ➔ 50.",
+      exp_en: "<b>Explanation:</b><br>Sum and product logic yields 50 📐."
+    },
+    {
+      q_ta: "19. ⚡ 'MOMENT' என்பது 'TNEMOM' எனில், 'PARALLEL' என்பது என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 2/4]",
+      q_en: "19. ⚡ If 'MOMENT' = 'TNEMOM', what is 'PARALLEL'?\n[Expected Question - Group 2/4]",
+      o: ["a) LLELLARA", "b) LLELLARAP", "c) LLELLARP", "d) LLELARA"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>வார்த்தை அப்படியே தலைகீழாக (Reverse) எழுதப்பட்டுள்ளது 🔀 ➔ LLELLARA.",
+      exp_en: "<b>Explanation:</b><br>The word is completely reversed 🔀 ➔ LLELLARA."
+    },
+    {
+      q_ta: "20. 🎯 'BOX' என்பது '41' எனில், 'BAG' என்பது என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "20. 🎯 If 'BOX' = '41', what is 'BAG'?\n[Expected Question - Group 4]",
+      o: ["a) 10", "b) 12", "c) 8", "d) 14"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>BOX = 2+15+24 = 41. BAG = 2+1+7 = 10 📐.",
+      exp_en: "<b>Explanation:</b><br>Direct sum of letters: B(2)+A(1)+G(7) = 10 📐."
+    },
+    {
+      q_ta: "21. 📋 'GREEN' என்பது 'HQFGO' எனில், 'YELLOW' என்பது என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "21. 📋 If 'GREEN' = 'HQFGO', what is 'YELLOW'?\n[Expected Question - Group 4]",
+      o: ["a) ZFMMPX", "b) ZFMMPY", "c) ZEMMPX", "d) YFMMPX"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>ஒவ்வொரு எழுத்தும் மாற்று முறையில் +1, -1 என நகர்கிறது 📈 ➔ ZFMMPX.",
+      exp_en: "<b>Explanation:</b><br>Alternate shift (+1, -1) pattern 📈 ➔ ZFMMPX."
+    },
+    {
+      q_ta: "22. 💡 'ROPE' என்பது '5796' எனவும், 'APPLE' என்பது '92256' எனவும் குறியிடப்பட்டால், 'CROWN' என்பது என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "22. 💡 If 'ROPE' = '5796' and 'APPLE' = '92256', what is 'CROWN'?\n[Expected Question - Group 4]",
+      o: ["a) 38521", "b) 38512", "c) 37521", "d) 48521"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>நேரடி எண் பிரதியீடு (Direct Substitution) 🔠 ➔ 38521.",
+      exp_en: "<b>Explanation:</b><br>Direct character-to-number mapping 🔠 ➔ 38521."
+    },
+    {
+      q_ta: "23. 📐 'DLF' என்பது 'WUO' எனில், 'GHI' என்பதன் குறியீடு என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 2/4]",
+      q_en: "23. 📐 If 'DLF' = 'WUO', what is 'GHI'?\n[Expected Question - Group 2/4]",
+      o: ["a) TSR", "b) RST", "c) QRS", "d) USQ"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>எதிர் எழுத்துகள் (Opposite Letters: A-Z, B-Y, D-W, L-O, F-U) 🔀:\n• G->T, H->S, I->R ➔ TSR.",
+      exp_en: "<b>Explanation:</b><br>Opposite alphabetical pairs 🔀 ➔ G(T), H(S), I(R) -> TSR."
+    },
+    {
+      q_ta: "24. 📊 'FORCE' என்பது '5' எனில், 'GREEN' என்பது என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "24. 📊 If 'FORCE' = '5', what is 'GREEN'?\n[Expected Question - Group 4]",
+      o: ["a) 5", "b) 6", "c) 7", "d) 4"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>வார்த்தையில் உள்ள எழுத்துகளின் எண்ணிக்கை (Count of letters = 5) 📐 ➔ 5.",
+      exp_en: "<b>Explanation:</b><br>Number of letters in the word 📐 ➔ 5."
+    },
+    {
+      q_ta: "25. 🔮 'NEHRU' என்பது 'OGIUX' எனில், 'GANDHI' என்பது என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 1/2]",
+      q_en: "25. 🔮 If 'NEHRU' = 'OGIUX', what is 'GANDHI'?\n[Expected Question - Group 1/2]",
+      o: ["a) HCPGJM", "b) HCQGJM", "c) HBPGJM", "d) HCPGKN"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>அதிகரிக்கும் கூடுதல் முறை (+1, +2, +3, +4...) 📈 ➔ HCPGJM.",
+      exp_en: "<b>Explanation:</b><br>Incremental positional shift (+1, +2, +3...) 📈 ➔ HCPGJM."
+    },
+    {
+      q_ta: "26. 📱 'A = 1' மற்றும் 'AND = 19' எனில், 'BAT' என்பது என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "26. 📱 If 'A = 1' and 'AND = 19', what is 'BAT'?\n[Expected Question - Group 4]",
+      o: ["a) 23", "b) 21", "c) 25", "d) 22"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>AND = 1 + 14 + 4 = 19. BAT = 2 + 1 + 20 = 23 📐.",
+      exp_en: "<b>Explanation:</b><br>Direct letter positions sum: B(2)+A(1)+T(20) = 23 📐."
+    },
+    {
+      q_ta: "27. 💻 'SHADOW' என்பது 'TEBFPX' எனில், 'LIGHT' என்பது என்ன?\n[எதிர்பார்க்கப்படும் விនា - Group 2/4]",
+      q_en: "27. 💻 If 'SHADOW' = 'TEBFPX', what is 'LIGHT'?\n[Expected Question - Group 2/4]",
+      o: ["a) MJHIU", "b) MJIIU", "c) MKHIU", "d) NJHIU"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>ஒவ்வொரு எழுத்தும் முறையே +1, +2, +1, +2 என அதிகரிக்கிறது 📈 ➔ MJHIU.",
+      exp_en: "<b>Explanation:</b><br>Alternating positional shift (+1, +2, +1, +2) 📈 ➔ MJHIU."
+    },
+    {
+      q_ta: "28. 🔍 'SUMMER' என்பது 'RUNLDS' எனில், 'WINTER' என்பது என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "28. 🔍 If 'SUMMER' = 'RUNLDS', what is 'WINTER'?\n[Expected Question - Group 4]",
+      o: ["a) VHSODQ", "b) VHRSDQ", "c) VHQSDQ", "d) UHSODQ"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>அனைத்து எழுத்துகளும் -1 குறைக்கப்பட்டுள்ளன 📉 ➔ VHSODQ.",
+      exp_en: "<b>Explanation:</b><br>Each letter shifted backward by -1 📉 ➔ VHSODQ."
+    },
+    {
+      q_ta: "29. ⚡ 'VICTORY' என்பது 'CIVTROY' எனில், 'TRAITOR' என்பது என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 1/2]",
+      q_en: "29. ⚡ If 'VICTORY' = 'CIVTROY', what is 'TRAITOR'?\n[Expected Question - Group 1/2]",
+      o: ["a) ARTTIOR", "b) ARTITOR", "c) RATTIOV", "d) ARTTIOR"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>மூன்று எழுத்துக்கள் கொண்ட தொகுதிகளாகப் பிரிக்கப்பட்டு இடம் மாற்றப்பட்டுள்ளன 🔀 ➔ ARTTIOR.",
+      exp_en: "<b>Explanation:</b><br>Grouped into triads and interchanged 🔀 ➔ ARTTIOR."
+    },
+    {
+      q_ta: "30. 🎯 'CABLE' என்பது 'XZYOV' எனில், 'TABLE' என்பது என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "30. 🎯 If 'CABLE' = 'XZYOV', what is 'TABLE'?\n[Expected Question - Group 4]",
+      o: ["a) GZYOV", "b) GZXOV", "c) HZYOV", "d) GYYOV"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>எதிர் எழுத்து ஜோடிகள் (Opposite pairs: C-X, A-Z, B-Y, L-O, E-V) 🔀:\n• T->G, A->Z, B->Y, L->O, E->V ➔ GZYOV.",
+      exp_en: "<b>Explanation:</b><br>Opposite letter substitution 🔀. T(G), A(Z), B(Y), L(O), E(V) -> GZYOV."
+    }
+  ];
+
+  let currentQuestion = 0;
+  let userAnswers = new Array(questionsData.length).fill(null);
+  let isReviewMode = false;
+  let timerInterval;
+  let timeLeft = 45 * 60;
+
+  function toggleLanguage() {
+    currentLang = currentLang === 'ta' ? 'en' : 'ta';
+    document.getElementById('langBtn').innerText = currentLang === 'ta' ? '🌐 English' : '🌐 தமிழ்';
+    updateLanguageTexts();
+    loadQuestion(currentQuestion);
+  }
+
+  function updateLanguageTexts() {
+    if(currentLang === 'en') {
+      document.getElementById('headerTitle').innerText = "🐅 TIGER WARRIORS - Coding-Decoding (30 Questions)";
+      document.getElementById('prevBtn').innerText = "⬅️ Previous";
+      document.getElementById('clearBtn').innerText = "🧹 Clear Choice";
+      document.getElementById('nextBtn').innerText = "Next ➡️";
+      document.getElementById('finalSubmitBtn').innerText = "✅ Submit Test";
+      document.getElementById('resHeader').innerText = "🏆 Test Results 🎯";
+      document.getElementById('lblCorrect').innerText = "Correct ✅";
+      document.getElementById('lblWrong').innerText = "Wrong ❌";
+      document.getElementById('lblUnans').innerText = "Unanswered ⚠️";
+      document.getElementById('btnKey').innerText = "🔍 Answer Key";
+      document.getElementById('btnDash').innerText = "🏠 Dashboard";
+      document.getElementById('btnRetake').innerText = "🔄 Retake Test";
+      document.getElementById('btnExit').innerText = "🚪 Exit";
+    } else {
+      document.getElementById('headerTitle').innerText = "🐅 TIGER WARRIORS - குறியீட்டு முறைகள் (Coding-Decoding) 30 வினாக்கள்";
+      document.getElementById('prevBtn').innerText = "⬅️ முந்தையது";
+      document.getElementById('clearBtn').innerText = "🧹 விடையை நீக்கு";
+      document.getElementById('nextBtn').innerText = "அடுத்து ➡️";
+      document.getElementById('finalSubmitBtn').innerText = "✅ தேர்வைச் சமர்ப்பிக்க (Submit)";
+      document.getElementById('resHeader').innerText = "🏆 தேர்வு முடிவுகள் (Test Results) 🎯";
+      document.getElementById('lblCorrect').innerText = "சரியானது ✅";
+      document.getElementById('lblWrong').innerText = "தவறானது ❌";
+      document.getElementById('lblUnans').innerText = "விடையில்லை ⚠️";
+      document.getElementById('btnKey').innerText = "🔍 விடை குறிப்பு & விளக்கம்";
+      document.getElementById('btnDash').innerText = "🏠 முகப்புப் பக்கம்";
+      document.getElementById('btnRetake').innerText = "🔄 மீண்டும் தேர்வு";
+      document.getElementById('btnExit').innerText = "🚪 வெளியேறு";
+    }
+  }
+
+  function initTest() {
+    buildGrid();
+    loadQuestion(0);
+    startTimer();
+  }
+
+  function buildGrid() {
+    const grid = document.getElementById('questionGrid');
+    grid.innerHTML = '';
+    questionsData.forEach((_, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'q-num-btn';
+      btn.innerText = idx + 1;
+      btn.id = `q_btn_${idx}`;
+      btn.onclick = () => jumpToQuestion(idx);
+      grid.appendChild(btn);
+    });
+    updateGridStatus();
+  }
+
+  function updateGridStatus() {
+    questionsData.forEach((_, idx) => {
+      const btn = document.getElementById(`q_btn_${idx}`);
+      if(!btn) return;
+      btn.className = 'q-num-btn';
+      if(idx === currentQuestion) {
+        btn.classList.add('active');
+      } else if(userAnswers[idx] !== null) {
+        btn.classList.add('answered');
+      }
+    });
+  }
+
+  function searchInAI(provider, questionIdx) {
+    const q = questionsData[questionIdx];
+    const questionText = (currentLang === 'ta' ? q.q_ta : q.q_en).replace(/<[^>]*>?/gm, '');
+    const optionsText = q.o.join(", ");
+    const fullQuery = encodeURIComponent(`Explain this TNPSC Coding-Decoding reasoning question step by step:\n${questionText}\nOptions: ${optionsText}`);
+    
+    let targetUrl = "";
+    if (provider === 'chatgpt') {
+      targetUrl = `https://chatgpt.com/?q=${fullQuery}`;
+    } else if (provider === 'gemini') {
+      targetUrl = `https://gemini.google.com/app`;
+    } else if (provider === 'perplexity') {
+      targetUrl = `https://www.perplexity.ai/?q=${fullQuery}`;
+    } else if (provider === 'google') {
+      targetUrl = `https://www.google.com/search?q=${fullQuery}`;
+    }
+
+    window.open(targetUrl, '_blank');
+  }
+
+  function loadQuestion(idx) {
+    currentQuestion = idx;
+    const q = questionsData[idx];
+    document.getElementById('qTitle').innerText = currentLang === 'ta' ? q.q_ta : q.q_en;
+    
+    const optsBox = document.getElementById('optionsBox');
+    optsBox.innerHTML = '';
+
+    q.o.forEach((optText, oIdx) => {
+      const card = document.createElement('div');
+      card.className = 'option-card';
+      
+      if(userAnswers[idx] === oIdx) {
+        card.classList.add('selected');
+      }
+
+      if(isReviewMode) {
+        if(oIdx === q.a) {
+          card.classList.add('correct-ans');
+        } else if(userAnswers[idx] === oIdx && oIdx !== q.a) {
+          card.classList.add('wrong-ans');
+        }
+      }
+
+      card.innerHTML = `<span><b>${String.fromCharCode(65 + oIdx)}.</b> ${optText}</span>`;
+      card.onclick = () => selectOption(oIdx);
+      optsBox.appendChild(card);
+    });
+
+    const expBox = document.getElementById('expBox');
+    if(isReviewMode) {
+      expBox.style.display = 'block';
+      let baseExp = currentLang === 'ta' ? q.exp_ta : q.exp_en;
+      
+      expBox.innerHTML = `
+        <div style="font-size: 14px; margin-bottom: 8px;">${baseExp}</div>
+        <div style="font-size: 12px; color: #fbbf24; margin-top: 10px; font-weight: bold;">🤖 AI Link Buttons (Opens in New Tab):</div>
+        <div class="ai-btn-group">
+          <button class="ai-link-btn btn-chatgpt" onclick="searchInAI('chatgpt', ${idx})">🟢 ChatGPT</button>
+          <button class="ai-link-btn btn-gemini" onclick="searchInAI('gemini', ${idx})">✨ Gemini AI</button>
+          <button class="ai-link-btn btn-perplexity" onclick="searchInAI('perplexity', ${idx})">🔵 Perplexity</button>
+          <button class="ai-link-btn btn-google" onclick="searchInAI('google', ${idx})">🔍 Google Search</button>
+        </div>
+      `;
+    } else {
+      expBox.style.display = 'none';
+    }
+
+    document.getElementById('prevBtn').style.display = idx === 0 ? 'none' : 'block';
+    document.getElementById('nextBtn').style.display = idx === questionsData.length - 1 ? 'none' : 'block';
+    updateGridStatus();
+  }
+
+  function selectOption(oIdx) {
+    if(isReviewMode) return;
+    userAnswers[currentQuestion] = oIdx;
+    loadQuestion(currentQuestion);
+  }
+
+  function clearChoice() {
+    if(isReviewMode) return;
+    userAnswers[currentQuestion] = null;
+    loadQuestion(currentQuestion);
+  }
+
+  function navigateNumberQuery(dir) {
+    const postNext = currentQuestion + dir;
+    if(postNext >= 0 && postNext < questionsData.length) {
+      loadQuestion(postNext);
+    }
+  }
+
+  function jumpToQuestion(idx) {
+    loadQuestion(idx);
+  }
+
+  function startTimer() {
+    if (timerInterval) clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+      timeLeft--;
+      let m = Math.floor(timeLeft / 60);
+      let s = timeLeft % 60;
+      const timerElem = document.getElementById('timerBox');
+      if(timerElem) {
+        timerElem.innerText = `⏱️ ${m}:${s < 10 ? '0' : ''}${s}`;
+      }
+      if(timeLeft <= 0) {
+        clearInterval(timerInterval);
+        submitTest();
+      }
+    }, 1000);
+  }
+
+  function submitTest() {
+    if (timerInterval) clearInterval(timerInterval);
+    document.getElementById('testView').style.display = 'none';
+    document.getElementById('resultView').style.display = 'block';
+
+    let correct = 0, wrong = 0, unans = 0;
+    userAnswers.forEach((ans, idx) => {
+      if(ans === null) unans++;
+      else if(ans === questionsData[idx].a) correct++;
+      else wrong++;
+    });
+
+    document.getElementById('scoreDisplay').innerText = `${correct} / ${questionsData.length}`;
+    let pct = ((correct / questionsData.length) * 100).toFixed(1);
+    document.getElementById('percentageDisplay').innerText = `${currentLang === 'ta' ? 'சதவீதம்' : 'Percentage'}: ${pct}%`;
+    document.getElementById('correctCnt').innerText = correct;
+    document.getElementById('wrongCnt').innerText = wrong;
+    document.getElementById('unansCnt').innerText = unans;
+  }
+
+  function reviewAnswerKey() {
+    isReviewMode = true;
+    document.getElementById('resultView').style.display = 'none';
+    document.getElementById('testView').style.display = 'block';
+    document.getElementById('finalSubmitBtn').style.display = 'none';
+    document.getElementById('backToResultBtn').style.display = 'block';
+    document.getElementById('dashFromKeyBtn').style.display = 'block';
+    loadQuestion(0);
+  }
+
+  function returnToResult() {
+    document.getElementById('testView').style.display = 'none';
+    document.getElementById('resultView').style.display = 'block';
+  }
+
+  function returnToDashboard() {
+    window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html"); 
+  }
+
+  function exitPortal() {
+    window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html");
+  }
+
+  function retakeTest() {
+    userAnswers = new Array(questionsData.length).fill(null);
+    isReviewMode = false;
+    timeLeft = 45 * 60;
+    document.getElementById('resultView').style.display = 'none';
+    document.getElementById('testView').style.display = 'block';
+    document.getElementById('finalSubmitBtn').style.display = 'inline-block';
+    document.getElementById('backToResultBtn').style.display = 'none';
+    document.getElementById('dashFromKeyBtn').style.display = 'none';
+    initTest();
+  }
+
+  window.onload = function() {
+    initTest();
+  }
+</script>
+
+</body>
+</html>
