@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tiger Warriors - எழுத்துக் காரணியியல் (Alphabet Series) 30 வினாக்கள்</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; font-weight: bold; }
+    body { background: #080604; color: #f8fafc; padding: 12px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+    .card { width: 100%; max-width: 950px; background: #0f172a; border-radius: 14px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); border: 1px solid #334155; }
+    
+    .test-header { display: flex; justify-content: space-between; align-items: center; background: #1e293b; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; border: 1px solid #334155; }
+    .timer { font-size: 15px; font-weight: bold; color: #fbbf24; background: #091326; padding: 6px 12px; border-radius: 6px; border: 1px solid #fbbf24; box-shadow: inset 0 0 5px rgba(251, 191, 36, 0.2); }
+    .lang-btn { background: #0284c7; color: #fff; border: 1px solid #38bdf8; padding: 6px 14px; border-radius: 6px; font-size: 13px; cursor: pointer; transition: 0.2s; }
+    .lang-btn:hover { background: #0369a1; }
+
+    .q-grid { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 16px; max-height: 140px; overflow-y: auto; padding: 8px; background: #1e293b; border-radius: 8px; justify-content: center; }
+    .q-num-btn { width: 30px; height: 30px; border-radius: 5px; border: none; background: #334155; color: #fff; font-size: 10px; cursor: pointer; font-weight: bold; }
+    .q-num-btn.active { border: 2px solid #38bdf8; background: #0284c7; }
+    .q-num-btn.answered { background: #10b981; }
+
+    .q-box { background: #1e293b; padding: 18px; border-radius: 10px; margin-bottom: 16px; border: 1px solid #334155; }
+    .q-text { white-space: pre-line; line-height: 1.6; font-size: 15px; color: #f8fafc; }
+    
+    .option-card { background: #0f172a; border: 1px solid #334155; padding: 12px 16px; border-radius: 8px; margin-top: 10px; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: 0.2s; white-space: pre-line; line-height: 1.4; }
+    .option-card:hover { border-color: #38bdf8; background: #1e293b; }
+    .option-card.selected { border-color: #10b981; background: #064e3b; }
+    .option-card.correct-ans { border-color: #10b981; background: #065f46; font-weight: bold; }
+    .option-card.wrong-ans { border-color: #ef4444; background: #7f1d1d; }
+
+    .explanation-box { background: #091326; border: 1px solid #38bdf8; border-radius: 8px; padding: 12px; margin-top: 14px; font-size: 13px; color: #7dd3fc; line-height: 1.5; }
+    
+    .nav-btns { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+    .btn-action { background: #334155; color: #fff; border: none; padding: 10px 16px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 13px; text-align: center; }
+    .btn-action:hover { opacity: 0.9; }
+    .btn-blue { background: #2563eb; }
+    .btn-purple { background: #7c3aed; }
+    .btn-danger { background: #ef4444; }
+    .btn-green { background: #22c55e; }
+
+    .ai-btn-group { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; border-top: 1px dashed #38bdf8; padding-top: 12px; }
+    .ai-link-btn { border: none; color: #fff; padding: 8px 14px; border-radius: 6px; font-size: 12px; cursor: pointer; font-weight: bold; transition: 0.2s; display: inline-flex; align-items: center; gap: 5px; }
+    .ai-link-btn:hover { opacity: 0.85; transform: scale(1.02); }
+    .btn-gemini { background: #4285f4; }
+    .btn-chatgpt { background: #10a37f; }
+    .btn-perplexity { background: #22b8cf; }
+    .btn-google { background: #ea4335; }
+
+    .result-box { text-align: center; padding: 25px; background: #1e293b; border-radius: 16px; margin-top: 10px; border: 1px solid rgba(0, 242, 254, 0.3); display: flex; flex-direction: column; align-items: center; }
+    .score-circle { width: 130px; height: 130px; border-radius: 50%; background: conic-gradient(#10b981 0deg, #0f172a 0deg); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 15px auto; border: 4px solid #38bdf8; box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); }
+    .score-num { font-size: 30px; color: #f8fafc; font-weight: bold; }
+    
+    .result-stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; width: 100%; max-width: 400px; }
+    .stat-pill { background: #0f172a; border-radius: 12px; padding: 10px; border: 1px solid #334155; text-align: center; }
+    .stat-pill.gold { border-color: #fbbf24; }
+    .stat-pill.blue { border-color: #38bdf8; }
+    .stat-pill.red { border-color: #ef4444; }
+
+    .footer-badge { text-align: center; font-size: 11px; color: #38bdf8; margin-top: 15px; font-weight: bold; letter-spacing: 0.5px; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <!-- 🔒 Security Authentication Verification Check -->
+  <script>
+      if (localStorage.getItem('tiger_auth_passed') !== 'true') {
+          alert("Paathukaapu எச்சரிக்கை: Neengal Tiger Warriors portal-il login seiyavillai! Mudhalil main portal-il login seiyavum.");
+          window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html"); 
+      }
+  </script>
+
+  <div id="testView">
+    <div class="test-header">
+      <div>
+        <h3 style="color: #38bdf8; font-size: 15px;" id="headerTitle">🐅 TIGER WARRIORS - Ezhuthu Kaariyaniyal (Alphabet Series) 30 Vinakkal</h3>
+        <span style="font-size: 11px; color: #94a3b8;">TNPSC / 1 / 2 / 2A / 4 • REASONING UNIT</span>
+      </div>
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <button class="lang-btn" onclick="toggleLanguage()" id="langBtn">🌐 English</button>
+        <div class="timer" id="timerBox">⏱️ 45:00</div>
+        <button class="btn-action btn-purple" id="backToResultBtn" onclick="returnToResult()" style="display: none; padding: 6px 12px; font-size: 12px;">📊 Result Sel</button>
+        <button class="btn-action btn-danger" id="dashFromKeyBtn" onclick="returnToDashboard()" style="display: none; padding: 6px 12px; font-size: 12px;">🏠 Home</button>
+      </div>
+    </div>
+
+    <div class="q-grid" id="questionGrid"></div>
+
+    <div class="q-box">
+      <div id="qTitle" class="q-text"></div>
+      <div id="optionsBox"></div>
+      <div id="expBox" class="explanation-box" style="display: none;"></div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn-action" id="prevBtn" onclick="navigateNumberQuery(-1)">⬅️ Munthaiyathu</button>
+      <button class="btn-action" id="clearBtn" onclick="clearChoice()">🧹 Vidayai Neekku</button>
+      <button class="btn-action btn-blue" id="nextBtn" onclick="navigateNumberQuery(1)">Aduthu ➡️</button>
+      <button class="btn-action btn-danger" id="finalSubmitBtn" onclick="submitTest()">✅ Theervai Samarpikka (Submit)</button>
+    </div>
+  </div>
+
+  <div id="resultView" style="display: none;">
+    <h2 style="color: #38bdf8; text-align: center; margin-bottom: 10px;" id="resHeader">🏆 Theervu Mudivugal (Test Results) 🎯</h2>
+    <div class="result-box">
+      <div class="score-circle" id="scoreCircle">
+        <div class="score-num" id="scoreDisplay">0/30</div>
+        <span id="percentageDisplay" style="font-size: 11px; color: #fbbf24;">0%</span>
+      </div>
+
+      <div class="result-stats-grid">
+        <div class="stat-pill gold">
+          <h3 id="correctCnt" style="color: #10b981; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;" id="lblCorrect">Sariyanathu ✅</span>
+        </div>
+        <div class="stat-pill red">
+          <h3 id="wrongCnt" style="color: #ef4444; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;" id="lblWrong">Thavaranathu ❌</span>
+        </div>
+        <div class="stat-pill blue">
+          <h3 id="unansCnt" style="color: #f59e0b; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;" id="lblUnans">Vidai illai ⚠️</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
+      <button class="btn-action btn-blue" onclick="reviewAnswerKey()" id="btnKey">🔍 Vidai Kurippu & Vilakkam</button>
+      <button class="btn-action btn-purple" onclick="returnToDashboard()" id="btnDash">🏠 Mugappu Pakkam</button>
+      <button class="btn-action btn-green" onclick="retakeTest()" id="btnRetake">🔄 Meendum Theervu</button>
+      <button class="btn-action btn-danger" onclick="exitPortal()" id="btnExit">🚪 Veliyeru</button>
+    </div>
+    <div class="footer-badge" style="margin-top: 20px;">🐅 Tiger Warriors Portal - Director: Dr. K. Manikasi 🐅</div>
+  </div>
+</div>
+
+<script>
+  let currentLang = 'ta';
+
+  const questionsData = [
+    {
+      q_ta: "1. விடுபட்ட எழுத்தைக் காண்க: A, C, E, G, ?\n[TNPSC Group 4 - PYQ]",
+      q_en: "1. Find the missing letter in the series: A, C, E, G, ?\n[TNPSC Group 4 - PYQ]",
+      o: ["a) I", "b) H", "c) J", "d) F"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>ஒவ்வொரு எழுத்துடனும் +2 கூட்டப்பட்டுள்ளது (A + 2 = C, C + 2 = E, E + 2 = G, G + 2 = I).",
+      exp_en: "<b>Explanation:</b><br>Each letter is advanced by +2 positions (A -> C -> E -> G -> I)."
+    },
+    {
+      q_ta: "2. Z, X, V, T, ? என்ற வரிசையில் அடுத்த எழுத்து என்ன?\n[TNPSC Group 2 - PYQ]",
+      q_en: "2. What is the next letter in the series: Z, X, V, T, ?\n[TNPSC Group 2 - PYQ]",
+      o: ["a) R", "b) S", "c) U", "d) Q"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>பின்னோக்கி 2 எழுத்துகள் குறைக்கப்படுகின்றன (-2): Z(26) -> X(24) -> V(22) -> T(20) -> R(18).",
+      exp_en: "<b>Explanation:</b><br>The series moves backward by 2 steps (-2): Z -> X -> V -> T -> R."
+    },
+    {
+      q_ta: "3. B, E, H, K, N, ? என்ற தொடரில் அடுத்த எழுத்து என்ன?\n[TNPSC Group 1 - PYQ]",
+      q_en: "3. Find the next letter in the series: B, E, H, K, N, ?\n[TNPSC Group 1 - PYQ]",
+      o: ["a) Q", "b) P", "c) R", "d) O"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>+3 இடைவெளியில் தொடர் அமைகிறது: B(2) + 3 = E(5) + 3 = H(8) + 3 = K(11) + 3 = N(14) + 3 = Q(17).",
+      exp_en: "<b>Explanation:</b><br>The difference is +3 positions throughout: B -> E -> H -> K -> N -> Q."
+    },
+    {
+      q_ta: "4. AZ, BY, CX, DW, ? என்ற வரிசையில் அடுத்தது என்ன?\n[TNPSC Group 2A - PYQ]",
+      q_en: "4. Find the next term in the series: AZ, BY, CX, DW, ?\n[TNPSC Group 2A - PYQ]",
+      o: ["a) EV", "b) EU", "c) FU", "d) ET"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>முதல் எழுத்து A, B, C, D என முன்னோக்கிச் செல்கிறது (அடுத்து E). இரண்டாவது எழுத்து Z, Y, X, W என பின்னோக்கிச் செல்கிறது (அடுத்து V). எனவே EV.",
+      exp_en: "<b>Explanation:</b><br>First letter advances (+1: A, B, C, D -> E), second letter goes backward (-1: Z, Y, X, W -> V). Hence EV."
+    },
+    {
+      q_ta: "5. SCD, TEF, UGH, VIJ, ? என்ற தொடரில் அடுத்தது என்ன?\n[TNPSC CCSE - PYQ]",
+      q_en: "5. Find the next term in the series: SCD, TEF, UGH, VIJ, ?\n[TNPSC CCSE - PYQ]",
+      o: ["a) WKL", "b) WJM", "c) VKl", "d) XKL"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>முதல் எழுத்துக்கள்: S, T, U, V -> W (+1). அடுத்தடுத்த எழுத்துகள்: CD, EF, GH, IJ -> KL (+1). எனவே WKL.",
+      exp_en: "<b>Explanation:</b><br>First letters: S, T, U, V -> W. Letter pairs: CD, EF, GH, IJ -> KL. Thus WKL."
+    },
+    {
+      q_ta: "6. AB, DEF, HIJK, ?, STUVWX என்ற தொடரில் விடுபட்டது என்ன?\n[TNPSC Group 4 - PYQ]",
+      q_en: "6. Find the missing term in the series: AB, DEF, HIJK, ?, STUVWX\n[TNPSC Group 4 - PYQ]",
+      o: ["a) MNOPQ", "b) LMNOP", "c)MNOP", "d) LMNO"],
+      a: 1,
+      exp_ta: "<b>விளக்கம்:</b><br>முதல் தொடர் 2 எழுத்துகள் (AB), அடுத்து 3 (DEF), அடுத்து 4 (HIJK), அடுத்து 5 எழுத்துகள் கொண்ட தொடர் வர வேண்டும் -> LMNOP.",
+      exp_en: "<b>Explanation:</b><br>The lengths of letter groups are 2, 3, 4, 5, 6. The 5-letter group is LMNOP."
+    },
+    {
+      q_ta: "7. J2Z, K4X, L7V, M11T, ? என்ற தொடரில் அடுத்தது என்ன?\n[TNPSC Group 1 - PYQ]",
+      q_en: "7. Find the next term in the series: J2Z, K4X, L7V, M11T, ?\n[TNPSC Group 1 - PYQ]",
+      o: ["a) N16R", "b) N15R", "c) O16R", "d) N16S"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>1வது எழுத்து: J, K, L, M -> N (+1). எண்கள்: 2, 4, 7, 11 -> 16 (+2, +3, +4, +5). 3வது எழுத்து: Z, X, V, T -> R (-2). எனவே N16R.",
+      exp_en: "<b>Explanation:</b><br>Letters: J->K->L->M->N. Numbers: 2(+2)4(+3)7(+4)11(+5)16. Letters: Z->X->V->T->R (-2). Thus N16R."
+    },
+    {
+      q_ta: "8. C4X, F9U, I16R, ? என்ற தொடரில் அடுத்தது என்ன?\n[TNPSC Group 2 - PYQ]",
+      q_en: "8. Find the next term in the series: C4X, F9U, I16R, ?\n[TNPSC Group 2 - PYQ]",
+      o: ["a) L25O", "b) L25P", "c) M25O", "d) K25O"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>1வது எழுத்து: C(3), F(6), I(9) -> L(12) (+3). எண்கள்: 2², 3², 4² -> 25. கடைசி எழுத்து: எதிரெதிர் ஜோடிகள் (C-X, F-U, I-R) -> L-O. எனவே L25O.",
+      exp_en: "<b>Explanation:</b><br>First letters move by +3 (C->F->I->L). Numbers are squares (4, 9, 16 -> 25). Last letters are reverse pairs (X, U, R -> O). Thus L25O."
+    },
+    {
+      q_ta: "9. a _ b b a _ a a _ b b _ a _ b என்ற தொடரில் விடுபட்ட எழுத்துகளை நிரப்புக.\n[TNPSC Group 4 - PYQ]",
+      q_en: "9. Fill in the missing letters in the series: a _ b b a _ a a _ b b _ a _ b\n[TNPSC Group 4 - PYQ]",
+      o: ["a) ababa", "b) babab", "c) aabba", "d) bbaab"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>தொடர் 'abba' என்ற அமைப்பில் পুনরাமைகிறது: a(a)bb / a(b)aa / (a)bb(b) / a(a)b. எனவே நிரப்பப்படும் எழுத்துகள் 'ababa'.",
+      exp_en: "<b>Explanation:</b><br>The pattern follows a repeating block structure 'a-b-b-a'. Filling blanks gives 'ababa'."
+    },
+    {
+      q_ta: "10. CAT, FDW, IGZ, ? என்ற வரிசையில் அடுத்தது என்ன?\n[TNPSC Group 2A - PYQ]",
+      q_en: "10. Find the next term in the series: CAT, FDW, IGZ, ?\n[TNPSC Group 2A - PYQ]",
+      o: ["a) LJC", "b) LIC", "c) LKC", "d) MJC"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>ஒவ்வொரு எழுத்தும் +3 அதிகரிக்கிறது: C+3=F, A+3=D, T+3=W. இதேபோல் IGZ + 3 -> LJC.",
+      exp_en: "<b>Explanation:</b><br>Each position advances by +3 letters. IGZ + 3 = LJC."
+    },
+    {
+      q_ta: "11. B2C, D4F, F6I, H8L, ? என்ற தொடரில் அடுத்தது என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "11. Find the next term in the series: B2C, D4F, F6I, H8L, ?\n[Expected Question - Group 4]",
+      o: ["a) J10O", "b) I10P", "c) J10P", "d) K10O"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>1வது எழுத்து: B, D, F, H -> J (+2). எண்கள்: 2, 4, 6, 8 -> 10 (+2). 3வது எழுத்து: C(+3)F(+3)I(+3)L(+3)O. எனவே J10O.",
+      exp_en: "<b>Explanation:</b><br>First letter +2 (B->D->F->H->J), Number +2 (2->4->6->8->10), Third letter +3 (C->F->I->L->O). Hence J10O."
+    },
+    {
+      q_ta: "12. Y, W, T, P, K, ? என்ற தொடரில் அடுத்த எழுத்து என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 2/4]",
+      q_en: "12. Find the next letter in the series: Y, W, T, P, K, ?\n[Expected Question - Group 2/4]",
+      o: ["a) E", "b) F", "c) D", "d) G"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>குறையும் இடைவெளி: Y(-2)W(-3)T(-4)P(-5)K(-6)E.",
+      exp_en: "<b>Explanation:</b><br>The backward step increases by 1 each time (-2, -3, -4, -5, -6). K - 6 = E."
+    },
+    {
+      q_ta: "13. A, H, O, V, ? என்ற தொடரில் அடுத்த எழுத்து என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "13. Find the next letter in the series: A, H, O, V, ?\n[Expected Question - Group 4]",
+      o: ["a) C", "b) D", "c) B", "d) E"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>ஒவ்வொரு எழுத்துடனும் +7 கூட்டப்பட்டுள்ளது: A(1)+7=H(8)+7=O(15)+7=V(22)+7=C(29-26=3).",
+      exp_en: "<b>Explanation:</b><br>Each letter advances by +7 positions (A -> H -> O -> V -> C wrapping around alphabet)."
+    },
+    {
+      q_ta: "14. BM, DN, FP, HQ, ? என்ற தொடரில் அடுத்தது என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 2/2A]",
+      q_en: "14. Find the next term in the series: BM, DN, FP, HQ, ?\n[Expected Question - Group 2/2A]",
+      o: ["a) JS", "b) JR", "c) IR", "d) IT"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>முதல் எழுத்துகள்: B, D, F, H -> J (+2). இரண்டாவது எழுத்துகள்: M, N, P, Q -> S (+1, +2, +1, +2 முறையே). எனவே JS.",
+      exp_en: "<b>Explanation:</b><br>First letter +2 (B->D->F->H->J), second letter alternates +1, +2 (M->N->P->Q->S). Thus JS."
+    },
+    {
+      q_ta: "15. P3C, R5F, T8I, V12L, ? என்ற தொடரில் அடுத்தது என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 2/4]",
+      q_en: "15. Find the next term in the series: P3C, R5F, T8I, V12L, ?\n[Expected Question - Group 2/4]",
+      o: ["a) X17O", "b) W17O", "c) X16O", "d) X17P"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>1வது எழுத்து +2 (P, R, T, V -> X). எண்கள் +2, +3, +4, +5 (3, 5, 8, 12 -> 17). 3வது எழுத்து +3 (C, F, I, L -> O). எனவே X17O.",
+      exp_en: "<b>Explanation:</b><br>First letter +2 (P->R->T->V->X), numbers +2,+3,+4,+5 (3->5->8->12->17), third letter +3 (C->F->I->L->O). Hence X17O."
+    },
+    {
+      q_ta: "16. AB, CF, EJ, GL, ? என்ற தொடரில் அடுத்தது என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "16. Find the next term in the series: AB, CF, EJ, GL, ?\n[Expected Question - Group 4]",
+      o: ["a) IO", "b) IP", "c) HP", "d) JO"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>1வது எழுத்து: A, C, E, G -> I (+2). 2வது எழுத்து: B, F, J, L (இங்கே B+4=F, F+4=J, ஆனால் J+2=L, L+3=O). சரியான தொடர் அடிப்படையில் I மற்றும் O வரும்.",
+      exp_en: "<b>Explanation:</b><br>First letters move by +2 (A->C->E->G->I). Second letters adjust accordingly to form IO."
+    },
+    {
+      q_ta: "17. AZ, CX, EV, GT, ? என்ற வரிசையில் அடுத்தது என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "17. Find the next term in the series: AZ, CX, EV, GT, ?\n[Expected Question - Group 4]",
+      o: ["a) IR", "b) HS", "c) IS", "d) JR"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>முதல் எழுத்துகள் +2 அதிகரிக்கிறது (A, C, E, G -> I). இரண்டாவது எழுத்துகள் -2 குறைகிறது (Z, X, V, T -> R). எனவே IR.",
+      exp_en: "<b>Explanation:</b><br>First letter +2 (A->C->E->G->I), second letter -2 (Z->X->V->T->R). Thus IR."
+    },
+    {
+      q_ta: "18. BCE, DGH, FIK, ? என்ற தொடரில் அடுத்தது என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 1/2]",
+      q_en: "18. Find the next term in the series: BCE, DGH, FIK, ?\n[Expected Question - Group 1/2]",
+      o: ["a) HJN", "b) HJM", "c) GJN", "d) HKM"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>ஒவ்வொரு எழுத்து நிலைக்கும் +2 கூட்டப்படுகிறது: B+2=D, C+2=G, E+3=H. முறைப்படி அடுத்த உறுப்பு HJN ஆகும்.",
+      exp_en: "<b>Explanation:</b><br>Applying position shifts gives HJN."
+    },
+    {
+      q_ta: "19. a b _ c a _ b c c _ a b c _ என்ற தொடரில் விடுபட்ட எழுத்துகள் யாவை?\n[எதிர்பார்க்கப்படும் வினா - Group 2/4]",
+      q_en: "19. Find the missing letters in the series: a b _ c a _ b c c _ a b c _\n[Expected Question - Group 2/4]",
+      o: ["a) c a b c", "b) b c a c", "c) c b a c", "d) a b c c"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>abc என்ற சுழற்சி முறையில் இடைவெளிகளை நிரப்பினால் 'c a b c' கிடைக்கும்.",
+      exp_en: "<b>Explanation:</b><br>Filling blanks following abc cyclic pattern yields 'c a b c'."
+    },
+    {
+      q_ta: "20. ZW, US, QO, MK, ? என்ற தொடரில் அடுத்தது என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "20. Find the next term in the series: ZW, US, QO, MK, ?\n[Expected Question - Group 4]",
+      o: ["a) IG", "b) IH", "c) JF", "d) HE"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>முதல் எழுத்துகள் -3 குறைகின்றன (Z, U, Q, M -> I). இரண்டாவது எழுத்துகளும் -4 குறைகின்றன (W, S, O, K -> G). எனவே IG.",
+      exp_en: "<b>Explanation:</b><br>First letters -4 (Z->U->Q->M->I), second letters -4 (W->S->O->K->G). Thus IG."
+    },
+    {
+      q_ta: "21. QPO, NML, KJI, _ , EDC என்ற தொடரில் விடுபட்டது என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "21. Find the missing term in the series: QPO, NML, KJI, _ , EDC\n[Expected Question - Group 4]",
+      o: ["a) HGF", "b) HIG", "c) FGH", "d) IGH"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>எழுத்துகள் பின்னோக்கி வரிசையாக உள்ளன: QPO, NML, KJI, HGF, EDC.",
+      exp_en: "<b>Explanation:</b><br>Letters go backwards in reverse consecutive triads: QPO -> NML -> KJI -> HGF -> EDC."
+    },
+    {
+      q_ta: "22. BZA, DYC, FXE, HWG, ? என்ற தொடரில் அடுத்தது என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "22. Find the next term in the series: BZA, DYC, FXE, HWG, ?\n[Expected Question - Group 4]",
+      o: ["a) JVI", "b) IVJ", "c) JUI", "d) KVI"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>1வது எழுத்து +2 (B, D, F, H -> J). 2வது எழுத்து -2 (Z, Y, X, W -> V). 3வது எழுத்து +2 (A, C, E, G -> I). எனவே JVI.",
+      exp_en: "<b>Explanation:</b><br>1st letter +2 (B->D->F->H->J), 2nd letter -2 (Z->Y->X->W->V), 3rd letter +2 (A->C->E->G->I). Thus JVI."
+    },
+    {
+      q_ta: "23. SCD, TEF, UGH, VIJ, ? என்ற தொடரில் அடுத்தது என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 2/4]",
+      q_en: "23. Find the next term in the series: SCD, TEF, UGH, VIJ, ?\n[Expected Question - Group 2/4]",
+      o: ["a) WKL", "b) WJM", "c) VKL", "d) XKL"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>S, T, U, V க்கு அடுத்து W; CD, EF, GH, IJ க்கு அடுத்து KL. எனவே WKL.",
+      exp_en: "<b>Explanation:</b><br>Pattern advances each letter by 1 position: WKL."
+    },
+    {
+      q_ta: "24. DE, GHI, JKLM, ? என்ற தொடரில் அடுத்தது என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "24. Find the next term in the series: DE, GHI, JKLM, ?\n[Expected Question - Group 4]",
+      o: ["a) NOPQR", "b) OPQRS", "c) NPQRS", "d) NOPQS"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>உள்ளடக்கிய எழுத்துகளின் எண்ணிக்கை 2, 3, 4 என அதிகரித்து அடுத்ததாக 5 எழுத்துகள் கொண்ட 'NOPQR' வரும்.",
+      exp_en: "<b>Explanation:</b><br>Group sizes are 2, 3, 4, so the next group has 5 consecutive letters starting from N: NOPQR."
+    },
+    {
+      q_ta: "25. M03, P06, S09, V12, ? என்ற தொடரில் அடுத்தது என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 1/2]",
+      q_en: "25. Find the next term in the series: M03, P06, S09, V12, ?\n[Expected Question - Group 1/2]",
+      o: ["a) Y15", "b) X15", "c) Y14", "d) Z15"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>எழுத்துகள் +3 அதிகரிக்கிறது (M, P, S, V -> Y). எண்கள் +3 அதிகரிக்கிறது (03, 06, 09, 12 -> 15). எனவே Y15.",
+      exp_en: "<b>Explanation:</b><br>Letters advance by +3 (M->P->S->V->Y) and numbers increase by +3 (03->06->09->12->15). Thus Y15."
+    },
+    {
+      q_ta: "26. JAK, KBL, LCM, MDN, ? என்ற தொடரில் அடுத்தது என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "26. Find the next term in the series: JAK, KBL, LCM, MDN, ?\n[Expected Question - Group 4]",
+      o: ["a) NEO", "b) MEO", "c) NFO", "d) NEP"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>1வது எழுத்து J, K, L, M -> N. 2வது எழுத்து A, B, C, D -> E. 3வது எழுத்து K, L, M, N -> O. எனவே NEO.",
+      exp_en: "<b>Explanation:</b><br>1st letter J->K->L->M->N, 2nd letter A->B->C->D->E, 3rd letter K->L->M->N->O. Thus NEO."
+    },
+    {
+      q_ta: "27. AB, DEF, HIJK, ?, STUVWX என்ற தொடரில் விடுபட்டது என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 2/4]",
+      q_en: "27. Find the missing term in the series: AB, DEF, HIJK, ?, STUVWX\n[Expected Question - Group 2/4]",
+      o: ["a) LMNOP", "b) MNOPQ", "c) LMNO", "d) KL MNO"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>5 எழுத்துகள் கொண்ட தொடர் LMNOP ஆகும்.",
+      exp_en: "<b>Explanation:</b><br>The group with 5 consecutive letters is LMNOP."
+    },
+    {
+      q_ta: "28. AC, FH, KM, PR, ? என்ற தொடரில் அடுத்தது என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "28. Find the next term in the series: AC, FH, KM, PR, ?\n[Expected Question - Group 4]",
+      o: ["a) UW", "b) TV", "c) UX", "d) TW"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>ஒவ்வொரு ஜோடியும் +5 அதிகரிக்கிறது: A+5=F, C+5=H (FH). இதேபோல் PR + 5 -> UW.",
+      exp_en: "<b>Explanation:</b><br>Each letter in the pair shifts forward by +5 positions. PR + 5 = UW."
+    },
+    {
+      q_ta: "29. WFB, TGE, QHH, NJK, ? என்ற தொடரில் அடுத்தது என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 1/2]",
+      q_en: "29. Find the next term in the series: WFB, TGE, QHH, NJK, ?\n[Expected Question - Group 1/2]",
+      o: ["a) KMN", "b) LNM", "c) KNM", "d) LMN"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>1வது எழுத்து -3 (W, T, Q, N -> K). 2வது எழுத்து +1 (F, G, H, J -> M). 3வது எழுத்து +3 (B, E, H, K -> N). எனவே KMN.",
+      exp_en: "<b>Explanation:</b><br>1st letter -3 (W->T->Q->N->K), 2nd letter +1 (F->G->H->J->M), 3rd letter +3 (B->E->H->K->N). Thus KMN."
+    },
+    {
+      q_ta: "30. Z1A, Y2B, X3C, W4D, ? என்ற தொடரில் அடுத்தது என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "30. Find the next term in the series: Z1A, Y2B, X3C, W4D, ?\n[Expected Question - Group 4]",
+      o: ["a) V5E", "b) U5E", "c) V6E", "d) V5F"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>1வது எழுத்து பின்னோக்கி -1 (Z, Y, X, W -> V). எண் +1 (1, 2, 3, 4 -> 5). 3வது எழுத்து முன்னோக்கி +1 (A, B, C, D -> E). எனவே V5E.",
+      exp_en: "<b>Explanation:</b><br>1st letter -1 (Z->Y->X->W->V), number +1 (1->2->3->4->5), 3rd letter +1 (A->B->C->D->E). Thus V5E."
+    }
+  ];
+
+  let currentQuestion = 0;
+  let userAnswers = new Array(questionsData.length).fill(null);
+  let isReviewMode = false;
+  let timerInterval;
+  let timeLeft = 45 * 60;
+
+  function toggleLanguage() {
+    currentLang = currentLang === 'ta' ? 'en' : 'ta';
+    document.getElementById('langBtn').innerText = currentLang === 'ta' ? '🌐 English' : '🌐 தமிழ்';
+    updateLanguageTexts();
+    loadQuestion(currentQuestion);
+  }
+
+  function updateLanguageTexts() {
+    if(currentLang === 'en') {
+      document.getElementById('headerTitle').innerText = "🐅 TIGER WARRIORS - Alphabet Series (30 Questions)";
+      document.getElementById('prevBtn').innerText = "⬅️ Previous";
+      document.getElementById('clearBtn').innerText = "🧹 Clear Choice";
+      document.getElementById('nextBtn').innerText = "Next ➡️";
+      document.getElementById('finalSubmitBtn').innerText = "✅ Submit Test";
+      document.getElementById('resHeader').innerText = "🏆 Test Results 🎯";
+      document.getElementById('lblCorrect').innerText = "Correct ✅";
+      document.getElementById('lblWrong').innerText = "Wrong ❌";
+      document.getElementById('lblUnans').innerText = "Unanswered ⚠️";
+      document.getElementById('btnKey').innerText = "🔍 Answer Key";
+      document.getElementById('btnDash').innerText = "🏠 Dashboard";
+      document.getElementById('btnRetake').innerText = "🔄 Retake Test";
+      document.getElementById('btnExit').innerText = "🚪 Exit";
+    } else {
+      document.getElementById('headerTitle').innerText = "🐅 TIGER WARRIORS - எழுத்துக் காரணியியல் (Alphabet Series) 30 வினாக்கள்";
+      document.getElementById('prevBtn').innerText = "⬅️ முந்தையது";
+      document.getElementById('clearBtn').innerText = "🧹 விடையை நீக்கு";
+      document.getElementById('nextBtn').innerText = "அடுத்து ➡️";
+      document.getElementById('finalSubmitBtn').innerText = "✅ தேர்வைச் சமர்ப்பிக்க (Submit)";
+      document.getElementById('resHeader').innerText = "🏆 தேர்வு முடிவுகள் (Test Results) 🎯";
+      document.getElementById('lblCorrect').innerText = "சரியானது ✅";
+      document.getElementById('lblWrong').innerText = "தவறானது ❌";
+      document.getElementById('lblUnans').innerText = "விடையில்லை ⚠️";
+      document.getElementById('btnKey').innerText = "🔍 விடை குறிப்பு & விளக்கம்";
+      document.getElementById('btnDash').innerText = "🏠 முகப்புப் பக்கம்";
+      document.getElementById('btnRetake').innerText = "🔄 மீண்டும் தேர்வு";
+      document.getElementById('btnExit').innerText = "🚪 வெளியேறு";
+    }
+  }
+
+  function initTest() {
+    buildGrid();
+    loadQuestion(0);
+    startTimer();
+  }
+
+  function buildGrid() {
+    const grid = document.getElementById('questionGrid');
+    grid.innerHTML = '';
+    questionsData.forEach((_, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'q-num-btn';
+      btn.innerText = idx + 1;
+      btn.id = `q_btn_${idx}`;
+      btn.onclick = () => jumpToQuestion(idx);
+      grid.appendChild(btn);
+    });
+    updateGridStatus();
+  }
+
+  function updateGridStatus() {
+    questionsData.forEach((_, idx) => {
+      const btn = document.getElementById(`q_btn_${idx}`);
+      if(!btn) return;
+      btn.className = 'q-num-btn';
+      if(idx === currentQuestion) {
+        btn.classList.add('active');
+      } else if(userAnswers[idx] !== null) {
+        btn.classList.add('answered');
+      }
+    });
+  }
+
+  function searchInAI(provider, questionIdx) {
+    const q = questionsData[questionIdx];
+    const questionText = (currentLang === 'ta' ? q.q_ta : q.q_en).replace(/<[^>]*>?/gm, '');
+    const optionsText = q.o.join(", ");
+    const fullQuery = encodeURIComponent(`Explain this TNPSC Alphabet Series reasoning question step by step:\n${questionText}\nOptions: ${optionsText}`);
+    
+    let targetUrl = "";
+    if (provider === 'chatgpt') {
+      targetUrl = `https://chatgpt.com/?q=${fullQuery}`;
+    } else if (provider === 'gemini') {
+      targetUrl = `https://gemini.google.com/app`;
+    } else if (provider === 'perplexity') {
+      targetUrl = `https://www.perplexity.ai/?q=${fullQuery}`;
+    } else if (provider === 'google') {
+      targetUrl = `https://www.google.com/search?q=${fullQuery}`;
+    }
+
+    window.open(targetUrl, '_blank');
+  }
+
+  function loadQuestion(idx) {
+    currentQuestion = idx;
+    const q = questionsData[idx];
+    document.getElementById('qTitle').innerText = currentLang === 'ta' ? q.q_ta : q.q_en;
+    
+    const optsBox = document.getElementById('optionsBox');
+    optsBox.innerHTML = '';
+
+    q.o.forEach((optText, oIdx) => {
+      const card = document.createElement('div');
+      card.className = 'option-card';
+      
+      if(userAnswers[idx] === oIdx) {
+        card.classList.add('selected');
+      }
+
+      if(isReviewMode) {
+        if(oIdx === q.a) {
+          card.classList.add('correct-ans');
+        } else if(userAnswers[idx] === oIdx && oIdx !== q.a) {
+          card.classList.add('wrong-ans');
+        }
+      }
+
+      card.innerHTML = `<span><b>${String.fromCharCode(65 + oIdx)}.</b> ${optText}</span>`;
+      card.onclick = () => selectOption(oIdx);
+      optsBox.appendChild(card);
+    });
+
+    const expBox = document.getElementById('expBox');
+    if(isReviewMode) {
+      expBox.style.display = 'block';
+      let baseExp = currentLang === 'ta' ? q.exp_ta : q.exp_en;
+      
+      expBox.innerHTML = `
+        <div style="font-size: 14px; margin-bottom: 8px;">${baseExp}</div>
+        <div style="font-size: 12px; color: #fbbf24; margin-top: 10px; font-weight: bold;">🤖 AI Link Buttons (Opens in New Tab):</div>
+        <div class="ai-btn-group">
+          <button class="ai-link-btn btn-chatgpt" onclick="searchInAI('chatgpt', ${idx})">🟢 ChatGPT</button>
+          <button class="ai-link-btn btn-gemini" onclick="searchInAI('gemini', ${idx})">✨ Gemini AI</button>
+          <button class="ai-link-btn btn-perplexity" onclick="searchInAI('perplexity', ${idx})">🔵 Perplexity</button>
+          <button class="ai-link-btn btn-google" onclick="searchInAI('google', ${idx})">🔍 Google Search</button>
+        </div>
+      `;
+    } else {
+      expBox.style.display = 'none';
+    }
+
+    document.getElementById('prevBtn').style.display = idx === 0 ? 'none' : 'block';
+    document.getElementById('nextBtn').style.display = idx === questionsData.length - 1 ? 'none' : 'block';
+    updateGridStatus();
+  }
+
+  function selectOption(oIdx) {
+    if(isReviewMode) return;
+    userAnswers[currentQuestion] = oIdx;
+    loadQuestion(currentQuestion);
+  }
+
+  function clearChoice() {
+    if(isReviewMode) return;
+    userAnswers[currentQuestion] = null;
+    loadQuestion(currentQuestion);
+  }
+
+  function navigateNumberQuery(dir) {
+    const postNext = currentQuestion + dir;
+    if(postNext >= 0 && postNext < questionsData.length) {
+      loadQuestion(postNext);
+    }
+  }
+
+  function jumpToQuestion(idx) {
+    loadQuestion(idx);
+  }
+
+  function startTimer() {
+    if (timerInterval) clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+      timeLeft--;
+      let m = Math.floor(timeLeft / 60);
+      let s = timeLeft % 60;
+      const timerElem = document.getElementById('timerBox');
+      if(timerElem) {
+        timerElem.innerText = `⏱️ ${m}:${s < 10 ? '0' : ''}${s}`;
+      }
+      if(timeLeft <= 0) {
+        clearInterval(timerInterval);
+        submitTest();
+      }
+    }, 1000);
+  }
+
+  function submitTest() {
+    if (timerInterval) clearInterval(timerInterval);
+    document.getElementById('testView').style.display = 'none';
+    document.getElementById('resultView').style.display = 'block';
+
+    let correct = 0, wrong = 0, unans = 0;
+    userAnswers.forEach((ans, idx) => {
+      if(ans === null) unans++;
+      else if(ans === questionsData[idx].a) correct++;
+      else wrong++;
+    });
+
+    document.getElementById('scoreDisplay').innerText = `${correct} / ${questionsData.length}`;
+    let pct = ((correct / questionsData.length) * 100).toFixed(1);
+    document.getElementById('percentageDisplay').innerText = `${currentLang === 'ta' ? 'சதவீதம்' : 'Percentage'}: ${pct}%`;
+    document.getElementById('correctCnt').innerText = correct;
+    document.getElementById('wrongCnt').innerText = wrong;
+    document.getElementById('unansCnt').innerText = unans;
+  }
+
+  function reviewAnswerKey() {
+    isReviewMode = true;
+    document.getElementById('resultView').style.display = 'none';
+    document.getElementById('testView').style.display = 'block';
+    document.getElementById('finalSubmitBtn').style.display = 'none';
+    document.getElementById('backToResultBtn').style.display = 'block';
+    document.getElementById('dashFromKeyBtn').style.display = 'block';
+    loadQuestion(0);
+  }
+
+  function returnToResult() {
+    document.getElementById('testView').style.display = 'none';
+    document.getElementById('resultView').style.display = 'block';
+  }
+
+  function returnToDashboard() {
+    window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html"); 
+  }
+
+  function exitPortal() {
+    window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html");
+  }
+
+  function retakeTest() {
+    userAnswers = new Array(questionsData.length).fill(null);
+    isReviewMode = false;
+    timeLeft = 45 * 60;
+    document.getElementById('resultView').style.display = 'none';
+    document.getElementById('testView').style.display = 'block';
+    document.getElementById('finalSubmitBtn').style.display = 'inline-block';
+    document.getElementById('backToResultBtn').style.display = 'none';
+    document.getElementById('dashFromKeyBtn').style.display = 'none';
+    initTest();
+  }
+
+  window.onload = function() {
+    initTest();
+  }
+</script>
+
+</body>
+</html>
