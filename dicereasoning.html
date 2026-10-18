@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tiger Warriors - பகடை (Dice Reasoning) 30 வினாக்கள்</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; font-weight: bold; }
+    body { background: #080604; color: #f8fafc; padding: 12px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+    .card { width: 100%; max-width: 950px; background: #0f172a; border-radius: 14px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); border: 1px solid #334155; }
+    
+    .test-header { display: flex; justify-content: space-between; align-items: center; background: #1e293b; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; border: 1px solid #334155; }
+    .timer { font-size: 15px; font-weight: bold; color: #fbbf24; background: #091326; padding: 6px 12px; border-radius: 6px; border: 1px solid #fbbf24; box-shadow: inset 0 0 5px rgba(251, 191, 36, 0.2); }
+    .lang-btn { background: #0284c7; color: #fff; border: 1px solid #38bdf8; padding: 6px 14px; border-radius: 6px; font-size: 13px; cursor: pointer; transition: 0.2s; }
+    .lang-btn:hover { background: #0369a1; }
+
+    .q-grid { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 16px; max-height: 140px; overflow-y: auto; padding: 8px; background: #1e293b; border-radius: 8px; justify-content: center; }
+    .q-num-btn { width: 30px; height: 30px; border-radius: 5px; border: none; background: #334155; color: #fff; font-size: 10px; cursor: pointer; font-weight: bold; }
+    .q-num-btn.active { border: 2px solid #38bdf8; background: #0284c7; }
+    .q-num-btn.answered { background: #10b981; }
+
+    .q-box { background: #1e293b; padding: 18px; border-radius: 10px; margin-bottom: 16px; border: 1px solid #334155; }
+    .q-text { white-space: pre-line; line-height: 1.6; font-size: 15px; color: #f8fafc; }
+    
+    .option-card { background: #0f172a; border: 1px solid #334155; padding: 12px 16px; border-radius: 8px; margin-top: 10px; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: 0.2s; white-space: pre-line; line-height: 1.4; }
+    .option-card:hover { border-color: #38bdf8; background: #1e293b; }
+    .option-card.selected { border-color: #10b981; background: #064e3b; }
+    .option-card.correct-ans { border-color: #10b981; background: #065f46; font-weight: bold; }
+    .option-card.wrong-ans { border-color: #ef4444; background: #7f1d1d; }
+
+    .explanation-box { background: #091326; border: 1px solid #38bdf8; border-radius: 8px; padding: 12px; margin-top: 14px; font-size: 13px; color: #7dd3fc; line-height: 1.5; }
+    
+    .nav-btns { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+    .btn-action { background: #334155; color: #fff; border: none; padding: 10px 16px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 13px; text-align: center; }
+    .btn-action:hover { opacity: 0.9; }
+    .btn-blue { background: #2563eb; }
+    .btn-purple { background: #7c3aed; }
+    .btn-danger { background: #ef4444; }
+    .btn-green { background: #22c55e; }
+
+    .ai-btn-group { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; border-top: 1px dashed #38bdf8; padding-top: 12px; }
+    .ai-link-btn { border: none; color: #fff; padding: 8px 14px; border-radius: 6px; font-size: 12px; cursor: pointer; font-weight: bold; transition: 0.2s; display: inline-flex; align-items: center; gap: 5px; }
+    .ai-link-btn:hover { opacity: 0.85; transform: scale(1.02); }
+    .btn-gemini { background: #4285f4; }
+    .btn-chatgpt { background: #10a37f; }
+    .btn-perplexity { background: #22b8cf; }
+    .btn-google { background: #ea4335; }
+
+    .result-box { text-align: center; padding: 25px; background: #1e293b; border-radius: 16px; margin-top: 10px; border: 1px solid rgba(0, 242, 254, 0.3); display: flex; flex-direction: column; align-items: center; }
+    .score-circle { width: 130px; height: 130px; border-radius: 50%; background: conic-gradient(#10b981 0deg, #0f172a 0deg); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 15px auto; border: 4px solid #38bdf8; box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); }
+    .score-num { font-size: 30px; color: #f8fafc; font-weight: bold; }
+    
+    .result-stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; width: 100%; max-width: 400px; }
+    .stat-pill { background: #0f172a; border-radius: 12px; padding: 10px; border: 1px solid #334155; text-align: center; }
+    .stat-pill.gold { border-color: #fbbf24; }
+    .stat-pill.blue { border-color: #38bdf8; }
+    .stat-pill.red { border-color: #ef4444; }
+
+    .footer-badge { text-align: center; font-size: 11px; color: #38bdf8; margin-top: 15px; font-weight: bold; letter-spacing: 0.5px; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <!-- 🔒 Security Authentication Verification Check -->
+  <script>
+      if (localStorage.getItem('tiger_auth_passed') !== 'true') {
+          alert("⚠ பாதுகாப்பு எச்சரிக்கை: நீங்கள் Tiger Warriors போர்ட்டலில் லாகின் செய்யவில்லை! முதலில் மெயின் போர்ட்டலில் லாகின் செய்யவும்.");
+          window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html"); 
+      }
+  </script>
+
+  <div id="testView">
+    <div class="test-header">
+      <div>
+        <h3 style="color: #38bdf8; font-size: 15px;" id="headerTitle">🐅 TIGER WARRIORS - பகடை (Dice Reasoning) 30 வினாக்கள்</h3>
+        <span style="font-size: 11px; color: #94a3b8;">TNPSC / 1 / 2 / 2A / 4 • REASONING UNIT</span>
+      </div>
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <button class="lang-btn" onclick="toggleLanguage()" id="langBtn">🌐 English</button>
+        <div class="timer" id="timerBox">⏱️ 45:00</div>
+        <button class="btn-action btn-purple" id="backToResultBtn" onclick="returnToResult()" style="display: none; padding: 6px 12px; font-size: 12px;">📊 ரிசல்ட் செல்</button>
+        <button class="btn-action btn-danger" id="dashFromKeyBtn" onclick="returnToDashboard()" style="display: none; padding: 6px 12px; font-size: 12px;">🏠 முகப்பு</button>
+      </div>
+    </div>
+
+    <div class="q-grid" id="questionGrid"></div>
+
+    <div class="q-box">
+      <div id="qTitle" class="q-text"></div>
+      <div id="optionsBox"></div>
+      <div id="expBox" class="explanation-box" style="display: none;"></div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn-action" id="prevBtn" onclick="navigateNumberQuery(-1)">⬅️ முந்தையது</button>
+      <button class="btn-action" id="clearBtn" onclick="clearChoice()">🧹 விடையை நீக்கு</button>
+      <button class="btn-action btn-blue" id="nextBtn" onclick="navigateNumberQuery(1)">அடுத்து ➡️</button>
+      <button class="btn-action btn-danger" id="finalSubmitBtn" onclick="submitTest()">✅ தேர்வைச் சமர்ப்பிக்க (Submit)</button>
+    </div>
+  </div>
+
+  <div id="resultView" style="display: none;">
+    <h2 style="color: #38bdf8; text-align: center; margin-bottom: 10px;" id="resHeader">🏆 தேர்வு முடிவுகள் (Test Results) 🎯</h2>
+    <div class="result-box">
+      <div class="score-circle" id="scoreCircle">
+        <div class="score-num" id="scoreDisplay">0/30</div>
+        <span id="percentageDisplay" style="font-size: 11px; color: #fbbf24;">0%</span>
+      </div>
+
+      <div class="result-stats-grid">
+        <div class="stat-pill gold">
+          <h3 id="correctCnt" style="color: #10b981; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;" id="lblCorrect">சரியானது ✅</span>
+        </div>
+        <div class="stat-pill red">
+          <h3 id="wrongCnt" style="color: #ef4444; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;" id="lblWrong">தவறானது ❌</span>
+        </div>
+        <div class="stat-pill blue">
+          <h3 id="unansCnt" style="color: #f59e0b; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;" id="lblUnans">விடையில்லை ⚠️</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
+      <button class="btn-action btn-blue" onclick="reviewAnswerKey()" id="btnKey">🔍 விடை குறிப்பு & விளக்கம்</button>
+      <button class="btn-action btn-purple" onclick="returnToDashboard()" id="btnDash">🏠 முகப்புப் பக்கம்</button>
+      <button class="btn-action btn-green" onclick="retakeTest()" id="btnRetake">🔄 மீண்டும் தேர்வு</button>
+      <button class="btn-action btn-danger" onclick="exitPortal()" id="btnExit">🚪 வெளியேறு</button>
+    </div>
+    <div class="footer-badge" style="margin-top: 20px;">🐅 டைகர் வாரியர் போர்டல் - இயக்குநர்: Dr. K. மணிகாசி 🐅</div>
+  </div>
+</div>
+
+<script>
+  let currentLang = 'ta';
+
+  const questionsData = [
+    {
+      q_ta: "1. 🎲 ஒரு பகடையின் இரு நிலைகள் கொடுக்கப்பட்டுள்ளன. அதில் '3' என்ற எண்ணிற்கு எதிரே உள்ள எண் என்ன?\nநிலை 1: [1, 4, 3]\nநிலை 2: [1, 5, 6]\n[TNPSC Group 4 - PYQ]",
+      q_en: "1. 🎲 Two positions of a dice are given. Find the number opposite to '3'.\nPosition 1: [1, 4, 3]\nPosition 2: [1, 5, 6]\n[TNPSC Group 4 - PYQ]",
+      o: ["a) 6", "b) 5", "c) 4", "d) 2"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>இரு பகடைகளிலும் '1' பொதுவான எண்ணாக உள்ளது. 1 இலிருந்து கடிகார திசையில் (Clockwise) எழுத:\n• நிலை 1: 1 $\\rightarrow$ 4 $\\rightarrow$ 3\n• நிலை 2: 1 $\\rightarrow$ 5 $\\rightarrow$ 6\nஎனவே 3-க்கு எதிரே '6' உள்ளது 🔢.",
+      exp_en: "<b>Explanation:</b><br>Common face is '1'. Moving clockwise: 1-4-3 and 1-5-6. Opposite to 3 is 6 🔢."
+    },
+    {
+      q_ta: "2. 🎲 ஒரு பகடையின் இரு நிலைகளில் முகப்புகள் [2, 3, 4] மற்றும் [4, 5, 6] எனில், '4'-க்கு எதிரே உள்ள எண் என்ன?\n[TNPSC Group 2 - PYQ]",
+      q_en: "2. 🎲 Two positions of a dice show [2, 3, 4] and [4, 5, 6]. What is opposite to '4'?\n[TNPSC Group 2 - PYQ]",
+      o: ["a) 1", "b) 3", "c) 5", "d) 2"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>பொதுவான எண் '4'. பகடையில் காணப்படாத விடுபட்ட எண் '1' ஆகும். எனவே 4-க்கு எதிரே '1' அமையும் 🎲.",
+      exp_en: "<b>Explanation:</b><br>Common number is 4. The missing number from 1 to 6 is 1. Thus opposite to 4 is 1 🎲."
+    },
+    {
+      q_ta: "3. 🎲 ஒரு நியமப் பகடையில் (Standard Dice) '2' என்ற எண்ணிற்கு எதிரே உள்ள எண் என்ன?\n[TNPSC Group 1 - PYQ]",
+      q_en: "3. 🔍 What is the number opposite to '2' in a standard dice?\n[TNPSC Group 1 - PYQ]",
+      o: ["a) 5", "b) 4", "c) 3", "d) 6"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>நியமப் பகடையில் (Standard Dice) எதிரெதிர் முகப்புகளின் கூட்டுத்தொகை எப்போதும் 7 ஆகும். 2 + x = 7 $\\rightarrow x = 5$ 🔢.",
+      exp_en: "<b>Explanation:</b><br>In a standard dice, opposite faces sum to 7. $7 - 2 = 5$ 🔢."
+    },
+    {
+      q_ta: "4. 🎲 ஒரு பகடையின் மூன்று நிலைகள் கொடுக்கப்பட்டுள்ளன:\n[1, 2, 3], [2, 4, 6], [3, 4, 5]\nஎனில், '2'-க்கு எதிரே உள்ள எண் என்ன?\n[TNPSC Group 2A - PYQ]",
+      q_en: "4. 🎲 Three positions of a dice are given: [1, 2, 3], [2, 4, 6], [3, 4, 5]. Find the number opposite to '2'.\n[TNPSC Group 2A - PYQ]",
+      o: ["a) 5", "b) 6", "c) 4", "d) 1"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>நிலை 1 மற்றும் 2-ஐ ஒப்பிட்டால் '2' பொதுவானது. சுழற்சி முறையில் பார்த்தால் 2-க்கு எதிரே '5' வரும் 🔄.",
+      exp_en: "<b>Explanation:</b><br>Comparing positions gives opposite face to 2 as 5 🔄."
+    },
+    {
+      q_ta: "5. 🎲 ஒரு திறந்த பகடைப் படத்தில் (Open Dice) வரிசையாக முகப்புகள் [1, 2, 3, 4, 5, 6] என உள்ளன. இதில் 1-க்கு எதிரே எந்த எண் வரும்?\n[TNPSC CCSE - PYQ]",
+      q_en: "5. 📦 In an open dice layout, what number is opposite to '1'?\n[TNPSC CCSE - PYQ]",
+      o: ["a) 4", "b) 5", "c) 3", "d) 6"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>திறந்த பகடையில் மாற்று முகப்புகள் (Alternate faces) எதிரெதிர் முகப்புகளாகும். 1-க்கு மாற்று முகப்பு '4' ஆகும் 📦.",
+      exp_en: "<b>Explanation:</b><br>In an open dice, alternate faces are opposite. 1 is opposite to 4 📦."
+    },
+    {
+      q_ta: "6. 🎲 ஒரு பகடையின் இரு நிலைகளில் முகப்புகள் [A, B, C] மற்றும் [A, D, E] எனில், B-க்கு எதிரே என்ன வரும்?\n[TNPSC Group 4 - PYQ]",
+      q_en: "6. 🎲 Two positions show [A, B, C] and [A, D, E]. What is opposite to B?\n[TNPSC Group 4 - PYQ]",
+      o: ["a) தரப்பட்டுள்ளது போதாது (Cannot be determined)", "b) D", "c) E", "d) C"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>பொதுவான எழுத்து 'A'. ஆனால் மற்ற இரு முகப்புகளின் முழுமையான ஜோடிகள் முழுமையாகத் தெரியாததால் துல்லியமாகக் கூற இயலாது ⚠️.",
+      exp_en: "<b>Explanation:</b><br>Common face is A, but insufficient data to determine exact opposite for B without a third view ⚠️."
+    },
+    {
+      q_ta: "7. 🎲 ஒரு பகடையில் 6, 2, 3 எண்கள் அருகருகே உள்ளன. எதிரே உள்ள எண்களின் பெருக்கற்பலன் என்ன?\n[TNPSC Group 1 - PYQ]",
+      q_en: "7. 🎲 Adjacent faces of a dice are 6, 2, 3. What is the product of their opposite numbers?\n[TNPSC Group 1 - PYQ]",
+      o: ["a) தரவு போதாது / நியமப் பகடை எனில் கணக்கிடலாம்", "b) 12", "c) 18", "d) 24"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>இது நியமப் பகடையா என குறிப்பிடப்படவில்லை எனில் உறுதியாகக் கூற முடியாது 🔍.",
+      exp_en: "<b>Explanation:</b><br>Since standard dice property isn't explicitly confirmed for all adjacent views, data depends on configuration 🔍."
+    },
+    {
+      q_ta: "8. 🎲 ஒரு பகடையின் இரு நிலைகளில் [5, 3, 1] மற்றும் [5, 2, 4] எனில், '5'-க்கு எதிரே உள்ள எண் என்ன?\n[TNPSC Group 2 - PYQ]",
+      q_en: "8. 🎲 Two positions show [5, 3, 1] and [5, 2, 4]. What is opposite to '5'?\n[TNPSC Group 2 - PYQ]",
+      o: ["a) 6", "b) 3", "c) 4", "d) 1"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>பொதுவான எண் '5'. காணப்படாத விடுபட்ட எண் '6' ஆகும். எனவே 5-க்கு எதிரே '6' அமையும் 🔢.",
+      exp_en: "<b>Explanation:</b><br>Common number is 5. Missing number from 1 to 6 is 6. Thus opposite to 5 is 6 🔢."
+    },
+    {
+      q_ta: "9. 🎲 ஒரு பகடையின் நான்கு நிலைகள் கொடுக்கப்பட்டுள்ளன. அதில் கீழند உள்ள முகப்பில் '2' இருந்தால் மேலே என்ன எண் இருக்கும்?\n[TNPSC Group 4 - PYQ]",
+      q_en: "9. 🎲 Four positions of a dice are given. If '2' is at the bottom, what is at the top?\n[TNPSC Group 4 - PYQ]",
+      o: ["a) எதிரெதிர் எண் விதிப்படி கணக்கிட வேண்டும்", "b) 5", "c) 3", "d) 1"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>பகடை விதிகளின்படி எதிரெதிர் முகப்புகளைக் கண்டறிந்து அதன் மதிப்பைப் பெற வேண்டும் 🎲.",
+      exp_en: "<b>Explanation:</b><br>Apply standard dice opposite face rules to find the top face 🎲."
+    },
+    {
+      q_ta: "10. 📦 திறந்த பகடையில் வரிசை முகப்புகள் [1, 2, 3] மற்றும் [4, 5, 6] மடிக்கப்படும்போது 3-க்கு எதிரே என்ன எண் வரும்?\n[TNPSC Group 2A - PYQ]",
+      q_en: "10. 📦 In an open dice, what is opposite to '3' when folded?\n[TNPSC Group 2A - PYQ]",
+      o: ["a) 5", "b) 6", "c) 4", "d) 2"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>திறந்த பகடை கட்டமைப்பில் மாற்று முகப்பு விதியின்படி 3-க்கு எதிரே '5' அமையும் 📦.",
+      exp_en: "<b>Explanation:</b><br>Alternate face rule in open dice yields 5 opposite to 3 📦."
+    },
+    {
+      q_ta: "11. 🎲 ஒரு நியமப் பகடையில் முகப்பு 4-க்கு எதிரே உள்ள எண் என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "11. 🔍 What is the number opposite to face 4 in a standard dice?\n[Expected Question - Group 4]",
+      o: ["a) 3", "b) 5", "c) 2", "d) 1"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>நியமப் பகடையில் எதிரெதிர் முகப்புகளின் கூடுதல் 7. $7 - 4 = 3$ 🔢.",
+      exp_en: "<b>Explanation:</b><br>Sum is 7. $7 - 4 = 3$ 🔢."
+    },
+    {
+      q_ta: "12. 🎲 ஒரு பகடையின் இரு நிலைகளில் [1, 2, 3] மற்றும் [3, 4, 5] எனில், '3'-க்கு எதிரே உள்ள எண் என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 2/4]",
+      q_en: "12. 🎲 Two positions show [1, 2, 3] and [3, 4, 5]. What is opposite to '3'?\n[Expected Question - Group 2/4]",
+      o: ["a) 6", "b) 2", "c) 4", "d) 1"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>பொதுவான எண் '3'. காணப்படாத விடுபட்ட எண் '6'. எனவே 3-க்கு எதிரே '6' அமையும் 🔄.",
+      exp_en: "<b>Explanation:</b><br>Missing number is 6, which is opposite to the common face 3 🔄."
+    },
+    {
+      q_ta: "13. 🎲 ஒரு பகடையின் இரு நிலைகளில் ஒரே எண் இரு முகப்புகளில் பொதுவானதாக இருந்தால், மற்ற இரு ஜோடி முகப்புகள் எவ்வாறு இருக்கும்?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "13. 🎲 If two numbers are common in two positions of a dice, what about the remaining faces?\n[Expected Question - Group 4]",
+      o: ["a) ஒன்றுக்கொன்று எதிரெதிராக இருக்கும் (Opposite to each other)", "b) அருகில் இருக்கும்", "c) சமமாக இருக்கும்", "d) கணக்கிட முடியாது"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>இரண்டு எண்கள் பொதுவானால், மீதமுள்ள மூன்றாவது முகப்புகள் ஒன்றுக்கொன்று நேர் எதிரே அமையும் 🎲.",
+      exp_en: "<b>Explanation:</b><br>When two faces are common, the third remaining faces are opposite to each other 🎲."
+    },
+    {
+      q_ta: "14. 📦 திறந்த பகடையில் மூலைவிட்ட முகப்புகள் எவ்வாறு மடிக்கப்படுகின்றன?\n[எதிர்பார்க்கப்படும் வினா - Group 2/2A]",
+      q_en: "14. 📦 How are corner-aligned faces folded in an open dice?\n[Expected Question - Group 2/2A]",
+      o: ["a) மாற்று முறையில் எதிரமைவடையும் (Alternate opposite)", "b) அருகமை முகப்புகள்", "c) இணை முகப்புகள்", "d) கணக்கிட முடியாது"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>திறந்த பகடை மடிப்புகளில் மாற்று முகப்புகளே எதிரெதிர் முகப்புகளாக அமைகின்றன 📦.",
+      exp_en: "<b>Explanation:</b><br>Alternate positions form the opposite pairs upon folding 📦."
+    },
+    {
+      q_ta: "15. 🎲 ஒரு பகடையில் 1 முதல் 6 வரை எண்கள் குறிக்கப்பட்டுள்ளன. 1 மற்றும் 2 அருகிலுள்ள முகப்புகள் எனில், எதிரே வர முடியாத எண் எது?\n[எதிர்பார்க்கப்படும் வினா - Group 2/4]",
+      q_en: "15. 🎲 Numbers 1 to 6 are on a dice. If 1 and 2 are adjacent, which cannot be opposite?\n[Expected Question - Group 2/4]",
+      o: ["a) 2 (அருகில் உள்ளதால் எதிரில் வராது)", "b) 3", "c) 4", "d) 5"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>அருகில் உள்ள முகப்புகள் ഒരിക്കலும் எதிரெதிர் முகப்புகளாக இருக்க முடியாது ⚠️.",
+      exp_en: "<b>Explanation:</b><br>Adjacent faces can never be opposite faces ⚠️."
+    },
+    {
+      q_ta: "16. 🎲 ஒரு பகடையின் முகப்புகளில் வண்ணங்கள் [சிவப்பு, பச்சை, நீளம்] மற்றும் [சிவப்பு, மஞ்சள், வெள்ளை] எனில், சிவப்பு நிறத்திற்கு எதிரே என்ன வரும்?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "16. 🎨 Dice faces show [Red, Green, Blue] and [Red, Yellow, White]. What is opposite to Red?\n[Expected Question - Group 4]",
+      o: ["a) கருப்பு / விடுபட்ட நிறம் (Missing color)", "b) பச்சை", "c) நீளம்", "d) மஞ்சள்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>பொதுவான நிறம் 'சிவப்பு'. விடுபட்ட அல்லது எதிரமைவடையும் நிறம் எதிரே அமையும் 🎨.",
+      exp_en: "<b>Explanation:</b><br>The missing color in the set forms the opposite face to the common color 🎨."
+    },
+    {
+      q_ta: "17. 🎲 ஒரு பகடையை இருமுறை உருட்டும் போது முகப்புகள் [2, 3, 5] மற்றும் [1, 2, 4] எனில், 2-க்கு எதிரே உள்ள எண் என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "17. 🎲 Two rolls show [2, 3, 5] and [1, 2, 4]. What is opposite to 2?\n[Expected Question - Group 4]",
+      o: ["a) 6", "b) 3", "c) 5", "d) 1"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>பொதுவான எண் '2'. விடுபட்ட எண் '6' ஆகும். எனவே 2-க்கு எதிரே '6' அமையும் 🔢.",
+      exp_en: "<b>Explanation:</b><br>Common number is 2. Missing number is 6, which is opposite to 2 🔢."
+    },
+    {
+      q_ta: "18. 📦 திறந்த பகடை வடிவமைப்பில் வெளி நீட்சigகளாக உள்ள முகப்புகள் எப்படி இணைக்கப்படும்?\n[எதிர்பார்க்கப்படும் வினா - Group 1/2]",
+      q_en: "18. 📦 How do outer extensions fold in an open dice layout?\n[Expected Question - Group 1/2]",
+      o: ["a) முகம் சுருங்கி பெட்டியாகும் (Forms a closed cube)", "b) நீடிக்கும்", "c) பிரியும்", "d) கணக்கிட முடியாது"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>திறந்த பகடை மடிக்கப்பட்டு ஒரு முழுமையான சதுரப்பெட்டியாக (Cube) மாறும் 📦.",
+      exp_en: "<b>Explanation:</b><br>The layout folds into a closed cubic box 📦."
+    },
+    {
+      q_ta: "19. 🎲 ஒரு பகடையின் எதிரெதிர் முகப்புகளின் கூட்டுத்தொகை எப்போதும் 7 எனில், அது என்ன வகையான பகடை?\n[எதிர்பார்க்கப்படும் வினா - Group 2/4]",
+      q_en: "19. 🔍 If the sum of opposite faces is always 7, what type of dice is it?\n[Expected Question - Group 2/4]",
+      o: ["a) நியமப் பகடை (Standard Dice)", "b) சாதாரண பகடை (Ordinary Dice)", "c) திறந்த பகடை (Open Dice)", "d) வெற்று பகடை"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>எதிரெதிர் முகப்புகளின் கூடுதல் 7 எனில் அது நியமப் பகடை (Standard Dice) ஆகும் 🔢.",
+      exp_en: "<b>Explanation:</b><br>It is a Standard Dice 🔢."
+    },
+    {
+      q_ta: "20. 🎲 ஒரு பகடையின் மூன்று நிலைகளில் எண் 4 பொதுவானதாக இருந்தால், எதிரே உள்ள எண்களைக் கண்டறிய எந்த விதி உதவும்?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "20. 🎲 Which rule helps find opposite faces when a number is common across views?\n[Expected Question - Group 4]",
+      o: ["a) சுழற்சி முறை விதி (Clockwise rule)", "b) கூட்டல் விதி", "c) பெருக்கல் விதி", "d) சராசரி விதி"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>பொதுவான எண்ணிலிருந்து கடிகார திசையில் சுழற்றி எழுதும் முறை பயன்படும் 🔄.",
+      exp_en: "<b>Explanation:</b><br>The clockwise rotation rule from the common face is used 🔄."
+    },
+    {
+      q_ta: "21. 🎲 ஒரு பகடையின் இரு நிலைகளில் [1, 3, 5] மற்றும் [3, 6, 2] எனில், '3'-க்கு எதிரே உள்ள எண் என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "21. 🎲 Two positions show [1, 3, 5] and [3, 6, 2]. What is opposite to '3'?\n[Expected Question - Group 4]",
+      o: ["a) 4", "b) 6", "c) 2", "d) 5"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>பொதுவான எண் '3'. விடுபட்ட எண் '4' ஆகும். எனவே 3-க்கு எதிரே '4' அமையும் 🔢.",
+      exp_en: "<b>Explanation:</b><br>Missing number from 1 to 6 is 4, which is opposite to 3 🔢."
+    },
+    {
+      q_ta: "22. 📦 திறந்த பகடையில் T-வடிவ அமைப்பில் உள்ள முகப்புகளில் மேல் முகப்பிற்கு எதிரே என்ன வரும்?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "22. 📦 In a T-shaped open dice, what is opposite to the top face?\n[Expected Question - Group 4]",
+      o: ["a) கீழ் முகப்பு (Bottom face)", "b) பக்க முகப்பு", "c) மூலை முகப்பு", "d) மைய முகப்பு"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>T-வடிவ திறந்த பகடை மடிப்பில் மேல் முகப்பிற்கு நேர் கீழே உள்ள முகப்பு எதிரே அமையும் 📦.",
+      exp_en: "<b>Explanation:</b><br>The corresponding opposite face in a T-layout structure 📦."
+    },
+    {
+      q_ta: "23. 🎲 ஒரு பகடையின் இரு முகப்புகளில் 2 மற்றும் 3 பொதுவானவை எனில், 1-க்கு எதிரே என்ன இருக்கும்?\n[எதிர்பார்க்கப்படும் வினா - Group 2/4]",
+      q_en: "23. 🎲 If 2 and 3 are common faces in two positions, what is opposite to 1?\n[Expected Question - Group 2/4]",
+      o: ["a) மீதமுள்ள மூன்றாவது எண்", "b) 4", "c) 5", "d) 6"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>இரு எண்கள் பொதுவானால் மூன்றாவது எண்கள் ஒன்றுக்கொன்று நேர் எதிரே அமையும் 🎲.",
+      exp_en: "<b>Explanation:</b><br>The remaining third faces are opposite to each other 🎲."
+    },
+    {
+      q_ta: "24. 🎲 ஒரு பகடையில் புள்ளிகள் (Dots) வைக்கப்பட்டுள்ளன. 3 புள்ளிகளுக்கு எதிரே எத்தனை புள்ளிகள் இருக்கும்?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "24. 🎲 A dice has dot faces. How many dots are opposite to 3 dots?\n[Expected Question - Group 4]",
+      o: ["a) 4 (நியமப் பகடை விதியின்படி)", "b) 5", "c) 2", "d) 1"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>நியமப் புள்ளிகள் கொண்ட பகடையில் எதிரெதிர் முகப்புகளின் கூடுதல் 7 ஆகும் ($7 - 3 = 4$) 🔢.",
+      exp_en: "<b>Explanation:</b><br>Standard dice dot rule: $7 - 3 = 4$ 🔢."
+    },
+    {
+      q_ta: "25. 🎲 பகடை ஒன்றின் மூன்று நிலைகளில் முகப்புகள் [1, 2, 3], [3, 4, 5], [5, 6, 1] எனில், இது எந்த வகைப் பகடை?\n[எதிர்பார்க்கப்படும் வினா - Group 1/2]",
+      q_en: "25. 🎲 Three positions are [1, 2, 3], [3, 4, 5], [5, 6, 1]. What type of dice is this?\n[Expected Question - Group 1/2]",
+      o: ["a) சாதாரண பகடை (Ordinary Dice)", "b) நியமப் பகடை (Standard Dice)", "c) திறந்த பகடை", "d) வெற்று பகடை"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>அருகிலுள்ள முகப்புகளின் கூடுதல் 7 வருவதால் இது ஒரு சாதாரண பகடை (Ordinary Dice) ஆகும் 🎲.",
+      exp_en: "<b>Explanation:</b><br>Adjacent faces sum to 7, making it an Ordinary Dice 🎲."
+    },
+    {
+      q_ta: "26. 📦 ஒரு திறந்த பகடையில் 4 முகப்புகள் ஒரு நேர்கோட்டிலும், மற்ற இரண்டும் இருபுறம் பக்கவாட்டிலும் இருந்தால் அது என்ன வடிவ அமைப்பாகும்?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "26. 📦 What layout is an open dice with 4 faces in a row and 2 on sides?\n[Expected Question - Group 4]",
+      o: ["a) நீள் வரிசை வடிவம் (Strip layout)", "b) T-வடிவம்", "c) L-வடிவம்", "d) குறுக்கு வடிவம்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>இது ஒரு வழக்கமான நீள் வரிசை திறந்த பகடை வடிவமாகும் 📦.",
+      exp_en: "<b>Explanation:</b><br>It forms a standard strip layout open dice 📦."
+    },
+    {
+      q_ta: "27. 🎲 ஒரு பகடையின் முகப்பில் 6 உள்ளது. அதன் அனைத்து அருகில் உள்ள முகப்புகளின் எண்களின் கூடுதல் என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 2/4]",
+      q_en: "27. 🎲 Face 6 is on top. What is the sum of numbers on all its adjacent faces in a standard dice?\n[Expected Question - Group 2/4]",
+      o: ["a) 14", "b) 12", "c) 15", "d) 10"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>6-க்கு எதிரே உள்ள எண் 1. மற்ற 4 எண்களின் கூடுதல் = $21 - 1 - 6 = 14$ 🔢.",
+      exp_en: "<b>Explanation:</b><br>Total sum of 1 to 6 is 21. Opposite is 1. Adjacent sum = $21 - 6 - 1 = 14$ 🔢."
+    },
+    {
+      q_ta: "28. 🎲 ஒரு பகடையை உருட்டும் போது இரட்டைப்படை எண் மேலே வர என்ன வாய்ப்பு?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "28. 🎲 What is the probability of getting an even number when rolling a dice?\n[Expected Question - Group 4]",
+      o: ["a) 1/2", "b) 1/3", "c) 1/6", "d) 2/3"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>இரட்டை எண்கள்: 2, 4, 6 (மொத்தம் 3). நிகழ்தகவு = $3/6 = 1/2$ 🎲.",
+      exp_en: "<b>Explanation:</b><br>Even numbers are 2, 4, 6. Probability = $3/6 = 1/2$ 🎲."
+    },
+    {
+      q_ta: "29. 🎲 ஒரு பகடையின் இரு நிலைகளில் பொதுவான எண் எதுவுமில்லை எனில், அது என்ன பகடை?\n[எதிர்பார்க்கப்படும் வினா - Group 1/2]",
+      q_en: "29. 🎲 If two positions of a dice have no common number, what kind of dice is it?\n[Expected Question - Group 1/2]",
+      o: ["a) சாதாரண பகடை / மாறுபட்ட நிலைகள் (Non-standard / Ordinary views)", "b) நியமப் பகடை", "c) திறந்த பகடை", "d) தவறான பகடை"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>பொதுவான எண்கள் இல்லாதபோது அருகமை மற்றும் எதிரமை விதிகளின்படி கணக்கிட வேண்டும் 🔍.",
+      exp_en: "<b>Explanation:</b><br>When no faces are common, standard relative positioning rules apply 🔍."
+    },
+    {
+      q_ta: "30. 🎲 ஒரு பகடையில் 1 முதல் 6 வரை எண்கள் உள்ளன. 5-க்கு எதிரே உள்ள எண் என்னவென்று கண்டறிய குறைந்தபட்சம் எத்தனை நிலைகள் தேவை?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "30. 🎲 What is the minimum number of positions required to find the opposite of 5?\n[Expected Question - Group 4]",
+      o: ["a) 2 நிலைகள் (2 positions)", "b) 3 நிலைகள்", "c) 1 நிலை", "d) 4 நிலைகள்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>எதிரெதிர் முகப்புகளைத் துல்லியமாகக் கண்டறிய குறைந்தபட்சம் 2 பகடை நிலைகள் (Positions) அவசியமாகும் 🎲.",
+      exp_en: "<b>Explanation:</b><br>A minimum of 2 positions are required to compare and find opposite faces 🎲."
+    }
+  ];
+
+  let currentQuestion = 0;
+  let userAnswers = new Array(questionsData.length).fill(null);
+  let isReviewMode = false;
+  let timerInterval;
+  let timeLeft = 45 * 60;
+
+  function toggleLanguage() {
+    currentLang = currentLang === 'ta' ? 'en' : 'ta';
+    document.getElementById('langBtn').innerText = currentLang === 'ta' ? '🌐 English' : '🌐 தமிழ்';
+    updateLanguageTexts();
+    loadQuestion(currentQuestion);
+  }
+
+  function updateLanguageTexts() {
+    if(currentLang === 'en') {
+      document.getElementById('headerTitle').innerText = "🐅 TIGER WARRIORS - Dice Reasoning (30 Questions)";
+      document.getElementById('prevBtn').innerText = "⬅️ Previous";
+      document.getElementById('clearBtn').innerText = "🧹 Clear Choice";
+      document.getElementById('nextBtn').innerText = "Next ➡️";
+      document.getElementById('finalSubmitBtn').innerText = "✅ Submit Test";
+      document.getElementById('resHeader').innerText = "🏆 Test Results 🎯";
+      document.getElementById('lblCorrect').innerText = "Correct ✅";
+      document.getElementById('lblWrong').innerText = "Wrong ❌";
+      document.getElementById('lblUnans').innerText = "Unanswered ⚠️";
+      document.getElementById('btnKey').innerText = "🔍 Answer Key";
+      document.getElementById('btnDash').innerText = "🏠 Dashboard";
+      document.getElementById('btnRetake').innerText = "🔄 Retake Test";
+      document.getElementById('btnExit').innerText = "🚪 Exit";
+    } else {
+      document.getElementById('headerTitle').innerText = "🐅 TIGER WARRIORS - பகடை (Dice Reasoning) 30 வினாக்கள்";
+      document.getElementById('prevBtn').innerText = "⬅️ முந்தையது";
+      document.getElementById('clearBtn').innerText = "🧹 விடையை நீக்கு";
+      document.getElementById('nextBtn').innerText = "அடுத்து ➡️";
+      document.getElementById('finalSubmitBtn').innerText = "✅ தேர்வைச் சமர்ப்பிக்க (Submit)";
+      document.getElementById('resHeader').innerText = "🏆 தேர்வு முடிவுகள் (Test Results) 🎯";
+      document.getElementById('lblCorrect').innerText = "சரியானது ✅";
+      document.getElementById('lblWrong').innerText = "தவறானது ❌";
+      document.getElementById('lblUnans').innerText = "விடையில்லை ⚠️";
+      document.getElementById('btnKey').innerText = "🔍 விடை குறிப்பு & விளக்கம்";
+      document.getElementById('btnDash').innerText = "🏠 முகப்புப் பக்கம்";
+      document.getElementById('btnRetake').innerText = "🔄 மீண்டும் தேர்வு";
+      document.getElementById('btnExit').innerText = "🚪 வெளியேறு";
+    }
+  }
+
+  function initTest() {
+    buildGrid();
+    loadQuestion(0);
+    startTimer();
+  }
+
+  function buildGrid() {
+    const grid = document.getElementById('questionGrid');
+    grid.innerHTML = '';
+    questionsData.forEach((_, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'q-num-btn';
+      btn.innerText = idx + 1;
+      btn.id = `q_btn_${idx}`;
+      btn.onclick = () => jumpToQuestion(idx);
+      grid.appendChild(btn);
+    });
+    updateGridStatus();
+  }
+
+  function updateGridStatus() {
+    questionsData.forEach((_, idx) => {
+      const btn = document.getElementById(`q_btn_${idx}`);
+      if(!btn) return;
+      btn.className = 'q-num-btn';
+      if(idx === currentQuestion) {
+        btn.classList.add('active');
+      } else if(userAnswers[idx] !== null) {
+        btn.classList.add('answered');
+      }
+    });
+  }
+
+  function searchInAI(provider, questionIdx) {
+    const q = questionsData[questionIdx];
+    const questionText = (currentLang === 'ta' ? q.q_ta : q.q_en).replace(/<[^>]*>?/gm, '');
+    const optionsText = q.o.join(", ");
+    const fullQuery = encodeURIComponent(`Explain this TNPSC Dice Reasoning question step by step:\n${questionText}\nOptions: ${optionsText}`);
+    
+    let targetUrl = "";
+    if (provider === 'chatgpt') {
+      targetUrl = `https://chatgpt.com/?q=${fullQuery}`;
+    } else if (provider === 'gemini') {
+      targetUrl = `https://gemini.google.com/app`;
+    } else if (provider === 'perplexity') {
+      targetUrl = `https://www.perplexity.ai/?q=${fullQuery}`;
+    } else if (provider === 'google') {
+      targetUrl = `https://www.google.com/search?q=${fullQuery}`;
+    }
+
+    window.open(targetUrl, '_blank');
+  }
+
+  function loadQuestion(idx) {
+    currentQuestion = idx;
+    const q = questionsData[idx];
+    document.getElementById('qTitle').innerText = currentLang === 'ta' ? q.q_ta : q.q_en;
+    
+    const optsBox = document.getElementById('optionsBox');
+    optsBox.innerHTML = '';
+
+    q.o.forEach((optText, oIdx) => {
+      const card = document.createElement('div');
+      card.className = 'option-card';
+      
+      if(userAnswers[idx] === oIdx) {
+        card.classList.add('selected');
+      }
+
+      if(isReviewMode) {
+        if(oIdx === q.a) {
+          card.classList.add('correct-ans');
+        } else if(userAnswers[idx] === oIdx && oIdx !== q.a) {
+          card.classList.add('wrong-ans');
+        }
+      }
+
+      card.innerHTML = `<span><b>${String.fromCharCode(65 + oIdx)}.</b> ${optText}</span>`;
+      card.onclick = () => selectOption(oIdx);
+      optsBox.appendChild(card);
+    });
+
+    const expBox = document.getElementById('expBox');
+    if(isReviewMode) {
+      expBox.style.display = 'block';
+      let baseExp = currentLang === 'ta' ? q.exp_ta : q.exp_en;
+      
+      expBox.innerHTML = `
+        <div style="font-size: 14px; margin-bottom: 8px;">${baseExp}</div>
+        <div style="font-size: 12px; color: #fbbf24; margin-top: 10px; font-weight: bold;">🤖 AI Link Buttons (Opens in New Tab):</div>
+        <div class="ai-btn-group">
+          <button class="ai-link-btn btn-chatgpt" onclick="searchInAI('chatgpt', ${idx})">🟢 ChatGPT</button>
+          <button class="ai-link-btn btn-gemini" onclick="searchInAI('gemini', ${idx})">✨ Gemini AI</button>
+          <button class="ai-link-btn btn-perplexity" onclick="searchInAI('perplexity', ${idx})">🔵 Perplexity</button>
+          <button class="ai-link-btn btn-google" onclick="searchInAI('google', ${idx})">🔍 Google Search</button>
+        </div>
+      `;
+    } else {
+      expBox.style.display = 'none';
+    }
+
+    document.getElementById('prevBtn').style.display = idx === 0 ? 'none' : 'block';
+    document.getElementById('nextBtn').style.display = idx === questionsData.length - 1 ? 'none' : 'block';
+    updateGridStatus();
+  }
+
+  function selectOption(oIdx) {
+    if(isReviewMode) return;
+    userAnswers[currentQuestion] = oIdx;
+    loadQuestion(currentQuestion);
+  }
+
+  function clearChoice() {
+    if(isReviewMode) return;
+    userAnswers[currentQuestion] = null;
+    loadQuestion(currentQuestion);
+  }
+
+  function navigateNumberQuery(dir) {
+    const postNext = currentQuestion + dir;
+    if(postNext >= 0 && postNext < questionsData.length) {
+      loadQuestion(postNext);
+    }
+  }
+
+  function jumpToQuestion(idx) {
+    loadQuestion(idx);
+  }
+
+  function startTimer() {
+    if (timerInterval) clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+      timeLeft--;
+      let m = Math.floor(timeLeft / 60);
+      let s = timeLeft % 60;
+      const timerElem = document.getElementById('timerBox');
+      if(timerElem) {
+        timerElem.innerText = `⏱️ ${m}:${s < 10 ? '0' : ''}${s}`;
+      }
+      if(timeLeft <= 0) {
+        clearInterval(timerInterval);
+        submitTest();
+      }
+    }, 1000);
+  }
+
+  function submitTest() {
+    if (timerInterval) clearInterval(timerInterval);
+    document.getElementById('testView').style.display = 'none';
+    document.getElementById('resultView').style.display = 'block';
+
+    let correct = 0, wrong = 0, unans = 0;
+    userAnswers.forEach((ans, idx) => {
+      if(ans === null) unans++;
+      else if(ans === questionsData[idx].a) correct++;
+      else wrong++;
+    });
+
+    document.getElementById('scoreDisplay').innerText = `${correct} / ${questionsData.length}`;
+    let pct = ((correct / questionsData.length) * 100).toFixed(1);
+    document.getElementById('percentageDisplay').innerText = `${currentLang === 'ta' ? 'சதவீதம்' : 'Percentage'}: ${pct}%`;
+    document.getElementById('correctCnt').innerText = correct;
+    document.getElementById('wrongCnt').innerText = wrong;
+    document.getElementById('unansCnt').innerText = unans;
+  }
+
+  function reviewAnswerKey() {
+    isReviewMode = true;
+    document.getElementById('resultView').style.display = 'none';
+    document.getElementById('testView').style.display = 'block';
+    document.getElementById('finalSubmitBtn').style.display = 'none';
+    document.getElementById('backToResultBtn').style.display = 'block';
+    document.getElementById('dashFromKeyBtn').style.display = 'block';
+    loadQuestion(0);
+  }
+
+  function returnToResult() {
+    document.getElementById('testView').style.display = 'none';
+    document.getElementById('resultView').style.display = 'block';
+  }
+
+  function returnToDashboard() {
+    window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html"); 
+  }
+
+  function exitPortal() {
+    window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html");
+  }
+
+  function retakeTest() {
+    userAnswers = new Array(questionsData.length).fill(null);
+    isReviewMode = false;
+    timeLeft = 45 * 60;
+    document.getElementById('resultView').style.display = 'none';
+    document.getElementById('testView').style.display = 'block';
+    document.getElementById('finalSubmitBtn').style.display = 'inline-block';
+    document.getElementById('backToResultBtn').style.display = 'none';
+    document.getElementById('dashFromKeyBtn').style.display = 'none';
+    initTest();
+  }
+
+  window.onload = function() {
+    initTest();
+  }
+</script>
+
+</body>
+</html>
