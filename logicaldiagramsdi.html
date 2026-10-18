@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tiger Warriors - வரைபடத் தர்க்கம் & தரவு விளக்கம் (30 வினாக்கள்)</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; font-weight: bold; }
+    body { background: #080604; color: #f8fafc; padding: 12px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+    .card { width: 100%; max-width: 950px; background: #0f172a; border-radius: 14px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); border: 1px solid #334155; }
+    
+    .test-header { display: flex; justify-content: space-between; align-items: center; background: #1e293b; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; border: 1px solid #334155; }
+    .timer { font-size: 15px; font-weight: bold; color: #fbbf24; background: #091326; padding: 6px 12px; border-radius: 6px; border: 1px solid #fbbf24; box-shadow: inset 0 0 5px rgba(251, 191, 36, 0.2); }
+    .lang-btn { background: #0284c7; color: #fff; border: 1px solid #38bdf8; padding: 6px 14px; border-radius: 6px; font-size: 13px; cursor: pointer; transition: 0.2s; }
+    .lang-btn:hover { background: #0369a1; }
+
+    .q-grid { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 16px; max-height: 140px; overflow-y: auto; padding: 8px; background: #1e293b; border-radius: 8px; justify-content: center; }
+    .q-num-btn { width: 30px; height: 30px; border-radius: 5px; border: none; background: #334155; color: #fff; font-size: 10px; cursor: pointer; font-weight: bold; }
+    .q-num-btn.active { border: 2px solid #38bdf8; background: #0284c7; }
+    .q-num-btn.answered { background: #10b981; }
+
+    .q-box { background: #1e293b; padding: 18px; border-radius: 10px; margin-bottom: 16px; border: 1px solid #334155; }
+    .q-text { white-space: pre-line; line-height: 1.6; font-size: 15px; color: #f8fafc; }
+    
+    .option-card { background: #0f172a; border: 1px solid #334155; padding: 12px 16px; border-radius: 8px; margin-top: 10px; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: 0.2s; white-space: pre-line; line-height: 1.4; }
+    .option-card:hover { border-color: #38bdf8; background: #1e293b; }
+    .option-card.selected { border-color: #10b981; background: #064e3b; }
+    .option-card.correct-ans { border-color: #10b981; background: #065f46; font-weight: bold; }
+    .option-card.wrong-ans { border-color: #ef4444; background: #7f1d1d; }
+
+    .explanation-box { background: #091326; border: 1px solid #38bdf8; border-radius: 8px; padding: 12px; margin-top: 14px; font-size: 13px; color: #7dd3fc; line-height: 1.5; }
+    
+    .nav-btns { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+    .btn-action { background: #334155; color: #fff; border: none; padding: 10px 16px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 13px; text-align: center; }
+    .btn-action:hover { opacity: 0.9; }
+    .btn-blue { background: #2563eb; }
+    .btn-purple { background: #7c3aed; }
+    .btn-danger { background: #ef4444; }
+    .btn-green { background: #22c55e; }
+
+    .ai-btn-group { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; border-top: 1px dashed #38bdf8; padding-top: 12px; }
+    .ai-link-btn { border: none; color: #fff; padding: 8px 14px; border-radius: 6px; font-size: 12px; cursor: pointer; font-weight: bold; transition: 0.2s; display: inline-flex; align-items: center; gap: 5px; }
+    .ai-link-btn:hover { opacity: 0.85; transform: scale(1.02); }
+    .btn-gemini { background: #4285f4; }
+    .btn-chatgpt { background: #10a37f; }
+    .btn-perplexity { background: #22b8cf; }
+    .btn-google { background: #ea4335; }
+
+    .result-box { text-align: center; padding: 25px; background: #1e293b; border-radius: 16px; margin-top: 10px; border: 1px solid rgba(0, 242, 254, 0.3); display: flex; flex-direction: column; align-items: center; }
+    .score-circle { width: 130px; height: 130px; border-radius: 50%; background: conic-gradient(#10b981 0deg, #0f172a 0deg); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 15px auto; border: 4px solid #38bdf8; box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); }
+    .score-num { font-size: 30px; color: #f8fafc; font-weight: bold; }
+    
+    .result-stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; width: 100%; max-width: 400px; }
+    .stat-pill { background: #0f172a; border-radius: 12px; padding: 10px; border: 1px solid #334155; text-align: center; }
+    .stat-pill.gold { border-color: #fbbf24; }
+    .stat-pill.blue { border-color: #38bdf8; }
+    .stat-pill.red { border-color: #ef4444; }
+
+    .footer-badge { text-align: center; font-size: 11px; color: #38bdf8; margin-top: 15px; font-weight: bold; letter-spacing: 0.5px; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <!-- 🔒 Security Authentication Verification Check -->
+  <script>
+      if (localStorage.getItem('tiger_auth_passed') !== 'true') {
+          alert("⚠ பாதுகாப்பு எச்சரிக்கை: நீங்கள் Tiger Warriors போர்ட்டலில் லாகின் செய்யவில்லை! முதலில் மெயின் போர்ட்டலில் லாகின் செய்யவும்.");
+          window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html"); 
+      }
+  </ItemGroup>
+
+  <div id="testView">
+    <div class="test-header">
+      <div>
+        <h3 style="color: #38bdf8; font-size: 15px;" id="headerTitle">🐅 TIGER WARRIORS - வரைபடத் தர்க்கம் & தரவு விளக்கம் (30 வினாக்கள்)</h3>
+        <span style="font-size: 11px; color: #94a3b8;">TNPSC / 1 / 2 / 2A / 4 • APTITUDE & REASONING UNIT</span>
+      </div>
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <button class="lang-btn" onclick="toggleLanguage()" id="langBtn">🌐 English</button>
+        <div class="timer" id="timerBox">⏱️ 45:00</div>
+        <button class="btn-action btn-purple" id="backToResultBtn" onclick="returnToResult()" style="display: none; padding: 6px 12px; font-size: 12px;">📊 ரிசல்ட் செல்</button>
+        <button class="btn-action btn-danger" id="dashFromKeyBtn" onclick="returnToDashboard()" style="display: none; padding: 6px 12px; font-size: 12px;">🏠 முகப்பு</button>
+      </div>
+    </div>
+
+    <div class="q-grid" id="questionGrid"></div>
+
+    <div class="q-box">
+      <div id="qTitle" class="q-text"></div>
+      <div id="optionsBox"></div>
+      <div id="expBox" class="explanation-box" style="display: none;"></div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn-action" id="prevBtn" onclick="navigateNumberQuery(-1)">⬅️ முந்தையது</button>
+      <button class="btn-action" id="clearBtn" onclick="clearChoice()">🧹 விடையை நீக்கு</button>
+      <button class="btn-action btn-blue" id="nextBtn" onclick="navigateNumberQuery(1)">அடுத்து ➡️</button>
+      <button class="btn-action btn-danger" id="finalSubmitBtn" onclick="submitTest()">✅ தேர்வைச் சமர்ப்பிக்க (Submit)</button>
+    </div>
+  </div>
+
+  <div id="resultView" style="display: none;">
+    <h2 style="color: #38bdf8; text-align: center; margin-bottom: 10px;" id="resHeader">🏆 தேர்வு முடிவுகள் (Test Results) 🎯</h2>
+    <div class="result-box">
+      <div class="score-circle" id="scoreCircle">
+        <div class="score-num" id="scoreDisplay">0/30</div>
+        <span id="percentageDisplay" style="font-size: 11px; color: #fbbf24;">0%</span>
+      </div>
+
+      <div class="result-stats-grid">
+        <div class="stat-pill gold">
+          <h3 id="correctCnt" style="color: #10b981; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;" id="lblCorrect">சரியானது ✅</span>
+        </div>
+        <div class="stat-pill red">
+          <h3 id="wrongCnt" style="color: #ef4444; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;" id="lblWrong">தவறானது ❌</span>
+        </div>
+        <div class="stat-pill blue">
+          <h3 id="unansCnt" style="color: #f59e0b; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;" id="lblUnans">விடையில்லை ⚠️</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
+      <button class="btn-action btn-blue" onclick="reviewAnswerKey()" id="btnKey">🔍 விடை குறிப்பு & விளக்கம்</button>
+      <button class="btn-action btn-purple" onclick="returnToDashboard()" id="btnDash">🏠 முகப்புப் பக்கம்</button>
+      <button class="btn-action btn-green" onclick="retakeTest()" id="btnRetake">🔄 மீண்டும் தேர்வு</button>
+      <button class="btn-action btn-danger" onclick="exitPortal()" id="btnExit">🚪 வெளியேறு</button>
+    </div>
+    <div class="footer-badge" style="margin-top: 20px;">🐅 டைகர் வாரியர் போர்டல் - இயக்குநர்: Dr. K. மணிகாசி 🐅</div>
+  </div>
+</div>
+
+<script>
+  let currentLang = 'ta';
+
+  const questionsData = [
+    {
+      q_ta: "1. 📊 ஒரு வட்ட வரைபடத்தில் (Pie Chart) மொத்த கோணம் எத்தனை டிகிரி?\n[TNPSC Group 4 - PYQ]",
+      q_en: "1. 📊 What is the total angle of a pie chart in degrees?\n[TNPSC Group 4 - PYQ]",
+      o: ["a) 360°", "b) 180°", "c) 90°", "d) 540°"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>வட்ட வரைபடத்தின் (Pie Chart) முழுமையான மையக் கோணம் 360° ஆகும் 📐.",
+      exp_en: "<b>Explanation:</b><br>The total central angle of a pie chart is always 360° 📐."
+    },
+    {
+      q_ta: "2. 📈 ஒரு வணிக நிறுவனத்தின் விற்பனை விவரங்களைக் காட்ட எந்த வரைபடம் மிகவும் பொருத்தமானது?\n[TNPSC Group 2 - PYQ]",
+      q_en: "2. 📈 Which chart is best suited to show sales trends over a period of time?\n[TNPSC Group 2 - PYQ]",
+      o: ["a) கோட்டு வரைபடம் (Line Graph)", "b) வட்ட வரைபடம் (Pie Chart)", "c) பிக்டோகிராம்", "d) ஏறுவரிசை"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>காலப்போக்கில் ஏற்படும் மாற்றங்கள் அல்லது போக்குகளைக் (Trends) காட்ட கோட்டு வரைபடம் (Line Graph) மிகச்சிறந்தது 📈.",
+      exp_en: "<b>Explanation:</b><br>Line graphs are best for illustrating trends over time 📈."
+    },
+    {
+      q_ta: "3. 🥧 ஒரு வட்ட வரைபடத்தில் மொத்த மதிப்பு 720 எனில், 90° கோணம் கொண்ட பகுதியின் மதிப்பு என்ன?\n[TNPSC Group 1 - PYQ]",
+      q_en: "3. 🥧 If the total value in a pie chart is 720, what is the value of a sector with a 90° angle?\n[TNPSC Group 1 - PYQ]",
+      o: ["a) 180", "b) 90", "c) 360", "d) 270"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>மதிப்பு = $\\frac{90°}{360°} \\times 720 = \\frac{1}{4} \\times 720 = 180$ 📐.",
+      exp_en: "<b>Explanation:</b><br>Value = $(\\frac{90}{360}) \\times 720 = 180$ 📐."
+    },
+    {
+      q_ta: "4. 📊 பட்டை வரைபடத்தில் (Bar Chart) செங்குத்து கம்பங்களின் உயரம் எதைக் குறிக்கிறது?\n[TNPSC Group 2A - PYQ]",
+      q_en: "4. 📊 In a bar chart, what do the heights of the vertical bars represent?\n[TNPSC Group 2A - PYQ]",
+      o: ["a) தரவு மதிப்புகள் (Data Values / Frequencies)", "b) ஆண்டுகள் மட்டும்", "c) பெயர்கள்", "d) கோணங்கள்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>பட்டை வரைபடத்தில் கம்பங்களின் உயரம் அந்தந்தத் தரவின் மதிப்புகளையோ அல்லது நிகழ்வெண்களையோ குறிக்கும் 📊.",
+      exp_en: "<b>Explanation:</b><br>Bar heights represent the numerical data values or frequencies 📊."
+    },
+    {
+      q_ta: "5. 📉 ஒரு தரவுத் தொகுப்பின் சராசரி (Average) காண அனைத்து மதிப்புகளின் கூடுதலை எதால் வகுக்க வேண்டும்?\n[TNPSC CCSE - PYQ]",
+      q_en: "5. 📉 To find the average of a dataset, the sum of all values is divided by what?\n[TNPSC CCSE - PYQ]",
+      o: ["a) மொத்த உறுப்புகளின் எண்ணிக்கை (Total number of observations)", "b) மிகப்பெரிய மதிப்பு", "c) சிறிய மதிப்பு", "d) வீச்சு (Range)"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>சராசரி = (மதிப்புகளின் கூடுதல்) / (மொத்த உறுப்புகளின் எண்ணிக்கை) 🧮.",
+      exp_en: "<b>Explanation:</b><br>Average = Sum of values / Total count of observations 🧮."
+    },
+    {
+      q_ta: "6. 📊 வட்ட வரைபடத்தில் சதவீத மதிப்பை கோணமாக மாற்ற எந்த எண்ணால் பெருக்க வேண்டும்?\n[TNPSC Group 4 - PYQ]",
+      q_en: "6. 📊 By what factor should a percentage be multiplied to convert it into degrees in a pie chart?\n[TNPSC Group 4 - PYQ]",
+      o: ["a) 3.6°", "b) 1.8°", "c) 3.6", "d) 36°"],
+      a: 2,
+      exp_ta: "<b>விளக்கம்:</b><br>1% என்பது $\\frac{360°}{100} = 3.6°$ ஆகும். எனவே சதவீதத்தை 3.6 ஆல் பெருக்க வேண்டும் 📐.",
+      exp_en: "<b>Explanation:</b><br>Since 1% equals 3.6°, multiply percentage by 3.6 to get the angle 📐."
+    },
+    {
+      q_ta: "7. 📈 ஒரு அட்டவணையில் கொடுக்கப்பட்ட விவரங்களின் இடைநிலை (Median) காண என்ன செய்ய வேண்டும்?\n[TNPSC Group 1 - PYQ]",
+      q_en: "7. 📈 What is the first step to find the median of a given data table?\n[TNPSC Group 1 - PYQ]",
+      o: ["a) தரவுகளை ஏறுவரிசை அல்லது இறங்குவரிசையில் எழுத வேண்டும் (Arrange in ascending/descending order)", "b) அனைத்தையும் கூட்ட வேண்டும்", "c) பெருக்க வேண்டும்", "d) சராசரி காண வேண்டும்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>இடைநிலை காண தரவுகளை முதலில் ஏறுவரிசை அல்லது இறங்குவரிசையில் வரிசைப்படுத்த வேண்டும் 📊.",
+      exp_en: "<b>Explanation:</b><br>Data must first be sorted in order before finding the median 📊."
+    },
+    {
+      q_ta: "8. 📉 ஒரு தரவின் வீச்சு (Range) என்பது எதைக் குறிக்கிறது?\n[TNPSC Group 2 - PYQ]",
+      q_en: "8. 📉 What does the 'Range' of a dataset represent?\n[TNPSC Group 2 - PYQ]",
+      o: ["a) அதிகபட்ச மதிப்புக்கும் குறைந்தபட்ச மதிப்புக்கும் உள்ள வித்தியாசம் (Difference between max and min values)", "b) சராசரி", "c) கூடுதல்", "d) நடுமதிப்பு"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>வீச்சு (Range) = $\\text{Maximum value} - \\text{Minimum value}$ 📉.",
+      exp_en: "<b>Explanation:</b><br>Range is the difference between the highest and lowest values in a dataset 📉."
+    },
+    {
+      q_ta: "9. 🥧 ஒரு வட்ட வரைபடத்தில் 25% பங்கு கொண்ட பகுதியின் மையக் கோணம் என்ன?\n[TNPSC Group 4 - PYQ]",
+      q_en: "9. 🥧 What is the central angle for a sector representing 25% in a pie chart?\n[TNPSC Group 4 - PYQ]",
+      o: ["a) 90°", "b) 45°", "c) 180°", "d) 60°"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>$25\\% \\text{ of } 360° = \\frac{25}{100} \\times 360° = 90°$ 📐.",
+      exp_en: "<b>Explanation:</b><br>$25\\%$ of $360° = 90°$ 📐."
+    },
+    {
+      q_ta: "10. 📊 ஒரு பட்டை வரைபடத்தில் வெவ்வேறு பிரிவுகளை ஒரே கம்பத்தில் ஒப்பிட்டுக் காட்ட எந்த வகை வரைபடம் பயன்படும்?\n[TNPSC Group 2A - PYQ]",
+      q_en: "10. 📊 Which chart type shows multiple sub-categories stacked within single bars?\n[TNPSC Group 2A - PYQ]",
+      o: ["a) அடுக்கு பட்டை வரைபடம் (Stacked Bar Chart)", "b) எளிய பட்டை", "c) வட்ட வரைபடம்", "d) கோட்டு வரைபடம்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>அடுக்கு பட்டை வரைபடம் (Stacked Bar Chart) ஒரே கம்பத்திற்குள் பல்வேறு துணைப் பிரிவுகளைக் காட்டும் 📊.",
+      exp_en: "<b>Explanation:</b><br>Stacked bar charts display multiple sub-categories inside single bars 📊."
+    },
+    {
+      q_ta: "11. 📈 தரவு விளக்கத்தில் (Data Interpretation) சதவீத அதிகரிப்பு காண எந்த சூத்திரம் பயன்படும்?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "11. 📈 Which formula calculates percentage increase in Data Interpretation?\n[Expected Question - Group 4]",
+      o: ["a) $\\frac{\\text{Increase}}{\\text{Original}} \\times 100$", "b) $\\frac{\\text{Original}}{\\text{Increase}} \\times 100$", "c) $\\text{Increase} \\times 100$", "d) $\\frac{\\text{Total}}{\\text{Increase}}$"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>சதவீத அதிகரிப்பு = $(\\text{Increase} / \\text{Original Value}) \\times 100$ 📐.",
+      exp_en: "<b>Explanation:</b><br>Percentage increase formula: $(\\text{Increase} / \\text{Original}) \\times 100$ 📐."
+    },
+    {
+      q_ta: "12. 📉 ஒரு புள்ளிவிவரத் தொகுப்பில் அடிக்கடி மீண்டும் வரும் மதிப்பு எது?\n[எதிர்பார்க்கப்படும் வினா - Group 2/4]",
+      q_en: "12. 📉 What is the term for the most frequently occurring value in a dataset?\n[Expected Question - Group 2/4]",
+      o: ["a) முகடு (Mode)", "b) இடைநிலை (Median)", "c) சராசரி (Mean)", "d) வீச்சு (Range)"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>அதிக முறை மீண்டும் வரும் மதிப்பு முகடு (Mode) எனப்படும் 📊.",
+      exp_en: "<b>Explanation:</b><br>The most frequent value is the Mode 📊."
+    },
+    {
+      q_ta: "13. 🥧 ஒரு வட்ட வரைபடத்தில் மொத்தச் செலவு ரூ. 36,000 எனில், 60° கோணம் கொண்ட கல்விச் செலவு எவ்வளவு?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "13. 🥧 If total expense is Rs. 36,000, what is the education expense represented by a 60° sector?\n[Expected Question - Group 4]",
+      o: ["a) ரூ. 6,000", "b) ரூ. 5,000", "c) ரூ. 12,000", "d) ரூ. 9,000"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>செலவு = $\\frac{60°}{360°} \\times 36000 = \\frac{1}{6} \\times 36000 = \\text{ரூ. } 6,000$ 🧮.",
+      exp_en: "<b>Explanation:</b><br>Expense = $(\\frac{60}{360}) \\times 36000 = \\text{Rs. } 6,000$ 🧮."
+    },
+    {
+      q_ta: "14. 📊 ஹிஸ்டோகிராம் (Histogram) எத்தகைய தரவுகளைக் குறிக்கப் பயன்படுகிறது?\n[எதிர்பார்க்கப்படும் வினா - Group 2/2A]",
+      q_en: "14. 📊 What kind of data is represented using a Histogram?\n[Expected Question - Group 2/2A]",
+      o: ["a) தொடர்ச்சியான இடைவெளிக் தரவுகள் (Continuous grouped data)", "b) தனித்தனி பெயர்கள்", "c) சதவீதங்கள் மட்டும்", "d) குறிப்புகள்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>தொடர்ச்சியான இடைவெளி கொண்ட நிகழ்வெண் தரவுகளைக் காட்ட ஹிஸ்டோகிராம் (Histogram) பயன்படும் 📊.",
+      exp_en: "<b>Explanation:</b><br>Histograms display continuous grouped frequency data 📊."
+    },
+    {
+      q_ta: "15. 📈 இரண்டு நிறுவனங்களின் லாப விகிதங்களை পাশাপাশি ஒப்பிட்டுக்காட்ட எந்த வரைபடம் சிறந்தது?\n[எதிர்பார்க்கப்படும் வினா - Group 2/4]",
+      q_en: "15. 📈 Which chart is best for side-by-side comparison of two companies' profits?\n[Expected Question - Group 2/4]",
+      o: ["a) பக்கப்பட்டை வரைபடம் (Multiple / Grouped Bar Chart)", "b) வட்ட வரைபடம்", "c) கோட்டு வரைபடம்", "d) பை வரைபடம்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>பக்கப்பட்டை வரைபடம் (Grouped Bar Chart) பலதரப்பட்ட ஒப்பிடுதல்களுக்கு ஏற்றது 📊.",
+      exp_en: "<b>Explanation:</b><br>Grouped bar charts allow side-by-side comparison of multiple datasets 📊."
+    },
+    {
+      q_ta: "16. 📉 ஒரு தரவுத் தொகுப்பின் நடுவில் அமையும் மதிப்பு (Middle Value) எது?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "16. 📉 What is the middle value of a sorted dataset called?\n[Expected Question - Group 4]",
+      o: ["a) இடைநிலை (Median)", "b) சராசரி (Mean)", "c) முகடு (Mode)", "d) விலக்கம்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>வரிசைப்படுத்தப்பட்ட தரவின் நடுவிலிருக்கும் மதிப்பு இடைநிலை (Median) ஆகும் 📈.",
+      exp_en: "<b>Explanation:</b><br>The middle value in a sorted dataset is the Median 📈."
+    },
+    {
+      q_ta: "17. 🥧 ஒரு வட்ட வரைபடத்தில் மொத்த மதிப்பு 1800 எனில், 40% மதிப்புள்ள பகுதியின் அளவு என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "17. 🥧 If total is 1800 in a pie chart, what is the value of a 40% sector?\n[Expected Question - Group 4]",
+      o: ["a) 720", "b) 360", "c) 540", "d) 900"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>மதிப்பு = $\\frac{40}{100} \\times 1800 = 720$ 📐.",
+      exp_en: "<b>Explanation:</b><br>Value = $0.40 \\times 1800 = 720$ 📐."
+    },
+    {
+      q_ta: "18. 📊 தரவு அட்டவணையில் (Data Table) உள்ள தரவுகளை விரைவாகப் புரிந்து கொள்ள என்ன வடிவம் உதவுகிறது?\n[எதிர்பார்க்கப்படும் வினா - Group 1/2]",
+      q_en: "18. 📊 What format helps visualize tabular data quickly?\n[Expected Question - Group 1/2]",
+      o: ["a) வரைபடங்கள் மற்றும் பட்டைகள் (Charts and Graphs)", "b) நீண்ட பத்திகள்", "c) எழுத்துகள்", "d) குறிப்புகள்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>வரைபடங்கள் தரவுகளை எளிதில் புரிந்துகொள்ளவும் பகுப்பாய்வு செய்யவும் உதவும் 📊.",
+      exp_en: "<b>Explanation:</b><br>Charts and graphs convert raw numbers into visual insights 📊."
+    },
+    {
+      q_ta: "19. 📈 ஒரு கூட்டுச் சராசரியில் (Arithmetic Mean) அனைத்து எண்களின் கூடுதலை எதால் வகுக்க வேண்டும்?\n[எதிர்பார்க்கப்படும் வினா - Group 2/4]",
+      q_en: "19. 📈 In arithmetic mean, sum of all numbers is divided by what?\n[Expected Question - Group 2/4]",
+      o: ["a) எண்களின் எண்ணிக்கை (Count of numbers)", "b) அதிகபட்ச எண்", "c) குறைந்தபட்ச எண்", "d) 2"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>கூட்டுச் சராசரி காண மொத்தக் கூடுதலை எண்களின் எண்ணிக்கையால் வகுக்க வேண்டும் 🧮.",
+      exp_en: "<b>Explanation:</b><br>Arithmetic mean = Sum / Count of items 🧮."
+    },
+    {
+      q_ta: "20. 📉 ஒரு வரைபடத்தில் X-அச்சு மற்றும் Y-அச்சு சந்திக்கும் புள்ளி எது?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "20. 📉 What is the point of intersection of X-axis and Y-axis in a graph?\n[Expected Question - Group 4]",
+      o: ["a) ஆதிப்புள்ளி (Origin - 0,0)", "b) மையப்புள்ளி", "c) உச்சப்புள்ளி", "d) இறுதிப்புள்ளி"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>X-அச்சும் Y-அச்சும் சந்திக்கும் புள்ளி ஆதிப்புள்ளி (Origin, (0,0)) எனப்படும் 📐.",
+      exp_en: "<b>Explanation:</b><br>The intersection point of X and Y axes is the Origin (0,0) 📐."
+    },
+    {
+      q_ta: "21. 🥧 வட்ட வரைபடத்தில் ஒரு துறையின் கோணம் 72° எனில், அது மொத்த மதிப்பில் எத்தனை சதவீதம்?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "21. 🥧 If a sector angle in a pie chart is 72°, what percentage of the total is it?\n[Expected Question - Group 4]",
+      o: ["a) 20%", "b) 25%", "c) 15%", "d) 30%"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>சதவீதம் = $\\frac{72°}{360°} \\times 100 = \\frac{1}{5} \\times 100 = 20\\%$ 📐.",
+      exp_en: "<b>Explanation:</b><br>Percentage = $(\\frac{72}{360}) \\times 100 = 20\\%$ 📐."
+    },
+    {
+      q_ta: "22. 📊 தரவு விளக்கத்தில் விகிதம் (Ratio) காணும் போது எதை கவனிக்க வேண்டும்?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "22. 📊 What is important when finding ratios in Data Interpretation?\n[Expected Question - Group 4]",
+      o: ["a) ஒரே அலகுகளில் (Units) இருக்க வேண்டும்", "b) எப்போதும் கூட்ட வேண்டும்", "c) பெருக்க வேண்டும்", "d) வர்க்கம் காண வேண்டும்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>விகிதம் காணும்போது கொடுக்கப்பட்ட மதிப்புகள் ஒரே அலகில் (Units) இருக்க வேண்டும் ⚖️.",
+      exp_en: "<b>Explanation:</b><br>Values must be in the same units when calculating ratios ⚖️."
+    },
+    {
+      q_ta: "23. 📈 ஒரு வணிக வரைபடத்தில் லாப விகிதம் தொடர்ந்து உயர்ந்தால் அந்தப் போக்கு (Trend) எவ்வாறு அழைக்கப்படும்?\n[எதிர்பார்க்கப்படும் வினா - Group 2/4]",
+      q_en: "23. 📈 What is an upward continuous profit trend in a business graph called?\n[Expected Question - Group 2/4]",
+      o: ["a) மேல்நோக்கிய போக்கு (Upward Trend)", "b) கீழிறங்கும் போக்கு", "c) சமநிலை", "d) தேக்கநிலை"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>தொடர்ந்து உயரும் போக்கு மேல்நோக்கிய போக்கு (Upward Trend) எனப்படும் 📈.",
+      exp_en: "<b>Explanation:</b><br>Continuous increase is termed an Upward Trend 📈."
+    },
+    {
+      q_ta: "24. 📉 ஒரு தரவுத் தொகுப்பின் திட்ட விலக்கம் (Standard Deviation) எதைக் குறிக்கிறது?\n[எதிர்பார்க்கப்படும் வினா - Group 1/2]",
+      q_en: "24. 📉 What does Standard Deviation measure in a dataset?\n[Expected Question - Group 1/2]",
+      o: ["a) தரவுப் பரவளின் அளவு (Measure of dispersion / spread)", "b) சராசரி மதிப்பு", "c) கூடுதல்", "d) பெருக்கல்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>திட்ட விலக்கம் என்பது சராசரியிலிருந்து தரவுகள் எவ்வளவு பரவியுள்ளன என்பதைக் காட்டும் அளவீடாகும் 📊.",
+      exp_en: "<b>Explanation:</b><br>Standard deviation measures the dispersion or spread of data around the mean 📊."
+    },
+    {
+      q_ta: "25. 🥧 வட்ட வரைபடம் தயாரிக்க அனைத்துக் கூறுகளின் கோணங்களின் கூடுதல் எவ்வளவு இருக்க வேண்டும்?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "25. 🥧 What must the sum of all sector angles equal to construct a valid pie chart?\n[Expected Question - Group 4]",
+      o: ["a) 360°", "b) 180°", "c) 100°", "d) 90°"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>வட்ட வரைபடத்தின் அனைத்துக் கூறுகளின் கோணங்களின் கூடுதல் சரியாக 360° இருக்க வேண்டும் 📐.",
+      exp_en: "<b>Explanation:</b><br>Sum of all sector angles in a pie chart must equal 360° 📐."
+    },
+    {
+      q_ta: "26. 📊 தரவு அட்டவணையில் விடுபட்ட எண்களைக் கண்டறிய எந்தப் பகுப்பாய்வு முறை உதவும்?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "26. 📊 Which analytical method helps find missing numbers in data tables?\n[Expected Question - Group 4]",
+      o: ["a) எண்கணிதத் தொடர் மற்றும் சதவீத விகித பகுப்பாய்வு (Arithmetic progression & percentage ratio analysis)", "b) யூகித்தல்", "c) எழுத்துத் திருத்தம்", "d) வரைபடம் நீக்குதல்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>பத்திகள் மற்றும் வரிசைகளின் உறவுமுறைகளைக் கண்டறிந்து விடுபட்ட எண்களைக் கணக்கிடலாம் 🧮.",
+      exp_en: "<b>Explanation:</b><br>Analyzing row and column relationships helps determine missing table values 🧮."
+    },
+    {
+      q_ta: "27. 📈 ஒரு நிறுவனத்தின் ஆண்டு உற்பத்தி விவரங்களைக் காட்ட எளிய மற்றும் பயனுள்ள வரைபடம் எது?\n[எதிர்பார்க்கப்படும் வினா - Group 2/4]",
+      q_en: "27. 📈 Which chart effectively shows annual production data of a company?\n[Expected Question - Group 2/4]",
+      o: ["a) பட்டை வரைபடம் அல்லது கோட்டு வரைபடம் (Bar or Line Chart)", "b) வட்ட வரைபடம் மட்டும்", "c) குறிப்புப் பட்டியல்", "d) வென் வரைபடம்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>ஆண்டு உற்பத்தியைக் காட்ட பட்டை அல்லது கோட்டு வரைபடங்கள் மிகவும் பயனுள்ளவை 📊.",
+      exp_en: "<b>Explanation:</b><br>Bar and line charts are highly effective for annual production data 📊."
+    },
+    {
+      q_ta: "28. 📉 தரவு விளக்க வினாக்களில் சராசரி வேகம் (Average Speed) காண எந்த சூத்திரம் பயன்படும்?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "28. 📉 Which formula calculates average speed in data problems?\n[Expected Question - Group 4]",
+      o: ["a) $\\frac{\\text{Total Distance}}{\\text{Total Time}}$", "b) $\\frac{\\text{Speed}_1 + \\text{Speed}_2}{2}$", "c) $\\text{Speed} \\times \\text{Time}$", "d) $\\text{Distance} \\times \\text{Time}$"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>சராசரி வேகம் = (மொத்த தூரம்) / (மொத்த நேரம்) 🚗.",
+      exp_en: "<b>Explanation:</b><br>Average speed = Total Distance / Total Time 🚗."
+    },
+    {
+      q_ta: "29. 🥧 ஒரு வட்ட வரைபடத்தில் உணவுச் செலவு 120° எனில், அது மொத்தச் செலவின் எங்கு பங்கு?\n[எதிர்பார்க்கப்படும் வினா - Group 1/2]",
+      q_en: "29. 🥧 If food expense is represented by 120° in a pie chart, what fraction of the total is it?\n[Expected Question - Group 1/2]",
+      o: ["a) 1/3", "b) 1/4", "c) 1/2", "d) 2/3"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>பங்கு = $\\frac{120°}{360°} = \\frac{1}{3}$ 📐.",
+      exp_en: "<b>Explanation:</b><br>Fraction = $120 / 360 = 1/3$ 📐."
+    },
+    {
+      q_ta: "30. 📊 ஒரு வரைபடத்தில் Y-அச்சின் மதிப்பு அதிகரிக்க அதிகரிக்க வரைகோட்டின் நிலை எங்கு செல்லும்?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "30. 📉 As Y-axis values increase in a graph, how does the line move?\n[Expected Question - Group 4]",
+      o: ["a) மேல்நோக்கிச் செல்லும் (Moves upwards)", "b) கீழ்நோக்கிச் செல்லும்", "c) அப்படியே நிற்கும்", "d) செங்குத்தாக மறையும்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>மதிப்புகள் அதிகரிக்கும்போது வரைபடம் மேல்நோக்கி உயரும் 📈.",
+      exp_en: "<b>Explanation:</b><br>As values increase, the graph line moves upwards 📈."
+    }
+  ];
+
+  let currentQuestion = 0;
+  let userAnswers = new Array(questionsData.length).fill(null);
+  let isReviewMode = false;
+  let timerInterval;
+  let timeLeft = 45 * 60;
+
+  function toggleLanguage() {
+    currentLang = currentLang === 'ta' ? 'en' : 'ta';
+    document.getElementById('langBtn').innerText = currentLang === 'ta' ? '🌐 English' : '🌐 தமிழ்';
+    updateLanguageTexts();
+    loadQuestion(currentQuestion);
+  }
+
+  function updateLanguageTexts() {
+    if(currentLang === 'en') {
+      document.getElementById('headerTitle').innerText = "🐅 TIGER WARRIORS - Logical Diagrams & DI (30 Q)";
+      document.getElementById('prevBtn').innerText = "⬅️ Previous";
+      document.getElementById('clearBtn').innerText = "🧹 Clear Choice";
+      document.getElementById('nextBtn').innerText = "Next ➡️";
+      document.getElementById('finalSubmitBtn').innerText = "✅ Submit Test";
+      document.getElementById('resHeader').innerText = "🏆 Test Results 🎯";
+      document.getElementById('lblCorrect').innerText = "Correct ✅";
+      document.getElementById('lblWrong').innerText = "Wrong ❌";
+      document.getElementById('lblUnans').innerText = "Unanswered ⚠️";
+      document.getElementById('btnKey').innerText = "🔍 Answer Key";
+      document.getElementById('btnDash').innerText = "🏠 Dashboard";
+      document.getElementById('btnRetake').innerText = "🔄 Retake Test";
+      document.getElementById('btnExit').innerText = "🚪 Exit";
+    } else {
+      document.getElementById('headerTitle').innerText = "🐅 TIGER WARRIORS - வரைபடத் தர்க்கம் & தரவு விளக்கம் (30 வினாக்கள்)";
+      document.getElementById('prevBtn').innerText = "⬅️ முந்தையது";
+      document.getElementById('clearBtn').innerText = "🧹 விடையை நீக்கு";
+      document.getElementById('nextBtn').innerText = "அடுத்து ➡️";
+      document.getElementById('finalSubmitBtn').innerText = "✅ தேர்வைச் சமர்ப்பிக்க (Submit)";
+      document.getElementById('resHeader').innerText = "🏆 தேர்வு முடிவுகள் (Test Results) 🎯";
+      document.getElementById('lblCorrect').innerText = "சரியானது ✅";
+      document.getElementById('lblWrong').innerText = "தவறானது ❌";
+      document.getElementById('lblUnans').innerText = "விடையில்லை ⚠️";
+      document.getElementById('btnKey').innerText = "🔍 விடை குறிப்பு & விளக்கம்";
+      document.getElementById('btnDash').innerText = "🏠 முகப்புப் பக்கம்";
+      document.getElementById('btnRetake').innerText = "🔄 மீண்டும் தேர்வு";
+      document.getElementById('btnExit').innerText = "🚪 வெளியேறு";
+    }
+  }
+
+  function initTest() {
+    buildGrid();
+    loadQuestion(0);
+    startTimer();
+  }
+
+  function buildGrid() {
+    const grid = document.getElementById('questionGrid');
+    grid.innerHTML = '';
+    questionsData.forEach((_, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'q-num-btn';
+      btn.innerText = idx + 1;
+      btn.id = `q_btn_${idx}`;
+      btn.onclick = () => jumpToQuestion(idx);
+      grid.appendChild(btn);
+    });
+    updateGridStatus();
+  }
+
+  function updateGridStatus() {
+    questionsData.forEach((_, idx) => {
+      const btn = document.getElementById(`q_btn_${idx}`);
+      if(!btn) return;
+      btn.className = 'q-num-btn';
+      if(idx === currentQuestion) {
+        btn.classList.add('active');
+      } else if(userAnswers[idx] !== null) {
+        btn.classList.add('answered');
+      }
+    });
+  }
+
+  function searchInAI(provider, questionIdx) {
+    const q = questionsData[questionIdx];
+    const questionText = (currentLang === 'ta' ? q.q_ta : q.q_en).replace(/<[^>]*>?/gm, '');
+    const optionsText = q.o.join(", ");
+    const fullQuery = encodeURIComponent(`Explain this TNPSC Logical Diagrams & Data Interpretation question step by step:\n${questionText}\nOptions: ${optionsText}`);
+    
+    let targetUrl = "";
+    if (provider === 'chatgpt') {
+      targetUrl = `https://chatgpt.com/?q=${fullQuery}`;
+    } else if (provider === 'gemini') {
+      targetUrl = `https://gemini.google.com/app`;
+    } else if (provider === 'perplexity') {
+      targetUrl = `https://www.perplexity.ai/?q=${fullQuery}`;
+    } else if (provider === 'google') {
+      targetUrl = `https://www.google.com/search?q=${fullQuery}`;
+    }
+
+    window.open(targetUrl, '_blank');
+  }
+
+  function loadQuestion(idx) {
+    currentQuestion = idx;
+    const q = questionsData[idx];
+    document.getElementById('qTitle').innerText = currentLang === 'ta' ? q.q_ta : q.q_en;
+    
+    const optsBox = document.getElementById('optionsBox');
+    optsBox.innerHTML = '';
+
+    q.o.forEach((optText, oIdx) => {
+      const card = document.createElement('div');
+      card.className = 'option-card';
+      
+      if(userAnswers[idx] === oIdx) {
+        card.classList.add('selected');
+      }
+
+      if(isReviewMode) {
+        if(oIdx === q.a) {
+          card.classList.add('correct-ans');
+        } else if(userAnswers[idx] === oIdx && oIdx !== q.a) {
+          card.classList.add('wrong-ans');
+        }
+      }
+
+      card.innerHTML = `<span><b>${String.fromCharCode(65 + oIdx)}.</b> ${optText}</span>`;
+      card.onclick = () => selectOption(oIdx);
+      optsBox.appendChild(card);
+    });
+
+    const expBox = document.getElementById('expBox');
+    if(isReviewMode) {
+      expBox.style.display = 'block';
+      let baseExp = currentLang === 'ta' ? q.exp_ta : q.exp_en;
+      
+      expBox.innerHTML = `
+        <div style="font-size: 14px; margin-bottom: 8px;">${baseExp}</div>
+        <div style="font-size: 12px; color: #fbbf24; margin-top: 10px; font-weight: bold;">🤖 AI Link Buttons (Opens in New Tab):</div>
+        <div class="ai-btn-group">
+          <button class="ai-link-btn btn-chatgpt" onclick="searchInAI('chatgpt', ${idx})">🟢 ChatGPT</button>
+          <button class="ai-link-btn btn-gemini" onclick="searchInAI('gemini', ${idx})">✨ Gemini AI</button>
+          <button class="ai-link-btn btn-perplexity" onclick="searchInAI('perplexity', ${idx})">🔵 Perplexity</button>
+          <button class="ai-link-btn btn-google" onclick="searchInAI('google', ${idx})">🔍 Google Search</button>
+        </div>
+      `;
+    } else {
+      expBox.style.display = 'none';
+    }
+
+    document.getElementById('prevBtn').style.display = idx === 0 ? 'none' : 'block';
+    document.getElementById('nextBtn').style.display = idx === questionsData.length - 1 ? 'none' : 'block';
+    updateGridStatus();
+  }
+
+  function selectOption(oIdx) {
+    if(isReviewMode) return;
+    userAnswers[currentQuestion] = oIdx;
+    loadQuestion(currentQuestion);
+  }
+
+  function clearChoice() {
+    if(isReviewMode) return;
+    userAnswers[currentQuestion] = null;
+    loadQuestion(currentQuestion);
+  }
+
+  function navigateNumberQuery(dir) {
+    const postNext = currentQuestion + dir;
+    if(postNext >= 0 && postNext < questionsData.length) {
+      loadQuestion(postNext);
+    }
+  }
+
+  function jumpToQuestion(idx) {
+    loadQuestion(idx);
+  }
+
+  function startTimer() {
+    if (timerInterval) clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+      timeLeft--;
+      let m = Math.floor(timeLeft / 60);
+      let s = timeLeft % 60;
+      const timerElem = document.getElementById('timerBox');
+      if(timerElem) {
+        timerElem.innerText = `⏱️ ${m}:${s < 10 ? '0' : ''}${s}`;
+      }
+      if(timeLeft <= 0) {
+        clearInterval(timerInterval);
+        submitTest();
+      }
+    }, 1000);
+  }
+
+  function submitTest() {
+    if (timerInterval) clearInterval(timerInterval);
+    document.getElementById('testView').style.display = 'none';
+    document.getElementById('resultView').style.display = 'block';
+
+    let correct = 0, wrong = 0, unans = 0;
+    userAnswers.forEach((ans, idx) => {
+      if(ans === null) unans++;
+      else if(ans === questionsData[idx].a) correct++;
+      else wrong++;
+    });
+
+    document.getElementById('scoreDisplay').innerText = `${correct} / ${questionsData.length}`;
+    let pct = ((correct / questionsData.length) * 100).toFixed(1);
+    document.getElementById('percentageDisplay').innerText = `${currentLang === 'ta' ? 'சதவீதம்' : 'Percentage'}: ${pct}%`;
+    document.getElementById('correctCnt').innerText = correct;
+    document.getElementById('wrongCnt').innerText = wrong;
+    document.getElementById('unansCnt').innerText = unans;
+  }
+
+  function reviewAnswerKey() {
+    isReviewMode = true;
+    document.getElementById('resultView').style.display = 'none';
+    document.getElementById('testView').style.display = 'block';
+    document.getElementById('finalSubmitBtn').style.display = 'none';
+    document.getElementById('backToResultBtn').style.display = 'block';
+    document.getElementById('dashFromKeyBtn').style.display = 'block';
+    loadQuestion(0);
+  }
+
+  function returnToResult() {
+    document.getElementById('testView').style.display = 'none';
+    document.getElementById('resultView').style.display = 'block';
+  }
+
+  function returnToDashboard() {
+    window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html"); 
+  }
+
+  function exitPortal() {
+    window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html");
+  }
+
+  function retakeTest() {
+    userAnswers = new Array(questionsData.length).fill(null);
+    isReviewMode = false;
+    timeLeft = 45 * 60;
+    document.getElementById('resultView').style.display = 'none';
+    document.getElementById('testView').style.display = 'block';
+    document.getElementById('finalSubmitBtn').style.display = 'inline-block';
+    document.getElementById('backToResultBtn').style.display = 'none';
+    document.getElementById('dashFromKeyBtn').style.display = 'none';
+    initTest();
+  }
+
+  window.onload = function() {
+    initTest();
+  }
+</script>
+
+</body>
+</html>
