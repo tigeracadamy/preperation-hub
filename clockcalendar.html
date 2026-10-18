@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tiger Warriors - கடிகாரம் & நாட்காட்டி (Clock & Calendar) 30 வினாக்கள்</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; font-weight: bold; }
+    body { background: #080604; color: #f8fafc; padding: 12px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+    .card { width: 100%; max-width: 950px; background: #0f172a; border-radius: 14px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); border: 1px solid #334155; }
+    
+    .test-header { display: flex; justify-content: space-between; align-items: center; background: #1e293b; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; border: 1px solid #334155; }
+    .timer { font-size: 15px; font-weight: bold; color: #fbbf24; background: #091326; padding: 6px 12px; border-radius: 6px; border: 1px solid #fbbf24; box-shadow: inset 0 0 5px rgba(251, 191, 36, 0.2); }
+    .lang-btn { background: #0284c7; color: #fff; border: 1px solid #38bdf8; padding: 6px 14px; border-radius: 6px; font-size: 13px; cursor: pointer; transition: 0.2s; }
+    .lang-btn:hover { background: #0369a1; }
+
+    .q-grid { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 16px; max-height: 140px; overflow-y: auto; padding: 8px; background: #1e293b; border-radius: 8px; justify-content: center; }
+    .q-num-btn { width: 30px; height: 30px; border-radius: 5px; border: none; background: #334155; color: #fff; font-size: 10px; cursor: pointer; font-weight: bold; }
+    .q-num-btn.active { border: 2px solid #38bdf8; background: #0284c7; }
+    .q-num-btn.answered { background: #10b981; }
+
+    .q-box { background: #1e293b; padding: 18px; border-radius: 10px; margin-bottom: 16px; border: 1px solid #334155; }
+    .q-text { white-space: pre-line; line-height: 1.6; font-size: 15px; color: #f8fafc; }
+    
+    .option-card { background: #0f172a; border: 1px solid #334155; padding: 12px 16px; border-radius: 8px; margin-top: 10px; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: 0.2s; white-space: pre-line; line-height: 1.4; }
+    .option-card:hover { border-color: #38bdf8; background: #1e293b; }
+    .option-card.selected { border-color: #10b981; background: #064e3b; }
+    .option-card.correct-ans { border-color: #10b981; background: #065f46; font-weight: bold; }
+    .option-card.wrong-ans { border-color: #ef4444; background: #7f1d1d; }
+
+    .explanation-box { background: #091326; border: 1px solid #38bdf8; border-radius: 8px; padding: 12px; margin-top: 14px; font-size: 13px; color: #7dd3fc; line-height: 1.5; }
+    
+    .nav-btns { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+    .btn-action { background: #334155; color: #fff; border: none; padding: 10px 16px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 13px; text-align: center; }
+    .btn-action:hover { opacity: 0.9; }
+    .btn-blue { background: #2563eb; }
+    .btn-purple { background: #7c3aed; }
+    .btn-danger { background: #ef4444; }
+    .btn-green { background: #22c55e; }
+
+    .ai-btn-group { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; border-top: 1px dashed #38bdf8; padding-top: 12px; }
+    .ai-link-btn { border: none; color: #fff; padding: 8px 14px; border-radius: 6px; font-size: 12px; cursor: pointer; font-weight: bold; transition: 0.2s; display: inline-flex; align-items: center; gap: 5px; }
+    .ai-link-btn:hover { opacity: 0.85; transform: scale(1.02); }
+    .btn-gemini { background: #4285f4; }
+    .btn-chatgpt { background: #10a37f; }
+    .btn-perplexity { background: #22b8cf; }
+    .btn-google { background: #ea4335; }
+
+    .result-box { text-align: center; padding: 25px; background: #1e293b; border-radius: 16px; margin-top: 10px; border: 1px solid rgba(0, 242, 254, 0.3); display: flex; flex-direction: column; align-items: center; }
+    .score-circle { width: 130px; height: 130px; border-radius: 50%; background: conic-gradient(#10b981 0deg, #0f172a 0deg); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 15px auto; border: 4px solid #38bdf8; box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); }
+    .score-num { font-size: 30px; color: #f8fafc; font-weight: bold; }
+    
+    .result-stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; width: 100%; max-width: 400px; }
+    .stat-pill { background: #0f172a; border-radius: 12px; padding: 10px; border: 1px solid #334155; text-align: center; }
+    .stat-pill.gold { border-color: #fbbf24; }
+    .stat-pill.blue { border-color: #38bdf8; }
+    .stat-pill.red { border-color: #ef4444; }
+
+    .footer-badge { text-align: center; font-size: 11px; color: #38bdf8; margin-top: 15px; font-weight: bold; letter-spacing: 0.5px; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <!-- 🔒 Security Authentication Verification Check -->
+  <script>
+      if (localStorage.getItem('tiger_auth_passed') !== 'true') {
+          alert("⚠ பாதுகாப்பு எச்சரிக்கை: நீங்கள் Tiger Warriors போர்ட்டலில் லாகின் செய்யவில்லை! முதலில் மெயின் போர்ட்டலில் லாகின் செய்யவும்.");
+          window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html"); 
+      }
+  </script>
+
+  <div id="testView">
+    <div class="test-header">
+      <div>
+        <h3 style="color: #38bdf8; font-size: 15px;" id="headerTitle">🐅 TIGER WARRIORS - கடிகாரம் & நாட்காட்டி (Clock & Calendar) 30 வினாக்கள்</h3>
+        <span style="font-size: 11px; color: #94a3b8;">TNPSC / 1 / 2 / 2A / 4 • APTITUDE & REASONING UNIT</span>
+      </div>
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <button class="lang-btn" onclick="toggleLanguage()" id="langBtn">🌐 English</button>
+        <div class="timer" id="timerBox">⏱️ 45:00</div>
+        <button class="btn-action btn-purple" id="backToResultBtn" onclick="returnToResult()" style="display: none; padding: 6px 12px; font-size: 12px;">📊 ரிசல்ட் செல்</button>
+        <button class="btn-action btn-danger" id="dashFromKeyBtn" onclick="returnToDashboard()" style="display: none; padding: 6px 12px; font-size: 12px;">🏠 முகப்பு</button>
+      </div>
+    </div>
+
+    <div class="q-grid" id="questionGrid"></div>
+
+    <div class="q-box">
+      <div id="qTitle" class="q-text"></div>
+      <div id="optionsBox"></div>
+      <div id="expBox" class="explanation-box" style="display: none;"></div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn-action" id="prevBtn" onclick="navigateNumberQuery(-1)">⬅️ முந்தையது</button>
+      <button class="btn-action" id="clearBtn" onclick="clearChoice()">🧹 விடையை நீக்கு</button>
+      <button class="btn-action btn-blue" id="nextBtn" onclick="navigateNumberQuery(1)">அடுத்து ➡️</button>
+      <button class="btn-action btn-danger" id="finalSubmitBtn" onclick="submitTest()">✅ தேர்வைச் சமர்ப்பிக்க (Submit)</button>
+    </div>
+  </div>
+
+  <div id="resultView" style="display: none;">
+    <h2 style="color: #38bdf8; text-align: center; margin-bottom: 10px;" id="resHeader">🏆 தேர்வு முடிவுகள் (Test Results) 🎯</h2>
+    <div class="result-box">
+      <div class="score-circle" id="scoreCircle">
+        <div class="score-num" id="scoreDisplay">0/30</div>
+        <span id="percentageDisplay" style="font-size: 11px; color: #fbbf24;">0%</span>
+      </div>
+
+      <div class="result-stats-grid">
+        <div class="stat-pill gold">
+          <h3 id="correctCnt" style="color: #10b981; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;" id="lblCorrect">சரியானது ✅</span>
+        </div>
+        <div class="stat-pill red">
+          <h3 id="wrongCnt" style="color: #ef4444; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;" id="lblWrong">தவறானது ❌</span>
+        </div>
+        <div class="stat-pill blue">
+          <h3 id="unansCnt" style="color: #f59e0b; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;" id="lblUnans">விடையில்லை ⚠️</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
+      <button class="btn-action btn-blue" onclick="reviewAnswerKey()" id="btnKey">🔍 விடை குறிப்பு & விளக்கம்</button>
+      <button class="btn-action btn-purple" onclick="returnToDashboard()" id="btnDash">🏠 முகப்புப் பக்கம்</button>
+      <button class="btn-action btn-green" onclick="retakeTest()" id="btnRetake">🔄 மீண்டும் தேர்வு</button>
+      <button class="btn-action btn-danger" onclick="exitPortal()" id="btnExit">🚪 வெளியேறு</button>
+    </div>
+    <div class="footer-badge" style="margin-top: 20px;">🐅 டைகர் வாரியர் போர்டல் - இயக்குநர்: Dr. K. மணிகாசி 🐅</div>
+  </div>
+</div>
+
+<script>
+  let currentLang = 'ta';
+
+  const questionsData = [
+    {
+      q_ta: "1. ⏰ மாலை 4:20 மணிக்கு கடிகாரத்தின் மணி முள் மற்றும் நிமிட முளுக்கு இடையே உள்ள கோணம் (Angle) என்ன?\n[TNPSC Group 4 - PYQ]",
+      q_en: "1. ⏰ Find the angle between the hour hand and the minute hand of a clock at 4:20 PM.\n[TNPSC Group 4 - PYQ]",
+      o: ["a) 10°", "b) 20°", "c) 15°", "d) 25°"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>சூத்திரம் 📐: $\\theta = |30H - \\frac{11}{2}M|$<br>H = 4, M = 20 $\\rightarrow |30(4) - \\frac{11}{2}(20)| = |120 - 110| = 10°$ ⏰.",
+      exp_en: "<b>Explanation:</b><br>Formula: $\\theta = |30H - 5.5M|$. For 4:20, $|120 - 110| = 10°$ ⏰."
+    },
+    {
+      q_ta: "2. 📅 ஒரு சாதாரண ஆண்டில் (Ordinary Year) எத்தனை ஒற்றை நாட்கள் (Odd days) உள்ளன?\n[TNPSC Group 2 - PYQ]",
+      q_en: "2. 📅 How many odd days are there in an ordinary year?\n[TNPSC Group 2 - PYQ]",
+      o: ["a) 1", "b) 2", "c) 0", "d) 3"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>சாதாரண ஆண்டில் 365 நாட்கள் உள்ளன. 365 ஐ 7 ஆல் வகுத்தால் மீதி 1 கிடைக்கும். எனவே 1 ஒற்றை நாள் 📅.",
+      exp_en: "<b>Explanation:</b><br>Ordinary year has 365 days. $365 \\div 7$ leaves a remainder of 1 odd day 📅."
+    },
+    {
+      q_ta: "3. ⏳ ஒரு லீப் ஆண்டில் (Leap Year) எத்தனை ஒற்றை நாட்கள் உள்ளன?\n[TNPSC Group 1 - PYQ]",
+      q_en: "3. ⏳ How many odd days are there in a leap year?\n[TNPSC Group 1 - PYQ]",
+      o: ["a) 2", "b) 1", "c) 0", "d) 3"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>லீப் ஆண்டில் 366 நாட்கள் உள்ளன. 366 ஐ 7 ஆல் வகுத்தால் மீதி 2 கிடைக்கும். எனவே 2 ஒற்றை நாட்கள் ⏳.",
+      exp_en: "<b>Explanation:</b><br>Leap year has 366 days. $366 \\div 7$ leaves a remainder of 2 odd days ⏳."
+    },
+    {
+      q_ta: "4. ⏰ 3 மணிக்கும் 4 மணிக்கும் இடையே எந்த நேரத்தில் கடிகார முட்கள் ஒன்றாக (Coincide) அமையும்?\n[TNPSC Group 2A - PYQ]",
+      q_en: "4. ⏰ At what time between 3 and 4 o'clock do the hands of a clock coincide?\n[TNPSC Group 2A - PYQ]",
+      o: ["a) 3 மணி 16 $\\frac{4}{11}$ நிமிடம்", "b) 3 மணி 15 நிமிடம்", "c) 3 மணி 18 நிமிடம்", "d) 3 மணி 16 நிமிடம்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>சூத்திரம் 📐: $\\frac{60}{11} \\times \\text{Initial Time} \\rightarrow \\frac{60}{11} \\times 3 = \\frac{180}{11} = 16\\frac{4}{11}$ நிமிடங்கள் ⏰.",
+      exp_en: "<b>Explanation:</b><br>Formula: $\\frac{60}{11} \\times 3 = 16\\frac{4}{11}$ mins past 3 ⏰."
+    },
+    {
+      q_ta: "5. 📅 ஜனவரி 1, 2004 வியாழக்கிழமை எனில், ஜனவரி 1, 2005 என்ன கிழமை?\n[TNPSC CCSE - PYQ]",
+      q_en: "5. 📅 If Jan 1, 2004 was Thursday, what day of the week was Jan 1, 2005?\n[TNPSC CCSE - PYQ]",
+      o: ["a) சனிக்கிழமை (Saturday)", "b) வெள்ளிக்கிழமை (Friday)", "c) ஞாயிற்றுக்கிழமை (Sunday)", "d) திங்கட்கிழமை (Monday)"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>2004 என்பது ஒரு லீப் ஆண்டு (Leap year) என்பதால் பிப்ரவரியில் ஒரு நாள் கூடும். எனவே 2 ஒற்றை நாட்கள் தாண்டும். வியாழன் + 2 = சனிக்கிழமை 📅.",
+      exp_en: "<b>Explanation:</b><br>2004 is a leap year with 2 odd days. Thursday + 2 = Saturday 📅."
+    },
+    {
+      q_ta: "6. ⏰ 7 மணி 20 நிமிடங்களில் கடிகாரத்தின் மணி முள் மற்றும் நிமிட முளுக்கு இடையே உள்ள கோணம் என்ன?\n[TNPSC Group 4 - PYQ]",
+      q_en: "6. ⏰ What is the angle between hands of a clock at 7:20?\n[TNPSC Group 4 - PYQ]",
+      o: ["a) 100°", "b) 110°", "c) 90°", "d) 120°"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>$\\theta = |30(7) - \\frac{11}{2}(20)| = |210 - 110| = 100°$ ⏰.",
+      exp_en: "<b>Explanation:</b><br>$|210 - 110| = 100°$ ⏰."
+    },
+    {
+      q_ta: "7. 📅 100 ஆண்டுகளில் (Century) உள்ள ஒற்றை நாட்களின் எண்ணிக்கை எத்தனை?\n[TNPSC Group 1 - PYQ]",
+      q_en: "7. 📅 How many odd days are there in 100 years?\n[TNPSC Group 1 - PYQ]",
+      o: ["a) 5", "b) 3", "c) 1", "d) 0"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>100 ஆண்டுகளில் 76 சாதாரண ஆண்டுகள் மற்றும் 24 லீப் ஆண்டுகள் உள்ளன. மொத்த ஒற்றை நாட்கள் = $(76 \\times 1 + 24 \\times 2) = 124 \\div 7 \\rightarrow$ மீதி 5 📅.",
+      exp_en: "<b>Explanation:</b><br>$124 \\pmod 7 = 5$ odd days in 100 years 📅."
+    },
+    {
+      q_ta: "8. ⏳ பிப்ரவரி 29 எந்த ஆண்டுகளில் வரும்?\n[TNPSC Group 2 - PYQ]",
+      q_en: "8. ⏳ In which years does February 29 occur?\n[TNPSC Group 2 - PYQ]",
+      o: ["a) லீப் ஆண்டு (Leap year)", "b) சாதாரண ஆண்டு (Ordinary year)", "c) நூற்றாண்டு (Century)", "d) மேற்கண்ட எதுவும் இல்லை"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>லீப் ஆண்டில் மட்டுமே பிப்ரவரியில் 29 நாட்கள் வரும் ⏳.",
+      exp_en: "<b>Explanation:</b><br>Feb 29 occurs only in leap years ⏳."
+    },
+    {
+      q_ta: "9. ⏰ ஒரு நாளில் கடிகார முட்கள் எத்தனை முறை நேர்கோட்டில் அமையும் (ஒன்றாக அல்லது எதிரெதிராக)?\n[TNPSC Group 4 - PYQ]",
+      q_en: "9. ⏰ How many times in a day do the hands of a clock form a straight line?\n[TNPSC Group 4 - PYQ]",
+      o: ["a) 44", "b) 22", "c) 24", "d) 48"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>ஒரு நாளில் முட்கள் 22 முறை ஒன்றாக இணையும் மற்றும் 22 முறை எதிரெதிராக இருக்கும். மொத்தம் 22 + 22 = 44 முறை நேர்கோட்டில் அமையும் ⏰.",
+      exp_en: "<b>Explanation:</b><br>Coincide 22 times + opposite 22 times = 44 times in a day ⏰."
+    },
+    {
+      q_ta: "10. 📅 சுதந்திர தினம் 2005 திங்கட்கிழமை எனில், குடியரசு தினம் 2005 என்ன கிழமை?\n[TNPSC Group 2A - PYQ]",
+      q_en: "10. 📅 If Independence Day 2005 was Monday, what day was Republic Day 2005?\n[TNPSC Group 2A - PYQ]",
+      o: ["a) புதன்கிழமை (Wednesday)", "b) செவ்வாய்க்கிழமை (Tuesday)", "c) வியாழக்கிழமை (Thursday)", "d) திங்கட்கிழமை (Monday)"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>குடியரசு தினம் ஜனவரி 26, சுதந்திர தினம் ஆகஸ்ட் 15. இடைப்பட்ட நாட்களை கணக்கிட்டு ஒற்றை நாட்களைப் பெற புதன்கிழமை வரும் 📅.",
+      exp_en: "<b>Explanation:</b><br>Calculating the day difference yields Wednesday 📅.",
+    },
+    {
+      q_ta: "11. ⏰ ஒரு கடிகாரத்தில் மணி முள் 1 சுத்து சுற்ற எத்தனை மணி நேரம் ஆகும்?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "11. ⏰ How many hours does the hour hand take to complete 1 full rotation?\n[Expected Question - Group 4]",
+      o: ["a) 12 மணி நேரம் (12 hours)", "b) 24 மணி நேரம் (24 hours)", "c) 1 மணி நேரம் (1 hour)", "d) 6 மணி நேரம் (6 hours)"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>மணி முள் கடிகாரத்தை ஒரு முறை முழுமையாகச் சுற்றி வர 12 மணி நேரம் ஆகும் ⏰.",
+      exp_en: "<b>Explanation:</b><br>The hour hand takes 12 hours for a full rotation ⏰."
+    },
+    {
+      q_ta: "12. 📅 400 ஆண்டுகளில் உள்ள ஒற்றை நாட்களின் எண்ணிக்கை எத்தனை?\n[எதிர்பார்க்கப்படும் வினா - Group 2/4]",
+      q_en: "12. 📅 How many odd days are there in 400 years?\n[Expected Question - Group 2/4]",
+      o: ["a) 0", "b) 1", "c) 3", "d) 5"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>400 என்பது 400 ஆல் வகுபடும் நூற்றாண்டு லீப் ஆண்டு. இதில் ஒற்றை நாட்களின் மீதி 0 ஆகும் 📅.",
+      exp_en: "<b>Explanation:</b><br>400th year is a leap century, resulting in 0 odd days 📅."
+    },
+    {
+      q_ta: "13. ⏰ ஒரு நாளில் கடிகார முட்கள் எத்தனை முறை செங்கோணத்தில் (Right angle) அமையும்?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "13. ⏰ How many times in a day do the hands of a clock form a right angle?\n[Expected Question - Group 4]",
+      o: ["a) 44", "b) 22", "c) 48", "d) 24"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>ஒரு மணி நேரத்திற்கு 2 முறை செங்கோணம் அமையும். 12 மணி நேரத்தில் 22 முறை, எனவே ஒருநாளில் 22 × 2 = 44 முறை ⏰.",
+      exp_en: "<b>Explanation:</b><br>Right angles occur 2 times per hour, totalling 44 times a day ⏰."
+    },
+    {
+      q_ta: "14. 📅 எந்த ஆண்டு முதல் தமிழ் நாட்காட்டி சீரமைக்கப்பட்டது அல்லது லீப் ஆண்டுக்கான விதி முறை உறுதியானது?\n[எதிர்பார்க்கப்படும் வினா - Group 2/2A]",
+      q_en: "14. 📅 General Gregorian calendar leap year rule applies to years divisible by:\n[Expected Question - Group 2/2A]",
+      o: ["a) 4 ஆல் வகுபட வேண்டும் (Divisible by 4)", "b) 100 ஆல் மட்டுமே (Only 100)", "c) 2 ஆல் (Divisible by 2)", "d) 5 ஆல் (Divisible by 5)"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>லீப் ஆண்டைக் கண்டறிய அந்த ஆண்டு 4 ஆல் வகுபட வேண்டும் (நூற்றாண்டாக இருந்தால் 400 ஆல் வகுபட வேண்டும்) 📅.",
+      exp_en: "<b>Explanation:</b><br>Leap years must be divisible by 4 📅."
+    },
+    {
+      q_ta: "15. ⏰ 2 மணிக்கும் 3 மணிக்கும் இடையே எந்த நேரத்தில் கடிகார முட்கள் எதிரெதிராக (Opposite) இருக்கும்?\n[எதிர்பார்க்கப்படும் வினா - Group 2/4]",
+      q_en: "15. ⏰ At what time between 2 and 3 o'clock are the hands of a clock opposite to each other?\n[Expected Question - Group 2/4]",
+      o: ["a) 2 மணி 43 $\\frac{7}{11}$ நிமிடம்", "b) 2 மணி 40 நிமிடம்", "c) 2 மணி 45 நிமிடம்", "d) 2 மணி 42 நிமிடம்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>எதிரெதிராக இருக்க 6 மணி நேரம் இடைவெளி கூட்ட வேண்டும். $\\frac{60}{11} \\times (2 + 6) = \\frac{480}{11} = 43\\frac{7}{11}$ நிமிடங்கள் ⏰.",
+      exp_en: "<b>Explanation:</b><br>Using formula with 6-hour offset: $\\frac{60}{11} \\times 8 = 43\\frac{7}{11}$ mins past 2 ⏰."
+    },
+    {
+      q_ta: "16. 📅 ஒரு மாதத்தின் 3 ஆம் நாள் திங்கட்கிழமை எனில், அந்த மாதத்தின் 21 ஆம் தேதிக்குப் பின் வரும் 4 வது நாள் என்ன கிழமை?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "16. 📅 If 3rd of a month is Monday, what day is the 4th day after the 21st of that month?\n[Expected Question - Group 4]",
+      o: ["a) திங்கட்கிழமை (Monday)", "b) செவ்வாய்க்கிழமை (Tuesday)", "c) ஞாயிற்றுக்கிழமை (Sunday)", "d) புதன்கிழமை (Wednesday)"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>3 ஆம் தேதி திங்கள் என்றால் 21 ஆம் தேதி திங்கள். 21 + 4 = 25 ஆம் தேதி மீண்டும் திங்கட்கிழமை வரும் 📅.",
+      exp_en: "<b>Explanation:</b><br>3rd is Monday $\\rightarrow$ 21st is Monday. 21 + 4 = 25th is also Monday 📅."
+    },
+    {
+      q_ta: "17. ⏰ ஒரு கடிகாரத்தில் நேரம் 8:30 எனில், பிரதிபலிப்பு நேரம் (Mirror Image) என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "17. ⏰ What is the mirror image time of a clock showing 8:30?\n[Expected Question - Group 4]",
+      o: ["a) 3:30", "b) 4:30", "c) 5:30", "d) 3:00"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>கண்ணாடி பிம்பத்தைக் காண 11:60 லிருந்து கொடுக்கப்பட்ட நேரத்தைக் கழிக்க வேண்டும் 🪞: $11:60 - 8:30 = 3:30$ ⏰.",
+      exp_en: "<b>Explanation:</b><br>Subtract from 11:60: $11:60 - 8:30 = 3:30$ ⏰."
+    },
+    {
+      q_ta: "18. 📅 2006 ஆம் ஆண்டின் முதல் நாள் ஞாயிற்றுக்கிழமை எனில், அதே ஆண்டின் கடைசி நாள் என்ன கிழமை?\n[எதிர்பார்க்கப்படும் வினா - Group 1/2]",
+      q_en: "18. 📅 If the first day of the year 2006 was Sunday, what was the last day of that year?\n[Expected Question - Group 1/2]",
+      o: ["a) ஞாயிற்றுக்கிழமை (Sunday)", "b) திங்கட்கிழமை (Monday)", "c) செவ்வாய்க்கிழமை (Tuesday)", "d) சனிக்கிழமை (Saturday)"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>சாதாரண ஆண்டின் முதல் நாளும் கடைசி நாளும் ஒரே கிழமையாகத்தான் அமையும் (ஞாயிற்றுக்கிழமை) 📅.",
+      exp_en: "<b>Explanation:</b><br>An ordinary year begins and ends on the same day (Sunday) 📅."
+    },
+    {
+      q_ta: "19. ⏳ ஒரு லீப் ஆண்டின் முதல் நாள் திங்கட்கிழமை எனில், கடைசி நாள் என்ன கிழமை?\n[எதிர்பார்க்கப்படும் வினா - Group 2/4]",
+      q_en: "19. ⏳ If the first day of a leap year is Monday, what is the last day?\n[Expected Question - Group 2/4]",
+      o: ["a) செவ்வாய்க்கிழமை (Tuesday)", "b) திங்கட்கிழமை (Monday)", "c) புதன்கிழமை (Wednesday)", "d) ஞாயிற்றுக்கிழமை (Sunday)"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>லீப் ஆண்டின் கடைசி நாள் முதல் நாளை விட ஒரு நாள் கூடுதலாக இருக்கும். திங்கள் + 1 = செவ்வாய்க்கிழமை ⏳.",
+      exp_en: "<b>Explanation:</b><br>A leap year ends one day after it begins. Monday + 1 = Tuesday ⏳."
+    },
+    {
+      q_ta: "20. ⏰ ஒரு மந்தமான கடிகாரம் (Slow clock) ஒவ்வொரு மணி நேரத்திற்கும் 2 நிமிடங்கள் தாமதமாக ஓடுகிறது. இன்று காலை 8 மணிக்கு சரியாக வைக்கப்பட்டால், மாலை 8 மணிக்கு அது காட்டும் நேரம் என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "20. ⏰ A clock loses 2 minutes every hour. If set right at 8 AM, what time will it show at 8 PM?\n[Expected Question - Group 4]",
+      o: ["a) மாலை 7:36", "b) மாலை 7:24", "c) மாலை 7:40", "d) மாலை 7:30"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>காலை 8 முதல் மாலை 8 வரை 12 மணி நேரம். தாமதம் = $12 \\times 2 = 24$ நிமிடங்கள். சரியான நேரம் 8:00 - 24 நிமிடம் = 7:36 ⏰.",
+      exp_en: "<b>Explanation:</b><br>12 hours elapsed. Total loss = 24 mins. Time shown = 7:36 ⏰."
+    },
+    {
+      q_ta: "21. 📅 ஜூலை 15, 2008 செவ்வாய்க்கிழமை எனில், ஜூலை 15, 2009 என்ன கிழமை?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "21. 📅 If July 15, 2008 was Tuesday, what day was July 15, 2009?\n[Expected Question - Group 4]",
+      o: ["a) வியாழக்கிழமை (Thursday)", "b) புதன்கிழமை (Wednesday)", "c) செவ்வாய்க்கிழமை (Tuesday)", "d) வெள்ளிக்கிழமை (Friday)"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>2008 ஜூலை 15 முதல் 2009 ஜூலை 15 வரை உள்ள காலத்தில் பிப்ரவரி 2009 (சாதாரண ஆண்டு) வருகிறது. ஆனால் 2008 லீப் ஆண்டு என்பதால் பிப்ரவரி 2008 கடந்துவிட்டது. எனவே 1 ஒற்றை நாள் தாண்டும் (செவ்வாய் + 2 லீப் தாக்கம் = வியாழன்) 📅.",
+      exp_en: "<b>Explanation:</b><br>Leap transition accounts for 2 odd days leading to Thursday 📅."
+    },
+    {
+      q_ta: "22. ⏰ ஒரு கடிகாரத்தில் நேரம் 4:40 எனில், நீர்ப்பிம்ப நேரம் (Water Image) என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "22. ⏰ What is the water image time for a clock showing 4:40?\n[Expected Question - Group 4]",
+      o: ["a) 2:50", "b) 1:50", "c) 2:40", "d) 1:40"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>நீர் பிம்பத்தைக் காண 18:30 லிருந்து கழிக்க வேண்டும் 🌊: $18:30 - 4:40 \\rightarrow 17:90 - 4:40 = 2:50$ ⏰.",
+      exp_en: "<b>Explanation:</b><br>Subtract from 18:30 (or 17:90): $17:90 - 4:40 = 2:50$ ⏰."
+    },
+    {
+      q_ta: "23. 📅 200 ஆண்டுகள் கடந்த பிறகு எத்தனை ஒற்றை நாட்கள் மிஞ்சும்?\n[எதிர்பார்க்கப்படும் வினா - Group 2/4]",
+      q_en: "23. 📅 How many odd days are there in 200 years?\n[Expected Question - Group 2/4]",
+      o: ["a) 3", "b) 5", "c) 1", "d) 0"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>100 ஆண்டுகளில் 5 ஒற்றை நாட்கள் $\\rightarrow 200$ ஆண்டுகளில் $5 \\times 2 = 10 \\div 7 = 3$ ஒற்றை நாட்கள் 📅.",
+      exp_en: "<b>Explanation:</b><br>$10 \\pmod 7 = 3$ odd days in 200 years 📅."
+    },
+    {
+      q_ta: "24. ⏰ ஒரு முள் சுற்றும் வேகத்தின்படி நிமிட முள் 1 நிமிடத்தில் எத்தனை டிகிரி நகரும்?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "24. ⏰ Through how many degrees does the minute hand move in 1 minute?\n[Expected Question - Group 4]",
+      o: ["a) 6°", "b) 30°", "c) 12°", "d) 360°"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>நிமிட முள் 60 நிமிடத்தில் 360° சுற்றும். எனவே 1 நிமிடத்திற்கு $\\frac{360°}{60} = 6°$ ⏰.",
+      exp_en: "<b>Explanation:</b><br>Minute hand covers $360°$ in 60 mins, so $6°$ per minute ⏰."
+    },
+    {
+      q_ta: "25. ⏳ மணி முள் 1 நிமிடத்தில் எத்தனை டிகிரி நகரும்?\n[எதிர்பார்க்கப்படும் வினா - Group 1/2]",
+      q_en: "25. ⏳ Through how many degrees does the hour hand move in 1 minute?\n[Expected Question - Group 1/2]",
+      o: ["a) 0.5°", "b) 6°", "c) 30°", "d) 1°"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>மணி முள் 12 மணி நேரத்தில் 360° ($\\frac{360}{720}$ நிமிடங்கள்) சுற்றும். எனவே 1 நிமிடத்திற்கு $0.5°$ ⏳.",
+      exp_en: "<b>Explanation:</b><br>Hour hand moves $0.5°$ per minute ⏳."
+    },
+    {
+      q_ta: "26. 📅 பிப்ரவரி மாதத்தில் அதிகபட்சமாக எத்தனை நாட்கள் வரலாம்?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "26. 📅 What is the maximum number of days in February?\n[Expected Question - Group 4]",
+      o: ["a) 29", "b) 28", "c) 30", "d) 31"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>லீப் ஆண்டில் பிப்ரவரி மாதத்தில் 29 நாட்கள் வரும் 📅.",
+      exp_en: "<b>Explanation:</b><br>February has a maximum of 29 days in a leap year 📅."
+    },
+    {
+      q_ta: "27. ⏰ 5 மணி 10 நிமிடத்தில் மணி முள் மற்றும் நிமிட முள் இடையே உள்ள கோணம் என்ன?\n[எதிர்பார்க்கப்படும் விនា - Group 2/4]",
+      q_en: "27. ⏰ What is the angle between hands at 5:10?\n[Expected Question - Group 2/4]",
+      o: ["a) 95°", "b) 100°", "c) 90°", "d) 105°"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>$\\theta = |30(5) - \\frac{11}{2}(10)| = |150 - 55| = 95°$ ⏰.",
+      exp_en: "<b>Explanation:</b><br>$|150 - 55| = 95°$ ⏰."
+    },
+    {
+      q_ta: "28. 📅 300 ஆண்டுகளில் உள்ள ஒற்றை நாட்களின் எண்ணிக்கை எத்தனை?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "28. 📅 How many odd days are there in 300 years?\n[Expected Question - Group 4]",
+      o: ["a) 1", "b) 3", "c) 5", "d) 0"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>300 ஆண்டுகளில் ஒற்றை நாட்கள் = $5 \\times 3 = 15 \\div 7 = 1$ ஒற்றை நாள் 📅.",
+      exp_en: "<b>Explanation:</b><br>$15 \\pmod 7 = 1$ odd day in 300 years 📅."
+    },
+    {
+      q_ta: "29. ⏳ ஒரு குறிப்பிட்ட ஆண்டின் ஜனவரி 1 ஆம் தேதி வெள்ளிக்கிழமை எனில், அந்த ஆண்டு லீப் ஆண்டாக இருந்தால் மார்ச் 1 என்ன கிழமை?\n[எதிர்பார்க்கப்படும் வினா - Group 1/2]",
+      q_en: "29. ⏳ If Jan 1 of a leap year is Friday, what day of the week is March 1?\n[Expected Question - Group 1/2]",
+      o: ["a) திங்கட்கிழமை (Monday)", "b) ஞாயிற்றுக்கிழமை (Sunday)", "c) செவ்வாய்க்கிழமை (Tuesday)", "d) சனிக்கிழமை (Saturday)"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>ஜனவரி (31 நாட்களில் 3 மீதி) + லீப் பிப்ரவரி (29 நாட்களில் 1 மீதி) = 4 ஒற்றை நாட்கள். வெள்ளி + 4 = திங்கட்கிழமை ⏳.",
+      exp_en: "<b>Explanation:</b><br>Odd days from Jan 1 to March 1 in a leap year total 4. Friday + 4 = Monday ⏳."
+    },
+    {
+      q_ta: "30. ⏰ ஒரு முள் வேகமாக ஓடும் கடிகாரம் ஒரு மணி நேரத்திற்கு 3 நிமிடங்கள் முன் செல்கிறது. காலை 9 மணிக்கு சரியாக வைக்கப்பட்டால், மதியம் 3 மணிக்கு அது காட்டும் நேரம் என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "30. ⏰ A clock gains 3 minutes every hour. Set right at 9 AM, what time does it show at 3 PM?\n[Expected Question - Group 4]",
+      o: ["a) மதியம் 3:18", "b) மதியம் 3:15", "c) மதியம் 3:12", "d) மதியம் 3:20"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>காலை 9 முதல் மதியம் 3 வரை 6 மணி நேரம். முன் செல்வது = $6 \\times 3 = 18$ நிமிடங்கள். காட்டும் நேரம் 3:18 ⏰.",
+      exp_en: "<b>Explanation:</b><br>6 hours elapsed. Gain = 18 mins. Time shown = 3:18 ⏰."
+    }
+  ];
+
+  let currentQuestion = 0;
+  let userAnswers = new Array(questionsData.length).fill(null);
+  let isReviewMode = false;
+  let timerInterval;
+  let timeLeft = 45 * 60;
+
+  function toggleLanguage() {
+    currentLang = currentLang === 'ta' ? 'en' : 'ta';
+    document.getElementById('langBtn').innerText = currentLang === 'ta' ? '🌐 English' : '🌐 தமிழ்';
+    updateLanguageTexts();
+    loadQuestion(currentQuestion);
+  }
+
+  function updateLanguageTexts() {
+    if(currentLang === 'en') {
+      document.getElementById('headerTitle').innerText = "🐅 TIGER WARRIORS - Clock & Calendar (30 Questions)";
+      document.getElementById('prevBtn').innerText = "⬅️ Previous";
+      document.getElementById('clearBtn').innerText = "🧹 Clear Choice";
+      document.getElementById('nextBtn').innerText = "Next ➡️";
+      document.getElementById('finalSubmitBtn').innerText = "✅ Submit Test";
+      document.getElementById('resHeader').innerText = "🏆 Test Results 🎯";
+      document.getElementById('lblCorrect').innerText = "Correct ✅";
+      document.getElementById('lblWrong').innerText = "Wrong ❌";
+      document.getElementById('lblUnans').innerText = "Unanswered ⚠️";
+      document.getElementById('btnKey').innerText = "🔍 Answer Key";
+      document.getElementById('btnDash').innerText = "🏠 Dashboard";
+      document.getElementById('btnRetake').innerText = "🔄 Retake Test";
+      document.getElementById('btnExit').innerText = "🚪 Exit";
+    } else {
+      document.getElementById('headerTitle').innerText = "🐅 TIGER WARRIORS - கடிகாரம் & நாட்காட்டி (Clock & Calendar) 30 வினாக்கள்";
+      document.getElementById('prevBtn').innerText = "⬅️ முந்தையது";
+      document.getElementById('clearBtn').innerText = "🧹 விடையை நீக்கு";
+      document.getElementById('nextBtn').innerText = "அடுத்து ➡️";
+      document.getElementById('finalSubmitBtn').innerText = "✅ தேர்வைச் சமர்ப்பிக்க (Submit)";
+      document.getElementById('resHeader').innerText = "🏆 தேர்வு முடிவுகள் (Test Results) 🎯";
+      document.getElementById('lblCorrect').innerText = "சரியானது ✅";
+      document.getElementById('lblWrong').innerText = "தவறானது ❌";
+      document.getElementById('lblUnans').innerText = "விடையில்லை ⚠️";
+      document.getElementById('btnKey').innerText = "🔍 விடை குறிப்பு & விளக்கம்";
+      document.getElementById('btnDash').innerText = "🏠 முகப்புப் பக்கம்";
+      document.getElementById('btnRetake').innerText = "🔄 மீண்டும் தேர்வு";
+      document.getElementById('btnExit').innerText = "🚪 வெளியேறு";
+    }
+  }
+
+  function initTest() {
+    buildGrid();
+    loadQuestion(0);
+    startTimer();
+  }
+
+  function buildGrid() {
+    const grid = document.getElementById('questionGrid');
+    grid.innerHTML = '';
+    questionsData.forEach((_, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'q-num-btn';
+      btn.innerText = idx + 1;
+      btn.id = `q_btn_${idx}`;
+      btn.onclick = () => jumpToQuestion(idx);
+      grid.appendChild(btn);
+    });
+    updateGridStatus();
+  }
+
+  function updateGridStatus() {
+    questionsData.forEach((_, idx) => {
+      const btn = document.getElementById(`q_btn_${idx}`);
+      if(!btn) return;
+      btn.className = 'q-num-btn';
+      if(idx === currentQuestion) {
+        btn.classList.add('active');
+      } else if(userAnswers[idx] !== null) {
+        btn.classList.add('answered');
+      }
+    });
+  }
+
+  function searchInAI(provider, questionIdx) {
+    const q = questionsData[questionIdx];
+    const questionText = (currentLang === 'ta' ? q.q_ta : q.q_en).replace(/<[^>]*>?/gm, '');
+    const optionsText = q.o.join(", ");
+    const fullQuery = encodeURIComponent(`Explain this TNPSC Clock & Calendar reasoning question step by step:\n${questionText}\nOptions: ${optionsText}`);
+    
+    let targetUrl = "";
+    if (provider === 'chatgpt') {
+      targetUrl = `https://chatgpt.com/?q=${fullQuery}`;
+    } else if (provider === 'gemini') {
+      targetUrl = `https://gemini.google.com/app`;
+    } else if (provider === 'perplexity') {
+      targetUrl = `https://www.perplexity.ai/?q=${fullQuery}`;
+    } else if (provider === 'google') {
+      targetUrl = `https://www.google.com/search?q=${fullQuery}`;
+    }
+
+    window.open(targetUrl, '_blank');
+  }
+
+  function loadQuestion(idx) {
+    currentQuestion = idx;
+    const q = questionsData[idx];
+    document.getElementById('qTitle').innerText = currentLang === 'ta' ? q.q_ta : q.q_en;
+    
+    const optsBox = document.getElementById('optionsBox');
+    optsBox.innerHTML = '';
+
+    q.o.forEach((optText, oIdx) => {
+      const card = document.createElement('div');
+      card.className = 'option-card';
+      
+      if(userAnswers[idx] === oIdx) {
+        card.classList.add('selected');
+      }
+
+      if(isReviewMode) {
+        if(oIdx === q.a) {
+          card.classList.add('correct-ans');
+        } else if(userAnswers[idx] === oIdx && oIdx !== q.a) {
+          card.classList.add('wrong-ans');
+        }
+      }
+
+      card.innerHTML = `<span><b>${String.fromCharCode(65 + oIdx)}.</b> ${optText}</span>`;
+      card.onclick = () => selectOption(oIdx);
+      optsBox.appendChild(card);
+    });
+
+    const expBox = document.getElementById('expBox');
+    if(isReviewMode) {
+      expBox.style.display = 'block';
+      let baseExp = currentLang === 'ta' ? q.exp_ta : q.exp_en;
+      
+      expBox.innerHTML = `
+        <div style="font-size: 14px; margin-bottom: 8px;">${baseExp}</div>
+        <div style="font-size: 12px; color: #fbbf24; margin-top: 10px; font-weight: bold;">🤖 AI Link Buttons (Opens in New Tab):</div>
+        <div class="ai-btn-group">
+          <button class="ai-link-btn btn-chatgpt" onclick="searchInAI('chatgpt', ${idx})">🟢 ChatGPT</button>
+          <button class="ai-link-btn btn-gemini" onclick="searchInAI('gemini', ${idx})">✨ Gemini AI</button>
+          <button class="ai-link-btn btn-perplexity" onclick="searchInAI('perplexity', ${idx})">🔵 Perplexity</button>
+          <button class="ai-link-btn btn-google" onclick="searchInAI('google', ${idx})">🔍 Google Search</button>
+        </div>
+      `;
+    } else {
+      expBox.style.display = 'none';
+    }
+
+    document.getElementById('prevBtn').style.display = idx === 0 ? 'none' : 'block';
+    document.getElementById('nextBtn').style.display = idx === questionsData.length - 1 ? 'none' : 'block';
+    updateGridStatus();
+  }
+
+  function selectOption(oIdx) {
+    if(isReviewMode) return;
+    userAnswers[currentQuestion] = oIdx;
+    loadQuestion(currentQuestion);
+  }
+
+  function clearChoice() {
+    if(isReviewMode) return;
+    userAnswers[currentQuestion] = null;
+    loadQuestion(currentQuestion);
+  }
+
+  function navigateNumberQuery(dir) {
+    const postNext = currentQuestion + dir;
+    if(postNext >= 0 && postNext < questionsData.length) {
+      loadQuestion(postNext);
+    }
+  }
+
+  function jumpToQuestion(idx) {
+    loadQuestion(idx);
+  }
+
+  function startTimer() {
+    if (timerInterval) clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+      timeLeft--;
+      let m = Math.floor(timeLeft / 60);
+      let s = timeLeft % 60;
+      const timerElem = document.getElementById('timerBox');
+      if(timerElem) {
+        timerElem.innerText = `⏱️ ${m}:${s < 10 ? '0' : ''}${s}`;
+      }
+      if(timeLeft <= 0) {
+        clearInterval(timerInterval);
+        submitTest();
+      }
+    }, 1000);
+  }
+
+  function submitTest() {
+    if (timerInterval) clearInterval(timerInterval);
+    document.getElementById('testView').style.display = 'none';
+    document.getElementById('resultView').style.display = 'block';
+
+    let correct = 0, wrong = 0, unans = 0;
+    userAnswers.forEach((ans, idx) => {
+      if(ans === null) unans++;
+      else if(ans === questionsData[idx].a) correct++;
+      else wrong++;
+    });
+
+    document.getElementById('scoreDisplay').innerText = `${correct} / ${questionsData.length}`;
+    let pct = ((correct / questionsData.length) * 100).toFixed(1);
+    document.getElementById('percentageDisplay').innerText = `${currentLang === 'ta' ? 'சதவீதம்' : 'Percentage'}: ${pct}%`;
+    document.getElementById('correctCnt').innerText = correct;
+    document.getElementById('wrongCnt').innerText = wrong;
+    document.getElementById('unansCnt').innerText = unans;
+  }
+
+  function reviewAnswerKey() {
+    isReviewMode = true;
+    document.getElementById('resultView').style.display = 'none';
+    document.getElementById('testView').style.display = 'block';
+    document.getElementById('finalSubmitBtn').style.display = 'none';
+    document.getElementById('backToResultBtn').style.display = 'block';
+    document.getElementById('dashFromKeyBtn').style.display = 'block';
+    loadQuestion(0);
+  }
+
+  function returnToResult() {
+    document.getElementById('testView').style.display = 'none';
+    document.getElementById('resultView').style.display = 'block';
+  }
+
+  function returnToDashboard() {
+    window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html"); 
+  }
+
+  function exitPortal() {
+    window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html");
+  }
+
+  function retakeTest() {
+    userAnswers = new Array(questionsData.length).fill(null);
+    isReviewMode = false;
+    timeLeft = 45 * 60;
+    document.getElementById('resultView').style.display = 'none';
+    document.getElementById('testView').style.display = 'block';
+    document.getElementById('finalSubmitBtn').style.display = 'inline-block';
+    document.getElementById('backToResultBtn').style.display = 'none';
+    document.getElementById('dashFromKeyBtn').style.display = 'none';
+    initTest();
+  }
+
+  window.onload = function() {
+    initTest();
+  }
+</script>
+
+</body>
+</html>
