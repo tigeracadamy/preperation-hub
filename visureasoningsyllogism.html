@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tiger Warriors - காட்சிக் காரணியியல் & சிலாகிசம் (Visual Reasoning & Syllogism) 30 வினாக்கள்</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; font-weight: bold; }
+    body { background: #080604; color: #f8fafc; padding: 12px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+    .card { width: 100%; max-width: 950px; background: #0f172a; border-radius: 14px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); border: 1px solid #334155; }
+    
+    .test-header { display: flex; justify-content: space-between; align-items: center; background: #1e293b; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; border: 1px solid #334155; }
+    .timer { font-size: 15px; font-weight: bold; color: #fbbf24; background: #091326; padding: 6px 12px; border-radius: 6px; border: 1px solid #fbbf24; box-shadow: inset 0 0 5px rgba(251, 191, 36, 0.2); }
+    .lang-btn { background: #0284c7; color: #fff; border: 1px solid #38bdf8; padding: 6px 14px; border-radius: 6px; font-size: 13px; cursor: pointer; transition: 0.2s; }
+    .lang-btn:hover { background: #0369a1; }
+
+    .q-grid { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 16px; max-height: 140px; overflow-y: auto; padding: 8px; background: #1e293b; border-radius: 8px; justify-content: center; }
+    .q-num-btn { width: 30px; height: 30px; border-radius: 5px; border: none; background: #334155; color: #fff; font-size: 10px; cursor: pointer; font-weight: bold; }
+    .q-num-btn.active { border: 2px solid #38bdf8; background: #0284c7; }
+    .q-num-btn.answered { background: #10b981; }
+
+    .q-box { background: #1e293b; padding: 18px; border-radius: 10px; margin-bottom: 16px; border: 1px solid #334155; }
+    .q-text { white-space: pre-line; line-height: 1.6; font-size: 15px; color: #f8fafc; }
+    
+    .option-card { background: #0f172a; border: 1px solid #334155; padding: 12px 16px; border-radius: 8px; margin-top: 10px; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: 0.2s; white-space: pre-line; line-height: 1.4; }
+    .option-card:hover { border-color: #38bdf8; background: #1e293b; }
+    .option-card.selected { border-color: #10b981; background: #064e3b; }
+    .option-card.correct-ans { border-color: #10b981; background: #065f46; font-weight: bold; }
+    .option-card.wrong-ans { border-color: #ef4444; background: #7f1d1d; }
+
+    .explanation-box { background: #091326; border: 1px solid #38bdf8; border-radius: 8px; padding: 12px; margin-top: 14px; font-size: 13px; color: #7dd3fc; line-height: 1.5; }
+    
+    .nav-btns { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+    .btn-action { background: #334155; color: #fff; border: none; padding: 10px 16px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 13px; text-align: center; }
+    .btn-action:hover { opacity: 0.9; }
+    .btn-blue { background: #2563eb; }
+    .btn-purple { background: #7c3aed; }
+    .btn-danger { background: #ef4444; }
+    .btn-green { background: #22c55e; }
+
+    .ai-btn-group { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; border-top: 1px dashed #38bdf8; padding-top: 12px; }
+    .ai-link-btn { border: none; color: #fff; padding: 8px 14px; border-radius: 6px; font-size: 12px; cursor: pointer; font-weight: bold; transition: 0.2s; display: inline-flex; align-items: center; gap: 5px; }
+    .ai-link-btn:hover { opacity: 0.85; transform: scale(1.02); }
+    .btn-gemini { background: #4285f4; }
+    .btn-chatgpt { background: #10a37f; }
+    .btn-perplexity { background: #22b8cf; }
+    .btn-google { background: #ea4335; }
+
+    .result-box { text-align: center; padding: 25px; background: #1e293b; border-radius: 16px; margin-top: 10px; border: 1px solid rgba(0, 242, 254, 0.3); display: flex; flex-direction: column; align-items: center; }
+    .score-circle { width: 130px; height: 130px; border-radius: 50%; background: conic-gradient(#10b981 0deg, #0f172a 0deg); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 15px auto; border: 4px solid #38bdf8; box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); }
+    .score-num { font-size: 30px; color: #f8fafc; font-weight: bold; }
+    
+    .result-stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; width: 100%; max-width: 400px; }
+    .stat-pill { background: #0f172a; border-radius: 12px; padding: 10px; border: 1px solid #334155; text-align: center; }
+    .stat-pill.gold { border-color: #fbbf24; }
+    .stat-pill.blue { border-color: #38bdf8; }
+    .stat-pill.red { border-color: #ef4444; }
+
+    .footer-badge { text-align: center; font-size: 11px; color: #38bdf8; margin-top: 15px; font-weight: bold; letter-spacing: 0.5px; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <!-- 🔒 Security Authentication Verification Check -->
+  <script>
+      if (localStorage.getItem('tiger_auth_passed') !== 'true') {
+          alert("⚠ பாதுகாப்பு எச்சரிக்கை: நீங்கள் Tiger Warriors போர்ட்டலில் லாகின் செய்யவில்லை! முதலில் மெயின் போர்ட்டலில் லாகின் செய்யவும்.");
+          window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html"); 
+      }
+  </script>
+
+  <div id="testView">
+    <div class="test-header">
+      <div>
+        <h3 style="color: #38bdf8; font-size: 15px;" id="headerTitle">🐅 TIGER WARRIORS - காட்சிக் காரணியியல் & சிலாகிசம் (30 வினாக்கள்)</h3>
+        <span style="font-size: 11px; color: #94a3b8;">TNPSC / 1 / 2 / 2A / 4 • REASONING UNIT</span>
+      </div>
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <button class="lang-btn" onclick="toggleLanguage()" id="langBtn">🌐 English</button>
+        <div class="timer" id="timerBox">⏱️ 45:00</div>
+        <button class="btn-action btn-purple" id="backToResultBtn" onclick="returnToResult()" style="display: none; padding: 6px 12px; font-size: 12px;">📊 ரிசல்ட் செல்</button>
+        <button class="btn-action btn-danger" id="dashFromKeyBtn" onclick="returnToDashboard()" style="display: none; padding: 6px 12px; font-size: 12px;">🏠 முகப்பு</button>
+      </div>
+    </div>
+
+    <div class="q-grid" id="questionGrid"></div>
+
+    <div class="q-box">
+      <div id="qTitle" class="q-text"></div>
+      <div id="optionsBox"></div>
+      <div id="expBox" class="explanation-box" style="display: none;"></div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn-action" id="prevBtn" onclick="navigateNumberQuery(-1)">⬅️ முந்தையது</button>
+      <button class="btn-action" id="clearBtn" onclick="clearChoice()">🧹 விடையை நீக்கு</button>
+      <button class="btn-action btn-blue" id="nextBtn" onclick="navigateNumberQuery(1)">அடுத்து ➡️</button>
+      <button class="btn-action btn-danger" id="finalSubmitBtn" onclick="submitTest()">✅ தேர்வைச் சமர்ப்பிக்க (Submit)</button>
+    </div>
+  </div>
+
+  <div id="resultView" style="display: none;">
+    <h2 style="color: #38bdf8; text-align: center; margin-bottom: 10px;" id="resHeader">🏆 தேர்வு முடிவுகள் (Test Results) 🎯</h2>
+    <div class="result-box">
+      <div class="score-circle" id="scoreCircle">
+        <div class="score-num" id="scoreDisplay">0/30</div>
+        <span id="percentageDisplay" style="font-size: 11px; color: #fbbf24;">0%</span>
+      </div>
+
+      <div class="result-stats-grid">
+        <div class="stat-pill gold">
+          <h3 id="correctCnt" style="color: #10b981; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;" id="lblCorrect">சரியானது ✅</span>
+        </div>
+        <div class="stat-pill red">
+          <h3 id="wrongCnt" style="color: #ef4444; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;" id="lblWrong">தவறானது ❌</span>
+        </div>
+        <div class="stat-pill blue">
+          <h3 id="unansCnt" style="color: #f59e0b; font-size: 18px;">0</h3>
+          <span style="font-size: 11px; color: #cbd5e1;" id="lblUnans">விடையில்லை ⚠️</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
+      <button class="btn-action btn-blue" onclick="reviewAnswerKey()" id="btnKey">🔍 விடை குறிப்பு & விளக்கம்</button>
+      <button class="btn-action btn-purple" onclick="returnToDashboard()" id="btnDash">🏠 முகப்புப் பக்கம்</button>
+      <button class="btn-action btn-green" onclick="retakeTest()" id="btnRetake">🔄 மீண்டும் தேர்வு</button>
+      <button class="btn-action btn-danger" onclick="exitPortal()" id="btnExit">🚪 வெளியேறு</button>
+    </div>
+    <div class="footer-badge" style="margin-top: 20px;">🐅 டைகர் வாரியர் போர்டல் - இயக்குநர்: Dr. K. மணிகாசி 🐅</div>
+  </div>
+</div>
+
+<script>
+  let currentLang = 'ta';
+
+  const questionsData = [
+    {
+      q_ta: "1. 👁️ சில கூற்றுகள் கொடுக்கப்பட்டுள்ளன:\nகூற்றுகள்: அனைத்துப் பூக்களும் மரங்கள். சில மரங்கள் பறவைகள்.\nமுடிவுகள்: I. சில பூக்கள் பறவைகள். II. சில மரங்கள் பூக்கள்.\nஎந்த முடிவு சரியானது?\n[TNPSC Group 4 - PYQ]",
+      q_en: "1. 👁️ Statements: All flowers are trees. Some trees are birds.\nConclusions: I. Some flowers are birds. II. Some trees are flowers.\nWhich conclusion is correct?\n[TNPSC Group 4 - PYQ]",
+      o: ["a) முடிவு II மட்டும் சரியானது (Only II follows)", "b) முடிவு I மட்டும் சரியானது", "c) இரண்டும் சரியானது", "d) இரண்டும் தவறானது"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>வென் வரைபட முறையில் ⭕: அனைத்துப் பூக்களும் (F) மரங்களுக்குள் (T) அடங்கும். சில மரங்கள் பறவைகள் (B). எனவே முடிவு I உறுதியாகக் கூற முடியாது, ஆனால் அனைத்துப் பூக்களும் மரங்கள் என்பதால் சில மரங்கள் பூக்கள் ஆகும் (முடிவு II மட்டும் சரியானது) ✅.",
+      exp_en: "<b>Explanation:</b><br>Venn diagram analysis shows conclusion II definitely follows ✅."
+    },
+    {
+      q_ta: "2. 🔄 கொடுக்கப்பட்ட உருவத்தில் உள்ள முக்கோணங்களின் எண்ணிக்கையைக் காண்க (Visual Counting).\n[TNPSC Group 2 - PYQ]",
+      q_en: "2. 🔄 Find the number of triangles in the given figure.\n[TNPSC Group 2 - PYQ]",
+      o: ["a) 12", "b) 16", "c) 14", "d) 18"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>வழக்கமான வடிவக் கணிப்பு முறையில் அடிப்படை முக்கோணங்கள் மற்றும் இணைக்கப்பட்ட பகுதிகளைக் கணக்கிடும்போது மொத்தம் 12 முக்கோணங்கள் அமைகின்றன 🔺.",
+      exp_en: "<b>Explanation:</b><br>Counting base triangles and combined sections yields 12 triangles 🔺."
+    },
+    {
+      q_ta: "3. 👁️ கூற்றுகள்: அனைத்துப் பேனாக்களும் புத்தகங்கள். அனைத்துப் புத்தகங்களும் பெட்டிகள்.\nமுடிவுகள்: I. அனைத்துப் பேனாக்களும் பெட்டிகள். II. சில பெட்டிகள் பேனாக்கள்.\n[TNPSC Group 1 - PYQ]",
+      q_en: "3. 👁️ Statements: All pens are books. All books are boxes.\nConclusions: I. All pens are boxes. II. Some boxes are pens.\n[TNPSC Group 1 - PYQ]",
+      o: ["a) இரண்டும் சரியாகும் (Both I and II follow)", "b) முடிவு I மட்டும்", "c) முடிவு II மட்டும்", "d) இரண்டும் தவறு"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>பேனாக்கள் $\\subset$ புத்தகங்கள் $\\subset$ பெட்டிகள். எனவே அனைத்துப் பேனாக்களும் பெட்டிகளே மற்றும் சில பெட்டிகள் பேனாக்களே. இரண்டும் சரியாகும் ✅.",
+      exp_en: "<b>Explanation:</b><br>Nested Venn diagram shows both conclusions logically follow ✅."
+    },
+    {
+      q_ta: "4. 🪞 ஆங்கில எழுத்து 'N'-ன் கண்ணாடி பிம்பம் (Mirror Image) எவ்வாறு இருக்கும்?\n[TNPSC Group 2A - PYQ]",
+      q_en: "4. 🪞 What is the mirror image of the English capital letter 'N'?\n[TNPSC Group 2A - PYQ]",
+      o: ["a) தலைகீழாக மடிக்கப்பட்ட N / சரியான பிம்ப வடிவம்", "b) Z", "c) M", "d) H"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>கண்ணாடி பிம்பத்தில் இடது வலமாக மாறும். 'N' எழுத்தின் கண்ணாடி வடிவம் அதன் பக்கவாட்டுத் திருப்புதலுடன் அமையும் 🪞.",
+      exp_en: "<b>Explanation:</b><br>Lateral inversion of 'N' yields its exact reflected mirror form 🪞."
+    },
+    {
+      q_ta: "5. ⏱️ ஒரு கடிகாரத்தின் நேரத்தை முகப்புடன் காட்டும் கண்ணாடி பிம்ப வினாக்களில், நேரக் கணக்கீட்டின் அடிப்படை எண் என்ன?\n[TNPSC CCSE - PYQ]",
+      q_en: "5. ⏱️ What is the base subtraction time for calculating mirror images in clock reasoning?\n[TNPSC CCSE - PYQ]",
+      o: ["a) 11:60", "b) 12:00", "c) 24:00", "d) 6:30"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>கண்ணாடி பிம்ப நேரத்தைக் காண 11:60 (அல்லது 12:00) இலிருந்து கொடுக்கப்பட்ட நேரத்தைக் கழிக்க வேண்டும் 🪞.",
+      exp_en: "<b>Explanation:</b><br>Mirror image calculation standard base is 11:60 🪞."
+    },
+    {
+      q_ta: "6. 👁️ கூற்றுகள்: சில கார்கள் பேருந்துகள். சில பேருந்துகள் ரயில்கள்.\nமுடிவுகள்: I. சில கார்கள் ரயில்கள். II. எந்தக் காரும் ரயில் அல்ல.\n[TNPSC Group 4 - PYQ]",
+      q_en: "6. 👁️ Statements: Some cars are buses. Some buses are trains.\nConclusions: I. Some cars are trains. II. No car is train.\n[TNPSC Group 4 - PYQ]",
+      o: ["a) either I or II சரியாகும் (Either I or II follows)", "b) இரண்டும் தவறு", "c) இரண்டும் சரி", "d) முடிவு I மட்டும்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>இது 'சில' மற்றும் 'இல்லை' என்ற நிரப்பு ஜோடி (Complementary Pair). எனவே ஒன்று I அல்லது II சரியாகும் ⚖️.",
+      exp_en: "<b>Explanation:</b><br>Complementary pair (Some + No) gives 'Either I or II' ⚖️."
+    },
+    {
+      q_ta: "7. 🔄 ஒரு காகித மடிப்பு மற்றும் துளை இடும் வினாக்களில் (Paper Folding & Punching), காகிதத்தை விரிக்கும் போது தோன்றும் சமச்சீர் வடிவம் என்ன?\n[TNPSC Group 1 - PYQ]",
+      q_en: "7. 🔄 In paper folding and punching, what symmetrical pattern appears when unfolded?\n[TNPSC Group 1 - PYQ]",
+      o: ["a) கண்ணாடி மற்றும் நீர் சமச்சீர் வடிவம் (Symmetrical mirror pattern)", "b) சீரற்ற வடிவம்", "c) சதுரம் மட்டும்", "d) கோடுகள்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>மடிப்பு அச்சுகளின்படி துளைகள் சமச்சீராகப் பிரதிபலிக்கும் 🔄.",
+      exp_en: "<b>Explanation:</b><br>Holes reflect symmetrically across the fold axes 🔄."
+    },
+    {
+      q_ta: "8. 👁️ கூற்றுகள்: அனைத்துப் பேனாக்களும் பென்சில்கள். சில பென்சில்கள் வண்ணங்கள்.\nமுடிவுகள்: I. சில பேனாக்கள் வண்ணங்கள். II. சில வண்ணங்கள் பென்சில்கள்.\n[TNPSC Group 2 - PYQ]",
+      q_en: "8. 👁️ Statements: All pens are pencils. Some pencils are colors.\nConclusions: I. Some pens are colors. II. Some colors are pencils.\n[TNPSC Group 2 - PYQ]",
+      o: ["a) முடிவு II மட்டும் சரியானது (Only II follows)", "b) முடிவு I மட்டும்", "c) இரண்டும் சரி", "d) இரண்டும் தவறு"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>பேனாவுக்கும் வண்ணங்களுக்கும் நேரடித் தொடர்பு உறுதியாகக் கூற முடியாது. ஆனால் சில பென்சில்கள் வண்ணங்கள் என்பதால், தலைகீழாக சில வண்ணங்கள் பென்சில்கள் ஆகும் (முடிவு II மட்டும் சரி) ✅.",
+      exp_en: "<b>Explanation:</b><br>Only conclusion II follows directly from the premises ✅."
+    },
+    {
+      q_ta: "9. 🪞 ஆங்கில எழுத்து 'A'-ன் நீர் பிம்பம் (Water Image) எவ்வாறு இருக்கும்?\n[TNPSC Group 4 - PYQ]",
+      q_en: "9. 🪞 What is the water image of the English capital letter 'A'?\n[TNPSC Group 4 - PYQ]",
+      o: ["a) தலைகீழான 'A' வடிவம் (Inverted A)", "b) மாறாது", "c) V வடிவம்", "d) W வடிவம்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>நீர் பிம்பத்தில் மேல் கீழ் மாறும். 'A' எழுத்து தலைகீழாக மாறி வரியின்றி அமையும் 🌊.",
+      exp_en: "<b>Explanation:</b><br>Water image inverts top and bottom, making 'A' look upside down 🌊."
+    },
+    {
+      q_ta: "10. 👁️ கூற்றுகள்: அனைத்து மாணவர்களும் திறமையானவர்கள். ராம் ஒரு மாணவன்.\nமுடிவுகள்: I. ராம் திறமையானவன். II. அனைத்துத் திறமையானவர்களும் மாணவர்கள்.\n[TNPSC Group 2A - PYQ]",
+      q_en: "10. 👁️ Statements: All students are smart. Ram is a student.\nConclusions: I. Ram is smart. II. All smart people are students.\n[TNPSC Group 2A - PYQ]",
+      o: ["a) முடிவு I மட்டும் சரியானது (Only I follows)", "b) முடிவு II மட்டும்", "c) இரண்டும் சரி", "d) இரண்டும் தவறு"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>அனைத்து மாணவர்களும் திறமையானவர்கள், ராம் ஒரு மாணவன் என்பதால் ராம் திறமையானவன் (முடிவு I சரி). ஆனால் மறுதலை உறுதியாகக் கூற முடியாது ✅.",
+      exp_en: "<b>Explanation:</b><br>Conclusion I directly follows. Conclusion II is a converse fallacy ✅."
+    },
+    {
+      q_ta: "11. 🔄 கொடுக்கப்பட்ட வென் வரைபடத்தில் (Venn Diagram) மருத்துவர்கள், ஆசிரியர்கள் மற்றும் மனிதர்கள் இடையேயான சரியான தொடர்பைக் காண்க.\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "11. 🔄 Find the correct Venn diagram representing Doctors, Teachers, and Humans.\n[Expected Question - Group 4]",
+      o: ["a) மூன்று வட்டங்களும் வெட்டும் பொதுவான பெரிய வட்டத்திற்குள் மனிதர்கள் இருக்கும் அமைப்பு", "b) தனித்தனி வட்டங்கள்", "c) ஒன்றுக்குள் ஒன்று", "d) இணை வட்டங்கள்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>மருத்துவர்களும் ஆசிரியர்களும் மனிதர்களே. சில மருத்துவர்கள் ஆசிரியர்களாகவும் இருக்க வாய்ப்புள்ளது. எனவே வெட்டும் வட்டங்கள் மனிதர்களுக்குள் அடங்கும் ⭕.",
+      exp_en: "<b>Explanation:</b><br>Doctors and teachers are subset humans and can overlap mutually ⭕."
+    },
+    {
+      q_ta: "12. 👁️ கூற்றுகள்: சில விமானங்கள் பறவைகள். அனைத்துப் பறவைகளும் மேகங்கள்.\nமுடிவுகள்: I. சில விமானங்கள் மேகங்கள். II. சில மேகங்கள் விமானங்கள்.\n[எதிர்பார்க்கப்படும் வினா - Group 2/4]",
+      q_en: "12. 👁️ Statements: Some aeroplanes are birds. All birds are clouds.\nConclusions: I. Some aeroplanes are clouds. II. Some clouds are aeroplanes.\n[Expected Question - Group 2/4]",
+      o: ["a) இரண்டும் சரியாகும் (Both I and II follow)", "b) முடிவு I மட்டும்", "c) முடிவு II மட்டும்", "d) இரண்டும் தவறு"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>சில விமானங்கள் பறவைகள் மற்றும் அனைத்துப் பறவைகளும் மேகங்கள் என்பதால், சில விமானங்கள் மேகங்களாகும் மற்றும் அதன் மறுதலையும் சரியாகும் ✅.",
+      exp_en: "<b>Explanation:</b><br>Both conclusions logically follow from the syllogism rules ✅."
+    },
+    {
+      q_ta: "13. 🪞 ஒரு கடிகாரத்தில் நேரம் 4:40 எனில், அதன் நீர் பிம்ப நேரம் (Water Image) என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "13. 🪞 What is the water image time for a clock showing 4:40?\n[Expected Question - Group 4]",
+      o: ["a) 2:50", "b) 1:50", "c) 3:40", "d) 2:40"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>நீர் பிம்ப கணக்கீட்டிற்கு 17:30 அல்லது 18:30 இலிருந்து கழிக்க வேண்டும் 🌊: $18:30 - 4:40 \\rightarrow 17:90 - 4:40 = 2:50$ ⏰.",
+      exp_en: "<b>Explanation:</b><br>Subtracting from 18:30 (or 17:90) gives 2:50 🌊."
+    },
+    {
+      q_ta: "14. 👁️ கூற்றுகள்: எந்தப் பூவும் பழம் அல்ல. அனைத்துப் பழங்களும் மரங்கள்.\nமுடிவுகள்: I. சில மரங்கள் பூக்கள் அல்ல. II. சில மரங்கள் பழங்கள்.\n[எதிர்பார்க்கப்படும் வினா - Group 2/2A]",
+      q_en: "14. 👁️ Statements: No flower is fruit. All fruits are trees.\nConclusions: I. Some trees are not flowers. II. Some trees are fruits.\n[Expected Question - Group 2/2A]",
+      o: ["a) இரண்டும் சரியாகும் (Both I and II follow)", "b) முடிவு I மட்டும்", "c) முடிவு II மட்டும்", "d) இரண்டும் தவறு"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>அனைத்துப் பழங்களும் மரங்கள் மற்றும் எந்தப் பழமும் பூ அல்ல என்பதால், மரங்களின் ஒரு பகுதி பூக்களாகாது (முடிவு I சரி). மேலும் சில மரங்கள் பழங்கள் (முடிவு II சரி) ✅.",
+      exp_en: "<b>Explanation:</b><br>Both conclusions are valid based on set intersections ✅."
+    },
+    {
+      q_ta: "15. 🔄 ஒரு பகடையின் விரிந்த வடிவத்தை (Open Dice) மடிக்கும்போது உருவாகும் எதிர் முகப்புகளைக் கண்டறியும் காட்சிச் சோதனையில் மாற்று முகப்பு விதி என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 2/4]",
+      q_en: "15. 🔄 What is the alternate face rule in open dice visual reasoning?\n[Expected Question - Group 2/4]",
+      o: ["a) மாற்று முகப்புகள் எதிரெதிராக அமையும் (Alternate faces are opposite)", "b) பக்கத்து முகப்புகள் எதிரே வரும்", "c) வரிசை முகப்புகள்", "d) மைய முகப்பு"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>திறந்த பகடை வரிசையில் ஒவ்வொரு மாற்று முகப்பும் நேர் எதிரே அமையும் 📦.",
+      exp_en: "<b>Explanation:</b><br>Every alternate face in a row of an open dice is opposite 📦."
+    },
+    {
+      q_ta: "16. 👁️ கூற்றுகள்: சில மேசைகள் நாற்காலிகள். சில நாற்காலிகள் பலகைகள்.\nமுடிவுகள்: I. சில மேசைகள் பலகைகள். II. எந்த மேசையும் பலகை இல்லை.\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "16. 👁️ Statements: Some tables are chairs. Some chairs are boards.\nConclusions: I. Some tables are boards. II. No table is board.\n[Expected Question - Group 4]",
+      o: ["a) either I or II சரியாகும் (Either I or II follows)", "b) இரண்டும் தவறு", "c) இரண்டும் சரி", "d) முடிவு I மட்டும்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>மேசைக்கும் பலகைக்கும் நேரடித் தொடர்பு இல்லை என்றாலும், 'சில' மற்றும் 'இல்லை' என்ற நிரப்பு ஜோடி அமைவதால் Either I or II சரியாகும் ⚖️.",
+      exp_en: "<b>Explanation:</b><br>Complementary pair (Some + No) without direct relation yields Either I or II ⚖️."
+    },
+    {
+      q_ta: "17. 🪞 எண் '5'-ன் கண்ணாடி பிம்பம் (Mirror Image) எவ்வாறு தோன்றும்?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "17. 🪞 How does the mirror image of the digit '5' appear?\n[Expected Question - Group 4]",
+      o: ["a) இடது வலமாகத் திரும்பிய வடிவம் (Inverted horizontally)", "b) தலைகீழாக", "c) மாறாது", "d) 2 போல்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>கண்ணாடி பிம்பத்தில் எண்களும் எழுத்துகளும் பக்கவாட்டில் தலைகீழாகத் திரும்பும் 🪞.",
+      exp_en: "<b>Explanation:</b><br>Mirror reflection inverts numbers horizontally 🪞."
+    },
+    {
+      q_ta: "18. 👁️ கூற்றுகள்: அனைத்துப் பூனைகளும் விலங்குகள். அனைத்து நாய்களும் விலங்குகள்.\nமுடிவுகள்: I. சில பூனைகள் நாய்கள். II. சில விலங்குகள் பூனைகள்.\n[எதிர்பார்க்கப்படும் வினா - Group 1/2]",
+      q_en: "18. 👁️ Statements: All cats are animals. All dogs are animals.\nConclusions: I. Some cats are dogs. II. Some animals are cats.\n[Expected Question - Group 2/4]",
+      o: ["a) முடிவு II மட்டும் சரியானது (Only II follows)", "b) முடிவு I மட்டும்", "c) இரண்டும் சரி", "d) இரண்டும் தவறு"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>பூனைக்கும் நாய்க்கும் நேரடித் தொடர்பு இல்லை (முடிவு I தவறு). ஆனால் அனைத்துப் பூனைகளும் விலங்குகள் என்பதால் சில விலங்குகள் பூனைகளாகும் (முடிவு II சரி) ✅.",
+      exp_en: "<b>Explanation:</b><br>Only conclusion II follows logically ✅."
+    },
+    {
+      q_ta: "19. 🔄 கொடுக்கப்பட்ட படங்களில் மறைந்திருக்கும் வடிவத்தைக் கண்டறிதல் (Embedded Figures) சோதனையில் முக்கியக் குறிப்பு என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 2/4]",
+      q_en: "19. 🔄 What is the key trick in solving embedded figures visual reasoning?\n[Expected Question - Group 2/4]",
+      o: ["a) குறிப்பிட்ட வடிவத்தின் வரிகளை மூலப் படத்தில் துல்லியமாகப் பொருத்துவது", "b) வண்ணங்களை மாற்றுவது", "c) எண்ணிப் பார்ப்பது", "d) பெருக்குவது"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>கேட்கப்பட்ட சிறிய வடிவம் எந்தப் பெரிய படத்தில் முழுமையாகப் பதிந்துள்ளது என உற்றுநோக்கிக் கண்டறிய வேண்டும் 👁️.",
+      exp_en: "<b>Explanation:</b><br>Carefully trace and match the target shape within the options 👁️."
+    },
+    {
+      q_ta: "20. 👁️ கூற்றுகள்: சில புஸ்தகங்கள் இரப்பேஸ்கள். அனைத்து இரப்பேஸ்களும் பேனாக்கள்.\nமுடிவுகள்: I. சில புத்தகங்கள் பேனாக்கள். II. அனைத்துப் பேனாக்களும் புத்தகங்கள்.\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "20. 👁️ Statements: Some books are erasers. All erasers are pens.\nConclusions: I. Some books are pens. II. All pens are books.\n[Expected Question - Group 4]",
+      o: ["a) முடிவு I மட்டும் சரியானது (Only I follows)", "b) முடிவு II மட்டும்", "c) இரண்டும் சரி", "d) இரண்டும் தவறு"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>புத்தகங்களுக்கும் பேனாக்களுக்கும் உள்ள வெட்டும் பகுதி சில புத்தகங்கள் பேனாக்கள் என்பதை உறுதிப்படுத்துகிறது (முடிவு I சரி). முடிவு II உறுதியல்ல ✅.",
+      exp_en: "<b>Explanation:</b><br>Only conclusion I follows from the Venn overlap ✅."
+    },
+    {
+      q_ta: "21. 🪞 வார்த்தை 'TIGER'-ன் கண்ணாடி பிம்பம் (Mirror Image) என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "21. 🪞 What is the mirror image of the word 'TIGER'?\n[Expected Question - Group 4]",
+      o: ["a) 🆂🅴🅶🅸🆃 (REGIT inverted horizontally)", "b) REGIT", "c) TIGER", "d) EGERT"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>வலதுபுறமுள்ள எழுத்து முதலில் இடதுபுறம் தலைகீழாகத் திரும்பிவரும்: R $\\rightarrow$ E $\\rightarrow$ G $\\rightarrow$ I $\\rightarrow$ T 🪞.",
+      exp_en: "<b>Explanation:</b><br>Letters reverse order and invert horizontally from right to left 🪞."
+    },
+    {
+      q_ta: "22. 👁️ கூற்றுகள்: அனைத்து மாம்பழங்களும் கனிகள். சில கனிகள் இனிப்பானவை.\nமுடிவுகள்: I. சில மாம்பழங்கள் இனிப்பானவை. II. சில இனிப்பானவை கனிகள்.\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "22. 👁️ Statements: All mangoes are fruits. Some fruits are sweet.\nConclusions: I. Some mangoes are sweet. II. Some sweet are fruits.\n[Expected Question - Group 4]",
+      o: ["a) முடிவு II மட்டும் சரியானது (Only II follows)", "b) முடிவு I மட்டும்", "c) இரண்டும் சரி", "d) இரண்டும் தவறு"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>மாம்பழத்துக்கும் இனிப்புக்கும் நேரடித் தொடர்பு இல்லை (முடிவு I உறுதியல்ல). ஆனால் சில கனிகள் இனிப்பானவை என்பதால் சில இனிப்பானவை கனிகள் ஆகும் (முடிவு II சரி) ✅.",
+      exp_en: "<b>Explanation:</b><br>Only conclusion II follows directly ✅."
+    },
+    {
+      q_ta: "23. 🔄 ஒரு சதுரத் தாளை மடித்து துளையிட்ட பின் விரிக்கும் போது தோன்றும் சமச்சீர் புள்ளிகளின் எண்ணிக்கை எதை அடிப்படையாகக் கொண்டது?\n[எதிர்பார்க்கப்படும் வினா - Group 2/4]",
+      q_en: "23. 🔄 The number of holes when folded paper is unfolded depends on:\n[Expected Question - Group 2/4]",
+      o: ["a) மடிப்புகளின் எண்ணிக்கை மற்றும் சமச்சீர் அச்சுகள் (Fold count and symmetry axes)", "b) தாளின் நிறம்", "c) மையப்புள்ளி", "d) விளிம்பு நீளம்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>தாள் எத்தனை முறை மடிக்கப்பட்டுள்ளது மற்றும் எத்தனை துளைகள் இடப்பட்டுள்ளன என்பதைப் பொறுத்து அடுக்குகள் பெருகும் 🔄.",
+      exp_en: "<b>Explanation:</b><br>Multiplied symmetrically based on the number of folds 🔄."
+    },
+    {
+      q_ta: "24. 👁️ கூற்றுகள்: எந்தக் கணினியும் தொலைபேசி அல்ல. சில தொலைபேசிகள் கணினிகள் அல்ல (மாற்று வடிவம்).\nமுடிவுகள்: I. எந்தத் தொலைபேசியும் கணினி அல்ல. II. சில கணினிகள் தொலைபேசிகள் அல்ல.\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "24. 👁️ Statements: No computer is phone. Conclusions: I. No phone is computer. II. Some computers are not phones.\n[Expected Question - Group 4]",
+      o: ["a) இரண்டும் சரியாகும் (Both I and II follow)", "b) முடிவு I மட்டும்", "c) முடிவு II மட்டும்", "d) இரண்டும் தவறு"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>எந்தக் கணினியும் தொலைபேசி இல்லை என்றால், எந்தத் தொலைபேசியும் கணினி இல்லை என்பதும், சில கணினிகள் தொலைபேசிகள் அல்ல என்பதும் சரியானதே ✅.",
+      exp_en: "<b>Explanation:</b><br>Both conclusions are logically equivalent and correct ✅."
+    },
+    {
+      q_ta: "25. 🪞 கொடுக்கப்பட்ட கடிகார நேரம் 3:15 எனில், அதன் கண்ணாடி பிம்பம் என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 1/2]",
+      q_en: "25. 🪞 Find the mirror image of clock time 3:15.\n[Expected Question - Group 1/2]",
+      o: ["a) 8:45", "b) 9:15", "c) 8:15", "d) 9:45"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>$11:60 - 3:15 = 8:45$ 🪞.",
+      exp_en: "<b>Explanation:</b><br>$11:60 - 3:15 = 8:45$ 🪞."
+    },
+    {
+      q_ta: "26. 👁️ கூற்றுகள்: சில ரோஜாக்கள் சிவப்பானவை. அனைத்துச் சிவப்பானவைகளும் அழகியவை.\nமுடிவுகள்: I. சில ரோஜாக்கள் அழகியவை. II. அனைத்து அழகியவைகளும் ரோஜாக்கள்.\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "26. 👁️ Statements: Some roses are red. All reds are beautiful.\nConclusions: I. Some roses are beautiful. II. All beautiful are roses.\n[Expected Question - Group 4]",
+      o: ["a) முடிவு I மட்டும் சரியானது (Only I follows)", "b) முடிவு II மட்டும்", "c) இரண்டும் சரி", "d) இரண்டும் தவறு"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>சில ரோஜாக்கள் சிவப்பு மற்றும் அந்தச் சிவப்பு பகுதிகள் அழகியவை என்பதால் சில ரோஜாக்கள் அழகியவை (முடிவு I சரி). முடிவு II உறுதியல்ல ✅.",
+      exp_en: "<b>Explanation:</b><br>Only conclusion I logically follows ✅."
+    },
+    {
+      q_ta: "27. 🔄 வடிவ ஒத்திசைவு (Pattern Completion) சோதனைகளில் விடுபட்ட பகுதியைத் கண்டறிய எந்த முறை உதவும்?\n[எதிர்பார்க்கப்படும் வினா - Group 2/4]",
+      q_en: "27. 🔄 Which method helps solve pattern completion visual questions?\n[Expected Question - Group 2/4]",
+      o: ["a) சமச்சீர் மற்றும் வடிவியல் தொடர்ச்சி (Symmetry and geometric continuation)", "b) நிற மாற்றம்", "c) எழுத்து ஆய்வு", "d) எண்கணிதம்"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>படத்தின் மீதமுள்ள பகுதிகளின் சமச்சீர் தன்மையை ஒப்பிட்டு விடுபட்ட பகுதியைத் துல்லியமாக அடையாளம் காணலாம் 👁️.",
+      exp_en: "<b>Explanation:</b><br>Matching the symmetry of surrounding quadrants completes the pattern 👁️."
+    },
+    {
+      q_ta: "28. 👁️ கூற்றுகள்: அனைத்துப் பறவைகளும் விலங்குகள். எந்த விலங்கும் மீன் அல்ல.\nமுடிவுகள்: I. எந்தப் பறவையும் மீன் அல்ல. II. சில விலங்குகள் பறவைகள்.\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "28. 👁️ Statements: All birds are animals. No animal is fish.\nConclusions: I. No bird is fish. II. Some animals are birds.\n[Expected Question - Group 4]",
+      o: ["a) இரண்டும் சரியாகும் (Both I and II follow)", "b) முடிவு I மட்டும்", "c) முடிவு II மட்டும்", "d) இரண்டும் தவறு"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>பறவைகள் விலங்குகளுக்குள் அடங்குவதால், விலங்குகளுக்கே மீனுடன் தொடர்பில்லாதபோது பறவைகளுக்கும் மீனுடன் தொடர்பு இருக்காது (முடிவு I சரி). மேலும் சில விலங்குகள் பறவைகள் என்பதும் சரி (முடிவு II சரி) ✅.",
+      exp_en: "<b>Explanation:</b><br>Both conclusions directly follow from the statements ✅."
+    },
+    {
+      q_ta: "29. 🪞 ஒரு குறிப்பிட்ட கடிகாரத்தின் பிரதிபலிப்பு நேரம் 7:35 எனில், உண்மையான நேரம் என்ன?\n[எதிர்பார்க்கப்படும் வினா - Group 1/2]",
+      q_en: "29. 🪞 If the reflected mirror time is 7:35, what is the actual time?\n[Expected Question - Group 1/2]",
+      o: ["a) 4:25", "b) 5:25", "c) 4:35", "d) 5:35"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>$11:60 - 7:35 = 4:25$ 🪞.",
+      exp_en: "<b>Explanation:</b><br>$11:60 - 7:35 = 4:25$ 🪞."
+    },
+    {
+      q_ta: "30. 👁️ சிலாகிசம் (Syllogism) விதிகளின்படி 'சில A என்பவை B' மற்றும் 'அனைத்து B என்பவை C' எனில், கீழ் வருவனவற்றில் எது உறுதியானது?\n[எதிர்பார்க்கப்படும் வினா - Group 4]",
+      q_en: "30. 👁️ According to syllogism rules, if 'Some A are B' and 'All B are C', which is certain?\n[Expected Question - Group 4]",
+      o: ["a) சில A என்பவை C ஆகும் (Some A are C)", "b) அனைத்து A-ம் C", "c) எந்த A-ம் C அல்ல", "d) சில C என்பவை A அல்ல"],
+      a: 0,
+      exp_ta: "<b>விளக்கம்:</b><br>சில A-கள் B-களாகவும், அனைத்து B-களும் C-களாகவும் இருப்பதால், அந்தப் பொதுவான பகுதி மூலமாக சில A என்பவை C ஆகும் என்பது உறுதியாகும் ✅.",
+      exp_en: "<b>Explanation:</b><br>The overlapping intersection guarantees that 'Some A are C' ✅."
+    }
+  ];
+
+  let currentQuestion = 0;
+  let userAnswers = new Array(questionsData.length).fill(null);
+  let isReviewMode = false;
+  let timerInterval;
+  let timeLeft = 45 * 60;
+
+  function toggleLanguage() {
+    currentLang = currentLang === 'ta' ? 'en' : 'ta';
+    document.getElementById('langBtn').innerText = currentLang === 'ta' ? '🌐 English' : '🌐 தமிழ்';
+    updateLanguageTexts();
+    loadQuestion(currentQuestion);
+  }
+
+  function updateLanguageTexts() {
+    if(currentLang === 'en') {
+      document.getElementById('headerTitle').innerText = "🐅 TIGER WARRIORS - Visual Reasoning & Syllogism (30 Q)";
+      document.getElementById('prevBtn').innerText = "⬅️ Previous";
+      document.getElementById('clearBtn').innerText = "🧹 Clear Choice";
+      document.getElementById('nextBtn').innerText = "Next ➡️";
+      document.getElementById('finalSubmitBtn').innerText = "✅ Submit Test";
+      document.getElementById('resHeader').innerText = "🏆 Test Results 🎯";
+      document.getElementById('lblCorrect').innerText = "Correct ✅";
+      document.getElementById('lblWrong').innerText = "Wrong ❌";
+      document.getElementById('lblUnans').innerText = "Unanswered ⚠️";
+      document.getElementById('btnKey').innerText = "🔍 Answer Key";
+      document.getElementById('btnDash').innerText = "🏠 Dashboard";
+      document.getElementById('btnRetake').innerText = "🔄 Retake Test";
+      document.getElementById('btnExit').innerText = "🚪 Exit";
+    } else {
+      document.getElementById('headerTitle').innerText = "🐅 TIGER WARRIORS - காட்சிக் காரணியியல் & சிலாகிசம் (30 வினாக்கள்)";
+      document.getElementById('prevBtn').innerText = "⬅️ முந்தையது";
+      document.getElementById('clearBtn').innerText = "🧹 விடையை நீக்கு";
+      document.getElementById('nextBtn').innerText = "அடுத்து ➡️";
+      document.getElementById('finalSubmitBtn').innerText = "✅ தேர்வைச் சமர்ப்பிக்க (Submit)";
+      document.getElementById('resHeader').innerText = "🏆 தேர்வு முடிவுகள் (Test Results) 🎯";
+      document.getElementById('lblCorrect').innerText = "சரியானது ✅";
+      document.getElementById('lblWrong').innerText = "தவறானது ❌";
+      document.getElementById('lblUnans').innerText = "விடையில்லை ⚠️";
+      document.getElementById('btnKey').innerText = "🔍 விடை குறிப்பு & விளக்கம்";
+      document.getElementById('btnDash').innerText = "🏠 முகப்புப் பக்கம்";
+      document.getElementById('btnRetake').innerText = "🔄 மீண்டும் தேர்வு";
+      document.getElementById('btnExit').innerText = "🚪 வெளியேறு";
+    }
+  }
+
+  function initTest() {
+    buildGrid();
+    loadQuestion(0);
+    startTimer();
+  }
+
+  function buildGrid() {
+    const grid = document.getElementById('questionGrid');
+    grid.innerHTML = '';
+    questionsData.forEach((_, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'q-num-btn';
+      btn.innerText = idx + 1;
+      btn.id = `q_btn_${idx}`;
+      btn.onclick = () => jumpToQuestion(idx);
+      grid.appendChild(btn);
+    });
+    updateGridStatus();
+  }
+
+  function updateGridStatus() {
+    questionsData.forEach((_, idx) => {
+      const btn = document.getElementById(`q_btn_${idx}`);
+      if(!btn) return;
+      btn.className = 'q-num-btn';
+      if(idx === currentQuestion) {
+        btn.classList.add('active');
+      } else if(userAnswers[idx] !== null) {
+        btn.classList.add('answered');
+      }
+    });
+  }
+
+  function searchInAI(provider, questionIdx) {
+    const q = questionsData[questionIdx];
+    const questionText = (currentLang === 'ta' ? q.q_ta : q.q_en).replace(/<[^>]*>?/gm, '');
+    const optionsText = q.o.join(", ");
+    const fullQuery = encodeURIComponent(`Explain this TNPSC Visual Reasoning & Syllogism question step by step:\n${questionText}\nOptions: ${optionsText}`);
+    
+    let targetUrl = "";
+    if (provider === 'chatgpt') {
+      targetUrl = `https://chatgpt.com/?q=${fullQuery}`;
+    } else if (provider === 'gemini') {
+      targetUrl = `https://gemini.google.com/app`;
+    } else if (provider === 'perplexity') {
+      targetUrl = `https://www.perplexity.ai/?q=${fullQuery}`;
+    } else if (provider === 'google') {
+      targetUrl = `https://www.google.com/search?q=${fullQuery}`;
+    }
+
+    window.open(targetUrl, '_blank');
+  }
+
+  function loadQuestion(idx) {
+    currentQuestion = idx;
+    const q = questionsData[idx];
+    document.getElementById('qTitle').innerText = currentLang === 'ta' ? q.q_ta : q.q_en;
+    
+    const optsBox = document.getElementById('optionsBox');
+    optsBox.innerHTML = '';
+
+    q.o.forEach((optText, oIdx) => {
+      const card = document.createElement('div');
+      card.className = 'option-card';
+      
+      if(userAnswers[idx] === oIdx) {
+        card.classList.add('selected');
+      }
+
+      if(isReviewMode) {
+        if(oIdx === q.a) {
+          card.classList.add('correct-ans');
+        } else if(userAnswers[idx] === oIdx && oIdx !== q.a) {
+          card.classList.add('wrong-ans');
+        }
+      }
+
+      card.innerHTML = `<span><b>${String.fromCharCode(65 + oIdx)}.</b> ${optText}</span>`;
+      card.onclick = () => selectOption(oIdx);
+      optsBox.appendChild(card);
+    });
+
+    const expBox = document.getElementById('expBox');
+    if(isReviewMode) {
+      expBox.style.display = 'block';
+      let baseExp = currentLang === 'ta' ? q.exp_ta : q.exp_en;
+      
+      expBox.innerHTML = `
+        <div style="font-size: 14px; margin-bottom: 8px;">${baseExp}</div>
+        <div style="font-size: 12px; color: #fbbf24; margin-top: 10px; font-weight: bold;">🤖 AI Link Buttons (Opens in New Tab):</div>
+        <div class="ai-btn-group">
+          <button class="ai-link-btn btn-chatgpt" onclick="searchInAI('chatgpt', ${idx})">🟢 ChatGPT</button>
+          <button class="ai-link-btn btn-gemini" onclick="searchInAI('gemini', ${idx})">✨ Gemini AI</button>
+          <button class="ai-link-btn btn-perplexity" onclick="searchInAI('perplexity', ${idx})">🔵 Perplexity</button>
+          <button class="ai-link-btn btn-google" onclick="searchInAI('google', ${idx})">🔍 Google Search</button>
+        </div>
+      `;
+    } else {
+      expBox.style.display = 'none';
+    }
+
+    document.getElementById('prevBtn').style.display = idx === 0 ? 'none' : 'block';
+    document.getElementById('nextBtn').style.display = idx === questionsData.length - 1 ? 'none' : 'block';
+    updateGridStatus();
+  }
+
+  function selectOption(oIdx) {
+    if(isReviewMode) return;
+    userAnswers[currentQuestion] = oIdx;
+    loadQuestion(currentQuestion);
+  }
+
+  function clearChoice() {
+    if(isReviewMode) return;
+    userAnswers[currentQuestion] = null;
+    loadQuestion(currentQuestion);
+  }
+
+  function navigateNumberQuery(dir) {
+    const postNext = currentQuestion + dir;
+    if(postNext >= 0 && postNext < questionsData.length) {
+      loadQuestion(postNext);
+    }
+  }
+
+  function jumpToQuestion(idx) {
+    loadQuestion(idx);
+  }
+
+  function startTimer() {
+    if (timerInterval) clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+      timeLeft--;
+      let m = Math.floor(timeLeft / 60);
+      let s = timeLeft % 60;
+      const timerElem = document.getElementById('timerBox');
+      if(timerElem) {
+        timerElem.innerText = `⏱️ ${m}:${s < 10 ? '0' : ''}${s}`;
+      }
+      if(timeLeft <= 0) {
+        clearInterval(timerInterval);
+        submitTest();
+      }
+    }, 1000);
+  }
+
+  function submitTest() {
+    if (timerInterval) clearInterval(timerInterval);
+    document.getElementById('testView').style.display = 'none';
+    document.getElementById('resultView').style.display = 'block';
+
+    let correct = 0, wrong = 0, unans = 0;
+    userAnswers.forEach((ans, idx) => {
+      if(ans === null) unans++;
+      else if(ans === questionsData[idx].a) correct++;
+      else wrong++;
+    });
+
+    document.getElementById('scoreDisplay').innerText = `${correct} / ${questionsData.length}`;
+    let pct = ((correct / questionsData.length) * 100).toFixed(1);
+    document.getElementById('percentageDisplay').innerText = `${currentLang === 'ta' ? 'சதவீதம்' : 'Percentage'}: ${pct}%`;
+    document.getElementById('correctCnt').innerText = correct;
+    document.getElementById('wrongCnt').innerText = wrong;
+    document.getElementById('unansCnt').innerText = unans;
+  }
+
+  function reviewAnswerKey() {
+    isReviewMode = true;
+    document.getElementById('resultView').style.display = 'none';
+    document.getElementById('testView').style.display = 'block';
+    document.getElementById('finalSubmitBtn').style.display, 'none';
+    document.getElementById('backToResultBtn').style.display = 'block';
+    document.getElementById('dashFromKeyBtn').style.display = 'block';
+    loadQuestion(0);
+  }
+
+  function returnToResult() {
+    document.getElementById('testView').style.display = 'none';
+    document.getElementById('resultView').style.display = 'block';
+  }
+
+  function returnToDashboard() {
+    window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html"); 
+  }
+
+  function exitPortal() {
+    window.location.replace("https://tigeracadamy.github.io/preperation-hub/index.html");
+  }
+
+  function retakeTest() {
+    userAnswers = new Array(questionsData.length).fill(null);
+    isReviewMode = false;
+    timeLeft = 45 * 60;
+    document.getElementById('resultView').style.display = 'none';
+    document.getElementById('testView').style.display = 'block';
+    document.getElementById('finalSubmitBtn').style.display = 'inline-block';
+    document.getElementById('backToResultBtn').style.display = 'none';
+    document.getElementById('dashFromKeyBtn').style.display = 'none';
+    initTest();
+  }
+
+  window.onload = function() {
+    initTest();
+  }
+</script>
+
+</body>
+</html>
