@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="ta" style="background:#060913;color-scheme:dark;">
 <head>
-<script>const TIGER_WARRIORS_HTML_VERSION = "VTE15-ADMIN-YOUTUBE-LIVE-TOGGLE-FIXED";</script>
+<script>const TIGER_WARRIORS_HTML_VERSION = "VTE21-ADMIN-VAULT-DIRECT-YOUTUBE-PLAYBACK";</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="color-scheme" content="dark">
     <title>Tiger Warriors - Preparation Hub & Eco Tech Lab</title>
-    <script>const TIGER_WARRIORS_HTML_BUILD_TAG = "VTE15-ADMIN-YOUTUBE-LIVE-TOGGLE-FIXED";</script>
+    <script>const TIGER_WARRIORS_HTML_BUILD_TAG = "VTE21-ADMIN-VAULT-DIRECT-YOUTUBE-PLAYBACK";</script>
     <!-- 🌟 PWA Manifest & Theme Integration -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#00f2fe">
@@ -3517,6 +3517,7 @@ input,select,textarea{border-radius:13px!important}
                 <button class="modal-option-btn" onclick="playClickSound(); openSpecificAdmin('rhymes')">🎶 Kids Rhymes (10)</button>
                 <button class="modal-option-btn" onclick="playClickSound(); openSpecificAdmin('science')">🧪 Science Facts (10)</button>
                 <button class="modal-option-btn" onclick="playClickSound(); openSpecificAdmin('ecotech')">🔬 Eco Tech Links (6)</button>
+                <button class="modal-option-btn" onclick="playClickSound(); openSpecificAdmin('videoVault')">🎓 Student Video Vault — YouTube Links (10)</button>
             </div>
             <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:10px; padding:8px;" onclick="playClickSound(); closeAdminMainModal()">Close ❌</button>
         </div>
@@ -6398,6 +6399,39 @@ input,select,textarea{border-radius:13px!important}
                 titleEl.textContent = "🔬 Eco Tech Lab Links";
                 for (let i=0; i<6; i++) { const item = ecoTestsList[i] || {name:`Eco Tech ${i+1}`,url:""}; contentEl.innerHTML += `<div style="display:flex;gap:5px;margin-bottom:6px;"><input type="text" id="admin-eco-name-${i}" value="${String(item.name||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;')}" placeholder="Test name" style="flex:1;"><input type="text" id="admin-eco-url-${i}" value="${String(item.url||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;')}" placeholder="URL" style="flex:1.5;"></div>`; }
                 saveBtn.onclick = () => { playClickSound(); const ecoTestsListUpdated=[]; for(let i=0;i<6;i++) ecoTestsListUpdated.push({name:document.getElementById(`admin-eco-name-${i}`).value,url:document.getElementById(`admin-eco-url-${i}`).value}); sendDataToCloud({type:"ecoTestsList",ecoTestsList:ecoTestsListUpdated},"🔬 Eco Tech links saved!"); };
+            } else if (sectionType === 'videoVault') {
+                titleEl.textContent = "🎓 Student Video Vault — YouTube Links";
+                const vaultDefaults = [
+                    {title:'📖 பொதுத்தமிழ்',url:'https://www.youtube.com/live/JWu9MHaz6y8'},
+                    {title:'🏛️ Unit 8 (History)',url:''},
+                    {title:'🇮🇳 இந்திய பாலிட்டி',url:''},
+                    {title:'📊 கணிதம் & திறனறிவு',url:''},
+                    {title:'🌍 பொருளியல் & புவியியல்',url:''},
+                    {title:'🧪 அறிவியல் (Physics/Chem)',url:''},
+                    {title:'🧬 நீட் (NEET Classes)',url:''},
+                    {title:'🔬 TRB வேதியியல்',url:''},
+                    {title:'📚 TRB தமிழ் துறை',url:''},
+                    {title:'🛡️ காவலர் தேர்வு கிளாஸ்',url:''}
+                ];
+                contentEl.innerHTML = vaultDefaults.map((item,i) => `<div style="border:1px solid rgba(0,242,254,.25);border-radius:8px;padding:8px;margin-bottom:7px"><label>பாடம் ${i+1} பெயர்:</label><input type="text" id="adm-vault-title-${i}" value="${item.title.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;')}" style="margin-bottom:5px;width:100%;box-sizing:border-box"><label>YouTube Live / Video URL:</label><input type="url" id="adm-vault-url-${i}" placeholder="https://www.youtube.com/live/..." value="${item.url.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;')}" style="width:100%;box-sizing:border-box"></div>`).join('');
+                // Load saved links from Firebase without changing existing settings.
+                if (typeof rtdb !== 'undefined' && rtdb) {
+                    rtdb.ref('settings/studentVideoVault').once('value').then(snap => {
+                        const saved = snap.val(); if (!saved) return;
+                        for (let i=0;i<10;i++) { const item = saved[i] || saved[String(i)] || {}; const t=document.getElementById(`adm-vault-title-${i}`); const u=document.getElementById(`adm-vault-url-${i}`); if(t && item.title) t.value=item.title; if(u && item.url) u.value=item.url; }
+                    }).catch(err => console.warn('Video Vault links load failed',err));
+                }
+                saveBtn.onclick = () => {
+                    playClickSound();
+                    if (typeof rtdb === 'undefined' || !rtdb) { showRoyalAlertPopup('🐅 TIGER WARRIORS ALERT','Firebase இணைப்பு கிடைக்கவில்லை. இணையத்தைச் சரிபார்த்து மீண்டும் முயற்சிக்கவும்.'); return; }
+                    const items=[];
+                    for(let i=0;i<10;i++) items.push({title:document.getElementById(`adm-vault-title-${i}`).value.trim(),url:document.getElementById(`adm-vault-url-${i}`).value.trim()});
+                    rtdb.ref('settings/studentVideoVault').set(items).then(() => {
+                        if (typeof showRoyalAlertPopup === 'function') showRoyalAlertPopup('🐅 TIGER WARRIORS','✅ Student Video Vault YouTube links சேமிக்கப்பட்டது!');
+                        if (typeof closeAdminSubModal === 'function') closeAdminSubModal();
+                        if (typeof window.twReloadStudentVideoVault === 'function') window.twReloadStudentVideoVault(items);
+                    }).catch(err => { console.error(err); showRoyalAlertPopup('🐅 TIGER WARRIORS ALERT','❌ சேமிக்க முடியவில்லை. Firebase Database Rules / இணைய இணைப்பைச் சரிபார்க்கவும்.'); });
+                };
             } else if (sectionType === 'chatSettings') {
                 titleEl.textContent = "💬 Live Chat ON/OFF Control";
                 contentEl.innerHTML = `
@@ -7286,6 +7320,7 @@ body.mode-light .twx-exam-tile small,body.mode-light .twx-arena-welcome p{color:
    <div class="twls-actions"><input id="twlsChatInput" maxlength="500" placeholder="செய்தியை எழுதவும்" disabled><button type="button" id="twlsSendChat" disabled>அனுப்பு</button></div>
   </div>
   <p class="twls-note">குறிப்பு: Firebase access permission error வந்தால், அந்தப் பிழையை வைத்து Rules-ஐ பாதுகாப்பாக அமைக்க வேண்டும். Client-side Admin check மட்டும் முழுப் பாதுகாப்பு அல்ல.</p>
+  <div id="twVaultLiveModuleSlot" style="margin-top:14px;padding-top:12px;border-top:1px solid rgba(127,244,255,.28)"></div>
  </section>
 </div>
 <script id="tw-live-step2-addon">
@@ -7671,6 +7706,84 @@ setInterval(syncRoleUI,700);
   };
 })();
 </script>
+
+
+<!-- ADDITIVE MODULE: Student Video Vault Popup -->
+<style id="tw-student-video-vault-style">
+#twVaultLaunch{display:block;width:100%;box-sizing:border-box;background:linear-gradient(135deg,rgba(11,19,38,.97),rgba(4,8,18,.99));border:2px solid #24d477;border-radius:16px;padding:14px;color:#fff;box-shadow:0 0 18px rgba(0,242,254,.14);text-align:center;cursor:pointer;font:inherit;margin:10px 0}
+#twVaultLaunch strong{display:block;color:#fbbf24;font-size:clamp(14px,3.8vw,20px);margin-bottom:5px}
+#twVaultLaunch span{display:block;color:#cbd5e1;font-size:13px}
+#twVaultDialog{display:none;position:fixed;inset:0;z-index:2147483000;box-sizing:border-box;width:100%;height:100%;height:100dvh;max-width:none;max-height:none;margin:0;padding:12px;border:0;border-radius:0;background:rgba(0,0,0,.82);color:#fff;overflow:auto;overscroll-behavior:contain;align-items:center;justify-content:center}
+#twVaultDialog.tw-open{display:flex}
+#twVaultDialog .tw-vault-panel{box-sizing:border-box;width:min(100%,560px);max-height:calc(100dvh - 24px);overflow:auto;background:linear-gradient(135deg,#0b1326,#040812);border:2px solid #24d477;border-radius:18px;padding:14px;box-shadow:0 15px 60px rgba(0,0,0,.65);text-align:center}
+#twVaultDialog h3{color:#fbbf24;font-size:clamp(15px,4vw,20px);margin:2px 38px 6px}
+#twVaultDialog .tw-vault-help{font-size:13px;color:#cbd5e1;margin:0 0 8px}
+#twVaultDialog .tw-vault-close{float:right;width:36px;height:36px;border:1px solid #64748b;border-radius:50%;background:#ef4444;color:white;font-size:22px;font-weight:bold;cursor:pointer}
+#twVaultDialog .tw-student-vault-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:10px 0;padding:0 2px}
+#twVaultDialog .tw-vault-cat{min-height:60px;background:linear-gradient(135deg,rgba(0,242,254,.15),rgba(37,99,235,.4));border:1px solid rgba(0,242,254,.4);color:#fff;padding:10px 7px;border-radius:12px;font-size:clamp(11px,3vw,14px);font-weight:900;cursor:pointer;text-align:center;overflow-wrap:anywhere}
+#twVaultDialog .tw-vault-cat.active{background:#00f2fe;color:#000;border-color:#fff}
+#twVaultDialog .tw-vault-playing{font-size:12px;color:#fbbf24;margin-top:8px}
+#twVaultDialog .tw-vault-player{position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:10px;overflow:hidden;border:1px solid rgba(0,242,254,.3);margin-top:10px;display:none}
+#twVaultDialog .tw-vault-player iframe{width:100%;height:100%;border:0}
+@media(max-width:360px){#twVaultDialog{padding:6px}#twVaultDialog .tw-vault-panel{max-height:calc(100dvh - 12px);padding:10px}}
+</style>
+<button type="button" id="twVaultLaunch" aria-haspopup="dialog" aria-controls="twVaultDialog">
+  <strong>🎓 STUDENT VIDEO VAULT</strong>
+  <span>உங்களுக்குத் தேவையான பாடத்தைத் தேர்ந்தெடுக்க இங்கே தொடவும்</span>
+</button>
+<div id="twVaultDialog" role="dialog" aria-modal="true" aria-label="Student Video Vault">
+ <div class="tw-vault-panel">
+  <button type="button" class="tw-vault-close" id="twVaultClose" aria-label="மூடு">×</button>
+  <h3>🎓 STUDENT VIDEO VAULT</h3>
+  <p class="tw-vault-help">உங்களுக்குத் தேவையான பாடத்தைத் தேர்ந்தெடுக்கவும்:</p>
+  <div class="tw-student-vault-grid">
+   <button type="button" class="tw-vault-cat" data-url="https://www.youtube.com/live/JWu9MHaz6y8">📖 பொதுத்தமிழ்</button>
+   <button type="button" class="tw-vault-cat" data-url="https://www.youtube.com/watch?v=EXAMPLE_2">🏛️ Unit 8 (History)</button>
+   <button type="button" class="tw-vault-cat" data-url="https://www.youtube.com/watch?v=EXAMPLE_3">🇮🇳 இந்திய பாலிட்டி</button>
+   <button type="button" class="tw-vault-cat" data-url="https://www.youtube.com/watch?v=EXAMPLE_4">📊 கணிதம் & திறனறிவு</button>
+   <button type="button" class="tw-vault-cat" data-url="https://www.youtube.com/watch?v=EXAMPLE_5">🌍 பொருளியல் & புவியியல்</button>
+   <button type="button" class="tw-vault-cat" data-url="https://www.youtube.com/watch?v=EXAMPLE_6">🧪 அறிவியல் (Physics/Chem)</button>
+   <button type="button" class="tw-vault-cat" data-url="https://www.youtube.com/watch?v=EXAMPLE_7">🧬 நீட் (NEET Classes)</button>
+   <button type="button" class="tw-vault-cat" data-url="https://www.youtube.com/watch?v=EXAMPLE_8">🔬 TRB வேதியியல்</button>
+   <button type="button" class="tw-vault-cat" data-url="https://www.youtube.com/watch?v=EXAMPLE_9">📚 TRB தமிழ் துறை</button>
+   <button type="button" class="tw-vault-cat" data-url="https://www.youtube.com/watch?v=EXAMPLE_10">🛡️ காவலர் தேர்வு கிளாஸ்</button>
+  </div>
+  <div class="tw-vault-playing" id="twVaultNowPlaying" aria-live="polite">▶️ பாடம் தேர்ந்தெடுக்கப்படவில்லை</div>
+  <div class="tw-vault-player" id="twVaultPlayerWrap"><iframe id="twVaultIframe" title="Student lesson video" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+ </div>
+</div>
+<script id="tw-student-video-vault-script">
+(function(){
+ 'use strict';
+ var dlg=document.getElementById('twVaultDialog'),launch=document.getElementById('twVaultLaunch');
+ if(!dlg||!launch||dlg.dataset.initialized==='true')return;
+ dlg.dataset.initialized='true';
+ var close=document.getElementById('twVaultClose'),now=document.getElementById('twVaultNowPlaying'),wrap=document.getElementById('twVaultPlayerWrap'),frame=document.getElementById('twVaultIframe');
+ var defaultVaultItems=[
+  {title:'📖 பொதுத்தமிழ்',url:'https://www.youtube.com/live/JWu9MHaz6y8'},
+  {title:'🏛️ Unit 8 (History)',url:''},{title:'🇮🇳 இந்திய பாலிட்டி',url:''},{title:'📊 கணிதம் & திறனறிவு',url:''},{title:'🌍 பொருளியல் & புவியியல்',url:''},{title:'🧪 அறிவியல் (Physics/Chem)',url:''},{title:'🧬 நீட் (NEET Classes)',url:''},{title:'🔬 TRB வேதியியல்',url:''},{title:'📚 TRB தமிழ் துறை',url:''},{title:'🛡️ காவலர் தேர்வு கிளாஸ்',url:''}
+ ];
+ function renderVaultItems(items){
+  var buttons=dlg.querySelectorAll('.tw-vault-cat');
+  buttons.forEach(function(b,i){var item=(items&&items[i])||defaultVaultItems[i]||{};b.textContent=item.title||defaultVaultItems[i].title;b.setAttribute('data-url',item.url||'');});
+ }
+ window.twReloadStudentVideoVault=renderVaultItems;
+ renderVaultItems(defaultVaultItems);
+ if(typeof rtdb!=='undefined'&&rtdb){rtdb.ref('settings/studentVideoVault').once('value').then(function(snap){if(snap.exists())renderVaultItems(snap.val());}).catch(function(e){console.warn('Video Vault config unavailable',e);});}
+
+ // Place the Vault launcher inside the existing LIVE MODULE popup, not on the main page.
+ var liveSlot=document.getElementById('twVaultLiveModuleSlot');
+ if(liveSlot && launch.parentElement!==liveSlot) liveSlot.appendChild(launch);
+ function openVault(){dlg.classList.add('tw-open');document.body.style.overflow='hidden';close.focus();}
+ function closeVault(){dlg.classList.remove('tw-open');document.body.style.overflow='';frame.src='';wrap.style.display='none';launch.focus();}
+ function getId(url){if(!url||/EXAMPLE_/i.test(url))return '';try{var u=new URL(url,location.href),h=u.hostname.replace(/^www\./,'');var id='';if(h==='youtu.be')id=u.pathname.split('/').filter(Boolean)[0]||'';else if(h==='youtube.com'||h==='m.youtube.com'||h==='youtube-nocookie.com'){if(u.pathname==='/watch')id=u.searchParams.get('v')||'';else if(/^\/(live|embed|shorts)\//.test(u.pathname))id=u.pathname.split('/')[2]||'';}return /^[A-Za-z0-9_-]{11}$/.test(id)?id:'';}catch(e){return '';}}
+ launch.addEventListener('click',openVault);close.addEventListener('click',closeVault);
+ dlg.addEventListener('click',function(e){if(e.target===dlg)closeVault();});
+ document.addEventListener('keydown',function(e){if(e.key==='Escape'&&dlg.classList.contains('tw-open'))closeVault();});
+ dlg.querySelectorAll('.tw-vault-cat').forEach(function(b){b.addEventListener('click',function(){var id=getId(b.getAttribute('data-url'));dlg.querySelectorAll('.tw-vault-cat').forEach(function(x){x.classList.remove('active');});if(!id){now.textContent='❌ இந்தப் பாடத்திற்கான சரியான YouTube வீடியோ லிங்க் இன்னும் இணைக்கப்படவில்லை!';frame.src='';wrap.style.display='none';return;}b.classList.add('active');frame.src='https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&playsinline=1&rel=0';wrap.style.display='block';now.textContent='▶️ இப்போது ஓடுகிறது: '+b.textContent.trim();});});
+})();
+</script>
+<!-- END ADDITIVE MODULE -->
 
 </body>
 </html>
