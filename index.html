@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="ta" style="background:#060913;color-scheme:dark;">
 <head>
-<script>const TIGER_WARRIORS_HTML_VERSION = "VTE11-ADMIN-EDIT-CATEGORIES-FIX";</script>
+<script>const TIGER_WARRIORS_HTML_VERSION = "VTE12-LIVE-STREAMING-INTEGRATED";</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="color-scheme" content="dark">
     <title>Tiger Warriors - Preparation Hub & Eco Tech Lab</title>
-    <script>const TIGER_WARRIORS_HTML_BUILD_TAG = "VTE08-QUIZ-DATA-LOAD-FIX";</script>
+    <script>const TIGER_WARRIORS_HTML_BUILD_TAG = "VTE12-LIVE-STREAMING-INTEGRATED";</script>
     <!-- 🌟 PWA Manifest & Theme Integration -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#00f2fe">
@@ -7246,6 +7246,400 @@ body.mode-light .twx-exam-tile small,body.mode-light .twx-arena-welcome p{color:
    else if(aiButton && aiButton.parentElement){aiButton.parentElement.insertAdjacentElement('afterend',launch)}
    else {document.body.appendChild(launch)}
  }
+})();
+</script>
+
+<!-- ADD-ONLY STEP 2: Tiger Warriors LIVE Module shell. Existing code above is unchanged. -->
+<style id="tw-live-step2-style">
+#twLiveStep2Button{display:flex;align-items:center;gap:12px;width:100%;max-width:560px;min-height:72px;margin:10px auto;padding:14px 18px;border:2px solid #56e7ff;border-radius:18px;background:linear-gradient(115deg,#081b35,#123d55,#10233f);color:#fff;box-shadow:0 7px 0 #030b16,0 12px 22px #0005;cursor:pointer;text-align:left;font:inherit}
+#twLiveStep2Button .twls-icon{font-size:28px}#twLiveStep2Button .twls-copy{display:flex;flex:1;min-width:0;flex-direction:column;gap:4px}#twLiveStep2Button strong{color:#7ff4ff;font-size:15px;letter-spacing:.5px}#twLiveStep2Button small{color:#d0e4f4;font-size:11px}#twLiveStep2Button .twls-arrow{font-size:22px;color:#7ff4ff}
+#twLiveStep2Overlay{display:none;position:fixed;inset:0;z-index:2147483000;background:rgba(2,8,20,.88);padding:16px;align-items:center;justify-content:center}
+#twLiveStep2Overlay.twls-open{display:flex}#twLiveStep2Panel{position:relative;width:min(100%,560px);max-height:90dvh;overflow:auto;border:1px solid #3edff4;border-radius:20px;padding:22px;background:linear-gradient(160deg,#0b1930,#102b43);color:#f3f8ff;box-shadow:0 20px 70px #0009}
+#twLiveStep2Panel h2{margin:0 42px 8px 0;color:#7ff4ff;font-size:22px}#twLiveStep2Panel p{margin:8px 0;line-height:1.55;font-size:14px}#twLiveStep2Panel .twls-close{position:absolute;right:12px;top:12px;width:38px;height:38px;border:1px solid #8baec4;border-radius:50%;background:#102b43;color:#fff;font-size:22px;cursor:pointer}#twLiveStep2Panel .twls-status{margin-top:16px;padding:12px;border:1px solid #315c76;border-radius:12px;background:#071528;color:#d9f7ff;font-size:13px}
+@media(max-width:480px){#twLiveStep2Button{min-height:66px;padding:12px}#twLiveStep2Button strong{font-size:13px}#twLiveStep2Panel{padding:18px}}
+#twLiveStep2Panel .twls-controls{display:grid;gap:8px;margin-top:14px}#twLiveStep2Panel .twls-controls label{font-size:13px;color:#cdefff}#twLiveStep2Panel .twls-controls input{min-width:0;width:100%;box-sizing:border-box;border:1px solid #416b85;border-radius:9px;padding:11px;background:#071528;color:#fff;font:inherit}#twLiveStep2Panel .twls-actions{display:flex;gap:8px;align-items:center}#twLiveStep2Panel .twls-actions button{border:1px solid #4be6f6;border-radius:9px;padding:10px 12px;background:#0d4760;color:#fff;font-weight:700;cursor:pointer}#twLiveStep2Panel .twls-actions button:disabled{opacity:.45;cursor:not-allowed}#twLiveStep2Panel .twls-chat-messages{height:150px;overflow:auto;padding:10px;border:1px solid #315c76;border-radius:10px;background:#061322;font-size:13px;white-space:pre-wrap}#twLiveStep2Panel h3{margin:10px 0 0;color:#7ff4ff}#twLiveStep2Panel .twls-note{font-size:11px;color:#ffdc9c}
+</style>
+
+<style id="tw-live-hide-room-code-ui">
+#twLiveStep2Panel #twlsCreateRoom,
+#twLiveStep2Panel #twlsStartLive,
+#twLiveStep2Panel label[for="twlsRoomCode"],
+#twLiveStep2Panel #twlsRoomCode,
+#twLiveStep2Panel #twlsJoinRoom,
+#twLiveStep2Panel #twlsChatMessages,
+#twLiveStep2Panel #twlsChatInput,
+#twLiveStep2Panel #twlsSendChat,
+#twLiveStep2Panel h3,
+#twLiveStep2Panel .twls-note {display:none!important}
+</style>
+<div id="twLiveStep2Overlay" aria-hidden="true">
+ <section id="twLiveStep2Panel" role="dialog" aria-modal="true" aria-labelledby="twLiveStep2Title">
+  <button type="button" class="twls-close" id="twLiveStep2Close" aria-label="Close LIVE Module">×</button>
+  <h2 id="twLiveStep2Title">🐅 TIGER WARRIORS LIVE MODULE</h2>
+  <p><strong>📹 LIVE VIDEO CLASS</strong></p>
+  <div class="twls-controls">
+   <label for="twlsName">உங்கள் பெயர்</label><input id="twlsName" maxlength="40" placeholder="பெயரை உள்ளிடவும்">
+   <div class="twls-actions"><button type="button" id="twlsCreateRoom">Admin: Room உருவாக்கு</button><button type="button" id="twlsStartLive" disabled>Admin: LIVE START</button></div>
+   <label for="twlsRoomCode">Room Code</label><div class="twls-actions"><input id="twlsRoomCode" maxlength="6" inputmode="numeric" placeholder="6 இலக்க Code"><button type="button" id="twlsJoinRoom">Join Room</button></div>
+   <div id="twlsRoomStatus" class="twls-status" aria-live="polite">முதலில் Admin Room உருவாக்கவும் அல்லது Room Code மூலம் சேரவும்.</div>
+   <h3>💬 LIVE CHAT</h3><div id="twlsChatMessages" class="twls-chat-messages" aria-live="polite">Room-ல் சேர்ந்த பிறகு Chat செய்திகள் இங்கே வரும்.</div>
+   <div class="twls-actions"><input id="twlsChatInput" maxlength="500" placeholder="செய்தியை எழுதவும்" disabled><button type="button" id="twlsSendChat" disabled>அனுப்பு</button></div>
+  </div>
+  <p class="twls-note">குறிப்பு: Firebase access permission error வந்தால், அந்தப் பிழையை வைத்து Rules-ஐ பாதுகாப்பாக அமைக்க வேண்டும். Client-side Admin check மட்டும் முழுப் பாதுகாப்பு அல்ல.</p>
+ </section>
+</div>
+<script id="tw-live-step2-addon">
+(function(){
+ 'use strict';
+ const overlay=document.getElementById('twLiveStep2Overlay');
+ const openPanel=()=>{if(!overlay)return;overlay.classList.add('twls-open');overlay.setAttribute('aria-hidden','false');document.getElementById('twLiveStep2Close')?.focus({preventScroll:true});};
+ const closePanel=()=>{if(!overlay)return;overlay.classList.remove('twls-open');overlay.setAttribute('aria-hidden','true');};
+ window.openTigerLiveStep2Panel=openPanel;
+ window.closeTigerLiveStep2Panel=closePanel;
+ document.getElementById('twLiveStep2Close')?.addEventListener('click',closePanel);
+ overlay?.addEventListener('click',e=>{if(e.target===overlay)closePanel();});
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&overlay?.classList.contains('twls-open'))closePanel();});
+ if(!document.getElementById('twLiveStep2Button')){
+  const button=document.createElement('button');button.type='button';button.id='twLiveStep2Button';
+  button.innerHTML='<span class="twls-icon" aria-hidden="true">📡</span><span class="twls-copy"><strong>TIGER WARRIORS LIVE MODULE</strong><small>Admin Panel • Room Code • Live Quiz</small></span><span class="twls-arrow" aria-hidden="true">➜</span>';
+  button.addEventListener('click',function(){
+   // Students need to open the panel to join by Room Code; admin actions are separately gated below.
+   openPanel();
+  });
+  const arenaButton=document.getElementById('twxArenaOpenButton');
+  const controlRow=document.querySelector('.hero-control-row');
+  if(arenaButton&&arenaButton.parentElement)arenaButton.insertAdjacentElement('afterend',button);
+  else if(controlRow&&controlRow.parentElement)controlRow.insertAdjacentElement('afterend',button);
+  else document.body.appendChild(button);
+ }
+
+ // Add-only LIVE room controls. All new data stays under /liveModule.
+ let liveRoomCode=''; let liveChatRef=null; let liveChatListener=null;
+ const byId=id=>document.getElementById(id);
+ const roomStatus=msg=>{const el=byId('twlsRoomStatus');if(el)el.textContent=msg;};
+ const getDb=()=>{try{return (typeof rtdb!=='undefined'&&rtdb)?rtdb:null;}catch(_e){return null;}};
+ const setRoomControls=joined=>{['twlsChatInput','twlsSendChat'].forEach(id=>{if(byId(id))byId(id).disabled=!joined;});};
+ const renderChat=msg=>{const box=byId('twlsChatMessages');if(!box)return;const line=document.createElement('div');line.textContent=(msg.name||'Student')+': '+(msg.text||'');box.appendChild(line);box.scrollTop=box.scrollHeight;};
+ const joinRoom=async(code)=>{
+  const db=getDb(); if(!db){roomStatus('Firebase database (rtdb) கிடைக்கவில்லை.');return;}
+  code=String(code||'').replace(/\D/g,'').slice(0,6); if(code.length!==6){roomStatus('சரியான 6 இலக்க Room Code உள்ளிடவும்.');return;}
+  try{
+   const snap=await db.ref('liveModule/rooms/'+code).once('value'); if(!snap.exists()){roomStatus('இந்த Room Code கிடைக்கவில்லை.');return;}
+   const room=snap.val()||{}; liveRoomCode=code; byId('twlsRoomCode').value=code;
+   roomStatus('Room '+code+' • நிலை: '+(room.status==='live'?'LIVE நடக்கிறது':room.status==='ended'?'முடிந்தது':'Admin LIVE தொடங்க காத்திருக்கிறது'));
+   setRoomControls(room.status!=='ended');
+   if(liveChatRef&&liveChatListener)liveChatRef.off('child_added',liveChatListener);
+   liveChatRef=db.ref('liveModule/chats/'+code); byId('twlsChatMessages').textContent='';
+   liveChatListener=s=>{const v=s.val();if(v)renderChat(v);}; liveChatRef.limitToLast(100).on('child_added',liveChatListener,err=>roomStatus('Chat read error: '+err.message));
+  }catch(err){roomStatus('Join error: '+err.message);}
+ };
+ const requireLiveAdmin=()=>{try{if(typeof isAdminLoggedIn!=='undefined'&&isAdminLoggedIn)return true;}catch(_e){}
+  if(typeof window.verifyAdmin==='function')window.verifyAdmin();
+  roomStatus('Admin login செய்யவும்; login முடிந்ததும் இந்த Admin button-ஐ மீண்டும் அழுத்தவும்.');return false;};
+ byId('twlsCreateRoom')?.addEventListener('click',async()=>{
+  if(!requireLiveAdmin())return;
+  const db=getDb();if(!db){roomStatus('Firebase database (rtdb) கிடைக்கவில்லை.');return;}
+  try{
+   let code='',ref=null;for(let i=0;i<5;i++){code=String(Math.floor(100000+Math.random()*900000));ref=db.ref('liveModule/rooms/'+code);const snap=await ref.once('value');if(!snap.exists())break;code='';}
+   if(!code){roomStatus('தற்போது Room Code உருவாக்க முடியவில்லை. மீண்டும் முயற்சிக்கவும்.');return;}
+   await ref.set({roomCode:code,status:'waiting',createdAt:firebase.database.ServerValue.TIMESTAMP,createdBy:(byId('twlsName').value.trim()||'Admin')});
+   liveRoomCode=code;byId('twlsRoomCode').value=code;byId('twlsStartLive').disabled=false;
+   roomStatus('Room உருவானது: '+code+' • மாணவர்களுடன் Code பகிரவும்.');
+   await joinRoom(code);
+  }catch(err){roomStatus('Room create error: '+err.message);}
+ });
+ byId('twlsJoinRoom')?.addEventListener('click',()=>joinRoom(byId('twlsRoomCode').value));
+ byId('twlsStartLive')?.addEventListener('click',async()=>{
+  if(!requireLiveAdmin())return;
+  const db=getDb();if(!db||!liveRoomCode){roomStatus('முதலில் Admin Room உருவாக்க வேண்டும்.');return;}
+  try{await db.ref('liveModule/rooms/'+liveRoomCode).update({status:'live',startedAt:firebase.database.ServerValue.TIMESTAMP});roomStatus('🔴 LIVE தொடங்கப்பட்டது! Room Code: '+liveRoomCode);}
+  catch(err){roomStatus('LIVE Start error: '+err.message);}
+ });
+ byId('twlsSendChat')?.addEventListener('click',async()=>{
+  const db=getDb(),input=byId('twlsChatInput');if(!db||!liveRoomCode||!input)return;
+  const message=input.value.trim();if(!message)return;
+  try{await db.ref('liveModule/chats/'+liveRoomCode).push({name:(byId('twlsName').value.trim()||'Student').slice(0,40),text:message.slice(0,500),sentAt:firebase.database.ServerValue.TIMESTAMP});input.value='';}
+  catch(err){roomStatus('Chat send error: '+err.message);}
+ });
+ byId('twlsChatInput')?.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();byId('twlsSendChat')?.click();}});
+})();
+</script>
+
+<!-- ADD-ONLY: Admin one-tap LIVE Chat ON/OFF + optional LIVE notice for all users -->
+<!-- ADD-ONLY FIX: visible Admin Panel shortcut to the LIVE Video controls -->
+<!-- ADD-ONLY: actual camera LIVE video using WebRTC + existing Firebase RTDB signaling -->
+<style id="tw-live-video-addon-style">
+#twLiveStep2Panel #twVideoLivePanel{display:block!important;position:relative;width:100%;max-width:100%;min-height:260px;box-sizing:border-box;overflow:visible;scroll-margin:18px}#twVideoLivePanel{margin-top:12px;padding:12px;border:1px solid #38d9ef;border-radius:14px;background:linear-gradient(145deg,#081729,#10243a);color:#fff}
+#twVideoLivePanel h3{font-size:15px;color:#80f2ff;margin-bottom:8px}
+#twVideoLivePanel .twvl-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0}
+#twVideoLivePanel button{padding:10px 8px;border:1px solid #39d7e8;border-radius:9px;background:#07566b;color:white;font-weight:900}
+#twVideoLivePanel button:disabled{opacity:.5}
+#twVideoLivePanel video{display:block;width:100%;max-height:55vh;min-height:180px;background:#02060b;border-radius:10px;object-fit:contain}
+#twVideoLiveStatus{font-size:12px;line-height:1.5;color:#c8faff;margin:8px 0}
+@media(max-width:390px){#twVideoLivePanel .twvl-actions{grid-template-columns:1fr}}
+
+/* Professional student view: admin-only controls and diagnostics stay private in the UI. */
+#twLiveStep2Panel:not(.tw-admin-mode) .twls-controls,
+#twLiveStep2Panel:not(.tw-admin-mode) #twlsRoomStatus,
+#twLiveStep2Panel:not(.tw-admin-mode) .twls-note,
+#twLiveStep2Panel:not(.tw-admin-mode) #twVideoStartHost,
+#twLiveStep2Panel:not(.tw-admin-mode) #twVideoStopHost,
+#twLiveStep2Panel:not(.tw-admin-mode) #twVideoLiveStatus,
+#twLiveStep2Panel:not(.tw-admin-mode) #twVideoLivePanel h3 {display:none!important}
+#twLiveStep2Panel:not(.tw-admin-mode) #twVideoLivePanel{margin-top:8px;padding:0;border:0;background:transparent;box-shadow:none}
+#twLiveStep2Panel:not(.tw-admin-mode) #twLiveVideoPlayer{min-height:220px;max-height:58vh;background:#030811;border:1px solid #315c76}
+#twLiveStep2Panel:not(.tw-admin-mode) #twVideoWatch{grid-column:1/-1;min-height:48px;font-size:16px}
+#twLiveStep2Panel:not(.tw-admin-mode) #twVideoLeave{grid-column:1/-1;background:#183047;border-color:#547087}
+#twLiveStep2Panel:not(.tw-admin-mode) #twLiveStep2Title{font-size:20px}
+#twLiveStep2Panel:not(.tw-admin-mode) .twls-controls{display:none!important}
+#twLiveStep2Panel:not(.tw-admin-mode) .twls-actions{display:grid}
+#twLiveStep2Panel:not(.tw-admin-mode) #twVideoLivePanel .twvl-actions{grid-template-columns:1fr}
+</style>
+<script id="tw-live-video-webrtc-addon">
+(function(){
+'use strict';
+const $=id=>document.getElementById(id);
+const getDb=()=>{try{return typeof rtdb!=='undefined'&&rtdb?rtdb:null}catch(e){return null}};
+const getRoom=()=>String($('twlsRoomCode')?.value||'').replace(/\D/g,'').slice(0,6);
+let localStream=null, hostRoom='', hostRef=null, hostViewerListener=null;
+const hostPeers=new Map();
+let viewerPc=null, viewerRef=null, viewerCandidatesRef=null, hostCandidatesRef=null, viewerRoom='';
+function isAdmin(){try{return typeof isAdminLoggedIn!=='undefined'&&!!isAdminLoggedIn}catch(e){return false}}
+function status(t){const el=$('twVideoLiveStatus');if(!el)return;if(!isAdmin()){el.textContent='LIVE வகுப்பைப் பார்க்க “LIVE பார்க்க” அழுத்தவும்.';return}el.textContent=t}
+function syncRoleUI(){const panel=$('twLiveStep2Panel');if(!panel)return;const admin=isAdmin();panel.classList.toggle('tw-admin-mode',admin);const title=$('twLiveStep2Title');const titleText=admin?'🐅 TIGER WARRIORS LIVE — ADMIN':'🐅 TIGER WARRIORS LIVE';if(title&&title.textContent!==titleText)title.textContent=titleText;const intro=panel.querySelector(':scope > p');const introText=admin?'📹 LIVE VIDEO CLASS — நிர்வாகக் கட்டுப்பாடுகள்':'📹 LIVE VIDEO CLASS';if(intro&&intro.textContent!==introText)intro.textContent=introText;const nameLabel=panel.querySelector('label[for="twlsName"]');if(nameLabel&&nameLabel.textContent!=='உங்கள் பெயர்')nameLabel.textContent='உங்கள் பெயர்';const name=$('twlsName');const statusEl=$('twlsRoomStatus');const note=panel.querySelector('.twls-note');if(!admin){if(name)name.style.display='none';if(nameLabel)nameLabel.style.display='none';if(statusEl)statusEl.style.display='none';if(note)note.style.display='none';}else{if(name)name.style.display='';if(nameLabel)nameLabel.style.display='';if(statusEl)statusEl.style.display='';if(note)note.style.display='';}}
+function addVideoPanel(){
+ const root=$('twLiveStep2Overlay'); if(!root||$('twVideoLivePanel'))return;
+ const panel=document.createElement('section');panel.id='twVideoLivePanel';
+ panel.innerHTML='<h3>📹 LIVE VIDEO</h3><video id="twLiveVideoPlayer" autoplay playsinline controls></video><div class="twvl-actions"><button type="button" id="twVideoStartHost">📹 கேமரா LIVE ON</button><button type="button" id="twVideoStopHost">⏹ LIVE OFF</button><button type="button" id="twVideoWatch">▶ LIVE பார்க்க</button><button type="button" id="twVideoLeave">வீடியோ மூடு</button></div><div id="twVideoLiveStatus" aria-live="polite">LIVE வகுப்பைப் பார்க்க “LIVE பார்க்க” அழுத்தவும்.</div>';
+ const content=document.getElementById('twLiveStep2Panel');
+ if(!content){return;}
+ content.appendChild(panel);syncRoleUI();
+ $('twVideoStartHost').addEventListener('click',startHost);
+ $('twVideoStopHost').addEventListener('click',stopHost);
+ $('twVideoWatch').addEventListener('click',watchLive);
+ $('twVideoLeave').addEventListener('click',leaveViewer);
+}
+window.twEnsureLiveVideoPanel=addVideoPanel;
+async function startHost(){
+ let admin=false;try{admin=typeof isAdminLoggedIn!=='undefined'&&isAdminLoggedIn}catch(e){}
+ if(!admin){if(typeof window.verifyAdmin==='function')window.verifyAdmin();status('முதலில் Admin login செய்யவும்; பின்னர் கேமரா LIVE ON அழுத்தவும்.');return}
+ // Request camera FIRST so the browser permission prompt and local preview appear before Firebase setup.
+ if(!window.isSecureContext || !navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
+   status('இந்தப் பக்கம் HTTPS website-ல் திறக்கப்படவில்லை. content://download local file-ல் கேமரா வேலை செய்யாது. HTTPS link-ல் திறந்து Camera permission Allow செய்யவும்.');return;
+ }
+ try{
+  if(localStream){localStream.getTracks().forEach(t=>t.stop());localStream=null;}
+  // First request VIDEO ONLY. A denied microphone permission must not prevent the camera preview.
+  localStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user'},audio:false});
+  const video=$('twLiveVideoPlayer');if(video){video.muted=true;video.playsInline=true;video.srcObject=localStream;await video.play().catch(()=>{});}
+  status('கேமரா ON ஆகிவிட்டது. மைக்ரோஃபோன் அனுமதியைத் தனியாகச் சரிபார்க்கிறது…');
+  // Add microphone only if permission/device is available. Camera remains ON if mic permission is denied.
+  try {
+    const micStream=await navigator.mediaDevices.getUserMedia({video:false,audio:true});
+    micStream.getAudioTracks().forEach(track=>localStream.addTrack(track));
+  } catch (micError) {
+    console.warn('Microphone unavailable; continuing video-only LIVE:', micError && micError.name);
+    status('கேமரா ON. மைக்ரோஃபோன் அனுமதி இல்லை; வீடியோ மட்டும் தொடரும்.');
+  }
+  const preview=$('twLiveVideoPlayer');if(preview){preview.srcObject=localStream;preview.muted=true;preview.playsInline=true;await preview.play().catch(()=>{});}
+  status('கேமரா preview ON. இப்போது LIVE connection அமைக்கிறது…');
+ }catch(e){
+  let msg='Camera error: '+(e.message||e.name);
+  if(e.name==='NotAllowedError') msg='Camera access மறுக்கப்பட்டது. இந்த content:// local file context-ல் browser permission இருந்தாலும் camera access தடுக்கப்படலாம். GitHub Pages HTTPS link-ல் திறந்து, அந்த site-க்கு Camera Allow செய்து முயற்சிக்கவும்.';
+  else if(e.name==='NotFoundError') msg='இந்த சாதனத்தில் camera கிடைக்கவில்லை.';
+  else if(e.name==='NotReadableError') msg='Camera வேறு app-ல் பயன்படுத்தப்படுகிறது. Camera பயன்படுத்தும் apps-ஐ மூடி மீண்டும் முயற்சிக்கவும்.';
+  else if(e.name==='OverconstrainedError') msg='Camera setting பொருந்தவில்லை. Default camera-வில் மீண்டும் முயற்சிக்கவும்.';
+  status(msg);return;
+ }
+ const db=getDb();if(!db){status('கேமரா preview ON. ஆனால் Firebase database கிடைக்கவில்லை; மாணவர்களுக்கு LIVE அனுப்ப முடியவில்லை.');return}
+ let code=getRoom();
+ if(code.length!==6){
+   try{
+     for(let i=0;i<8;i++){
+       const candidate=String(Math.floor(100000+Math.random()*900000));
+       const ref=db.ref('liveModule/rooms/'+candidate);
+       const snap=await ref.once('value');
+       if(!snap.exists()){
+         code=candidate;
+         await ref.set({roomCode:code,status:'live',createdAt:firebase.database.ServerValue.TIMESTAMP,startedAt:firebase.database.ServerValue.TIMESTAMP,createdBy:'Admin'});
+         const input=$('twlsRoomCode');if(input)input.value=code;
+         if(typeof liveRoomCode!=='undefined')liveRoomCode=code;
+         break;
+       }
+     }
+   }catch(err){status('கேமரா preview ON; Firebase LIVE setup error: '+err.message);return}
+ }
+ if(code.length!==6){status('கேமரா preview ON; LIVE Room உருவாகவில்லை. Firebase அனுமதியைச் சரிபார்க்கவும்.');return}
+ try{
+  hostRoom=code;hostRef=db.ref('liveModule/video/'+code+'/viewers');
+  await db.ref('liveModule/video/'+code).update({active:true,startedAt:firebase.database.ServerValue.TIMESTAMP});
+  await db.ref('liveModule/broadcast').update({active:true,roomCode:code,video:true,updatedAt:firebase.database.ServerValue.TIMESTAMP});
+  if(hostViewerListener)hostRef.off('child_added',hostViewerListener);
+  hostViewerListener=snap=>{const viewerId=snap.key, v=snap.val()||{};if(v.request===true&&!hostPeers.has(viewerId))makeOffer(viewerId,db).catch(e=>console.warn('Offer failed',e));};
+  hostRef.on('child_added',hostViewerListener);
+  status('🔴 கேமரா ON; LIVE தொடங்கியது. மாணவர்கள் LIVE பார்க்க அழுத்தலாம்.');
+ }catch(e){status('கேமரா preview ON; Firebase LIVE connection error: '+e.message)}
+}
+async function makeOffer(viewerId,db){
+ const base='liveModule/video/'+hostRoom+'/viewers/'+viewerId;
+ const pc=new RTCPeerConnection({iceServers:[{urls:'stun:stun.l.google.com:19302'}]});hostPeers.set(viewerId,pc);
+ localStream.getTracks().forEach(track=>pc.addTrack(track,localStream));
+ pc.onicecandidate=e=>{if(e.candidate)db.ref(base+'/hostCandidates').push(e.candidate.toJSON())};
+ pc.onconnectionstatechange=()=>{if(['failed','closed','disconnected'].includes(pc.connectionState)){try{pc.close()}catch(e){}hostPeers.delete(viewerId)}};
+ const answerRef=db.ref(base+'/answer');
+ answerRef.on('value',async snap=>{const a=snap.val();if(a&&!pc.currentRemoteDescription){try{await pc.setRemoteDescription(new RTCSessionDescription(a))}catch(e){console.warn(e)}}});
+ db.ref(base+'/viewerCandidates').on('child_added',async snap=>{if(snap.val())try{await pc.addIceCandidate(new RTCIceCandidate(snap.val()))}catch(e){}});
+ const offer=await pc.createOffer();await pc.setLocalDescription(offer);await db.ref(base+'/offer').set({type:offer.type,sdp:offer.sdp});
+}
+async function watchLive(){
+ const db=getDb();let code=getRoom();
+ try{
+  if(!db)throw Error('Firebase database கிடைக்கவில்லை');
+  if(code.length!==6){const snap=await db.ref('liveModule/broadcast').once('value');code=String(snap.val()?.roomCode||'').replace(/\D/g,'').slice(0,6)}
+  if(code.length!==6)throw Error('தற்போது LIVE Room கிடைக்கவில்லை');
+  const state=await db.ref('liveModule/video/'+code).once('value');if(state.val()?.active!==true)throw Error('இந்த Room-ல் Video LIVE தற்போது இல்லை');
+  await leaveViewer();viewerRoom=code;
+  const id=db.ref('liveModule/video/'+code+'/viewers').push().key;
+  viewerRef=db.ref('liveModule/video/'+code+'/viewers/'+id);
+  viewerPc=new RTCPeerConnection({iceServers:[{urls:'stun:stun.l.google.com:19302'}]});
+  viewerPc.ontrack=e=>{const video=$('twLiveVideoPlayer');if(video){video.srcObject=e.streams[0];video.play().catch(()=>{})}status('▶ LIVE வீடியோ இணைக்கப்பட்டது.')};
+  viewerPc.onicecandidate=e=>{if(e.candidate)viewerRef.child('viewerCandidates').push(e.candidate.toJSON())};
+  hostCandidatesRef=viewerRef.child('hostCandidates');
+  hostCandidatesRef.on('child_added',async snap=>{if(snap.val()&&viewerPc)try{await viewerPc.addIceCandidate(new RTCIceCandidate(snap.val()))}catch(e){}});
+  viewerRef.child('offer').on('value',async snap=>{const offer=snap.val();if(!offer||!viewerPc||viewerPc.currentRemoteDescription)return;try{await viewerPc.setRemoteDescription(new RTCSessionDescription(offer));const answer=await viewerPc.createAnswer();await viewerPc.setLocalDescription(answer);await viewerRef.child('answer').set({type:answer.type,sdp:answer.sdp})}catch(e){status('Video connection error: '+e.message)}});
+  await viewerRef.update({request:true,joinedAt:firebase.database.ServerValue.TIMESTAMP});
+  status('LIVE வீடியோவுடன் இணைக்கிறது…');if(typeof window.openTigerLiveStep2Panel==='function')window.openTigerLiveStep2Panel();
+ }catch(e){status(isAdmin()?(e.message||String(e)):'தற்போது LIVE வகுப்பு கிடைக்கவில்லை. பிறகு மீண்டும் முயற்சிக்கவும்.')}
+}
+async function leaveViewer(){
+ if(viewerRef){try{await viewerRef.update({request:false})}catch(e){}}
+ if(hostCandidatesRef)hostCandidatesRef.off();
+ if(viewerPc){try{viewerPc.close()}catch(e){}viewerPc=null}
+ viewerRef=null;hostCandidatesRef=null;
+ const video=$('twLiveVideoPlayer');if(video&& !localStream)video.srcObject=null;
+}
+async function stopHost(){
+ let admin=false;try{admin=typeof isAdminLoggedIn!=='undefined'&&isAdminLoggedIn}catch(e){}
+ if(!admin){status('Admin login தேவை.');return}
+ const db=getDb();
+ if(hostRef&&hostViewerListener)hostRef.off('child_added',hostViewerListener);
+ hostPeers.forEach(pc=>{try{pc.close()}catch(e){}});hostPeers.clear();
+ if(localStream){localStream.getTracks().forEach(t=>t.stop());localStream=null}
+ if(db&&hostRoom){try{await db.ref('liveModule/video/'+hostRoom).update({active:false,endedAt:firebase.database.ServerValue.TIMESTAMP});await db.ref('liveModule/broadcast').update({active:false,video:false,updatedAt:firebase.database.ServerValue.TIMESTAMP})}catch(e){status('LIVE OFF database error: '+e.message);return}}
+ hostRoom='';status('LIVE OFF செய்யப்பட்டது.');
+}
+const watchBtn=()=>{if($('twlnJoin'))$('twlnJoin').addEventListener('click',()=>{setTimeout(()=>{if($('twVideoWatch'))$('twVideoWatch').click()},350)})};
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>{addVideoPanel();watchBtn()});else{addVideoPanel();watchBtn()}
+const obs=new MutationObserver(()=>{addVideoPanel();syncRoleUI()});obs.observe(document.body,{childList:true,subtree:true});
+// Refresh after the existing Admin login flow changes its login flag.
+setInterval(syncRoleUI,700);
+})();
+</script>
+
+
+<!-- ADD-ONLY: use existing Admin Live Chat ON/OFF to show a simple LIVE VIDEO CLASS notice -->
+<style id="tw-live-class-notice-style">
+#twLiveClassNotice{position:fixed;left:12px;right:12px;bottom:16px;z-index:999999;display:none;background:#16a34a;color:#fff;border:2px solid #86efac;border-radius:16px;padding:12px;box-shadow:0 8px 28px #0008;font-family:Arial,sans-serif}
+#twLiveClassNotice .tw-live-row{display:flex;align-items:center;gap:10px}
+#twLiveClassNotice .tw-live-title{font-weight:800;font-size:16px;flex:1}
+#twLiveClassNotice button{border:0;border-radius:10px;padding:9px 12px;font-weight:700;cursor:pointer}
+#twLiveClassNotice .tw-live-watch{background:#fff;color:#166534}
+#twLiveClassNotice .tw-live-close{background:#14532d;color:#fff}
+</style>
+<div id="twLiveClassNotice" role="dialog" aria-live="polite">
+  <div class="tw-live-row">
+    <span style="font-size:24px">🔴</span>
+    <div class="tw-live-title">LIVE VIDEO CLASS</div>
+    <button class="tw-live-close" id="twLiveClassDismiss" aria-label="Close">✖</button>
+  </div>
+  <div style="font-size:13px;margin:7px 0 10px">LIVE class நடக்கிறது. விருப்பமிருந்தால் சேரலாம்.</div>
+  <div class="tw-live-row">
+    <button class="tw-live-watch" id="twLiveClassWatch">▶ LIVE பார்க்க</button>
+    <button class="tw-live-close" id="twLiveClassSkip">Skip</button>
+  </div>
+</div>
+<script id="tw-live-class-notice-script">
+(function(){
+  const notice=document.getElementById('twLiveClassNotice');
+  if(!notice) return;
+  let dismissed=false;
+  function showLive(active){
+    notice.style.display=(active && !dismissed)?'block':'none';
+    if(!active) dismissed=false;
+  }
+  // Watch/Join opens the already-existing Live Chat; no second chat or room system.
+  const watch=document.getElementById('twLiveClassWatch');
+  const dismiss=()=>{dismissed=true;notice.style.display='none';};
+  document.getElementById('twLiveClassDismiss').addEventListener('click',dismiss);
+  document.getElementById('twLiveClassSkip').addEventListener('click',dismiss);
+  watch.addEventListener('click',function(){
+    dismissed=true;notice.style.display='none';
+    const overlay=document.getElementById('twLiveStep2Overlay');
+    if(overlay){
+      overlay.classList.add('twls-open');
+      overlay.setAttribute('aria-hidden','false');
+      if(typeof window.twEnsureLiveVideoPanel==='function') window.twEnsureLiveVideoPanel();
+      setTimeout(function(){
+        const watchVideo=document.getElementById('twVideoWatch');
+        if(watchVideo) watchVideo.click();
+        else { const panel=document.getElementById('twVideoLivePanel'); if(panel)panel.scrollIntoView({behavior:'smooth',block:'center'}); }
+      },180);
+    } else if(typeof window.openWarriorChatModal==='function') window.openWarriorChatModal();
+  });
+  // Reuse the existing global Firebase instance and the existing admin switch.
+  function attach(){
+    if(typeof rtdb==='undefined'||!rtdb||!rtdb.ref) return false;
+    rtdb.ref('settings/chatEnabled').on('value',function(snap){
+      const v=snap.val();
+      showLive(!(v===false||v==='OFF'));
+    },function(err){console.warn('LIVE notice status read failed',err);});
+    return true;
+  }
+  if(!attach()){
+    let tries=0;
+    const retry=setInterval(function(){
+      tries++;
+      if(attach()||tries>20) clearInterval(retry);
+    },250);
+  }
+})();
+</script>
+
+
+<!-- Compatibility bridge for the supplied Start Camera / Watch Live / Stop Live buttons.
+     Reuses the existing Firebase + WebRTC live system; does not create a duplicate stream. -->
+<script id="tw-live-compatibility-bridge">
+(function () {
+  'use strict';
+  function clickExisting(id, fallbackMessage) {
+    var button = document.getElementById(id);
+    if (button) {
+      button.click();
+      return;
+    }
+    var panel = document.getElementById('twLiveStep2Panel');
+    if (typeof window.twEnsureLiveVideoPanel === 'function') {
+      window.twEnsureLiveVideoPanel();
+      button = document.getElementById(id);
+      if (button) {
+        button.click();
+        if (panel && typeof panel.scrollIntoView === 'function') {
+          panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        return;
+      }
+    }
+    window.alert(fallbackMessage || 'LIVE panel இன்னும் தயாராகவில்லை. பக்கத்தை மீண்டும் திறக்கவும்.');
+  }
+  window.startLiveCamera = function () {
+    clickExisting('twVideoStartHost', 'LIVE panel கிடைக்கவில்லை. பக்கத்தை refresh செய்து முயற்சிக்கவும்.');
+  };
+  window.joinLiveClass = function () {
+    clickExisting('twVideoWatch', 'LIVE panel கிடைக்கவில்லை. பக்கத்தை refresh செய்து முயற்சிக்கவும்.');
+  };
+  window.stopLiveClass = function () {
+    clickExisting('twVideoStopHost', 'LIVE panel கிடைக்கவில்லை. பக்கத்தை refresh செய்து முயற்சிக்கவும்.');
+  };
 })();
 </script>
 
