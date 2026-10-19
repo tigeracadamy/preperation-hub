@@ -3157,6 +3157,26 @@ input,select,textarea{border-radius:13px!important}
             <div class="warrior-badges-row" id="warriorBadgesRow"></div>
         </section>
 
+        <!-- TIGER WARRIORS: APPEND-ONLY TEAM ARENA + STUDY TOOLKIT -->
+        <div id="twx-arena-placeholder" aria-hidden="true" style="display:none"></div>
+        <section id="tw-extra-command-center" aria-label="Tiger Warriors Team Arena and Study Toolkit">
+          <div class="twx-heading"><div class="twx-eyebrow">🇮🇳 THE WARRIOR COMMAND CENTRE</div><h2>🐅 TIGER WARRIORS ARENA</h2><p>உங்கள் இலக்கு • உங்கள் பயிற்சி • உங்கள் வெற்றி</p></div>
+          <div class="twx-team-grid">
+            <button class="twx-team-card" type="button" onclick="twxOpenTeam('tnpsc')"><span class="twx-team-icon">🏛️</span><b>TEAM 01</b><strong>TNPSC WARRIORS</strong><small>Group தேர்வுப் பயிற்சி</small><span class="twx-team-cta">பயிற்சி தொடங்கு ↗</span></button>
+            <button class="twx-team-card" type="button" onclick="twxOpenTeam('trb')"><span class="twx-team-icon">🎓</span><b>TEAM 02</b><strong>TRB CHAMPIONS</strong><small>TRB / NET / SET</small><span class="twx-team-cta">பயிற்சி தொடங்கு ↗</span></button>
+            <button class="twx-team-card" type="button" onclick="twxOpenTeam('quiz')"><span class="twx-team-icon">⚔️</span><b>TEAM 03</b><strong>QUIZ COMMANDOS</strong><small>வினாடி வினா சவால்</small><span class="twx-team-cta">Quiz விளையாடு ↗</span></button>
+            <button class="twx-team-card" type="button" onclick="twxOpenTeam('daily')"><span class="twx-team-icon">🔥</span><b>TEAM 04</b><strong>DAILY MISSION</strong><small>இன்றைய இலக்கை முடி</small><span class="twx-team-cta">இலக்கைத் தொடங்கு ↗</span></button>
+            <button class="twx-team-card" type="button" onclick="twxOpenTeam('progress')"><span class="twx-team-icon">👑</span><b>TEAM 05</b><strong>WARRIOR LEGENDS</strong><small>XP • Streak • Badges</small><span class="twx-team-cta">முன்னேற்றம் காண் ↗</span></button>
+          </div>
+          <div class="twx-tool-grid">
+            <article class="twx-panel"><div class="twx-panel-title">🎯 MY STUDY TARGET <span class="twx-pill">TODAY</span></div><label for="twxGoal">இன்றைய படிப்பு இலக்கு</label><input id="twxGoal" maxlength="120" placeholder="உதா: இந்திய அரசியலமைப்பு – 3 அத்தியாயங்கள்"><div class="twx-row"><label for="twxTarget">இலக்கு நேரம் (நிமிடம்)</label><select id="twxTarget"><option value="30">30 நிமிடம்</option><option value="45">45 நிமிடம்</option><option value="60" selected>60 நிமிடம்</option><option value="90">90 நிமிடம்</option><option value="120">120 நிமிடம்</option></select></div><button class="twx-main-btn" type="button" onclick="twxSaveGoal()">💾 இலக்கைச் சேமி</button><p class="twx-hint" id="twxGoalStatus" aria-live="polite">உங்கள் இலக்கை அமைத்துக்கொள்ளுங்கள்.</p></article>
+            <article class="twx-panel"><div class="twx-panel-title">⏱️ FOCUS SPRINT <span class="twx-pill">NO DISTRACTION</span></div><div class="twx-timer" id="twxTimer" aria-live="polite">25:00</div><p class="twx-hint">25 நிமிடம் கவனம் • பிறகு சிறிய ஓய்வு</p><div class="twx-button-row"><button class="twx-main-btn" type="button" id="twxTimerStart" onclick="twxTimerToggle()">▶ தொடங்கு</button><button class="twx-secondary-btn" type="button" onclick="twxTimerReset()">↺ மீண்டும்</button></div><p class="twx-hint" id="twxTimerStatus" aria-live="polite">தயாரானதும் தொடங்குங்கள்.</p></article>
+            <article class="twx-panel twx-wide"><div class="twx-panel-title">📝 WARRIOR QUICK NOTES <span class="twx-pill">இந்தச் சாதனத்தில் சேமிக்கும்</span></div><textarea id="twxNotes" rows="4" maxlength="5000" placeholder="முக்கியமான தகவல்கள், மீண்டும் படிக்க வேண்டிய தலைப்புகள், தேர்வு குறிப்புகள்..."></textarea><div class="twx-button-row"><button class="twx-main-btn" type="button" onclick="twxSaveNotes()">💾 குறிப்புகளைச் சேமி</button><button class="twx-secondary-btn" type="button" onclick="twxClearNotes()">அழி</button></div><p class="twx-hint" id="twxNotesStatus" aria-live="polite">குறிப்புகள் இந்த browser / சாதனத்தில் மட்டும் சேமிக்கப்படும்.</p></article>
+            <article class="twx-panel twx-wide"><div class="twx-panel-title">🏆 MY DAILY CHECKLIST <span class="twx-pill">TICK AS YOU GO</span></div><div class="twx-checklist"><label><input type="checkbox" data-twx-check="tamil"> தமிழ் பயிற்சி</label><label><input type="checkbox" data-twx-check="core"> முக்கியப் பாடம் படித்தல்</label><label><input type="checkbox" data-twx-check="current"> நடப்பு நிகழ்வுகள் மீள்பார்வை</label><label><input type="checkbox" data-twx-check="quiz"> Quiz / வினா பயிற்சி</label><label><input type="checkbox" data-twx-check="revision"> இன்று படித்ததை மீண்டும் படித்தல்</label></div><div class="twx-progress-track"><div id="twxChecklistFill"></div></div><p class="twx-hint" id="twxChecklistStatus" aria-live="polite">0 / 5 பணிகள் முடிந்தன</p><button class="twx-secondary-btn" type="button" onclick="twxResetChecklist()">புதிய நாளுக்காக மீட்டமை</button></article>
+          </div><div class="twx-footer-line">✦ DISCIPLINE • CONSISTENCY • VICTORY ✦ <small>AI இல்லாத கூடுதல் Study Toolkit</small></div>
+        </section>
+        <!-- END APPEND-ONLY TOOLKIT -->
+
         <!-- 💬 Warrior's Live Chat Banner (Controlled dynamically via Firebase Admin Switch) -->
         <div class="royal-chat-banner" id="chatBannerContainer" onclick="playClickSound(); openWarriorChatModal()">
             <div class="royal-chat-left">
@@ -6979,6 +6999,255 @@ input,select,textarea{border-radius:13px!important}
 @media(max-width:480px){#heroAIButton .hero-ai-robot{width:clamp(52px,14vw,70px)!important;max-height:76px!important;}#tigerAiPowerSwitch svg{width:16px!important;height:16px!important;}}
 @media(prefers-reduced-motion:reduce){#heroAIButton .hero-ai-robot{animation:none!important;}}
 </style>
+
+
+<style id="tiger-warriors-royal-classic-visual-update">
+/* TIGER WARRIORS — Royal Indian Classic finish.
+   Visual-only layer: no markup, links, data, or JavaScript behavior changed. */
+:root{
+  --tw-royal-gold:#e8bd62;
+  --tw-antique-gold:#b98a3c;
+  --tw-royal-ink:#071426;
+  --tw-peacock:#073c58;
+}
+body{
+  background:
+    radial-gradient(ellipse at 50% -12%,rgba(14,91,126,.26),transparent 48%),
+    radial-gradient(ellipse at 100% 35%,rgba(184,138,60,.075),transparent 38%),
+    var(--bg-color)!important;
+}
+.main-container{isolation:isolate}
+.top-bar,.hero-banner,.notice-corner,.stat-box,.search-box,.test-item,
+.announcement-box,.modal-box,.locker-box,.course-wallpaper-box,
+.donation-box,.auth-box,.chat-modal-box,.tiger-ai-box{
+  border-color:rgba(232,189,98,.38)!important;
+  box-shadow:0 8px 24px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,239,190,.055)!important;
+}
+.top-bar{
+  background:linear-gradient(145deg,rgba(9,27,47,.98),rgba(5,13,27,.98))!important;
+  border-radius:17px!important;
+}
+.brand-logo-img{
+  border:2px solid var(--tw-royal-gold)!important;
+  box-shadow:0 0 0 3px rgba(232,189,98,.10),0 0 22px rgba(232,189,98,.25)!important;
+}
+.brand-name{
+  letter-spacing:1.1px!important;
+  text-shadow:0 2px 12px rgba(232,189,98,.20)!important;
+}
+.brand-sub{color:#e9c878!important}
+.hero-banner{
+  background:
+    linear-gradient(120deg,rgba(5,25,46,.97),rgba(7,49,69,.92),rgba(28,24,21,.96))!important;
+  border:1px solid rgba(232,189,98,.58)!important;
+  box-shadow:0 0 0 1px rgba(232,189,98,.07),0 10px 28px rgba(0,0,0,.28)!important;
+}
+.mission-tag{
+  border-color:rgba(232,189,98,.62)!important;
+  background:linear-gradient(135deg,#563b16,#b98a3c,#5b3b12)!important;
+  color:#fff5d8!important;
+  text-shadow:0 1px 2px #291805!important;
+}
+.hero-banner h2{color:#f2cf7b!important;text-shadow:0 0 12px rgba(232,189,98,.23)!important}
+.notice-corner{
+  background:linear-gradient(145deg,#08192b,#101a28 58%,#17150f)!important;
+}
+.notice-header{border-bottom-color:rgba(232,189,98,.36)!important}
+.live-date-tag,.live-time-tag{
+  background:rgba(3,14,26,.82)!important;
+  border-color:rgba(232,189,98,.35)!important;
+}
+#heroAIButton{
+  border-color:#e8c66e!important;
+  background:
+    radial-gradient(ellipse at 14% 100%,rgba(0,220,255,.20),transparent 43%),
+    linear-gradient(115deg,#07172b 0%,#064b70 43%,#092c4a 72%,#080f1d 100%)!important;
+  box-shadow:0 5px 0 #241b0d,0 10px 24px rgba(0,0,0,.42),
+    0 0 0 1px rgba(232,189,98,.18),0 0 22px rgba(0,190,255,.20),
+    inset 0 1px 0 rgba(255,245,205,.25)!important;
+}
+#heroAIButton::before{border-color:rgba(232,198,110,.36)!important}
+#heroAIButton::after{
+  border-color:#e8c66e!important;
+  background:linear-gradient(145deg,#0b6384,#081a2c)!important;
+  box-shadow:0 0 12px rgba(0,220,255,.28),inset 0 0 8px rgba(232,198,110,.12)!important;
+}
+#heroAIButton .hero-ai-label{text-shadow:0 2px 3px #000,0 0 10px rgba(0,220,255,.22)!important}
+#themeModeToggle{
+  border-color:rgba(232,189,98,.72)!important;
+  color:#f2d27f!important;
+  box-shadow:0 0 10px rgba(232,189,98,.13),inset 0 0 6px rgba(255,255,255,.06)!important;
+}
+#todayTaskFloatingBtn{
+  border-color:#e8bd62!important;
+  background:linear-gradient(135deg,#f1d58c,#b98a3c)!important;
+  color:#1d1608!important;
+  box-shadow:0 0 13px rgba(232,189,98,.22),inset 0 1px 0 rgba(255,255,255,.38)!important;
+}
+.btn-top-social,.btn-theme-switcher{
+  border-color:rgba(232,189,98,.34)!important;
+}
+.btn-top-donate,.btn-fire-pop{
+  border-color:rgba(232,189,98,.58)!important;
+  color:#f0ce7a!important;
+}
+.ca-filter-btn{
+  border-color:rgba(232,189,98,.72)!important;
+  box-shadow:0 2px 10px rgba(232,189,98,.09)!important;
+}
+.current-affairs-news-strip{
+  border-color:rgba(232,189,98,.72)!important;
+  background:linear-gradient(135deg,#4b2c0c,#93601c,#59360e)!important;
+}
+.current-affairs-ai-strip{
+  border-color:rgba(232,189,98,.60)!important;
+  background:linear-gradient(135deg,#082e4b,#075b7c,#0a2945)!important;
+}
+.round-floating-quiz{
+  border-color:rgba(232,189,98,.8)!important;
+  box-shadow:0 0 0 3px rgba(232,189,98,.07),0 0 18px rgba(0,190,255,.16)!important;
+}
+.round-floating-quiz span{color:#f2d27f!important}
+button,a,.test-item{transition:border-color .18s ease,filter .18s ease,box-shadow .18s ease}
+button:focus-visible,a:focus-visible{
+  outline:2px solid #f1d58c!important;outline-offset:3px!important;
+}
+@media(prefers-reduced-motion:reduce){
+  #tiger-startup-roar,#heroAIButton .hero-ai-robot,#heroAIButton .hero-ai-bubble,
+  .brand-logo-img,.mission-tag{animation-duration:0.001ms!important;animation-iteration-count:1!important}
+}
+</style>
+
+<style id="tiger-warriors-extra-command-centre">
+#tw-extra-command-center{--twx-gold:#f6d477;margin:12px 0 16px;padding:clamp(12px,3.5vw,20px);border:1px solid rgba(246,212,119,.62);border-radius:23px;background:radial-gradient(ellipse at 50% 0%,rgba(184,125,28,.18),transparent 48%),linear-gradient(145deg,#06172c,#0a1020 55%,#151006);box-shadow:0 12px 34px rgba(0,0,0,.32),inset 0 0 0 3px rgba(246,212,119,.055);color:#fff7df;overflow:hidden}#tw-extra-command-center *{box-sizing:border-box}.twx-heading{text-align:center;padding:5px 0 17px}.twx-eyebrow{font-size:10px;letter-spacing:2px;color:#f5c85e}.twx-heading h2{font-size:clamp(20px,5vw,28px);line-height:1.2;margin:8px 0;color:#ffe7a2;text-shadow:0 2px 16px #b8791c44}.twx-heading p{font-size:12px;color:#d7dce8}.twx-team-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.twx-team-card{appearance:none;text-align:left;min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:13px 12px;border-radius:16px;border:1px solid #f6d47777;background:linear-gradient(145deg,#192b41,#09101e);color:#fff4d2;box-shadow:0 5px 12px #0004;cursor:pointer;transition:transform .16s ease}.twx-team-card:active{transform:scale(.975)}.twx-team-card:focus-visible,.twx-main-btn:focus-visible,.twx-secondary-btn:focus-visible{outline:3px solid #fff0a8;outline-offset:2px}.twx-team-icon{font-size:28px}.twx-team-card>b{font-size:9px;letter-spacing:1.2px;color:#e9bd55}.twx-team-card strong{font-size:clamp(11px,2.8vw,14px);line-height:1.25;overflow-wrap:anywhere}.twx-team-card small{font-size:10px;line-height:1.4;color:#c7d1e1}.twx-team-cta{margin-top:4px;padding-top:8px;border-top:1px solid #f6d47733;width:100%;font-size:10px;color:#ffdc83}.twx-tool-grid{display:grid;grid-template-columns:1fr;gap:10px;margin-top:13px}.twx-panel{min-width:0;padding:14px;border-radius:17px;border:1px solid #f6d47740;background:linear-gradient(145deg,#121f31,#060d19);box-shadow:inset 0 1px #ffffff0b}.twx-panel-title{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:7px;font-size:12px;color:#ffe5a0;margin-bottom:12px}.twx-pill{font-size:8px;letter-spacing:.6px;color:#0a1524;background:linear-gradient(90deg,#e5b84d,#fff0b0);padding:4px 7px;border-radius:20px}#tw-extra-command-center label{font-size:11px;color:#dce3ef;display:block;margin:6px 0}#tw-extra-command-center input:not([type=checkbox]),#tw-extra-command-center select,#tw-extra-command-center textarea{width:100%;min-width:0;border:1px solid #f6d4775c;border-radius:10px;padding:10px 11px;background:#060d19;color:#fff4d2;font:600 13px Arial,sans-serif;outline:none}#tw-extra-command-center input:focus,#tw-extra-command-center select:focus,#tw-extra-command-center textarea:focus{border-color:#ffe28b;box-shadow:0 0 0 2px #f6d47724}.twx-row{display:grid;grid-template-columns:1fr minmax(100px,.7fr);align-items:center;gap:9px;margin:8px 0}.twx-row label{margin:0!important}.twx-main-btn,.twx-secondary-btn{min-height:39px;border-radius:10px;padding:9px 12px;font-size:11px;cursor:pointer}.twx-main-btn{border:1px solid #fff0b0;background:linear-gradient(115deg,#e5b94e,#fff0ad 52%,#c78b24);color:#201604;box-shadow:0 3px 0 #76521b}.twx-secondary-btn{border:1px solid #f6d47770;background:#111f32;color:#ffebbb}.twx-panel>.twx-main-btn{width:100%;margin-top:8px}.twx-button-row{display:flex;gap:8px;margin-top:9px}.twx-button-row>*{flex:1}.twx-hint{font-size:10px;line-height:1.5;color:#aebbd0;margin-top:9px}.twx-timer{text-align:center;font-variant-numeric:tabular-nums;font-size:clamp(38px,11vw,54px);letter-spacing:2px;color:#ffe29a;text-shadow:0 0 18px #f6d47733;padding:6px}.twx-checklist{display:grid;grid-template-columns:1fr;gap:8px}#tw-extra-command-center .twx-checklist label{display:flex;align-items:center;gap:9px;padding:10px;border-radius:10px;background:#ffffff09;border:1px solid #ffffff10;margin:0;font-size:11px}.twx-checklist input{width:17px;height:17px;accent-color:#e7bd58;flex:0 0 auto}.twx-progress-track{height:8px;background:#26344a;border-radius:20px;overflow:hidden;margin-top:12px}#twxChecklistFill{width:0;height:100%;border-radius:20px;background:linear-gradient(90deg,#bb8326,#ffe7a0);transition:width .2s ease}.twx-footer-line{text-align:center;margin-top:16px;padding-top:12px;border-top:1px solid #f6d47730;font-size:10px;letter-spacing:1px;color:#f5d27b}.twx-footer-line small{display:block;margin-top:5px;letter-spacing:0;color:#9daec4;font-size:9px}@media(min-width:620px){.twx-team-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.twx-tool-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.twx-wide{grid-column:1/-1}.twx-checklist{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(prefers-reduced-motion:reduce){.twx-team-card{transition:none}.twx-team-card:active{transform:none}}body.mode-light #tw-extra-command-center{background:linear-gradient(145deg,#f8f0d9,#e8edf5);color:#142033}body.mode-light .twx-panel,body.mode-light .twx-team-card{background:linear-gradient(145deg,#fffdf6,#e8edf5);color:#172337}body.mode-light #tw-extra-command-center label,body.mode-light .twx-team-card small,body.mode-light .twx-hint{color:#48566b}body.mode-light #tw-extra-command-center input:not([type=checkbox]),body.mode-light #tw-extra-command-center select,body.mode-light #tw-extra-command-center textarea{background:#fff;color:#152033}
+</style>
+<script id="tiger-warriors-extra-command-centre-logic">
+(function(){const $=id=>document.getElementById(id);const put=(k,v)=>{try{localStorage.setItem(k,v);return true}catch(e){return false}};const get=k=>{try{return localStorage.getItem(k)||''}catch(e){return ''}};
+window.twxOpenTeam=function(t){try{if(typeof playClickSound==='function')playClickSound()}catch(e){};if(t==='tnpsc'){if(typeof openTnpscModal==='function')openTnpscModal();else alert('TNPSC பகுதி கிடைக்கவில்லை.')}else if(t==='trb'){if(typeof openTrbModal==='function')openTrbModal();else alert('TRB பகுதி கிடைக்கவில்லை.')}else if(t==='quiz'){if(typeof openQuizModal==='function')openQuizModal();else if(typeof openQuizCategorySelection==='function')openQuizCategorySelection();else alert('Quiz பகுதி கிடைக்கவில்லை.')}else if(t==='daily'){if(typeof openTodayTaskModal==='function')openTodayTaskModal();else if(typeof startWarriorDailyMission==='function')startWarriorDailyMission();else alert('Daily Mission பகுதி கிடைக்கவில்லை.')}else if(t==='progress'){if(typeof openWarriorProgressModal==='function')openWarriorProgressModal();else alert('Progress பகுதி கிடைக்கவில்லை.')}};
+window.twxSaveGoal=function(){const goal=$('twxGoal').value.trim(),target=$('twxTarget').value;const ok=put('twx_study_goal_v1',JSON.stringify({goal,target,date:new Date().toDateString()}));$('twxGoalStatus').textContent=ok?(goal?'இன்றைய இலக்கு சேமிக்கப்பட்டது: '+goal:'நேர இலக்கு சேமிக்கப்பட்டது.'):'சேமிக்க முடியவில்லை; browser storage அனுமதியைச் சரிபார்க்கவும்.'};window.twxSaveNotes=function(){const ok=put('twx_study_notes_v1',$('twxNotes').value);$('twxNotesStatus').textContent=ok?'குறிப்புகள் இந்தச் சாதனத்தில் சேமிக்கப்பட்டன.':'சேமிக்க முடியவில்லை; browser storage அனுமதியைச் சரிபார்க்கவும்.'};window.twxClearNotes=function(){if($('twxNotes'))$('twxNotes').value='';put('twx_study_notes_v1','');$('twxNotesStatus').textContent='குறிப்புகள் அழிக்கப்பட்டன.'};
+const ck='twx_checklist_v1_'+new Date().toDateString();function updateChecks(){const a=[...document.querySelectorAll('[data-twx-check]')],n=a.filter(x=>x.checked).length;$('twxChecklistFill').style.width=(n/a.length*100)+'%';$('twxChecklistStatus').textContent=n+' / '+a.length+' பணிகள் முடிந்தன'+(n===a.length?' — அருமை Warrior!':'');put(ck,JSON.stringify(a.map(x=>x.checked)))}function loadChecks(){let v=[];try{v=JSON.parse(get(ck)||'[]')}catch(e){}document.querySelectorAll('[data-twx-check]').forEach((x,i)=>x.checked=!!v[i]);updateChecks()}window.twxResetChecklist=function(){document.querySelectorAll('[data-twx-check]').forEach(x=>x.checked=false);updateChecks()};
+let sec=1500,interval=null;function showTimer(){$('twxTimer').textContent=String(Math.floor(sec/60)).padStart(2,'0')+':'+String(sec%60).padStart(2,'0')}window.twxTimerToggle=function(){if(interval){clearInterval(interval);interval=null;$('twxTimerStart').textContent='▶ தொடர';$('twxTimerStatus').textContent='Timer இடைநிறுத்தப்பட்டது.';return}$('twxTimerStart').textContent='Ⅱ இடைநிறுத்து';$('twxTimerStatus').textContent='கவனமாகப் படியுங்கள், Warrior!';interval=setInterval(()=>{sec--;showTimer();if(sec<=0){clearInterval(interval);interval=null;$('twxTimerStart').textContent='▶ மீண்டும் தொடங்கு';$('twxTimerStatus').textContent='🔥 Focus sprint முடிந்தது! சிறிய ஓய்வு எடுங்கள்.';try{if(typeof playClickSound==='function')playClickSound()}catch(e){}}},1000)};window.twxTimerReset=function(){if(interval)clearInterval(interval);interval=null;sec=1500;showTimer();$('twxTimerStart').textContent='▶ தொடங்கு';$('twxTimerStatus').textContent='Timer மீண்டும் தயாராக உள்ளது.'};
+function init(){try{const s=JSON.parse(get('twx_study_goal_v1')||'null');if(s){$('twxGoal').value=s.goal||'';$('twxTarget').value=s.target||'60';$('twxGoalStatus').textContent=(s.date===new Date().toDateString()?'இன்றைய இலக்கு: ':'முந்தைய இலக்கு: ')+(s.goal||((s.target||60)+' நிமிடங்கள்'))}}catch(e){}$('twxNotes').value=get('twx_study_notes_v1');document.querySelectorAll('[data-twx-check]').forEach(x=>x.addEventListener('change',updateChecks));loadChecks();showTimer()}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init()})();
+</script>
+
+
+<!-- TIGER WARRIORS ARENA: FULL-SCREEN MODAL NAVIGATION -->
+<div id="twxArenaModal" class="twx-arena-modal" role="dialog" aria-modal="true" aria-labelledby="twxArenaModalTitle" aria-hidden="true">
+  <div class="twx-arena-shell">
+    <header class="twx-arena-topbar">
+      <div class="twx-arena-brand"><span class="twx-arena-emblem">🐅</span><div><strong id="twxArenaModalTitle">TIGER WARRIORS</strong><small>PREPARATION HUB • WARRIOR COMMAND CENTRE</small></div></div>
+      <button type="button" class="twx-arena-close" onclick="closeTigerArenaModal()" aria-label="Close Tiger Warriors menu">✕</button>
+    </header>
+    <div class="twx-arena-welcome"><span>🇮🇳 LEARN • PRACTISE • CONQUER</span><h2>உங்கள் அடுத்த வெற்றி இங்கிருந்து தொடங்குகிறது!</h2><p>உங்களுக்கு தேவையான தேர்வு, பயிற்சி, குறிப்புகள் அனைத்தையும் ஒரே இடத்தில் தேர்வு செய்யுங்கள்.</p></div>
+    <section class="twx-exam-launcher" aria-label="Exam quick navigation">
+      <div class="twx-launcher-heading"><span>⚔️ EXAM COMMAND</span><small>உங்கள் தேர்வைத் தேர்ந்தெடுக்கவும்</small></div>
+      <div class="twx-exam-grid">
+        <button type="button" class="twx-exam-tile" onclick="twxLaunchExam('tnpsc')"><span>🏛️</span><b>TNPSC</b><small>Group 1 • 2 • 2A • 4</small></button>
+        <button type="button" class="twx-exam-tile" onclick="twxLaunchExam('police')"><span>🛡️</span><b>POLICE</b><small>Police / Uniformed Services</small></button>
+        <button type="button" class="twx-exam-tile" onclick="twxLaunchExam('railway')"><span>🚆</span><b>RAILWAY</b><small>Railway exam practice</small></button>
+        <button type="button" class="twx-exam-tile" onclick="twxLaunchExam('trb')"><span>🎓</span><b>TRB / TET</b><small>NET • SET • Teaching</small></button>
+        <button type="button" class="twx-exam-tile" onclick="twxLaunchExam('upsc')"><span>🇮🇳</span><b>UPSC</b><small>Civil Services</small></button>
+        <button type="button" class="twx-exam-tile" onclick="twxLaunchExam('neet')"><span>🧬</span><b>NEET</b><small>Science / medical entrance</small></button>
+        <button type="button" class="twx-exam-tile" onclick="twxLaunchExam('quiz')"><span>🎯</span><b>DAILY QUIZ</b><small>Test your knowledge</small></button>
+        <button type="button" class="twx-exam-tile" onclick="twxLaunchExam('study')"><span>📚</span><b>STUDY ROOMS</b><small>Study discussion areas</small></button>
+        <button type="button" class="twx-exam-tile" onclick="twxLaunchExam('current')"><span>📰</span><b>CURRENT AFFAIRS</b><small>News and daily updates</small></button>
+        <button type="button" class="twx-exam-tile" onclick="twxLaunchExam('materials')"><span>📖</span><b>STUDY MATERIALS</b><small>Subjects and resources</small></button>
+      </div>
+    </section>
+    <div id="twxArenaMount"></div>
+    <footer class="twx-arena-footer">🐅 TIGER WARRIORS • DISCIPLINE • CONSISTENCY • VICTORY</footer>
+  </div>
+</div>
+<style id="twx-arena-popup-skin">
+.twx-arena-modal{display:none;position:fixed;inset:0;z-index:2147483000;background:rgba(1,5,14,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:0;overflow:hidden}
+.twx-arena-modal.twx-open{display:flex;align-items:stretch;justify-content:center}
+.twx-arena-shell{width:100%;max-width:1120px;height:100%;max-height:100dvh;overflow-y:auto;overscroll-behavior:contain;background:radial-gradient(ellipse at 50% 0%,rgba(186,133,36,.18),transparent 38%),linear-gradient(145deg,#07182c,#090e1b 55%,#171006);color:#fff4d4;border:1px solid rgba(246,212,119,.42);scrollbar-width:thin;scrollbar-color:#b78b38 #101827}
+.twx-arena-topbar{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 15px;background:rgba(5,14,27,.94);border-bottom:1px solid rgba(246,212,119,.25);backdrop-filter:blur(12px)}
+.twx-arena-brand{display:flex;align-items:center;gap:10px;min-width:0}.twx-arena-emblem{font-size:34px;filter:drop-shadow(0 0 9px rgba(246,212,119,.35))}.twx-arena-brand strong{display:block;color:#ffe7a0;font-size:14px;letter-spacing:1px}.twx-arena-brand small{display:block;color:#aab8cc;font-size:8px;letter-spacing:.6px;margin-top:3px}
+.twx-arena-close{width:42px;height:42px;flex:0 0 auto;border:1px solid rgba(246,212,119,.5);border-radius:13px;background:linear-gradient(145deg,#25344a,#111b2a);color:#ffe7a0;font-size:21px;font-weight:900;cursor:pointer}
+.twx-arena-welcome{text-align:center;padding:21px 15px 16px}.twx-arena-welcome>span{font-size:9px;font-weight:1000;letter-spacing:2px;color:#f5ce70}.twx-arena-welcome h2{font-size:clamp(18px,4.8vw,29px);line-height:1.35;color:#ffebaf;margin:9px auto;max-width:760px}.twx-arena-welcome p{font-size:12px;line-height:1.7;color:#c4cede;max-width:700px;margin:0 auto}
+.twx-exam-launcher{margin:0 12px 13px;padding:13px;border:1px solid rgba(246,212,119,.34);border-radius:18px;background:linear-gradient(145deg,rgba(18,32,51,.97),rgba(7,14,27,.98));box-shadow:0 10px 24px rgba(0,0,0,.2)}
+.twx-launcher-heading{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:11px}.twx-launcher-heading span{font-size:12px;font-weight:1000;letter-spacing:.6px;color:#ffe7a0}.twx-launcher-heading small{font-size:10px;color:#b6c2d3}
+.twx-exam-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.twx-exam-tile{min-width:0;display:grid;grid-template-columns:31px minmax(0,1fr);grid-template-rows:auto auto;align-items:center;column-gap:8px;text-align:left;padding:10px 9px;border-radius:13px;border:1px solid rgba(246,212,119,.25);background:linear-gradient(145deg,#182b43,#0b1423);color:#fff0c2;cursor:pointer;transition:transform .15s,border-color .15s}
+.twx-exam-tile:active{transform:scale(.975)}.twx-exam-tile:focus-visible{outline:3px solid #fff0a8;outline-offset:2px}.twx-exam-tile>span{grid-row:1/3;font-size:25px;text-align:center}.twx-exam-tile b{font-size:11px;line-height:1.3;overflow-wrap:anywhere}.twx-exam-tile small{font-size:9px;line-height:1.35;color:#b8c5d8;margin-top:3px;overflow-wrap:anywhere}
+#twxArenaMount #tw-extra-command-center{margin:0 12px 12px;border-radius:18px}
+.twx-arena-footer{text-align:center;padding:13px 10px 18px;font-size:9px;font-weight:1000;letter-spacing:1px;color:#e8c873}
+body.twx-arena-locked{overflow:hidden!important}
+@media(min-width:600px){.twx-arena-modal{padding:12px}.twx-arena-shell{border-radius:20px}.twx-exam-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.twx-arena-welcome{padding-top:27px}}
+@media(min-width:900px){.twx-exam-grid{grid-template-columns:repeat(5,minmax(0,1fr))}.twx-exam-tile{min-height:90px}}
+@media(prefers-reduced-motion:reduce){.twx-exam-tile{transition:none}}
+body.mode-light .twx-arena-shell{background:linear-gradient(145deg,#f8f0d9,#e9edf4);color:#172337}
+body.mode-light .twx-arena-topbar{background:rgba(245,246,248,.95)}
+body.mode-light .twx-exam-launcher{background:linear-gradient(145deg,#fffdf6,#e8edf5)}
+body.mode-light .twx-exam-tile{background:linear-gradient(145deg,#fffdf6,#e7edf5);color:#172337}
+body.mode-light .twx-exam-tile small,body.mode-light .twx-arena-welcome p{color:#4a596e}
+</style>
+
+<style id="twx-arena-separate-launcher-style">
+.twx-arena-open-button{width:min(720px,calc(100% - 24px));min-height:66px;margin:12px auto 18px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid rgba(244,207,111,.8);border-radius:18px;background:linear-gradient(115deg,#091a30,#123b62 48%,#171006);color:#ffedbd;box-shadow:0 5px 0 #030914,0 9px 20px rgba(0,0,0,.28),inset 0 1px rgba(255,255,255,.12);font:inherit;text-align:left;cursor:pointer;position:relative;z-index:2;-webkit-tap-highlight-color:transparent}
+.twx-arena-open-button>span:first-child{font-size:30px;filter:drop-shadow(0 0 7px rgba(246,212,119,.35))}.twx-arena-open-button>span:nth-child(2){display:flex;flex:1;min-width:0;flex-direction:column;gap:4px}.twx-arena-open-button strong{font-size:clamp(12px,3vw,16px);letter-spacing:.5px;color:#ffe5a0}.twx-arena-open-button small{font-size:11px;color:#c8d5e6}.twx-arena-open-button>span:last-child{font-size:24px;color:#ffe5a0}.twx-arena-open-button:active{transform:translateY(2px);box-shadow:0 2px 0 #030914,0 4px 10px rgba(0,0,0,.25)}.twx-arena-open-button:focus-visible{outline:3px solid #ffe9a6;outline-offset:3px}body.mode-light .twx-arena-open-button{background:linear-gradient(115deg,#e5edf8,#c8d8ed,#fff6df);color:#172337}body.mode-light .twx-arena-open-button small{color:#42536b}
+</style>
+
+<script id="twx-arena-popup-logic">
+(function(){
+ const modal=()=>document.getElementById('twxArenaModal');
+ const arena=()=>document.getElementById('tw-extra-command-center');
+ const mount=()=>document.getElementById('twxArenaMount');
+ let priorFocus=null;
+ window.openTigerArenaModal=function(){
+   const m=modal(),a=arena(),target=mount();
+   if(!m||!a||!target)return;
+   priorFocus=document.activeElement;
+   if(a.parentElement!==target)target.appendChild(a);
+   m.classList.add('twx-open');m.setAttribute('aria-hidden','false');
+   document.body.classList.add('twx-arena-locked');
+   const close=m.querySelector('.twx-arena-close');if(close)close.focus({preventScroll:true});
+ };
+ window.closeTigerArenaModal=function(){
+   const m=modal(),a=arena(),placeholder=document.getElementById('twx-arena-placeholder');
+   if(!m)return;
+   m.classList.remove('twx-open');m.setAttribute('aria-hidden','true');
+   document.body.classList.remove('twx-arena-locked');
+   if(a&&placeholder&&a.parentElement!==placeholder.parentElement)placeholder.parentElement.insertBefore(a,placeholder.nextSibling);
+   if(priorFocus&&typeof priorFocus.focus==='function')priorFocus.focus({preventScroll:true});
+ };
+ window.twxLaunchExam=function(kind){
+   window.closeTigerArenaModal();
+   const call=(name,...args)=>{if(typeof window[name]==='function'){window[name](...args);return true}return false};
+   if(kind==='tnpsc'){if(!call('openTigerStudyChooser'))alert('TNPSC study section கிடைக்கவில்லை.');return}
+   if(kind==='trb'){if(call('selectTigerStudyRoom','TRB / TET / NET / SET','🎓','Teaching exams · Subject preparation'))return;if(call('openTigerStudyChooser'))return;alert('TRB study section கிடைக்கவில்லை.');return}
+   if(kind==='study'){call('openTigerStudyChooser');return}
+   if(kind==='quiz'){if(call('openQuizModal'))return;alert('Quiz பகுதி கிடைக்கவில்லை.');return}
+   if(kind==='current'){const el=document.getElementById('newsScreenBox')||document.querySelector('.notice-corner')||document.querySelector('[id*="current-affairs" i]');if(el){el.scrollIntoView({behavior:'smooth',block:'start'});return}alert('Current Affairs பகுதி இந்தப் பக்கத்தில் கண்டுபிடிக்க முடியவில்லை.');return}
+   if(kind==='materials'){const el=document.querySelector('[id*="subject" i], [class*="subject" i], [id*="preparation" i]');if(el){el.scrollIntoView({behavior:'smooth',block:'start'});return}window.scrollTo({top:0,behavior:'smooth'});return}
+   const cat={police:'Police Exam',railway:'Railway Exam',neet:'NEET Exam',upsc:'UPSC / Civil Services'}[kind];
+   if(cat){
+     if(call('openQuizModal')){
+       setTimeout(()=>{if(typeof window.startQuizForCategory==='function')window.startQuizForCategory(cat);else if(typeof window.openQuizModal==='function'){}},80);
+     }else alert(cat+' quiz section கிடைக்கவில்லை.');
+   }
+ };
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal()?.classList.contains('twx-open'))window.closeTigerArenaModal()});
+ document.addEventListener('click',e=>{const m=modal();if(m&&e.target===m)window.closeTigerArenaModal()});
+ // Keep the existing Tiger AI Assistant button completely unchanged.
+ // Add a separate, independent button for the full-screen Tiger Warriors Arena.
+ const aiButton=document.getElementById('heroAIButton');
+ const controlRow=document.querySelector('.hero-control-row');
+ if(!document.getElementById('twxArenaOpenButton')){
+   const launch=document.createElement('button');
+   launch.type='button';
+   launch.id='twxArenaOpenButton';
+   launch.className='twx-arena-open-button';
+   launch.setAttribute('aria-label','Open separate Tiger Warriors exam popup');
+   launch.innerHTML='<span aria-hidden="true">🐅</span><span><strong>TIGER WARRIORS ARENA</strong><small>அனைத்து தேர்வுகளும் • தனி பாப்அப்</small></span><span aria-hidden="true">➜</span>';
+   launch.addEventListener('click',function(){window.openTigerArenaModal()});
+   if(controlRow && controlRow.parentElement){controlRow.insertAdjacentElement('afterend',launch)}
+   else if(aiButton && aiButton.parentElement){aiButton.parentElement.insertAdjacentElement('afterend',launch)}
+   else {document.body.appendChild(launch)}
+ }
+})();
+</script>
 
 </body>
 </html>
