@@ -8156,11 +8156,33 @@ window.closeTigerRoyalVoice=function(){
  try{if(activeRecognition)activeRecognition.stop()}catch(e){}
 };
 window.useTigerRoyalVoiceText=function(){
- const text=(document.getElementById('tigerRoyalVoiceText')||{}).value||'';
+ const source=document.getElementById('tigerRoyalVoiceText');
+ const text=String(source&&source.value||'').trim();
+ if(!text){
+   const st=document.getElementById('tigerRoyalVoiceStatus');
+   if(st)st.textContent='✍️ முதலில் மைக்கில் பேசுங்கள் அல்லது இங்கே text எழுதுங்கள்.';
+   if(source)source.focus();
+   return;
+ }
+ // Send the recognized speech to the existing Tiger AI room, not the public/live chat.
+ // Keep the selected room (TNPSC / TRB / General / Study) and never auto-send.
+ if(typeof window.openRoomAI==='function') window.openRoomAI();
+ const q=document.getElementById('tigerAiQuestion');
+ if(q){
+   q.value=text;
+   q.dispatchEvent(new Event('input',{bubbles:true}));
+   if(typeof window.autoResizeTigerAIQuestion==='function') window.autoResizeTigerAIQuestion(q);
+   window.closeTigerRoyalVoice();
+   setTimeout(function(){q.focus();try{q.setSelectionRange(q.value.length,q.value.length)}catch(_){}},180);
+   const status=document.getElementById('tigerAIVoiceStatus');
+   if(status)status.textContent='✅ பேச்சு Tiger AI room-க்கு மாற்றப்பட்டது. சரிபார்த்து Send அழுத்துங்கள்.';
+   return;
+ }
+ // Fallback only if the AI room input is absent in this page build.
  const target=document.getElementById('chatMessageInput');
- if(target){target.value=text;target.dispatchEvent(new Event('input',{bubbles:true}));target.focus();}
- else {const q=document.getElementById('tigerAiQuestion');if(q){q.value=text;q.dispatchEvent(new Event('input',{bubbles:true}));q.focus();}}
- window.closeTigerRoyalVoice();
+ if(target){target.value=text;target.dispatchEvent(new Event('input',{bubbles:true}));target.focus();window.closeTigerRoyalVoice();return;}
+ const st=document.getElementById('tigerRoyalVoiceStatus');
+ if(st)st.textContent='⚠️ Tiger AI கேள்வி பெட்டி கிடைக்கவில்லை. பக்கத்தை refresh செய்து முயற்சிக்கவும்.';
 };
 })();
 </script>
