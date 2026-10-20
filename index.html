@@ -8114,31 +8114,54 @@ setInterval(syncRoleUI,700);
   let activeRecognition=null;
   window.startRoyalVoiceAI=function(){
     try{if(typeof playClickSound==='function')playClickSound()}catch(e){}
-    if(!('webkitSpeechRecognition' in window)&&!('SpeechRecognition' in window)){
-      if(typeof showRoyalAlertPopup==='function')showRoyalAlertPopup('🎙️ TIGER AI','இந்த browser-ல் Voice Search ஆதரவு இல்லை. Chrome-ல் முயற்சி செய்யவும்.');else alert('இந்த browser-ல் Voice Search ஆதரவு இல்லை. Chrome-ல் முயற்சி செய்யவும்.');return;
-    }
-    if(activeRecognition){try{activeRecognition.stop()}catch(e){} activeRecognition=null;return;}
+    const modal=document.getElementById('tigerRoyalVoiceModal');
+    if(modal){modal.classList.add('open');modal.setAttribute('aria-hidden','false');}
+    const box=document.getElementById('tigerRoyalVoiceText');
+    if(box)box.focus();
+};
+window.startTigerRoyalDictation=function(){
     const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-    const recognition=new SR();activeRecognition=recognition;
-    recognition.lang='ta-IN';recognition.interimResults=false;recognition.maxAlternatives=1;
-    const btn=document.getElementById('tigerRoyalVoiceAI');if(btn){btn.classList.add('listening');btn.setAttribute('aria-label','Listening. Tap to stop.');}
-    const notify=(title,msg)=>{if(typeof showRoyalAlertPopup==='function')showRoyalAlertPopup(title,msg);else alert(msg)};
-    notify('🤖 TIGER ROYAL AI','கேட்கத் தயார்! உங்கள் கேள்வியைத் தெளிவாகப் பேசுங்கள்.');
-    recognition.onresult=async function(event){
-      const spokenText=(event.results&&event.results[0]&&event.results[0][0]?event.results[0][0].transcript:'').trim();if(!spokenText)return;
-      const input=document.getElementById('tigerAiQuestion');
-      if(input){input.value=spokenText;try{if(typeof openRoomAI==='function')openRoomAI();if(typeof askRoomAI==='function')await askRoomAI();else notify('🎙️ நீங்கள் கேட்டது',spokenText)}catch(err){notify('🎙️ நீங்கள் கேட்டது',spokenText)}}
-      else {
-        const q=spokenText.toLowerCase();
-        if((q.includes('தமிழ்')||q.includes('tamil'))&&typeof playVaultVideo==='function')playVaultVideo('பொதுத்தமிழ் & இலக்கியம்','https://www.youtube.com/live/JWu9MHaz6y8');
-        else if((q.includes('பாலிட்டி')||q.includes('polity'))&&typeof playVaultVideo==='function')playVaultVideo('இந்திய அரசியலமைப்பு (Polity)','https://www.youtube.com/live/JWu9MHaz6y8');
-        else notify('🎙️ நீங்கள் கேட்டது',spokenText+'\nAI கேள்வி மாட்யூல் இந்தப் பக்கத்தில் கிடைக்கவில்லை.');
-      }
-    };
-    recognition.onerror=function(event){if(event.error!=='aborted')notify('🎙️ குரல் உதவி',event.error==='not-allowed'?'மைக் அனுமதியைச் செயல்படுத்தவும்.':'குரல் தெளிவாகக் கேட்கவில்லை. மீண்டும் முயற்சி செய்யவும்.');};
-    recognition.onend=function(){activeRecognition=null;if(btn){btn.classList.remove('listening');btn.setAttribute('aria-label','Start Tiger Warriors AI voice assistant');}};
-    try{recognition.start()}catch(e){activeRecognition=null;if(btn)btn.classList.remove('listening');notify('🎙️ Tiger AI','மீண்டும் முயற்சி செய்யவும்.');}
-  };
+    const status=document.getElementById('tigerRoyalVoiceStatus');
+    const mic=document.getElementById('tigerRoyalVoiceMic');
+    const box=document.getElementById('tigerRoyalVoiceText');
+    const say=(msg)=>{if(status)status.textContent=msg;};
+    if(!SR){say('இந்த browser-ல் voice typing இல்லை. Android Chrome-ல் HTTPS website வழியாகத் திறக்கவும்.');return;}
+    if(location.protocol==='file:' || location.protocol==='content:'){
+      say('மைக் அனுமதிக்க website-ஐ HTTPS link-ல் திறக்கவும். Download செய்த HTML-ல் மைக் இயங்காமல் இருக்கலாம்.');
+      return;
+    }
+    try{
+      if(activeRecognition){try{activeRecognition.stop()}catch(e){} activeRecognition=null;}
+      const rec=new SR(); activeRecognition=rec; rec.lang='ta-IN';rec.continuous=false;rec.interimResults=true;rec.maxAlternatives=1;
+      if(mic)mic.classList.add('listening');say('🎙️ கேட்கிறேன்… இப்போது பேசுங்கள்.');
+      let finalText='';
+      rec.onresult=function(e){
+        let interim='';
+        for(let i=e.resultIndex;i<e.results.length;i++){
+          const t=e.results[i][0].transcript||'';
+          if(e.results[i].isFinal)finalText+=t;else interim+=t;
+        }
+        if(box)box.value=(finalText+interim).trim();
+      };
+      rec.onerror=function(e){
+        const msgs={'not-allowed':'மைக் அனுமதி மறுக்கப்பட்டது. Chrome Site settings-ல் Microphone → Allow செய்யவும்.','service-not-allowed':'மைக் சேவை அனுமதி இல்லை. HTTPS website-ல் முயற்சி செய்யவும்.','no-speech':'குரல் கேட்கவில்லை. மீண்டும் மைக் அழுத்திப் பேசுங்கள்.','audio-capture':'மைக் கிடைக்கவில்லை. போனின் மைக் அனுமதியைச் சரிபார்க்கவும்.'};
+        say(msgs[e.error]||'குரலைப் புரிந்துகொள்ள முடியவில்லை. மீண்டும் முயற்சி செய்யுங்கள்.');
+      };
+      rec.onend=function(){activeRecognition=null;if(mic)mic.classList.remove('listening');if(finalText.trim())say('✅ பேச்சு text-ஆக வந்துவிட்டது. திருத்திவிட்டு பயன்படுத்து அழுத்துங்கள்.');};
+      rec.start();
+    }catch(e){activeRecognition=null;if(mic)mic.classList.remove('listening');say('மைக் தொடங்கவில்லை. HTTPS மற்றும் microphone permission-ஐச் சரிபார்க்கவும்.');}
+};
+window.closeTigerRoyalVoice=function(){
+ const m=document.getElementById('tigerRoyalVoiceModal');if(m){m.classList.remove('open');m.setAttribute('aria-hidden','true');}
+ try{if(activeRecognition)activeRecognition.stop()}catch(e){}
+};
+window.useTigerRoyalVoiceText=function(){
+ const text=(document.getElementById('tigerRoyalVoiceText')||{}).value||'';
+ const target=document.getElementById('chatMessageInput');
+ if(target){target.value=text;target.dispatchEvent(new Event('input',{bubbles:true}));target.focus();}
+ else {const q=document.getElementById('tigerAiQuestion');if(q){q.value=text;q.dispatchEvent(new Event('input',{bubbles:true}));q.focus();}}
+ window.closeTigerRoyalVoice();
+};
 })();
 </script>
 
@@ -8285,6 +8308,42 @@ setInterval(syncRoleUI,700);
         window.loadAdminLiveStats();
     });
 })();
+</script>
+
+
+<div id="tigerRoyalVoiceModal" aria-hidden="true">
+<style>
+#tigerRoyalVoiceModal{display:none;position:fixed;inset:0;z-index:1000000;align-items:center;justify-content:center;padding:18px;background:rgba(0,0,0,.82);backdrop-filter:blur(9px)}
+#tigerRoyalVoiceModal.open{display:flex;animation:trvmFade .22s ease-out}
+#tigerRoyalVoiceModal .trvm-card{width:min(100%,430px);border:1px solid #f7c948;border-radius:25px;padding:22px 18px;background:radial-gradient(ellipse at top,#33230b 0%,#11131b 50%,#05070c 100%);box-shadow:0 0 12px #ffc83d88,0 0 38px #f59e0b33,inset 0 0 18px #fbbf2418;text-align:center;color:#fff;animation:trvmRise .35s cubic-bezier(.2,.8,.2,1)}
+#tigerRoyalVoiceModal .trvm-title{font-size:25px;font-weight:1000;color:#ffd45a;text-shadow:0 0 12px #f59e0b;letter-spacing:.4px}
+#tigerRoyalVoiceModal .trvm-sub{font-size:13px;color:#e8d6a4;margin:8px 0 16px}
+#tigerRoyalVoiceText{width:100%;min-height:120px;resize:vertical;background:#050609;color:#fff;border:1px solid #6d5520;border-radius:16px;padding:14px;font-size:17px;line-height:1.5;outline:none}
+#tigerRoyalVoiceText:focus{border-color:#ffd45a;box-shadow:0 0 14px #fbbf2440}
+#tigerRoyalVoiceStatus{min-height:38px;padding:10px 4px;color:#fbd978;font-size:13px;line-height:1.4}
+#tigerRoyalVoiceModal .trvm-actions{display:flex;gap:9px;margin-top:7px}
+#tigerRoyalVoiceModal button{border-radius:13px;padding:13px 10px;font-size:14px;font-weight:1000;cursor:pointer;border:1px solid #d6a72b}
+#tigerRoyalVoiceMic{flex:1;color:#1b1000;background:linear-gradient(135deg,#ffe66d,#e98a06);box-shadow:0 0 15px #fbbf2450}
+#tigerRoyalVoiceMic.listening{animation:trvmPulse .8s infinite alternate}
+#tigerRoyalVoiceUse{flex:1;color:#111;background:linear-gradient(135deg,#f8d56b,#f59e0b)}
+#tigerRoyalVoiceClose{position:absolute;right:25px;top:25px;border-radius:50%!important;background:#24130b;color:#fff;border-color:#fbbf24!important;padding:7px 12px!important}
+@keyframes trvmFade{from{opacity:0}to{opacity:1}}@keyframes trvmRise{from{opacity:0;transform:translateY(18px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}@keyframes trvmPulse{to{box-shadow:0 0 25px #ff3d3d;filter:brightness(1.2);transform:scale(1.03)}}
+@media(prefers-reduced-motion:reduce){#tigerRoyalVoiceModal *{animation:none!important}}
+</style>
+<button id="tigerRoyalVoiceClose" type="button" onclick="closeTigerRoyalVoice()" aria-label="Close">×</button>
+<div class="trvm-card" role="dialog" aria-modal="true" aria-labelledby="trvmTitle">
+ <div class="trvm-title" id="trvmTitle">🐯 TIGER AI VOICE CHAT</div>
+ <div class="trvm-sub">👑 ROYAL VOICE COMMAND • பேசுங்கள், எழுத்தாக மாற்றுங்கள்</div>
+ <textarea id="tigerRoyalVoiceText" placeholder="இங்கே உங்கள் பேச்சு எழுத்தாக வரும்…"></textarea>
+ <div id="tigerRoyalVoiceStatus" role="status">🎙️ மைக் அழுத்தி தமிழில் பேசுங்கள்.</div>
+ <div class="trvm-actions">
+  <button id="tigerRoyalVoiceMic" type="button" onclick="startTigerRoyalDictation()">🎙️ பேசு / மைக்</button>
+  <button id="tigerRoyalVoiceUse" type="button" onclick="useTigerRoyalVoiceText()">✍️ பயன்படுத்து</button>
+ </div>
+</div>
+</div>
+<script>
+document.addEventListener('keydown',function(e){if(e.key==='Escape')window.closeTigerRoyalVoice&&window.closeTigerRoyalVoice();});
 </script>
 
 </body>
