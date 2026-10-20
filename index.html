@@ -6150,22 +6150,41 @@ input,select,textarea{border-radius:13px!important}
             if (!w) { alert('PDF உருவாக்க புதிய window அனுமதிக்கவும்.'); return; }
             w.document.open();
             w.document.write(`<!doctype html><html lang="ta"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escapePDFText(title)} - Tiger Warriors</title><style>
-                @page{size:A4;margin:14mm}*{box-sizing:border-box}body{font-family:"Noto Sans Tamil","Latha",Arial,sans-serif;color:#14243a;margin:0;font-size:12px;line-height:1.65}
-                .toolbar{text-align:center;margin:0 0 14px}.toolbar button{background:#047857;color:white;border:0;border-radius:8px;padding:11px 18px;font-weight:900}
-                header{position:fixed;top:0;left:0;right:0;z-index:10;text-align:center;border:1.5px solid #0ea5e9;border-radius:8px;overflow:hidden;background:linear-gradient(135deg,#061323,#0b2442);margin:0 auto;width:100%;box-shadow:0 2px 0 #d4a72c}
-                .brandimg{display:block;width:100%;height:66px;max-height:66px;object-fit:contain;object-position:center center;background:#061323}
-                .headtitle{padding:3px 6px;font-size:11px;line-height:1.25}
-                .motto{padding:2px 6px 3px;font-size:9px;line-height:1.2}
-                body{padding-top:31mm}
-                .headtitle{background:linear-gradient(90deg,#061323,#0b3157,#061323);color:#fff;padding:7px 9px;font-size:15px;line-height:1.3;font-weight:1000;letter-spacing:.3px;border-top:1px solid rgba(14,165,233,.45)}
-                .motto{background:#061323;color:#fde68a;font-weight:900;padding:3px 8px 6px;font-size:11px;line-height:1.25}
-                .news-card{position:relative;border:1px solid #cbd5e1;border-left:4px solid #15945b;border-radius:8px;padding:12px;margin:0 0 12px;break-inside:avoid;background:rgba(255,255,255,.94)}
-                .news-no{font-size:10px;font-weight:900;color:#047857;letter-spacing:.6px}.news-main{display:flex;align-items:flex-start;gap:14px}.news-copy{flex:1;min-width:0}h2{font-size:14px;line-height:1.5;margin:5px 0;color:#10213a;white-space:pre-wrap;overflow-wrap:anywhere}.meta{font-size:10px;color:#64748b;margin:5px 0}.newsimg{display:block;flex:0 0 34%;width:34%;max-width:34%;max-height:180px;object-fit:cover;object-position:center;margin:5px 0 0 auto;border-radius:7px;border:1px solid #cbd5e1}
-                .brand-footer{margin-top:12px;padding:8px 4px 0;border-top:2px solid #0ea5e9;text-align:center;color:#0b3157;font-weight:1000;letter-spacing:1.4px;font-size:13px}
-                .brand-footer small{display:block;font-size:10px;letter-spacing:.3px;color:#64748b;font-weight:700;margin-top:2px}
-                @media(max-width:560px){.news-main{gap:8px}.newsimg{flex-basis:32%;width:32%;max-width:32%;max-height:145px}h2{font-size:12px}}
-                @media print{.toolbar{display:none}body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
-            </style></head><body><div class="toolbar"><button onclick="window.print()">📄 Print / Save as PDF</button><p>Print window-ல் “Save as PDF” தேர்வு செய்யவும்.</p></div><header><img class="brandimg" src="${TIGER_WARRIORS_PDF_HEADER}" alt="Tiger Warriors"><div class="headtitle">${escapePDFText(title)} • TIGER WARRIORS</div><div class="motto">வெற்றி நமதே! • SUCCESS IS OURS</div></header><div style="text-align:center;margin:0 0 12px;color:#64748b;font-weight:700">தேதி: ${new Date().toLocaleDateString('ta-IN')} • மொத்த செய்திகள்: ${items.length}</div>${cards}<footer style="text-align:left;border-top:1px solid #cbd5e1;padding-top:8px;color:#64748b;font-size:10px"><div class="brand-footer">TIGER WARRIORS<small>COACHING CENTRE</small></div><div style="margin-top:8px"><b style="color:#0f766e">வெற்றி நமதே!</b><br>SUCCESS IS OURS<br>திரு. K. மணிகாசி<br>CEO, TIGER WARRIORS</div></footer><script>window.onload=()=>setTimeout(()=>window.print(),500);<\/script></body></html>`);
+@page{size:A4;margin:7mm 9mm}*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:"Noto Sans Tamil","Latha",Arial,sans-serif;color:#14243a;font-size:12px;line-height:1.55;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.toolbar{display:none}
+.print-sheet{width:100%;border-collapse:collapse;table-layout:fixed}
+.print-sheet thead{display:table-header-group}
+.print-sheet tfoot{display:table-footer-group}
+.print-sheet td{padding:0}
+.page-header{width:100%;border:1.5px solid #0ea5e9;border-radius:8px;overflow:hidden;background:linear-gradient(135deg,#061323,#0b2442);box-shadow:0 2px 0 #d4a72c}
+.brandimg{display:block;width:100%;height:auto;max-height:none;object-fit:contain;background:#061323}
+.headtitle{background:linear-gradient(90deg,#061323,#0b3157,#061323);color:#fff;padding:7px 9px;font-size:15px;line-height:1.3;font-weight:1000;letter-spacing:.3px;border-top:1px solid rgba(14,165,233,.45);text-align:center}
+.motto{background:#061323;color:#fde68a;font-weight:900;padding:3px 8px 6px;font-size:11px;line-height:1.25;text-align:center}
+.page-content{padding-top:7px}
+.news-card{position:relative;border:1px solid #cbd5e1;border-left:4px solid #15945b;border-radius:8px;padding:12px;margin:0 0 12px;break-inside:avoid;page-break-inside:avoid;background:rgba(255,255,255,.94)}
+.news-no{font-size:10px;font-weight:900;color:#047857;letter-spacing:.6px}
+.news-main{display:flex;align-items:flex-start;gap:14px}.news-copy{flex:1;min-width:0}
+h2{font-size:14px;line-height:1.5;margin:5px 0;color:#10213a;white-space:pre-wrap;overflow-wrap:anywhere}
+.meta{font-size:10px;color:#64748b;margin:5px 0}
+.newsimg{display:block;flex:0 0 34%;width:34%;max-width:34%;max-height:180px;object-fit:cover;object-position:center;margin:5px 0 0 auto;border-radius:7px;border:1px solid #cbd5e1}
+.page-footer{width:100%;border-top:3px solid #0ea5e9;background:#061323;color:#fff;text-align:center;padding:6px 8px;margin-top:8px;border-radius:0 0 6px 6px}
+.page-footer .footer-brand{font-size:13px;font-weight:1000;letter-spacing:1.2px;color:#fbbf24}.page-footer .footer-motto{font-size:11px;font-weight:900;color:#fff;margin-top:2px}.page-footer .footer-ceo{font-size:9px;color:#fde68a;margin-top:2px}
+@media print{.print-sheet{width:100%}}
+</style></head><body>
+<table class="print-sheet">
+<thead><tr><td>
+<header class="page-header"><img class="brandimg" src="${TIGER_WARRIORS_PDF_HEADER}" alt="Tiger Warriors Coaching Centre Royal Header"><div class="headtitle">${escapePDFText(title)} • TIGER WARRIORS</div><div class="motto">வெற்றி நமதே! • SUCCESS IS OURS</div></header>
+</td></tr></thead>
+<tbody><tr><td>
+<div class="page-content"><div style="text-align:center;margin:4px 0 10px;color:#64748b;font-weight:700">தேதி: ${new Date().toLocaleDateString('ta-IN')} • மொத்த செய்திகள்: ${items.length}</div>${cards}</div>
+</td></tr></tbody>
+<tfoot><tr><td>
+<footer class="page-footer"><div class="footer-brand">TIGER WARRIORS COACHING CENTRE</div><div class="footer-motto">வெற்றி நமதே! • SUCCESS IS OURS</div><div class="footer-ceo">திரு. K. மணிகாசி • CEO - TIGER WARRIORS</div></footer>
+</td></tr></tfoot>
+</table>
+<script>window.onload=()=>setTimeout(()=>window.print(),500);<\/script></body></html>`);
             w.document.close();
         }
 
@@ -6434,8 +6453,36 @@ input,select,textarea{border-radius:13px!important}
             if (!w) { alert('PDF உருவாக்க புதிய window அனுமதிக்கவும். பின்னர் Print → Save as PDF தேர்வு செய்யவும்.'); return; }
             w.document.open();
             w.document.write(`<!doctype html><html lang="ta"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Tiger Warriors Quiz Report</title><style>
-                @page{size:A4;margin:15mm}*{box-sizing:border-box}body{font-family:"Noto Sans Tamil","Latha","Arial",sans-serif;color:#172033;margin:0;padding-top:43mm;font-size:12px;line-height:1.65}header{text-align:center;position:fixed;top:0;left:0;right:0;z-index:10;border:1.5px solid #0ea5e9;border-radius:8px;overflow:hidden;border-bottom:2px solid #d4a72c;padding:3px 3px 0;margin:0 auto;background:linear-gradient(135deg,#061323,#0b2442);box-shadow:0 2px 0 #d4a72c}header .brandimg{display:block;width:100%;height:68px;max-height:68px;object-fit:contain;object-position:center center;background:#061323}header .sub{font-size:10px;line-height:1.3;font-weight:900;color:#e2e8f0;background:linear-gradient(90deg,#061323,#0b3157,#061323);margin:0;padding:5px 4px;border-top:1px solid rgba(14,165,233,.35)}.summary{border:2px solid #15945b;border-radius:12px;background:#effcf5;text-align:center;padding:15px;margin-bottom:18px}.score{font-size:28px;font-weight:1000;color:#047857}.marks{font-size:18px;font-weight:900;margin:4px}.question{border:1px solid #cbd5e1;border-left:4px solid #b8860b;border-radius:9px;padding:12px;margin:0 0 12px;break-inside:avoid}.qhead{font-size:11px;font-weight:900;color:#8a5b00;display:flex;justify-content:space-between}.status{float:right}.ok{color:#047857}.wrong{color:#be123c}.skip{color:#64748b}h3{font-size:14px;margin:8px 0 10px;color:#0f172a}.option{padding:5px 8px;margin:4px 0;border:1px solid #dbe2ea;border-radius:5px}.option.correct{background:#ecfdf5;border-color:#16a34a;color:#065f46;font-weight:700}.option.chosen:not(.correct){background:#fff1f2;border-color:#e11d48}.your,.answer,.explain{padding:7px 9px;border-radius:5px;margin:7px 0}.your{background:#f1f5f9}.answer{background:#ecfdf5;color:#065f46;font-weight:800}.explain{background:#f8fafc;color:#334155}.printnote{color:#64748b;font-size:10px;text-align:left;margin-top:20px;padding-top:8px;border-top:1px solid #cbd5e1;line-height:1.5}.printnote .motto-ta{font-size:12px;font-weight:900;color:#0f766e;letter-spacing:.2px}.printnote .motto-en{font-size:10px;font-weight:800;color:#334155;letter-spacing:.5px}.printnote .ceo-line{font-size:9px;font-weight:700;color:#64748b;margin-top:2px}@media screen{body{max-width:850px;margin:20px auto;padding:18px}.toolbar{text-align:center;margin:0 0 18px}.toolbar button{background:#059669;color:white;border:0;border-radius:8px;padding:12px 18px;font-weight:900;font-size:15px}}@media print{.toolbar{display:none}}
-                </style></head><body><div class="toolbar"><button onclick="window.print()">🖨️ PDF ஆக சேமிக்க / Print</button><p>Print window-ல் “Save as PDF” தேர்வு செய்யவும்.</p></div><header><img class="brandimg" src="${TIGER_WARRIORS_PDF_HEADER}" alt="Tiger Warriors Coaching Centre Royal Header"><div class="sub">${escapePDFText(title)} • QUIZ ${mode==='result'?'RESULT':'RESULT & ANSWER KEY'}</div><div class="sub">தேதி: ${new Date().toLocaleDateString('ta-IN')}</div></header>${report}${rows}<div class="printnote"><div class="motto-ta">வெற்றி நமதே • டைகர் வாரியர்ஸ்</div><div class="motto-en">SUCCESS IS OURS</div><div class="ceo-line">By CEO of Tiger Warrior</div><div style="margin-top:4px">Tiger Warriors Coaching Centre • தனிப்பட்ட தேர்வு அறிக்கை</div></div><script>window.onload=()=>setTimeout(()=>window.print(),500);<\/script></body></html>`);
+@page{size:A4;margin:7mm 9mm}*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:"Noto Sans Tamil","Latha","Arial",sans-serif;color:#172033;font-size:12px;line-height:1.55;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.toolbar{display:none}
+.print-sheet{width:100%;border-collapse:collapse;table-layout:fixed}
+.print-sheet thead{display:table-header-group}
+.print-sheet tfoot{display:table-footer-group}
+.print-sheet td{padding:0}
+.page-header{text-align:center;border:1.5px solid #0ea5e9;border-radius:8px;overflow:hidden;border-bottom:2px solid #d4a72c;background:linear-gradient(135deg,#061323,#0b2442);box-shadow:0 2px 0 #d4a72c}
+.page-header .brandimg{display:block;width:100%;height:auto;max-height:none;object-fit:contain;background:#061323}
+.page-header .sub{font-size:15px;line-height:1.3;font-weight:1000;color:#fff;background:linear-gradient(90deg,#061323,#0b3157,#061323);margin:0;padding:7px 6px;border-top:1px solid rgba(14,165,233,.35)}
+.page-content{padding-top:7px}
+.summary{border:2px solid #15945b;border-radius:12px;background:#effcf5;text-align:center;padding:15px;margin-bottom:18px}
+.score{font-size:28px;font-weight:1000;color:#047857}.marks{font-size:18px;font-weight:900;margin:4px}
+.question{border:1px solid #cbd5e1;border-left:4px solid #b8860b;border-radius:9px;padding:12px;margin:0 0 12px;break-inside:avoid;page-break-inside:avoid}
+.qhead{font-size:11px;font-weight:900;color:#8a5b00;display:flex;justify-content:space-between}.status{float:right}.ok{color:#047857}.wrong{color:#be123c}.skip{color:#64748b}
+h3{font-size:14px;margin:8px 0 10px;color:#0f172a}.option{padding:5px 8px;margin:4px 0;border:1px solid #dbe2ea;border-radius:5px}.option.correct{background:#ecfdf5;border-color:#16a34a;color:#065f46;font-weight:700}.option.chosen:not(.correct){background:#fff1f2;border-color:#e11d48}
+.your,.answer,.explain{padding:7px 9px;border-radius:5px;margin:7px 0}.your{background:#f1f5f9}.answer{background:#ecfdf5;color:#065f46;font-weight:800}.explain{background:#f8fafc;color:#334155}
+.page-footer{border-top:3px solid #0ea5e9;background:#061323;color:#fff;text-align:center;padding:6px 8px;margin-top:8px}.page-footer .motto-ta{font-size:12px;font-weight:900;color:#fde68a}.page-footer .motto-en{font-size:10px;font-weight:800;color:#fff}.page-footer .ceo-line{font-size:9px;font-weight:700;color:#fde68a;margin-top:1px}
+</style></head><body>
+<table class="print-sheet">
+<thead><tr><td>
+<header class="page-header"><img class="brandimg" src="${TIGER_WARRIORS_PDF_HEADER}" alt="Tiger Warriors Coaching Centre Royal Header"><div class="sub">${escapePDFText(title)} • QUIZ ${mode==='result'?'RESULT':'RESULT & ANSWER KEY'}</div><div class="sub">தேதி: ${new Date().toLocaleDateString('ta-IN')}</div></header>
+</td></tr></thead>
+<tbody><tr><td><div class="page-content">${report}${rows}</div></td></tr></tbody>
+<tfoot><tr><td>
+<footer class="page-footer"><div class="motto-ta">வெற்றி நமதே • TIGER WARRIORS COACHING CENTRE</div><div class="motto-en">SUCCESS IS OURS</div><div class="ceo-line">திரு. K. மணிகாசி • CEO - TIGER WARRIORS</div></footer>
+</td></tr></tfoot>
+</table>
+<script>window.onload=()=>setTimeout(()=>window.print(),500);<\/script></body></html>`);
             w.document.close();
         }
         function escapePDFText(value) {
