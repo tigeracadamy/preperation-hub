@@ -5757,10 +5757,6 @@ input,select,textarea{border-radius:13px!important}
                     checkUserLoginStatus();
                     if (pendingCategoryAction) { pendingCategoryAction(); pendingCategoryAction = null; }
                 } else if (data.status === "pending") {
-                    // Course approval and subscription approval are separate.
-                    // Apply subscription metadata returned with a pending course login,
-                    // without granting course access or marking the student logged in.
-                    if (data.subscriptionStatus) applyTigerServerSubscription(data, phone);
                     showRoyalAlertPopup("🐅 TIGER WARRIORS ALERT 🔥", "⏳ " + data.message);
                 } else if (data.status === "unauthorized") {
                     document.getElementById('authModal').style.display = 'none';
@@ -5865,11 +5861,9 @@ input,select,textarea{border-radius:13px!important}
         // This means the timer can appear/update without requiring the student to log out and in again.
         async function syncTigerSubscriptionFromServer() {
             if (window.__twSubSyncBusy) return;
-            // Subscription status is independent of course-login approval.
-            // A saved student phone is enough to refresh timer metadata; this does
-            // not set tiger_auth_passed or grant course access.
+            const isLoggedIn = localStorage.getItem('tiger_auth_passed') === 'true';
             const phone = (localStorage.getItem('tiger_student_phone') || '').trim();
-            if (!phone || !navigator.onLine) return;
+            if (!isLoggedIn || !phone || !navigator.onLine) return;
             window.__twSubSyncBusy = true;
             try {
                 const params = new URLSearchParams({
