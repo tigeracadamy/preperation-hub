@@ -32,6 +32,18 @@
 .tw-sub-pay-btn{border:0;border-radius:12px;padding:12px;background:linear-gradient(135deg,#06b6d4,#3b82f6);color:#00111c;font-size:14px;font-weight:1000;cursor:pointer;box-shadow:0 7px 18px rgba(0,180,255,.2)}
 .tw-sub-note{font-size:9px;color:#94a3b8;text-align:center;line-height:1.45}
 @media(max-width:480px){.tw-subscription-box{padding:12px;border-radius:18px}.tw-subscription-head h3{font-size:17px}.tw-sub-plan{padding:10px}.tw-sub-plan b{font-size:22px}}
+
+/* Tiger Warriors live subscription status */
+#twSubscriptionStatusCard{display:none;position:fixed;z-index:9998;right:12px;bottom:12px;width:min(360px,calc(100vw - 24px));box-sizing:border-box;padding:14px;border:1px solid rgba(0,245,255,.65);border-radius:16px;background:rgba(8,14,30,.97);color:#f5fbff;box-shadow:0 0 24px rgba(0,220,255,.22);font-family:inherit}
+#twSubscriptionStatusCard .twss-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+#twSubscriptionStatusCard .twss-title{font-weight:900;font-size:15px;color:#61f7ff}
+#twSubscriptionStatusCard .twss-active{font-size:11px;font-weight:800;color:#7dffb0;border:1px solid #35c978;border-radius:30px;padding:4px 8px}
+#twSubscriptionStatusCard .twss-line{font-size:13px;line-height:1.5;margin:6px 0;overflow-wrap:anywhere}
+#twSubscriptionStatusCard .twss-line strong{color:#ffd76b}
+#twSubscriptionStatusCard .twss-count{font-size:17px;font-weight:900;color:#7dffb0;margin-top:5px}
+#twSubscriptionStatusCard .twss-track{height:6px;border-radius:99px;background:#26344d;overflow:hidden;margin-top:8px}
+#twSubscriptionStatusCard .twss-bar{height:100%;width:var(--tw-progress,0%);background:linear-gradient(90deg,#00e5ff,#62ff9a);border-radius:99px;transition:width .8s linear}
+@media(max-width:600px){#twSubscriptionStatusCard{right:8px;bottom:8px;width:calc(100vw - 16px);padding:12px}#twSubscriptionStatusCard .twss-title{font-size:14px}#twSubscriptionStatusCard .twss-line{font-size:12px}#twSubscriptionStatusCard .twss-count{font-size:16px}}
 </style>
 
 <style id="tw-final-mobile-no-overlap-fix">
@@ -74,7 +86,7 @@
   #tigerRoyalVoiceAIClose{right:4px !important;bottom:158px !important;}
 }
 </style>
-</head>
+
     <!-- 🌟 PWA Manifest & Theme Integration -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#00f2fe">
@@ -3035,6 +3047,9 @@ input,select,textarea{border-radius:13px!important}
                 <button type="button" class="tw-sub-plan" data-plan="1 Day" data-amount="10" data-days="1" onclick="selectTigerSubscriptionPlan(this)">
                     <strong>1 DAY</strong><b>₹10</b><small>1 நாள் Access</small>
                 </button>
+                <button type="button" class="tw-sub-plan" data-plan="1 Week" data-amount="30" data-days="7" onclick="selectTigerSubscriptionPlan(this)">
+                    <strong>1 WEEK</strong><b>₹30</b><small>7 நாள் Access</small>
+                </button>
                 <button type="button" class="tw-sub-plan" data-plan="1 Month" data-amount="100" data-days="30" onclick="selectTigerSubscriptionPlan(this)">
                     <strong>1 MONTH</strong><b>₹100</b><small>30 நாள் Access</small>
                 </button>
@@ -5742,6 +5757,11 @@ input,select,textarea{border-radius:13px!important}
                     checkUserLoginStatus();
                     if (pendingCategoryAction) { pendingCategoryAction(); pendingCategoryAction = null; }
                 } else if (data.status === "pending") {
+                    // Save the phone for subscription-only sync; do NOT mark course auth passed.
+                    localStorage.setItem('tiger_student_phone', phone);
+                    // Course approval and subscription approval are separate.
+                    // This only updates timer metadata; it never grants course access.
+                    if (data.subscriptionStatus) applyTigerServerSubscription(data, phone);
                     showRoyalAlertPopup("🐅 TIGER WARRIORS ALERT 🔥", "⏳ " + data.message);
                 } else if (data.status === "unauthorized") {
                     document.getElementById('authModal').style.display = 'none';
@@ -5778,18 +5798,131 @@ input,select,textarea{border-radius:13px!important}
 
         function applyTigerServerSubscription(data, phone) {
             if (!data) return;
-            const until = Number(data.subscriptionUntil || data.expiresAt || data.subscriptionExpiry || 0);
-            const active = String(data.subscriptionStatus || data.subscription || '').toLowerCase() === 'active';
+            const until = Number(data.subscriptionUntil || data.expiresAt || data.subscriptionExpiry || data.expires_at || 0);
+            const serverStatus = String(data.subscriptionStatus || data.subscription || '').trim().toLowerCase();
+            const active = ['active','approved','paid'].includes(serverStatus);
             if (active && until > Date.now()) {
+                const previous = getTigerSubscription() || {};
+                const approvedAt = Number(data.subscriptionApprovedAt || data.approvedAt || data.approved_at || data.startDate || data.startedAt || previous.startsAt || 0);
                 localStorage.setItem(TW_SUB_KEY, JSON.stringify({
                     status:'active',
-                    plan:data.subscriptionPlan || data.plan || 'Subscription',
-                    amount:data.subscriptionAmount || data.amount || '',
+                    plan:data.subscriptionPlan || data.plan || previous.plan || 'Subscription',
+                    amount:data.subscriptionAmount || data.amount || previous.amount || '',
                     phone:phone || localStorage.getItem('tiger_student_phone') || '',
                     deviceId:getUniqueDeviceId(),
-                    expiresAt:until
+                    startsAt: approvedAt || previous.startsAt || 0,
+                    approvedAt: approvedAt || previous.approvedAt || 0,
+                    expiresAt:until,
+                    savedAt: previous.savedAt || Date.now()
                 }));
+            } else if (serverStatus === 'expired' || (until > 0 && until <= Date.now())) {
+                // Remove stale local access when the server says the subscription has expired.
+                localStorage.removeItem(TW_SUB_KEY);
             }
+            renderTigerSubscriptionStatus();
+        }
+
+        function tigerSubscriptionDurationLabel(ms) {
+            if (!Number.isFinite(ms) || ms <= 0) return 'காலாவதியானது';
+            const total = Math.floor(ms / 1000);
+            const days = Math.floor(total / 86400), hours = Math.floor((total % 86400) / 3600);
+            const mins = Math.floor((total % 3600) / 60), secs = total % 60;
+            return (days ? days + ' நாள் ' : '') + (hours ? hours + ' மணி ' : '') + mins + ' நிமி ' + secs + ' வி';
+        }
+
+        function renderTigerSubscriptionStatus() {
+            const box = document.getElementById('twSubscriptionStatusCard');
+            if (!box) return;
+            const s = getTigerSubscription();
+            if (!s || !Number(s.expiresAt) || Number(s.expiresAt) <= Date.now()) {
+                box.style.display = 'none';
+                return;
+            }
+            box.style.display = 'block';
+            const end = Number(s.expiresAt);
+            const start = Number(s.startsAt || s.approvedAt || s.savedAt || 0);
+            const duration = Math.max(1, end - (start || (end - 3600000)));
+            const remaining = Math.max(0, end - Date.now());
+            const pct = Math.max(0, Math.min(100, (remaining / duration) * 100));
+            const startEl = document.getElementById('twSubStartDate');
+            const endEl = document.getElementById('twSubEndDate');
+            const timerEl = document.getElementById('twSubCountdown');
+            const planEl = document.getElementById('twSubStatusPlan');
+            const ring = document.getElementById('twSubProgressRing');
+            if (startEl) startEl.textContent = start ? formatTigerDate(start) : 'Server start date கிடைக்கவில்லை';
+            if (endEl) endEl.textContent = formatTigerDate(end);
+            if (timerEl) timerEl.textContent = tigerSubscriptionDurationLabel(remaining);
+            if (planEl) planEl.textContent = (s.plan || 'Subscription') + (s.amount ? ' • ₹' + s.amount : '');
+            if (ring) ring.style.setProperty('--tw-progress', pct + '%');
+        }
+
+        if (!window.twSubscriptionStatusIntervalStarted) {
+            window.twSubscriptionStatusIntervalStarted = true;
+            setInterval(renderTigerSubscriptionStatus, 1000);
+            document.addEventListener('DOMContentLoaded', renderTigerSubscriptionStatus);
+        }
+
+        // Auto-refresh subscription approval/expiry from Apps Script while the student is logged in.
+        // This means the timer can appear/update without requiring the student to log out and in again.
+        async function syncTigerSubscriptionFromServer() {
+            if (window.__twSubSyncBusy) return;
+            // Subscription status is independent of course-login approval.
+            // A saved student phone is enough to refresh timer metadata; this does
+            // not set tiger_auth_passed or grant course access.
+            const phone = (localStorage.getItem('tiger_student_phone') || '').trim();
+            if (!phone || !navigator.onLine) return;
+            window.__twSubSyncBusy = true;
+            try {
+                const params = new URLSearchParams({
+                    action: 'subscription_status',
+                    phone: phone,
+                    deviceId: getUniqueDeviceId(),
+                    tw_sub_check: String(Date.now())
+                });
+                const response = await fetch(GOOGLE_SCRIPT_URL + '?' + params.toString(), {
+                    method: 'GET',
+                    cache: 'no-store',
+                    redirect: 'follow'
+                });
+                if (!response.ok) throw new Error('Subscription status request failed: HTTP ' + response.status);
+                const data = await response.json();
+                if (data && data.subscriptionStatus) {
+                    // Dedicated subscription endpoint reads SubscriptionRequests directly.
+                    // It does not authenticate or unlock the student's course account.
+                    applyTigerServerSubscription(data, phone);
+                    if (data.subscriptionStatus === 'NONE' || data.subscriptionStatus === 'EXPIRED') {
+                        localStorage.removeItem(TW_SUB_KEY);
+                        renderTigerSubscriptionStatus();
+                    }
+                } else {
+                    console.warn('Tiger Warriors subscription sync returned no subscriptionStatus:', data);
+                }
+            } catch (error) {
+                // Keep the last known countdown visible during temporary network failures.
+                console.warn('Tiger Warriors subscription auto-sync unavailable:', error);
+            } finally {
+                window.__twSubSyncBusy = false;
+            }
+        }
+
+        if (!window.__twSubAutoSyncStarted) {
+            window.__twSubAutoSyncStarted = true;
+            const startTwSubAutoSync = function() {
+                renderTigerSubscriptionStatus();
+                syncTigerSubscriptionFromServer();
+                window.setInterval(function() {
+                    if (document.visibilityState === 'visible') syncTigerSubscriptionFromServer();
+                }, 30000);
+            };
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', startTwSubAutoSync, { once: true });
+            } else {
+                startTwSubAutoSync();
+            }
+            document.addEventListener('visibilitychange', function() {
+                if (document.visibilityState === 'visible') syncTigerSubscriptionFromServer();
+            });
+            window.addEventListener('online', syncTigerSubscriptionFromServer);
         }
 
         function openTigerSubscription(reason='') {
@@ -9071,6 +9204,106 @@ window.useTigerRoyalVoiceText=function(){
 </div>
 <script>
 document.addEventListener('keydown',function(e){if(e.key==='Escape')window.closeTigerRoyalVoice&&window.closeTigerRoyalVoice();});
+</script>
+
+
+    <button id="twTigerTimerLauncher" type="button" aria-label="Open Tiger Timer" title="தொட்டு Tiger Timer பார்க்கவும்">
+      <span class="twtl-pulse"></span><img class="twtl-logo" src="https://tigeracadamy.github.io/preperation-hub/tigergoldlogo.jpeg" alt="Tiger Warriors logo"><span class="twtl-label">TIGER<br>TIMER</span>
+    </button>
+    <div id="twTigerTimerToast" role="status" aria-live="polite" style="display:none">🐅 Tiger Timer — தொட்டு விவரம் பார்க்கவும்</div>
+
+    <aside id="twSubscriptionStatusCard" aria-live="polite" aria-label="Subscription status">
+      <div class="twss-head"><div class="twss-title">🐅 SUBSCRIPTION STATUS</div><span class="twss-active">ACTIVE</span><button type="button" id="twTigerTimerClose" aria-label="Close timer details" title="மூடு">×</button></div>
+      <div class="twss-line">Plan: <strong id="twSubStatusPlan">Subscription</strong></div>
+      <div class="twss-line">🟢 Start Date: <strong id="twSubStartDate">—</strong></div>
+      <div class="twss-line">🔴 End / Expiry Date: <strong id="twSubEndDate">—</strong></div>
+      <div class="twss-line">⏳ மீதமுள்ள நேரம்</div>
+      <div class="twss-count" id="twSubCountdown">—</div>
+      <div class="twss-track"><div class="twss-bar" id="twSubProgressRing"></div></div>
+    </aside>
+
+<style id="tw-tiger-floating-timer-style">
+#twTigerTimerLauncher{position:fixed;right:8px;top:18px;transform:none;z-index:1000010;width:29px;height:29px;min-height:29px;border:1px solid #ffe08a;border-radius:50%;background:radial-gradient(circle at 50% 20%,#244b68 0,#071326 65%,#020817 100%);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;padding:0;box-shadow:0 0 0 1px #f4bd4b55,0 0 8px #00e5ff77;cursor:pointer;isolation:isolate;animation:twtlFloat 2.8s ease-in-out infinite}
+#twTigerTimerLauncher .twtl-logo{display:block;width:25px;height:25px;object-fit:cover;border-radius:50%;border:1px solid #ffd36b;filter:drop-shadow(0 0 4px #ffbd42);pointer-events:none}
+#twTigerTimerLauncher .twtl-label{display:none;font:900 10px/1.15 Arial,sans-serif;letter-spacing:1px;color:#ffe18b;text-align:center}
+#twTigerTimerLauncher .twtl-pulse{position:absolute;inset:-2px;border:1px solid #00e5ff88;border-radius:50%;animation:twtlPulse 2s ease-out infinite;z-index:-1;pointer-events:none}
+#twTigerTimerLauncher.tw-active{border-color:#7dffb0;box-shadow:0 0 0 2px #7dffb055,0 0 26px #24ff9a88}
+#twTigerTimerToast{position:fixed;right:44px;top:18px;transform:none;z-index:1000011;max-width:220px;padding:9px 12px;border:1px solid #f6ce70;border-radius:12px;background:#08172b;color:#ffe7a1;font:800 12px/1.35 Arial,sans-serif;box-shadow:0 6px 20px #0008;pointer-events:none;animation:twtlToastIn .5s ease-out both}
+#twSubscriptionStatusCard{display:none;right:10px;top:56px;bottom:auto;width:min(340px,calc(100vw - 120px));max-height:70vh;overflow:auto;z-index:1000012;cursor:default;transition:opacity .2s ease,transform .2s ease}
+#twSubscriptionStatusCard.twss-mini{width:min(220px,calc(100vw - 120px))!important;padding:10px!important}
+#twSubscriptionStatusCard.twss-mini .twss-line,#twSubscriptionStatusCard.twss-mini .twss-track{display:none}
+#twSubscriptionStatusCard .twss-toggle-hint{font-size:10px;color:#94a3b8;margin-top:7px}
+#twTigerTimerClose{margin-left:auto;flex:0 0 30px;width:30px;height:30px;min-height:30px;border:1px solid #f6ce70;border-radius:50%;background:#24130b;color:#fff;font-size:22px;font-weight:900;line-height:1;cursor:pointer;touch-action:manipulation}
+#twSubscriptionStatusCard .twss-head{flex-wrap:wrap}
+@keyframes twtlPulse{0%{transform:scale(.92);opacity:.9}100%{transform:scale(1.22);opacity:0}}
+@keyframes twtlFloat{0%,100%{translate:0 0}50%{translate:0 -5px}}
+@keyframes twtlToastIn{0%{opacity:0;translate:8px 0}100%{opacity:1;translate:0 0}}
+@media(max-width:600px){#twTigerTimerLauncher{right:8px;top:18px;width:29px;height:29px;min-height:29px;border-radius:50%}#twTigerTimerLauncher .twtl-logo{width:25px;height:25px}#twTigerTimerLauncher .twtl-label{font-size:9px}#twTigerTimerToast{right:44px;top:18px;max-width:170px;font-size:11px}#twSubscriptionStatusCard{right:8px;top:56px;bottom:auto;width:calc(100vw - 24px);max-width:330px;padding:11px}#twSubscriptionStatusCard.twss-mini{width:calc(100vw - 24px)!important}}
+@media(max-width:380px){#twTigerTimerLauncher{right:8px;top:18px;width:29px;height:29px;min-height:29px}#twTigerTimerToast{right:44px;max-width:150px}#twSubscriptionStatusCard{right:8px;top:56px;width:calc(100vw - 24px)}}
+</style>
+<script id="tw-tiger-floating-timer-script">
+(function(){
+  function initTigerFloatingTimer(){
+    var launcher=document.getElementById('twTigerTimerLauncher');
+    var card=document.getElementById('twSubscriptionStatusCard');
+    var toast=document.getElementById('twTigerTimerToast');
+    var closeBtn=document.getElementById('twTigerTimerClose');
+    if(!launcher||!card||launcher.dataset.ready==='1')return;
+    launcher.dataset.ready='1';
+    var opened=false;
+    var autoShown=false;
+    function showCard(){
+      opened=true;card.style.display='block';
+      if(toast)toast.style.display='none';
+      launcher.setAttribute('aria-expanded','true');
+      var s=null;try{s=JSON.parse(localStorage.getItem('tiger_subscription_v1')||'null')}catch(e){}
+      var active=!!(s&&Number(s.expiresAt)>Date.now());
+      var title=card.querySelector('.twss-title');
+      var badge=card.querySelector('.twss-active');
+      if(title)title.textContent=active?'🐅 TIGER TIMER — SUBSCRIPTION':'🐅 TIGER TIMER STATUS';
+      if(badge){badge.textContent=active?'ACTIVE':'WAITING';badge.style.color=active?'#7dffb0':'#ffd76b';badge.style.borderColor=active?'#35c978':'#d6a744'}
+      if(!active){var count=document.getElementById('twSubCountdown');if(count)count.textContent='Approval / Login விவரங்கள் கிடைத்ததும் Timer தொடங்கும்';}
+    }
+    function hideCard(){opened=false;card.style.display='none';launcher.setAttribute('aria-expanded','false');if(toast)toast.style.display='block';}
+    launcher.setAttribute('aria-expanded','false');
+    launcher.addEventListener('click',function(){if(!drag.moved)showCard()});
+    if(closeBtn)closeBtn.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();hideCard()});
+    // Drag the floating logo anywhere; a tap still opens/closes the timer.
+    var drag={x:0,y:0,left:0,top:0,moved:false};
+    launcher.style.touchAction='none';
+    launcher.addEventListener('pointerdown',function(e){if(e.button!==undefined&&e.button!==0)return;var r=launcher.getBoundingClientRect();drag.x=e.clientX;drag.y=e.clientY;drag.left=r.left;drag.top=r.top;drag.moved=false;try{launcher.setPointerCapture(e.pointerId)}catch(_){} });
+    launcher.addEventListener('pointermove',function(e){if(!launcher.hasPointerCapture||!launcher.hasPointerCapture(e.pointerId))return;var dx=e.clientX-drag.x,dy=e.clientY-drag.y;if(Math.abs(dx)+Math.abs(dy)>5)drag.moved=true;if(drag.moved){launcher.style.left=Math.max(0,Math.min(window.innerWidth-launcher.offsetWidth,drag.left+dx))+'px';launcher.style.top=Math.max(0,Math.min(window.innerHeight-launcher.offsetHeight,drag.top+dy))+'px';launcher.style.right='auto';if(toast){toast.style.left=Math.max(0,Math.min(window.innerWidth-180,drag.left+dx-180))+'px';toast.style.top=launcher.style.top;toast.style.right='auto'}if(opened){card.style.left=Math.max(0,Math.min(window.innerWidth-card.offsetWidth,drag.left+dx-card.offsetWidth+launcher.offsetWidth+8))+'px';card.style.top=Math.max(0,Math.min(window.innerHeight-card.offsetHeight,drag.top+dy+launcher.offsetHeight+8))+'px';card.style.right='auto'}}});
+    launcher.addEventListener('click',function(e){if(drag.moved){e.preventDefault();e.stopImmediatePropagation();drag.moved=false}},true);
+    launcher.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();launcher.click()}});
+    // The floating Tiger button is always visible; the detailed card opens automatically once an approved timer exists.
+    window.twShowTigerTimerCard=function(){showCard();launcher.classList.add('tw-active')};
+    window.twHideTigerTimerCard=hideCard;
+    var hint=document.createElement('div');hint.className='twss-toggle-hint';hint.textContent='🐅 Tiger button-ஐத் தொட்டு திறக்க / மூட';card.appendChild(hint);
+    var originalRender=window.renderTigerSubscriptionStatus;
+    if(typeof originalRender==='function'&&!window.__twTigerRenderWrapped){
+      window.__twTigerRenderWrapped=true;
+      window.renderTigerSubscriptionStatus=function(){
+        originalRender();
+        var s=null;try{s=JSON.parse(localStorage.getItem('tiger_subscription_v1')||'null')}catch(e){}
+        var active=!!(s&&Number(s.expiresAt)>Date.now());
+        launcher.classList.toggle('tw-active',active);
+        if(active){if(toast)toast.style.display='none';if(!autoShown&&!opened){autoShown=true;showCard()}}
+        else {autoShown=false;if(toast)toast.style.display='none'}
+        // The base timer renderer hides the card when no subscription exists. Re-apply the user's
+        // explicit open/close choice after it runs, so a tap never disappears one second later.
+        card.style.display=opened?'block':'none';
+        launcher.setAttribute('aria-expanded',opened?'true':'false');
+        var badge=card.querySelector('.twss-active');if(badge){badge.textContent=active?'ACTIVE':'WAITING';badge.style.color=active?'#7dffb0':'#ffd76b';badge.style.borderColor=active?'#35c978':'#d6a744'}
+        var title=card.querySelector('.twss-title');if(title)title.textContent=active?'🐅 TIGER TIMER — SUBSCRIPTION':'🐅 TIGER TIMER STATUS';
+        if(!active){var count=document.getElementById('twSubCountdown');if(count)count.textContent='Subscription approval / login விவரங்கள் கிடைத்ததும் Timer தொடங்கும்'}
+      };
+      window.renderTigerSubscriptionStatus();
+    }
+    // Refresh more often than the old interval without creating duplicate intervals.
+    if(!window.__twTigerTimerVisualTick){window.__twTigerTimerVisualTick=true;window.setInterval(function(){if(typeof window.renderTigerSubscriptionStatus==='function')window.renderTigerSubscriptionStatus()},1000)}
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initTigerFloatingTimer,{once:true});else initTigerFloatingTimer();
+})();
 </script>
 
 </body>
