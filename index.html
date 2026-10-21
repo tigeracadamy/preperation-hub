@@ -3127,6 +3127,7 @@ input,select,textarea{border-radius:13px!important}
             
             <div id="quiz-category-selection-view" style="display: flex; flex-direction: column; gap: 8px; text-align: left; margin-top: 5px;">
                 <p id="twQuizCategoryPrompt" style="font-size: 15px; color: var(--warning); font-weight: 900; text-align: center;">👇 கீழே உள்ள தலைப்புகளில் (Categories) ஒன்றைத் தேர்ந்தெடுக்கவும்:</p>
+                <input id="twQuizCategorySearch" type="search" placeholder="🔎 Search Quiz / பாடத்தைத் தேடுங்கள்..." aria-label="Search quiz categories" oninput="twFilterQuizCategories(this.value)" style="width:100%;padding:13px;border:1px solid #22c55e;border-radius:12px;background:#0b1326;color:#fff;font-size:15px;outline:none;">
                 <div id="quiz-categories-list" style="display: flex; flex-direction: column; gap: 8px; max-height: 50vh; overflow-y: auto;"></div>
             </div>
 
@@ -3135,7 +3136,6 @@ input,select,textarea{border-radius:13px!important}
                 <p id="quiz-question" style="white-space:pre-line;overflow-wrap:anywhere;line-height:1.65;font-size: 16px; color: #fff; font-weight: 900; background: rgba(0,0,0,0.6); padding: 10px; border-radius: 8px; border: 1px solid var(--warning);">கேள்வி ஏற்றப்படுகிறது...</p>
                 <div id="quiz-image-box" style="display: none; text-align: center;"><img id="quiz-img" src="" alt="Quiz Image" style="max-height: 150px; border-radius: 6px; border: 1px solid var(--warning);"></div>
                 <div style="display: flex; flex-direction: column; gap: 6px;" id="quiz-options-list"></div>
-                <button type="button" id="quizAIAnswerBtn" class="tiger-ai-quiz-btn" onclick="askQuizAI()">🤖 AI ANSWER — இந்த கேள்விக்கான விடை</button>
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
                     <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; padding: 8px;" id="twQuizPrevBtn" onclick="playClickSound(); prevQuizQuestion()">◀ முந்தையது</button>
                     <span id="quiz-counter" style="font-size: 13px; color: var(--warning); font-weight: 900;">1 / 1</span>
@@ -5458,16 +5458,24 @@ input,select,textarea{border-radius:13px!important}
 
             if (data.quote) quoteMessage = data.quote;
             if (data.quiz && Array.isArray(data.quiz)) {
+                const quizCell = (row, names) => {
+                    const keys = Object.keys(row || {});
+                    for (const name of names) {
+                        const key = keys.find(k => k.replace(/[\s_\-().?]+/g,'').toLowerCase() === name.replace(/[\s_\-().?]+/g,'').toLowerCase());
+                        if (key !== undefined && row[key] != null && String(row[key]).trim() !== '') return String(row[key]).trim();
+                    }
+                    return '';
+                };
                 quizList = data.quiz.map(q => ({
-                    category: String(q.category || q.Category || q.subject || q.Subject || "பொது அறிவு (General)").trim(),
-                    question: String(q.question || q.Question || q.Questions || q["Quiz Question"] || "").trim(),
-                    image: String(q.image || q.Image || q.imageUrl || q["Image URL"] || "").trim(),
-                    optionA: String(q.optionA || q.OptionA || q["Option A"] || q["Option 1"] || q.A || "").trim(),
-                    optionB: String(q.optionB || q.OptionB || q["Option B"] || q["Option 2"] || q.B || "").trim(),
-                    optionC: String(q.optionC || q.OptionC || q["Option C"] || q["Option 3"] || q.C || "").trim(),
-                    optionD: String(q.optionD || q.OptionD || q["Option D"] || q["Option 4"] || q.D || "").trim(),
-                    answer: String(q.answer || q.Answer || q["Correct Answer"] || q["Correct Option"] || q["Answer Key"] || "A").trim(),
-                    explanation: String(q.explanation || q.Explanation || q.note || q.Note || q["Explanation"] || "").trim()
+                    category: quizCell(q, ['Category', 'Subject', 'Quiz Category', 'Topic']) || 'பொது அறிவு (General)',
+                    question: quizCell(q, ['Question', 'Questions', 'Quiz Question', 'Question Text', 'Ques', 'Q']),
+                    image: quizCell(q, ['Image', 'Image URL', 'ImageUrl']),
+                    optionA: quizCell(q, ['Option A', 'Option 1', 'OptionA', 'A', 'Choice A']),
+                    optionB: quizCell(q, ['Option B', 'Option 2', 'OptionB', 'B', 'Choice B']),
+                    optionC: quizCell(q, ['Option C', 'Option 3', 'OptionC', 'C', 'Choice C']),
+                    optionD: quizCell(q, ['Option D', 'Option 4', 'OptionD', 'D', 'Choice D']),
+                    answer: quizCell(q, ['Answer', 'Correct Answer', 'Correct Option', 'Answer Key']) || 'A',
+                    explanation: quizCell(q, ['Explanation', 'Note', 'Reason'])
                 })).filter(q => q.question);
             }
             if (data.music && Array.isArray(data.music)) {
@@ -6184,7 +6192,45 @@ h2{font-size:14px;line-height:1.5;margin:5px 0;color:#10213a;white-space:pre-wra
 <footer class="page-footer"><div class="footer-brand">TIGER WARRIORS COACHING CENTRE</div><div class="footer-motto">வெற்றி நமதே! • SUCCESS IS OURS</div><div class="footer-ceo">திரு. K. மணிகாசி • CEO - TIGER WARRIORS</div></footer>
 </td></tr></tfoot>
 </table>
-<script>window.onload=()=>setTimeout(()=>window.print(),500);<\/script></body></html>`);
+<script>window.onload=()=>setTimeout(()=>window.print(),500);<\/script>
+
+<style>
+/* NTSE exam-only timer and precise question alignment */
+#quizModal #twNtseTimer{display:none;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;border:1px solid #fbbf24;border-radius:12px;background:rgba(251,191,36,.10);color:#fff;font-size:15px}
+#quizModal #twNtseClock{color:#fbbf24;font-size:20px;font-variant-numeric:tabular-nums}
+#quizModal #quiz-question{white-space:pre-wrap!important;overflow-wrap:anywhere!important;text-align:left!important;align-self:stretch}
+#quizModal #quiz-options-list{width:100%;align-items:stretch}
+#quizModal #quiz-options-list button{width:100%;justify-content:flex-start;text-align:left!important;white-space:pre-wrap!important;overflow-wrap:anywhere;line-height:1.65}
+#quizModal #quiz-options-list button:not([data-tw-selected="yes"]){border-color:#fbbf24!important;color:#fff!important;background:linear-gradient(135deg,rgba(251,191,36,.13),rgba(11,19,38,.95))!important;box-shadow:0 0 9px rgba(251,191,36,.24)!important}
+#quizModal #quiz-options-list button[data-tw-selected="yes"]{border-color:#22c55e!important;color:#dcfce7!important;background:linear-gradient(135deg,rgba(5,150,105,.55),rgba(34,197,94,.25))!important;box-shadow:0 0 13px rgba(34,197,94,.38)!important}
+@media(min-width:768px){#quizModal #quiz-question-view{padding-right:245px!important}#quizModal #twNtseTimer{margin-right:245px}}
+</style>
+<script>
+(function(){
+ const view=document.getElementById('quiz-question-view');if(!view)return;
+ const timer=document.createElement('div');timer.id='twNtseTimer';timer.innerHTML='<span>⏱️ NTSE Exam Time</span><strong id="twNtseClock">00:00</strong>';
+ view.insertBefore(timer,view.firstChild);
+ let deadline=0,interval=null;
+ const clock=timer.querySelector('#twNtseClock');
+ function stop(){if(interval){clearInterval(interval);interval=null}timer.style.display='none'}
+ function tick(){
+   if(!deadline)return;
+   const left=Math.max(0,Math.ceil((deadline-Date.now())/1000));
+   clock.textContent=String(Math.floor(left/60)).padStart(2,'0')+':'+String(left%60).padStart(2,'0');
+   if(left===0){stop();if(typeof quizSubmitted!=='undefined'&&!quizSubmitted&&typeof finishQuizAttempt==='function')finishQuizAttempt()}
+ }
+ const start=window.startQuizForCategory;
+ if(typeof start==='function')window.startQuizForCategory=function(){const result=start.apply(this,arguments);stop();const count=typeof filteredQuizList!=='undefined'?filteredQuizList.length:0;if(count){deadline=Date.now()+count*60000;timer.style.display='flex';tick();interval=setInterval(tick,1000)}return result};
+ for(const name of ['backToQuizCategories','closeQuizModal','finishQuizAttempt']){
+   const original=window[name];if(typeof original==='function')window[name]=function(){stop();return original.apply(this,arguments)};
+ }
+ const render=window.renderQuizQuestion;
+ if(typeof render==='function')window.renderQuizQuestion=function(){const result=render.apply(this,arguments);document.querySelectorAll('#quiz-options-list button').forEach(b=>{b.dataset.twSelected=(typeof quizUserAnswers!=='undefined'&&quizUserAnswers[currentQuizIndex]===b.dataset.optionKey)?'yes':'no'});return result};
+ const select=window.selectQuizAnswer;
+ if(typeof select==='function')window.selectQuizAnswer=function(){const result=select.apply(this,arguments);document.querySelectorAll('#quiz-options-list button').forEach(b=>{b.dataset.twSelected=(typeof quizUserAnswers!=='undefined'&&quizUserAnswers[currentQuizIndex]===b.dataset.optionKey)?'yes':'no'});return result};
+})();
+<\/script>
+</body></html>`);
             w.document.close();
         }
 
@@ -6270,6 +6316,8 @@ h2{font-size:14px;line-height:1.5;margin:5px 0;color:#10213a;white-space:pre-wra
                 btn.onclick = () => { playClickSound(); startQuizForCategory(catName); };
                 catListContainer.appendChild(btn);
             });
+            const quizSearch = document.getElementById('twQuizCategorySearch');
+            if (quizSearch) { quizSearch.value = ''; twFilterQuizCategories(''); }
             document.getElementById('quizModalHeaderTitle').textContent = "🎯 TIGER WARRIORS QUIZ CATEGORIES";
             document.getElementById('quiz-category-selection-view').style.display = 'flex';
             document.getElementById('quiz-question-view').style.display = 'none';
@@ -6379,7 +6427,7 @@ h2{font-size:14px;line-height:1.5;margin:5px 0;color:#10213a;white-space:pre-wra
             [{key:'A',text:q.optionA},{key:'B',text:q.optionB},{key:'C',text:q.optionC},{key:'D',text:q.optionD}].forEach(opt => {
                 if (!opt.text || !opt.text.trim()) return;
                 const btn = document.createElement('button');
-                btn.className = 'modal-option-btn'; btn.type = 'button'; btn.dataset.optionKey = opt.key;
+                btn.className = 'modal-option-btn'; btn.type = 'button'; btn.dataset.optionKey = opt.key; btn.dataset.twSelected = quizUserAnswers[currentQuizIndex] === opt.key ? 'yes' : 'no';
                 btn.style.cssText = 'text-align:left;padding:12px;font-size:14px;line-height:1.55;white-space:normal;overflow-wrap:anywhere;touch-action:manipulation;';
                 const span = document.createElement('span');
                 const b = document.createElement('b'); b.textContent = opt.key + '. ';
@@ -6397,9 +6445,10 @@ h2{font-size:14px;line-height:1.5;margin:5px 0;color:#10213a;white-space:pre-wra
             if (quizSubmitted) return;
             playClickSound(); quizUserAnswers[currentQuizIndex]=selected;
             document.querySelectorAll('#quiz-options-list button').forEach(b=>{
-                b.style.borderColor=b===btnElement?'#fbbf24':'';
-                b.style.background=b===btnElement?'rgba(251,191,36,.18)':'';
-                b.style.color='';
+                b.dataset.twSelected = b === btnElement ? 'yes' : 'no';
+                b.style.borderColor=b===btnElement?'#22c55e':'';
+                b.style.background=b===btnElement?'linear-gradient(135deg,rgba(5,150,105,.42),rgba(34,197,94,.22))':'';
+                b.style.color=b===btnElement?'#dcfce7':'';
             });
         }
         function normalizeQuizAnswer(value) {
@@ -8765,5 +8814,74 @@ window.useTigerRoyalVoiceText=function(){
 document.addEventListener('keydown',function(e){if(e.key==='Escape')window.closeTigerRoyalVoice&&window.closeTigerRoyalVoice();});
 </script>
 
+<!-- Quiz-only updates: expanded NTSE-style exam workspace, category search, green selection -->
+<style>
+@media (min-width:768px){
+ #quizModal .modal-box{width:min(96vw,1380px)!important;max-width:1380px!important;max-height:95vh!important;overflow-y:auto!important;padding:24px!important}
+ #quizModal #quiz-question-view{min-height:65vh;position:relative;padding-right:245px;gap:17px!important}
+ #quizModal #quiz-question{font-size:20px!important;padding:22px!important;min-height:125px}
+ #quizModal #quiz-options-list{gap:13px!important}
+ #quizModal #quiz-options-list button{padding:18px!important;font-size:17px!important}
+ #quizModal #twQuizQuestionPalette{position:absolute;right:0;top:0;width:225px;max-height:65vh;overflow:auto}
+ #quizModal #quiz-categories-list{max-height:65vh!important;display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));align-content:start}
+}
+#quizModal #twQuizQuestionPalette{border:1px solid rgba(34,197,94,.45);border-radius:13px;padding:12px;background:rgba(8,24,26,.9)}
+#quizModal .tw-ntse-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;margin-top:10px}
+#quizModal .tw-ntse-num{min-height:35px;border:1px solid #64748b;border-radius:7px;background:#172033;color:#fff;cursor:pointer}
+#quizModal .tw-ntse-num.answered{background:#15803d;border-color:#4ade80;color:#fff}
+#quizModal .tw-ntse-num.current{outline:2px solid #fbbf24;outline-offset:1px}
+#quizModal #quiz-options-list button:active{transform:scale(.995)}
+@media(max-width:767px){#quizModal #twQuizQuestionPalette{margin:10px 0}#quizModal .tw-ntse-grid{grid-template-columns:repeat(8,minmax(0,1fr))}}
+</style>
+<script>
+function twFilterQuizCategories(value){
+ const term=String(value||'').trim().toLocaleLowerCase();
+ document.querySelectorAll('#quiz-categories-list > button').forEach(btn=>{
+   btn.style.display=btn.textContent.toLocaleLowerCase().includes(term)?'':'none';
+ });
+}
+(function(){
+ const view=document.getElementById('quiz-question-view');if(!view)return;
+ const palette=document.createElement('aside');palette.id='twQuizQuestionPalette';
+ palette.innerHTML='<strong style="color:#4ade80">📋 NTSE • Question Palette</strong><div id="twNtseTotal" style="font-size:12px;margin-top:5px;color:#cbd5e1"></div><div class="tw-ntse-grid" id="twNtseGrid"></div>';
+ view.appendChild(palette);
+ const original=window.renderQuizQuestion;
+ if(typeof original!=='function')return;
+ window.renderQuizQuestion=function(){
+   original.apply(this,arguments);
+   const questions=window.filteredQuizList || (typeof filteredQuizList!=='undefined'?filteredQuizList:[]);
+   const index=typeof currentQuizIndex!=='undefined'?currentQuizIndex:0;
+   const answers=typeof quizUserAnswers!=='undefined'?quizUserAnswers:{};
+   const grid=document.getElementById('twNtseGrid');if(!grid)return;
+   document.getElementById('twNtseTotal').textContent='Total Questions: '+questions.length+' • Answered: '+Object.keys(answers).length;
+   grid.replaceChildren();
+   questions.forEach((q,i)=>{const b=document.createElement('button');b.type='button';b.textContent=i+1;b.className='tw-ntse-num'+(answers[i]?' answered':'')+(i===index?' current':'');b.setAttribute('aria-label','Question '+(i+1));b.onclick=()=>{if(typeof quizSubmitted!=='undefined'&&quizSubmitted)return;currentQuizIndex=i;window.renderQuizQuestion()};grid.appendChild(b)});
+ };
+ const originalSelect=window.selectQuizAnswer;
+ if(typeof originalSelect==='function')window.selectQuizAnswer=function(){originalSelect.apply(this,arguments);const answers=typeof quizUserAnswers!=='undefined'?quizUserAnswers:{};document.querySelectorAll('#twNtseGrid .tw-ntse-num').forEach((b,i)=>b.classList.toggle('answered',!!answers[i]));const total=document.getElementById('twNtseTotal');if(total)total.textContent='Total Questions: '+(typeof filteredQuizList!=='undefined'?filteredQuizList.length:0)+' • Answered: '+Object.keys(answers).length};
+})();
+</script>
+
+<!-- Quiz option appearance correction: default dark brown/gold; only chosen option green -->
+<style>
+#quizModal #quiz-options-list button:not([data-tw-selected="yes"]),
+#quizModal #quiz-options-list button:not([data-tw-selected="yes"]):hover,
+#quizModal #quiz-options-list button:not([data-tw-selected="yes"]):focus,
+#quizModal #quiz-options-list button:not([data-tw-selected="yes"]):active {
+ background:linear-gradient(135deg,#25180e,#0b1326 90%)!important;
+ border:1.5px solid #fbbf24!important;
+ color:#fff!important;
+ box-shadow:0 0 10px rgba(251,191,36,.36)!important;
+}
+#quizModal #quiz-options-list button[data-tw-selected="yes"],
+#quizModal #quiz-options-list button[data-tw-selected="yes"]:hover,
+#quizModal #quiz-options-list button[data-tw-selected="yes"]:focus,
+#quizModal #quiz-options-list button[data-tw-selected="yes"]:active {
+ background:linear-gradient(135deg,#166534,#15803d)!important;
+ border:1.5px solid #4ade80!important;
+ color:#fff!important;
+ box-shadow:0 0 14px rgba(34,197,94,.5)!important;
+}
+</style>
 </body>
 </html>
