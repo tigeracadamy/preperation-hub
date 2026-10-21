@@ -5757,10 +5757,9 @@ input,select,textarea{border-radius:13px!important}
                     checkUserLoginStatus();
                     if (pendingCategoryAction) { pendingCategoryAction(); pendingCategoryAction = null; }
                 } else if (data.status === "pending") {
-                    // Save the phone for subscription-only sync; do NOT mark course auth passed.
-                    localStorage.setItem('tiger_student_phone', phone);
                     // Course approval and subscription approval are separate.
-                    // This only updates timer metadata; it never grants course access.
+                    // Apply subscription metadata returned with a pending course login,
+                    // without granting course access or marking the student logged in.
                     if (data.subscriptionStatus) applyTigerServerSubscription(data, phone);
                     showRoyalAlertPopup("🐅 TIGER WARRIORS ALERT 🔥", "⏳ " + data.message);
                 } else if (data.status === "unauthorized") {
@@ -5874,9 +5873,11 @@ input,select,textarea{border-radius:13px!important}
             window.__twSubSyncBusy = true;
             try {
                 const params = new URLSearchParams({
-                    action: 'subscription_status',
+                    action: 'login',
                     phone: phone,
                     deviceId: getUniqueDeviceId(),
+                    category: 'all',
+                    subDept: '',
                     tw_sub_check: String(Date.now())
                 });
                 const response = await fetch(GOOGLE_SCRIPT_URL + '?' + params.toString(), {
@@ -5886,16 +5887,13 @@ input,select,textarea{border-radius:13px!important}
                 });
                 if (!response.ok) throw new Error('Subscription status request failed: HTTP ' + response.status);
                 const data = await response.json();
-                if (data && data.subscriptionStatus) {
-                    // Dedicated subscription endpoint reads SubscriptionRequests directly.
-                    // It does not authenticate or unlock the student's course account.
+                if (data && data.status !== 'device_mismatch' && data.subscriptionStatus) {
+                    // Subscription approval is independent of course-account approval.
+                    // Apply a valid subscription payload even when login status is pending;
+                    // the backend still keeps course access locked until account approval.
                     applyTigerServerSubscription(data, phone);
-                    if (data.subscriptionStatus === 'NONE' || data.subscriptionStatus === 'EXPIRED') {
-                        localStorage.removeItem(TW_SUB_KEY);
-                        renderTigerSubscriptionStatus();
-                    }
-                } else {
-                    console.warn('Tiger Warriors subscription sync returned no subscriptionStatus:', data);
+                } else if (data && data.status === 'device_mismatch') {
+                    console.warn('Tiger Warriors subscription sync skipped: device mismatch.');
                 }
             } catch (error) {
                 // Keep the last known countdown visible during temporary network failures.
