@@ -3,7 +3,7 @@
 <head>
    <meta name="google-site-verification" content="y_hlPHHcOd7_uuUxxMqTjYvYSNzCfQjRd7BrYcQnkNs" />
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
     <meta name="color-scheme" content="dark">
     <title>Tiger Warriors - Preparation Hub & Eco Tech Lab</title>
 </head>
@@ -1541,6 +1541,13 @@
         #quizModal .tw-quiz-watermark img{width:min(190px,48vw);height:min(190px,48vw);object-fit:contain;border-radius:50%;filter:drop-shadow(0 0 12px #fbbf24)}
         #quizModal .tw-quiz-watermark strong{font-size:clamp(18px,4vw,30px);line-height:1.2;color:#fbbf24;font-weight:1000}
         #quizModal .tw-quiz-watermark span{font-size:clamp(14px,3vw,22px);color:#00f2fe;font-weight:1000}
+        /* Tiger Warriors Quiz Arena branding using the logo already used by the site */
+        #quizModal .tw-quiz-arena-brand{display:flex;align-items:center;justify-content:center;gap:12px;padding:10px 8px;margin:0 0 8px;border:1px solid rgba(0,242,254,.38);border-radius:14px;background:linear-gradient(115deg,rgba(3,13,35,.98),rgba(5,31,68,.96));box-shadow:inset 0 0 16px rgba(0,242,254,.08),0 0 12px rgba(0,242,254,.08)}
+        #quizModal .tw-quiz-arena-brand img{width:clamp(48px,12vw,76px);height:clamp(48px,12vw,76px);object-fit:contain;border-radius:50%;filter:drop-shadow(0 0 7px rgba(251,191,36,.45));flex:0 0 auto}
+        #quizModal .tw-quiz-arena-brand .tw-brand-main{font-size:clamp(16px,3.8vw,25px);font-weight:1000;line-height:1.05;letter-spacing:.5px;color:#fbbf24;text-shadow:0 0 10px rgba(251,191,36,.2)}
+        #quizModal .tw-quiz-arena-brand .tw-brand-sub{font-size:clamp(12px,3vw,20px);font-weight:1000;line-height:1.15;color:#22d3ee;margin-top:5px}
+        #quizModal .tw-quiz-arena-brand .tw-brand-tag{font-size:10px;color:#dbeafe;letter-spacing:1px;margin-top:4px;font-weight:800}
+        @media(max-width:380px){#quizModal .tw-quiz-arena-brand{gap:8px;padding:8px 5px}#quizModal .tw-quiz-arena-brand img{width:46px;height:46px}#quizModal .tw-quiz-arena-brand .tw-brand-tag{font-size:8px;letter-spacing:.5px}}
         #quizModal .tw-quiz-language{display:flex;align-items:center;justify-content:center;gap:7px;flex-wrap:wrap;margin:8px 0 12px;padding:8px;border:1px solid rgba(0,242,254,.35);border-radius:12px;background:rgba(2,8,23,.86)}
         #quizModal .tw-quiz-language span{font-size:12px;color:#cbd5e1;font-weight:900}
         #quizModal .tw-quiz-language button{border:1px solid #00f2fe;border-radius:999px;padding:7px 12px;background:#071a2b;color:#e0faff;font-size:12px;font-weight:1000;cursor:pointer}
@@ -3113,7 +3120,18 @@ input,select,textarea{border-radius:13px!important}
 
     <div class="modal-overlay" id="quizModal" onclick="closeQuizModal()">
         <div class="modal-box" onclick="event.stopPropagation()" style="border-color: rgba(251,191,36,0.3); box-shadow: 0 0 20px rgba(251,191,36,0.15);">
-            <h3 style="color: var(--warning);" id="quizModalHeaderTitle">🎯 TIGER WARRIORS DAILY QUIZ</h3>
+            <div class="tw-quiz-arena-brand" aria-label="Tiger Warriors Quiz Arena">
+                <img src="https://tigeracadamy.github.io/preperation-hub/tigergoldlogo.jpeg" alt="Tiger Warriors logo">
+                <div>
+                    <div class="tw-brand-main">TIGER WARRIORS</div>
+                    <div class="tw-brand-sub">QUIZ ARENA WARRIORS</div>
+                    <div class="tw-brand-tag">PREPARATION HUB · ECO TECH LAB</div>
+                </div>
+            </div>
+            <div id="twQuizHeaderRow" style="display:flex;align-items:center;justify-content:space-between;gap:10px;position:sticky;top:0;z-index:20;background:rgba(6,9,19,.96);padding:4px 0 8px;">
+                <h3 style="color: var(--warning);margin:0;flex:1;min-width:0;" id="quizModalHeaderTitle">🎯 TIGER WARRIORS DAILY QUIZ</h3>
+                
+            </div>
             <div class="tw-quiz-watermark" aria-hidden="true">
                 <img src="https://tigeracadamy.github.io/preperation-hub/tigergoldlogo.jpeg" alt="">
                 <strong>TIGER WARRIORS COACHING CENTRE</strong>
@@ -3123,6 +3141,7 @@ input,select,textarea{border-radius:13px!important}
                 <span id="twQuizLangLabel">🌐 Language / மொழி</span>
                 <button type="button" id="twQuizLangEN" onclick="setQuizLanguage('en')">🇬🇧 English</button>
                 <button type="button" id="twQuizLangTA" class="active" onclick="setQuizLanguage('ta')">தமிழ்</button>
+                <button type="button" id="twQuizCloseTopBtn" onclick="event.stopPropagation();closeQuizModal()" aria-label="Close quiz" style="flex-shrink:0;background:linear-gradient(135deg,#7f1d1d,#450a0a);color:#fff;border:1px solid #f87171;border-radius:9px;padding:8px 12px;font-weight:900;cursor:pointer;">✕ Close</button>
             </div>
             
             <div id="quiz-category-selection-view" style="display: flex; flex-direction: column; gap: 8px; text-align: left; margin-top: 5px;">
@@ -3145,14 +3164,14 @@ input,select,textarea{border-radius:13px!important}
             <div id="quiz-result-view" style="display:none;flex-direction:column;gap:14px;margin-top:10px;text-align:left;padding:12px;border:1px solid rgba(250,204,21,.75);border-radius:20px;background:linear-gradient(155deg,rgba(13,25,48,.98),rgba(2,10,20,.99));box-shadow:0 0 24px rgba(16,185,129,.16),inset 0 0 18px rgba(250,204,21,.06);">
                 <div style="text-align:center;color:#fbbf24;font-weight:1000;letter-spacing:1px;font-size:16px;">👑 TIGER WARRIORS • EXAM REPORT</div>
                 <div id="quiz-result-summary" style="padding:20px 14px;border:1px solid #22c55e;border-radius:16px;background:linear-gradient(135deg,rgba(5,150,105,.25),rgba(6,78,59,.22));box-shadow:0 0 18px rgba(16,185,129,.12);text-align:center;line-height:1.85;min-height:120px;"></div>
-                <button type="button" class="btn-start" style="width:100%;min-height:54px;background:linear-gradient(135deg,#047857,#22c55e);border:1px solid #a7f3d0;color:#fff;padding:13px;font-weight:1000;font-size:16px;border-radius:14px;box-shadow:0 5px 0 #065f46,0 0 18px rgba(34,197,94,.28);" onclick="downloadTigerQuizPDF('result')">📄 PDF DOWNLOAD — தேர்வு முடிவைப் பாதுகாக்க</button>
+                <button type="button" class="btn-start" style="width:100%;min-height:54px;background:linear-gradient(135deg,#047857,#22c55e);border:1px solid #a7f3d0;color:#fff;padding:13px;font-weight:1000;font-size:16px;border-radius:14px;box-shadow:0 5px 0 #065f46,0 0 18px rgba(34,197,94,.28);" onclick="downloadTigerQuizPDF('full')">📄 PDF DOWNLOAD — விளக்கத்துடன் தேர்வு முடிவு</button>
                 <div style="display:flex;gap:9px;flex-wrap:wrap;">
                     <button type="button" class="btn-start" style="flex:1;min-height:50px;background:linear-gradient(135deg,#059669,#22c55e);border:1px solid #86efac;color:#031b12;padding:12px;font-weight:1000;border-radius:12px;box-shadow:0 5px 0 #065f46,0 0 14px rgba(34,197,94,.25);" onclick="showQuizAnswerKey()">📘 ANSWER KEY / விடைக்குறிப்பு</button>
                     <button type="button" class="btn-start" style="flex:1;min-height:50px;background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#211500;padding:12px;font-weight:1000;border-radius:12px;" onclick="restartCurrentQuiz()">🔄 மீண்டும் Quiz</button>
                 </div>
                 <div id="quiz-answer-key-list" style="display:none;max-height:60vh;overflow-y:auto;flex-direction:column;gap:12px;padding:2px 2px 8px;"></div>
             </div>
-            <button class="btn-start" style="background: rgba(255,255,255,0.15); color:#fff; margin-top:8px; padding:8px;" id="twQuizCloseBtn" onclick="playClickSound(); closeQuizModal()">Close ❌</button>
+            <!-- Bottom quiz Close button removed; the top language-row Close button remains. -->
         </div>
     </div>
 
@@ -6255,6 +6274,16 @@ body .main-container :is(.hero-banner,.top-bar,.notice-corner){border-radius:16p
 /* Keep immersive 3D rooms exactly as supplied, with no added spotlight. */
 @media(prefers-reduced-motion:reduce){body .main-container :is(button,.twx-team-card,.hero-banner,.top-bar,.notice-corner){transition:none!important}}
 </style>
+
+<style id="twQuizLanguageCloseStickyFix">
+#quizModal #twQuizHeaderRow{position:sticky;top:0;z-index:30;min-height:42px;}
+#quizModal .tw-quiz-language{position:sticky;top:0;z-index:29;display:flex;align-items:center;justify-content:flex-start;flex-wrap:nowrap;gap:5px;margin:0 0 10px;padding:6px;background:rgba(2,8,23,.98);}
+#quizModal .tw-quiz-language #twQuizLangLabel{flex:1 1 auto;min-width:0;font-size:clamp(9px,2.6vw,12px);white-space:normal;line-height:1.1;}
+#quizModal .tw-quiz-language button{flex:0 0 auto;white-space:nowrap;padding:6px 8px;font-size:clamp(9px,2.7vw,12px);}
+#quizModal .tw-quiz-language #twQuizCloseTopBtn{margin-left:auto;background:linear-gradient(135deg,#7f1d1d,#450a0a);color:#fff;border:1px solid #f87171;border-radius:9px;padding:6px 9px;font-weight:900;cursor:pointer;}
+@media(max-width:390px){#quizModal .tw-quiz-language{gap:3px;padding:5px}#quizModal .tw-quiz-language #twQuizLangLabel{font-size:9px}#quizModal .tw-quiz-language button{padding:5px 6px;font-size:10px}#quizModal .tw-quiz-language #twQuizCloseTopBtn{padding:5px 7px;font-size:10px}}
+</style>
+
 </body></html>`);
             w.document.close();
         }
@@ -9147,6 +9176,45 @@ const obs=new MutationObserver(refresh);obs.observe(modal,{attributes:true,attri
 87.5%{transform:rotateX(-4deg) rotateY(-14deg) translateZ(-10px)}
 }
 @media(prefers-reduced-motion:reduce){#twImmersive .ir-space,#twImmersive .ir-object,#twImmersive.open .ir-stage{animation:none!important}}
+</style>
+
+<!-- Requested two fixes only: stop the moving neon border and allow responsive pinch zoom. -->
+<style id="requested-neon-off-and-device-zoom">
+/* Remove only the travelling neon border effects; retain the borders and all other styling. */
+body::before {
+    animation: none !important;
+    opacity: 0 !important;
+}
+#chatBannerContainer::after,
+#noticeCornerBox::after {
+    animation: none !important;
+}
+
+/* Let users zoom the page on phones/tablets; keep layout responsive on larger screens. */
+html, body {
+    touch-action: pan-x pan-y pinch-zoom;
+}
+img, video, iframe {
+    max-width: 100%;
+}
+@media (max-width: 767px) {
+    .main-container {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+@media (min-width: 768px) {
+    .main-container {
+        width: 100%;
+    }
+}
+</style>
+
+
+<style id="twQuizTopCloseResponsive">
+#quizModal #twQuizHeaderRow h3{font-size:clamp(14px,3.5vw,20px);line-height:1.25;overflow-wrap:anywhere}
+#quizModal #twQuizCloseTopBtn{white-space:nowrap;font-size:clamp(11px,2.8vw,14px)}
+@media(max-width:420px){#quizModal #twQuizHeaderRow{gap:6px}#quizModal #twQuizCloseTopBtn{padding:7px 8px}}
 </style>
 </body>
 </html>
