@@ -6771,17 +6771,31 @@ h3{font-size:14px;margin:8px 0 10px;color:#0f172a}.option{padding:5px 8px;margin
             list.style.display='flex';
             list.scrollIntoView({behavior:'smooth',block:'nearest'});
         }
-        async function askQuizAIForAnswerKey(questionIndex, button) {
-            if (!filteredQuizList || !filteredQuizList[questionIndex]) return;
-            const oldIndex = currentQuizIndex;
-            currentQuizIndex = questionIndex;
-            if (button) { button.disabled = true; button.textContent = '⏳ AI CHECK திறக்கிறது...'; }
-            try {
-                await askQuizAI();
-            } finally {
-                currentQuizIndex = oldIndex;
-                if (button) { button.disabled = false; button.textContent = '🤖 AI CHECK — ChatGPT • Gemini • AI உதவி'; }
+        function askQuizAIForAnswerKey(questionIndex, button) {
+            const q = filteredQuizList && filteredQuizList[questionIndex];
+            if (!q) return;
+            const question = String(q.question || '').trim();
+            const options = [
+                `A. ${String(q.optionA || '').trim()}`,
+                `B. ${String(q.optionB || '').trim()}`,
+                `C. ${String(q.optionC || '').trim()}`,
+                `D. ${String(q.optionD || '').trim()}`
+            ].filter(x => !/^[A-D]\.\s*$/.test(x));
+            const prompt = 'Answer this quiz question carefully. Give the correct option first, then explain briefly in Tamil. Do not guess; use the supplied options.\n\nQUESTION:\n' + question + '\n\nOPTIONS:\n' + options.join('\n');
+
+            // Open the helper tab immediately inside the tap handler, so mobile browsers
+            // do not block it and the quiz/answer-key tab remains responsive.
+            const w = window.open('', '_blank');
+            if (!w) {
+                showRoyalAlertPopup('AI CHECK', 'புதிய Tab திறக்க Browser அனுமதி தேவை. Pop-ups அனுமதித்து மீண்டும் முயற்சி செய்யுங்கள்.');
+                return;
             }
+            const esc = value => String(value == null ? '' : value).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+            w.document.open();
+            w.document.write(`<!doctype html><html lang="ta"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#070b12"><title>Tiger Warriors — AI Answer Check</title><style>
+                *{box-sizing:border-box}html,body{margin:0;min-height:100%;width:100%;background:#070b12;color:#eaf2ff}body{min-height:100vh;min-height:100dvh;padding:clamp(10px,2vw,24px);font:16px/1.65 system-ui,Arial,sans-serif;overflow-x:hidden}.wrap{width:100%;max-width:none;margin:0 auto}.panel{width:100%;background:#0d1727;border:1px solid #25466f;border-radius:16px;padding:clamp(12px,2vw,22px);margin:0 0 12px;box-shadow:0 8px 24px #0005}h1{font-size:clamp(20px,2.4vw,28px);line-height:1.3;color:#bfdbfe;margin:0 0 12px;overflow-wrap:anywhere}h2{font-size:18px;color:#93c5fd;margin:0 0 10px}.question{white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;font-weight:800;font-size:clamp(17px,2vw,21px)}.opt{padding:10px 12px;margin:7px 0;border:1px solid #2a3d58;background:#090f19;border-radius:10px;overflow-wrap:anywhere;word-break:break-word}.prompt{display:block;width:100%;min-height:clamp(220px,34vh,420px);resize:vertical;background:#050a12;color:#eaf2ff;border:1px solid #304d70;border-radius:12px;padding:12px;font:14px/1.6 monospace;white-space:pre-wrap;overflow-wrap:anywhere}.buttons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}.btn{display:flex;align-items:center;justify-content:center;min-height:48px;text-align:center;padding:12px 10px;border-radius:11px;border:1px solid #3b82f6;background:#12315a;color:#eff6ff;font-weight:800;text-decoration:none;cursor:pointer;overflow-wrap:anywhere}.btn.primary{background:#1d4ed8;border-color:#60a5fa}.hint{font-size:13px;color:#a8b7cb;margin-top:12px;overflow-wrap:anywhere}@media(min-width:760px){.buttons{grid-template-columns:repeat(3,minmax(0,1fr))}.panel{border-radius:18px}}@media(max-width:360px){.buttons{grid-template-columns:1fr}.panel{padding:12px}}
+                </style></head><body><main class="wrap"><section class="panel"><h1>🤖 TIGER WARRIORS — AI ANSWER CHECK</h1><div class="question">${esc(question)}</div><div style="margin-top:12px">${options.map(x=>`<div class="opt">${esc(x)}</div>`).join('')}</div></section><section class="panel"><h2>AI-க்கு அனுப்ப வேண்டிய கேள்வி</h2><textarea id="twAiPrompt" class="prompt" readonly>${esc(prompt)}</textarea><div class="buttons"><button class="btn" id="copyPrompt">📋 Prompt Copy செய்</button><a class="btn primary" href="https://chatgpt.com/?q=${encodeURIComponent(prompt)}" target="_blank" rel="noopener">🤖 ChatGPT திற — கேள்வியுடன்</a><a class="btn" href="https://gemini.google.com/app?q=${encodeURIComponent(prompt)}" target="_blank" rel="noopener">✨ Gemini திற — கேள்வியுடன்</a><a class="btn" href="https://www.perplexity.ai/search?q=${encodeURIComponent(prompt)}" target="_blank" rel="noopener">🔎 Perplexity திற — கேள்வியுடன்</a><a class="btn" href="https://www.google.com/search?q=${encodeURIComponent(prompt)}" target="_blank" rel="noopener">🌐 Google தேடு — கேள்வியுடன்</a><a class="btn" href="https://claude.ai/new?q=${encodeURIComponent(prompt)}" target="_blank" rel="noopener">🟠 Claude திற — கேள்வியுடன்</a><a class="btn" href="https://copilot.microsoft.com/?q=${encodeURIComponent(prompt)}" target="_blank" rel="noopener">🪟 Copilot திற — கேள்வியுடன்</a></div><p class="hint">AI பட்டனை அழுத்தினால் கேள்வியும் A/B/C/D options-மும் அந்தச் சேவைக்கு URL வழியாக அனுப்பப்படும்; ஆதரிக்கும் சேவைகளில் prompt தானாக நிரம்பும். சில சேவைகள் பாதுகாப்பு/URL கட்டுப்பாடுகளால் prompt-ஐ தானாக நிரப்பாவிட்டால் மட்டும் “Prompt Copy செய்” பயன்படுத்தலாம். Quiz இருக்கும் பழைய Tab தனியாகவே இருக்கும்.</p></section></main><script>document.getElementById('copyPrompt').addEventListener('click',async function(){const el=document.getElementById('twAiPrompt');try{await navigator.clipboard.writeText(el.value);this.textContent='✅ Copied!';}catch(e){el.focus();el.select();try{document.execCommand('copy');this.textContent='✅ Copied!';}catch(_){this.textContent='Prompt-ஐ select செய்து copy செய்யவும்';}}});<\/script></body></html>`);
+            w.document.close();
         }
         function restartCurrentQuiz() {
             quizUserAnswers={}; quizSubmitted=false; currentQuizIndex=0;
