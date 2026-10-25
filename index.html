@@ -2741,6 +2741,22 @@ input,select,textarea{border-radius:13px!important}
 #tigerStudyChooser .tsc-title{display:block;font-size:clamp(16px,2.9vw,21px);line-height:1.3;font-weight:800;margin-bottom:7px}
 #tigerStudyChooser .tsc-sub{display:block;color:#a9b8cb;font-size:clamp(13px,2.5vw,17px);line-height:1.4;font-weight:600}
 #tigerStudyChooser .tsc-foot{color:#9aa9bf;font-size:clamp(14px,2.8vw,19px);font-weight:700;line-height:1.5;margin:24px 2px 0}
+/* Live AI-generated question card inside the actual Tiger AI Study Room */
+.tw-auto-q-card{margin:10px 0 14px;padding:13px;border:1px solid rgba(34,211,238,.55);border-radius:16px;background:linear-gradient(145deg,rgba(3,28,48,.98),rgba(4,12,27,.98));box-shadow:inset 0 0 18px rgba(34,211,238,.05),0 0 13px rgba(34,211,238,.08);color:#f8fafc;text-align:left}
+.tw-auto-q-top{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.tw-auto-q-title{font-size:12px;font-weight:1000;letter-spacing:.5px;color:#67e8f9}
+.tw-auto-q-live{font-size:10px;font-weight:900;color:#86efac;border:1px solid rgba(134,239,172,.35);padding:3px 7px;border-radius:99px}
+.tw-auto-q-meta{font-size:11px;color:#a5f3fc;margin-bottom:7px;font-weight:800}
+.tw-auto-q-question{font-size:14px;font-weight:900;line-height:1.55;white-space:pre-wrap;overflow-wrap:anywhere;margin:0 0 10px}
+.tw-auto-q-options{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.tw-auto-q-option{padding:9px 10px;border:1px solid rgba(251,191,36,.4);border-radius:10px;background:rgba(15,23,42,.95);color:#f8fafc;text-align:left;font-size:12px;line-height:1.45;overflow-wrap:anywhere;cursor:pointer;touch-action:manipulation}
+.tw-auto-q-option:disabled{cursor:default;opacity:1}
+.tw-auto-q-option.tw-correct{border-color:#22c55e;background:rgba(22,101,52,.42);color:#dcfce7}
+.tw-auto-q-option.tw-wrong{border-color:#f87171;background:rgba(127,29,29,.42);color:#fee2e2}
+.tw-auto-q-feedback{display:none;margin-top:9px;padding:9px;border-radius:10px;background:rgba(34,197,94,.09);border:1px solid rgba(34,197,94,.28);font-size:12px;line-height:1.55;color:#dcfce7;white-space:pre-wrap}
+.tw-auto-q-actions{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:9px;font-size:10px;color:#94a3b8}
+.tw-auto-q-refresh{border:1px solid #0891b2;border-radius:8px;padding:6px 9px;background:#082f49;color:#cffafe;font-size:11px;font-weight:900;cursor:pointer}
+@media(max-width:380px){.tw-auto-q-options{grid-template-columns:1fr}.tw-auto-q-card{padding:10px}}
 @media(max-width:430px){#tigerStudyChooser .tsc-panel{padding:20px 12px 15px;border-radius:25px}#tigerStudyChooser .tsc-grid{gap:10px}#tigerStudyChooser .tsc-item{gap:9px;padding:10px;min-height:108px;border-radius:18px}#tigerStudyChooser .tsc-icon{flex-basis:48px;width:48px;height:48px;font-size:29px;border-radius:14px}#tigerStudyChooser .tsc-brand{letter-spacing:2px}#tigerStudyChooser .tsc-close{width:40px;height:40px;font-size:30px;right:10px;top:10px}}
 @media(max-width:350px){#tigerStudyChooser .tsc-grid{grid-template-columns:1fr}#tigerStudyChooser .tsc-item{min-height:88px}}
 </style>
@@ -2914,6 +2930,15 @@ input,select,textarea{border-radius:13px!important}
                 <button class="chat-room-btn" id="roomBtnGeneral" onclick="switchChatRoom('General')">💬 General Doubts</button>
                 <button class="chat-room-btn" id="roomBtnStudy" onclick="switchChatRoom('Study')">📖 Study Discussion</button>
             </div>
+
+            <!-- Auto questions belong in Warrior's Discussion & AI room, not the separate Tiger AI voice modal. -->
+            <section class="tw-auto-q-card" id="twAutoQuestionCard" aria-live="polite">
+                <div class="tw-auto-q-top"><span class="tw-auto-q-title">⚡ TIGER WARRIORS · AUTO QUESTION</span><span class="tw-auto-q-live" id="twAutoQuestionLive">LIVE · 10 MIN</span></div>
+                <div class="tw-auto-q-meta" id="twAutoQuestionMeta">உங்களுடைய Quiz sheet-ல் உள்ள கேள்விகள் ஏற்றப்படுகின்றன…</div>
+                <div class="tw-auto-q-actions" style="justify-content:flex-start;gap:8px;margin:8px 0"><label for="twAutoQuestionCount" style="font-size:12px">ஒரே நேரத்தில்:</label><select id="twAutoQuestionCount" onchange="loadTwAutoQuestion(this.value)" style="border-radius:8px;padding:6px;background:var(--card-bg, #101827);color:inherit;border:1px solid var(--border-color, #445)"><option value="1">1 கேள்வி</option><option value="2">2 கேள்விகள்</option><option value="3">3 கேள்விகள்</option><option value="5">5 கேள்விகள்</option></select></div>
+                <div id="twAutoQuestionList"><div class="tw-auto-q-question" id="twAutoQuestionText">Study Room திறந்தவுடன் கேள்விகள் இங்கே வரும்.</div><div class="tw-auto-q-options" id="twAutoQuestionOptions"></div><div class="tw-auto-q-feedback" id="twAutoQuestionFeedback"></div></div>
+                <div class="tw-auto-q-actions"><span id="twAutoQuestionUpdated">5–10 நிமிடத்திற்கு ஒருமுறை புதுப்பிக்கும்</span><button type="button" class="tw-auto-q-refresh" onclick="loadTwAutoQuestion()">↻ புதுப்பி</button></div>
+            </section>
 
             <!-- 🤖 AI launcher: outside the scrolling messages so EVERYONE always sees it -->
             <div class="tiger-ai-sticky-bar" id="tigerAiStickyBar">
@@ -4182,6 +4207,7 @@ input,select,textarea{border-radius:13px!important}
             playClickSound();
             document.getElementById('warriorChatModal').style.display = 'flex';
             loadChatMessages();
+            startTwAutoQuestionPolling();
         }
 
         function closeWarriorChatModal() {
@@ -4379,11 +4405,100 @@ input,select,textarea{border-radius:13px!important}
         }
 
 
+        // Existing Quiz sheet questions are shown sequentially; no AI question generation is needed here.
+        let twAutoQuestionCurrent = null;
+        let twAutoQuestionPollTimer = null;
+        let twAutoQuestionIntervalMinutes = 10;
+        function loadTwAutoQuestion(requestedCount) {
+            const questionEl = document.getElementById('twAutoQuestionText');
+            const optionsEl = document.getElementById('twAutoQuestionOptions');
+            const listEl = document.getElementById('twAutoQuestionList');
+            const metaEl = document.getElementById('twAutoQuestionMeta');
+            const updatedEl = document.getElementById('twAutoQuestionUpdated');
+            const liveEl = document.getElementById('twAutoQuestionLive');
+            const countEl = document.getElementById('twAutoQuestionCount');
+            if (!listEl) return Promise.resolve();
+            const chosenCount = Number(requestedCount || (countEl && countEl.value) || 1);
+            if (typeof GOOGLE_SCRIPT_URL === 'undefined') {
+                listEl.textContent = 'Backend URL கிடைக்கவில்லை. Apps Script Web App URL-ஐ சரிபார்க்கவும்.';
+                if (metaEl) metaEl.textContent = 'Backend இணைப்பு இல்லை';
+                return Promise.resolve();
+            }
+            if (metaEl) metaEl.textContent = 'உங்களுடைய பழைய Quiz கேள்விகள் ஏற்றப்படுகின்றன…';
+            return fetch(GOOGLE_SCRIPT_URL + '?action=auto_question&count=' + encodeURIComponent(chosenCount) + '&ts=' + Date.now(), {method:'GET', cache:'no-store'})
+                .then(function(response) { if (!response.ok) throw new Error('Backend HTTP ' + response.status); return response.json(); })
+                .then(function(data) {
+                    if (!data || typeof data.available !== 'boolean') {
+                        listEl.textContent = 'இந்த Apps Script deployment-ல் auto_question route கிடைக்கவில்லை. புதிய version deploy செய்யப்பட்டதா சரிபார்க்கவும்.';
+                        if (metaEl) metaEl.textContent = 'Backend deployment பிழை';
+                        return;
+                    }
+                    if (data.ok !== true || !data.available) {
+                        listEl.textContent = (data && data.message) || 'Quiz sheet-ல் கேள்வி கிடைக்கவில்லை.';
+                        if (metaEl) metaEl.textContent = 'Quiz sheet-ஐச் சரிபார்க்கவும்';
+                        return;
+                    }
+                    const qs = Array.isArray(data.questions) && data.questions.length ? data.questions : [data];
+                    twAutoQuestionCurrent = data;
+                    listEl.innerHTML = '';
+                    qs.forEach(function(q, index) {
+                        const card = document.createElement('div');
+                        card.className = 'tw-auto-q-item';
+                        card.style.cssText = 'border:1px solid var(--border-color, rgba(120,150,180,.28));border-radius:12px;padding:12px;margin:10px 0;';
+                        const heading = document.createElement('div');
+                        heading.className = 'tw-auto-q-question';
+                        heading.textContent = (qs.length > 1 ? (index + 1) + '. ' : '') + (q.question || 'கேள்வி உரை கிடைக்கவில்லை.');
+                        card.appendChild(heading);
+                        const opts = document.createElement('div'); opts.className = 'tw-auto-q-options'; card.appendChild(opts);
+                        const feedback = document.createElement('div'); feedback.className = 'tw-auto-q-feedback'; feedback.style.display = 'none'; card.appendChild(feedback);
+                        const keys = ['A','B','C','D'];
+                        const answerKey = String(q.answer || '').trim().toUpperCase().replace(/[^A-D]/g,'').charAt(0);
+                        const sid = String(q.questionId || q.question || ('quiz-' + index)).replace(/[^a-zA-Z0-9_-]/g, '_').slice(0,120);
+                        const answerStorageKey = 'tw_auto_q_answered_' + sid;
+                        let previousAnswer = ''; try { previousAnswer = localStorage.getItem(answerStorageKey) || ''; } catch (e) {}
+                        keys.forEach(function(key) {
+                            const value = q['option' + key] || '';
+                            if (!value) return;
+                            const button = document.createElement('button'); button.type = 'button'; button.className = 'tw-auto-q-option'; button.textContent = key + '. ' + value;
+                            if (previousAnswer) { button.disabled = true; if (key === answerKey) button.classList.add('tw-correct'); if (key === previousAnswer && previousAnswer !== answerKey) button.classList.add('tw-wrong'); }
+                            button.addEventListener('click', function() {
+                                if (button.disabled) return;
+                                opts.querySelectorAll('button').forEach(function(other) { other.disabled = true; const k = other.textContent.trim().charAt(0); if (k === answerKey) other.classList.add('tw-correct'); if (k === key && k !== answerKey) other.classList.add('tw-wrong'); });
+                                let earnedXP = false;
+                                try { if (!localStorage.getItem(answerStorageKey)) { localStorage.setItem(answerStorageKey, key); if (typeof recordWarriorStudy === 'function') { recordWarriorStudy(); earnedXP = true; } } }
+                                catch (e) { if (typeof recordWarriorStudy === 'function') { recordWarriorStudy(); earnedXP = true; } }
+                                const answerText = q['option' + answerKey] || '';
+                                feedback.textContent = (key === answerKey ? '✅ சரியான விடை! ' : '❌ சரியான விடை: ' + answerKey + '. ') + answerText + (q.explanation ? '\n💡 விளக்கம்: ' + q.explanation : '') + (earnedXP ? '\n🏅 Warrior Achievement: +10 XP' : '\n🏅 இந்தக் கேள்விக்கான XP ஏற்கனவே பதிவு செய்யப்பட்டுள்ளது.');
+                                feedback.style.display = 'block';
+                            });
+                            opts.appendChild(button);
+                        });
+                        if (previousAnswer) { const answerText = q['option' + answerKey] || ''; feedback.textContent = (previousAnswer === answerKey ? '✅ நீங்கள் சரியாகப் பதிலளித்தீர்கள். ' : '📝 நீங்கள் தேர்ந்தெடுத்தது: ' + previousAnswer + '. சரியான விடை: ' + answerKey + '. ') + answerText + (q.explanation ? '\n💡 விளக்கம்: ' + q.explanation : '') + '\n🏅 இந்தக் கேள்விக்கான XP ஏற்கனவே பதிவு செய்யப்பட்டுள்ளது.'; feedback.style.display = 'block'; }
+                        listEl.appendChild(card);
+                    });
+                    if (metaEl) metaEl.textContent = 'ஏற்கனவே உள்ள Quiz sheet · மொத்தம் ' + (data.totalQuestions || '—') + ' கேள்விகள் · இப்போது ' + qs.length + ' காட்டப்படுகிறது';
+                    if (updatedEl) updatedEl.textContent = 'அடுத்த கேள்விகள் சுமார் 10 நிமிடத்தில் · வேண்டுமெனில் ↻ புதுப்பி அழுத்தவும்';
+                    twAutoQuestionIntervalMinutes = 10;
+                    if (liveEl) liveEl.textContent = 'QUIZ · ' + qs.length + ' Q';
+                })
+                .catch(function(error) {
+                    console.warn('Tiger existing Quiz load failed:', error);
+                    listEl.textContent = 'கேள்விகளைப் பெற முடியவில்லை. Apps Script Web App URL / deployment-ஐச் சரிபார்க்கவும்.';
+                    if (metaEl) metaEl.textContent = 'Backend இணைப்பைச் சரிபார்க்கவும்';
+                });
+        }
+        function startTwAutoQuestionPolling() {
+            loadTwAutoQuestion();
+            if (twAutoQuestionPollTimer) clearInterval(twAutoQuestionPollTimer);
+            twAutoQuestionPollTimer = setInterval(loadTwAutoQuestion, twAutoQuestionIntervalMinutes * 60 * 1000);
+        }
+
         // Added chooser handlers; existing room AI workflow remains in use.
         function openTigerStudyChooser() {
             playClickSound();
             const chooser = document.getElementById('tigerStudyChooser');
             if (chooser) chooser.style.display = 'flex';
+            startTwAutoQuestionPolling();
         }
 
         function closeTigerStudyChooser() {
@@ -4395,6 +4510,7 @@ input,select,textarea{border-radius:13px!important}
             closeTigerStudyChooser();
             currentChatRoom = 'Study';
             openRoomAI();
+            startTwAutoQuestionPolling();
             tigerAIInstructionOverride = 'You are the Tiger Warriors AI Study Assistant for the selected study room: ' + roomName + '. Focus on: ' + roomDescription + '. Help with relevant lessons, concepts, exam preparation and doubts. Give accurate answers, do not guess, and prefer Tamil when the student asks in Tamil; English is also supported.';
             const label = document.getElementById('tigerAiRoomLabel');
             const context = document.getElementById('tigerAiContext');
