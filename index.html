@@ -6,6 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
     <meta name="color-scheme" content="dark">
     <title>Tiger Warriors - Preparation Hub & Eco Tech Lab</title>
+
+<style id="tw-question-live-styles">
+.tw-question-live{margin:10px auto 14px;width:100%;max-width:1050px;border:1px solid rgba(34,211,238,.55);border-radius:17px;overflow:hidden;background:linear-gradient(145deg,#061323,#0b1e36 55%,#07111f);color:#f8fafc;box-shadow:0 10px 30px #0005,0 0 18px #0ea5e922;font-family:inherit}
+.twql-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:11px 13px;background:linear-gradient(100deg,#061323,#103458,#061323);border-bottom:1px solid #38bdf866}
+.twql-brand{display:flex;align-items:center;gap:10px;min-width:0}.twql-brand img{width:48px;height:48px;object-fit:contain;border-radius:50%;border:1px solid #fbbf2488;background:#061323;flex-shrink:0}.twql-title{font-size:clamp(13px,3vw,19px);font-weight:1000;line-height:1.2;color:#fbbf24;letter-spacing:.35px}.twql-subtitle{font-size:10px;font-weight:900;color:#67e8f9;margin-top:4px;letter-spacing:.6px}.twql-live-dot{display:flex;align-items:center;gap:5px;color:#fecaca;font-size:10px;font-weight:1000;background:#7f1d1d66;border:1px solid #f87171;border-radius:999px;padding:5px 8px;white-space:nowrap}.twql-live-dot i{display:block;width:7px;height:7px;border-radius:50%;background:#ef4444;box-shadow:0 0 9px #ef4444}
+.twql-toolbar{display:flex;align-items:center;gap:7px;flex-wrap:wrap;padding:9px 11px;border-bottom:1px solid #1e3a5f;background:#08172a}.twql-toolbar label{font-size:11px;color:#cbd5e1;font-weight:800}.twql-toolbar select,.twql-toolbar button{border:1px solid #38bdf8;border-radius:9px;background:#0b2942;color:#e0f2fe;padding:8px 10px;font-size:12px;font-weight:900;min-height:35px}.twql-toolbar button{cursor:pointer}.twql-toolbar button:active{transform:scale(.98)}#twqlPlay{background:linear-gradient(135deg,#0e7490,#155e75);color:#fff}#twqlNext{margin-left:auto;background:linear-gradient(135deg,#d4a72c,#fbbf24);border-color:#fde68a;color:#101827}
+.twql-status{padding:7px 12px;color:#a5f3fc;font-size:11px;font-weight:800}.twql-progress{height:4px;background:#172b40}.twql-progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,#22d3ee,#fbbf24);transition:width .2s linear}.twql-question-wrap{padding:12px}.twql-meta{display:flex;align-items:center;justify-content:space-between;gap:8px;color:#67e8f9;font-size:10px;font-weight:1000;letter-spacing:.5px}.twql-countdown{display:grid;place-items:center;min-width:34px;height:34px;border-radius:50%;border:2px solid #fbbf24;color:#fde68a;font-size:14px;background:#172033}.twql-question-wrap h3{font-size:clamp(15px,3.6vw,20px);line-height:1.55;margin:9px 0 11px;color:#fff;overflow-wrap:anywhere}.twql-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.twql-option{display:flex;gap:8px;align-items:flex-start;padding:9px;border:1px solid #29445e;border-radius:10px;background:#0a192b;color:#e2e8f0;font-size:12px;line-height:1.5;overflow-wrap:anywhere}.twql-option b{color:#67e8f9;flex-shrink:0}.twql-option.twql-correct{border-color:#4ade80;background:#064e3b55;color:#dcfce7}.twql-answer{margin-top:11px;padding:11px;border:1px solid #4ade8088;border-radius:11px;background:linear-gradient(140deg,#062b27,#0b1d2a)}.twql-answer-title{font-size:11px;color:#86efac;font-weight:1000;margin-bottom:5px}.twql-explanation-title{font-size:11px;color:#67e8f9;font-weight:1000;margin:9px 0 4px}.twql-answer #twqlCorrect,.twql-answer #twqlExplanation{font-size:13px;line-height:1.6;overflow-wrap:anywhere}.twql-foot{display:flex;justify-content:space-between;gap:6px;flex-wrap:wrap;padding:9px 12px;background:#050e1b;border-top:1px solid #1e3a5f;color:#94a3b8;font-size:9px;font-weight:800}
+@media(max-width:480px){.twql-head{padding:9px}.twql-brand img{width:40px;height:40px}.twql-toolbar{gap:6px;padding:8px}.twql-toolbar label{width:100%}.twql-toolbar select,.twql-toolbar button{padding:8px 9px}.twql-options{grid-template-columns:1fr}.twql-question-wrap{padding:10px}.twql-foot{font-size:8px}}
+</style>
+
 </head>
     <!-- 🌟 PWA Manifest & Theme Integration -->
     <link rel="manifest" href="manifest.json">
@@ -3542,6 +3552,24 @@ input,select,textarea{border-radius:13px!important}
             </div>
         </div>
 
+        <!-- TIGER WARRIORS QUESTION LIVE: reads the existing Quiz sheet data only -->
+        <section id="twQuestionLive" class="tw-question-live" aria-label="Tiger Warriors Question Live">
+          <div class="twql-head">
+            <div class="twql-brand"><img src="https://tigeracadamy.github.io/preperation-hub/tigergoldlogo.jpeg" alt="Tiger Warriors logo"><div><div class="twql-title">TIGER WARRIORS QUESTION LIVE</div><div class="twql-subtitle">QUESTION • ANSWER • EXPLANATION</div></div></div>
+            <span class="twql-live-dot"><i></i> LIVE</span>
+          </div>
+          <div class="twql-toolbar"><label for="twqlSeconds">Question time</label><select id="twqlSeconds" aria-label="Question display time"><option value="5">5 seconds</option><option value="10" selected>10 seconds</option></select><button type="button" id="twqlPlay" onclick="twqlToggle()">▶ Play</button><button type="button" id="twqlVoice" onclick="twqlToggleVoice()" aria-pressed="true" title="Question voice-over on/off">🔊 Voice ON</button><button type="button" id="twqlNext" onclick="twqlNextQuestion()">Next ➜</button></div>
+          <div class="twql-status" id="twqlStatus" aria-live="polite">⏳ Existing Quiz questions are loading…</div>
+          <div class="twql-progress"><span id="twqlProgressFill"></span></div>
+          <div class="twql-question-wrap" id="twqlQuestionWrap">
+            <div class="twql-meta"><span id="twqlCounter">QUESTION — / —</span><span class="twql-countdown" id="twqlCountdown">10</span></div>
+            <h3 id="twqlQuestion">கேள்விகள் ஏற்றப்படுகின்றன…</h3>
+            <div class="twql-options" id="twqlOptions"></div>
+            <div class="twql-answer" id="twqlAnswer" hidden><div class="twql-answer-title">✅ CORRECT ANSWER</div><div id="twqlCorrect"></div><div class="twql-explanation-title">📘 விளக்கம் / EXPLANATION</div><div id="twqlExplanation"></div></div>
+          </div>
+          <div class="twql-foot"><span>📚 Existing Quiz Bank</span><span id="twqlBankCount">0 questions available</span><span>🔁 Sequential playback</span></div>
+        </section>
+
         <div id="install-container" style="text-align: center; display: none;">
             <button id="pwa-install-btn" style="background: linear-gradient(135deg, #00f2fe, #4facfe); color: #060913; border: none; padding: 10px 20px; font-size: 16px; font-weight: bold; border-radius: 30px; cursor: pointer; box-shadow: 0 4px 15px rgba(0,242,254,0.4);">
                 📥 Install Tiger Warriors App
@@ -3624,6 +3652,7 @@ input,select,textarea{border-radius:13px!important}
             <button class="twx-team-card" type="button" onclick="twxOpenSearchWarriors()"><span class="twx-team-icon">🔎</span><b>TEAM 13</b><strong>SEARCH WARRIORS</strong><small>100 Education • News • Government websites</small><span class="twx-team-cta">Research தொடங்கு ↗</span></button>
             <button class="twx-team-card" type="button" onclick="tw14Open()"><span class="twx-team-icon">🌌</span><b>TEAM 14</b><strong>TIGER INNOVATION UNIVERSE</strong><small>3D Missions • Science Lab • Inventors Hub</small><span class="twx-team-cta">Universe திற ↗</span></button>
             <button class="twx-team-card twx-auto-quiz-team" type="button" onclick="openAutoQuizRoom()"><span class="twx-team-icon">⚡</span><b>TEAM 15</b><strong>AUTO QUIZ ROOM</strong><small>3,577+ பழைய கேள்விகள் • AI புதிய கேள்விகள்</small><span class="twx-team-cta">Quiz தொடங்கு ↗</span></button>
+            <button class="twx-team-card tw16-team-card" type="button" onclick="tw16Open()"><span class="twx-team-icon">⚔️</span><b>TEAM 16</b><strong>THE GAUNTLET · EXAM WARZONE</strong><small>Boss Battles • Trap Detector • AI Strategy</small><span class="twx-team-cta">GAUNTLET தொடங்கு ↗</span></button>
           </div>
           
         </section>
@@ -5926,6 +5955,7 @@ input,select,textarea{border-radius:13px!important}
                     answer: quizCell(q, ['Answer', 'Correct Answer', 'Correct Option', 'Answer Key', 'G']) || 'A',
                     explanation: quizCell(q, ['Explanation', 'Note', 'Reason', 'H'])
                 })).filter(q => q.question);
+                if (typeof window.twqlDataReady === 'function') window.twqlDataReady();
             }
             if (data.music && Array.isArray(data.music)) {
                 musicList = data.music.map((m, idx) => ({ title: m.title || `மோட்டிவேஷன் பாடல் ${idx+1}`, url: m.url || "" }));
@@ -10226,7 +10256,188 @@ img, video, iframe {
 #twOpenWarriorNotesResult{background:rgba(20,184,166,.09)!important;border:1px solid rgba(45,212,191,.24)!important;color:#e6fffb!important;box-shadow:0 2px 8px rgba(0,0,0,.12)!important}
 </style>
 
+
+
+<!-- TEAM 16 · THE GAUNTLET: uses existing Team 15 quiz room and built-in Tiger AI; isolated styling -->
+<style id="tw16-style">
+#tw16{display:none;position:fixed;inset:0;z-index:2147483201;overflow:auto;background:radial-gradient(ellipse at 50% 0%,#12345a 0%,#070b16 48%,#03050b 100%);color:#f8fafc;padding:clamp(12px,3vw,28px);font-family:inherit}
+#tw16.tw16-open{display:block}
+#tw16 .tw16-shell{max-width:1120px;margin:0 auto;padding-bottom:24px}
+#tw16 .tw16-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border-bottom:1px solid #fbbf243d;padding:8px 0 18px;margin-bottom:18px}
+#tw16 .tw16-kicker{color:#67e8f9;font-size:11px;font-weight:1000;letter-spacing:2px}
+#tw16 h2{font-size:clamp(25px,5vw,43px);line-height:1.05;margin:7px 0;color:#fbbf24;text-shadow:0 0 22px #f59e0b35}
+#tw16 .tw16-sub{color:#cbd5e1;line-height:1.65;margin:8px 0 0;max-width:760px}
+#tw16 .tw16-close,#tw16 .tw16-btn{border:1px solid #fbbf2480;background:#101d31;color:#fff;border-radius:11px;padding:11px 14px;font-weight:900;cursor:pointer}
+#tw16 .tw16-close{background:#111827}
+#tw16 .tw16-scorebar{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:16px 0}
+#tw16 .tw16-stat{border:1px solid #67e8f92b;border-radius:14px;padding:13px;background:linear-gradient(145deg,#10243bdb,#101827bd)}
+#tw16 .tw16-stat b{display:block;font-size:23px;color:#67e8f9}
+#tw16 .tw16-stat span{font-size:11px;color:#cbd5e1;font-weight:800}
+#tw16 .tw16-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+#tw16 .tw16-card{position:relative;overflow:hidden;border:1px solid #fbbf2438;border-radius:17px;padding:17px;background:linear-gradient(145deg,#111d30f2,#0a101df2);box-shadow:0 10px 30px #0003}
+#tw16 .tw16-card:before{content:'';position:absolute;inset:0 auto 0 0;width:3px;background:linear-gradient(#67e8f9,#fbbf24)}
+#tw16 .tw16-card .emoji{font-size:27px}
+#tw16 .tw16-card h3{margin:8px 0 6px;color:#fbbf24;font-size:17px}
+#tw16 .tw16-card p{color:#cbd5e1;font-size:13px;line-height:1.6;margin:0 0 13px}
+#tw16 .tw16-btn{background:linear-gradient(110deg,#123b58,#13243b);border-color:#67e8f96b;padding:10px 12px}
+#tw16 .tw16-btn.gold{background:linear-gradient(110deg,#92400e,#78350f);border-color:#fbbf24a8}
+#tw16 .tw16-foot{font-size:11px;color:#94a3b8;line-height:1.6;text-align:center;margin-top:18px}
+#tw16 .tw16-mission{margin-top:14px;border:1px solid #67e8f92b;border-radius:15px;padding:15px;background:#081423cc}
+#tw16 .tw16-mission label{display:block;font-size:12px;color:#67e8f9;font-weight:1000;margin-bottom:7px}
+#tw16 .tw16-mission input{width:100%;box-sizing:border-box;border:1px solid #334155;border-radius:10px;padding:12px;background:#030712;color:#fff;font:inherit}
+#tw16 .tw16-mission-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:9px}
+@media(max-width:650px){#tw16 .tw16-grid{grid-template-columns:1fr}#tw16 .tw16-scorebar{gap:7px}#tw16 .tw16-stat{padding:10px 8px}#tw16 .tw16-stat b{font-size:19px}#tw16 .tw16-stat span{font-size:10px}}
+@media(prefers-reduced-motion:reduce){#tw16 *{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+</style>
+<div id="tw16" role="dialog" aria-modal="true" aria-label="TEAM 16 The Gauntlet" aria-hidden="true">
+ <div class="tw16-shell">
+  <div class="tw16-top"><div><div class="tw16-kicker">TIGER WARRIORS • TEAM 16</div><h2>⚔️ THE GAUNTLET</h2><div class="tw16-kicker">EXAM WARZONE · தேர்வுக்கான சவால் அரங்கம்</div></div><button type="button" class="tw16-close" onclick="tw16Close()">✕ மூடு / Close</button></div>
+  <p class="tw16-sub">ஒரே கேள்வியை மனப்பாடம் செய்வதல்ல — கருத்தைப் புரிந்து, கேள்வியின் பொறியைக் கண்டுபிடித்து, உண்மையான தேர்வுக்கு தயாராகு. உங்கள் பழைய Quiz Room மற்றும் உள்ளமைந்த Tiger AI-யையே பயன்படுத்தும் TEAM 16.</p>
+  <div class="tw16-scorebar"><div class="tw16-stat"><b id="tw16Runs">0</b><span>சவால்கள் தொடங்கியது · Runs</span></div><div class="tw16-stat"><b id="tw16Wins">0</b><span>முடித்த பயிற்சிகள் · Completed</span></div><div class="tw16-stat"><b id="tw16Streak">0</b><span>தொடர் பயிற்சி · Streak</span></div></div>
+  <div class="tw16-grid">
+   <article class="tw16-card"><div class="emoji">👹</div><h3>BOSS BATTLE · இறுதிப் போர்</h3><p>பழைய Quiz கேள்விகளும் AI Approved கேள்விகளும் உள்ள TEAM 15 Auto Quiz Room-ஐத் திறந்து பயிற்சி தொடங்கு.</p><button class="tw16-btn gold" type="button" onclick="tw16BeginFlow('BOSS BATTLE')">⚡ BOSS BATTLE தொடங்கு</button></article>
+   <article class="tw16-card"><div class="emoji">🧠</div><h3>ONE QUESTION · FIVE ANGLES</h3><p>ஒரு தலைப்பை நேரடி வினா, கூற்று, Assertion–Reason, பொருத்துக, பயன்பாட்டு சூழ்நிலை என ஐந்து கோணங்களில் Tiger AI மூலம் பயிற்சி செய்.</p><button class="tw16-btn" type="button" onclick="tw16BeginFlow('ONE QUESTION · FIVE ANGLES')">🤖 AI பயிற்சி உருவாக்கு</button></article>
+   <article class="tw16-card"><div class="emoji">🕵️</div><h3>TRAP DETECTOR · பொறியைக் கண்டுபிடி</h3><p>நெருக்கமான options, முழுமையற்ற கூற்றுகள், குழப்பமூட்டும் சொற்கள் ஏன் தவறாக வழிநடத்துகின்றன என்பதை விளக்கத்துடன் பயிற்சி செய்.</p><button class="tw16-btn" type="button" onclick="tw16BeginFlow('TRAP DETECTOR')">🔎 Trap Training தொடங்கு</button></article>
+   <article class="tw16-card"><div class="emoji">⏳</div><h3>TIME MACHINE · காரணம் & விளைவு</h3><p>வரலாறு, அரசியல், அறிவியல், புவியியல் ஆகியவற்றில் காலவரிசை, காரணம்–விளைவு, மாற்றுச் சூழ்நிலை ஆகியவற்றைத் தேர்வு தரத்தில் சிந்தி.</p><button class="tw16-btn" type="button" onclick="tw16BeginFlow('TIME MACHINE')">🌌 சிந்தனைச் சவால் தொடங்கு</button></article>
+  </div>
+  <div class="tw16-mission"><label for="tw16Topic">🎯 YOUR NEXT BATTLE · அடுத்த பயிற்சிக்கான பாடம்</label><input id="tw16Topic" type="text" maxlength="180" placeholder="எ.கா. இந்திய அரசியலமைப்பு / Indian Polity / Chemistry"/><div class="tw16-mission-actions"><button class="tw16-btn gold" type="button" onclick="tw16BeginFlow('CUSTOM TOPIC')">இந்தப் பாடத்தில் கடினப் பயிற்சி உருவாக்கு ↗</button><button class="tw16-btn" type="button" onclick="tw16BeginFlow('FULL MOCK GAUNTLET')">முழுத் தேர்வு சவால் ↗</button><button class="tw16-btn" type="button" onclick="tw16ResetProgress()">இந்த சாதனை எண்ணிக்கையை reset செய்</button></div></div>
+  <div class="tw16-foot">Progress count இந்த browser-ல் மட்டும் சேமிக்கப்படும். TEAM 15 Quiz Room மற்றும் Tiger AI தனித்தனியாகவே இயங்கும்; TEAM 01–15-ன் உள்ளடக்கம் மாற்றப்படாது. AI உருவாக்கும் பதில்களைப் பயன்படுத்தும் முன் சரிபார்க்கவும்.</div>
+ </div>
+</div>
+<style id="tw16-four-step-style">
+#tw16Flow{display:none;position:fixed;inset:0;z-index:2147483600;background:rgba(2,6,18,.88);backdrop-filter:blur(10px);padding:14px;overflow:auto;color:#f8fafc;font-family:inherit}
+#tw16Flow.tw16-flow-open{display:flex;align-items:center;justify-content:center}
+#tw16Flow .flow-panel{width:min(680px,100%);max-height:94vh;overflow:auto;border:1px solid #fbbf2470;border-radius:20px;background:radial-gradient(ellipse at top,#16375a,#08111f 60%,#030712);box-shadow:0 25px 90px #000b;padding:clamp(15px,3vw,25px)}
+#tw16Flow .flow-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+#tw16Flow .flow-kicker{color:#67e8f9;font-size:10px;letter-spacing:1.8px;font-weight:1000}
+#tw16Flow h3{color:#fbbf24;font-size:clamp(21px,4vw,30px);margin:6px 0}
+#tw16Flow .flow-desc{color:#cbd5e1;font-size:13px;line-height:1.55;margin:8px 0 15px}
+#tw16Flow .flow-progress{display:flex;gap:6px;margin:12px 0 17px}
+#tw16Flow .flow-progress span{height:4px;flex:1;border-radius:10px;background:#334155}
+#tw16Flow .flow-progress span.active{background:linear-gradient(90deg,#22d3ee,#fbbf24)}
+#tw16Flow .flow-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+#tw16Flow .flow-option{border:1px solid #64748b66;border-radius:12px;padding:12px;background:#0b1729;color:#f8fafc;text-align:left;font:inherit;font-size:13px;font-weight:850;cursor:pointer;min-height:49px}
+#tw16Flow .flow-option small{display:block;color:#94a3b8;font-size:11px;font-weight:600;margin-top:4px}
+#tw16Flow .flow-option.selected{border-color:#67e8f9;background:linear-gradient(135deg,#0e3b56,#18243a);box-shadow:inset 0 0 0 1px #67e8f933}
+#tw16Flow .flow-nav{display:flex;gap:8px;justify-content:space-between;flex-wrap:wrap;margin:10px 0 15px}#tw16Flow .flow-nav-top{position:sticky;top:0;z-index:5;padding:8px 0;background:linear-gradient(180deg,#08111ff5 78%,#08111f00);border-radius:10px}#tw16Flow .flow-nav button{min-width:100px;min-height:44px;font-size:14px;box-shadow:0 4px 14px #0006}#tw16Flow .flow-nav .primary{font-size:15px;min-width:125px;box-shadow:0 0 0 1px #fbbf2440,0 5px 18px #92400e55}
+#tw16Flow .flow-nav button{border:1px solid #fbbf2470;border-radius:11px;padding:11px 15px;background:#14243a;color:#fff;font-weight:900;cursor:pointer}
+#tw16Flow .flow-nav .primary{background:linear-gradient(110deg,#92400e,#78350f);border-color:#fbbf24}
+#tw16Flow .flow-topic-input{width:100%;box-sizing:border-box;margin-top:12px;border:1px solid #475569;border-radius:11px;padding:12px;background:#030712;color:#fff;font:inherit}
+#tw16Flow .flow-summary{padding:10px 12px;margin:10px 0 14px;border:1px solid #67e8f933;border-radius:12px;background:#082033;color:#bae6fd;font-size:12px;line-height:1.6}
+@media(max-width:480px){#tw16Flow .flow-options{grid-template-columns:1fr}#tw16Flow .flow-panel{padding:15px}}
+</style>
+<div id="tw16Flow" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Choose exam, language, subject and topic">
+ <div class="flow-panel">
+  <div class="flow-head"><div><div class="flow-kicker">TIGER WARRIORS · PERSONALIZED CHALLENGE</div><h3 id="tw16FlowTitle">Choose your battlefield</h3></div><button type="button" class="tw16-close" onclick="tw16FlowClose()">✕</button></div>
+  <div class="flow-progress"><span id="tw16StepBar1" class="active"></span><span id="tw16StepBar2"></span><span id="tw16StepBar3"></span><span id="tw16StepBar4"></span></div>
+  <div class="flow-nav flow-nav-top"><button type="button" onclick="tw16FlowBack()">← Back</button><button type="button" class="primary" id="tw16FlowNext" onclick="tw16FlowNext()">Next →</button></div>
+  <p id="tw16FlowDesc" class="flow-desc">முதலில் உங்கள் தேர்வு அல்லது கோர்ஸைத் தேர்ந்தெடுக்கவும்.</p>
+  <div id="tw16FlowSummary" class="flow-summary"></div>
+  <div id="tw16FlowOptions" class="flow-options"></div>
+  <input id="tw16FlowCustomTopic" class="flow-topic-input" maxlength="160" placeholder="விருப்பமான topic-ஐ உள்ளிடவும் / Enter a custom topic" style="display:none">
+ </div>
+</div>
+<script id="tw16-script">
+(function(){
+ var KEY='tw_gauntlet_progress_v1';
+ function read(){try{return JSON.parse(localStorage.getItem(KEY)||'{"runs":0,"wins":0,"streak":0,"day":""}')}catch(e){return {runs:0,wins:0,streak:0,day:''}}}
+ function write(s){try{localStorage.setItem(KEY,JSON.stringify(s))}catch(e){};render()}
+ function render(){var s=read();['runs','wins','streak'].forEach(function(k){var el=document.getElementById('tw16'+k.charAt(0).toUpperCase()+k.slice(1));if(el)el.textContent=Number(s[k]||0)})}
+ function countRun(){var s=read(),day=new Date().toISOString().slice(0,10);s.runs=(s.runs||0)+1;if(s.day!==day){s.streak=(s.day&&((Date.parse(day)-Date.parse(s.day))/86400000===1))?(s.streak||0)+1:1;s.day=day}s.wins=(s.wins||0)+1;write(s)}
+ window.tw16Open=function(){var r=document.getElementById('tw16');if(!r)return;r.classList.add('tw16-open');r.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';render()};
+ window.tw16Close=function(){var r=document.getElementById('tw16');if(!r)return;r.classList.remove('tw16-open');r.setAttribute('aria-hidden','true');document.body.style.overflow=''};
+ window.tw16LaunchQuiz=function(){countRun();tw16Close();if(typeof openAutoQuizRoom==='function')openAutoQuizRoom();else alert('Auto Quiz Room இப்போது கிடைக்கவில்லை.');};
+ window.tw16LaunchAI=function(mode){countRun();var prompts={
+ 'ONE QUESTION · FIVE ANGLES':'Tiger Warriors THE GAUNTLET challenge. Create a Tamil + English exam practice on a suitable TNPSC/TRB/Police competitive-exam topic. Teach ONE concept through five formats: (1) direct MCQ, (2) statement-based, (3) Assertion–Reason, (4) match the following, (5) application scenario. Ask one question at a time, wait for my answer, then explain why every option is correct or incorrect. Do not invent facts; mention uncertainty and keep answer key verified.',
+ 'TRAP DETECTOR':'Tiger Warriors THE GAUNTLET Trap Detector. Give me 5 challenging TNPSC/TRB/Police MCQs that train me to detect misleading qualifiers, near-identical options and false statements. Ask one at a time. After my answer, explain the trap, why each option is right/wrong, and the key concept. Use Tamil or bilingual Tamil-English. Avoid ambiguous or unverified questions.',
+ 'TIME MACHINE':'Tiger Warriors THE GAUNTLET Time Machine. Train me on cause-and-effect, chronology, counterfactual reasoning and applying concepts in history, Indian polity, geography or science for TNPSC/TRB/Police exams. Keep facts separate from hypothetical scenarios. Ask one challenging MCQ at a time, wait for my answer, then explain.',
+ 'FULL MOCK GAUNTLET':'Tiger Warriors THE GAUNTLET full mock challenge for TNPSC/TRB/Police competitive exams. Give one question at a time across mixed subjects, progressively increasing difficulty. Do not show the answer until I respond. Track correct answers within this chat, explain distractors, and finish with a score and weak-topic summary. Use reliable facts and clearly state when unsure.'};
+ tw16SendToAI(prompts[mode]||prompts['ONE QUESTION · FIVE ANGLES']);};
+ window.tw16LaunchTopicAI=function(){var el=document.getElementById('tw16Topic'),topic=el?el.value.trim():'';if(!topic){if(el)el.focus();alert('முதலில் பாடத்தின் பெயரை உள்ளிடுங்கள். / Enter a topic first.');return}countRun();tw16SendToAI('Tiger Warriors THE GAUNTLET challenge for '+topic+'. Create challenging Tamil-English competitive exam practice for TNPSC/TRB/Police, one question at a time. Include a mix of direct MCQ, statement analysis, Assertion–Reason, matching and application scenario. Wait for my answer before revealing the key. Explain every option after my response. Use verified facts; do not guess. Start with one difficult but fair question.');};
+ function tw16SendToAI(prompt){tw16Close();try{if(typeof openRoomAI==='function'){openRoomAI();setTimeout(function(){var q=document.getElementById('tigerAiQuestion');if(q){q.value=prompt;q.dispatchEvent(new Event('input',{bubbles:true}));q.focus()}},180)}else{alert('Tiger AI modal கிடைக்கவில்லை. App-ல் Tiger AI-ஐத் திறந்து இந்த prompt-ஐ பயன்படுத்தவும்:\n\n'+prompt)}}catch(e){console.warn('Gauntlet AI launch failed',e);alert('Tiger AI திறக்க முடியவில்லை.');}}
+ window.tw16ResetProgress=function(){if(!confirm('TEAM 16 browser-இல் உள்ள சவால் எண்ணிக்கையை மட்டும் reset செய்யலாமா?'))return;try{localStorage.removeItem(KEY)}catch(e){}render()};
+ // Four-step selector: exam/course -> language -> subject -> topic, shared by every TEAM 16 action.
+ var flow={step:1,mode:'BOSS BATTLE',exam:'',language:'Tamil',subject:'',topic:''};
+ var exams=[
+  ['TNPSC Group 4','🏛️','General studies + Tamil eligibility'],['TNPSC Group 2 / 2A','🏛️','Preliminary / Main exam practice'],['TNPSC Group 1','🏛️','Advanced state services'],['TNPSC Group 5A / Other TNPSC','📘','Other TNPSC examinations'],['TNUSRB Police','👮','Police recruitment exams'],['TRB / TET','🎓','Teacher recruitment'],['TRB / NET / SET – Tamil','📖','Tamil subject'],['TRB / NET / SET – Chemistry','🧪','Chemistry subject'],['TRB / NET / SET – Physics','⚡','Physics subject'],['TRB / NET / SET – Botany','🌿','Botany subject'],['TRB / NET / SET – Zoology','🧬','Zoology subject'],['NEET / JEE','🔬','Physics · Chemistry · Biology / Maths'],['Chemistry – Standalone','⚗️','Chemistry focused practice'],['General Study – All Exams','🌐','Choose any subject']
+ ];
+ var subjects=[
+  ['Tamil / தமிழ்','📖'],['History / வரலாறு','📜'],['Indian Polity / இந்திய அரசியல்','🏛️'],['Geography / புவியியல்','🌍'],['Economy / பொருளாதாரம்','💹'],['General Science / பொது அறிவியல்','🔬'],['Chemistry / வேதியியல்','🧪'],['Physics / இயற்பியல்','⚡'],['Biology / உயிரியல்','🧬'],['Maths & Aptitude / கணிதம்','📐'],['Current Affairs / நடப்பு நிகழ்வுகள்','📰'],['Computer Science / கணினி அறிவியல்','💻']
+ ];
+ var topicMap={
+ 'Tamil / தமிழ்':['இலக்கணம்','இலக்கியம்','சங்க இலக்கியம்','திருக்குறள்','எழுத்து மற்றும் சொல்','வாசித்தல் புரிதல்'],
+ 'History / வரலாறு':['பண்டைய இந்தியா','இடைக்கால இந்தியா','நவீன இந்தியா','இந்திய விடுதலை இயக்கம்','தமிழ்நாடு வரலாறு','உலக வரலாறு'],
+ 'Indian Polity / இந்திய அரசியல்':['அரசியலமைப்பு அடிப்படை','அடிப்படை உரிமைகள் மற்றும் கடமைகள்','நாடாளுமன்றம்','ஜனாதிபதி மற்றும் ஆளுநர்','உள்ளாட்சி அமைப்புகள்','அரசியலமைப்பு திருத்தங்கள்'],
+ 'Geography / புவியியல்':['இந்திய புவியியல்','தமிழ்நாடு புவியியல்','உலக புவியியல்','காலநிலை மற்றும் பருவமழை','ஆறுகள் மற்றும் வளங்கள்','வரைபடப் பயிற்சி'],
+ 'Economy / பொருளாதாரம்':['இந்திய பொருளாதாரம்','தமிழ்நாடு பொருளாதாரம்','வங்கித்துறை','பணவீக்கம் மற்றும் GDP','அரசுத் திட்டங்கள்','பட்ஜெட் மற்றும் வரிவிதிப்பு'],
+ 'General Science / பொது அறிவியல்':['அன்றாட அறிவியல்','சுற்றுச்சூழல்','மனித உடலியல்','ஆற்றல் மற்றும் இயக்கம்','அறிவியல் கண்டுபிடிப்புகள்','சுகாதாரம் மற்றும் ஊட்டச்சத்து'],
+ 'Chemistry / வேதியியல்':['அணு அமைப்பு','வேதிப் பிணைப்புகள்','கரிம வேதியியல்','அமிலம்–காரம்–உப்புகள்','வெப்ப இயக்கவியல்','வேதிவினை இயக்கவியல்'],
+ 'Physics / இயற்பியல்':['இயக்கவியல்','மின்சாரம் மற்றும் காந்தவியல்','ஒளியியல்','வெப்பம் மற்றும் வெப்ப இயக்கவியல்','அலைகள்','நவீன இயற்பியல்'],
+ 'Biology / உயிரியல்':['செல் உயிரியல்','மரபியல்','மனித உடலியல்','தாவரவியல்','விலங்கியல்','சுற்றுச்சூழல் உயிரியல்'],
+ 'Maths & Aptitude / கணிதம்':['சதவீதம்','விகிதம் மற்றும் விகிதாசாரம்','லாபம் மற்றும் நட்டம்','நேரம் மற்றும் வேலை','எண் தொடர்கள்','தர்க்கத் திறன்'],
+ 'Current Affairs / நடப்பு நிகழ்வுகள்':['தமிழ்நாடு செய்திகள்','இந்தியா மற்றும் உலகம்','அரசுத் திட்டங்கள்','விருதுகள் மற்றும் நியமனங்கள்','அறிவியல் மற்றும் தொழில்நுட்பம்','விளையாட்டு'],
+ 'Computer Science / கணினி அறிவியல்':['கணினி அடிப்படைகள்','இணையம் மற்றும் நெட்வொர்க்','தரவுத்தளம்','நிரலாக்க அடிப்படைகள்','சைபர் பாதுகாப்பு','AI மற்றும் புதிய தொழில்நுட்பம்']
+ };
+ function flowEl(id){return document.getElementById(id)}
+ function flowRender(){var opts=flowEl('tw16FlowOptions'),title=flowEl('tw16FlowTitle'),desc=flowEl('tw16FlowDesc'),custom=flowEl('tw16FlowCustomTopic'),summary=flowEl('tw16FlowSummary'),next=flowEl('tw16FlowNext');if(!opts)return;opts.innerHTML='';custom.style.display='none';
+  var labels=['1 / 4 · தேர்வு / கோர்ஸ்','2 / 4 · மொழி','3 / 4 · பாடம்','4 / 4 · Topic'];
+  for(var i=1;i<=4;i++){var b=flowEl('tw16StepBar'+i);if(b)b.classList.toggle('active',i<=flow.step)}
+  summary.textContent=(flow.exam?'Course: '+flow.exam:'')+(flow.language?'  ·  Language: '+flow.language:'')+(flow.subject?'  ·  Subject: '+flow.subject:'')+(flow.topic?'  ·  Topic: '+flow.topic:'');
+  if(flow.step===1){title.textContent='⚔️ Choose your exam / course';desc.textContent='எந்த தேர்வு அல்லது கோர்ஸுக்கு பயிற்சி செய்யப் போகிறாய்? தேர்வு செய்.';exams.forEach(function(x){var b=document.createElement('button');b.type='button';b.className='flow-option'+(flow.exam===x[0]?' selected':'');b.innerHTML=x[1]+' '+x[0]+'<small>'+x[2]+'</small>';b.onclick=function(){flow.exam=x[0];flowRender()};opts.appendChild(b)})}
+  else if(flow.step===2){title.textContent='🌐 Choose your language';desc.textContent='கேள்வியும் விளக்கமும் எந்த மொழியில் வேண்டும்?';[['Tamil','தமிழ் மட்டும்'],['English','English only'],['Bilingual','தமிழ் + English']].forEach(function(x){var b=document.createElement('button');b.type='button';b.className='flow-option'+(flow.language===x[0]?' selected':'');b.textContent=x[1];b.onclick=function(){flow.language=x[0];flowRender()};opts.appendChild(b)})}
+  else if(flow.step===3){title.textContent='📚 Select one of 12 subjects';desc.textContent='உன் கோர்ஸுக்கு பொருத்தமான பாடத்தைத் தேர்ந்தெடு. அடுத்த படியில் Topic தேர்வு செய்யலாம்.';subjects.forEach(function(x){var b=document.createElement('button');b.type='button';b.className='flow-option'+(flow.subject===x[0]?' selected':'');b.textContent=x[1]+' '+x[0];b.onclick=function(){flow.subject=x[0];flowRender()};opts.appendChild(b)})}
+  else {title.textContent='🎯 Select the exact topic';desc.textContent='குறிப்பிட்ட topic-ஐத் தேர்ந்தெடு. இல்லையெனில் கீழே உன் topic-ஐ எழுதலாம்.';(topicMap[flow.subject]||['அடிப்படைகள்','முக்கிய கருத்துகள்','கடினமான வினாக்கள்','முந்தைய தேர்வு வினாக்கள்','பயன்பாட்டு வினாக்கள்','முழுமையான மறுபார்வை']).forEach(function(x){var b=document.createElement('button');b.type='button';b.className='flow-option'+(flow.topic===x?' selected':'');b.textContent='🎯 '+x;b.onclick=function(){flow.topic=x;flowRender()};opts.appendChild(b)});custom.style.display='block';custom.value=flow.topic&&!(topicMap[flow.subject]||[]).includes(flow.topic)?flow.topic:'';custom.oninput=function(){flow.topic=this.value.trim()};}
+  next.textContent=flow.step===4?(flow.mode==='BOSS BATTLE'?'⚡ Open Quiz Room':'🚀 Start Challenge'):'Next →';
+ }
+ window.tw16BeginFlow=function(mode){flow={step:1,mode:mode||'BOSS BATTLE',exam:'',language:'Tamil',subject:'',topic:''};tw16FlowOpen();flowRender()};
+ window.tw16FlowOpen=function(){var el=flowEl('tw16Flow');if(el){el.classList.add('tw16-flow-open');el.setAttribute('aria-hidden','false')}};
+ window.tw16FlowClose=function(){var el=flowEl('tw16Flow');if(el){el.classList.remove('tw16-flow-open');el.setAttribute('aria-hidden','true')}};
+ window.tw16FlowBack=function(){if(flow.step>1){flow.step--;flowRender()}else tw16FlowClose()};
+ window.tw16FlowNext=function(){if(flow.step===1&&!flow.exam){alert('முதலில் தேர்வு / கோர்ஸைத் தேர்ந்தெடு.');return}if(flow.step===2&&!flow.language){alert('மொழியைத் தேர்ந்தெடு.');return}if(flow.step===3&&!flow.subject){alert('ஒரு பாடத்தைத் தேர்ந்தெடு.');return}if(flow.step<4){flow.step++;flowRender();return}if(!flow.topic){flow.topic=flowEl('tw16FlowCustomTopic').value.trim()}if(!flow.topic){alert('ஒரு Topic-ஐத் தேர்ந்தெடு அல்லது எழுதவும்.');return}
+  var selection='Exam/Course: '+flow.exam+'; Language: '+flow.language+'; Subject: '+flow.subject+'; Topic: '+flow.topic+';';var mode=flow.mode;var prompt='';var lang=flow.language==='Tamil'?'Respond only in Tamil.':flow.language==='English'?'Respond only in English.':'Use Tamil and English bilingually.';
+  if(mode==='BOSS BATTLE'){tw16FlowClose();tw16Close();if(typeof openAutoQuizRoom==='function'){openAutoQuizRoom();try{window.tw16SelectedChallenge={exam:flow.exam,language:flow.language,subject:flow.subject,topic:flow.topic}}catch(e){} }else alert('Quiz Room இப்போது கிடைக்கவில்லை.');return}
+  var styles={
+  'ONE QUESTION · FIVE ANGLES':'Teach this topic through five formats: direct MCQ, statement-based, Assertion–Reason, match-the-following and application scenario. Ask one question at a time; wait for the student response before revealing the answer. Explain all options after the response.',
+  'TRAP DETECTOR':'Create challenging MCQs that reveal misleading qualifiers, near-identical options and false statements. Ask one at a time. After the answer, explain the trap and each option.',
+  'TIME MACHINE':'Train cause-and-effect, chronology and scenario-based reasoning for this topic. Keep verified facts clearly separate from hypothetical situations. Ask one question at a time.',
+  'FULL MOCK GAUNTLET':'Run a focused mini mock for this course, subject and topic. Ask one question at a time, progressively increase difficulty, do not reveal answers before the student responds, then explain the answer and finish with a score/weak-topic summary.',
+  'CUSTOM TOPIC':'Create a challenging, exam-oriented practice session for this exact topic. Use a mix of MCQ, statement analysis, Assertion–Reason, matching and application questions. Ask one at a time and wait for the student response.'};
+  prompt='Tiger Warriors THE GAUNTLET. '+selection+' '+lang+' Mode: '+mode+'. '+(styles[mode]||styles['CUSTOM TOPIC'])+' Target the selected exam syllabus. Use accurate, verifiable facts; never guess. If a topic or syllabus detail is uncertain, state that clearly. Explain why each option is right or wrong after the student answers.';
+  tw16FlowClose();countRun();tw16SendToAI(prompt);
+ };
+ var flowRoot=flowEl('tw16Flow');if(flowRoot)flowRoot.addEventListener('click',function(e){if(e.target===flowRoot)tw16FlowClose()});
+
+ document.addEventListener('keydown',function(e){if(e.key==='Escape')tw16Close()});
+ var root=document.getElementById('tw16');if(root)root.addEventListener('click',function(e){if(e.target===root)tw16Close()});render();
+})();
+</script>
+
+<script id="tw-question-live-engine">
+(function(){
+ 'use strict';
+ var index=0, running=false, revealed=false, timer=null, seconds=10, remaining=10, startedAt=0, available=[], voiceEnabled=true, voiceActivated=false, speechReady=!!(window.speechSynthesis && window.SpeechSynthesisUtterance);
+ var $=function(id){return document.getElementById(id)};
+ function rows(){try{return Array.isArray(quizList)?quizList:[]}catch(e){return []}}
+ function text(v){return String(v==null?'':v).trim()}
+ function option(q,k){return text(q[k]||q[k.toLowerCase()]||'')}
+ function answerIndex(q){var a=text(q.answer||q.correctAnswer||q['Correct Answer']||'A');var opts=[option(q,'optionA'),option(q,'optionB'),option(q,'optionC'),option(q,'optionD')];var m=a.match(/^([ABCD])(?:$|[.)\s])/i);if(m)return m[1].toUpperCase().charCodeAt(0)-65;var exact=opts.findIndex(function(o){return o&&o.toLocaleLowerCase()===a.toLocaleLowerCase()});return exact>=0?exact:0}
+ function stopTimer(){if(timer){clearInterval(timer);timer=null}}
+ function stopVoice(){try{if(speechReady)window.speechSynthesis.cancel()}catch(e){}}
+ function speakQuestion(){if(!voiceEnabled||!speechReady||!available.length)return;voiceActivated=true;stopVoice();var q=available[index];if(!q)return;var phrase=text(q.question);if(!phrase)return;var utter=new SpeechSynthesisUtterance(phrase);utter.lang=/[\u0B80-\u0BFF]/.test(phrase)?'ta-IN':'en-IN';utter.rate=1.0;utter.pitch=1.0;utter.volume=1.0;try{var voices=window.speechSynthesis.getVoices()||[];var wanted=utter.lang.toLowerCase().slice(0,2);var match=voices.find(function(v){return String(v.lang||'').toLowerCase().slice(0,2)===wanted});if(match)utter.voice=match;window.speechSynthesis.speak(utter)}catch(e){setStatus('⚠️ இந்த உலாவியில் Voice-over கிடைக்கவில்லை. Browser speech voice-ஐச் சரிபார்க்கவும்.')}}
+ window.twqlToggleVoice=function(){if(voiceEnabled&&!voiceActivated){if(speechReady){speakQuestion();setStatus('🔊 கேள்வி குரலில் வாசிக்கப்படுகிறது; அடுத்த கேள்விகளும் தானாக வாசிக்கப்படும்.');return}else{setStatus('⚠️ இந்த browser-ல் speech synthesis ஆதரவு இல்லை. Chrome-ல் முயற்சிக்கவும்.');return}}voiceEnabled=!voiceEnabled;var b=$('twqlVoice');if(b){b.textContent=voiceEnabled?'🔊 Voice ON':'🔇 Voice OFF';b.setAttribute('aria-pressed',String(voiceEnabled))}if(!voiceEnabled){stopVoice();setStatus('🔇 Question voice-over அணைக்கப்பட்டது.')}else if(speechReady){speakQuestion();setStatus('🔊 கேள்வி மட்டும் குரலில் வாசிக்கப்படும்; options/answer வாசிக்கப்படாது.')}else{setStatus('⚠️ இந்த browser-ல் speech synthesis ஆதரவு இல்லை. Chrome-ல் முயற்சிக்கவும்.')}}
+ function updateProgress(){var fill=$('twqlProgressFill');if(fill)fill.style.width=(revealed?100:Math.max(0,Math.min(100,((seconds-remaining)/seconds)*100)))+'%';if($('twqlCountdown'))$('twqlCountdown').textContent=String(Math.max(0,remaining))}
+ function setStatus(s){if($('twqlStatus'))$('twqlStatus').textContent=s}
+ function render(){stopVoice();available=rows().filter(function(q){return q&&text(q.question)});var count=available.length;if($('twqlBankCount'))$('twqlBankCount').textContent=count+' questions available';if(!count){setStatus('⚠️ Existing Quiz data இன்னும் கிடைக்கவில்லை. இணைய இணைப்பு மற்றும் Quiz sheet response-ஐச் சரிபார்க்கவும்.');$('twqlQuestion').textContent='Quiz கேள்விகள் ஏற்றப்படவில்லை.';$('twqlOptions').innerHTML='';return}if(index>=count)index=0;var q=available[index];$('twqlCounter').textContent='QUESTION '+String(index+1).padStart(4,'0')+' / '+count;$('twqlQuestion').textContent=text(q.question);var opts=[option(q,'optionA'),option(q,'optionB'),option(q,'optionC'),option(q,'optionD')];var host=$('twqlOptions');host.innerHTML='';opts.forEach(function(o,i){if(!o)return;var d=document.createElement('div');d.className='twql-option';d.dataset.index=String(i);var b=document.createElement('b');b.textContent=String.fromCharCode(65+i)+'.';var span=document.createElement('span');span.textContent=o;d.appendChild(b);d.appendChild(span);host.appendChild(d)});$('twqlAnswer').hidden=true;$('twqlCorrect').textContent='';$('twqlExplanation').textContent='';revealed=false;remaining=seconds;updateProgress();setStatus('📺 கேள்வி நேரம் • '+seconds+' வினாடிகளில் விடையும் விளக்கமும் வெளியாகும்.');if(running&&voiceEnabled)speakQuestion();}
+ function reveal(){if(revealed)return;revealed=true;stopTimer();stopVoice();var q=available[index];if(!q)return;var ix=answerIndex(q),opts=[option(q,'optionA'),option(q,'optionB'),option(q,'optionC'),option(q,'optionD')];document.querySelectorAll('#twqlOptions .twql-option').forEach(function(el){if(Number(el.dataset.index)===ix)el.classList.add('twql-correct')});$('twqlCorrect').textContent=(String.fromCharCode(65+ix)+'. '+(opts[ix]||'விடை தரவில் இல்லை'));$('twqlExplanation').textContent=text(q.explanation||q.Explanation||q.note||q.Note)||'இந்தக் கேள்விக்கான விளக்கம் மூல Quiz தரவில் இல்லை.';$('twqlAnswer').hidden=false;remaining=0;updateProgress();setStatus('✅ சரியான விடையும் விளக்கமும் • அடுத்த கேள்வி தானாக வரும்.');if(running){timer=setInterval(function(){stopTimer();index=(index+1)%available.length;render();startCountdown()},5500)}}
+ function startCountdown(){stopTimer();if(!running)return;startedAt=Date.now();timer=setInterval(function(){if(!running){stopTimer();return}var elapsed=Math.floor((Date.now()-startedAt)/1000);remaining=Math.max(0,seconds-elapsed);updateProgress();if(remaining<=0)reveal()},200)}
+ window.twqlToggle=function(){if(!available.length){render();if(!available.length)return}running=!running;var b=$('twqlPlay');if(b)b.textContent=running?'⏸ Pause':'▶ Play';if(running){if(revealed){index=(index+1)%available.length;render()}speakQuestion();startCountdown();setStatus(voiceEnabled?'▶ LIVE + கேள்வி Voice-over இயங்குகிறது.':'▶ LIVE இயங்குகிறது • கேள்விகள் வரிசையாக வரும்.')}else{stopTimer();stopVoice();setStatus('⏸ LIVE இடைநிறுத்தப்பட்டது. Play அழுத்தி தொடரலாம்.')}};
+ window.twqlNextQuestion=function(){if(!available.length)render();if(!available.length)return;stopTimer();stopVoice();index=(index+1)%available.length;render();if(running){speakQuestion();startCountdown()}};
+ window.twqlDataReady=function(){var before=available.length;available=rows().filter(function(q){return q&&text(q.question)});if(available.length){if(!before)index=0;render();if(!running){running=true;var play=$('twqlPlay');if(play)play.textContent='⏸ Pause';setStatus('🔴 LIVE தானாகத் தொடங்கியது • '+available.length+' existing Quiz questions • '+seconds+' seconds/question');startCountdown()}}};
+ $('twqlSeconds').addEventListener('change',function(){seconds=Number(this.value)===5?5:10;remaining=seconds;if(available.length){render();if(running){speakQuestion();startCountdown()}}});
+ if(speechReady){try{window.speechSynthesis.getVoices();window.speechSynthesis.addEventListener('voiceschanged',function(){/* Load browser-provided Tamil/English voices when available. */});}catch(e){}}
+ // Initialize only after the existing Quiz sheet has been loaded. No fabricated questions are inserted.
+ if(rows().length){twqlDataReady()}else{setStatus('⏳ Existing Quiz questions are loading…');var attempts=0;var poll=setInterval(function(){attempts++;if(rows().length){clearInterval(poll);twqlDataReady()}else if(attempts>=60){clearInterval(poll);setStatus('⚠️ Quiz data இன்னும் கிடைக்கவில்லை. Backend response-ல் existing Quiz rows வருகிறதா எனச் சரிபார்க்கவும்.')}},1000)}
+})();
+</script>
 </body>
 </html>
-
-
