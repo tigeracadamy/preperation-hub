@@ -2972,13 +2972,21 @@ input,select,textarea{border-radius:13px!important}
                 </div>
                 <button type="button" onclick="closeAutoQuizRoom()" style="background:var(--danger);color:#fff;border:none;padding:6px 10px;border-radius:7px;font-size:13px;cursor:pointer;">✕ Close</button>
             </div>
-            <section class="tw-auto-q-card" id="twAutoQuestionCard" aria-live="polite">
-                <div class="tw-auto-q-top"><span class="tw-auto-q-title">⚡ TIGER WARRIORS · AUTO QUIZ</span><span class="tw-auto-q-live" id="twAutoQuestionLive">LIVE · 10 MIN</span></div>
-                <div class="tw-auto-q-meta" id="twAutoQuestionMeta">உங்களுடைய Quiz sheet-ல் உள்ள கேள்விகள் ஏற்றப்படுகின்றன…</div>
-                <div class="tw-auto-q-actions" style="justify-content:flex-start;gap:8px;margin:8px 0"><label for="twAutoQuestionCount" style="font-size:12px">ஒரே நேரத்தில்:</label><select id="twAutoQuestionCount" onchange="loadTwAutoQuestion(this.value)" style="border-radius:8px;padding:6px;background:var(--card-bg, #101827);color:inherit;border:1px solid var(--border-color, #445)"><option value="20">20 கேள்விகள்</option><option value="50">50 கேள்விகள்</option><option value="100">100 கேள்விகள்</option></select></div>
-                <div id="twAutoQuestionList"><div class="tw-auto-q-question" id="twAutoQuestionText">Auto Quiz Room திறந்தவுடன் கேள்விகள் இங்கே வரும்.</div><div class="tw-auto-q-options" id="twAutoQuestionOptions"></div><div class="tw-auto-q-feedback" id="twAutoQuestionFeedback"></div></div>
-                <div class="tw-auto-q-actions"><span id="twAutoQuestionUpdated">5–10 நிமிடத்திற்கு ஒருமுறை புதுப்பிக்கும்</span><button type="button" class="tw-auto-q-refresh" onclick="loadTwAutoQuestion()">↻ புதுப்பி</button></div>
-            </section>
+            <div class="tw15-entry-stage" id="tw15EntryStage">
+                <div class="tw15-holo-ring" aria-hidden="true"><div class="tw15-cube"><span>🐯</span><span>🧠</span><span>⚡</span><span>📚</span><span>🎯</span><span>🏆</span></div></div>
+                <div class="tw15-entry-kicker">TIGER WARRIORS · TEAM 15</div>
+                <h2>⚡ AUTO QUIZ ARENA</h2>
+                <p>பழைய Quiz கேள்விகளும் AI Approved புதிய கேள்விகளும் தனித்தனி அறைகளில்!</p>
+                <button type="button" class="tw15-enter-btn" onclick="enterAutoQuizArena()">ENTER QUIZ ARENA <span>↗</span></button>
+            </div>
+            <div id="tw15QuizArena" hidden>
+                <div class="tw-auto-q-actions" style="justify-content:flex-start;gap:8px;margin:8px 0"><label for="twAutoQuestionCount" style="font-size:12px">ஒவ்வொரு பகுதியில்:</label><select id="twAutoQuestionCount" onchange="loadTwAutoQuestion(this.value)" style="border-radius:8px;padding:6px;background:var(--card-bg, #101827);color:inherit;border:1px solid var(--border-color, #445)"><option value="20">20 கேள்விகள்</option><option value="50">50 கேள்விகள்</option><option value="100">100 கேள்விகள்</option></select><button type="button" class="tw-auto-q-refresh" onclick="loadTwAutoQuestion()">↻ புதுப்பி</button></div>
+                <div class="tw15-quiz-grid">
+                  <section class="tw-auto-q-card tw15-panel-old"><div class="tw-auto-q-top"><span class="tw-auto-q-title">📘 OLD QUIZ SHEET</span><span class="tw-auto-q-live">EXISTING</span></div><div class="tw-auto-q-meta" id="twOldQuizMeta">பழைய Quiz கேள்விகள் ஏற்றப்படுகின்றன…</div><div id="twOldQuizList"><p>கேள்விகள் ஏற்றப்படுகின்றன…</p></div></section>
+                  <section class="tw-auto-q-card tw15-panel-ai"><div class="tw-auto-q-top"><span class="tw-auto-q-title">🤖 UPDATED AI QUIZ</span><span class="tw-auto-q-live">APPROVED ONLY</span></div><div class="tw-auto-q-meta" id="twAiQuizMeta">AutoQuestions sheet-இல் APPROVED கேள்விகள் ஏற்றப்படுகின்றன…</div><div id="twAiQuizList"><p>AI Approved கேள்விகள் ஏற்றப்படுகின்றன…</p></div></section>
+                </div>
+                <div class="tw-auto-q-actions"><span id="twAutoQuestionUpdated">சுமார் 10 நிமிடத்திற்கு ஒருமுறை புதுப்பிக்கும்</span><button type="button" class="tw-auto-q-refresh" onclick="loadTwAutoQuestion()">↻ Refresh</button></div>
+            </div>
         </div>
     </div>
 
@@ -4419,147 +4427,67 @@ input,select,textarea{border-radius:13px!important}
         }
 
 
-        // Existing Quiz sheet questions and AI-verified APPROVED AutoQuestions are shown together, sequentially.
+        // TEAM 15: keep the existing Quiz sheet and APPROVED AutoQuestions in separate panels.
         let twAutoQuestionCurrent = null;
         let twAutoQuestionPollTimer = null;
         let twAutoQuestionIntervalMinutes = 10;
-        function twNormalizeFirebaseQuizRows(raw) {
+        function tw15NormalizeRows(raw, defaultSource) {
             if (!raw) return [];
-            var rows = Array.isArray(raw) ? raw : (typeof raw === 'object' ? Object.keys(raw).map(function(k){ return raw[k]; }) : []);
-            return rows.filter(function(q) {
-                return q && String(q.question || q.Question || '').trim() &&
-                    [q.optionA || q['Option A'], q.optionB || q['Option B'], q.optionC || q['Option C'], q.optionD || q['Option D']].some(function(v){ return String(v || '').trim(); });
-            }).map(function(q, i) {
-                return {
-                    questionId: q.questionId || q.id || ('firebase-quiz-' + i),
-                    source: q.source || 'Firebase Quiz',
-                    subject: q.subject || q.category || 'பொது',
-                    topic: q.topic || '',
-                    question: q.question || q.Question || '',
-                    optionA: q.optionA || q['Option A'] || '',
-                    optionB: q.optionB || q['Option B'] || '',
-                    optionC: q.optionC || q['Option C'] || '',
-                    optionD: q.optionD || q['Option D'] || '',
-                    answer: q.answer || q.correctAnswer || q['Correct Answer'] || 'A',
-                    explanation: q.explanation || q.Explanation || ''
-                };
+            var rows = Array.isArray(raw) ? raw : (typeof raw === 'object' ? Object.keys(raw).map(function(k){return raw[k];}) : []);
+            return rows.filter(function(q){return q && String(q.question || q.Question || '').trim() && [q.optionA||q['Option A'],q.optionB||q['Option B'],q.optionC||q['Option C'],q.optionD||q['Option D']].some(function(v){return String(v||'').trim();});}).map(function(q,i){
+                return {questionId:q.questionId||q.id||((defaultSource||'quiz')+'-'+i),source:q.source||q.Source||defaultSource||'',status:String(q.status||q.Status||'').toUpperCase(),subject:q.subject||q.Subject||q.category||'பொது',topic:q.topic||q.Topic||'',question:q.question||q.Question||'',optionA:q.optionA||q['Option A']||'',optionB:q.optionB||q['Option B']||'',optionC:q.optionC||q['Option C']||'',optionD:q.optionD||q['Option D']||'',answer:q.answer||q.correctAnswer||q['Correct Answer']||'A',explanation:q.explanation||q.Explanation||''};
             });
         }
-
-        function twRenderAutoQuizData(data, sourceLabel) {
-            var listEl = document.getElementById('twAutoQuestionList');
-            var metaEl = document.getElementById('twAutoQuestionMeta');
-            var updatedEl = document.getElementById('twAutoQuestionUpdated');
-            var liveEl = document.getElementById('twAutoQuestionLive');
-            if (!listEl) return;
-            if (!data || data.ok !== true || data.available !== true || !Array.isArray(data.questions) || !data.questions.length) {
-                listEl.textContent = (data && data.message) || 'Firebase / Quiz தரவுகளில் கேள்விகள் கிடைக்கவில்லை.';
-                if (metaEl) metaEl.textContent = 'கேள்வித் தரவைச் சரிபார்க்கவும்';
-                return;
-            }
-            var qs = data.questions;
-            twAutoQuestionCurrent = data;
-            listEl.innerHTML = '';
-            qs.forEach(function(q, index) {
-                var card = document.createElement('div');
-                card.className = 'tw-auto-q-item';
-                card.style.cssText = 'border:1px solid var(--border-color, rgba(120,150,180,.28));border-radius:12px;padding:12px;margin:10px 0;';
-                var heading = document.createElement('div');
-                heading.className = 'tw-auto-q-question';
-                heading.textContent = (qs.length > 1 ? (index + 1) + '. ' : '') + (q.question || 'கேள்வி உரை கிடைக்கவில்லை.');
-                card.appendChild(heading);
-                var opts = document.createElement('div'); opts.className = 'tw-auto-q-options'; card.appendChild(opts);
-                var feedback = document.createElement('div'); feedback.className = 'tw-auto-q-feedback'; feedback.style.display = 'none'; card.appendChild(feedback);
-                var keys = ['A','B','C','D'];
-                var answerKey = String(q.answer || '').trim().toUpperCase().replace(/[^A-D]/g,'').charAt(0) || 'A';
-                var sid = String(q.questionId || q.question || ('quiz-' + index)).replace(/[^a-zA-Z0-9_-]/g, '_').slice(0,120);
-                var answerStorageKey = 'tw_auto_q_answered_' + sid;
-                var previousAnswer = ''; try { previousAnswer = localStorage.getItem(answerStorageKey) || ''; } catch (e) {}
-                keys.forEach(function(key) {
-                    var value = q['option' + key] || '';
-                    if (!value) return;
-                    var button = document.createElement('button'); button.type = 'button'; button.className = 'tw-auto-q-option'; button.textContent = key + '. ' + value;
-                    if (previousAnswer) { button.disabled = true; if (key === answerKey) button.classList.add('tw-correct'); if (key === previousAnswer && previousAnswer !== answerKey) button.classList.add('tw-wrong'); }
-                    button.addEventListener('click', function() {
-                        if (button.disabled) return;
-                        opts.querySelectorAll('button').forEach(function(other) { other.disabled = true; var k = other.textContent.trim().charAt(0); if (k === answerKey) other.classList.add('tw-correct'); if (k === key && k !== answerKey) other.classList.add('tw-wrong'); });
-                        var earnedXP = false;
-                        try { if (!localStorage.getItem(answerStorageKey)) { localStorage.setItem(answerStorageKey, key); if (typeof recordWarriorStudy === 'function') { recordWarriorStudy(); earnedXP = true; } } }
-                        catch (e) { if (typeof recordWarriorStudy === 'function') { recordWarriorStudy(); earnedXP = true; } }
-                        var answerText = q['option' + answerKey] || '';
-                        feedback.textContent = (key === answerKey ? '✅ சரியான விடை! ' : '❌ சரியான விடை: ' + answerKey + '. ') + answerText + (q.explanation ? '\n💡 விளக்கம்: ' + q.explanation : '') + (earnedXP ? '\n🏅 Warrior Achievement: +10 XP' : '\n🏅 இந்தக் கேள்விக்கான XP ஏற்கனவே பதிவு செய்யப்பட்டுள்ளது.');
-                        feedback.style.display = 'block';
-                    });
-                    opts.appendChild(button);
-                });
-                if (previousAnswer) { var answerText = q['option' + answerKey] || ''; feedback.textContent = (previousAnswer === answerKey ? '✅ நீங்கள் சரியாகப் பதிலளித்தீர்கள். ' : '📝 நீங்கள் தேர்ந்தெடுத்தது: ' + previousAnswer + '. சரியான விடை: ' + answerKey + '. ') + answerText + (q.explanation ? '\n💡 விளக்கம்: ' + q.explanation : '') + '\n🏅 இந்தக் கேள்விக்கான XP ஏற்கனவே பதிவு செய்யப்பட்டுள்ளது.'; feedback.style.display = 'block'; }
-                listEl.appendChild(card);
+        function tw15RenderPanel(targetId, metaId, questions, label, emptyMessage, maxCount) {
+            var target=document.getElementById(targetId), meta=document.getElementById(metaId); if(!target)return;
+            target.innerHTML='';
+            if(!questions || !questions.length){target.textContent=emptyMessage; if(meta)meta.textContent=label+' · தரவு கிடைக்கவில்லை';return;}
+            var count=Math.min(questions.length, maxCount||20);
+            questions.slice(0,count).forEach(function(q,index){
+                var card=document.createElement('div');card.className='tw-auto-q-item';card.style.cssText='border:1px solid var(--border-color,rgba(120,150,180,.28));border-radius:12px;padding:12px;margin:10px 0;background:#02081766';
+                var heading=document.createElement('div');heading.className='tw-auto-q-question';heading.textContent=(index+1)+'. '+q.question;card.appendChild(heading);
+                var opts=document.createElement('div');opts.className='tw-auto-q-options';card.appendChild(opts);var feedback=document.createElement('div');feedback.className='tw-auto-q-feedback';feedback.style.display='none';card.appendChild(feedback);
+                var answerKey=String(q.answer||'').trim().toUpperCase().replace(/[^A-D]/g,'').charAt(0)||'A';var sid=String(q.questionId||q.question||label+'-'+index).replace(/[^a-zA-Z0-9_-]/g,'_').slice(0,120);var storageKey='tw15_'+(targetId==='twOldQuizList'?'old':'ai')+'_answered_'+sid;var previous='';try{previous=localStorage.getItem(storageKey)||'';}catch(e){}
+                ['A','B','C','D'].forEach(function(key){var value=q['option'+key];if(!value)return;var btn=document.createElement('button');btn.type='button';btn.className='tw-auto-q-option';btn.textContent=key+'. '+value;if(previous){btn.disabled=true;if(key===answerKey)btn.classList.add('tw-correct');if(key===previous&&previous!==answerKey)btn.classList.add('tw-wrong');}
+                    btn.addEventListener('click',function(){if(btn.disabled)return;opts.querySelectorAll('button').forEach(function(other){other.disabled=true;var k=other.textContent.trim().charAt(0);if(k===answerKey)other.classList.add('tw-correct');if(k===key&&k!==answerKey)other.classList.add('tw-wrong');});var earned=false;try{if(!localStorage.getItem(storageKey)){localStorage.setItem(storageKey,key);if(typeof recordWarriorStudy==='function'){recordWarriorStudy();earned=true;}}}catch(e){}feedback.textContent=(key===answerKey?'✅ சரியான விடை! ':'❌ சரியான விடை: '+answerKey+'. ')+(q['option'+answerKey]||'')+(q.explanation?'\n💡 விளக்கம்: '+q.explanation:'')+(earned?'\n🏅 +10 XP':'');feedback.style.display='block';});opts.appendChild(btn);});
+                if(previous){feedback.textContent=(previous===answerKey?'✅ நீங்கள் சரியாகப் பதிலளித்தீர்கள். ':'📝 உங்கள் விடை: '+previous+'. சரியான விடை: '+answerKey+'. ')+(q['option'+answerKey]||'')+(q.explanation?'\n💡 விளக்கம்: '+q.explanation:'');feedback.style.display='block';}
+                target.appendChild(card);
             });
-            var label = sourceLabel || 'Apps Script';
-            if (metaEl) metaEl.textContent = label + ' · மொத்தம் ' + (data.totalQuestions || qs.length) + ' · பழைய Quiz ' + (data.existingQuizCount == null ? '—' : data.existingQuizCount) + ' · AI Approved ' + (data.approvedAutoQuestionCount == null ? '—' : data.approvedAutoQuestionCount) + ' · இப்போது ' + qs.length + ' காட்டப்படுகிறது';
-            if (updatedEl) updatedEl.textContent = 'அடுத்த புதுப்பிப்பு சுமார் 10 நிமிடத்தில் · வேண்டுமெனில் ↻ புதுப்பி அழுத்தவும்';
-            if (liveEl) liveEl.textContent = 'QUIZ · ' + qs.length + ' Q';
+            if(meta)meta.textContent=label+' · மொத்தம் '+questions.length+' · இப்போது '+count+' கேள்விகள்';
+        }
+        function enterAutoQuizArena(){var intro=document.getElementById('tw15EntryStage'),arena=document.getElementById('tw15QuizArena');if(intro)intro.style.display='none';if(arena){arena.hidden=false;arena.classList.remove('tw15-arena-enter');void arena.offsetWidth;arena.classList.add('tw15-arena-enter');}try{if(typeof playClickSound==='function')playClickSound();}catch(e){}startTwAutoQuestionPolling();}
+        function tw15SeparateData(data, chosenCount){
+            var oldRaw=data&&(data.Quiz||data.quiz||data.existingQuiz||data.existingQuestions||data.oldQuizQuestions);
+            var aiRaw=data&&(data.AutoQuestions||data.autoQuestions||data.approvedAutoQuestions||data.aiQuestions||data.autoQuiz);
+            var combined=data&&(data.questions||data.allQuestions);
+            if(!oldRaw&&Array.isArray(combined))oldRaw=combined;
+            if(!oldRaw&&Array.isArray(data))oldRaw=data;
+            var oldRows=tw15NormalizeRows(oldRaw,'Quiz');
+            var aiRows=tw15NormalizeRows(aiRaw,'AutoQuestions').filter(function(q){return !q.status||q.status==='APPROVED';});
+            // If the backend returns one combined list, separate only when source/status markers make that reliable.
+            if(oldRows.length && !aiRows.length){var markedAI=oldRows.filter(function(q){return /auto.?questions|ai.?approved|generated/i.test(q.source)||q.status==='APPROVED';});if(markedAI.length){aiRows=markedAI.filter(function(q){return !q.status||q.status==='APPROVED';});oldRows=oldRows.filter(function(q){return markedAI.indexOf(q)<0;});}}
+            var count=[20,50,100].indexOf(Number(chosenCount))>=0?Number(chosenCount):20;
+            return {old:oldRows,ai:aiRows,count:count};
+        }
+        function loadTwAutoQuestion(requestedCount){
+            var countEl=document.getElementById('twAutoQuestionCount'),count=Number(requestedCount||(countEl&&countEl.value)||20);var oldMeta=document.getElementById('twOldQuizMeta'),aiMeta=document.getElementById('twAiQuizMeta');
+            if(oldMeta)oldMeta.textContent='Apps Script-லிருந்து பழைய Quiz கேள்விகள் பெறப்படுகின்றன…';if(aiMeta)aiMeta.textContent='APPROVED AI கேள்விகள் பெறப்படுகின்றன…';
+            var url=GOOGLE_SCRIPT_URL+'?ts='+Date.now();
+            return fetch(url,{method:'GET',cache:'no-store'}).then(function(r){if(!r.ok)throw new Error('Apps Script HTTP '+r.status);return r.json();}).then(function(data){
+                var split=tw15SeparateData(data,count);
+                tw15RenderPanel('twOldQuizList','twOldQuizMeta',split.old,'OLD QUIZ SHEET','பழைய Quiz sheet கேள்விகள் கிடைக்கவில்லை.',count);
+                tw15RenderPanel('twAiQuizList','twAiQuizMeta',split.ai,'AI APPROVED','AutoQuestions-இல் APPROVED கேள்விகள் கிடைக்கவில்லை. Backend response-ல் AutoQuestions array வெளிப்படுத்தப்பட வேண்டும்.',count);
+                var updated=document.getElementById('twAutoQuestionUpdated');if(updated)updated.textContent='புதுப்பிக்கப்பட்டது: '+new Date().toLocaleTimeString();
+                twAutoQuestionCurrent=split;return true;
+            }).catch(function(err){console.warn('Team 15 quiz load failed:',err);if(oldMeta)oldMeta.textContent='Apps Script இணைப்பு பிழை: '+(err.message||'failed');if(aiMeta)aiMeta.textContent='AI Approved கேள்விகளைப் பெற முடியவில்லை.';return false;});
         }
 
-        function twLoadQuizFromFirebase(chosenCount) {
-            var firebaseUrl = 'https://tigerwarriorsdb-default-rtdb.firebaseio.com/quiz.json?ts=' + Date.now();
-            return fetch(firebaseUrl, {method:'GET', cache:'no-store'})
-                .then(function(response) { if (!response.ok) throw new Error('Firebase HTTP ' + response.status); return response.json(); })
-                .then(function(raw) {
-                    var all = twNormalizeFirebaseQuizRows(raw);
-                    if (!all.length) throw new Error('Firebase quiz node-ல் பயன்படுத்தக்கூடிய கேள்விகள் இல்லை.');
-                    var cursor = 0;
-                    try { cursor = Number(localStorage.getItem('tw_firebase_quiz_cursor') || 0); } catch (e) {}
-                    if (!isFinite(cursor) || cursor < 0) cursor = 0;
-                    cursor = cursor % all.length;
-                    var count = [20,50,100].indexOf(Number(chosenCount)) >= 0 ? Number(chosenCount) : 20;
-                    var selected = [];
-                    for (var n = 0; n < Math.min(count, all.length); n++) selected.push(all[(cursor + n) % all.length]);
-                    try { localStorage.setItem('tw_firebase_quiz_cursor', String((cursor + selected.length) % all.length)); } catch (e) {}
-                    var existingCount = all.filter(function(q){ return q.source === 'Quiz'; }).length;
-                    var autoCount = all.filter(function(q){ return q.source === 'AutoQuestions'; }).length;
-                    return {ok:true, available:true, source:'Firebase', questions:selected, totalQuestions:all.length,
-                        existingQuizCount: existingCount || null, approvedAutoQuestionCount: autoCount || null};
-                });
-        }
-
-        function loadTwAutoQuestion(requestedCount) {
-            var listEl = document.getElementById('twAutoQuestionList');
-            var metaEl = document.getElementById('twAutoQuestionMeta');
-            var countEl = document.getElementById('twAutoQuestionCount');
-            if (!listEl) return Promise.resolve();
-            var chosenCount = Number(requestedCount || (countEl && countEl.value) || 20);
-            if (metaEl) metaEl.textContent = 'Apps Script வழியாக முயற்சி செய்கிறது… தேவைப்பட்டால் Firebase-லிருந்து பெறப்படும்.';
-            var scriptRequest = (typeof GOOGLE_SCRIPT_URL !== 'undefined')
-                ? fetch(GOOGLE_SCRIPT_URL + '?action=auto_question&count=' + encodeURIComponent(chosenCount) + '&ts=' + Date.now(), {method:'GET', cache:'no-store'})
-                    .then(function(response) { if (!response.ok) throw new Error('Apps Script HTTP ' + response.status); return response.json(); })
-                    .then(function(data) {
-                        if (data && data.ok === true && data.available === true && Array.isArray(data.questions) && data.questions.length) {
-                            twRenderAutoQuizData(data, 'Apps Script');
-                            return true;
-                        }
-                        throw new Error((data && data.message) || 'Apps Script பதிலில் கேள்விகள் இல்லை.');
-                    })
-                : Promise.reject(new Error('Apps Script URL கிடைக்கவில்லை.'));
-            return scriptRequest.catch(function(scriptError) {
-                console.warn('Tiger Auto Quiz Apps Script request failed; trying Firebase:', scriptError);
-                if (metaEl) metaEl.textContent = 'Apps Script கிடைக்கவில்லை; Firebase-லிருந்து கேள்விகள் பெறப்படுகின்றன…';
-                return twLoadQuizFromFirebase(chosenCount).then(function(firebaseData) {
-                    twRenderAutoQuizData(firebaseData, 'Firebase backup connection');
-                    return true;
-                }).catch(function(firebaseError) {
-                    console.warn('Tiger Auto Quiz Firebase fallback failed:', firebaseError);
-                    listEl.textContent = 'Apps Script-லும் Firebase-லும் இருந்து கேள்விகளைப் பெற முடியவில்லை. Apps Script URL / Firebase quiz data sync-ஐச் சரிபார்க்கவும்.';
-                    if (metaEl) metaEl.textContent = 'இணைப்பு பிழை · Apps Script: ' + (scriptError.message || 'failed') + ' · Firebase: ' + (firebaseError.message || 'failed');
-                    return false;
-                });
-            });
-        }
         function openAutoQuizRoom() {
             try { if (typeof playClickSound === 'function') playClickSound(); } catch (e) {}
             const modal = document.getElementById('autoQuizRoomModal');
             if (modal) modal.style.display = 'flex';
-            startTwAutoQuestionPolling();
+            var intro=document.getElementById('tw15EntryStage'), arena=document.getElementById('tw15QuizArena');
+            if(intro) intro.style.display=''; if(arena) arena.hidden=true;
         }
         function closeAutoQuizRoom() {
             const modal = document.getElementById('autoQuizRoomModal');
@@ -8465,6 +8393,16 @@ button:focus-visible,a:focus-visible{
 #tw-extra-command-center .twx-auto-quiz-team .twx-team-cta{color:#bae6fd!important;border-top-color:#38bdf844!important}
 #autoQuizRoomModal .chat-modal-box{max-height:92vh;overflow:auto}
 #autoQuizRoomModal .tw-auto-q-card{margin:10px 0}
+#autoQuizRoomModal .chat-modal-box{perspective:1200px;border:1px solid #38bdf866;box-shadow:0 24px 70px #0009,0 0 28px #0ea5e944;animation:tw15ModalIn .48s cubic-bezier(.2,.8,.2,1) both}
+@keyframes tw15ModalIn{from{opacity:0;transform:translateY(22px) rotateX(7deg) scale(.96)}to{opacity:1;transform:translateY(0) rotateX(0) scale(1)}}
+.tw15-entry-stage{text-align:center;position:relative;overflow:hidden;padding:18px 12px 24px;border:1px solid #38bdf866;border-radius:20px;background:radial-gradient(ellipse at 50% 30%,#0e749044,transparent 48%),linear-gradient(145deg,#071b31,#060b18 65%,#10233c);color:#e0f7ff;box-shadow:inset 0 1px #ffffff16,0 14px 28px #0005;animation:tw15StageIn .6s ease both}
+@keyframes tw15StageIn{from{opacity:0;transform:translateY(15px) rotateX(8deg)}to{opacity:1;transform:translateY(0) rotateX(0)}}
+.tw15-holo-ring{width:116px;height:116px;margin:0 auto 13px;border-radius:50%;display:grid;place-items:center;border:1px solid #67e8f9aa;background:radial-gradient(circle,#0e749055,#020617 68%);box-shadow:0 0 0 8px #38bdf810,0 0 28px #22d3ee55;animation:tw15Float 3s ease-in-out infinite}
+.tw15-cube{position:relative;width:58px;height:58px;transform-style:preserve-3d;animation:tw15CubeSpin 9s linear infinite}.tw15-cube span{position:absolute;inset:0;display:grid;place-items:center;border:1px solid #67e8f9aa;background:linear-gradient(145deg,#0e7490aa,#0f172aaa);font-size:25px;box-shadow:inset 0 0 16px #22d3ee33}.tw15-cube span:nth-child(1){transform:translateZ(29px)}.tw15-cube span:nth-child(2){transform:rotateY(180deg) translateZ(29px)}.tw15-cube span:nth-child(3){transform:rotateY(90deg) translateZ(29px)}.tw15-cube span:nth-child(4){transform:rotateY(-90deg) translateZ(29px)}.tw15-cube span:nth-child(5){transform:rotateX(90deg) translateZ(29px)}.tw15-cube span:nth-child(6){transform:rotateX(-90deg) translateZ(29px)}
+@keyframes tw15CubeSpin{to{transform:rotateX(360deg) rotateY(360deg)}}@keyframes tw15Float{50%{transform:translateY(-5px);box-shadow:0 0 0 11px #38bdf810,0 0 34px #22d3ee66}}
+.tw15-entry-kicker{font-size:10px;font-weight:900;letter-spacing:3px;color:#7dd3fc}.tw15-entry-stage h2{margin:8px 0;color:#e0f2fe;font-size:clamp(21px,5vw,29px);text-shadow:0 0 18px #38bdf866}.tw15-entry-stage p{max-width:440px;margin:0 auto 18px;color:#b8d7e8;font-size:13px;line-height:1.6}.tw15-enter-btn{border:1px solid #a5f3fc;border-radius:13px;padding:12px 24px;background:linear-gradient(120deg,#0891b2,#38bdf8 55%,#0e7490);color:#031525;font-size:13px;font-weight:1000;letter-spacing:1px;box-shadow:0 5px 0 #075985,0 12px 24px #0ea5e944;cursor:pointer;transition:transform .18s,box-shadow .18s;animation:tw15ButtonGlow 2.4s ease-in-out infinite}.tw15-enter-btn span{margin-left:10px;font-size:17px}.tw15-enter-btn:active{transform:translateY(3px);box-shadow:0 2px 0 #075985}.tw15-arena-enter{animation:tw15StageIn .42s ease both}.tw15-quiz-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;align-items:start}.tw15-panel-old{border-color:#f6d47777;background:linear-gradient(145deg,#201a0c,#07101e)}.tw15-panel-ai{border-color:#38bdf888;background:linear-gradient(145deg,#082b40,#06101d)}.tw15-panel-old .tw-auto-q-title{color:#ffe29a}.tw15-quiz-grid .tw-auto-q-option{width:100%;margin:2px 0}.tw15-quiz-grid .tw-auto-q-item{animation:tw15QuestionIn .32s ease both;transform-origin:top center}.tw15-quiz-grid .tw-auto-q-question{font-size:13px}@keyframes tw15QuestionIn{from{opacity:0;transform:translateY(8px) rotateX(3deg)}to{opacity:1;transform:translateY(0) rotateX(0)}}@keyframes tw15ButtonGlow{50%{box-shadow:0 5px 0 #075985,0 12px 28px #0ea5e977}}
+@media(max-width:680px){.tw15-quiz-grid{grid-template-columns:minmax(0,1fr)}.tw15-holo-ring{width:100px;height:100px}.tw15-quiz-grid .tw-auto-q-options{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.tw15-cube,.tw15-holo-ring,.tw15-enter-btn,.tw15-entry-stage,#autoQuizRoomModal .chat-modal-box{animation:none!important;transition:none!important}}
 @media(max-width:480px){#autoQuizRoomModal .chat-modal-box{width:96%;max-height:94vh;padding:10px}#autoQuizRoomModal .chat-header{gap:8px}}
 #tw-extra-command-center{--twx-gold:#f6d477;margin:12px 0 16px;padding:clamp(12px,3.5vw,20px);border:1px solid rgba(246,212,119,.62);border-radius:23px;background:radial-gradient(ellipse at 50% 0%,rgba(184,125,28,.18),transparent 48%),linear-gradient(145deg,#06172c,#0a1020 55%,#151006);box-shadow:0 12px 34px rgba(0,0,0,.32),inset 0 0 0 3px rgba(246,212,119,.055);color:#fff7df;overflow:hidden}#tw-extra-command-center *{box-sizing:border-box}.twx-heading{text-align:center;padding:5px 0 17px}.twx-eyebrow{font-size:12px;letter-spacing:2px;color:#f5c85e}.twx-heading h2{font-size:calc(clamp(22px,5vw,30px) - 2px);line-height:1.2;margin:8px 0;color:#ffe7a2;text-shadow:0 2px 16px #b8791c44}.twx-heading p{font-size:14px;color:#d7dce8}.twx-team-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.twx-team-card{appearance:none;text-align:left;min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:13px 12px;border-radius:16px;border:1px solid #f6d47777;background:linear-gradient(145deg,#192b41,#09101e);color:#fff4d2;box-shadow:0 5px 12px #0004;cursor:pointer;transition:transform .16s ease}.twx-team-card:active{transform:scale(.975)}.twx-team-card:focus-visible,.twx-main-btn:focus-visible,.twx-secondary-btn:focus-visible{outline:3px solid #fff0a8;outline-offset:2px}.twx-team-icon{font-size:30px}.twx-team-card>b{font-size:11px;letter-spacing:1.2px;color:#e9bd55}.twx-team-card strong{font-size:clamp(13px,2.8vw,16px);line-height:1.25;overflow-wrap:anywhere}.twx-team-card small{font-size:12px;line-height:1.4;color:#c7d1e1}.twx-team-cta{margin-top:4px;padding-top:8px;border-top:1px solid #f6d47733;width:100%;font-size:12px;color:#ffdc83}.twx-tool-grid{display:grid;grid-template-columns:1fr;gap:10px;margin-top:13px}.twx-panel{min-width:0;padding:14px;border-radius:17px;border:1px solid #f6d47740;background:linear-gradient(145deg,#121f31,#060d19);box-shadow:inset 0 1px #ffffff0b}.twx-panel-title{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:7px;font-size:14px;color:#ffe5a0;margin-bottom:12px}.twx-pill{font-size:10px;letter-spacing:.6px;color:#0a1524;background:linear-gradient(90deg,#e5b84d,#fff0b0);padding:4px 7px;border-radius:20px}#tw-extra-command-center label{font-size:13px;color:#dce3ef;display:block;margin:6px 0}#tw-extra-command-center input:not([type=checkbox]),#tw-extra-command-center select,#tw-extra-command-center textarea{width:100%;min-width:0;border:1px solid #f6d4775c;border-radius:10px;padding:10px 11px;background:#060d19;color:#fff4d2;font:600 13px Arial,sans-serif;outline:none}#tw-extra-command-center input:focus,#tw-extra-command-center select:focus,#tw-extra-command-center textarea:focus{border-color:#ffe28b;box-shadow:0 0 0 2px #f6d47724}.twx-row{display:grid;grid-template-columns:1fr minmax(100px,.7fr);align-items:center;gap:9px;margin:8px 0}.twx-row label{margin:0!important}.twx-main-btn,.twx-secondary-btn{min-height:39px;border-radius:10px;padding:9px 12px;font-size:13px;cursor:pointer}.twx-main-btn{border:1px solid #fff0b0;background:linear-gradient(115deg,#e5b94e,#fff0ad 52%,#c78b24);color:#201604;box-shadow:0 3px 0 #76521b}.twx-secondary-btn{border:1px solid #f6d47770;background:#111f32;color:#ffebbb}.twx-panel>.twx-main-btn{width:100%;margin-top:8px}.twx-button-row{display:flex;gap:8px;margin-top:9px}.twx-button-row>*{flex:1}.twx-hint{font-size:12px;line-height:1.5;color:#aebbd0;margin-top:9px}.twx-timer{text-align:center;font-variant-numeric:tabular-nums;font-size:clamp(40px,11vw,56px);letter-spacing:2px;color:#ffe29a;text-shadow:0 0 18px #f6d47733;padding:6px}.twx-checklist{display:grid;grid-template-columns:1fr;gap:8px}#tw-extra-command-center .twx-checklist label{display:flex;align-items:center;gap:9px;padding:10px;border-radius:10px;background:#ffffff09;border:1px solid #ffffff10;margin:0;font-size:13px}.twx-checklist input{width:17px;height:17px;accent-color:#e7bd58;flex:0 0 auto}.twx-progress-track{height:8px;background:#26344a;border-radius:20px;overflow:hidden;margin-top:12px}#twxChecklistFill{width:0;height:100%;border-radius:20px;background:linear-gradient(90deg,#bb8326,#ffe7a0);transition:width .2s ease}.twx-footer-line{text-align:center;margin-top:16px;padding-top:12px;border-top:1px solid #f6d47730;font-size:12px;letter-spacing:1px;color:#f5d27b}.twx-footer-line small{display:block;margin-top:5px;letter-spacing:0;color:#9daec4;font-size:11px}@media(min-width:620px){.twx-team-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.twx-tool-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.twx-wide{grid-column:1/-1}.twx-checklist{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(prefers-reduced-motion:reduce){.twx-team-card{transition:none}.twx-team-card:active{transform:none}}body.mode-light #tw-extra-command-center{background:linear-gradient(145deg,#f8f0d9,#e8edf5);color:#142033}body.mode-light .twx-panel,body.mode-light .twx-team-card{background:linear-gradient(145deg,#fffdf6,#e8edf5);color:#172337}body.mode-light #tw-extra-command-center label,body.mode-light .twx-team-card small,body.mode-light .twx-hint{color:#48566b}body.mode-light #tw-extra-command-center input:not([type=checkbox]),body.mode-light #tw-extra-command-center select,body.mode-light #tw-extra-command-center textarea{background:#fff;color:#152033}
 </style>
