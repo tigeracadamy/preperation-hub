@@ -190,6 +190,131 @@ body.mode-light .tw-today-motivation-quote p{color:#123b2b;text-shadow:none}
 }
 </style>
 
+
+<style id="tw-live-arena-mascots-slightly-larger">
+/* Requested change only: enlarge the four existing Live Arena illustrations. */
+#tw-live-arena .twla-grid.twla-four-cards .twla-card > img.twla-suit-mascot,
+#tw-live-arena .twla-grid.twla-four-cards .twla-card > img.twla-character {
+  height: clamp(88px, 12vw, 118px) !important;
+  max-height: none !important;
+  max-width: 100% !important;
+  width: auto !important;
+  object-fit: contain !important;
+  flex: 0 0 auto !important;
+}
+#tw-live-arena .twla-grid.twla-four-cards .twla-card > img.twla-tiger-character {
+  width: clamp(88px, 12vw, 118px) !important;
+  height: clamp(88px, 12vw, 118px) !important;
+}
+@media (max-width: 420px) {
+  #tw-live-arena .twla-grid.twla-four-cards .twla-card > img.twla-suit-mascot,
+  #tw-live-arena .twla-grid.twla-four-cards .twla-card > img.twla-character {
+    height: 88px !important;
+  }
+  #tw-live-arena .twla-grid.twla-four-cards .twla-card > img.twla-tiger-character {
+    width: 88px !important;
+    height: 88px !important;
+  }
+}
+</style>
+
+
+<style id="tw-live-arena-full-fit-final">
+/* Keep the four existing buttons full-size; make all their contents fit without cropping. */
+#tw-live-arena .twla-grid.twla-four-cards {
+  width: 100% !important;
+  max-width: 100% !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  align-items: stretch !important;
+  gap: 10px !important;
+}
+#tw-live-arena .twla-grid.twla-four-cards .twla-card {
+  box-sizing: border-box !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 245px !important;
+  height: 100% !important;
+  padding: 14px 10px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 8px !important;
+  overflow: hidden !important;
+  text-align: center !important;
+}
+#tw-live-arena .twla-grid.twla-four-cards .twla-card strong {
+  order: 0 !important;
+  width: 100% !important;
+  flex: 0 0 auto !important;
+  overflow-wrap: anywhere !important;
+}
+#tw-live-arena .twla-grid.twla-four-cards .twla-card > img {
+  order: 1 !important;
+  display: block !important;
+  width: auto !important;
+  height: 104px !important;
+  max-width: 100% !important;
+  max-height: none !important;
+  flex: 0 0 auto !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  margin: 0 auto !important;
+}
+#tw-live-arena .twla-grid.twla-four-cards .twla-card > img.twla-tiger-logo,
+#tw-live-arena .twla-grid.twla-four-cards .twla-card > img.twla-tiger-character {
+  width: 104px !important;
+  height: 104px !important;
+  object-fit: contain !important;
+}
+#tw-live-arena .twla-grid.twla-four-cards .twla-card small {
+  order: 2 !important;
+  width: 100% !important;
+  flex: 0 0 auto !important;
+  overflow-wrap: anywhere !important;
+}
+#tw-live-arena .twla-grid.twla-four-cards .twla-card .twla-cta {
+  order: 3 !important;
+  width: 100% !important;
+  margin-top: auto !important;
+  flex: 0 0 auto !important;
+  overflow-wrap: anywhere !important;
+}
+@media (max-width: 420px) {
+  #tw-live-arena .twla-grid.twla-four-cards { gap: 8px !important; }
+  #tw-live-arena .twla-grid.twla-four-cards .twla-card {
+    min-height: 230px !important;
+    padding: 12px 7px !important;
+    gap: 7px !important;
+  }
+  #tw-live-arena .twla-grid.twla-four-cards .twla-card > img {
+    height: 88px !important;
+  }
+  #tw-live-arena .twla-grid.twla-four-cards .twla-card > img.twla-tiger-logo,
+  #tw-live-arena .twla-grid.twla-four-cards .twla-card > img.twla-tiger-character {
+    width: 88px !important;
+    height: 88px !important;
+  }
+}
+@media (min-width: 900px) {
+  #tw-live-arena .twla-grid.twla-four-cards {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  }
+  #tw-live-arena .twla-grid.twla-four-cards .twla-card {
+    min-height: 270px !important;
+    padding: 16px 12px !important;
+  }
+  #tw-live-arena .twla-grid.twla-four-cards .twla-card > img {
+    height: 118px !important;
+  }
+  #tw-live-arena .twla-grid.twla-four-cards .twla-card > img.twla-tiger-logo,
+  #tw-live-arena .twla-grid.twla-four-cards .twla-card > img.twla-tiger-character {
+    width: 118px !important;
+    height: 118px !important;
+  }
+}
+</style>
+
 </head>
     <!-- 🌟 PWA Manifest & Theme Integration -->
     <link rel="manifest" href="manifest.json">
@@ -3581,161 +3706,7 @@ input,select,textarea{border-radius:13px!important}
   let headerImage='https://tigeracadamy.github.io/preperation-hub/tigergoldlogo.jpeg';
   try{if(typeof TIGER_WARRIORS_PDF_HEADER!=='undefined'&&TIGER_WARRIORS_PDF_HEADER)headerImage=TIGER_WARRIORS_PDF_HEADER}catch(e){}
   const topic=getTopic();
-  const printHtml='<!doctype html><html lang="ta"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+esc(latestTitle+' · '+topic)+'</title><style>@page{size:A4;margin:7mm 9mm}*{box-sizing:border-box}html,body{margin:0;padding:0}body{font-family:Arial,"Noto Sans Tamil",sans-serif;color:#111827;line-height:1.65;-webkit-print-color-adjust:exact;print-color-adjust:exact}.print-sheet{width:100%;border-collapse:collapse;table-layout:fixed}.print-sheet thead{display:table-header-group}.print-sheet td{padding:0}.page-header{display:block;width:100%;margin:0;border:1.5px solid #0ea5e9;border-radius:7px;overflow:hidden;background:#061323;box-shadow:0 2px 0 #d4a72c}.brandimg{display:block;width:100%;height:auto;max-height:none;object-fit:contain;background:#061323}.headtitle{background:linear-gradient(90deg,#061323,#0b3157,#061323);color:#fff;padding:6px 9px;font-size:14px;line-height:1.3;font-weight:1000;text-align:center}.motto{background:#061323;color:#fde68a;font-weight:900;padding:3px 8px 5px;font-size:10px;text-align:center}.meta-bar{display:flex;flex-wrap:wrap;justify-content:space-between;gap:5px 12px;margin:7px 0 5px;padding:6px 8px;border:1px solid #cbd5e1;border-left:4px solid #0ea5e9;border-radius:5px;background:#f1f5f9;color:#334155;font-size:9.5px;font-weight:800}.meta-bar span{overflow-wrap:anywhere}.page-content{padding:7px 2px 10px;white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px;line-height:1.6}.content-title{font-size:14px;font-weight:900;color:#0b3157;margin:0 0 8px;overflow-wrap:anywhere}.page-footer{display:block;width:100%;border-top:3px solid #0ea5e9;background:#061323;color:#fff;text-align:center;padding:7px 8px;margin:12px 0 0;border-radius:0 0 5px 5px;break-inside:avoid;page-break-inside:avoid}@media print{.page-content{break-inside:auto}}</style></head><body><table class="print-sheet"><thead><tr><td><header class="page-header"><img class="brandimg" src="'+esc(headerImage)+'" alt="Tiger Warriors Coaching Centre Header"><div class="headtitle">'+esc(topic)+' • TIGER WARRIORS</div><div class="motto">வெற்றி நமதே! • SUCCESS IS OURS</div></header></td></tr></thead><tbody><tr><td><div class="meta-bar"><span>📚 Topic: '+esc(topic)+'</span><span>📅 Date: '+esc(new Date().toLocaleDateString('ta-IN'))+'</span><span>✅ Status: Completed Quiz Study Material</span></div><main class="page-content"><div class="content-title">'+esc(latestTitle)+' — '+esc(topic)+'</div>'+esc(latestText)+'</main></td></tr></tbody></table><footer class="page-footer"><div style="font-size:12px;font-weight:1000;letter-spacing:.7px;color:#fbbf24">TIGER WARRIORS COACHING CENTRE</div><div style="font-size:10px;font-weight:900;color:#fff;margin-top:2px">வெற்றி நமதே! • SUCCESS IS OURS</div><div style="font-size:9px;color:#fde68a;margin-top:2px">திரு. K. மணிகாசி • CEO - TIGER WARRIORS</div><div style="margin:6px auto 3px;padding:5px 8px;max-width:10cm;border:1px solid #d4a72c;border-radius:7px;background:linear-gradient(90deg,#0b3157,#061323,#0b3157);color:#fff;text-align:center;line-height:1.5;break-inside:avoid;page-break-inside:avoid"><div style="display:flex;flex-direction:row;align-items:center;justify-content:center;gap:5px;margin:2px auto 6px;width:100%;max-width:9.6cm;break-inside:avoid;page-break-inside:avoid;"><div style="display:flex;flex:1 1 0;min-width:0;flex-direction:column;align-items:flex-end;justify-content:center;gap:7px;text-align:right;line-height:1.25;"><a href="https://wa.me/919790933025" target="_blank" rel="noopener" style="display:block;color:#86efac;text-decoration:none;font-size:7.5px;font-weight:900;overflow-wrap:anywhere">💬 WhatsApp<br/>9790933025</a><a href="https://t.me/PROFESSORMANIKASI" target="_blank" rel="noopener" style="display:block;color:#7dd3fc;text-decoration:none;font-size:7.5px;font-weight:900;overflow-wrap:anywhere">✈ Telegram<br/>@PROFESSORMANIKASI</a></div><div style="display:flex;flex:0 0 2.15cm;flex-direction:column;align-items:center;justify-content:center;text-align:center;"><img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&amp;data=https%3A%2F%2Ftigeracadamy.github.io%2Fpreperation-hub%2F" alt="Tiger Warriors Website QR Code" style="display:block;width:2cm;height:2cm;max-width:2cm;max-height:2cm;object-fit:contain;background:#fff;padding:2px;border:1px solid #fff;border-radius:3px"/><div style="font-size:7px;font-weight:800;color:#67e8f9;margin-top:2px">WEBSITE QR</div></div><div style="display:flex;flex:1 1 0;min-width:0;flex-direction:column;align-items:flex-start;justify-content:center;gap:7px;text-align:left;line-height:1.25;"><a href="tel:9790933025" style="display:block;color:#fde68a;text-decoration:none;font-size:7.5px;font-weight:900;overflow-wrap:anywhere">📞 Phone<br/>9790933025</a><a href="mailto:manivarmachem@gmail.com" style="display:block;color:#e9d5ff;text-decoration:none;font-size:7.2px;font-weight:900;overflow-wrap:anywhere">✉ Email<br/>manivarmachem@gmail.com</a></div></div><div style="font-size:10px;font-weight:900;color:#fde68a">✨ மேலும் பல Quiz-களை முயற்சி செய்யுங்கள்!</div><div style="font-size:9px;font-weight:800;color:#e0f2fe">📚 பல தேர்வுகளுக்கான ஆயிரக்கணக்கான கேள்விகளைப் பயிற்சி செய்யுங்கள்</div><a href="https://tigeracadamy.github.io/preperation-hub/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:5px;margin-top:4px;padding:3px 9px;border:1px solid #67e8f9;border-radius:20px;background:#082f49;color:#67e8f9;text-decoration:none;font-size:10px;font-weight:1000"><img src="https://tigeracadamy.github.io/preperation-hub/tigergoldlogo.jpeg" alt="" style="width:17px;height:17px;object-fit:contain;border-radius:50%;vertical-align:middle"> TIGER WARRIORS · VISIT WEBSITE ↗</a></div></footer><script>window.addEventListener("load",()=>setTimeout(()=>{try{window.focus();window.print()}catch(e){}},650));<\/script>
-<!-- TIGER WARRIORS OBS 24/7 NEWS STUDIO: additive feature; existing app logic retained -->
-<style id="twobs-studio-css">
-#twobsStudio{position:fixed;inset:0;z-index:2147483000;background:#030712;color:#fff;font-family:Arial,'Noto Sans Tamil',sans-serif;display:none;overflow:hidden}
-#twobsStudio.twobs-active{display:flex;flex-direction:column}
-#twobsStudio *{box-sizing:border-box}
-.twobs-top{height:10%;min-height:58px;display:flex;align-items:center;justify-content:space-between;padding:1.2vh 2vw;background:linear-gradient(100deg,#08152b,#123d62,#7f1d1d);border-bottom:3px solid #fbbf24}
-.twobs-brand{font-size:clamp(18px,2.1vw,38px);font-weight:1000;letter-spacing:.04em}.twobs-live{font-size:clamp(12px,1.2vw,22px);font-weight:900;color:#fff;background:#dc2626;border-radius:7px;padding:8px 13px;animation:twobsBlink 1.3s infinite}
-.twobs-main{height:73%;display:grid;grid-template-columns:1.15fr .85fr;gap:1.3vw;padding:1.5vh 1.5vw;min-height:0}
-.twobs-visual{position:relative;overflow:hidden;border:2px solid #38bdf8;border-radius:14px;background:radial-gradient(circle at 30% 20%,#164e63,#07152c 62%,#020617);display:flex;align-items:center;justify-content:center}
-.twobs-visual img{width:100%;height:100%;object-fit:contain;background:#07152c}
-.twobs-img-fallback{font-size:clamp(60px,10vw,160px);text-align:center}
-.twobs-image-label{position:absolute;top:12px;left:12px;background:#dc2626;padding:8px 12px;border-radius:6px;font-weight:900;letter-spacing:.08em}
-.twobs-anchor{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;border:2px solid #fbbf24;border-radius:14px;padding:1vw;background:linear-gradient(145deg,#0b1b35,#13294b 60%,#2a1022);min-width:0}
-.twobs-avatar{font-size:clamp(54px,8vw,120px);filter:drop-shadow(0 0 18px #38bdf8)}.twobs-anchor-title{font-size:clamp(14px,1.3vw,25px);font-weight:1000;color:#fbbf24;margin:.8vh 0}
-.twobs-speech{font-size:clamp(16px,1.8vw,32px);font-weight:800;line-height:1.45;max-height:42%;overflow:hidden}
-.twobs-story{height:13%;padding:1.2vh 2vw;background:linear-gradient(90deg,#b91c1c,#7f1d1d 60%,#991b1b);border-top:2px solid #fca5a5;display:flex;flex-direction:column;justify-content:center;gap:.5vh}
-.twobs-kicker{font-size:clamp(12px,1.1vw,20px);font-weight:1000;color:#fde68a}.twobs-headline{font-size:clamp(20px,2.4vw,44px);font-weight:1000;line-height:1.15;max-height:2.3em;overflow:hidden}
-.twobs-ticker{height:7%;min-height:42px;background:#fbbf24;color:#111827;display:flex;align-items:center;overflow:hidden;white-space:nowrap;font-size:clamp(16px,1.6vw,29px);font-weight:1000}
-.twobs-ticker-label{background:#111827;color:#fbbf24;height:100%;display:flex;align-items:center;padding:0 1.3vw;z-index:1}
-.twobs-ticker-run{display:inline-block;padding-left:100%;animation:twobsTicker 28s linear infinite}
-.twobs-status{position:absolute;right:1vw;bottom:1vh;background:#020617d9;color:#a5f3fc;padding:6px 10px;border:1px solid #155e75;border-radius:7px;font-size:12px}
-.twobs-control{position:absolute;left:1vw;bottom:1vh;display:flex;gap:8px;z-index:4}
-.twobs-control button{border:1px solid #67e8f9;border-radius:8px;background:#082f49;color:white;padding:8px 12px;font-weight:900;cursor:pointer}
-@keyframes twobsTicker{from{transform:translateX(0)}to{transform:translateX(-100%)}}
-@keyframes twobsBlink{50%{opacity:.55}}
-@media(max-aspect-ratio:1/1){.twobs-main{grid-template-columns:1fr 1fr}.twobs-story{height:16%}.twobs-headline{font-size:clamp(16px,2.5vw,28px)}}
-</style>
-<div id="twobsStudio" aria-label="Tiger Warriors 24/7 OBS news studio">
- <div class="twobs-top"><div class="twobs-brand">🐯 TIGER WARRIORS <span style="color:#fbbf24">AI NEWS</span></div><div class="twobs-live">● LIVE NEWS STUDIO</div></div>
- <div class="twobs-main">
-  <div class="twobs-visual"><span class="twobs-image-label">BREAKING • CURRENT AFFAIRS</span><img id="twobsImage" alt="News visual" style="display:none"><div id="twobsFallback" class="twobs-img-fallback">🐯 📰</div></div>
-  <div class="twobs-anchor"><div class="twobs-avatar">🐯🎙️</div><div class="twobs-anchor-title">TIGER WARRIORS NEWS DESK</div><div id="twobsSpeechText" class="twobs-speech">வணக்கம்! TIGER WARRIORS AI NEWS LIVE-க்கு உங்களை அன்புடன் வரவேற்கிறோம்.</div></div>
- </div>
- <div class="twobs-story"><div class="twobs-kicker">இன்றைய முக்கியச் செய்தி • CURRENT AFFAIRS</div><div id="twobsHeadline" class="twobs-headline">செய்திகள் ஏற்றப்படுகின்றன…</div></div>
- <div class="twobs-ticker"><div class="twobs-ticker-label">முக்கிய செய்திகள்</div><div id="twobsTickerText" class="twobs-ticker-run">TIGER WARRIORS AI NEWS LIVE • தமிழ் செய்தி ஒளிபரப்பு •</div></div>
- <div class="twobs-control"><button id="twobsStart">▶ LIVE தொடங்கு</button><button id="twobsStop">⏹ நிறுத்து</button><button id="twobsNext">⏭ அடுத்த செய்தி</button></div>
- <div id="twobsStatus" class="twobs-status">தயார் • முதலில் LIVE தொடங்கு அழுத்தவும்</div>
-</div>
-<script id="twobs-studio-engine">
-(function(){
- 'use strict';
- var root=document.getElementById('twobsStudio'),items=[],index=0,active=false,timer=null,refreshTimer=null;
- function txt(v){return String(v==null?'':v).trim()}
- function title(x){return txt(x.title||x.headline||x.heading||x.text||x.news||x.content||'முக்கியச் செய்தி')}
- function body(x){var t=title(x),b=txt(x.description||x.summary||x.content||x.news||x.text||'');return b===t?'':b}
- function image(x){return txt(x.img||x.image||x.imageUrl||x.image_url||x.photo||'')}
- function getNews(){try{if(typeof originalNewsList!=='undefined'&&Array.isArray(originalNewsList)&&originalNewsList.length)return originalNewsList.slice();if(typeof newsList!=='undefined'&&Array.isArray(newsList))return newsList.slice()}catch(e){}return []}
- function sayStatus(t){var n=document.getElementById('twobsStatus');if(n)n.textContent=t}
- function stop(){active=false;if(timer)clearTimeout(timer);timer=null;try{if(window.speechSynthesis)window.speechSynthesis.cancel()}catch(e){}sayStatus('LIVE நிறுத்தப்பட்டது')}
- function render(){
-  if(!items.length){document.getElementById('twobsHeadline').textContent='செய்திகள் கிடைக்கவில்லை — முதன்மைப் பக்கத்தில் செய்தி feed ஏற்றப்பட்டுள்ளதா பார்க்கவும்.';document.getElementById('twobsSpeechText').textContent='செய்தி feed ஏற்றப்படுவதற்காகக் காத்திருக்கிறோம்.';sayStatus('செய்திகளை ஏற்றுகிறது…');return}
-  index=((index%items.length)+items.length)%items.length;var x=items[index],h=title(x),b=body(x),spoken=(h+(b?'。'+b:'' )).trim();
-  document.getElementById('twobsHeadline').textContent=h;document.getElementById('twobsSpeechText').textContent=b||h;
-  document.getElementById('twobsTickerText').textContent=items.map(function(n){return '  ✦ '+title(n)+'  '}).join('  •  ')+'  •  TIGER WARRIORS AI NEWS LIVE';
-  var im=document.getElementById('twobsImage'),u=image(x);if(u){im.onload=function(){im.style.display='block';document.getElementById('twobsFallback').style.display='none'};im.onerror=function(){im.style.display='none';document.getElementById('twobsFallback').style.display='block'};im.src=u}else{im.style.display='none';document.getElementById('twobsFallback').style.display='block'}
-  return spoken;
- }
- function next(){if(!active)return;index=(index+1)%Math.max(1,items.length);playCurrent()}
- function playCurrent(){
-  if(!active)return;
-  items=getNews().length?getNews():items;
-  if(!items.length){render();timer=setTimeout(next,10000);return}
-  var spoken=render();sayStatus('🔴 LIVE • '+(index+1)+' / '+items.length+' • தமிழ் குரல் முயற்சி செய்கிறது');
-  if(!('speechSynthesis' in window)||!window.SpeechSynthesisUtterance){timer=setTimeout(next,25000);return}
-  try{window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(spoken||'அடுத்த செய்தி');u.lang='ta-IN';u.rate=.82;u.pitch=1;u.volume=1;
-   var vs=window.speechSynthesis.getVoices()||[],v=vs.find(function(z){return /^ta(-|$)/i.test(z.lang)});if(v)u.voice=v;
-   var started=false;u.onstart=function(){started=true;sayStatus('🔴 LIVE • தமிழ் AI குரல் வாசிக்கிறது • '+(index+1)+' / '+items.length)};
-   u.onend=function(){if(active)timer=setTimeout(next,2500)};
-   u.onerror=function(){if(active)timer=setTimeout(next,22000)};
-   window.speechSynthesis.speak(u);
-   timer=setTimeout(function(){if(active&&!started){try{window.speechSynthesis.cancel()}catch(e){}next()}},30000);
-  }catch(e){timer=setTimeout(next,25000)}
- }
- function refresh(){var fresh=getNews();if(fresh.length){items=fresh;if(index>=items.length)index=0;if(!active)render()}}
- window.twOpenObsStudio=function(){var url=location.href.split('#')[0]+'#obs-studio';window.open(url,'_blank','noopener');};
- document.getElementById('twobsStart').addEventListener('click',function(){items=getNews();if(!items.length){sayStatus('செய்திகள் இன்னும் ஏற்றப்படவில்லை. 5 விநாடிகளில் மீண்டும் முயற்சிக்கவும்.');setTimeout(function(){items=getNews();render()},5000);return}active=true;index=0;playCurrent()});
- document.getElementById('twobsStop').addEventListener('click',stop);
- document.getElementById('twobsNext').addEventListener('click',function(){if(timer)clearTimeout(timer);timer=null;if(!items.length)items=getNews();if(items.length){index=(index+1)%items.length;if(active)playCurrent();else render()}});
- window.addEventListener('load',function(){
-  if(location.hash==='#obs-studio'){root.classList.add('twobs-active');document.body.style.background='#030712';items=getNews();render();refreshTimer=setInterval(refresh,15000);setTimeout(function(){items=getNews();if(items.length){active=true;playCurrent()}else{sayStatus('செய்தி feed ஏற்றப்படவில்லை. Browser-ல் LIVE தொடங்கு அழுத்தவும்.')}},2500)}
- });
-})();
-</script>
-
-
-<style id="twla-royal-dark-blue-fit-v2">
-/* Royal dark-blue theme to match the Live Arena reference; use individual character art only. */
-:root{--accent-cyan:#38bdf8;--accent-glow:rgba(37,99,235,.42)}
-#tw-live-arena{background:linear-gradient(145deg,#020817 0%,#071a42 52%,#020817 100%)!important;border:2px solid #1769e8!important;box-shadow:0 0 22px rgba(0,102,255,.30),inset 0 0 22px rgba(20,100,255,.10)!important}
-#tw-live-arena .twla-heading h2{color:#eaf3ff!important;text-shadow:0 0 14px rgba(37,99,235,.55)}
-#tw-live-arena .twla-heading p,#tw-live-arena .twla-eyebrow{color:#b9d7ff!important}
-#tw-live-arena .twla-card{position:relative!important;background:linear-gradient(135deg,#08265e 0%,#061a43 58%,#020b20 100%)!important;border:2px solid #218bff!important;box-shadow:0 0 14px rgba(0,104,255,.28),inset 0 0 18px rgba(40,120,255,.10)!important;color:#f5f9ff!important;min-height:clamp(205px,25vw,245px)!important;padding:clamp(15px,2.4vw,22px)!important}
-#tw-live-arena .twla-card strong{font-size:clamp(15px,2.6vw,19px)!important;color:#f4f8ff!important}
-#tw-live-arena .twla-card small,#tw-live-arena .twla-cta{color:#c8e1ff!important}
-#tw-live-arena .twla-suit-mascot{width:clamp(86px,12vw,122px)!important;height:clamp(100px,14vw,142px)!important;object-fit:cover!important;object-position:center 24%!important;border:1px solid #39a7ff!important;border-radius:15px!important;box-shadow:0 0 18px rgba(0,120,255,.42)!important}
-#tw-live-arena .twla-character{display:block;width:clamp(100px,15vw,155px);height:clamp(100px,15vw,155px);object-fit:cover;object-position:center;border:1px solid #38a8ff;border-radius:15px;box-shadow:0 0 18px rgba(0,120,255,.4);margin:0 auto 7px;background:#061b43}
-#tw-live-arena .twla-quiz-character{object-position:center 36%}
-#tw-live-arena .twla-tiger-character{object-position:center 35%}
-#tw-live-arena .twla-model-character{object-position:center 30%}
-#tw-live-arena .twla-card .twla-icon{color:#bfdbfe}
-/* Remove the animated robot toy from the Tiger AI question launcher only. */
-#heroAIButton .hero-ai-robot{display:none!important;visibility:hidden!important}
-#heroAIButton{padding-left:24px!important;background:radial-gradient(ellipse at 18% 100%,rgba(37,99,235,.22),transparent 42%),linear-gradient(115deg,#020817 0%,#0b347d 43%,#071b48 74%,#020817 100%)!important;border-color:#258bff!important;box-shadow:0 8px 0 #020817,0 11px 22px rgba(0,0,0,.45),0 0 16px rgba(0,100,255,.55)!important}
-/* Today Task and theme controls: larger, better spaced, still responsive. */
-.hero-control-row{gap:clamp(10px,2vw,18px)!important;margin:18px auto 20px!important;align-items:stretch!important}
-#todayTaskFloatingBtn{min-width:clamp(145px,19vw,190px)!important;height:clamp(54px,6vw,64px)!important;padding:9px 16px!important;border-radius:18px!important;font-size:clamp(14px,1.8vw,17px)!important;background:linear-gradient(135deg,#0b347d,#061a43 68%,#020817)!important;border:2px solid #258bff!important;color:#f4f8ff!important;box-shadow:0 0 15px rgba(0,100,255,.35)!important}
-#todayTaskFloatingBtn .today-task-icon{font-size:clamp(24px,3vw,30px)!important}
-#themeModeToggle{width:clamp(42px,5vw,50px)!important;height:clamp(42px,5vw,50px)!important;flex-basis:clamp(42px,5vw,50px)!important;background:linear-gradient(145deg,#0b347d,#020817)!important;border:2px solid #258bff!important;color:#eaf3ff!important;box-shadow:0 0 13px rgba(0,100,255,.32)!important}
-@media(max-width:560px){.hero-control-row{gap:8px!important;margin:12px 0 16px!important}#todayTaskFloatingBtn{min-width:110px!important;width:auto!important;height:48px!important;padding:7px 9px!important;font-size:12px!important;border-radius:14px!important}#todayTaskFloatingBtn .today-task-icon{font-size:23px!important}#themeModeToggle{width:38px!important;height:38px!important;flex-basis:38px!important}#tw-live-arena .twla-card{min-height:188px!important;padding:12px 9px!important}#tw-live-arena .twla-character{width:clamp(76px,23vw,105px);height:clamp(76px,23vw,105px)}#tw-live-arena .twla-suit-mascot{width:clamp(72px,20vw,95px)!important;height:clamp(86px,24vw,110px)!important}}
-</style>
-
-
-<style id="tw-quote-beside-today-task-final">
-/* Place the existing quote beside the Today Task button; preserve its text and other panels. */
-.hero-banner .hero-control-row{display:flex!important;flex-wrap:nowrap!important;align-items:center!important;justify-content:flex-start!important;gap:12px!important;width:100%!important;}
-.hero-banner .hero-control-row #themeModeToggle{flex:0 0 52px!important;margin:0!important;}
-.hero-banner .hero-control-row #todayTaskFloatingBtn{flex:0 0 auto!important;min-width:150px!important;}
-.hero-banner .hero-control-row .tw-today-motivation-quote{flex:1 1 320px!important;min-width:0!important;width:auto!important;max-width:none!important;margin:0!important;padding:8px 12px!important;grid-template-columns:auto minmax(0,1fr)!important;column-gap:6px!important;row-gap:1px!important;border-radius:12px!important;}
-.hero-banner .hero-control-row .tw-today-motivation-quote .tw-quote-mark{font-size:30px!important;}
-.hero-banner .hero-control-row .tw-today-motivation-quote p{font-size:clamp(11px,1.35vw,16px)!important;line-height:1.22!important;}
-.hero-banner .hero-control-row .tw-today-motivation-quote .tw-quote-author{font-size:clamp(9px,1.05vw,12px)!important;}
-@media(max-width:600px){
- .hero-banner .hero-control-row{display:grid!important;grid-template-columns:42px minmax(0,1fr)!important;gap:8px!important;align-items:center!important;}
- .hero-banner .hero-control-row #themeModeToggle{grid-column:1!important;grid-row:1!important;flex:none!important;width:42px!important;min-width:42px!important;height:42px!important;}
- .hero-banner .hero-control-row #todayTaskFloatingBtn{grid-column:2!important;grid-row:1!important;min-width:0!important;width:100%!important;min-height:44px!important;}
- .hero-banner .hero-control-row .tw-today-motivation-quote{grid-column:1 / -1!important;grid-row:2!important;width:100%!important;padding:8px 11px!important;}
- .hero-banner .hero-control-row .tw-today-motivation-quote p{font-size:clamp(12px,3.2vw,15px)!important;}
- .hero-banner .hero-control-row .tw-today-motivation-quote .tw-quote-author{font-size:11px!important;}
-}
-</style>
-
-
-<style id="tw-final-task-quote-theme-layout">
-/* Requested final layout: remove the Today Task launcher, make the quote horizontal/full-width, and place Theme beside Live Model at the far edge. */
-#todayTaskFloatingBtn{display:none!important}
-.hero-banner .hero-control-row{display:flex!important;flex-direction:row!important;align-items:stretch!important;justify-content:stretch!important;gap:0!important;width:100%!important;min-width:0!important;margin:8px 0 12px!important}
-.hero-banner .tw-today-motivation-quote{display:grid!important;grid-template-columns:auto minmax(0,1fr) auto!important;grid-template-rows:auto!important;align-items:center!important;gap:8px 12px!important;width:100%!important;max-width:none!important;flex:1 1 100%!important;min-width:0!important;margin:0!important;padding:12px 18px!important;box-sizing:border-box!important}
-.hero-banner .tw-today-motivation-quote .tw-quote-mark{grid-column:1;grid-row:1!important;align-self:center!important}
-.hero-banner .tw-today-motivation-quote p{grid-column:2;grid-row:1!important;margin:0!important;min-width:0!important;text-align:left!important}
-.hero-banner .tw-today-motivation-quote .tw-quote-author{grid-column:3;grid-row:1!important;align-self:center!important;white-space:nowrap!important;text-align:right!important}
-#tw-live-arena{position:relative!important;padding-right:70px!important;box-sizing:border-box!important}
-#tw-live-arena .twla-grid.twla-four-cards{width:100%!important;min-width:0!important}
-#themeModeToggle.twla-edge-theme-toggle{position:absolute!important;right:10px!important;top:50%!important;transform:translateY(-50%)!important;z-index:20!important;display:flex!important;align-items:center!important;justify-content:center!important;width:48px!important;min-width:48px!important;height:48px!important;flex:0 0 48px!important;margin:0!important;border-radius:13px!important;border:1.5px solid #527fc4!important;background:linear-gradient(145deg,#122c56,#07152d)!important;color:#c5d8f5!important;box-shadow:0 3px 10px #0007,inset 0 1px 0 #ffffff16!important;font-size:23px!important;cursor:pointer!important}
-#themeModeToggle.twla-edge-theme-toggle #themeModeIcon{display:block!important}
-@media(max-width:760px){
- .hero-banner .tw-today-motivation-quote{grid-template-columns:auto minmax(0,1fr)!important;gap:6px 9px!important;padding:10px 12px!important}
- .hero-banner .tw-today-motivation-quote .tw-quote-mark{grid-column:1!important;grid-row:1 / span 2!important}
- .hero-banner .tw-today-motivation-quote p{grid-column:2!important;grid-row:1!important;font-size:clamp(14px,3.2vw,18px)!important;line-height:1.3!important}
- .hero-banner .tw-today-motivation-quote .tw-quote-author{grid-column:2!important;grid-row:2!important;white-space:normal!important;text-align:right!important;font-size:12px!important}
- #tw-live-arena{padding-right:10px!important;padding-bottom:62px!important}
- #themeModeToggle.twla-edge-theme-toggle{top:auto!important;right:12px!important;bottom:8px!important;transform:none!important;width:44px!important;min-width:44px!important;height:44px!important}
-}
-</style>
-</body></html>'
+  const printHtml='<!doctype html><html lang="ta"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+esc(latestTitle+' · '+topic)+'</title><style>@page{size:A4;margin:7mm 9mm}*{box-sizing:border-box}html,body{margin:0;padding:0}body{font-family:Arial,"Noto Sans Tamil",sans-serif;color:#111827;line-height:1.65;-webkit-print-color-adjust:exact;print-color-adjust:exact}.print-sheet{width:100%;border-collapse:collapse;table-layout:fixed}.print-sheet thead{display:table-header-group}.print-sheet td{padding:0}.page-header{display:block;width:100%;margin:0;border:1.5px solid #0ea5e9;border-radius:7px;overflow:hidden;background:#061323;box-shadow:0 2px 0 #d4a72c}.brandimg{display:block;width:100%;height:auto;max-height:none;object-fit:contain;background:#061323}.headtitle{background:linear-gradient(90deg,#061323,#0b3157,#061323);color:#fff;padding:6px 9px;font-size:14px;line-height:1.3;font-weight:1000;text-align:center}.motto{background:#061323;color:#fde68a;font-weight:900;padding:3px 8px 5px;font-size:10px;text-align:center}.meta-bar{display:flex;flex-wrap:wrap;justify-content:space-between;gap:5px 12px;margin:7px 0 5px;padding:6px 8px;border:1px solid #cbd5e1;border-left:4px solid #0ea5e9;border-radius:5px;background:#f1f5f9;color:#334155;font-size:9.5px;font-weight:800}.meta-bar span{overflow-wrap:anywhere}.page-content{padding:7px 2px 10px;white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px;line-height:1.6}.content-title{font-size:14px;font-weight:900;color:#0b3157;margin:0 0 8px;overflow-wrap:anywhere}.page-footer{display:block;width:100%;border-top:3px solid #0ea5e9;background:#061323;color:#fff;text-align:center;padding:7px 8px;margin:12px 0 0;border-radius:0 0 5px 5px;break-inside:avoid;page-break-inside:avoid}@media print{.page-content{break-inside:auto}}</style></head><body><table class="print-sheet"><thead><tr><td><header class="page-header"><img class="brandimg" src="'+esc(headerImage)+'" alt="Tiger Warriors Coaching Centre Header"><div class="headtitle">'+esc(topic)+' • TIGER WARRIORS</div><div class="motto">வெற்றி நமதே! • SUCCESS IS OURS</div></header></td></tr></thead><tbody><tr><td><div class="meta-bar"><span>📚 Topic: '+esc(topic)+'</span><span>📅 Date: '+esc(new Date().toLocaleDateString('ta-IN'))+'</span><span>✅ Status: Completed Quiz Study Material</span></div><main class="page-content"><div class="content-title">'+esc(latestTitle)+' — '+esc(topic)+'</div>'+esc(latestText)+'</main></td></tr></tbody></table><footer class="page-footer"><div style="font-size:12px;font-weight:1000;letter-spacing:.7px;color:#fbbf24">TIGER WARRIORS COACHING CENTRE</div><div style="font-size:10px;font-weight:900;color:#fff;margin-top:2px">வெற்றி நமதே! • SUCCESS IS OURS</div><div style="font-size:9px;color:#fde68a;margin-top:2px">திரு. K. மணிகாசி • CEO - TIGER WARRIORS</div><div style="margin:6px auto 3px;padding:5px 8px;max-width:10cm;border:1px solid #d4a72c;border-radius:7px;background:linear-gradient(90deg,#0b3157,#061323,#0b3157);color:#fff;text-align:center;line-height:1.5;break-inside:avoid;page-break-inside:avoid"><div style="display:flex;flex-direction:row;align-items:center;justify-content:center;gap:5px;margin:2px auto 6px;width:100%;max-width:9.6cm;break-inside:avoid;page-break-inside:avoid;"><div style="display:flex;flex:1 1 0;min-width:0;flex-direction:column;align-items:flex-end;justify-content:center;gap:7px;text-align:right;line-height:1.25;"><a href="https://wa.me/919790933025" target="_blank" rel="noopener" style="display:block;color:#86efac;text-decoration:none;font-size:7.5px;font-weight:900;overflow-wrap:anywhere">💬 WhatsApp<br/>9790933025</a><a href="https://t.me/PROFESSORMANIKASI" target="_blank" rel="noopener" style="display:block;color:#7dd3fc;text-decoration:none;font-size:7.5px;font-weight:900;overflow-wrap:anywhere">✈ Telegram<br/>@PROFESSORMANIKASI</a></div><div style="display:flex;flex:0 0 2.15cm;flex-direction:column;align-items:center;justify-content:center;text-align:center;"><img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&amp;data=https%3A%2F%2Ftigeracadamy.github.io%2Fpreperation-hub%2F" alt="Tiger Warriors Website QR Code" style="display:block;width:2cm;height:2cm;max-width:2cm;max-height:2cm;object-fit:contain;background:#fff;padding:2px;border:1px solid #fff;border-radius:3px"/><div style="font-size:7px;font-weight:800;color:#67e8f9;margin-top:2px">WEBSITE QR</div></div><div style="display:flex;flex:1 1 0;min-width:0;flex-direction:column;align-items:flex-start;justify-content:center;gap:7px;text-align:left;line-height:1.25;"><a href="tel:9790933025" style="display:block;color:#fde68a;text-decoration:none;font-size:7.5px;font-weight:900;overflow-wrap:anywhere">📞 Phone<br/>9790933025</a><a href="mailto:manivarmachem@gmail.com" style="display:block;color:#e9d5ff;text-decoration:none;font-size:7.2px;font-weight:900;overflow-wrap:anywhere">✉ Email<br/>manivarmachem@gmail.com</a></div></div><div style="font-size:10px;font-weight:900;color:#fde68a">✨ மேலும் பல Quiz-களை முயற்சி செய்யுங்கள்!</div><div style="font-size:9px;font-weight:800;color:#e0f2fe">📚 பல தேர்வுகளுக்கான ஆயிரக்கணக்கான கேள்விகளைப் பயிற்சி செய்யுங்கள்</div><a href="https://tigeracadamy.github.io/preperation-hub/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:5px;margin-top:4px;padding:3px 9px;border:1px solid #67e8f9;border-radius:20px;background:#082f49;color:#67e8f9;text-decoration:none;font-size:10px;font-weight:1000"><img src="https://tigeracadamy.github.io/preperation-hub/tigergoldlogo.jpeg" alt="" style="width:17px;height:17px;object-fit:contain;border-radius:50%;vertical-align:middle"> TIGER WARRIORS · VISIT WEBSITE ↗</a></div></footer><script>window.addEventListener("load",()=>setTimeout(()=>{try{window.focus();window.print()}catch(e){}},650));<\/script></body></html>';
   let win=null;
   try{win=window.open('about:blank','_blank')}catch(e){}
   if(win){
@@ -3888,8 +3859,8 @@ $('twxDocGo').addEventListener('click',async function(){let f=$('twxDoc').files&
             <div class="brand-box" onclick="playClickSound(); handleSecretAdminTap()" title="Tap 3 times">
                 <img src="https://tigeracadamy.github.io/preperation-hub/tigergoldlogo.jpeg" alt="Tiger Gold Logo" class="brand-logo-img">
                 <div class="brand-name-box">
-                    <div class="brand-name">TIGER WARRIORS COACHING CENTRE</div>
-                    <div class="brand-sub">(தேர்வு பயிற்சிப் பட்டறை 🎯)</div>
+                    <div class="brand-name">TIGER WARRIORS PREPARATION HUB</div>
+                    <div class="brand-sub">(EXAM WARRIORS ARENA 🎯)</div>
                 </div>
                 <img src="https://tigeracadamy.github.io/preperation-hub/tigergoldlogo.jpeg" alt="Tiger Gold Logo" class="brand-logo-img">
             </div>
