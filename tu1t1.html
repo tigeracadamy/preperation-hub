@@ -527,4 +527,432 @@
       { id: 15, q: "உயிரெழுத்துகளில் எவற்றுக்கு இடையே இணை எழுத்துகள் அமைகின்றன?", options: ["குறிலுக்கு நெடில்", "நெடிலுக்கு குறில்", "குறிலுக்கு குறில்", "A மற்றும் B இரண்டுமே", "விடை தெரியவில்லை"], ans: 3, exp: "உயிரெழுத்துகளில் குறிலுக்கு நெடிலும், நெடிலுக்கு குறிலும் இன எழுத்துகளாக அமையும்." },
       { id: 16, q: "கீழ்கண்டவற்றில் 'இணை எழுத்து' அமையாத சொல் எது?", options: ["கங்கை", "மண்டபம்", "கல்வி", "சந்தனம்", "விடை தெரியவில்லை"], ans: 2, exp: "'கல்வி' எனும் சொல்லில் வல்லின-மெல்லின இணை எழுத்துகள் அருகருகே அமையவில்லை." },
       { id: 17, q: "'தம்பி' - இச்சொல்லில் உள்ள மெல்லின இன எழுத்து எது?", options: ["த்", "ம்", "ப்", "இ", "விடை தெரியவில்லை"], ans: 1, exp: "'தம்பி' சொல்லில் 'ம்' என்பது மெல்லின இன எழுத்து, 'ப்' வல்லினம்." },
-      { id: 18, q: "பொருத்துக: (A) ங் - 1. ச | (B) ஞ் - 2. த | (C) ந் -
+      { id: 18, q: "பொருத்துக: (A) ங் - 1. ச | (B) ஞ் - 2. த | (C) ந் - 3. க | (D) ம் - 4. ப", options: ["A-3, B-1, C-2, D-4", "A-1, B-2, C-3, D-4", "A-4, B-3, C-2, D-1", "A-3, B-4, C-1, D-2", "விடை தெரியவில்லை"], ans: 0, exp: "ங்-க (3), ஞ்-ச (1), ந்-த (2), ம்-ப (4) என்பதே சரியான பொருத்தம்." },
+      { id: 19, q: "நெட்டெழுத்துகள் ஏழிற்கும் அவற்றின் குற்றெழுத்துகள் இன எழுத்துகள் எனில், குற்றெழுத்து இல்லாத நெட்டெழுத்துகள் எவை?", options: ["ஏ, ஓ", "ஐ, ஔ", "ஈ, ஊ", "ஆ, ஏ", "விடை தெரியவில்லை"], ans: 1, exp: "ஐ, ஔ ஆகிய இரு எழுத்துகளுக்கும் நேரடி குற்றெழுத்துகள் வடிவில் இல்லை. எனவே இ, உ இனமாகின்றன." },
+      { id: 20, q: "கீழ்கண்டவற்றுள் எது சரியான கூற்று?\n1. மெல்லின எழுத்தைத் தொடர்ந்து வல்லினம் வரும்.\n2. இடையின எழுத்துகள் அனைத்தும் ஒரே இனம்.", options: ["1 மட்டும் சரி", "2 மட்டும் சரி", "இரண்டும் சரி", "இரண்டும் தவறு", "விடை தெரியவில்லை"], ans: 2, exp: "இரண்டு கூற்றுகளும் இலக்கண விதிப்படி சரியானவை." }
+    ];
+
+    let currentQ = 0;
+    let userAnswers = Array(questions.length).fill(null);
+    let questionStatus = Array(questions.length).fill('not-visited');
+    
+    // 💡 இங்க தான் மச்சி நீங்க லைவ் லிங்க்காக நிரந்தர நேரத்தை செட் பண்ணனும் (உதாரணத்திற்கு):
+    // let targetTime = new Date("2026-11-15T10:00:00").getTime();
+    let targetTime = null; 
+    let timerInterval;
+    let examStarted = false;
+
+    let touchCount = 0;
+    let touchTimer = null;
+    let isAdminAuthenticated = false;
+
+    function initQuiz() {
+      updateSubjectDisplay();
+      renderPalette();
+      renderOmrSheet();
+      loadQuestion(0);
+      startCountdownTimer();
+    }
+
+    function updateSubjectDisplay() {
+      document.getElementById('lock-subject-title').innerText = currentSubject;
+      document.getElementById('header-subject-main').innerText = currentSubject;
+      document.getElementById('header-subject-sub').innerText = currentTopic;
+      document.getElementById('page-title').innerText = currentSubject + " - Tiger Warriors";
+    }
+
+    function handleBrandTouch() {
+      touchCount++;
+      if (touchTimer) clearTimeout(touchTimer);
+
+      if (touchCount === 3) {
+        touchCount = 0;
+        openAdminModal();
+      } else {
+        touchTimer = setTimeout(() => {
+          touchCount = 0;
+        }, 600);
+      }
+    }
+
+    function openAdminModal() {
+      isAdminAuthenticated = false;
+      document.getElementById('admin-prompt-text').innerHTML = 'அட்மின் கடவுச்சொல்லை உள்ளிடவும் (Default: <b>tiger2026</b>)';
+      document.getElementById('admin-form-container').innerHTML = `
+        <div style="position:relative;">
+          <input type="password" id="admin-input-field" class="admin-input" style="padding-right:48px;" placeholder="Password உள்ளிடவும்...">
+          <button type="button" onclick="toggleAdminPassword()" aria-label="Show or hide password" style="position:absolute;right:10px;top:7px;background:transparent;border:0;color:#fbbf24;cursor:pointer;font-size:18px;">👁</button>
+        </div>`;
+      document.getElementById('admin-modal-overlay').style.display = 'flex';
+    }
+
+    function toggleAdminPassword() {
+      const input = document.getElementById('admin-input-field');
+      if (!input) return;
+      input.type = input.type === 'password' ? 'text' : 'password';
+    }
+
+    function closeAdminModal() {
+      document.getElementById('admin-modal-overlay').style.display = 'none';
+    }
+
+    function verifyAdminPassword() {
+      const field = document.getElementById('admin-input-field');
+      if (!isAdminAuthenticated) {
+        if (field.value === 'tiger2026') {
+          isAdminAuthenticated = true;
+          document.getElementById('admin-prompt-text').innerHTML = 'தேர்வு விவரங்கள் மற்றும் நேரத்தை மாற்றுக (Admin Login):';
+          
+          const d = targetTime ? new Date(targetTime) : null;
+          const year = d ? d.getFullYear() : '';
+          const month = d ? String(d.getMonth() + 1).padStart(2, '0') : '';
+          const day = d ? String(d.getDate()).padStart(2, '0') : '';
+          const hours = d ? String(d.getHours()).padStart(2, '0') : '';
+          const minutes = d ? String(d.getMinutes()).padStart(2, '0') : '';
+          const formattedDateTime = d ? `${year}-${month}-${day}T${hours}:${minutes}` : '';
+
+          document.getElementById('admin-form-container').innerHTML = `
+            <div style="text-align:left; font-size:11px; color:#9ca3af; margin-bottom:2px;">பாடம் / தலைப்பு (Subject):</div>
+            <input type="text" id="admin-subject-field" class="admin-input" value="${currentSubject}">
+            <div style="text-align:left; font-size:11px; color:#9ca3af; margin-bottom:2px;">துணைத் தலைப்பு (Topic):</div>
+            <input type="text" id="admin-topic-field" class="admin-input" value="${currentTopic}">
+            <div style="text-align:left; font-size:11px; color:#9ca3af; margin-bottom:2px;">தேர்வு தொடங்கும் இலக்கு நேரம் (Target Date & Time):</div>
+            <input type="datetime-local" id="admin-datetime-field" class="admin-input" value="${formattedDateTime}" required>
+            <div style="text-align:left; font-size:11px; color:#9ca3af; margin-bottom:2px;">தேர்வு கால அளவு (Exam Duration in Minutes):</div>
+            <input type="number" id="admin-duration-field" class="admin-input" value="${examDurationMinutes}">
+          `;
+        } else {
+          alert('தவறான பாஸ்வேர்ட்!');
+        }
+      } else {
+        const subjVal = document.getElementById('admin-subject-field').value;
+        const topicVal = document.getElementById('admin-topic-field').value;
+        const datetimeVal = document.getElementById('admin-datetime-field').value;
+        const durationVal = parseInt(document.getElementById('admin-duration-field').value);
+
+        const dateParts = datetimeVal ? datetimeVal.split(/[-T:]/).map(Number) : [];
+        const selectedLocalDate = dateParts.length === 5
+          ? new Date(dateParts[0], dateParts[1] - 1, dateParts[2], dateParts[3], dateParts[4], 0, 0)
+          : null;
+        const selectedTimestamp = selectedLocalDate ? selectedLocalDate.getTime() : NaN;
+
+        if (subjVal && datetimeVal && Number.isFinite(selectedTimestamp) && durationVal > 0) {
+          currentSubject = subjVal;
+          currentTopic = topicVal;
+          targetTime = selectedTimestamp;
+          examDurationMinutes = durationVal;
+          updateSubjectDisplay();
+          
+          alert('வெற்றிகரமாக அட்மின் அமைப்புகள் மாற்றப்பட்டன!');
+          closeAdminModal();
+          
+          if (!examStarted) {
+            document.getElementById('exam-lock-overlay').style.display = 'flex';
+          }
+          startCountdownTimer();
+        } else {
+          alert('அனைத்து விவரங்களையும் சரியாக நிரப்பவும்!');
+        }
+      }
+    }
+
+    function startCountdownTimer() {
+      if (timerInterval) clearInterval(timerInterval);
+      
+      if (!Number.isFinite(targetTime)) {
+        document.getElementById('timer').innerText = '--:--:--';
+        document.getElementById('big-countdown').innerText = 'ADMIN SET';
+        document.getElementById('date-day-box').innerText = 'அட்மின் தேர்வு நேரத்தை அமைக்க வேண்டும்';
+        document.getElementById('timer-status-lbl').innerText = 'இலக்கு நேரம்:';
+        return;
+      }
+
+      timerInterval = setInterval(() => {
+        const now = Date.now();
+        const distance = targetTime - now;
+
+        if (distance <= 0) {
+          clearInterval(timerInterval);
+          document.getElementById('timer').innerText = "00:00:00";
+          document.getElementById('big-countdown').innerText = "00:00:00";
+          document.getElementById('date-day-box').innerText = "தேர்வு தொடங்கியது!";
+          
+          if (!examStarted) {
+            examStarted = true;
+            examStartDateObj = new Date();
+            document.getElementById('exam-lock-overlay').style.display = 'none';
+            startExamLiveTimer(examDurationMinutes * 60); 
+          }
+          return;
+        }
+
+        const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((distance % (1000 * 60)) / 1000);
+
+        const timeStr = `${h > 0 ? (h < 10 ? '0'+h : h) + ':' : ''}${m < 10 ? '0':''}${m}:${s < 10 ? '0':''}${s}`;
+
+        document.getElementById('timer').innerText = timeStr;
+        document.getElementById('big-countdown').innerText = timeStr;
+
+        const targetDateObj = new Date(targetTime);
+        const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+        document.getElementById('date-day-box').innerText = `இலக்கு: ${targetDateObj.toLocaleDateString('en-IN', options)}`;
+
+      }, 1000);
+    }
+
+    function startExamLiveTimer(totalSeconds) {
+      let examSeconds = totalSeconds;
+      document.getElementById('timer-status-lbl').innerText = "மீதமுள்ள நேரம்:";
+      
+      const examInterval = setInterval(() => {
+        examSeconds--;
+        let m = Math.floor(examSeconds / 60);
+        let s = examSeconds % 60;
+        document.getElementById('timer').innerText = `${m < 10 ? '0':''}${m}:${s < 10 ? '0':''}${s}`;
+
+        if (examSeconds <= 0) {
+          clearInterval(examInterval);
+          alert('தேர்வு நேரம் முடிவுடைந்தது! தேர்வு தானாக சமர்ப்பிக்கப்படுகிறது.');
+          submitExam(false);
+        }
+      }, 1000);
+    }
+
+    function togglePalette() {
+      const palette = document.getElementById('palette-section');
+      palette.classList.toggle('collapsed');
+    }
+
+    function switchMode(mode) {
+      document.getElementById('tab-nta').classList.toggle('active', mode === 'nta');
+      document.getElementById('tab-omr').classList.toggle('active', mode === 'omr');
+      document.getElementById('view-nta').style.display = mode === 'nta' ? 'block' : 'none';
+      document.getElementById('nta-legend').style.display = mode === 'nta' ? 'grid' : 'none';
+      document.getElementById('view-omr').style.display = mode === 'omr' ? 'block' : 'none';
+    }
+
+    function renderPalette() {
+      const grid = document.getElementById('palette-grid');
+      grid.innerHTML = '';
+      questions.forEach((q, idx) => {
+        const btn = document.createElement('button');
+        btn.className = `palette-num ${getStatusClass(questionStatus[idx])} ${currentQ === idx ? 'active' : ''}`;
+        btn.innerText = idx + 1;
+        btn.onclick = () => jumpToQuestion(idx);
+        grid.appendChild(btn);
+      });
+    }
+
+    function renderOmrSheet() {
+      const container = document.getElementById('omr-sheet-grid');
+      container.innerHTML = '';
+      const labels = ['A', 'B', 'C', 'D', 'E'];
+
+      questions.forEach((q, idx) => {
+        const row = document.createElement('div');
+        row.className = 'omr-row';
+        
+        let bubblesHtml = `<span class="omr-q-lbl">${idx + 1}</span><div class="omr-bubbles">`;
+        labels.forEach((lbl, optIdx) => {
+          const isFilled = userAnswers[idx] === optIdx;
+          bubblesHtml += `<span class="omr-bubble ${isFilled ? 'filled' : ''}" onclick="selectOmrOption(${idx}, ${optIdx})">${lbl}</span>`;
+        });
+        bubblesHtml += `</div>`;
+        row.innerHTML = bubblesHtml;
+        container.appendChild(row);
+      });
+    }
+
+    function getStatusClass(status) {
+      switch(status) {
+        case 'answered': return 'bg-ans';
+        case 'not-answered': return 'bg-not-ans';
+        case 'review': return 'bg-review';
+        default: return 'bg-not-visited';
+      }
+    }
+
+    function loadQuestion(index) {
+      if (questionStatus[currentQ] === 'not-visited') questionStatus[currentQ] = 'not-answered';
+      currentQ = index;
+      if (questionStatus[currentQ] === 'not-visited') questionStatus[currentQ] = 'not-answered';
+
+      document.getElementById('q-no-display').innerText = `வினா ${currentQ + 1} / ${questions.length}`;
+      document.getElementById('q-text').innerText = questions[currentQ].q;
+
+      const optBox = document.getElementById('options-box');
+      optBox.innerHTML = '';
+
+      const labels = ['A', 'B', 'C', 'D', 'E'];
+      const badgeClasses = ['badge-a', 'badge-b', 'badge-c', 'badge-d', 'badge-e'];
+
+      questions[currentQ].options.forEach((opt, oIdx) => {
+        const card = document.createElement('div');
+        card.className = `option-card ${userAnswers[currentQ] === oIdx ? 'selected' : ''}`;
+        card.onclick = () => selectOption(oIdx);
+
+        card.innerHTML = `
+          <div class="option-badge ${badgeClasses[oIdx]}">${labels[oIdx]}</div>
+          <div class="option-label">${opt}</div>
+        `;
+        optBox.appendChild(card);
+      });
+
+      renderPalette();
+      renderOmrSheet();
+    }
+
+    function selectOption(oIdx) {
+      userAnswers[currentQ] = oIdx;
+      const cards = document.querySelectorAll('.option-card');
+      cards.forEach((c, idx) => {
+        if (idx === oIdx) c.classList.add('selected');
+        else c.classList.remove('selected');
+      });
+      renderOmrSheet();
+    }
+
+    function selectOmrOption(qIdx, optIdx) {
+      userAnswers[qIdx] = optIdx;
+      questionStatus[qIdx] = 'answered';
+      if (currentQ === qIdx) {
+        loadQuestion(qIdx);
+      } else {
+        renderPalette();
+        renderOmrSheet();
+      }
+    }
+
+    function clearResponse() {
+      userAnswers[currentQ] = null;
+      questionStatus[currentQ] = 'not-answered';
+      loadQuestion(currentQ);
+    }
+
+    function saveAndNext() {
+      if (userAnswers[currentQ] !== null) {
+        questionStatus[currentQ] = 'answered';
+      } else {
+        questionStatus[currentQ] = 'not-answered';
+      }
+
+      if (currentQ < questions.length - 1) {
+        loadQuestion(currentQ + 1);
+      } else {
+        renderPalette();
+        renderOmrSheet();
+      }
+    }
+
+    function markForReview() {
+      questionStatus[currentQ] = 'review';
+      if (currentQ < questions.length - 1) {
+        loadQuestion(currentQ + 1);
+      } else {
+        renderPalette();
+        renderOmrSheet();
+      }
+    }
+
+    function jumpToQuestion(idx) {
+      loadQuestion(idx);
+    }
+
+    function submitExam(confirmMsg = true) {
+      if (confirmMsg) {
+        if (!confirm("தேர்வை சமர்ப்பிக்க விரும்புகிறீர்களா?")) return;
+      }
+      clearInterval(timerInterval);
+
+      let correctCount = 0;
+      let attendedCount = 0;
+      userAnswers.forEach((ans, idx) => {
+        if (ans !== null) {
+          attendedCount++;
+          if (ans === questions[idx].ans) correctCount++;
+        }
+      });
+      const unattendedCount = questions.length - attendedCount;
+
+      const totalMarks = (correctCount * 1.5).toFixed(1);
+      const accuracy = Math.round((correctCount / questions.length) * 100);
+
+      document.getElementById('res-score').innerText = `${totalMarks} / 30`;
+      document.getElementById('res-accuracy').innerText = `${accuracy}%`;
+      document.getElementById('res-attended').innerText = `${attendedCount}`;
+      document.getElementById('res-unattended').innerText = `${unattendedCount}`;
+      document.getElementById('result-sub-title').innerText = currentSubject + " - மாதிரித் தேர்வு முடிவு";
+
+      const reviewList = document.getElementById('review-list');
+      reviewList.innerHTML = '';
+      questions.forEach((q, idx) => {
+        const uAns = userAnswers[idx];
+        const isCorrect = uAns === q.ans;
+        const labels = ['A', 'B', 'C', 'D', 'E'];
+
+        const promptText = encodeURIComponent(`TNPSC தமிழ் வினா: ${q.q} \nசரியான விடை: ${q.options[q.ans]} \nவிளக்கம்: ${q.exp}`);
+        const googleUrl = `https://www.google.com/search?q=${promptText}`;
+        const geminiUrl = `https://gemini.google.com/app?text=${promptText}`;
+        const chatGptUrl = `https://chat.openai.com/?q=${promptText}`;
+        const perplexityUrl = `https://www.perplexity.ai/?q=${promptText}`;
+
+        const item = document.createElement('div');
+        item.className = 'review-item';
+        item.innerHTML = `
+          <div class="q-title">${idx + 1}. ${q.q}</div>
+          <div class="ans-info">உங்கள் விடை: <span class="${isCorrect ? 'text-green' : 'text-red'}">${uAns !== null ? labels[uAns] + ') ' + q.options[uAns] : 'விடையளிக்கப்படவில்லை'}</span></div>
+          ${!isCorrect ? `<div class="ans-info text-green">சரியான விடை: ${labels[q.ans]}) ${q.options[q.ans]}</div>` : ''}
+          <div style="font-size: 13px; color: #9ca3af; margin-top: 6px;"><b>விளக்கம்:</b> ${q.exp}</div>
+          
+          <div class="q-ai-box">
+            <span class="q-ai-lbl">🤖 இந்த வினாவை AI-ல் கேட்க:</span>
+            <div class="q-ai-btns">
+              <a href="${googleUrl}" target="_blank" class="ai-btn-sm ai-g">Google</a>
+              <a href="${geminiUrl}" target="_blank" class="ai-btn-sm ai-gem">Gemini</a>
+              <a href="${chatGptUrl}" target="_blank" class="ai-btn-sm ai-gpt">ChatGPT</a>
+              <a href="${perplexityUrl}" target="_blank" class="ai-btn-sm ai-perp">Perplexity</a>
+            </div>
+          </div>
+        `;
+        reviewList.appendChild(item);
+      });
+
+      document.getElementById('results-overlay').style.display = 'flex';
+    }
+
+    function openPdfModal() {
+      document.getElementById('pdf-modal-overlay').style.display = 'flex';
+    }
+
+    function closePdfModal() {
+      document.getElementById('pdf-modal-overlay').style.display = 'none';
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    function generatePDF(type) {
+      // PDF generation logic...
+    }
+
+    function restartExam() {
+      userAnswers = Array(questions.length).fill(null);
+      questionStatus = Array(questions.length).fill('not-visited');
+      targetTime = null; 
+      examStarted = false;
+      document.getElementById('results-overlay').style.display = 'none';
+      document.getElementById('exam-lock-overlay').style.display = 'flex';
+      initQuiz();
+    }
+
+    window.onload = initQuiz;
+  </script>
+</body>
+</html>
