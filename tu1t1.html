@@ -538,7 +538,36 @@
     
     // 💡 இங்க தான் மச்சி நீங்க லைவ் லிங்க்காக நிரந்தர நேரத்தை செட் பண்ணனும் (உதாரணத்திற்கு):
     // let targetTime = new Date("2026-11-15T10:00:00").getTime();
-    let targetTime = null; 
+ const subjVal = document.getElementById('admin-subject-field').value;
+    const topicVal = document.getElementById('admin-topic-field').value;
+    const datetimeVal = document.getElementById('admin-datetime-field').value;
+    const durationVal = parseInt(document.getElementById('admin-duration-field').value);
+
+    // ⬇️ இந்த இடத்தில் உங்கள் குறியீட்டைச் சேர்க்கவும்:
+    const dateParts = datetimeVal ? datetimeVal.split(/[-T:]/).map(Number) : [];
+    const selectedLocalDate = dateParts.length === 5
+   ? new Date(dateParts[0], dateParts[1] - 1, dateParts[2], dateParts[3], dateParts[4], 0, 0)
+   : null;
+  const selectedTimestamp = selectedLocalDate ? selectedLocalDate.getTime() : NaN; 
+        // ⬆️
+
+        if (subjVal && datetimeVal && Number.isFinite(selectedTimestamp) && durationVal > 0) {
+          currentSubject = subjVal;
+          currentTopic = topicVal;
+          targetTime = selectedTimestamp;
+          examDurationMinutes = durationVal;
+          updateSubjectDisplay();
+          
+          alert('வெற்றிகரமாக அட்மின் அமைப்புகள் மாற்றப்பட்டன!');
+          closeAdminModal();
+          
+          if (!examStarted) {
+            document.getElementById('exam-lock-overlay').style.display = 'flex';
+          }
+          startCountdownTimer();
+        } else {
+          alert('அனைத்து விவரங்களையும் சரியாக நிரப்பவும்!');
+        }
     let timerInterval;
     let examStarted = false;
 
