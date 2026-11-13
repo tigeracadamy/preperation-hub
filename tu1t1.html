@@ -299,7 +299,7 @@
 </head>
 <body>
 
-  <!-- 3D Pre-Exam Animation Lock Screen -->
+  <!-- 3D Pre-Exam Animation Lock Screen (Students View) -->
   <div class="exam-lock-overlay" id="exam-lock-overlay">
     <div class="lock-card-3d">
       <h1>🎯 TIGER WARRIORS PREPARATION HUB</h1>
@@ -338,13 +338,16 @@
     </div>
   </header>
 
-  <!-- Admin Login & Configuration Modal -->
+  <!-- Admin Login & Configuration Modal (Hidden by Default) -->
   <div class="admin-modal-overlay" id="admin-modal-overlay">
     <div class="admin-modal-card">
       <h3>🔐 Admin Login & Control Panel</h3>
       <p id="admin-prompt-text">அட்மின் கடவுச்சொல்லை உள்ளிடவும் (Default: <b>tiger2026</b>)</p>
       <div id="admin-form-container">
-        <input type="password" id="admin-input-field" class="admin-input" placeholder="Password உள்ளிடவும்...">
+        <div style="position:relative;">
+          <input type="password" id="admin-input-field" class="admin-input" style="padding-right:48px;" placeholder="Password உள்ளிடவும்...">
+          <button type="button" onclick="toggleAdminPassword()" aria-label="Show or hide password" style="position:absolute;right:10px;top:7px;background:transparent;border:0;color:#fbbf24;cursor:pointer;font-size:18px;">👁</button>
+        </div>
       </div>
       <div class="admin-btn-group">
         <button class="admin-btn admin-btn-cancel" onclick="closeAdminModal()">ரத்து செய்</button>
@@ -674,7 +677,7 @@
       
       if (!Number.isFinite(targetTime)) {
         document.getElementById('timer').innerText = '--:--:--';
-        document.getElementById('big-countdown').innerText = 'ADMIN SET';
+        document.getElementById('big-countdown').innerText = '00:00:00';
         document.getElementById('date-day-box').innerText = 'அட்மின் தேர்வு நேரத்தை அமைக்க வேண்டும்';
         document.getElementById('timer-status-lbl').innerText = 'இலக்கு நேரம்:';
         return;
