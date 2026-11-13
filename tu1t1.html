@@ -122,19 +122,6 @@
       </div>
     </div>
   </header>
-
-  <div class="admin-modal-overlay" id="admin-modal-overlay">
-    <div class="admin-modal-card" style="max-width:440px; text-align:center;">
-      <h3>🔐 Admin Login</h3>
-      <p style="color:#9ca3af; font-size:13px; margin-bottom:16px;">கடவுச்சொல்லை உள்ளிடவும் (Default: <b>tiger2026</b>)</p>
-      <input type="password" id="admin-input-field" class="admin-input" placeholder="Password...">
-      <div style="display:flex; gap:10px;">
-        <button class="btn btn-clear" style="flex:1;" onclick="closeAdminModal()">ரத்து செய்</button>
-        <button class="btn btn-save" style="flex:1;" onclick="verifyAdminPassword()">உள்ளே செல்</button>
-      </div>
-    </div>
-  </div>
-
   <div class="main-container">
     <div class="question-section">
       <div>
@@ -582,28 +569,6 @@
         const chatGptUrl = `https://chat.openai.com/?q=${promptText}`;
         const perplexityUrl = `https://www.perplexity.ai/?q=${promptText}`;
             </div>
-          </div>
-        `;
-        reviewList.appendChild(item);
-      });
-
-      document.getElementById('results-overlay').style.display = 'flex';
-    }
-
-    function openAdminModal() { document.getElementById('admin-modal-overlay').style.display = 'flex'; }
-    function closeAdminModal() { document.getElementById('admin-modal-overlay').style.display = 'none'; }
-    function verifyAdminPassword() {
-      const pwd = document.getElementById('admin-input-field').value;
-      if (pwd === 'tiger2026') {
-        alert('அட்மின் அனுமதி வெற்றி!');
-        closeAdminModal();
-      } else {
-        alert('தவறான கடவுச்சொல்!');
-      }
-    }
-    function restartExam() { location.reload(); }
-
-    window.onload = initQuiz;
   </script>
 </body>
 </html>
